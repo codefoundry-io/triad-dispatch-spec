@@ -73,3 +73,8 @@ Codex acknowledgement check: both leaders name the same `bd506054e62b9b1ba5ef5e1
 `cli_help` suggestion above was the only confirmed issue; its correction changes no normative file or signature.
 No further items on that agreed basis. V1–V5 remain NOT RUN; host implementation and the owner's tag decision remain
 outside this acknowledgement. This is not an assertion that Claude has reviewed the later runner-note correction.
+
+Claude review of `ccd3d10` (2026-09-19): correction CONFIRMED against v0.60.0 `packages/core/src/agents/cli-help-agent.ts:29-31, 71-72`
+(`name: 'cli_help'`, `kind: 'local'`, `modelConfig.model = GEMINI_MODEL_ALIAS_FLASH`) — `cli_help` is a model-backed agent and is
+withdrawn as a V5 control candidate; my earlier note was wrong. No normative file, signature row or case changes; V1–V5 NOT RUN;
+no further items from Claude on basis `bd506054`. The tag remains the owner's decision.
