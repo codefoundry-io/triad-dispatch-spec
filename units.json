@@ -1,6 +1,6 @@
 {
   "schema": "triad-units.v1-draft",
-  "note": "surface -> common shipped name -> contract -> preserved host exceptions -> host paths (A_source = ~/triad SoT path; A_shipped = flattened export path in triad-dispatch; B = source = shipped at 105a1e4, codex to confirm). Case ids live in cases/cases.json `surface`. Parity scope: reference/review-rules.md#R-PARITY",
+  "note": "surface -> common shipped name -> contract -> preserved host exceptions -> host paths. A_source = ~/triad SoT path; A_shipped = flattened export path in triad-dispatch. B development audited at 520caa9 (0.2.554); current case mapping and adoption gaps: decisions/host-b-preimplementation-audit.md. Case ids live in cases/cases.json surface. Parity scope: reference/review-rules.md#R-PARITY.",
   "units": {
     "engine-transport": {
       "common": "bin/_common.py",
@@ -32,7 +32,7 @@
       "exceptions": "B's project-scope file location = D-5; no shared user-global dependency",
       "A_source": ".claude/skills/triad-cross-family-review/lib/review_scratch.py (x-leg config loader, prepare)",
       "A_shipped": "skills/triad-cross-family-review/lib/review_scratch.py; references/review-legs.example.json",
-      "B": "bin/review_round.py prepare + references/reviewer-routing.md"
+      "B": "bin/review_round.py prepare + skills/triad-cross-family-review/references/reviewer-routing.md; fixed routes today, roster loader NOT IMPLEMENTED (schema pending rev-2)"
     },
     "google-resolution": {
       "common": "(rule only — reference/review-rules.md#R-GOOGLE)",
@@ -64,7 +64,7 @@
       "exceptions": "host skills keep native calling syntax, agent registration, manifests, install scripts/hooks, permissions",
       "A_source": ".claude/skills/triad-cross-family-review/lib/review_scratch.py (_render_codex_body, _render_agy_prompt, _render_claude_prompt, clause constants)",
       "A_shipped": "skills/triad-cross-family-review/lib/review_scratch.py (render_*)",
-      "B": "bin/review_round.py render_review_prompt, render_worktree_review_prompt; skills/triad-cross-family-review/references/review-prompt-contract.md"
+      "B": "bin/review_round.py render_review_prompt, render_worktree_review_prompt; skills/triad-cross-family-review/references/review-prompt-contract.md; shared clause loader NOT IMPLEMENTED"
     },
     "agy-containment": {
       "common": "bin/agy_hook.py",
@@ -85,7 +85,7 @@
     "selected-investigations": {
       "common": "(existing single-shot dispatch path — reference/review-rules.md#R-INVEST)",
       "contract": "none (free-form or custom-schema output)",
-      "exceptions": "no review verdict; no roster accounting; A `--web`/`--cwd` dispatch skills, B raw dispatch (custom prompt + optional schema under its web-permitting read-only policy = B's investigation path, no `--web` flag); web evidence: the host appends the shared clause `web-evidence` (prompts/investigation.md) LAST on every web-enabled Google INVESTIGATION prompt and records the prompt as sent (C29) — A ships it (AGY_WEB_EVIDENCE_CLAUSE); B places it on its authorized web investigation invocation (codex names the trigger); after D-9 no review prompt permits web",
+      "exceptions": "no review verdict; no roster accounting; A `--web`/`--cwd` dispatch skills, B raw dispatch with custom prompt + optional schema and no `--web` flag. B's AGY read-only guard permits web today; B's raw Gemini path does not supply the formal read-only policy. Web authorization must therefore be explicit, not inferred from a common policy filename. Web evidence: the host appends the shared clause `web-evidence` (prompts/investigation.md) LAST on every web-enabled Google INVESTIGATION prompt and records the prompt as sent (C29) — A ships it (AGY_WEB_EVIDENCE_CLAUSE); B places it on its authorized web investigation invocation (codex names the trigger); after D-9 no review prompt permits web",
       "A_source": ".claude/skills/triad-{codex,gemini,antigravity,claude}-dispatch/SKILL.md; 3rd-Agent/wrappers/*_wrapper.py (--web, --cwd, --pydantic optional); antigravity_wrapper.py AGY_WEB_EVIDENCE_CLAUSE + the --web append in main (tests/unit/wrappers/t49-agy-web-evidence-c29.sh)",
       "A_shipped": "skills/triad-*-dispatch/; bin/*_wrapper.py",
       "B": "bin/*_wrapper.py raw route (tests/test_provider_wrappers.py:1331 raw-route test per codex)"
@@ -105,7 +105,7 @@
       "evidence": "EVIDENCE.md (optional)",
       "source": "source/product/ + SOURCE_SHA256SUMS"
     },
-    "B_worktree": "render-worktree route (codex to fill)",
+    "B_worktree": "Guarded canonical worktree: task_file, status_file and diff_file are regular custody files inside the worktree, each content-hashed by render-worktree; relevant tests stay in scope. fingerprint-worktree before/after. Selector/preflight receipts, prompts and results use a separate review_run_root outside the guarded basis. Additional evidence must be expressly authorized and bound. Current implementation: bin/review_round.py::render_worktree_review_prompt.",
     "note": "host packet filename mapping referenced by R-PREPARE; prompt placeholders resolve through this table"
   }
 }

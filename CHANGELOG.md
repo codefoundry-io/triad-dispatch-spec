@@ -1,5 +1,16 @@
 # Changelog
 
+## Unreleased authoring proposal — 2026-09-20
+
+- Owner-requested `R-AUTHORING-SYNC`: latest remote source checks, same-commit cross-host design review, and three-family
+  diagnosis for any omitted existing functionality. One normative location with identical shared agent-entry pointers.
+- Owner-directed Codex-first sequencing: B develops and verifies, audits the corresponding A source at each change,
+  and accumulates line-based follow-up instructions while A remains unchanged. A's implementation or reply does not
+  block B work under settled contracts; unresolved common contract decisions retain their existing boundary.
+- This proposal does not extend the acknowledgements on basis `bd506054`, adopt a host revision, tag a revision, or
+  authorize a design change. Claude leader review of this new commit is pending. Host B's preimplementation audit is in
+  `decisions/host-b-preimplementation-audit.md`; it records case mapping, evidence, remaining design questions and handoff.
+
 ## rev-1 (draft, unpushed as a tag) — 2026-09-19 late
 
 Current verification amendment (Codex; owner-authorized publication):
