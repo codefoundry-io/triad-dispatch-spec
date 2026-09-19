@@ -191,7 +191,7 @@
       "expected": "Refuses below CLI 0.34.0, on a missing capability, when auth is not the approved subscription route; effective posture computed BEFORE the conflict/policy checks (A ordering defect — verified)",
       "tests": {
         "A": "todo",
-        "B": "PARTIAL: tests/test_provider_wrappers.py::test_gemini_formal_preflight_is_provider_free_and_scrubs_competing_auth; help/capability checks present, explicit Gemini version floor absent; runtime auth identity not proven."
+        "B": "PARTIAL: source 5e8b9fb adds tests/test_gemini_version_floor.py for explicit >=0.34.0 probe, SemVer/failure cases and receipt validation; existing help/capability and competing-auth scrub checks retained. Round triad-b-c16-r1 ADMITTED_SAFE. Runtime auth identity and V1-V5 enforcement are not proven."
       }
     },
     {
@@ -323,7 +323,7 @@
       "expected": "The resolved route, binary and observed version are frozen for the attempt and recorded; a started leg never switches route; neither-installed = the host's recorded policy (A skip-and-log, B refuse) and is never agreement",
       "tests": {
         "A": "todo",
-        "B": "PARTIAL: tests/test_review_round.py selector cases and tests/test_antigravity_stream_json.py preflight cases; Gemini observed-version receipt absent."
+        "B": "Existing selector/no-fallback and AGY preflight cases plus source 5e8b9fb tests/test_gemini_version_floor.py: exact observed Gemini version in the private receipt and existing receipt-hash binding, invalid/missing versions refused. Round triad-b-c16-r1 ADMITTED_SAFE. This does not adopt future common receipt schemas or claim runtime model identity."
       }
     },
     {
