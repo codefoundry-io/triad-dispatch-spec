@@ -88,7 +88,10 @@ and version-tagged, and all four answers survive the leader's adjudication (§ 5
 input tokens (×3.8): a research dispatch that must fetch pages costs a fetch per fact. Both arms found the local-file fact
 (Q4) correctly; the clause changed only the web half, as intended.
 
-**Conclusion.** The cause was the missing procedure, not the vendor or the permission: told what web evidence is, the same
+**Conclusion (scope per codex's rev-1 review).** One observed pair per contract (n = 1 each): the spike shows the clause is a practical
+improvement, not a general failure rate, and it does not prove the missing procedure was the ONLY possible cause; the fixed arm of pair 1
+still misread one fetched page, so page-fetch evidence and correct interpretation are separate — leader fact-checking stays. Within that
+scope: the cause was the missing procedure, not the vendor or the permission: told what web evidence is, the same
 model on the same version fetched 16 pages instead of 2 and stopped inventing citations. One measurement pair per contract
 (n = 1 each) — a repeatable case (C29) plus the audit's `web` list make the next regression visible without re-running
 this study.
@@ -123,7 +126,7 @@ this study.
 
 ## 7. Open and deliberately not done
 
-- D-9 (web tools in gemini REVIEW legs) still awaits the owner; this spike does not decide it.
+- D-9 was RULED later the same day (review legs have no web tools on any family; `decisions/owner-register.md`); this spike did not decide it — it fed the `R-INVEST` side.
 - A mechanical read-audit NOTE ("search_web > 0 and read_url_content == 0") was considered and NOT added: the digest
   already lists every web call and the leader reads it; no new machinery without a repeated manual check
   (`reference/spec-authoring.md § 6`).

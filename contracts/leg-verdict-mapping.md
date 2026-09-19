@@ -42,11 +42,16 @@ stays absent/unknown, and a converted result is not admissible under v2 without 
 ## Migration notes (refuters)
 
 Both hosts' models are `extra="forbid", strict=True`: every v2 field is a breaking change for BOTH validators — the flip is
-one slice per host, landed with the prompt shape pins (`prompts/common-clauses.md § severity-instruction`,
-`§ verdict-selection-rule`, `leg-claude.md § claude-verdict-shape`) in the same change. B has no NONREPAIRABLE gate but runs
+one slice per host, landed with EVERY schema-shaped prompt clause in the same change — `prompts/common-clauses.md § severity-instruction`,
+`§ verdict-selection-rule`, `leg-claude.md § claude-verdict-shape` AND `leg-google.md § google-findings-shape-pin` (today it pins the six
+v1 finding fields; v2 requires `evidence`, so the old pin would instruct a reviewer to omit a required field — codex F6) — plus both B
+renderers, both hosts' validators and their fixtures. B has no NONREPAIRABLE gate but runs
 one schema-repair retry; A's nonrepairable-blocker exception stays host-local.
 
 ## Leader-level choices left for codex's co-review
 
-`path` vs `file` as the one field name; `NOT-SAFE` as a fourth token for uncertainty-only negatives vs DO NOT MERGE +
-open_questions; whether `correction` stays optional. None of these needs an owner decision.
+ALIGNED 2026-09-19 (both leaders, co-review; no owner decision needed): the one path field is `path`; the three canonical verdicts are
+A's (`SAFE` and `Major` survive as IMPORT aliases only, never emitted); `correction` is optional; an uncertainty-only negative is
+`DO NOT MERGE` with a nonempty `open_questions` and no invented finding — no fourth `NOT-SAFE` token; a legacy result is kept as
+evidence and never converted into fabricated coverage, context or evidence — a v2 review is a fresh review. The schema file
+`contracts/leg-verdict.schema.json` is written from this section (still NOT YET).

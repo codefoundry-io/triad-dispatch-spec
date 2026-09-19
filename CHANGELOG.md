@@ -49,6 +49,15 @@ specification") and the owner's decisions in codex's session (Q1, Q2, Q3; Q4 pen
   exercised where they are written: apply + a verification manifest, here `contracts/gemini-readonly.verify.toml` (V1-V5, NOT RUN;
   the owner runs them where gemini is in service). C15 rewritten; `R-CONTAIN` gemini bullet; `contracts/README.md` rows. Codex: drop
   the two web tools from B's 999 allow list and name the test after C15.
+- Codex rev-1 addendum review (2026-09-19, F1–F8) applied: C28 marked NOT applied on either host (status accuracy); D-9 stated as an
+  OPERATION-level rule in `R-CONTAIN` (codex `web_search` off, agy review agents without web — B's read-only builder drops `read_url` for
+  review dispatch only, gemini deny rows, review renderers stop permitting web; investigations keep web); manifest V3/V5 rewritten with
+  an isolated control (candidate copy + `*` deny), the direct CLI invocation (the wrapper cannot select another policy) and an evidence
+  rule (tool-call record or verbatim refusal; never-attempted = INCONCLUSIVE); C28/R-CONTAIN wording (wrapper process cwd, existing
+  validations kept, summary line + audit row, run-log is failure-only); Google shape pin added to the v2 migration list; policy vendoring
+  = byte-identical (A's file now equals the contract; t50 checks bytes); C4 split original vs owned copy; C29's B column = the clause
+  goes on B's authorized web INVESTIGATION invocation (raw dispatch), never the review route; leader-level wire choices ALIGNED in
+  `leg-verdict-mapping.md` (`path`, three canonical verdicts, optional `correction`, no `NOT-SAFE`). No new owner question.
 
 Read by: claude leader (author) · codex leader — pending · owner tag — pending. rev-0 was tagged at the owner's instruction
 (2026-09-19) before these amendments; they land as rev-1 when the owner tags.

@@ -21,7 +21,7 @@ The reviewed change is checked out at <worktree>, pinned at the reviewed commit.
 Your binding values — echo these EXACTLY in your LegVerdict: review_id=<review-id>, family=google, content_digest=<content-digest>.
 ```
 
-> Seed caveats: this grant names A's packet files (`brief.md`, `diff.prod.patch`), A's live hook and A's finding fields; B uses other packet names, a dormant hook and its own schema — the host renderer selects only clauses true for its invocation. The web prohibition inside the grant is A's current posture and does NOT settle D-9; owner-authorized research investigations (R-INVEST) keep their web access.
+> Seed caveats: this grant names A's packet files (`brief.md`, `diff.prod.patch`), A's live hook and A's finding fields; B uses other packet names, a dormant hook and its own schema — the host renderer selects only clauses true for its invocation. The web prohibition inside the grant matches D-9 (RULED 2026-09-19: review legs have no web tools on any family); owner-authorized investigations (R-INVEST) keep their web access with the `web-evidence` clause.
 
 ## google-read-grant (R-CONTAIN, R-GOOGLE)
 
@@ -30,6 +30,8 @@ Read `<worktree>/brief.md` FIRST and ONCE with your file-read tool (agy: view_fi
 ```
 
 ## google-findings-shape-pin (R-BIND)
+
+> v1 pin (six finding fields). The v2 wire adds required `evidence` and the coverage fields — this clause migrates in the same change as the schema (`contracts/leg-verdict-mapping.md § Migration notes`).
 
 ```text
 FINDINGS SHAPE PIN — the vendor treats a finish-schema validation failure as TERMINAL, so a shape deviation loses your whole review: every findings[] entry uses EXACTLY the keys "file", "line", "severity", "summary", "trigger", "context_known" — NEVER "trigger_scenario", "description", or any other alias; "line" is an integer or null, never a string; "severity" is exactly one of "Critical" | "must-fix" | "Minor" | "HARDENING-SUGGESTION".
