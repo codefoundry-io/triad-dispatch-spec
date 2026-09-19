@@ -3,7 +3,9 @@
 `common-clauses.md` is the shared clause library; `leg-codex.md`, `leg-google.md`, `leg-claude.md` carry each leg's own
 clauses and the ORDER in which a host renderer concatenates shared and leg clauses. Each clause is named after the rule
 anchor it implements (`reference/review-rules.md`). A renderer fills the placeholders and never rewords a clause; the
-vendoring rule is `README.md` § How a host uses a revision.
+vendoring rule is `README.md` § How a host uses a revision. `investigation.md` holds the clauses of a RESEARCH
+dispatch (`R-INVEST`, not a review): today one clause, `web-evidence`, appended LAST by the host on every web-enabled
+Google research prompt (case C29).
 
 Seed state (rev-0 draft): host A's shipped text, dumped verbatim and split into clauses — no text appears twice. Host B's
 counterpart (codex `render_review_prompt` / `render_worktree_review_prompt`, `references/review-prompt-contract.md`) is

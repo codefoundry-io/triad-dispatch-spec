@@ -337,6 +337,18 @@
         "A": "todo (t48-style axis on _common._load_prompt_file; today it refuses at :1167)",
         "B": "codex-fill (B's prompt-file loader)"
       }
+    },
+    {
+      "id": "C29",
+      "surface": "selected-investigations",
+      "rule": "R-INVEST",
+      "summary": "Web evidence on a research dispatch is a fetched page, never a search summary",
+      "input": "a Google-family research dispatch with web enabled (A: `--sandbox read-only --web`; B: its Google route with web reads permitted) asked for an external fact with URL + page date",
+      "expected": "The prompt the vendor receives ENDS with the shared `web-evidence` clause (`prompts/investigation.md`), appended by the host after the caller's text and recorded with the prompt in the host's audit / run-log; the leg's read audit shows at least one page fetch (agy `read_url_content`, gemini `web_fetch`) for every URL the answer cites; a cited URL absent from the fetch log, a placeholder URL, or a bare year in place of a page date is an UNSURE item, never evidence. Measured before the fix (2026-09-19, agy Pro-high tier): round r1 4 `search_web` / 0 fetches, round r2 1 `search_web` / 0 fetches with placeholder URLs (`spikes/2026-09-19-google-web-evidence.md`)",
+      "tests": {
+        "A": "tests/unit/wrappers/t49-agy-web-evidence-c29.sh (prompt tail + audit record over a fake agy) + the live old-vs-new run recorded in the spike",
+        "B": "codex-fill (B has no research dispatch mode at 105a1e4; its Google review prompt permits web reads conditionally — `bin/review_round.py:72-74, 81-82`)"
+      }
     }
   ]
 }

@@ -85,8 +85,8 @@
     "selected-investigations": {
       "common": "(existing single-shot dispatch path — reference/review-rules.md#R-INVEST)",
       "contract": "none (free-form or custom-schema output)",
-      "exceptions": "no review verdict; no roster accounting; A `--web`/`--cwd` dispatch skills, B raw dispatch",
-      "A_source": ".claude/skills/triad-{codex,gemini,antigravity,claude}-dispatch/SKILL.md; 3rd-Agent/wrappers/*_wrapper.py (--web, --cwd, --pydantic optional)",
+      "exceptions": "no review verdict; no roster accounting; A `--web`/`--cwd` dispatch skills, B raw dispatch; web evidence: the host appends the shared clause `web-evidence` (prompts/investigation.md) LAST on every web-enabled Google research prompt and records the prompt as sent (C29) — A ships it (AGY_WEB_EVIDENCE_CLAUSE); B has no research dispatch mode at 105a1e4 and permits web reads inside its Google review prompt (bin/review_round.py:72-74, 81-82) — codex decides where the clause lands on B",
+      "A_source": ".claude/skills/triad-{codex,gemini,antigravity,claude}-dispatch/SKILL.md; 3rd-Agent/wrappers/*_wrapper.py (--web, --cwd, --pydantic optional); antigravity_wrapper.py AGY_WEB_EVIDENCE_CLAUSE + the --web append in main (tests/unit/wrappers/t49-agy-web-evidence-c29.sh)",
       "A_shipped": "skills/triad-*-dispatch/; bin/*_wrapper.py",
       "B": "bin/*_wrapper.py raw route (tests/test_provider_wrappers.py:1331 raw-route test per codex)"
     }

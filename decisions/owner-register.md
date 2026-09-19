@@ -37,5 +37,6 @@ new rule; every row points at the normative location.
 | Q4 (round r2) | Split 2:1 (materialize in the round copy vs fingerprint + no-follow clause) → owner ruled the PRINCIPLE (review the link itself, never follow the target automatically); the mechanism is each host's migration item | `R-PREPARE`, C26 |
 
 | Directive (2026-09-19) | The recurring relative `--prompt-file` dispatch failure must be solved mechanically, not by instructions: resolve against the caller's cwd or align the path with cwd; record the problem in the plan and specify the fix | `R-CONTAIN` (all wrappers), C28; host plan P4-22 |
+| Directive (2026-09-19, web evidence) | The agy web search that had been working degraded in round r2: fix it and test it; deliver the spike record — lines and cause — to the other leader too, so both hosts fix the same seam | `R-INVEST` web-evidence sentence; `prompts/investigation.md` (`web-evidence`); C29; `spikes/2026-09-19-google-web-evidence.md`; host plan P4-23 |
 
 Withdrawn at the owner's word: a usage-measurement item (2026-09-19) is not recorded anywhere.

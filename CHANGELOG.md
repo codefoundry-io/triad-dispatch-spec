@@ -38,6 +38,12 @@ specification") and the owner's decisions in codex's session (Q1, Q2, Q3; Q4 pen
 - Owner directive (2026-09-19): relative `--prompt-file`/`--cwd` are resolved against the caller's cwd and recorded, never refused for being relative (R-CONTAIN, C28) — the recurring dispatch failure both wrapper legs hit at round r2.
 - Owner Q4 ruled (2026-09-19): review the link itself, never follow its target automatically → R-PREPARE symlink clause and C26.
   D-9 (web tools in review legs) still awaits the owner after a detailed briefing.
+- Owner directive (2026-09-19, web evidence): the Google research leg's web evidence had degraded (0 page fetches in
+  rounds r1 and r2, placeholder URLs in r2). Fixed on host A and measured live; the record is
+  `spikes/2026-09-19-google-web-evidence.md` (new `spikes/` folder, `reference/README.md` row). Rule: `R-INVEST`
+  web-evidence sentence; clause: `prompts/investigation.md` `web-evidence` (byte-identical to A's constant); case C29;
+  `units.json` selected-investigations. Codex: decide where the clause lands on B (its Google review prompt permits web
+  reads conditionally; B has no research dispatch mode at 105a1e4) and name B's test after C29.
 
 Read by: claude leader (author) · codex leader — pending · owner tag — pending. rev-0 was tagged at the owner's instruction
 (2026-09-19) before these amendments; they land as rev-1 when the owner tags.

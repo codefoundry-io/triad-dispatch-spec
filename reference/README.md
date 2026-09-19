@@ -19,6 +19,7 @@ bug to fix in the same change.
 | Owner decisions | `decisions/owner-register.md` | quotes in plans and ledgers |
 | Which revision a host conforms to | the host repository's `SPEC_REVISION` file | drift reports |
 | Gemini read-only policy | `contracts/gemini-readonly.toml` | the host's shipped copy at the adopted revision |
+| Measured evidence behind a rule or case change (a spike record: observation with `path:line`, cause chain, the fix on the owning host, the live before/after run, what the other host should touch) | `spikes/<UTC-date>-<slug>.md` | quotes in host plans and ledgers; the case in `cases/cases.json` it produced |
 
 ## Anchors
 

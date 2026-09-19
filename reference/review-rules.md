@@ -48,7 +48,11 @@ shown before any paid dispatch, and unselected legs are never started.
 A selected investigation is one or more chosen legs with a custom prompt, model / effort / perspective, authorized extra
 read roots and web, returning a free-form or custom-schema result — never a review verdict (owner Q-D). Both hosts keep
 it as their existing single-shot dispatch path (A `triad-*-dispatch` skills with `--web` / `--cwd`; B raw dispatch); it is
-not a review round and enters no roster accounting.
+not a review round and enters no roster accounting. Web evidence in an investigation is a FETCHED page: the leg cites the
+URL it fetched and the date or version visible on that page; a search summary is a pointer, never a citation; an
+unfetched, placeholder or undated claim is UNSURE. The host appends the shared clause `web-evidence`
+(`prompts/investigation.md`) LAST on every web-enabled Google research prompt and records the prompt as sent (case C29;
+measured 2026-09-19: `spikes/2026-09-19-google-web-evidence.md`).
 
 ## Google leg
 
