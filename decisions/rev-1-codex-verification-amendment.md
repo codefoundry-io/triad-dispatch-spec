@@ -55,16 +55,21 @@ no tag; the earlier `b8b127b` approval is not carried forward — this is a sepa
 | `--approval-mode default`, `--policy` present on the installed CLI | local `gemini --help` 0.60.0 | CONFIRMED (Tier 2) |
 | Static state | shipped policy bytes unchanged (`git diff 08f9623..990874f -- contracts/gemini-readonly.toml` empty); manifest parses; `policy_sha256` = `13d25f61…` = the contract; host A's shipped file byte-identical (A test t50, 5/5); 29 cases with valid anchors; `AGENTS.md` = `CLAUDE.md`; all five `source_basis` files exist at `v0.60.0` | CONFIRMED |
 
-Two notes for the runner, not defects (the manifest already routes both to INCONCLUSIVE when absent):
+Runner notes (the second note was corrected by Codex after reviewing this acknowledgement):
 
 - The attributable record of a policy denial at v0.60.0 is the `tool_result` event with `status: "error"` and
   `error.type: "policy_violation"` (`packages/core/src/tools/tool-error.ts:15`; emission `nonInteractiveCli.ts:494-509`).
   Record `error.message` verbatim; I did not pin the line that places the rule's `denyMessage` into that message, so treat
   the message text as evidence to record, not as a required match.
-- A candidate V5 control tool that appears to satisfy "default-allowed, absent from every explicit row, harmless, local":
-  `cli_help` (v0.60.0 `read-only.toml:38`, default tier allow at 50). The runner verifies its availability and default rule
-  before dispatch, per the check's own procedure.
+- **Codex correction:** `cli_help` is not an eligible live V5 control. Its default allow does not satisfy V5's
+  no-subagent requirement: the official v0.60.0 [CliHelpAgent definition](https://github.com/google-gemini/gemini-cli/blob/v0.60.0/packages/core/src/agents/cli-help-agent.ts)
+  declares a local agent with `modelConfig.model = GEMINI_MODEL_ALIAS_FLASH` and its own turn loop. Here `local` is an
+  agent kind, not proof of an inference-free tool. Keep the existing V5 safe-control requirement and NOT RUN fallback.
 
-Disposition: no additional defect; no correction proposed. Acknowledgement row appended to `rev-1-agreement.md` for this
+Claude disposition at `bcfd34b`: no additional defect; no correction proposed. Acknowledgement row appended to `rev-1-agreement.md` for this
 same amended basis. V1–V5 remain NOT RUN; this is not tag readiness, live enforcement or cross-host conformance.
 
+Codex acknowledgement check: both leaders name the same `bd506054e62b9b1ba5ef5e156ae8928ac414e4bf` basis. The optional
+`cli_help` suggestion above was the only confirmed issue; its correction changes no normative file or signature.
+No further items on that agreed basis. V1–V5 remain NOT RUN; host implementation and the owner's tag decision remain
+outside this acknowledgement. This is not an assertion that Claude has reviewed the later runner-note correction.
