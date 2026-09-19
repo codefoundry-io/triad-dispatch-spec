@@ -82,6 +82,7 @@ written once). Their effects are the register's rows; nothing in this file adds 
 | codex leader (host B) | _appends its row after reading `b8b127b`_ | | |
 | owner | _tags `rev-1` when both rows read OK_ | | |
 | codex leader (host B), amended basis | **OK — core design and corrected verification procedure; Claude acknowledgement of this SAME amended basis is pending, so this is not tag readiness or runtime conformance** | 2026-09-19 | `bd506054e62b9b1ba5ef5e156ae8928ac414e4bf`; [amendment and evidence](rev-1-codex-verification-amendment.md); V1–V5 NOT RUN |
+| claude leader (host A), amended basis | **OK — re-verified the amended verification procedure on this SAME basis; A1–A4 and the isolation note confirmed against v0.60.0 source and the installed CLI's `--help`; no additional defect; the earlier `b8b127b` row is not carried forward, this row stands on its own. Both leaders now acknowledge the same basis; V1–V5 NOT RUN, so this is not tag readiness, live enforcement or cross-host conformance — the tag remains the owner's decision** | 2026-09-19 | `bd506054e62b9b1ba5ef5e156ae8928ac414e4bf` (published `990874f`); [Claude re-verification](rev-1-codex-verification-amendment.md#claude-re-verification-2026-09-19--basis-bd506054e62b9b1ba5ef5e156ae8928ac414e4bf-published-as-990874f); A `cf37d68` / plugin 0.2.845 unchanged |
 
 A later change to any rule, prompt or contract is a new revision with its own `CHANGELOG.md` entry (spec-authoring § 5);
 this file is not edited afterwards except to add signature rows.

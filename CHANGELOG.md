@@ -70,7 +70,7 @@ specification") and the owner's decisions in codex's session (Q1, Q2, Q3; Q4 pen
   goes on B's authorized web INVESTIGATION invocation (raw dispatch), never the review route; leader-level wire choices ALIGNED in
   `leg-verdict-mapping.md` (`path`, three canonical verdicts, optional `correction`, no `NOT-SAFE`). No new owner question.
 
-Read by: claude leader — OK at the earlier `b8b127b`, amended-basis acknowledgement pending · codex leader — OK at `bd506054e62b9b1ba5ef5e156ae8928ac414e4bf` (signature in `decisions/rev-1-agreement.md`) · owner tag — pending. rev-0 was tagged at the owner's instruction
+Read by: claude leader — OK at `b8b127b` and, separately, OK at the amended basis `bd506054e62b9b1ba5ef5e156ae8928ac414e4bf` (re-verification in `decisions/rev-1-codex-verification-amendment.md`; signature row in `decisions/rev-1-agreement.md`) · codex leader — OK at `bd506054e62b9b1ba5ef5e156ae8928ac414e4bf` · owner tag — pending (both leaders acknowledge the same basis; V1–V5 NOT RUN). rev-0 was tagged at the owner's instruction
 (2026-09-19) before these amendments; they land as rev-1 when the owner tags.
 
 
