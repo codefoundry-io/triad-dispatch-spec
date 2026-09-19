@@ -1,0 +1,270 @@
+{
+  "schema": "triad-cases.v1-draft",
+  "note": "rule anchors: reference/review-rules.md; unrun handling: reference/spec-authoring.md § 4",
+  "cases": [
+    {
+      "id": "C1",
+      "surface": "engine-transport",
+      "rule": "R-TERMINAL",
+      "summary": "Normal child exit with inherited stdout/stderr; incomplete stdin; timeout; catchable SIGTERM/SIGHUP",
+      "expected": "Success only after readers joined and the owned group is reaped; incomplete stdin = fail closed (A token input-delivery-failed / exit 65; B RunResult flag); timeout and signals leave a terminal record and no orphan",
+      "tests": {
+        "A": "tests/unit/wrappers/t48*, tests/integration/f12* (stdin); timeout/signal: todo",
+        "B": "codex-fill (stdin fail-closed tests landed 0.2.554)"
+      }
+    },
+    {
+      "id": "C2",
+      "surface": "engine-transport",
+      "rule": "R-TERMINAL",
+      "summary": "Child or reader-thread start failure after partial setup",
+      "expected": "Terminal failure recorded; partial resources released; no success token",
+      "tests": {
+        "A": "todo",
+        "B": "codex-fill"
+      }
+    },
+    {
+      "id": "C3",
+      "surface": "engine-transport",
+      "rule": "R-CLEANUP",
+      "summary": "Fresh repair-IPC files under the cap-based prune",
+      "expected": "A file younger than the age floor survives a cap prune; only the time-based sweep may delete by age",
+      "tests": {
+        "A": "todo (cap path has no floor — verified 2026-09-19)",
+        "B": "codex-fill (B protects fresh siblings)"
+      }
+    },
+    {
+      "id": "C4",
+      "surface": "cleanup",
+      "rule": "R-CLEANUP",
+      "summary": "Foreign directories, false markers, symlinks, dirty or untracked content in the review root",
+      "expected": "Preserved; cleanup refuses without deleting and states what it observes",
+      "tests": {
+        "A": "todo (`.pruning` name-shape branch deletes — verified 2026-09-19)",
+        "B": "codex-fill (stale sweep lacks provenance — codex spike)"
+      }
+    },
+    {
+      "id": "C5",
+      "surface": "cleanup",
+      "rule": "R-CLEANUP",
+      "summary": "Partial deletion resumes only with a verifiable ownership claim",
+      "expected": "Resume requires the allocation record or marker; otherwise refuse",
+      "tests": {
+        "A": "todo",
+        "B": "codex-fill"
+      }
+    },
+    {
+      "id": "C6",
+      "surface": "engine-transport",
+      "rule": "R-TERMINAL",
+      "summary": "Settings-guard release failure after a completed transcript",
+      "expected": "Still a failure; the transcript is preserved",
+      "tests": {
+        "A": "todo",
+        "B": "codex-fill"
+      }
+    },
+    {
+      "id": "C7",
+      "surface": "cleanup",
+      "rule": "R-CLEANUP",
+      "summary": "Export verified before disposal; cleanup idempotent",
+      "expected": "Second cleanup is a no-op; disposal never precedes export verification",
+      "tests": {
+        "A": "todo",
+        "B": "codex-fill"
+      }
+    },
+    {
+      "id": "C8",
+      "surface": "exit-tokens",
+      "rule": "R-TOKENS",
+      "summary": "Exit-token membership",
+      "expected": "Every emitted token is in contracts/exit-tokens.json with the same code; exceptions listed explicitly (the shipped `is not None` assert is vacuous on both hosts)",
+      "tests": {
+        "A": "todo",
+        "B": "codex-fill"
+      }
+    },
+    {
+      "id": "C9",
+      "surface": "engine-transport",
+      "rule": "R-RECEIPT",
+      "summary": "Transport receipt fields",
+      "expected": "Receipt carries stdin delivery class, route, binary, observed version",
+      "tests": {
+        "A": "todo",
+        "B": "codex-fill"
+      }
+    },
+    {
+      "id": "C10",
+      "surface": "engine-transport",
+      "rule": "R-RECEIPT",
+      "summary": "Audit and run-log field schema",
+      "expected": "Both hosts write the agreed fields; a leg mislabelling its family is caught by binding, not by the audit",
+      "tests": {
+        "A": "todo",
+        "B": "codex-fill"
+      }
+    },
+    {
+      "id": "C11",
+      "surface": "engine-transport",
+      "rule": "R-NOCOST",
+      "summary": "Child environment scrub set as data",
+      "expected": "Loader/interpreter injection variables removed on every route; credential/endpoint/model-selector removal per the agreed set (A: no per-call seam today — verified)",
+      "tests": {
+        "A": "todo",
+        "B": "tests/test_provider_wrappers.py (formal-route env cases; codex-fill exact ids)"
+      }
+    },
+    {
+      "id": "C12",
+      "surface": "roster",
+      "rule": "R-ROSTER",
+      "summary": "Roster resolution",
+      "expected": "No file = three standing legs at recommended defaults; file entry overrides by name; unknown key refused; resolved roster printed before dispatch; unselected legs never start; runtime Google resolution recorded",
+      "tests": {
+        "A": "tests/unit/skills/t7*, t8* (v1 config arms) — v2: todo",
+        "B": "codex-fill"
+      }
+    },
+    {
+      "id": "C13",
+      "surface": "verdict-wire",
+      "rule": "R-AGREE",
+      "summary": "Agreement and release",
+      "expected": "Blocking finding from any leg blocks; Minor-only MERGE WITH FIXES counts as agreement; a leg that did not run is not agreement; probe-refuted / owner-decided releases recorded",
+      "tests": {
+        "A": "todo",
+        "B": "codex-fill"
+      }
+    },
+    {
+      "id": "C14",
+      "surface": "verdict-wire",
+      "rule": "R-BIND",
+      "summary": "Verdict binding",
+      "expected": "review_id + leg identity + attempt + family + resolved route + content digest must match; duplicate JSON members rejected at the original-text boundary (A: only the raw-reply admission rejects today — verified)",
+      "tests": {
+        "A": "tests/unit/skills/* validate_verdict cases (partial)",
+        "B": "bin/verdict_schema.py raw-file duplicate rejection tests (codex-fill)"
+      }
+    },
+    {
+      "id": "C15",
+      "surface": "gemini-policy",
+      "rule": "R-CONTAIN",
+      "summary": "Gemini policy allow/deny sets equal the contract file",
+      "expected": "Allow: read tools; deny: write/replace/shell/mcp_*; proposed `*` deny and `grep_search` row once agreed",
+      "tests": {
+        "A": "tests/unit/wrappers/t25-gemini-sandbox.sh (explicit conflict only)",
+        "B": "tests/test_provider_wrappers.py:2107 policy cases (5 pass provider-free — codex second pass)"
+      }
+    },
+    {
+      "id": "C16",
+      "surface": "gemini-policy",
+      "rule": "R-NOCOST",
+      "summary": "Gemini preflight",
+      "expected": "Refuses below CLI 0.34.0, on a missing capability, when auth is not the approved subscription route; effective posture computed BEFORE the conflict/policy checks (A ordering defect — verified)",
+      "tests": {
+        "A": "todo",
+        "B": "tests/test_provider_wrappers.py:1733 provider-free case (codex-fill exact ids)"
+      }
+    },
+    {
+      "id": "C17",
+      "surface": "gemini-policy",
+      "rule": "R-NOCOST",
+      "summary": "Credential scrub on the gemini route",
+      "expected": "Google credential / ADC / Vertex / endpoint / model-selector variables absent from the child env",
+      "tests": {
+        "A": "todo",
+        "B": "tests/test_provider_wrappers.py (env cases; codex-fill)"
+      }
+    },
+    {
+      "id": "C18",
+      "surface": "gemini-policy",
+      "rule": "R-NOCOST",
+      "summary": "Gemini model in review configuration",
+      "expected": "Default = provider default (`auto` where exposed). A concrete gemini model is host policy: A refuses it (owner rule), B validates it against its exposed catalog; the resolved model is recorded in the receipt",
+      "tests": {
+        "A": "todo",
+        "B": "codex-fill (B pins `-m auto` explicitly)"
+      }
+    },
+    {
+      "id": "C19",
+      "surface": "review-lifecycle",
+      "rule": "R-RETRY",
+      "summary": "Failed leg, nothing changed",
+      "expected": "Only the failed leg is re-dispatched on the same bound basis; other legs' results are retained; the receipt records attempt 2",
+      "tests": {
+        "A": "todo",
+        "B": "codex-fill"
+      }
+    },
+    {
+      "id": "C20",
+      "surface": "review-lifecycle",
+      "rule": "R-REREVIEW",
+      "summary": "Reviewed bytes or review conditions changed after a round",
+      "expected": "New basis digest; every participating leg reviews the full agreed scope; prior findings delivered as fenced data; no approval carried forward; no focused re-confirm path exists",
+      "tests": {
+        "A": "todo (SKILL.md rule 5(b) deletion at two sites)",
+        "B": "codex-fill"
+      }
+    },
+    {
+      "id": "C21",
+      "surface": "verdict-wire",
+      "rule": "R-AGREE",
+      "summary": "Blocking finding from an informational leg",
+      "expected": "Blocks the round until released by a rule-4 path; the leg's acceptance label grants no exemption",
+      "tests": {
+        "A": "todo",
+        "B": "codex-fill"
+      }
+    },
+    {
+      "id": "C22",
+      "surface": "roster",
+      "rule": "R-ROSTER",
+      "summary": "Model and effort reach the actual invocation for every vendor",
+      "expected": "The roster's per-vendor block appears in the rendered argv / native tool arguments; an unsupported value is refused at the adapter with the reason",
+      "tests": {
+        "A": "todo",
+        "B": "codex-fill (B formal route pins two Google models today — codex High #2)"
+      }
+    },
+    {
+      "id": "C23",
+      "surface": "agy-containment",
+      "rule": "R-BIND",
+      "summary": "Two same-family legs in one round",
+      "expected": "Each leg has its own bound read-audit evidence and binding; one leg's hook/audit cannot satisfy another's",
+      "tests": {
+        "A": "todo (read_audit_gate.sh keys on x-* today)",
+        "B": "codex-fill"
+      }
+    },
+    {
+      "id": "C24",
+      "surface": "engine-transport",
+      "rule": "R-PLATFORM",
+      "summary": "Per-platform outcomes",
+      "expected": "macOS and Ubuntu 24.04 results recorded separately; an unrun platform is listed NOT RUN",
+      "tests": {
+        "A": "todo",
+        "B": "codex-fill"
+      }
+    }
+  ]
+}

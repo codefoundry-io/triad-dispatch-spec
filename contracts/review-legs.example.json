@@ -1,0 +1,65 @@
+{
+  "schema": "triad-review-legs.v2-draft",
+  "legs": [
+    {
+      "name": "claude",
+      "vendor": "claude",
+      "enabled": true,
+      "acceptance": "required",
+      "claude": {
+        "agent": "cross-family-review-reviewer",
+        "effort": "xhigh"
+      },
+      "timeout_s": 900
+    },
+    {
+      "name": "codex",
+      "vendor": "codex",
+      "enabled": true,
+      "acceptance": "required",
+      "codex": {
+        "model": null,
+        "reasoning": "xhigh"
+      },
+      "timeout_s": 900
+    },
+    {
+      "name": "google",
+      "vendor": "google",
+      "enabled": true,
+      "acceptance": "participating",
+      "agy": {
+        "model": "<dispatch-time slug>",
+        "effort": "high"
+      },
+      "gemini": {
+        "effort": "high"
+      },
+      "timeout_s": 900,
+      "note": "vendor google = resolved at dispatch by the host's shipped chain (R-GOOGLE); gemini model omitted = provider default; a concrete gemini model is host policy (R-NOCOST)"
+    },
+    {
+      "name": "x-claude-high",
+      "vendor": "claude",
+      "enabled": true,
+      "acceptance": "informational",
+      "claude": {
+        "agent": "cross-family-review-reviewer-high",
+        "effort": "high"
+      },
+      "note": "second claude arm; `acceptance` is data only — a verified blocking finding from this leg blocks the round (R-AGREE)"
+    },
+    {
+      "name": "trial",
+      "vendor": "google",
+      "enabled": false,
+      "acceptance": "informational",
+      "agy": {
+        "model": "<slug under test>",
+        "effort": "high"
+      },
+      "note": "trial model on the Google family (agy block); quota exhausted 2026-09-18; acceptance is data only (R-AGREE)"
+    }
+  ],
+  "_comment": "fields and resolution rules: reference/review-rules.md#R-ROSTER; keys deliberately absent: CHANGELOG.md rev-0"
+}
