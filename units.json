@@ -5,7 +5,7 @@
     "engine-transport": {
       "common": "bin/_common.py",
       "contract": "contracts/exit-tokens.json, contracts/receipt-fields.json (todo)",
-      "exceptions": "A native claude leg + codex CLI wrapper; B native codex leg + claude CLI wrapper; vendor-specific argv/auth stay host-specific",
+      "exceptions": "A native claude leg + codex CLI wrapper; B native codex leg + claude CLI wrapper; vendor-specific argv/auth stay host-specific; relative --prompt-file/--cwd: today A refuses (owner directive 2026-09-19: resolve + record instead — C28)",
       "A_source": "3rd-Agent/wrappers/_common.py (_run_once, _drain, scrubbed_child_env, _prune_dir_by_caps)",
       "A_shipped": "bin/_common.py",
       "B": "bin/_common.py"

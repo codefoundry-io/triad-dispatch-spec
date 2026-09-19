@@ -89,7 +89,7 @@ added for symmetry. Per vendor, the guards that ship today and must survive any 
   variables removed from the child on the formal route. Effective posture is computed BEFORE the conflict and policy checks
   (verified defect on A: the hardened default is assigned after the checks).
 - agy leg (A): per-round PreToolUse allow-list hook + hook load check + read-audit gate; B: non-mutating project route (`--mode plan --sandbox read-only`); B's hook stays dormant until separately agreed. The agy hook and the gemini read-only policy are TOOL-NAME controls: neither scopes paths, and the read audit records the argument path as given, not a resolved target — they do not by themselves contain a symlink escape (see the Q4 item in R-PREPARE).
-- all wrappers: binary presence; stdin delivery confirmed or refused (fail closed); process group captured at spawn and
+- all wrappers: binary presence; a relative `--prompt-file` or `--cwd` is RESOLVED against the caller's cwd, checked to exist inside the runtime roots, and the resolved absolute path is recorded in the run-log and the wrapper summary line — a relative path is never a reason to refuse (owner directive 2026-09-19 after the recurrence; refuse only a missing file, naming the candidate); stdin delivery confirmed or refused (fail closed); process group captured at spawn and
   reaped on timeout / abnormal unwind (normal-exit reaping is the R-TERMINAL target, not shipped on either host); reader and writer completion before success (verified gap on both: a decode error or a surviving descendant can
   leave a "successful" prefix — R-TERMINAL); schema validation with one clean repair retry where a leg relies on it; verdict
   binding to review id, family and content digest; round integrity capture/verify.

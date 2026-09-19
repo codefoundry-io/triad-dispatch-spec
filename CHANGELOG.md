@@ -35,6 +35,7 @@ specification") and the owner's decisions in codex's session (Q1, Q2, Q3; Q4 pen
   revision labels rev-1. Remaining for codex: split the Google read-grant into shared vs host notices; rename
   `adversarial-framing` → `evidence-framing` at adoption; B columns.
 
+- Owner directive (2026-09-19): relative `--prompt-file`/`--cwd` are resolved against the caller's cwd and recorded, never refused for being relative (R-CONTAIN, C28) — the recurring dispatch failure both wrapper legs hit at round r2.
 - Owner Q4 ruled (2026-09-19): review the link itself, never follow its target automatically → R-PREPARE symlink clause and C26.
   D-9 (web tools in review legs) still awaits the owner after a detailed briefing.
 

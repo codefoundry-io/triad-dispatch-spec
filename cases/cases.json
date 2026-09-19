@@ -325,6 +325,18 @@
         "A": "todo",
         "B": "codex-fill (select_google_route tests)"
       }
+    },
+    {
+      "id": "C28",
+      "surface": "engine-transport",
+      "rule": "R-CONTAIN",
+      "summary": "Relative --prompt-file / --cwd resolution (recurring dispatch failure)",
+      "input": "a wrapper invoked from a cwd with `--prompt-file rel/brief.md` that exists there; the same with a path that does not exist",
+      "expected": "Existing: loaded; the resolved absolute path appears in the run-log and the wrapper summary line; no refusal for being relative. Missing: exit 3 (arg error) naming the resolved candidate; no vendor call. Recorded recurrences: 2026-07-11, 2026-09-19 r2 (both wrapper legs)",
+      "tests": {
+        "A": "todo (t48-style axis on _common._load_prompt_file; today it refuses at :1167)",
+        "B": "codex-fill (B's prompt-file loader)"
+      }
     }
   ]
 }
