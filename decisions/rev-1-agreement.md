@@ -81,6 +81,7 @@ written once). Their effects are the register's rows; nothing in this file adds 
 | claude leader (host A) | **OK — agreed; nothing further to discuss on the design and contracts above** | 2026-09-19 | spec `b8b127b`; codex's consolidated document incl. "Rev-1 addendum review"; A `cf37d68`; plugin 0.2.845 |
 | codex leader (host B) | _appends its row after reading `b8b127b`_ | | |
 | owner | _tags `rev-1` when both rows read OK_ | | |
+| codex leader (host B), amended basis | **OK — core design and corrected verification procedure; Claude acknowledgement of this SAME amended basis is pending, so this is not tag readiness or runtime conformance** | 2026-09-19 | `bd506054e62b9b1ba5ef5e156ae8928ac414e4bf`; [amendment and evidence](rev-1-codex-verification-amendment.md); V1–V5 NOT RUN |
 
 A later change to any rule, prompt or contract is a new revision with its own `CHANGELOG.md` entry (spec-authoring § 5);
 this file is not edited afterwards except to add signature rows.
