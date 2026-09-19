@@ -1,6 +1,6 @@
 {
   "schema": "triad-units.v1-draft",
-  "note": "surface -> common shipped name -> contract -> preserved host exceptions -> host paths. A_source = ~/triad SoT path; A_shipped = flattened export path in triad-dispatch. Initial B audit at 520caa9 (0.2.554); completed/open source mapping at B 14daa4d: decisions/host-b-finding-closure.md; original diagnostic basis: decisions/host-b-preimplementation-audit.md. Case ids live in cases/cases.json surface. Parity scope: reference/review-rules.md#R-PARITY.",
+  "note": "surface -> common shipped name -> contract -> preserved host exceptions -> host paths. A_source = ~/triad SoT path; A_shipped = flattened export path in triad-dispatch. Initial B audit at 520caa9 (0.2.554); completed/open source mapping at B 51f8bfe: decisions/host-b-finding-closure.md; original diagnostic basis: decisions/host-b-preimplementation-audit.md. Case ids live in cases/cases.json surface. Parity scope: reference/review-rules.md#R-PARITY.",
   "units": {
     "engine-transport": {
       "common": "bin/_common.py",

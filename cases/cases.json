@@ -287,7 +287,7 @@
       "expected": "macOS and Ubuntu 24.04 results recorded separately; an unrun platform is listed NOT RUN",
       "tests": {
         "A": "todo",
-        "B": "Per-slice macOS/Ubuntu evidence is retained in decisions/host-b-finding-closure.md and linked spikes. Latest completed slice 900ddc5: macOS 1194 passed; Ubuntu 24.04 1192 passed, 2 existing filesystem skips. Both skill validators and provider-free lifecycle passed. This is not complete installation or live-provider conformance."
+        "B": "Per-slice macOS/Ubuntu evidence is retained in decisions/host-b-finding-closure.md and linked spikes. Latest completed slice f08e1e8: macOS 1201 passed; Ubuntu 24.04 1199 passed, 2 existing filesystem skips. Both skill validators and provider-free lifecycle passed. This is not complete installation or live-provider conformance."
       }
     },
     {
@@ -311,7 +311,7 @@
       "expected": "The link itself is reviewed: path, kind and exact link text fingerprinted and visible to legs; the target is never followed automatically; target content enters only as an independently authorized bound input; an unfollowable link is disclosed as a coverage gap; cleanup never follows a link to delete its target; the host's no-follow mechanism leaves evidence",
       "tests": {
         "A": "todo (A refuses untracked links at prepare/verify today)",
-        "B": "PARTIAL: tests/test_review_round.py::test_worktree_fingerprint_binds_untracked_symlink_payload_without_following and test_cleanup_does_not_follow_internal_symlink; prepared copy refuses links. Reviewer visibility/no-follow evidence remains to specify."
+        "B": "Guarded adaptation implemented in f08e1e8: scoped HEAD/index/working-tree link records in TASK, all-family no-follow renderer guidance, tests/test_review_link_evidence.py and fresh Terra/high preparation scenario; triad-b-c26-r1 ADMITTED_SAFE. Existing untracked-link fingerprint, prepared-copy refusal and cleanup no-follow checks retained. Reviewer restriction is prompt-controlled, not OS path confinement; target content is not implicitly bound or claimed inspected."
       }
     },
     {

@@ -5,6 +5,12 @@ fresh Codex. IDs below are reviewer-local positions, not shared behavioral case
 IDs. The full diagnostic basis and source adjudication are in
 [the preimplementation audit](host-b-preimplementation-audit.md).
 
+Current numbered-finding totals: 16 source corrections completed with fresh
+required reviews; 5 remain open on D-B1/D-B2 contract decisions; 1 documentation
+correction; 2 source-backed rejections; 1 rev-2 deferral. These 25 labels are
+reviewer-local findings, not 25 distinct defects or a complete conformance score.
+Latest B merged main: `51f8bfe6bd73fae525e546c83f3e53a9cceed19c` (PR 33).
+
 This register tracks correction and full fresh review. A green P1 review cannot
 close non-P1 findings. No prior approval carries forward after reviewed bytes or
 conditions change. No row is closed merely because it has a planned correction.
@@ -41,3 +47,10 @@ for P1/P2/P3a/P3b and platform evidence, and corrected the units entry that impl
 C29 was already implemented. These are test/status-column corrections, not new
 normative rules or whole-case conformance. The original audit remains historical;
 C14/C20 retained obligations and D-B1/D-B2 remain explicit.
+
+Additional full-case-audit obligation C26 (not an extra original finding ID):
+guarded link visibility/no-follow guidance implemented in B `f08e1e8`, complete
+round `triad-b-c26-r1` ADMITTED_SAFE; [PR 33](https://github.com/codefoundry-io/triad-codex-dispatch/pull/33).
+Fresh scoped preparation scenario, 7 focused /1201 macOS /1199 Ubuntu plus 2 skips,
+validators/lifecycle and exact review cleanup. Prompt control is not OS path
+confinement. [Spike and retained Minor suggestions](../spikes/2026-09-20-b-c26-link-evidence.md).
