@@ -2,6 +2,17 @@
 
 ## rev-1 (draft, unpushed as a tag) — 2026-09-19 late
 
+Current verification amendment (Codex; owner-authorized publication):
+
+- `R-GOOGLE`, C15, `contracts/gemini-readonly.verify.toml`: verification-only streaming engine evidence, explicit fixture
+  cwd, exclusion distinct from attempted denial, canonical search visibility distinct from aliases, and a discriminating
+  catch-all control. Unknown attribution is INCONCLUSIVE; V1–V5 remain NOT RUN. Shipped policy bytes are unchanged.
+- `contracts/README.md` points to that single procedure; the v2 mapping table now states its already-aligned choices.
+- Evidence and Claude handoff: `decisions/rev-1-codex-verification-amendment.md`. The old Claude signature covers
+  `b8b127b`; acknowledgement of this amended basis is pending. No host implementation or tag is authorized here.
+
+Earlier draft amendments (historical sequence; the current manifest supersedes their verification recipes):
+
 Amendments from codex's R2 reconciliation (its consolidated document § "R2 reconciliation with the published
 specification") and the owner's decisions in codex's session (Q1, Q2, Q3; Q4 pending):
 

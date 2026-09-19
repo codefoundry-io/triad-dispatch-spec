@@ -8,9 +8,9 @@ NOT-SAFE, 3 severities, `affected_surfaces_inspected`, `open_questions`; any ope
 
 | Item | A | B | A→B loss | B→A loss | v2 |
 |---|---|---|---|---|---|
-| verdict | SAFE TO MERGE / MERGE WITH FIXES / DO NOT MERGE | SAFE / NOT-SAFE | "fix then land" vs "must not land" collapses into NOT-SAFE | NOT-SAFE cannot be split back | keep A's three; `SAFE` is an import alias of SAFE TO MERGE; an uncertainty-only negative (open questions, no finding) = codex proposes keeping `NOT-SAFE` as a fourth token, claude proposes DO NOT MERGE + open_questions — leader-level choice, see below |
+| verdict | SAFE TO MERGE / MERGE WITH FIXES / DO NOT MERGE | SAFE / NOT-SAFE | "fix then land" vs "must not land" collapses into NOT-SAFE | NOT-SAFE cannot be split back | A's three; `SAFE` is an import alias only; uncertainty-only negative = DO NOT MERGE + nonempty open_questions; no fourth token (aligned below) |
 | severity | Critical / must-fix / Minor / HARDENING-SUGGESTION | Critical / Major / Minor | HARDENING-SUGGESTION lost | Minor ambiguous | A's four; `Major` = import alias of must-fix |
-| path field | `file` (repo-relative, python validator) | `path` (JSON-Schema pattern) | rename | rename | ONE name (codex: `path`; claude: `file`) + B's schema-level pattern so the vendor's own schema check rejects absolute paths |
+| path field | `file` (repo-relative, python validator) | `path` (JSON-Schema pattern) | rename | rename | `path` + B's schema-level pattern so the vendor's own schema check rejects absolute paths (aligned below) |
 | line | int ≥ 1 or null | same | — | — | same |
 | summary | required | — | lost | must be synthesized | keep, required |
 | trigger | required | required | — | — | same |
@@ -48,7 +48,7 @@ v1 finding fields; v2 requires `evidence`, so the old pin would instruct a revie
 renderers, both hosts' validators and their fixtures. B has no NONREPAIRABLE gate but runs
 one schema-repair retry; A's nonrepairable-blocker exception stays host-local.
 
-## Leader-level choices left for codex's co-review
+## Aligned leader-level choices
 
 ALIGNED 2026-09-19 (both leaders, co-review; no owner decision needed): the one path field is `path`; the three canonical verdicts are
 A's (`SAFE` and `Major` survive as IMPORT aliases only, never emitted); `correction` is optional; an uncertainty-only negative is

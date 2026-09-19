@@ -68,10 +68,12 @@ untested part as a separate config-like record): the change is APPLIED to the co
 same commit adds a verification manifest `contracts/<contract-file>.verify.toml` — one `[[check]]` per untested effect
 with `id`, `case`, `what`, the exact `brief` to dispatch, `expect`, `on_fail`, `status = "NOT RUN"`, plus the contract's
 `policy_sha256` and the CLI version the reasoning was checked against. Whoever has the capability in service runs the
-checks with the host's own dispatch command, and the result is recorded ONCE, here in `decisions/owner-register.md` (a
+checks with the approved invocation documented in the manifest (a direct verification-only CLI command may select a
+candidate policy or preserve engine events; host preflight/authentication boundaries still apply, and this is not
+wrapper conformance), and the result is recorded ONCE, here in `decisions/owner-register.md` (a
 briefing row per check) and in the case's test column; an unrun check is never green, and nothing else is written about
 it on either host beyond a pointer. Current manifest: `contracts/gemini-readonly.verify.toml` (D-9 web-tool denies,
-mutation denies, the `grep_search` alias, the proposed `*` catch-all).
+mutation denies, canonical `grep_search` visibility separately from alias matching, and the proposed `*` catch-all).
 
 ## Code-smell criterion
 
