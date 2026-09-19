@@ -35,3 +35,9 @@ At every B change, refresh A commit/path/line comparisons in the relevant spike.
 A remains read-only until the owner-designated handoff. Shared authoring records
 are local until the owner authorizes publication; installed revision adoption,
 host merging and deployment are separate claims.
+
+After P5, an independent read-only source audit refreshed stale B case mappings
+for P1/P2/P3a/P3b and platform evidence, and corrected the units entry that implied
+C29 was already implemented. These are test/status-column corrections, not new
+normative rules or whole-case conformance. The original audit remains historical;
+C14/C20 retained obligations and D-B1/D-B2 remain explicit.

@@ -1,6 +1,6 @@
 {
   "schema": "triad-units.v1-draft",
-  "note": "surface -> common shipped name -> contract -> preserved host exceptions -> host paths. A_source = ~/triad SoT path; A_shipped = flattened export path in triad-dispatch. B development audited at 520caa9 (0.2.554); current case mapping and adoption gaps: decisions/host-b-preimplementation-audit.md. Case ids live in cases/cases.json surface. Parity scope: reference/review-rules.md#R-PARITY.",
+  "note": "surface -> common shipped name -> contract -> preserved host exceptions -> host paths. A_source = ~/triad SoT path; A_shipped = flattened export path in triad-dispatch. Initial B audit at 520caa9 (0.2.554); completed/open source mapping at B 14daa4d: decisions/host-b-finding-closure.md; original diagnostic basis: decisions/host-b-preimplementation-audit.md. Case ids live in cases/cases.json surface. Parity scope: reference/review-rules.md#R-PARITY.",
   "units": {
     "engine-transport": {
       "common": "bin/_common.py",
@@ -85,7 +85,7 @@
     "selected-investigations": {
       "common": "(existing single-shot dispatch path — reference/review-rules.md#R-INVEST)",
       "contract": "none (free-form or custom-schema output)",
-      "exceptions": "no review verdict; no roster accounting; A `--web`/`--cwd` dispatch skills, B raw dispatch with custom prompt + optional schema and no `--web` flag. B's AGY read-only guard permits web today; B's raw Gemini path does not supply the formal read-only policy. Web authorization must therefore be explicit, not inferred from a common policy filename. Web evidence: the host appends the shared clause `web-evidence` (prompts/investigation.md) LAST on every web-enabled Google INVESTIGATION prompt and records the prompt as sent (C29) — A ships it (AGY_WEB_EVIDENCE_CLAUSE); B places it on its authorized web investigation invocation (codex names the trigger); after D-9 no review prompt permits web",
+      "exceptions": "no review verdict; no roster accounting; A `--web`/`--cwd` dispatch skills, B raw dispatch with custom prompt + optional schema and no `--web` flag. B's AGY read-only guard permits web today; B's raw Gemini path does not supply the formal read-only policy. Web authorization must therefore be explicit, not inferred from a common policy filename. Web evidence: the host appends the shared clause `web-evidence` (prompts/investigation.md) LAST on every web-enabled Google INVESTIGATION prompt and records the prompt as sent (C29) — A ships it (AGY_WEB_EVIDENCE_CLAUSE); B authorized-web trigger, clause-last and exact sent-prompt/fetch custody remain NOT IMPLEMENTED pending D-B2; after D-9 no review prompt permits web",
       "A_source": ".claude/skills/triad-{codex,gemini,antigravity,claude}-dispatch/SKILL.md; 3rd-Agent/wrappers/*_wrapper.py (--web, --cwd, --pydantic optional); antigravity_wrapper.py AGY_WEB_EVIDENCE_CLAUSE + the --web append in main (tests/unit/wrappers/t49-agy-web-evidence-c29.sh)",
       "A_shipped": "skills/triad-*-dispatch/; bin/*_wrapper.py",
       "B": "bin/*_wrapper.py raw route (tests/test_provider_wrappers.py:1331 raw-route test per codex)"

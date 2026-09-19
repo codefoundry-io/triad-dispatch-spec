@@ -11,7 +11,7 @@
       "expected": "Success only after readers joined and the owned group is reaped; incomplete stdin = fail closed (A token input-delivery-failed / exit 65; B RunResult flag); timeout and signals leave a terminal record and no orphan",
       "tests": {
         "A": "tests/unit/wrappers/t48*, tests/integration/f12* (stdin); timeout/signal: todo",
-        "B": "PARTIAL at B 520caa9: tests/test_stdin_transport.py; tests/test_provider_wrappers.py process-group/descendant cases. Normal-exit reader/group completion gap; no whole-case conformance pass."
+        "B": "Implemented and regression-covered in B e29d820 (P1, triad-b-p1-r2 ADMITTED_SAFE): tests/test_terminal_transport.py and existing stdin/provider tests cover bounded readers/stdin reconciliation, owned-group cleanup, normal exit and timeout/error custody. This is source/test evidence, not shared receipt-schema or every provider/platform conformance."
       }
     },
     {
@@ -23,7 +23,7 @@
       "expected": "Terminal failure recorded; partial resources released; no success token",
       "tests": {
         "A": "todo",
-        "B": "PARTIAL: tests/test_provider_wrappers.py spawn/interrupt cases; post-spawn thread-start failure not covered."
+        "B": "Implemented in B e29d820: tests/test_terminal_transport.py covers post-spawn reader/writer start failures and cleanup of the child and already-started threads; existing spawn/interrupt cases retained. triad-b-p1-r2 ADMITTED_SAFE."
       }
     },
     {
@@ -35,7 +35,7 @@
       "expected": "A file younger than the age floor survives a cap prune; only the time-based sweep may delete by age",
       "tests": {
         "A": "todo (cap path has no floor — verified 2026-09-19)",
-        "B": "Existing coverage: tests/test_log_cleanup.py::test_run_log_count_cap_prunes_only_stale_files_and_allows_fresh_overflow and byte-cap counterpart; macOS baseline passed, Ubuntu NOT RUN."
+        "B": "Existing coverage: tests/test_log_cleanup.py::test_run_log_count_cap_prunes_only_stale_files_and_allows_fresh_overflow and byte-cap counterpart; included in completed macOS/Ubuntu full-suite runs summarized at C24. No installed-provider conformance inferred."
       }
     },
     {
@@ -47,7 +47,7 @@
       "expected": "(i) preserved and reported — cleanup refuses without deleting and states what it observes; (ii) original or foreign content is never disposed of by cleanup; (iii) a provably owned temporary copy may be disposed of, only after the evidence-export checks (R-CLEANUP). Symlinks: C26 (Q4 RULED)",
       "tests": {
         "A": "todo (`.pruning` name-shape branch deletes — verified 2026-09-19)",
-        "B": "GAP: tests/test_review_round.py::test_cleanup_rejects_foreign_uid_managed_root and stale-sweep tests cover UID/type/age, not allocation provenance; leader disposable probe reproduced removal without provenance."
+        "B": "Allocation/export portion implemented in B a85a800: tests/test_review_cleanup_custody.py covers refusal without provenance, foreign roots, verified export and disposal. Existing UID/type/age and internal-symlink checks retained; C26 separately tracks reviewer link visibility. triad-b-p2-r2 ADMITTED_SAFE."
       }
     },
     {
@@ -59,7 +59,7 @@
       "expected": "Resume requires the allocation record or marker; otherwise refuse",
       "tests": {
         "A": "todo",
-        "B": "GAP: bin/review_round.py cleanup has no allocation claim; partial cleanup/resume provenance regression required."
+        "B": "Implemented in B a85a800: tests/test_review_cleanup_custody.py partial-cleanup resume requires a validated allocation-bound claim. triad-b-p2-r2 ADMITTED_SAFE."
       }
     },
     {
@@ -71,7 +71,7 @@
       "expected": "Still a failure; the transcript is preserved",
       "tests": {
         "A": "todo",
-        "B": "GAP: tests/test_agy_settings.py covers restoration, not completed transcript followed by guard-release failure in antigravity_wrapper.main."
+        "B": "Implemented in B e29d820: tests/test_antigravity_stream_json.py covers completed transcript followed by settings-guard release failure; terminal failure preserves captured evidence. triad-b-p1-r2 ADMITTED_SAFE."
       }
     },
     {
@@ -83,7 +83,7 @@
       "expected": "Second cleanup is a no-op; disposal never precedes export verification",
       "tests": {
         "A": "todo",
-        "B": "PARTIAL: tests/test_review_round.py::test_cleanup_removes_only_the_exact_review_root covers missing-root idempotence; export verification absent."
+        "B": "Implemented in B a85a800: tests/test_review_cleanup_custody.py requires/revalidates an external export before disposal; existing missing-root idempotence remains covered. triad-b-p2-r2 ADMITTED_SAFE."
       }
     },
     {
@@ -167,7 +167,7 @@
       "expected": "review_id + leg identity + attempt + family + resolved route + content digest must match; duplicate JSON members rejected at the original-text boundary (A: only the raw-reply admission rejects today — verified)",
       "tests": {
         "A": "tests/unit/skills/* validate_verdict cases (partial)",
-        "B": "PARTIAL: tests/test_verdict_schema.py::test_raw_file_rejects_duplicate_members_before_semantic_validation; wrapper raw duplicate gap reproduced before normalization. leg_name/attempt/route deferred to v2."
+        "B": "PARTIAL: B bc9ff69 and tests/test_verdict_original_json.py reject duplicate original JSON before normalization, including reserved AGY binding completeness; existing ID/family/digest validation retained. triad-b-p3a-r2 ADMITTED_SAFE. leg_name/attempt/route remain v2-dependent."
       }
     },
     {
@@ -239,7 +239,7 @@
       "expected": "New basis digest; every participating leg reviews the full agreed scope; prior findings delivered as fenced data; no approval carried forward; no focused re-confirm path exists",
       "tests": {
         "A": "todo (SKILL.md rule 5(b) deletion at two sites)",
-        "B": "PARTIAL: current convergence requires full fresh rounds after changes; tests/test_review_round.py binds worktree conditions and Google receipts. Prepared digest omits objective/criteria/boundary/kind; new replay regressions required."
+        "B": "PARTIAL: B 7a2fdf3 and tests/test_review_conditions.py bind objective, criteria/order, boundary/order, kind, prepared path, review ID, toolkit bytes and Google receipt/policy bytes into the digest. Existing worktree binding and full fresh-round requirement retained; triad-b-p3b-r2 ADMITTED_SAFE. Prior-finding delivery is separately unproven."
       }
     },
     {
@@ -287,7 +287,7 @@
       "expected": "macOS and Ubuntu 24.04 results recorded separately; an unrun platform is listed NOT RUN",
       "tests": {
         "A": "todo",
-        "B": "macOS baseline at 520caa9: 1020 passed / 213.22s; Ubuntu 24.04 NOT RUN. Not a complete install/provider/conformance run; see decisions/host-b-preimplementation-audit.md."
+        "B": "Per-slice macOS/Ubuntu evidence is retained in decisions/host-b-finding-closure.md and linked spikes. Latest completed slice 900ddc5: macOS 1194 passed; Ubuntu 24.04 1192 passed, 2 existing filesystem skips. Both skill validators and provider-free lifecycle passed. This is not complete installation or live-provider conformance."
       }
     },
     {
