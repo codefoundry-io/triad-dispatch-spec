@@ -44,6 +44,11 @@ specification") and the owner's decisions in codex's session (Q1, Q2, Q3; Q4 pen
   web-evidence sentence; clause: `prompts/investigation.md` `web-evidence` (byte-identical to A's constant); case C29;
   `units.json` selected-investigations. Codex: decide where the clause lands on B (its Google review prompt permits web
   reads conditionally; B has no research dispatch mode at 105a1e4) and name B's test after C29.
+- Owner D-9 RULED (2026-09-19): review legs have no web tools — explicit deny rows for `google_web_search` / `web_fetch` in
+  `contracts/gemini-readonly.toml` (applied on host A too, parity test t50); NEW convention in `R-GOOGLE` for changes that cannot be
+  exercised where they are written: apply + a verification manifest, here `contracts/gemini-readonly.verify.toml` (V1-V5, NOT RUN;
+  the owner runs them where gemini is in service). C15 rewritten; `R-CONTAIN` gemini bullet; `contracts/README.md` rows. Codex: drop
+  the two web tools from B's 999 allow list and name the test after C15.
 
 Read by: claude leader (author) · codex leader — pending · owner tag — pending. rev-0 was tagged at the owner's instruction
 (2026-09-19) before these amendments; they land as rev-1 when the owner tags.

@@ -174,12 +174,12 @@
       "id": "C15",
       "surface": "gemini-policy",
       "rule": "R-CONTAIN",
-      "summary": "Gemini policy allow/deny sets equal the contract file",
-      "input": "the shipped TOML vs the contract file",
-      "expected": "Allow: read tools; deny: write/replace/shell/mcp_*; proposed `*` deny and `grep_search` row once agreed",
+      "summary": "Gemini read-only policy: allow/deny sets equal the contract file; web tools denied by explicit rows (D-9)",
+      "input": "the shipped TOML vs the contract file; a read-only dispatch that tries google_web_search and web_fetch, a read, a search, a write",
+      "expected": "Rules parse-equal between the contract and the shipped file. Allow: read/search tools (priority 100). Deny (priority 200): write_file, replace, run_shell_command, mcp_*, and — D-9 RULED 2026-09-19 — google_web_search + web_fetch by an explicit row (before, search was inherited from the default tier). Runtime effect: both web calls refused with the denyMessage, reads and search still succeed, writes refused — verified where gemini is in service per contracts/gemini-readonly.verify.toml (V1-V5); proposed `grep_search` row (V3) and `*` catch-all (V5) land only after their checks pass",
       "tests": {
-        "A": "tests/unit/wrappers/t25-gemini-sandbox.sh (explicit conflict only)",
-        "B": "tests/test_provider_wrappers.py:2107 policy cases (5 pass provider-free — codex second pass)"
+        "A": "tests/unit/wrappers/t50-gemini-policy-web-deny-c15.sh (file shape + spec parity, offline); runtime checks V1-V5: NOT RUN (owner runs where gemini is in service)",
+        "B": "tests/test_provider_wrappers.py:2107 policy cases (5 pass provider-free — codex second pass); B removes the web tools from its 999 allow list and names the test after C15 (codex-fill)"
       }
     },
     {

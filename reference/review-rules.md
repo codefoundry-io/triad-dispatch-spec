@@ -62,7 +62,16 @@ installed, else gemini, else skip and log; B — `select-google-route` with its 
 the existing fallback logic). The resolved route, binary and observed CLI version are frozen for the attempt and recorded;
 a started leg never switches route silently. The "neither installed" outcome differs by host (A skips and logs, B refuses)
 and is recorded as host policy; neither outcome is agreement. Gemini is spec-maintained where only agy runs and tested
-where gemini is in service; the owner tests it and briefs the leader, who records the briefing (owner Q-N).
+where gemini is in service; the owner tests it and briefs the leader, who records the briefing (owner Q-N). CONVENTION
+for a change whose runtime effect cannot be exercised where it is written (owner 2026-09-19: apply first, leave the
+untested part as a separate config-like record): the change is APPLIED to the contract and to the author's host, and the
+same commit adds a verification manifest `contracts/<contract-file>.verify.toml` — one `[[check]]` per untested effect
+with `id`, `case`, `what`, the exact `brief` to dispatch, `expect`, `on_fail`, `status = "NOT RUN"`, plus the contract's
+`policy_sha256` and the CLI version the reasoning was checked against. Whoever has the capability in service runs the
+checks with the host's own dispatch command, and the result is recorded ONCE, here in `decisions/owner-register.md` (a
+briefing row per check) and in the case's test column; an unrun check is never green, and nothing else is written about
+it on either host beyond a pointer. Current manifest: `contracts/gemini-readonly.verify.toml` (D-9 web-tool denies,
+mutation denies, the `grep_search` alias, the proposed `*` catch-all).
 
 ## Code-smell criterion
 
@@ -89,7 +98,9 @@ added for symmetry. Per vendor, the guards that ship today and must survive any 
   on every posture, `web_search="disabled"` unless search is selected (wrapper). The packet-egress precondition for a selected search is carried by A's review SKILL, not the wrapper. These are A's controls, not instructions for B's native session.
 - gemini leg (A `gemini_wrapper.py`): approval modes pinned to `default` / `auto_edit` (plan and yolo removed), the
   read-only × auto_edit conflict refusal, the read-only policy-file precondition, the hardened-install read-only default,
-  write posture requires `--cwd`; B: `--help` capability preflight, policy self-check, credential/endpoint/model-selector
+  write posture requires `--cwd`; the shared read-only policy denies `google_web_search` / `web_fetch` by EXPLICIT rows
+  (D-9 RULED 2026-09-19 — `--policy` replaces only the user tier, so an unnamed tool keeps the default tier's decision;
+  runtime effect per `contracts/gemini-readonly.verify.toml`); B: `--help` capability preflight, policy self-check, credential/endpoint/model-selector
   variables removed from the child on the formal route. Effective posture is computed BEFORE the conflict and policy checks
   (verified defect on A: the hardened default is assigned after the checks).
 - agy leg (A): per-round PreToolUse allow-list hook + hook load check + read-audit gate; B: non-mutating project route (`--mode plan --sandbox read-only`); B's hook stays dormant until separately agreed. The agy hook and the gemini read-only policy are TOOL-NAME controls: neither scopes paths, and the read audit records the argument path as given, not a resolved target — they do not by themselves contain a symlink escape (see the Q4 item in R-PREPARE).
