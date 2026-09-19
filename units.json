@@ -53,7 +53,7 @@
     "gemini-policy": {
       "common": "bin/policies/gemini-readonly.toml",
       "contract": "contracts/gemini-readonly.toml",
-      "exceptions": "B keeps its current policy filename until the rename is specified; authentication constraints are adapter rules and stay; B's Auto-only formal model path is a MIGRATION item under owner Q2 (not a preserved exception); D-9 migration on B is operation-level: drop the two web tools from the 999 allow list, drop `read_url` from the agy read-only builder for REVIEW dispatch only (`_agy_settings.py:34-36`), stop permitting web reads in the review prompt renderers (`review_round.py:62-86, 1771-1776`)",
+      "exceptions": "B keeps its current policy filename until the rename is specified; authentication constraints are adapter rules and stay; B's Auto-only formal model path is a MIGRATION item under owner Q2 (not a preserved exception). B 900ddc5 forbids web in every REVIEW renderer, adds read_url(*) to the AGY formal deny list and omits formal autoapproval while preserving raw investigations. The earlier 'drop read_url from builder' wording described removal of capability, not removal of a deny rule; see spikes/2026-09-20-b-review-no-web.md. Gemini shared policy composition remains pending D-B1; current bytes are unchanged.",
       "A_source": "3rd-Agent/wrappers/policies/gemini-readonly.toml; 3rd-Agent/wrappers/gemini_wrapper.py",
       "A_shipped": "bin/policies/gemini-readonly.toml; bin/gemini_wrapper.py",
       "B": "bin/policies/gemini-formal-readonly.toml; bin/gemini_wrapper.py"

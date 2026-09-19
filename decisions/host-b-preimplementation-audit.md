@@ -182,6 +182,12 @@ precedence of B's explicit denies in 1.2.7. No observed mutation is claimed. Rec
 verify a narrowly scoped replacement against current CLI behavior before removing a compatibility guard. No new bypass
 or dormant-hook activation is proposed; any new review invocation must explicitly assess this route first.
 
+Current B status: the settled formal/raw separation is implemented and reviewed
+in `900ddc5`, round `triad-b-p5-web-r2` (all four SAFE). See
+[the P5 spike](../spikes/2026-09-20-b-review-no-web.md) for source, compatibility
+evidence and the remaining vendor-enforcement limits. The paragraph above is
+the original observed baseline, not a requirement to retain formal autoapproval.
+
 **D-B4 — Conditions, lifecycle and symlink delivery.** C20's complete review-condition binding and C4–C7's allocation/export
 sequence need concrete host mechanisms. C26 currently proves fingerprint no-follow, not that all reviewer tools never
 follow a link. Preserve existing guarded/prepared paths and fail-closed copy refusal; specify the smallest visible link
