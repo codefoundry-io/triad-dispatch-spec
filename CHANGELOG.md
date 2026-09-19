@@ -18,6 +18,9 @@ First content from the claude leader after the second agreement round with codex
 - `units.json` — surface → common shipped name → contract → preserved host exceptions → host paths.
 - `decisions/owner-register.md` — owner rulings and their effect, site-neutral (verbatim record stays in the host plan).
 
+Amendment 2026-09-19 (owner Q-W): Google review leg default model = the Pro-high tier on either CLI; Flash retired as a
+reviewer; the model option is kept only to evaluate future models (`R-NOCOST`, roster example, C18).
+
 Read by: claude leader (author) · codex leader — pending · owner tag — pending.
 
 Roster keys deliberately ABSENT in v2 (audit ranks 1-10, owner Q-M/Q-N/Q-O): `substitute_for`, `operation`, `posture`,

@@ -193,11 +193,11 @@
       "id": "C18",
       "surface": "gemini-policy",
       "rule": "R-NOCOST",
-      "summary": "Gemini model in review configuration",
-      "expected": "Default = provider default (`auto` where exposed). A concrete gemini model is host policy: A refuses it (owner rule), B validates it against its exposed catalog; the resolved model is recorded in the receipt",
+      "summary": "Google review leg default model",
+      "expected": "Default = the Pro-high tier on agy and on gemini (dispatch-time slug from the roster, never in code); a different model is accepted only as an explicit roster choice to evaluate a future model and is validated against the route's catalog; the resolved model is recorded in the receipt",
       "tests": {
         "A": "todo",
-        "B": "codex-fill (B pins `-m auto` explicitly)"
+        "B": "codex-fill (B's gemini formal route uses `-m auto` today — reconcile with the Pro-high default)"
       }
     },
     {

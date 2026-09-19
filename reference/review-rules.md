@@ -145,10 +145,11 @@ files keeps a minimum age floor so a fresh sibling file is never deleted to sati
 Both hosts call vendor CLIs only — no vendor HTTP API, SDK or API key. Login is the user's own OAuth login in each CLI;
 wrappers check the binary and never enter or store credentials. Billing follows the AUTHENTICATION type, not the model
 flag (Gemini CLI v0.60.0 `contentGenerator.ts`: auth is selected before the model is resolved); environment scrubbing and
-the absence of `-m` are hygiene, not proof of the billing route. Recommended default: the gemini leg runs on the
-provider default (`auto` where the CLI exposes it). A concrete gemini model in the roster is HOST POLICY, not a shared
-refusal: host A refuses it (owner rule, `~/triad/CLAUDE.md § Gemini model pinning`; the billing rationale there is superseded
-by the source finding above), host B validates a concrete value against the catalog its formal route exposes. Deterministic
+the absence of `-m` are hygiene, not proof of the billing route. Default model for the
+Google review leg (agy or gemini): the Pro-high tier — Flash was retired as a reviewer (0 unique blocking defects over ten
+rounds, owner 2026-09-14) and lower tiers are not review-capable (owner 2026-09-19). The slug is a dispatch-time value in
+the roster's `agy` / `gemini` block, never a constant in code; the model option stays selectable only so a future model can
+be evaluated, and a host validates the chosen value against the catalog its route exposes. Deterministic
 provider-free checks (help, version, policy, argv, env, preflight) stay in each host's automated suite; only authenticated
 service checks go through the owner-briefing route (R-GOOGLE); an unrun authenticated check is unverified, never green. Gemini formal review requires CLI
 `>= 0.34.0` (PR #20639 lands the headless policy-allow fix) and tests the declared supported range. Gemini `--policy`

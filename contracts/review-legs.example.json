@@ -33,10 +33,11 @@
         "effort": "high"
       },
       "gemini": {
+        "model": "<pro-high slug for the gemini CLI>",
         "effort": "high"
       },
       "timeout_s": 900,
-      "note": "vendor google = resolved at dispatch by the host's shipped chain (R-GOOGLE); gemini model omitted = provider default; a concrete gemini model is host policy (R-NOCOST)"
+      "note": "vendor google = resolved at dispatch by the host's shipped chain (R-GOOGLE); default model = the Pro-high tier on either CLI (R-NOCOST); other models only to evaluate a future model"
     },
     {
       "name": "x-claude-high",
