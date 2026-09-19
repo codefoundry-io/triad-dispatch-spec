@@ -14,6 +14,11 @@ The published and installed 0.2.555 release is recorded in the
 [release handoff](../spikes/2026-09-20-b-release-0555.md). Pending shared decisions
 and conformance limits below remain unchanged.
 
+For the complete current C1–C29 obligation inventory, implementation differences
+and source-paired Claude handoff, read the
+[0.2.555 contract audit](host-b-0555-contract-compliance-handoff.md).
+Its scope is broader than this original numbered-finding register.
+
 This register tracks correction and full fresh review. A green P1 review cannot
 close non-P1 findings. No prior approval carries forward after reviewed bytes or
 conditions change. No row is closed merely because it has a planned correction.
