@@ -1,7 +1,8 @@
-# triad-dispatch-spec — shared specification for the TRIAD dispatch hosts (rev-0 draft, 2026-09-19)
+# triad-dispatch-spec — shared specification for the TRIAD dispatch hosts (current draft: rev-1; rev-0 tagged 2026-09-19)
 
 Shared specification for the two TRIAD dispatch hosts: the Claude-hosted `triad-dispatch` (source of truth `~/triad`) and
-the Codex-hosted `triad-codex-dispatch`. Owner-designated home (2026-09-19): this repository, public, owner-only push. rev-0 is a DRAFT pushed at the owner's
+the Codex-hosted `triad-codex-dispatch`. Owner-designated home (2026-09-19): this repository, public, owner-only push. rev-0 was tagged at the owner's
+instruction; the current main is the rev-1 draft pushed at the owner's
 instruction ("그 레파지토리 자체가 제작소 역할을 할테니까"): the repository is the workshop — codex reviews and amends in place,
 revisions follow; nothing here authorizes implementation on either host (owner Q-F).
 

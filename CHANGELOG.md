@@ -25,11 +25,21 @@ specification") and the owner's decisions in codex's session (Q1, Q2, Q3; Q4 pen
 - A-side SoT inconsistency recorded for A's migration: `leg-contracts.md` still embeds the agy slug and leaves gemini
   unpinned; the focused re-confirm at two SKILL sites; advisory non-gating semantics.
 
+- Round r2 (three families on this draft, 2026-09-19 late): R-AGREE open-question axis; R-BIND split into shipped binding vs
+  v2 additions; `contracts/leg-verdict-mapping.md` (D-3 converged); R-CONTAIN precision (process-group reaping, codex egress
+  precondition in the SKILL, tool-name controls, no host-internal cites); R-PREPARE symlink = integrity + delivery clauses (Q4
+  open, C26); R-VERIFY blocking vs non-blocking; R-SMELL tail; R-ROSTER wording; roster example = illustrative template (no
+  `route: auto`, gemini placeholder honest, timeouts); exit-token pre-spawn exception; gemini policy header = enforcement
+  PENDING + the inherited-search-allow finding (D-9 owner decision); units packet_files + exception corrections; cases C4
+  split, C13 host-neutral, anchors re-pointed, C26/C27; prompts renumbered, D-10 closure wording, D-3 token marker;
+  revision labels rev-1. Remaining for codex: split the Google read-grant into shared vs host notices; rename
+  `adversarial-framing` → `evidence-framing` at adoption; B columns.
+
 Read by: claude leader (author) · codex leader — pending · owner tag — pending. rev-0 was tagged at the owner's instruction
 (2026-09-19) before these amendments; they land as rev-1 when the owner tags.
 
 
-## rev-0 (draft; pushed 2026-09-19 at the owner's instruction; not yet tagged) — 2026-09-19
+## rev-0 (tagged 2026-09-19 at the owner's instruction, commit dfbeb60) — 2026-09-19
 
 First content from the claude leader after the second agreement round with codex (codex's amendments pending):
 
@@ -50,7 +60,7 @@ First content from the claude leader after the second agreement round with codex
 Amendment 2026-09-19 (owner Q-W): Google review leg default model = the Pro-high tier on either CLI; Flash retired as a
 reviewer; the model option is kept only to evaluate future models (`R-NOCOST`, roster example, C18).
 
-Read by: claude leader (author) · codex leader — pending · owner tag — pending.
+Read by: claude leader (author) · codex leader — pending · owner tag — DONE (rev-0 = dfbeb60).
 
 Roster keys deliberately ABSENT in v2 (audit ranks 1-10, owner Q-M/Q-N/Q-O): `substitute_for`, `operation`, `posture`,
 `trial`, `sites`; no `legs` subcommand; `vendor` is a family value (`claude` | `codex` | `google`) and the Google CLI is

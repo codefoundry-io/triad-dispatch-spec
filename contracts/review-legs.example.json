@@ -36,12 +36,11 @@
         "effort": "high"
       },
       "gemini": {
-        "model": "<pro-high slug for the gemini CLI>",
-        "effort": "high"
+        "model": "<route-valid Pro model id; HIGH comes from its default thinking level>",
+        "effort": null
       },
       "timeout_s": 600,
-      "note": "vendor google = resolved at dispatch by the host's shipped chain unless route pins agy|gemini (R-GOOGLE); default model = Pro family + verifiable high on either CLI (R-NOCOST); timeout adapter-validated (B formal gemini route requires 600 s)",
-      "route": "auto"
+      "note": "vendor google = resolved at dispatch by the host's shipped chain; add `route`: `agy` | `gemini` to pin when both CLIs are present (R-GOOGLE). Default model = Pro family + verifiable HIGH on either CLI (R-NOCOST); `effort` applies to agy only. Timeouts are adapter-validated (B formal gemini 600 s; B claude route 1200 s). Placeholders mark this entry as a TEMPLATE until the hosts' catalogs are recorded"
     },
     {
       "name": "x-claude-high",
@@ -50,9 +49,11 @@
       "acceptance": "informational",
       "claude": {
         "agent": "cross-family-review-reviewer-high",
-        "effort": "high"
+        "effort": "high",
+        "model": null
       },
-      "note": "opt-in example of a second claude arm (enable to run it); acceptance is data only — a verified blocking finding from this leg blocks the round (R-AGREE)"
+      "note": "opt-in example of a second claude arm (enable to run it); acceptance is data only — a verified blocking finding from this leg blocks the round (R-AGREE)",
+      "timeout_s": 900
     },
     {
       "name": "trial",
@@ -63,8 +64,9 @@
         "model": "<slug under test>",
         "effort": "high"
       },
-      "note": "trial model on the Google family (agy block); quota exhausted 2026-09-18; acceptance is data only (R-AGREE)"
+      "note": "opt-in trial model on the Google family (agy block); acceptance is data only (R-AGREE)",
+      "timeout_s": 900
     }
   ],
-  "_comment": "runnable default = the three enabled legs; other entries are opt-in examples. Fields and resolution rules: reference/review-rules.md#R-ROSTER; keys deliberately absent: CHANGELOG.md rev-0"
+  "_comment": "ILLUSTRATIVE TEMPLATE, not a runnable default: the three enabled legs are the default roster shape; placeholder model values must be replaced from each host's recorded catalog before dispatch. Fields and resolution rules: reference/review-rules.md#R-ROSTER; keys deliberately absent: CHANGELOG.md rev-0"
 }

@@ -56,8 +56,8 @@ OUTPUT INTEGRITY: before finishing, verify the object ends with its outermost cl
 4. claude-tree-entry
 5. common:severity-instruction
 6. common:verdict-selection-rule
-0. common:smell-criterion (inserted after verdict-selection-rule; renumber at render)
-7. claude-binding-line
-8. claude-verdict-shape
-9. common:repo-relative-pin
-10. claude-output-integrity
+7. common:smell-criterion
+8. claude-binding-line
+9. claude-verdict-shape
+10. common:repo-relative-pin
+11. claude-output-integrity

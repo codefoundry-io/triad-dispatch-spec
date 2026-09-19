@@ -32,4 +32,8 @@ new rule; every row points at the normative location.
 | Q3 (codex session) | selected option: "증거 중심으로 통일하고 무결함 결론도 허용" — shared review prompt is evidence-centred and allows a no-defect conclusion; D-10 closed | `prompts/common-clauses.md § adversarial-framing` |
 | Q-W | Google review leg default model = the 3.1 Pro-high tier; Flash retired as a reviewer; the model option stays only so a future model can be evaluated (corrects the leader's "provider default / auto" reading) | `R-NOCOST`, `contracts/review-legs.example.json`, C18 |
 
+| D-3 (round r2) | Three families converged on a superset v2 wire (`contracts/leg-verdict-mapping.md`); residual choices are leader-level | `R-AGREE` open-question axis, `R-BIND` v2 additions |
+| D-9 (round r2) | CONFLICTED: codex and google recommend ALLOW web tools in review legs with a date + version anchor; claude recommends DENY by explicit rows (and found A's policy INHERITS a search allow today). Owner decision requested | `contracts/gemini-readonly.toml` header, `contracts/README.md` |
+| Q4 (round r2) | Split 2:1: codex + google recommend materializing link text in the round copy with a manifest (c); claude recommends link-text fingerprint + a no-follow delivery clause (b). Owner decision requested | `R-PREPARE`, C26 |
+
 Withdrawn at the owner's word: a usage-measurement item (2026-09-19) is not recorded anywhere.

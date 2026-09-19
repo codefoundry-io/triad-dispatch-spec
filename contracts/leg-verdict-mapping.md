@@ -1,0 +1,52 @@
+# LegVerdict — A↔B mapping and the proposed v2 wire (round r2 output, 2026-09-19)
+
+Three families (codex, google/agy, claude fresh-eye) adjudicated D-3 independently and converged: a SUPERSET wire, not a
+collapse. Host facts: A `verdict_schema.py` (3 verdicts, 4 severities, `context_known`), B `verdict_schema.py` (SAFE /
+NOT-SAFE, 3 severities, `affected_surfaces_inspected`, `open_questions`; any open question ⇒ NOT-SAFE).
+
+## Mapping and losses
+
+| Item | A | B | A→B loss | B→A loss | v2 |
+|---|---|---|---|---|---|
+| verdict | SAFE TO MERGE / MERGE WITH FIXES / DO NOT MERGE | SAFE / NOT-SAFE | "fix then land" vs "must not land" collapses into NOT-SAFE | NOT-SAFE cannot be split back | keep A's three; `SAFE` is an import alias of SAFE TO MERGE; an uncertainty-only negative (open questions, no finding) = codex proposes keeping `NOT-SAFE` as a fourth token, claude proposes DO NOT MERGE + open_questions — leader-level choice, see below |
+| severity | Critical / must-fix / Minor / HARDENING-SUGGESTION | Critical / Major / Minor | HARDENING-SUGGESTION lost | Minor ambiguous | A's four; `Major` = import alias of must-fix |
+| path field | `file` (repo-relative, python validator) | `path` (JSON-Schema pattern) | rename | rename | ONE name (codex: `path`; claude: `file`) + B's schema-level pattern so the vendor's own schema check rejects absolute paths |
+| line | int ≥ 1 or null | same | — | — | same |
+| summary | required | — | lost | must be synthesized | keep, required |
+| trigger | required | required | — | — | same |
+| evidence | — | required | — | lost | required (the Q3 evidence-centred ruling made mechanical) |
+| correction | — | required | — | lost | OPTIONAL (required would contradict R-VERIFY: labels are claims, not repair instructions) |
+| context_known | required bool | — | lost | — | keep |
+| criteria_checked | required, unique | required, unique | — | — | same |
+| affected_surfaces_inspected | — | required, unique, path-constrained | not constructible from A | lost | required for newly authored v2 results |
+| open_questions | — | required list, may be empty; any entry ⇒ non-affirmative | not constructible | unrepresentable (A rejects a finding-less non-SAFE) | required list; any unresolved entry blocks (R-AGREE) |
+| binding | review_id, family, content_digest | same | — | — | + `leg_name`, `attempt` (≥ 1, per leg), `route` (agy \| gemini, null for one-route families), `schema_version: 2` |
+
+## Release properties that must survive (all three legs)
+
+1. A's Minor-only release on UNCHANGED bytes (owner Q-S / Q1): a non-affirmative verdict carrying only Minor findings and
+   no open question is VALID and recorded as a verdict-selection deviation — never a schema rejection (B's validator must
+   relax here).
+2. A's verdict-selection discipline survives as PROMPT guidance, not as a schema invariant.
+3. B's open-question rule survives: any unresolved open question makes the result non-affirmative; an uncertainty-only
+   negative needs no invented finding. A's "non-SAFE requires a finding" relaxes to "a finding OR an open question".
+
+## Invariants of the proposed v2 object
+
+(i) SAFE TO MERGE ⇒ no Critical / must-fix finding AND `open_questions` empty. (ii) non-affirmative ⇒ at least one finding
+OR one open question. (iii) a non-affirmative object whose findings are all non-blocking and whose `open_questions` is
+empty is VALID (property 1). Unknown fields and duplicate members are rejected at the original-text boundary on both hosts.
+Legacy results are never converted into fabricated evidence, coverage or an empty uncertainty list — a missing v2 field
+stays absent/unknown, and a converted result is not admissible under v2 without a new review.
+
+## Migration notes (refuters)
+
+Both hosts' models are `extra="forbid", strict=True`: every v2 field is a breaking change for BOTH validators — the flip is
+one slice per host, landed with the prompt shape pins (`prompts/common-clauses.md § severity-instruction`,
+`§ verdict-selection-rule`, `leg-claude.md § claude-verdict-shape`) in the same change. B has no NONREPAIRABLE gate but runs
+one schema-repair retry; A's nonrepairable-blocker exception stays host-local.
+
+## Leader-level choices left for codex's co-review
+
+`path` vs `file` as the one field name; `NOT-SAFE` as a fourth token for uncertainty-only negatives vs DO NOT MERGE +
+open_questions; whether `correction` stays optional. None of these needs an owner decision.

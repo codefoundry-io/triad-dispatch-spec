@@ -21,7 +21,7 @@
     "verdict-wire": {
       "common": "bin/verdict_schema.py",
       "contract": "contracts/leg-verdict.schema.json (after D-3)",
-      "exceptions": "A's raw-reply admission (`admit_verdict.py`) stays host-local; lossless field mapping pending D-3",
+      "exceptions": "A's raw-reply admission (`validate_verdict.py --admit`) stays host-local; lossless field mapping = contracts/leg-verdict-mapping.md (round r2), schema pending D-3 adoption",
       "A_source": "3rd-Agent/wrappers/verdict_schema.py; .claude/skills/triad-cross-family-review/lib/validate_verdict.py (raw-reply admission, A-only)",
       "A_shipped": "bin/verdict_schema.py; skills/triad-cross-family-review/lib/validate_verdict.py",
       "B": "bin/verdict_schema.py"
@@ -53,7 +53,7 @@
     "gemini-policy": {
       "common": "bin/policies/gemini-readonly.toml",
       "contract": "contracts/gemini-readonly.toml",
-      "exceptions": "B keeps its current policy filename until the rename is specified; formal Auto/auth constraints are adapter rules",
+      "exceptions": "B keeps its current policy filename until the rename is specified; authentication constraints are adapter rules and stay; B's Auto-only formal model path is a MIGRATION item under owner Q2 (not a preserved exception)",
       "A_source": "3rd-Agent/wrappers/policies/gemini-readonly.toml; 3rd-Agent/wrappers/gemini_wrapper.py",
       "A_shipped": "bin/policies/gemini-readonly.toml; bin/gemini_wrapper.py",
       "B": "bin/policies/gemini-formal-readonly.toml; bin/gemini_wrapper.py"
@@ -90,5 +90,22 @@
       "A_shipped": "skills/triad-*-dispatch/; bin/*_wrapper.py",
       "B": "bin/*_wrapper.py raw route (tests/test_provider_wrappers.py:1331 raw-route test per codex)"
     }
+  },
+  "packet_files": {
+    "A": {
+      "brief": "brief.md",
+      "gated_patch": "diff.prod.patch",
+      "test_patch": "diff.tests.patch",
+      "history": "history.txt",
+      "tree": "detached worktree at the reviewed commit"
+    },
+    "B_prepared": {
+      "brief": "TASK.md",
+      "gated_patch": "REVIEW.diff",
+      "evidence": "EVIDENCE.md (optional)",
+      "source": "source/product/ + SOURCE_SHA256SUMS"
+    },
+    "B_worktree": "render-worktree route (codex to fill)",
+    "note": "host packet filename mapping referenced by R-PREPARE; prompt placeholders resolve through this table"
   }
 }

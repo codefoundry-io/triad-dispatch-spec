@@ -43,6 +43,6 @@ Return exactly ONE LegVerdict JSON object matching your enforced output schema â
 5. common:repo-relative-pin
 6. common:severity-instruction
 7. common:verdict-selection-rule
-0. common:smell-criterion (inserted after verdict-selection-rule; renumber at render)
-8. codex-binding-line
-9. codex-closing
+8. common:smell-criterion
+9. codex-binding-line
+10. codex-closing

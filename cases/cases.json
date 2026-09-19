@@ -43,8 +43,8 @@
       "surface": "cleanup",
       "rule": "R-CLEANUP",
       "summary": "Foreign directories, false markers, symlinks, dirty or untracked content in the review root",
-      "input": "a review root holding a foreign date-prefixed `*.pruning` dir, a symlink, a dirty file",
-      "expected": "Preserved; cleanup refuses without deleting and states what it observes",
+      "input": "a review root holding (i) a foreign date-prefixed `*.pruning` dir not created by the helper, (ii) a dirty or untracked regular file that is part of the reviewed basis",
+      "expected": "(i) preserved and reported — cleanup refuses without deleting and states what it observes; (ii) preserved as reviewed content and never disposed of by cleanup. Symlink handling is C26 (Q4 pending)",
       "tests": {
         "A": "todo (`.pruning` name-shape branch deletes — verified 2026-09-19)",
         "B": "codex-fill (stale sweep lacks provenance — codex spike)"
@@ -113,7 +113,7 @@
     {
       "id": "C10",
       "surface": "engine-transport",
-      "rule": "R-RECEIPT",
+      "rule": "R-RECEIPT, R-BIND",
       "summary": "Audit and run-log field schema",
       "input": "one audit line and one run-log record per host",
       "expected": "Both hosts write the agreed fields; a leg mislabelling its family is caught by binding, not by the audit",
@@ -137,7 +137,7 @@
     {
       "id": "C12",
       "surface": "roster",
-      "rule": "R-ROSTER",
+      "rule": "R-ROSTER, R-PREPARE",
       "summary": "Roster resolution",
       "input": "no file / a file overriding one default by name / a file with an unknown key / two Google CLIs present",
       "expected": "No file = three standing legs at recommended defaults; file entry overrides by name; unknown key refused; resolved roster printed before dispatch; unselected legs never start; runtime Google resolution recorded",
@@ -151,8 +151,8 @@
       "surface": "verdict-wire",
       "rule": "R-AGREE",
       "summary": "Agreement and release",
-      "input": "legs returning SAFE, Minor-only MERGE WITH FIXES, a blocking finding, and no result",
-      "expected": "Blocking finding from any leg blocks; Minor-only MERGE WITH FIXES counts as agreement; a leg that did not run is not agreement; probe-refuted / owner-decided releases recorded",
+      "input": "legs returning a verdict with no blocking finding, a non-affirmative verdict carrying only Minor findings on unchanged bytes, a blocking finding, an unresolved open question, and no result",
+      "expected": "A blocking finding or an unresolved open question from any leg blocks; a Minor-only non-affirmative verdict on the unchanged bytes counts as agreement and is recorded as a verdict-selection deviation; a leg that did not run is not agreement; probe-refuted / owner-decided releases are recorded",
       "tests": {
         "A": "todo",
         "B": "codex-fill"
@@ -185,7 +185,7 @@
     {
       "id": "C16",
       "surface": "gemini-policy",
-      "rule": "R-NOCOST",
+      "rule": "R-CONTAIN",
       "summary": "Gemini preflight",
       "input": "gemini 0.33 / a missing capability / an API-key auth path / hardened default with --sandbox omitted",
       "expected": "Refuses below CLI 0.34.0, on a missing capability, when auth is not the approved subscription route; effective posture computed BEFORE the conflict/policy checks (A ordering defect — verified)",
@@ -269,7 +269,7 @@
     {
       "id": "C23",
       "surface": "agy-containment",
-      "rule": "R-BIND",
+      "rule": "R-BIND, R-CONTAIN",
       "summary": "Two same-family legs in one round",
       "input": "two agy legs in one round",
       "expected": "Each leg has its own bound read-audit evidence and binding; one leg's hook/audit cannot satisfy another's",
@@ -300,6 +300,30 @@
       "tests": {
         "A": "tests/*/dispatch/* (existing --web/--cwd dispatch cases; ids to map)",
         "B": "tests/test_provider_wrappers.py:1331 raw-route test (codex-fill)"
+      }
+    },
+    {
+      "id": "C26",
+      "surface": "review-lifecycle",
+      "rule": "R-PREPARE",
+      "summary": "Symlink in the reviewed basis (owner Q4 pending)",
+      "input": "a dirty basis containing a nonignored symlink to a path outside the tree",
+      "expected": "INTEGRITY: the link text is fingerprinted (readlink, never followed). DELIVERY: the tree handed to legs contains no followable link — the exact mechanism (materialize as text in the round copy with a manifest, or prompt-level no-follow) is the owner's Q4 decision; cleanup never follows a link to delete its target",
+      "tests": {
+        "A": "todo (A refuses untracked links at prepare/verify today)",
+        "B": "tests/test_review_round.py:2496-2512 (link-text fingerprint; codex-fill)"
+      }
+    },
+    {
+      "id": "C27",
+      "surface": "google-resolution",
+      "rule": "R-GOOGLE",
+      "summary": "Google route resolution",
+      "input": "explicit pin / agy installed only / gemini installed only / neither installed",
+      "expected": "The resolved route, binary and observed version are frozen for the attempt and recorded; a started leg never switches route; neither-installed = the host's recorded policy (A skip-and-log, B refuse) and is never agreement",
+      "tests": {
+        "A": "todo",
+        "B": "codex-fill (select_google_route tests)"
       }
     }
   ]

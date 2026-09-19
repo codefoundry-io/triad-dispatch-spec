@@ -49,9 +49,9 @@ Return exactly ONE LegVerdict JSON object matching the provided schema — no pr
 4. common:data-fence-caveat
 5. common:severity-instruction
 6. common:verdict-selection-rule
-0. common:smell-criterion (inserted after verdict-selection-rule; renumber at render)
-7. google-binding-line
-8. google-read-grant
-9. google-findings-shape-pin
-10. common:repo-relative-pin
-11. google-closing
+7. common:smell-criterion
+8. google-binding-line
+9. google-read-grant
+10. google-findings-shape-pin
+11. common:repo-relative-pin
+12. google-closing
