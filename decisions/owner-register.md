@@ -13,7 +13,7 @@ new rule; every row points at the normative location.
 | D-9 | Network tools in the gemini review policy: same three-family round, date-anchored web evidence only | `contracts/README.md` (policy row) |
 | D-10 | Reviewer framing: CLOSED by owner Q3 (codex session) — evidence-centred, a no-defect conclusion allowed | `prompts/common-clauses.md § adversarial-framing` |
 | D-13 | Host A `fixture.sh` contract: header wins (leak prune + 14-day retention), A-side only | none here |
-| D-14 / Q4 | Untracked symlink in a review tree: OPEN — codex recommends link-text admission without dereferencing; the owner asked for a purpose-based recommendation and has not yet chosen | `R-PREPARE` (pending) |
+| D-14 / Q4 | RULED 2026-09-19: "링크 자체는 검토하되, 대상을 자동으로 따라가지 않는 방식" — the link itself is reviewed (text fingerprinted, visible); the target is never followed automatically; mechanism per host | `R-PREPARE`, C26 |
 | Q-A | The host where gemini is in service can download from GitHub but not upload | `README.md § How a host uses a revision` (owner pushes; results come back by briefing) |
 | Q-B / Q-H / Q-Q | Agreement = no unresolved BLOCKING finding from any leg; tiers are data | `R-AGREE`, `R-ROSTER` |
 | Q-C | A leg that failed to RUN with nothing changed is retried alone | `R-RETRY` |
@@ -34,6 +34,6 @@ new rule; every row points at the normative location.
 
 | D-3 (round r2) | Three families converged on a superset v2 wire (`contracts/leg-verdict-mapping.md`); residual choices are leader-level | `R-AGREE` open-question axis, `R-BIND` v2 additions |
 | D-9 (round r2) | CONFLICTED: codex and google recommend ALLOW web tools in review legs with a date + version anchor; claude recommends DENY by explicit rows (and found A's policy INHERITS a search allow today). Owner decision requested | `contracts/gemini-readonly.toml` header, `contracts/README.md` |
-| Q4 (round r2) | Split 2:1: codex + google recommend materializing link text in the round copy with a manifest (c); claude recommends link-text fingerprint + a no-follow delivery clause (b). Owner decision requested | `R-PREPARE`, C26 |
+| Q4 (round r2) | Split 2:1 (materialize in the round copy vs fingerprint + no-follow clause) → owner ruled the PRINCIPLE (review the link itself, never follow the target automatically); the mechanism is each host's migration item | `R-PREPARE`, C26 |
 
 Withdrawn at the owner's word: a usage-measurement item (2026-09-19) is not recorded anywhere.

@@ -35,6 +35,9 @@ specification") and the owner's decisions in codex's session (Q1, Q2, Q3; Q4 pen
   revision labels rev-1. Remaining for codex: split the Google read-grant into shared vs host notices; rename
   `adversarial-framing` → `evidence-framing` at adoption; B columns.
 
+- Owner Q4 ruled (2026-09-19): review the link itself, never follow its target automatically → R-PREPARE symlink clause and C26.
+  D-9 (web tools in review legs) still awaits the owner after a detailed briefing.
+
 Read by: claude leader (author) · codex leader — pending · owner tag — pending. rev-0 was tagged at the owner's instruction
 (2026-09-19) before these amendments; they land as rev-1 when the owner tags.
 

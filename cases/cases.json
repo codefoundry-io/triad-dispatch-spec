@@ -306,9 +306,9 @@
       "id": "C26",
       "surface": "review-lifecycle",
       "rule": "R-PREPARE",
-      "summary": "Symlink in the reviewed basis (owner Q4 pending)",
+      "summary": "Symlink in the reviewed basis (owner Q4 ruled)",
       "input": "a dirty basis containing a nonignored symlink to a path outside the tree",
-      "expected": "INTEGRITY: the link text is fingerprinted (readlink, never followed). DELIVERY: the tree handed to legs contains no followable link — the exact mechanism (materialize as text in the round copy with a manifest, or prompt-level no-follow) is the owner's Q4 decision; cleanup never follows a link to delete its target",
+      "expected": "The link itself is reviewed: path, kind and exact link text fingerprinted and visible to legs; the target is never followed automatically; target content enters only as an independently authorized bound input; an unfollowable link is disclosed as a coverage gap; cleanup never follows a link to delete its target; the host's no-follow mechanism leaves evidence",
       "tests": {
         "A": "todo (A refuses untracked links at prepare/verify today)",
         "B": "tests/test_review_round.py:2496-2512 (link-text fingerprint; codex-fill)"
