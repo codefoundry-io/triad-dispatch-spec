@@ -17,6 +17,7 @@ bug to fix in the same change.
 | Behavioral cases (inputs, expected results, rule anchor) | `cases/cases.json` | host tests carrying the case ids in their names |
 | Which host file implements which surface; which tests carry which cases | `units.json` | none |
 | Owner decisions | `decisions/owner-register.md` | quotes in plans and ledgers |
+| Revision agreement and signatures | `decisions/rev-N-agreement.md` (rev-1: `decisions/rev-1-agreement.md`) | the relayed round documents point here |
 | Which revision a host conforms to | the host repository's `SPEC_REVISION` file | drift reports |
 | Gemini read-only policy | `contracts/gemini-readonly.toml` | the host's shipped copy at the adopted revision |
 | Measured evidence behind a rule or case change (a spike record: observation with `path:line`, cause chain, the fix on the owning host, the live before/after run, what the other host should touch) | `spikes/<UTC-date>-<slug>.md` | quotes in host plans and ledgers; the case in `cases/cases.json` it produced |

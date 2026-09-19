@@ -59,7 +59,7 @@ specification") and the owner's decisions in codex's session (Q1, Q2, Q3; Q4 pen
   goes on B's authorized web INVESTIGATION invocation (raw dispatch), never the review route; leader-level wire choices ALIGNED in
   `leg-verdict-mapping.md` (`path`, three canonical verdicts, optional `correction`, no `NOT-SAFE`). No new owner question.
 
-Read by: claude leader (author) · codex leader — pending · owner tag — pending. rev-0 was tagged at the owner's instruction
+Read by: claude leader (author) — OK signed in `decisions/rev-1-agreement.md` at `b8b127b` · codex leader — pending (signs by appending its row) · owner tag — pending. rev-0 was tagged at the owner's instruction
 (2026-09-19) before these amendments; they land as rev-1 when the owner tags.
 
 
