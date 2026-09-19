@@ -12,7 +12,7 @@ conditions change. No row is closed merely because it has a planned correction.
 | IDs | Disposition / bounded plan | Verification and status |
 |---|---|---|
 | claude-02, claude-08, google-02, codex-02, codex-04 | P1: C1/C2 terminal transport and C6 completed-result custody | CLOSED at B `e29d820fb4fb35b64fc9e955aee5357377f23418`. Fresh RED/GREEN plus corrected full round `triad-b-p1-r2`: all four SAFE, matching integrity, ADMITTED_SAFE. macOS 1042 passed; Ubuntu 24.04 1040 passed, 2 filesystem skips. [PR 27](https://github.com/codefoundry-io/triad-codex-dispatch/pull/27) is a separate integration state; deployment not claimed. [Spike](../spikes/2026-09-20-b-terminal-custody.md). |
-| claude-03, google-01, codex-03 | P2: allocation provenance and verified export before cleanup | OPEN. Preserve unproven roots; no deletion based only on a name/UID/age or a plausible marker. |
+| claude-03, google-01, codex-03 | P2: allocation provenance and verified export before cleanup | CLOSED in source `a85a8006c671da94c5a4f7c49a3c9e0acb12cc5c`, full round `triad-b-p2-r2` ADMITTED_SAFE; [B PR 28](https://github.com/codefoundry-io/triad-codex-dispatch/pull/28). macOS 1081, Ubuntu 1079 + 2 skips; exact evidence custody and cleanup verified. [Spike](../spikes/2026-09-20-b-owned-cleanup.md). |
 | claude-06, codex-05 | P3a: original JSON duplicate rejection and reserved verdict binding completeness | OPEN. Preserve arbitrary raw-schema routes. |
 | claude-01, codex-01 | P3b: bind all prepared-review conditions into the digest | OPEN. Replay each changed-condition axis; preserve both review basis routes. |
 | codex-10 | P4: process-cwd relative path resolution | OPEN; resolve D-B2 full-evidence/redaction boundary before affected custody work. |
