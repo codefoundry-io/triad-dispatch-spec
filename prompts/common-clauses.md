@@ -2,10 +2,10 @@
 
 > Seed = host A's shipped text, dumped verbatim from `review_scratch.py` (SoT `~/triad`, sha256 690830273600…) on 2026-09-19. Placeholders: `<worktree>`, `<review-id>`, `<content-digest>`. Vendoring rule: `README.md` § How a host uses a revision.
 
-## adversarial-framing (R-VERIFY; CONTESTED D-10 — neutral vs adversarial, codex cross-review pending)
+## adversarial-framing (R-VERIFY; D-10 CLOSED by owner Q3 via the codex session: "증거 중심으로 통일하고 무결함 결론도 허용" — this replaces A's shipped "assume a defect IS present" constant at adoption)
 
 ```text
-Assume a subtle defect IS present and hunt for what the authoring leader and the per-task reviews missed — a rubber-stamp pass is a failed review. Cite file:line PRECISELY and verify every line number before you assert it.
+Actively try to DISPROVE the change's correctness and completeness; report only findings that carry concrete evidence (file:line, verified before you assert it) and a stated impact. A no-defect conclusion is valid when you enumerate the criteria you checked — do not invent a finding to avoid it, and do not rubber-stamp: an unexamined pass is a failed review.
 ```
 
 ## severity-instruction (R-AGREE)

@@ -7,6 +7,7 @@
       "surface": "engine-transport",
       "rule": "R-TERMINAL",
       "summary": "Normal child exit with inherited stdout/stderr; incomplete stdin; timeout; catchable SIGTERM/SIGHUP",
+      "input": "a vendor child that exits normally with inherited pipes / one whose stdin write fails / one that exceeds the timeout / one killed by SIGTERM",
       "expected": "Success only after readers joined and the owned group is reaped; incomplete stdin = fail closed (A token input-delivery-failed / exit 65; B RunResult flag); timeout and signals leave a terminal record and no orphan",
       "tests": {
         "A": "tests/unit/wrappers/t48*, tests/integration/f12* (stdin); timeout/signal: todo",
@@ -18,6 +19,7 @@
       "surface": "engine-transport",
       "rule": "R-TERMINAL",
       "summary": "Child or reader-thread start failure after partial setup",
+      "input": "a reader-thread or child start that raises after partial setup",
       "expected": "Terminal failure recorded; partial resources released; no success token",
       "tests": {
         "A": "todo",
@@ -29,6 +31,7 @@
       "surface": "engine-transport",
       "rule": "R-CLEANUP",
       "summary": "Fresh repair-IPC files under the cap-based prune",
+      "input": "a run-log dir over its file cap containing a sibling file younger than the age floor",
       "expected": "A file younger than the age floor survives a cap prune; only the time-based sweep may delete by age",
       "tests": {
         "A": "todo (cap path has no floor — verified 2026-09-19)",
@@ -40,6 +43,7 @@
       "surface": "cleanup",
       "rule": "R-CLEANUP",
       "summary": "Foreign directories, false markers, symlinks, dirty or untracked content in the review root",
+      "input": "a review root holding a foreign date-prefixed `*.pruning` dir, a symlink, a dirty file",
       "expected": "Preserved; cleanup refuses without deleting and states what it observes",
       "tests": {
         "A": "todo (`.pruning` name-shape branch deletes — verified 2026-09-19)",
@@ -51,6 +55,7 @@
       "surface": "cleanup",
       "rule": "R-CLEANUP",
       "summary": "Partial deletion resumes only with a verifiable ownership claim",
+      "input": "an interrupted cleanup with a partially removed round tree",
       "expected": "Resume requires the allocation record or marker; otherwise refuse",
       "tests": {
         "A": "todo",
@@ -62,6 +67,7 @@
       "surface": "engine-transport",
       "rule": "R-TERMINAL",
       "summary": "Settings-guard release failure after a completed transcript",
+      "input": "a completed transcript followed by a settings-guard restore error",
       "expected": "Still a failure; the transcript is preserved",
       "tests": {
         "A": "todo",
@@ -73,6 +79,7 @@
       "surface": "cleanup",
       "rule": "R-CLEANUP",
       "summary": "Export verified before disposal; cleanup idempotent",
+      "input": "a round whose evidence export has not been verified; a second cleanup call",
       "expected": "Second cleanup is a no-op; disposal never precedes export verification",
       "tests": {
         "A": "todo",
@@ -84,6 +91,7 @@
       "surface": "exit-tokens",
       "rule": "R-TOKENS",
       "summary": "Exit-token membership",
+      "input": "every token the host's classifier can emit",
       "expected": "Every emitted token is in contracts/exit-tokens.json with the same code; exceptions listed explicitly (the shipped `is not None` assert is vacuous on both hosts)",
       "tests": {
         "A": "todo",
@@ -95,6 +103,7 @@
       "surface": "engine-transport",
       "rule": "R-RECEIPT",
       "summary": "Transport receipt fields",
+      "input": "one dispatch on each route",
       "expected": "Receipt carries stdin delivery class, route, binary, observed version",
       "tests": {
         "A": "todo",
@@ -106,6 +115,7 @@
       "surface": "engine-transport",
       "rule": "R-RECEIPT",
       "summary": "Audit and run-log field schema",
+      "input": "one audit line and one run-log record per host",
       "expected": "Both hosts write the agreed fields; a leg mislabelling its family is caught by binding, not by the audit",
       "tests": {
         "A": "todo",
@@ -117,6 +127,7 @@
       "surface": "engine-transport",
       "rule": "R-NOCOST",
       "summary": "Child environment scrub set as data",
+      "input": "a leader env carrying loader, credential, endpoint and model-selector variables",
       "expected": "Loader/interpreter injection variables removed on every route; credential/endpoint/model-selector removal per the agreed set (A: no per-call seam today — verified)",
       "tests": {
         "A": "todo",
@@ -128,6 +139,7 @@
       "surface": "roster",
       "rule": "R-ROSTER",
       "summary": "Roster resolution",
+      "input": "no file / a file overriding one default by name / a file with an unknown key / two Google CLIs present",
       "expected": "No file = three standing legs at recommended defaults; file entry overrides by name; unknown key refused; resolved roster printed before dispatch; unselected legs never start; runtime Google resolution recorded",
       "tests": {
         "A": "tests/unit/skills/t7*, t8* (v1 config arms) — v2: todo",
@@ -139,6 +151,7 @@
       "surface": "verdict-wire",
       "rule": "R-AGREE",
       "summary": "Agreement and release",
+      "input": "legs returning SAFE, Minor-only MERGE WITH FIXES, a blocking finding, and no result",
       "expected": "Blocking finding from any leg blocks; Minor-only MERGE WITH FIXES counts as agreement; a leg that did not run is not agreement; probe-refuted / owner-decided releases recorded",
       "tests": {
         "A": "todo",
@@ -150,6 +163,7 @@
       "surface": "verdict-wire",
       "rule": "R-BIND",
       "summary": "Verdict binding",
+      "input": "a verdict with a wrong review_id / family / digest / attempt / route; a raw reply with a duplicate member",
       "expected": "review_id + leg identity + attempt + family + resolved route + content digest must match; duplicate JSON members rejected at the original-text boundary (A: only the raw-reply admission rejects today — verified)",
       "tests": {
         "A": "tests/unit/skills/* validate_verdict cases (partial)",
@@ -161,6 +175,7 @@
       "surface": "gemini-policy",
       "rule": "R-CONTAIN",
       "summary": "Gemini policy allow/deny sets equal the contract file",
+      "input": "the shipped TOML vs the contract file",
       "expected": "Allow: read tools; deny: write/replace/shell/mcp_*; proposed `*` deny and `grep_search` row once agreed",
       "tests": {
         "A": "tests/unit/wrappers/t25-gemini-sandbox.sh (explicit conflict only)",
@@ -172,6 +187,7 @@
       "surface": "gemini-policy",
       "rule": "R-NOCOST",
       "summary": "Gemini preflight",
+      "input": "gemini 0.33 / a missing capability / an API-key auth path / hardened default with --sandbox omitted",
       "expected": "Refuses below CLI 0.34.0, on a missing capability, when auth is not the approved subscription route; effective posture computed BEFORE the conflict/policy checks (A ordering defect — verified)",
       "tests": {
         "A": "todo",
@@ -183,6 +199,7 @@
       "surface": "gemini-policy",
       "rule": "R-NOCOST",
       "summary": "Credential scrub on the gemini route",
+      "input": "a leader env carrying Google credential variables on the gemini route",
       "expected": "Google credential / ADC / Vertex / endpoint / model-selector variables absent from the child env",
       "tests": {
         "A": "todo",
@@ -194,6 +211,7 @@
       "surface": "gemini-policy",
       "rule": "R-NOCOST",
       "summary": "Google review leg default model",
+      "input": "a roster with no gemini model / the Pro-high default / an explicit other model",
       "expected": "Default = the Pro-high tier on agy and on gemini (dispatch-time slug from the roster, never in code); a different model is accepted only as an explicit roster choice to evaluate a future model and is validated against the route's catalog; the resolved model is recorded in the receipt",
       "tests": {
         "A": "todo",
@@ -205,6 +223,7 @@
       "surface": "review-lifecycle",
       "rule": "R-RETRY",
       "summary": "Failed leg, nothing changed",
+      "input": "one leg failed to run; source, prompts, roster, model, route unchanged",
       "expected": "Only the failed leg is re-dispatched on the same bound basis; other legs' results are retained; the receipt records attempt 2",
       "tests": {
         "A": "todo",
@@ -216,6 +235,7 @@
       "surface": "review-lifecycle",
       "rule": "R-REREVIEW",
       "summary": "Reviewed bytes or review conditions changed after a round",
+      "input": "a fix wave applied after a round",
       "expected": "New basis digest; every participating leg reviews the full agreed scope; prior findings delivered as fenced data; no approval carried forward; no focused re-confirm path exists",
       "tests": {
         "A": "todo (SKILL.md rule 5(b) deletion at two sites)",
@@ -227,7 +247,8 @@
       "surface": "verdict-wire",
       "rule": "R-AGREE",
       "summary": "Blocking finding from an informational leg",
-      "expected": "Blocks the round until released by a rule-4 path; the leg's acceptance label grants no exemption",
+      "input": "an informational leg returning a verified Critical",
+      "expected": "Blocks the round until released by an R-AGREE release path; the leg's acceptance label grants no exemption",
       "tests": {
         "A": "todo",
         "B": "codex-fill"
@@ -238,6 +259,7 @@
       "surface": "roster",
       "rule": "R-ROSTER",
       "summary": "Model and effort reach the actual invocation for every vendor",
+      "input": "a roster naming model/effort for each vendor",
       "expected": "The roster's per-vendor block appears in the rendered argv / native tool arguments; an unsupported value is refused at the adapter with the reason",
       "tests": {
         "A": "todo",
@@ -249,6 +271,7 @@
       "surface": "agy-containment",
       "rule": "R-BIND",
       "summary": "Two same-family legs in one round",
+      "input": "two agy legs in one round",
       "expected": "Each leg has its own bound read-audit evidence and binding; one leg's hook/audit cannot satisfy another's",
       "tests": {
         "A": "todo (read_audit_gate.sh keys on x-* today)",
@@ -260,10 +283,23 @@
       "surface": "engine-transport",
       "rule": "R-PLATFORM",
       "summary": "Per-platform outcomes",
+      "input": "a run on macOS and a run on Ubuntu 24.04",
       "expected": "macOS and Ubuntu 24.04 results recorded separately; an unrun platform is listed NOT RUN",
       "tests": {
         "A": "todo",
         "B": "codex-fill"
+      }
+    },
+    {
+      "id": "C25",
+      "surface": "selected-investigations",
+      "rule": "R-INVEST",
+      "summary": "Selected investigation preserved",
+      "input": "one chosen leg with a custom prompt, an authorized extra read root and web enabled",
+      "expected": "The chosen model/effort/perspective and the extra root/web reach the actual invocation; the result is free-form or custom-schema; no review verdict is demanded and no roster accounting occurs",
+      "tests": {
+        "A": "tests/*/dispatch/* (existing --web/--cwd dispatch cases; ids to map)",
+        "B": "tests/test_provider_wrappers.py:1331 raw-route test (codex-fill)"
       }
     }
   ]

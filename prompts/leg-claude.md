@@ -48,7 +48,7 @@ findings must be non-empty when the verdict is not SAFE TO MERGE; SAFE TO MERGE 
 OUTPUT INTEGRITY: before finishing, verify the object ends with its outermost closing brace `}` (the object closer AFTER the findings array's `]`). Your reply = that one JSON object, then ONE final line containing exactly <END-VERDICT> and nothing else (this marker line is the single permitted non-JSON content — it resolves, rather than contradicts, the JSON-only rule above; the admission tool consumes it mechanically, and a reply lacking it is refused as possible tail loss).
 ```
 
-## order (the host renderer concatenates in this order; `common:` names a clause in `common-clauses.md`)
+## order (A-only clauses are skipped on B; the host renderer concatenates in this order; `common:` names a clause in `common-clauses.md`)
 
 1. claude-output-shape-notice
 2. claude-intro
@@ -56,6 +56,7 @@ OUTPUT INTEGRITY: before finishing, verify the object ends with its outermost cl
 4. claude-tree-entry
 5. common:severity-instruction
 6. common:verdict-selection-rule
+0. common:smell-criterion (inserted after verdict-selection-rule; renumber at render)
 7. claude-binding-line
 8. claude-verdict-shape
 9. common:repo-relative-pin

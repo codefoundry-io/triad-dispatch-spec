@@ -15,9 +15,9 @@
 # outrank these denies. VERIFIED 2026-09-19 against version-pinned source:
 # packages/core/src/policy/config.ts at v0.46.0 and v0.60.0 (identical ternary;
 # the CLI help string "Additional policy files" is misleading for the user tier).
-# ⚠️ Live ENFORCEMENT still to be e2e-confirmed on an enterprise/Vertex/API-key
-# tier (individual-tier auth is deprecated → IneligibleTierError): run one
-# write-attempt under `--sandbox read-only` and confirm the write tool is denied.
+# Approved route = CLI login without API keys (reference/review-rules.md#R-NOCOST); the
+# older Vertex/API-key enforcement-test wording is HISTORICAL. Live enforcement of the
+# denies is confirmed where gemini is in service (owner briefing, R-GOOGLE).
 
 # --- allow read tools ---
 [[rule]]

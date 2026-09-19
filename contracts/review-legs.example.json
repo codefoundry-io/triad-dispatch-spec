@@ -8,9 +8,11 @@
       "acceptance": "required",
       "claude": {
         "agent": "cross-family-review-reviewer",
+        "model": null,
         "effort": "xhigh"
       },
-      "timeout_s": 900
+      "timeout_s": 900,
+      "note": "model null = the host's default (A: the agent's frontmatter; B: its claude CLI default); agent applies on A only"
     },
     {
       "name": "codex",
@@ -21,7 +23,8 @@
         "model": null,
         "reasoning": "xhigh"
       },
-      "timeout_s": 900
+      "timeout_s": 900,
+      "note": "model null = the host's default codex model"
     },
     {
       "name": "google",
@@ -36,19 +39,20 @@
         "model": "<pro-high slug for the gemini CLI>",
         "effort": "high"
       },
-      "timeout_s": 900,
-      "note": "vendor google = resolved at dispatch by the host's shipped chain (R-GOOGLE); default model = the Pro-high tier on either CLI (R-NOCOST); other models only to evaluate a future model"
+      "timeout_s": 600,
+      "note": "vendor google = resolved at dispatch by the host's shipped chain unless route pins agy|gemini (R-GOOGLE); default model = Pro family + verifiable high on either CLI (R-NOCOST); timeout adapter-validated (B formal gemini route requires 600 s)",
+      "route": "auto"
     },
     {
       "name": "x-claude-high",
       "vendor": "claude",
-      "enabled": true,
+      "enabled": false,
       "acceptance": "informational",
       "claude": {
         "agent": "cross-family-review-reviewer-high",
         "effort": "high"
       },
-      "note": "second claude arm; `acceptance` is data only — a verified blocking finding from this leg blocks the round (R-AGREE)"
+      "note": "opt-in example of a second claude arm (enable to run it); acceptance is data only — a verified blocking finding from this leg blocks the round (R-AGREE)"
     },
     {
       "name": "trial",
@@ -62,5 +66,5 @@
       "note": "trial model on the Google family (agy block); quota exhausted 2026-09-18; acceptance is data only (R-AGREE)"
     }
   ],
-  "_comment": "fields and resolution rules: reference/review-rules.md#R-ROSTER; keys deliberately absent: CHANGELOG.md rev-0"
+  "_comment": "runnable default = the three enabled legs; other entries are opt-in examples. Fields and resolution rules: reference/review-rules.md#R-ROSTER; keys deliberately absent: CHANGELOG.md rev-0"
 }

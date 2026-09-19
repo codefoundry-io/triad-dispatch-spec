@@ -1,76 +1,94 @@
 {
   "schema": "triad-units.v1-draft",
-  "note": "surface -> common shipped name -> contract -> preserved host exceptions -> host paths (case ids live in cases/cases.json `surface`; owner = the host maintainer; B paths at 105a1e4, codex to confirm). Parity scope: reference/review-rules.md#R-PARITY",
+  "note": "surface -> common shipped name -> contract -> preserved host exceptions -> host paths (A_source = ~/triad SoT path; A_shipped = flattened export path in triad-dispatch; B = source = shipped at 105a1e4, codex to confirm). Case ids live in cases/cases.json `surface`. Parity scope: reference/review-rules.md#R-PARITY",
   "units": {
     "engine-transport": {
       "common": "bin/_common.py",
       "contract": "contracts/exit-tokens.json, contracts/receipt-fields.json (todo)",
       "exceptions": "A native claude leg + codex CLI wrapper; B native codex leg + claude CLI wrapper; vendor-specific argv/auth stay host-specific",
-      "A": "3rd-Agent/wrappers/_common.py (_run_once, _drain, scrubbed_child_env, _prune_dir_by_caps)",
+      "A_source": "3rd-Agent/wrappers/_common.py (_run_once, _drain, scrubbed_child_env, _prune_dir_by_caps)",
+      "A_shipped": "bin/_common.py",
       "B": "bin/_common.py"
     },
     "exit-tokens": {
       "common": "bin/_common.py map_classification_to_exit",
       "contract": "contracts/exit-tokens.json",
       "exceptions": "A 18 tokens incl. input-delivery-failed; B 16 tokens, route-mismatch unmapped — D-11 aligns",
-      "A": "3rd-Agent/wrappers/_common.py map_classification_to_exit",
+      "A_source": "3rd-Agent/wrappers/_common.py map_classification_to_exit",
+      "A_shipped": "bin/_common.py",
       "B": "bin/_common.py map_classification_to_exit"
     },
     "verdict-wire": {
       "common": "bin/verdict_schema.py",
       "contract": "contracts/leg-verdict.schema.json (after D-3)",
       "exceptions": "A's raw-reply admission (`admit_verdict.py`) stays host-local; lossless field mapping pending D-3",
-      "A": "3rd-Agent/wrappers/verdict_schema.py; .claude/skills/triad-cross-family-review/lib/validate_verdict.py (raw-reply admission, A-only)",
+      "A_source": "3rd-Agent/wrappers/verdict_schema.py; .claude/skills/triad-cross-family-review/lib/validate_verdict.py (raw-reply admission, A-only)",
+      "A_shipped": "bin/verdict_schema.py; skills/triad-cross-family-review/lib/validate_verdict.py",
       "B": "bin/verdict_schema.py"
     },
     "roster": {
       "common": "config/review-legs.example.json",
       "contract": "contracts/review-legs.example.json (schema todo)",
       "exceptions": "B's project-scope file location = D-5; no shared user-global dependency",
-      "A": ".claude/skills/triad-cross-family-review/lib/review_scratch.py (x-leg config loader, prepare)",
+      "A_source": ".claude/skills/triad-cross-family-review/lib/review_scratch.py (x-leg config loader, prepare)",
+      "A_shipped": "skills/triad-cross-family-review/lib/review_scratch.py; references/review-legs.example.json",
       "B": "bin/review_round.py prepare + references/reviewer-routing.md"
     },
     "google-resolution": {
       "common": "(rule only — reference/review-rules.md#R-GOOGLE)",
       "contract": "reference/review-rules.md#R-GOOGLE (prose; no schema)",
       "exceptions": "A skip-and-log vs B refuse on 'neither installed' = recorded host policy (N16)",
-      "A": ".claude/skills/triad-cross-family-review/references/leg-contracts.md § Google-family leg selection (bash snippet)",
+      "A_source": ".claude/skills/triad-cross-family-review/references/leg-contracts.md § Google-family leg selection (bash snippet)",
+      "A_shipped": "skills/triad-cross-family-review/references/leg-contracts.md",
       "B": "bin/review_round.py select_google_route"
     },
     "review-lifecycle": {
       "common": "bin/review_round.py",
       "contract": "reference/process.md",
       "exceptions": "A keeps open/touch/close and sibling-resolved helpers moving as one unit; B keeps fingerprint-worktree/render-worktree, guarded-worktree and prepared-directory modes; destructive behavior defined by fences, not a forced rename; no generic `legs` command",
-      "A": ".claude/skills/triad-cross-family-review/lib/review_scratch.py (open, touch, close, capture, verify, prepare) + agy_hook.py, read_audit_gate.sh, validate_verdict.py as siblings",
+      "A_source": ".claude/skills/triad-cross-family-review/lib/review_scratch.py (open, touch, close, capture, verify, prepare) + agy_hook.py, read_audit_gate.sh, validate_verdict.py as siblings",
+      "A_shipped": "skills/triad-cross-family-review/lib/{review_scratch,agy_hook,validate_verdict}.py, read_audit_gate.sh",
       "B": "bin/review_round.py (prepare, capture, verify, manifest, cleanup, render, render-worktree, fingerprint-worktree, select-google-route)"
     },
     "gemini-policy": {
       "common": "bin/policies/gemini-readonly.toml",
       "contract": "contracts/gemini-readonly.toml",
       "exceptions": "B keeps its current policy filename until the rename is specified; formal Auto/auth constraints are adapter rules",
-      "A": "3rd-Agent/wrappers/policies/gemini-readonly.toml; 3rd-Agent/wrappers/gemini_wrapper.py",
+      "A_source": "3rd-Agent/wrappers/policies/gemini-readonly.toml; 3rd-Agent/wrappers/gemini_wrapper.py",
+      "A_shipped": "bin/policies/gemini-readonly.toml; bin/gemini_wrapper.py",
       "B": "bin/policies/gemini-formal-readonly.toml; bin/gemini_wrapper.py"
     },
     "prompts": {
       "common": "prompts/*.md (vendored into skills/triad-cross-family-review/)",
       "contract": "prompts/*.md",
       "exceptions": "host skills keep native calling syntax, agent registration, manifests, install scripts/hooks, permissions",
-      "A": ".claude/skills/triad-cross-family-review/lib/review_scratch.py (_render_codex_body, _render_agy_prompt, _render_claude_prompt, clause constants)",
+      "A_source": ".claude/skills/triad-cross-family-review/lib/review_scratch.py (_render_codex_body, _render_agy_prompt, _render_claude_prompt, clause constants)",
+      "A_shipped": "skills/triad-cross-family-review/lib/review_scratch.py (render_*)",
       "B": "bin/review_round.py render_review_prompt, render_worktree_review_prompt; skills/triad-cross-family-review/references/review-prompt-contract.md"
     },
     "agy-containment": {
       "common": "bin/agy_hook.py",
       "contract": "reference/review-rules.md#R-CONTAIN",
       "exceptions": "A live per-round hook; B dormant — activation is a separate design change",
-      "A": ".claude/skills/triad-cross-family-review/lib/agy_hook.py (live per-round hook), lib/read_audit_gate.sh",
+      "A_source": ".claude/skills/triad-cross-family-review/lib/agy_hook.py (live per-round hook), lib/read_audit_gate.sh",
+      "A_shipped": "skills/triad-cross-family-review/lib/agy_hook.py, read_audit_gate.sh",
       "B": "bin/agy_hook.py (dormant), --project non-mutating route"
     },
     "cleanup": {
       "common": "bin/review_round.py (destructive subcommand by fences)",
       "contract": "reference/review-rules.md#R-CLEANUP",
       "exceptions": "A `close` and B `cleanup` keep distinct names",
-      "A": ".claude/skills/triad-cross-family-review/lib/review_scratch.py (_prune_stale, cmd_close)",
+      "A_source": ".claude/skills/triad-cross-family-review/lib/review_scratch.py (_prune_stale, cmd_close)",
+      "A_shipped": "skills/triad-cross-family-review/lib/review_scratch.py",
       "B": "bin/review_round.py cleanup sweep"
+    },
+    "selected-investigations": {
+      "common": "(existing single-shot dispatch path — reference/review-rules.md#R-INVEST)",
+      "contract": "none (free-form or custom-schema output)",
+      "exceptions": "no review verdict; no roster accounting; A `--web`/`--cwd` dispatch skills, B raw dispatch",
+      "A_source": ".claude/skills/triad-{codex,gemini,antigravity,claude}-dispatch/SKILL.md; 3rd-Agent/wrappers/*_wrapper.py (--web, --cwd, --pydantic optional)",
+      "A_shipped": "skills/triad-*-dispatch/; bin/*_wrapper.py",
+      "B": "bin/*_wrapper.py raw route (tests/test_provider_wrappers.py:1331 raw-route test per codex)"
     }
   }
 }

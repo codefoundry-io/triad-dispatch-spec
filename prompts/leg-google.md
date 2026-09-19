@@ -21,6 +21,8 @@ The reviewed change is checked out at <worktree>, pinned at the reviewed commit.
 Your binding values — echo these EXACTLY in your LegVerdict: review_id=<review-id>, family=google, content_digest=<content-digest>.
 ```
 
+> Seed caveats: this grant names A's packet files (`brief.md`, `diff.prod.patch`), A's live hook and A's finding fields; B uses other packet names, a dormant hook and its own schema — the host renderer selects only clauses true for its invocation. The web prohibition inside the grant is A's current posture and does NOT settle D-9; owner-authorized research investigations (R-INVEST) keep their web access.
+
 ## google-read-grant (R-CONTAIN, R-GOOGLE)
 
 ```text
@@ -47,6 +49,7 @@ Return exactly ONE LegVerdict JSON object matching the provided schema — no pr
 4. common:data-fence-caveat
 5. common:severity-instruction
 6. common:verdict-selection-rule
+0. common:smell-criterion (inserted after verdict-selection-rule; renumber at render)
 7. google-binding-line
 8. google-read-grant
 9. google-findings-shape-pin

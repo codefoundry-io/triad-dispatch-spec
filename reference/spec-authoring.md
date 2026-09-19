@@ -65,7 +65,7 @@ case ids are red.
 - Code (deterministic, thin, added only when a repeated manual check exists): a `spec-check` that resolves every anchor,
   case id and unit reference; a digest check that a host's vendored prompt or contract equals the source at the adopted
   revision. Neither exists yet; they are described so the first one is small.
-- AI: detecting ambiguity while authoring, reviewing a rule's meaning, judging a finding. Never pass/fail.
+- AI: detecting ambiguity while authoring, reviewing a rule's meaning, judging a finding semantically. AI never decides a case's pass/fail; deterministic schema and integrity validation is code.
 
 ## 7. Not in this lab (rev-0)
 

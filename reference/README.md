@@ -6,7 +6,7 @@ bug to fix in the same change.
 
 ## One source per fact
 
-| Fact | Source of truth (in this repository unless noted) | Derived forms (never edited by hand) |
+| Fact | Source of truth (in this repository unless noted) | Derived forms (conform to the source — by hand or by generation; a normative change happens only in the source) |
 |---|---|---|
 | Result wire: `LegVerdict` fields, enums, finding fields | `contracts/leg-verdict.schema.json` (NOT YET in rev-0 — after the D-3 adjudication round; until then each host's own schema) | host pydantic models; the shape pins inside `prompts/` |
 | Leg roster: fields, allowed values, recommended defaults | `contracts/review-legs.example.json` now; `contracts/review-legs.schema.json` (NOT YET in rev-0 — `contracts/README.md`) | host loaders; SKILL text points here |

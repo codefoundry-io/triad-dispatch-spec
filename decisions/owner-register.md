@@ -11,9 +11,9 @@ new rule; every row points at the normative location.
 | D-3 | Verdict wire contract: adjudicate via ONE three-family round, each host keeps its own schema until then | `contracts/leg-verdict.schema.json` NOT YET; `R-AGREE` last sentence |
 | D-4 / Q-L | Three-family review is the default; substitutes are contingency; the model behind each slot is replaceable; at least three legs run | `R-ROSTER` |
 | D-9 | Network tools in the gemini review policy: same three-family round, date-anchored web evidence only | `contracts/README.md` (policy row) |
-| D-10 | Reviewer framing adversarial vs neutral: CONTESTED, codex cross-review | `prompts/common-clauses.md § adversarial-framing` |
+| D-10 | Reviewer framing: CLOSED by owner Q3 (codex session) — evidence-centred, a no-defect conclusion allowed | `prompts/common-clauses.md § adversarial-framing` |
 | D-13 | Host A `fixture.sh` contract: header wins (leak prune + 14-day retention), A-side only | none here |
-| D-14 | Untracked symlink in a review tree: CONTESTED, codex cross-review | `R-CLEANUP` (pending) |
+| D-14 / Q4 | Untracked symlink in a review tree: OPEN — codex recommends link-text admission without dereferencing; the owner asked for a purpose-based recommendation and has not yet chosen | `R-PREPARE` (pending) |
 | Q-A | The host where gemini is in service can download from GitHub but not upload | `README.md § How a host uses a revision` (owner pushes; results come back by briefing) |
 | Q-B / Q-H / Q-Q | Agreement = no unresolved BLOCKING finding from any leg; tiers are data | `R-AGREE`, `R-ROSTER` |
 | Q-C | A leg that failed to RUN with nothing changed is retried alone | `R-RETRY` |
@@ -27,6 +27,9 @@ new rule; every row points at the normative location.
 | Q-T | selected option: leaders hand files, the owner pushes | `README.md` step 1 and 4, `AGENTS.md`/`CLAUDE.md` |
 | Q-U | selected option: prompts live here as the one editable copy; hosts vendor at the adopted revision | `prompts/`, `README.md` step 2 |
 | Q-V | Concept only, no UI, no LikeC4; this repository is a lightweight experiment lab | `README.md` purpose, `reference/spec-authoring.md § 7` |
+| Q1 (codex session) | selected option: "코드를 수정하면 전원 재검토. Minor만 남은 원본은 승인 가능" — Minor-only findings do not block the unchanged reviewed bytes; any change to reviewed content = full participating-roster re-review | `R-AGREE`, `R-REREVIEW` |
+| Q2 (codex session) | selected option: "두 CLI 모두 Pro 계열 + 확인 가능한 high로 맞춤; 인증 경계 유지" — Pro family + verifiable HIGH on both Google CLIs; B's Auto-only path and A's unpinned gemini call = migration items | `R-NOCOST`, roster example, C18 |
+| Q3 (codex session) | selected option: "증거 중심으로 통일하고 무결함 결론도 허용" — shared review prompt is evidence-centred and allows a no-defect conclusion; D-10 closed | `prompts/common-clauses.md § adversarial-framing` |
 | Q-W | Google review leg default model = the 3.1 Pro-high tier; Flash retired as a reviewer; the model option stays only so a future model can be evaluated (corrects the leader's "provider default / auto" reading) | `R-NOCOST`, `contracts/review-legs.example.json`, C18 |
 
 Withdrawn at the owner's word: a usage-measurement item (2026-09-19) is not recorded anywhere.

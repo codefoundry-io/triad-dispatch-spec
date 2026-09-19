@@ -7,9 +7,7 @@ skills reference the anchor. Owner rulings are quoted from `decisions/owner-regi
 
 <a id="R-AGREE"></a>
 A round is agreed when NO unresolved BLOCKING finding remains from any participating leg (owner Q-H / Q-Q / Q-S). A
-verified Critical or must-fix finding blocks whatever leg raised it and whatever label the leg carries. A MERGE WITH FIXES
-whose findings are all non-blocking counts as agreement; the non-blocking findings are recorded and fixed without another
-full round (owner Q-S: "Minor-only MERGE WITH FIXES counts (no extra round)"). A missing, failed, invalid or unresolved
+verified Critical or must-fix finding blocks whatever leg raised it and whatever label the leg carries. A MERGE WITH FIXES whose findings are all non-blocking counts as agreement on the reviewed bytes AS THEY STAND (owner Q-S: "Minor-only MERGE WITH FIXES counts (no extra round)"; owner via the codex session, Q1: "코드를 수정하면 전원 재검토. Minor만 남은 원본은 승인 가능"). Fixing those findings changes the reviewed content, which is a new basis (R-REREVIEW); approving the unchanged original and approving later-modified bytes are different acts. A missing, failed, invalid or unresolved
 non-affirmative result is not agreement. A block is released only by a probe that refutes the finding, a fix confirmed by
 the re-review, or a recorded owner decision. The leader verifies findings with evidence; a vote decides nothing. The
 leg-facing clause reserves MERGE WITH FIXES for a blocking finding (`prompts/common-clauses.md § verdict-selection-rule`);
@@ -42,9 +40,16 @@ switched off or breaks, another entry may be enabled in its place — a differen
 perspective (owner D-4); the round receipt records which legs actually ran and their family coverage: two legs of one
 family are one family (the release valve for a short round is R-AGREE). `vendor` is a FAMILY value — `claude` | `codex` |
 `google`; the Google CLI is named only by the `agy` / `gemini` block (R-GOOGLE). Selected investigations (custom prompt, web, extra read roots) are not review rounds and return no verdict
-(owner Q-D). Model and effort must be expressible for every vendor in the roster file; a host validates them against the
-vendor's actual capabilities at dispatch. No configuration is a shared user-global dependency; the resolved roster is
+(owner Q-D). Model and effort must be expressible for every vendor in the roster file — including the claude legs (B runs claude as a CLI child) — and are validated by the host adapter against actual capabilities at dispatch; `model: null` means the host's default; when both Google CLIs are present an explicit `route` (`agy` | `gemini`) in the `google` block pins the route, otherwise the shipped chain resolves it (R-GOOGLE); timeouts are adapter-validated (B's formal gemini route requires 600 s today). The runnable default roster is three legs; further entries in the example are opt-in. No configuration is a shared user-global dependency; the resolved roster is
 shown before any paid dispatch, and unselected legs are never started.
+
+## Selected investigations
+
+<a id="R-INVEST"></a>
+A selected investigation is one or more chosen legs with a custom prompt, model / effort / perspective, authorized extra
+read roots and web, returning a free-form or custom-schema result — never a review verdict (owner Q-D). Both hosts keep
+it as their existing single-shot dispatch path (A `triad-*-dispatch` skills with `--web` / `--cwd`; B raw dispatch); it is
+not a review round and enters no roster accounting.
 
 ## Google leg
 
@@ -67,8 +72,7 @@ because its fix needs a larger change — that is R-STOP.
 
 <a id="R-STOP"></a>
 A finding whose fix requires changing the gated plan or design — a new contract, a new public definition, a restructured
-order of operations — goes to the owner before any design work starts. A CONFLICTED item between legs, or an OSCILLATING
-round (the same item flipping without new evidence), is an owner call at first occurrence. A round whose remaining
+order of operations — goes to the owner before any design work starts. CONFLICTED = two findings that BOTH survive the leader's verification (R-VERIFY) and are mutually incompatible; different overall verdicts or different finding sets alone are not a conflict. A CONFLICTED item, or an OSCILLATING round (the same item flipping without new evidence), is an owner call at first occurrence. A round whose remaining
 findings are all speculative or repro-failed is TERMINAL: record the residuals; the owner decides any blocking row. Line
 or size growth alone is never a stop or an owner question; it is disclosed with its measured figures and the work continues.
 
@@ -113,20 +117,18 @@ The transport receipt and the audit / run-log records carry the agreed field voc
 NOT YET in rev-0): stdin delivery class, resolved route, binary, observed CLI version, attempt.
 
 <a id="R-BIND"></a>
-Every leg's result binds `review_id`, leg identity, attempt, family, resolved route and content digest; a mismatch is an
-INVALID leg, never a pass.
+Every leg's result binds `review_id`, leg identity, attempt, family, resolved route and content digest; a mismatch is an INVALID leg, never a pass. Until the D-3 mapping lands, the prompt seeds and both shipped schemas bind the older field set (review id, family, digest) — host-specific, not yet conformant.
 Duplicate JSON members are rejected at the original-text boundary before extraction or normalization can discard evidence
 (verified gap: A's wrapper schema path and file path accept duplicates; only the raw-reply admission rejects).
 
 ## Preparation, verification, cleanup (lifecycle obligations)
 
 <a id="R-PREPARE"></a>
-`prepare` pins the reviewed basis (commit + content digest), writes the brief, the CODE-only gated patch and the test
-patch separately, the history, and the per-round containment artefacts the host uses (A: the agy PreToolUse hook); resolves
+`prepare` pins the reviewed basis (commit + content digest), writes the brief, the gated patch and the test patch as separate files (separation is PRESENTATION: relevant tests, policy and prompt text inside the agreed scope stay visible, bound and reviewed; host packet file names are mapped in `units.json`), the history, and the per-round containment artefacts the host uses (A: the agy PreToolUse hook); resolves
 the roster from the registry with the recommended defaults; prints one COMPLETE dispatch line per enabled leg; captures the
 round snapshot. It refuses on a malformed registry entry and never launches a provider itself. A change to a rule,
 schema, prompt clause or policy file is behavioral review scope even when the file contains only text; the docs-never-gate
-rule covers narrative documentation only.
+rule covers narrative documentation only. Untracked symlink inside the review tree: OPEN (owner Q4 pending) — A refuses the tree, B fingerprints the link text without following it; the shared rule is decided by the owner after the purpose-based recommendation (see `decisions/owner-register.md`).
 
 <a id="R-VERIFY"></a>
 The leader verifies every finding against the reviewed bytes before acting: REAL (reproduced) → minimal fix and full
@@ -134,9 +136,7 @@ re-review (R-REREVIEW); refuted by a probe → recorded refutation, source uncha
 speculative → recorded residual, no code. Reviewer labels are claims, never repair instructions; a vote decides nothing.
 
 <a id="R-CLEANUP"></a>
-Cleanup exports and verifies the round's evidence first, then releases only resources the helper can prove it allocated
-(marker or allocation record — never a name shape); it refuses without deleting, states what it observes, and points at the
-one documented recovery when a tree is not its own. A second cleanup is a no-op. Cap-based pruning of run-log and repair-IPC
+Cleanup exports and verifies the round's evidence first, then releases only resources the helper can PROVE it allocated or claimed (its own allocation record or marker — never a name shape; an empty directory or a plausible-looking marker can still be foreign); uncertain residue is preserved and reported; it refuses without deleting, states what it observes, and points at the one documented recovery when a tree is not its own. A second cleanup is a no-op. Cap-based pruning of run-log and repair-IPC
 files keeps a minimum age floor so a fresh sibling file is never deleted to satisfy a cap (mtime is not only a sort key).
 
 ## No cost, CLI only
@@ -145,11 +145,7 @@ files keeps a minimum age floor so a fresh sibling file is never deleted to sati
 Both hosts call vendor CLIs only — no vendor HTTP API, SDK or API key. Login is the user's own OAuth login in each CLI;
 wrappers check the binary and never enter or store credentials. Billing follows the AUTHENTICATION type, not the model
 flag (Gemini CLI v0.60.0 `contentGenerator.ts`: auth is selected before the model is resolved); environment scrubbing and
-the absence of `-m` are hygiene, not proof of the billing route. Default model for the
-Google review leg (agy or gemini): the Pro-high tier — Flash was retired as a reviewer (0 unique blocking defects over ten
-rounds, owner 2026-09-14) and lower tiers are not review-capable (owner 2026-09-19). The slug is a dispatch-time value in
-the roster's `agy` / `gemini` block, never a constant in code; the model option stays selectable only so a future model can
-be evaluated, and a host validates the chosen value against the catalog its route exposes. Deterministic
+the absence of `-m` are hygiene, not proof of the billing route. Default model for the Google review leg on BOTH CLIs: the Pro family with a verifiable HIGH thinking configuration (owner Q-W; owner via the codex session, Q2: "두 CLI 모두 Pro 계열 + 확인 가능한 high로 맞춤; 인증 경계 유지"). agy: the `gemini-3.1-pro-high` catalog slug; gemini CLI: a route-valid Pro model whose default thinking level is HIGH (v0.60.0 `defaultModelConfigs.ts` gives Gemini 3 Pro `ThinkingLevel.HIGH`; the agy slug is NOT a portable gemini CLI argument). Flash was retired as a reviewer (0 unique blocking defects over ten rounds, owner 2026-09-14). Slugs are dispatch-time values in the roster's `agy` / `gemini` block, never constants in code; the configured default is recorded separately from the exposed runtime identity; the model option stays selectable only so a future model can be evaluated. B's Auto-only formal path and A's unpinned gemini invocation are MIGRATION items, not conformance. Deterministic
 provider-free checks (help, version, policy, argv, env, preflight) stay in each host's automated suite; only authenticated
 service checks go through the owner-briefing route (R-GOOGLE); an unrun authenticated check is unverified, never green. Gemini formal review requires CLI
 `>= 0.34.0` (PR #20639 lands the headless policy-allow fix) and tests the declared supported range. Gemini `--policy`

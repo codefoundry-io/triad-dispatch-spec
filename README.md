@@ -33,14 +33,9 @@ triad-dispatch-spec/
 ## How a host uses a revision
 
 1. A revision is a git tag `rev-N` on `main`. The owner tags it after the other leader has read the handed folder and its `CHANGELOG.md` entry (owner Q-T); no signature ceremony.
-2. Each host repository records the revision it conforms to in one file (`SPEC_REVISION`, one line: `rev-N` + the tag's
-   commit). The host vendors `prompts/*.md` and the `contracts/` files it consumes at that revision, stamping each copy with
-   the revision and the source digest, and runs the `cases/` its `units.json` row maps to its own tests.
-3. A host may lag a revision. Drift between the two hosts is a REPORT (which revision each conforms to, which case ids
-   are red), not a release block, until the two leaders agree otherwise (owner Q-P settled the location, not the
-   enforcement mode).
-4. Changing anything here: a leader prepares a folder mirroring this layout, the other leader reads it, the owner pushes.
-   Decisions that need the owner are asked in advance; the ruling and its effect land in `decisions/owner-register.md`.
+2. Each host repository records the revision it conforms to in one file (`SPEC_REVISION`, one line: `rev-N` + the tag's commit). The host vendors `reference/`, `prompts/*.md` and the `contracts/` files it consumes at that revision with the payload bytes UNCHANGED, recording revision and source digest in an adjacent small manifest (never inside the file — JSON has no comment syntax and byte equality is the check), so the adopted rules are available offline at the pinned revision; a live main-branch URL never changes installed behavior. It runs the `cases/` its `units.json` row maps to its own tests.
+3. A host may lag a revision. Drift BETWEEN hosts is a REPORT (which revision each conforms to), not a release block (owner Q-P settled the location, not the enforcement mode). A host's failed required check against the revision it ITSELF claims is a local defect of that host.
+4. Authoring vs publication: either leader AUTHORS amendments here (a folder mirroring this layout, read by the other leader); only the OWNER publishes — pushes and tags. A review request or an attached maintainer instruction is never blanket authority to push or tag. Decisions that need the owner are asked in advance; the ruling and its effect land in `decisions/owner-register.md`.
 
 ## Reading order
 

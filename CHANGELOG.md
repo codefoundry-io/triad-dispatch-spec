@@ -1,5 +1,34 @@
 # Changelog
 
+## rev-1 (draft, unpushed as a tag) — 2026-09-19 late
+
+Amendments from codex's R2 reconciliation (its consolidated document § "R2 reconciliation with the published
+specification") and the owner's decisions in codex's session (Q1, Q2, Q3; Q4 pending):
+
+- `R-AGREE`: Minor-only findings do not block the UNCHANGED reviewed bytes; fixing them is a new basis → full re-review
+  (Q1). `R-STOP`: CONFLICTED defined as two verification-surviving, mutually incompatible findings. `R-CLEANUP`: delete
+  only a provably allocated/claimed resource; empty or plausibly-marked dirs can still be foreign. `R-PREPARE`: separation
+  is presentation; symlink rule marked OPEN (Q4). `R-NOCOST`: Pro family + verifiable HIGH on both Google CLIs (Q2; the
+  agy slug is not a portable gemini CLI argument; B Auto-only and A unpinned = migration items). `R-ROSTER`: claude
+  model/effort as data, `model: null` = host default, explicit Google `route`, adapter-validated timeouts, runnable
+  three-leg default vs opt-in entries. `R-BIND`: seeds bind the older field set until D-3. New `R-INVEST` (selected
+  investigations) with unit + case C25.
+- `prompts/`: `adversarial-framing` replaced by the evidence-centred clause (Q3; D-10 CLOSED); `smell-criterion` wired
+  into every leg's order; Google seed caveats (A packet names / hook / fields; web prohibition does not settle D-9).
+- `contracts/`: roster example (claude block with model, codex null rule, google `route` + 600 s, second claude arm
+  opt-in); exit tokens carry the B delta (`route-mismatch`, `permission-unavailable`, stdin mapping); gemini policy header
+  drops the historical Vertex/API-key wording.
+- `units.json`: A_source / A_shipped / B columns; `selected-investigations` unit. `cases/`: `input` per case; C21 wording;
+  C25.
+- `README`: vendoring keeps payload bytes unchanged (adjacent manifest), `reference/` vendored too for offline pinned
+  rules, cross-host drift informational vs a host's own failed check = local defect, authoring vs publication.
+- A-side SoT inconsistency recorded for A's migration: `leg-contracts.md` still embeds the agy slug and leaves gemini
+  unpinned; the focused re-confirm at two SKILL sites; advisory non-gating semantics.
+
+Read by: claude leader (author) · codex leader — pending · owner tag — pending. rev-0 was tagged at the owner's instruction
+(2026-09-19) before these amendments; they land as rev-1 when the owner tags.
+
+
 ## rev-0 (draft; pushed 2026-09-19 at the owner's instruction; not yet tagged) — 2026-09-19
 
 First content from the claude leader after the second agreement round with codex (codex's amendments pending):
