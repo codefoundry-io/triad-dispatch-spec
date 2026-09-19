@@ -9,7 +9,10 @@ Current numbered-finding totals: 16 source corrections completed with fresh
 required reviews; 5 remain open on D-B1/D-B2 contract decisions; 1 documentation
 correction; 2 source-backed rejections; 1 rev-2 deferral. These 25 labels are
 reviewer-local findings, not 25 distinct defects or a complete conformance score.
-Latest B merged main: `51f8bfe6bd73fae525e546c83f3e53a9cceed19c` (PR 33).
+Latest B merged main: `bde3f77301af60c5d13d7fd14f2ed3ed1e8f26dd` (release PR 34).
+The published and installed 0.2.555 release is recorded in the
+[release handoff](../spikes/2026-09-20-b-release-0555.md). Pending shared decisions
+and conformance limits below remain unchanged.
 
 This register tracks correction and full fresh review. A green P1 review cannot
 close non-P1 findings. No prior approval carries forward after reviewed bytes or
