@@ -1,3 +1,146 @@
+# Codex-host B: current status and Claude handoff
+
+## Current implementation status — 2026-09-20
+
+This section supersedes the completion labels in the preserved release audit
+below. It changes no normative rule, schema, prompt, policy payload or runtime
+behavior. A remains read-only until the owner-designated B handoff point.
+
+| Basis | Verified state |
+|---|---|
+| Published B implementation | `8f12bd58e401d061ba4a9bc889791e24718fb915`, feature branch `codex/agy-web-evidence`, open PR 37; P1, P2 and P4 completed |
+| B documentation refresh | `3d62b7cc370d2c72fc439a431d5f78ab76875b98`, pushed on the same branch; only README/handoff/checklist files, no P3 source |
+| B remote main | `56f0f6657084f81516217ee51698f9b18cfc71dc`; feature publication is not merge or installation |
+| Local B P3 draft | `_common.py` packaged-loader change, untracked `bin/verdict_v2.py` and adapter tests; no operational v2 switch or final fresh GREEN |
+| A inspected read-only | `92c8afd500499d8736afcc28b39a87a4f87fed50`; tracked source unchanged, unrelated untracked material preserved |
+| Latest fetched shared main | `2eb883fee59e66556ee7c7f87189b38231136622` |
+| Published authoring basis before this update | `11582b0f6fe6cc6bd292cbb90dfd07dab452ed75`; candidate branch, not shared main |
+| Payload provenance | Schema bundle `055204c`; P4 policy/investigation amendment `6f0f274`; reading newer authoring history does not repin payload bytes |
+| Adoption/release | Only `rev-0` exists in remote shared tags. No new adoption, merge, install or release is claimed; the prior 0.2.555 release receipt does not prove these feature-branch changes are installed. |
+
+A fresh native source audit (`gpt-5.6-terra`, `high`, `fork_turns=none`, runtime
+metadata UNEXPOSED) checked P3 wiring without edits, tests or providers. The
+leader verified the findings and retained the existing condition-digest and
+capture/verify baseline. This audit is not a new formal admission round.
+
+### Current case register
+
+| Cases | Implemented and previously verified | Remaining obligation |
+|---|---|---|
+| C1, C2, C6 | Reader/stdin/owned-group supervision, partial setup and guard-release custody; P1 adds catchable parent-signal reconciliation. `tests/test_terminal_transport.py`, `test_parent_signals.py`, `test_antigravity_stream_json.py`. | Retain final regressions; no SIGKILL/host-failure or every-provider guarantee. |
+| C3–C5, C7 | Fresh-IPC age floor, proven allocation, verified export, inventory, resumable cleanup and idempotence. `tests/test_log_cleanup.py`, `test_review_cleanup_custody.py`. | Implemented for B-owned resources; retain these controls in P3. |
+| C8 | Shared map membership and explicit alias/direct-exit exceptions; B `6653bdc`, `tests/test_exit_token_contract.py`. | Implemented; new map rows are not new emitted repair states. |
+| C9, C10 | P1 common CLI transport in audit/failure IPC; actual stdin/route/binary/version, legacy attempt=1. [B producer](https://github.com/codefoundry-io/triad-codex-dispatch/blob/8f12bd58e401d061ba4a9bc889791e24718fb915/bin/_common.py#L325-L336); `test_common_transport_receipt.py`. | Native receipt production, per-entry review attempt progression and v2 collection. Capacity/schema-repair retries are not review attempts. |
+| C11, C17 | Common injection scrub and Google route-specific scrub. `test_provider_wrappers.py`, `test_google_diagnostics.py`. | Preserve in P3; not live principal/authentication proof. |
+| C12 | P2 defaults, `.agents/triad-review-legs.json` discovery, strict merge-by-name validation and enabled-roster display. [B resolver](https://github.com/codefoundry-io/triad-codex-dispatch/blob/8f12bd58e401d061ba4a9bc889791e24718fb915/bin/review_roster.py#L42-L89); `test_review_roster.py`. | Runtime prepare/dispatch does not consume it; `capabilities_checked` is false. |
+| C13, C14, C30 | Canonical schemas, strict original JSON, six-binding offline validator and legacy isolation. [B validator](https://github.com/codefoundry-io/triad-codex-dispatch/blob/8f12bd58e401d061ba4a9bc889791e24718fb915/bin/validate_v2.py#L74-L99); `test_validate_v2.py`. | Shaped prompts, active producers and N-result admission must switch together. Local adapter remains a draft. |
+| C15 | P4 exact separate B 999/998 profile with web denies; existing search/catch-all/Plan-transition protections retained. [B policy consumer](https://github.com/codefoundry-io/triad-codex-dispatch/blob/8f12bd58e401d061ba4a9bc889791e24718fb915/bin/gemini_wrapper.py#L73-L135); `test_investigation_completion.py`. | B1–B3 and A V1–V5 live checks NOT RUN; byte equality is not effective-policy proof. |
+| C16, C18, C22 | Existing selected-binary version/help/preflight checks and P2 separate model/effort data. | Roster-to-native/CLI capability and argument mapping; legacy formal Gemini still uses Auto. Explicit v2 must request route-valid Pro/HIGH without changing authentication or inventing runtime identity. |
+| C19 | Existing capacity/schema-repair retries and failed-round evidence retention. | Unchanged-basis failed-entry-only review retry, immutable attempt 2 and retained valid siblings. Valid negative verdicts are not transport retries. |
+| C20 | Condition digest and capture/final fingerprint verification. [B capture/verify](https://github.com/codefoundry-io/triad-codex-dispatch/blob/8f12bd58e401d061ba4a9bc889791e24718fb915/bin/review_round.py#L1859-L1907). | Full v2 roster/condition binding and fenced prior findings/rebuttals delivered to every entry on changed-basis full review. |
+| C21, C23 | Fixed-family legacy admission and paired Google custody. | N-entry aggregation, informational blockers, separate family coverage and exclusive per-name/attempt result/read-evidence custody. |
+| C24 | P4 macOS 1,429 passed; Ubuntu 24.04 unprivileged run 1,427 passed + two existing filesystem skips. | Complete P3/final integrated verification; current runs do not certify drafts or the authenticated install/dispatch matrix. |
+| C25 | P4 raw prompts/custom schemas/models plus authorized additional input roots; Gemini comma-path and unbound REVIEW expansion refusal. `test_investigation_completion.py:62`. | Preserve through P3; no mandatory investigation envelope or permanent web archive. |
+| C26, C27 | Guarded link-text/no-follow evidence and frozen route/executable/version baseline. | Bind v2 entries to existing controls. Prepared-copy refusal/dormant hook remain; no OS-containment claim. |
+| C28 | P4 entry-cwd-relative inputs, checks and masked summary/audit records. [B helpers](https://github.com/codefoundry-io/triad-codex-dispatch/blob/8f12bd58e401d061ba4a9bc889791e24718fb915/bin/_common.py#L499-L576); `test_wrapper_relative_paths.py`, `test_investigation_completion.py:21`. | Implemented; preserve the accepted diagnostic limitations below. |
+| C29 | Both raw Google `--web` triggers append the shared clause last, including Gemini schema repair. [B tests](https://github.com/codefoundry-io/triad-codex-dispatch/blob/8f12bd58e401d061ba4a9bc889791e24718fb915/tests/test_investigation_completion.py#L97-L183). | URL-body prefix loss is a non-fatal known issue; affected evidence remains incomplete/UNSURE. No new failure, per-call reprobe or vendor-fix claim. |
+
+### What remains to implement
+
+1. Vendor the four published v2 review prompt files with provenance; connect v2
+   renderer, wrapper producer and authoritative collector together, keeping
+   explicit legacy and raw/custom-schema entry points.
+2. Consume the P2 roster in preparation, validate route/model/effort before
+   inference and print complete native/CLI invocations under existing auth guards.
+3. Bind all six result axes to immutable per-entry/attempt result/read-evidence
+   locations and collect actual native/CLI transport.
+4. Aggregate all N entries including informational entries, independent family
+   coverage, missing/invalid results, Minor-only selection deviations and
+   same-family result/read-evidence swap rejection.
+5. Retry only failed entries on an unchanged basis; retain siblings and attempts.
+   Changed code/conditions require fresh full-scope review by all enabled entries
+   with prior findings/rebuttals delivered as data.
+6. Finish fresh RED/GREEN, platform regressions, new-file distribution coverage,
+   plan review and final integrated review.
+
+The local producer adapter has 33 focused leader-passing tests; it is not final
+fresh GREEN or completed P3. The [Claude producer spike](../spikes/2026-09-20-b-cross-site-and-producer-spikes.md)
+supports a bounded producer projection while full local validation stays strict.
+That synthetic echo is not actual review/admission; the draft is not distribution-covered.
+
+D-B1/D-B2/D-5 are **settled**, not outstanding owner choices: separate policies,
+existing masking/failure-only logs without a new web store, and the selected B
+roster path. Keep the legacy workspace four-leg development gate separate from
+public v2 roster/retry semantics.
+
+### Verification-only and publication work
+
+- [B1–B3](../contracts/gemini-readonly-b.verify.toml) and
+  [A V1–V5](../contracts/gemini-readonly.verify.toml): NOT RUN, service evidence
+  gaps rather than missing policy files.
+- AGY 1.2.7 legacy-search compatibility is unverified: release notes/init
+  inventory differ and the requested grep was not actually called. Model prose
+  is not a tool-failure result. Preserve routing; this is separate from the
+  accepted URL-body known issue.
+- P4 `triad-b-p4-r1`: four SAFE, ADMITTED_SAFE, digest
+  `3b3f3414f05714417dd73d6d2ea600eabd19bfec12a06c305441e138fdcc3209`,
+  integrity verified and exact temporary custody cleaned after export. Dedicated
+  GREEN: 108 focused / 1,429 full macOS; Ubuntu 1,427 + two skips. These prior
+  results were not rerun for this documentation-only refresh.
+- Accepted P4 diagnostic limits: invalid extra-directory candidate may show
+  entry cwd while the underlying error names the rejected path; missing required
+  jsonschema during Gemini provenance parsing exits 1 instead of 3. Both refuse
+  before inference and preserve masking.
+- Final case/rule/unit reconciliation, integrated review, clean distribution,
+  approved merge and explicit adoption/install/release remain. The proposed
+  repository-wide spec/drift checker is separate authoring tooling, not missing
+  current payload-hash validation or a new P3 requirement.
+
+### Log and review-resource lifecycle
+
+The normative source is [R-CLEANUP](../reference/review-rules.md#R-CLEANUP), with
+the terminal flow in [process.md](../reference/process.md) and C3/C4/C5/C7.
+It requires verified export before temporary review-root deletion, proven
+ownership, preserved uncertain residue, idempotence and a fresh-IPC age floor
+even under caps. It does not prescribe common numeric thresholds or automatic
+expiry for all retained evidence.
+
+The complete B operational table is [README log retention](https://github.com/codefoundry-io/triad-codex-dispatch/blob/3d62b7cc370d2c72fc439a431d5f78ab76875b98/README.md#log-retention-and-lifecycle).
+Source at B `8f12bd5`: `_common.py:260–280,2305–2392,3003–3136`;
+`review_round.py:1221–1353`. Existing log/cleanup tests cover these paths.
+No new cleaner, logger, timer or deletion was introduced.
+
+A's next-run floor is 7,200 seconds at [A common:3676](https://github.com/codefoundry-io/triad/blob/92c8afd500499d8736afcc28b39a87a4f87fed50/3rd-Agent/wrappers/_common.py#L3670-L3707);
+B's is 3,600. That difference alone does not violate R-CLEANUP. A's cap loop at
+[A common:3386–3395](https://github.com/codefoundry-io/triad/blob/92c8afd500499d8736afcc28b39a87a4f87fed50/3rd-Agent/wrappers/_common.py#L3386-L3409)
+still unlinks old-sorted entries without an age-floor check. Carry forward C3's
+existing fresh-sibling requirement when A resumes, preserving read-audit
+primary/copy semantics rather than copying B's storage layout.
+
+Debug files, durable exports, task `_runs` records and provider-owned AGY brain
+data are not covered by next-run failure-IPC cleanup. The
+[known-issue disposition](2026-09-20-owner-follow-up.md#ki-agy-url-body-prefix-non-fatal-known-issue)
+adds no permanent log and does not authorize deleting collected evidence.
+
+### Updated A follow-up for completed P4
+
+| Topic | A source at `92c8afd` | Follow-up; A stays unchanged in this step |
+|---|---|---|
+| C15 policy | `3rd-Agent/wrappers/policies/gemini-readonly.toml`, separate 100/200 profile | Preserve A profile; do not copy B's 999/998 policy merely for symmetry. Both manifests remain unrun. |
+| C25 extra roots | `3rd-Agent/wrappers/antigravity_wrapper.py:108–109,1216` uses cwd-derived review grants; A Gemini/Claude parsers have no extra-root option | Preserve review grants and add separately authorized raw roots when A adopts C25. |
+| C28 | `_common.py:1148–1190` still rejects relative prompt/cwd; B now resolves and records masked paths | Apply captured entry-cwd semantics to A's wrappers, including its Codex subprocess, retaining checks/masking. |
+| C29 | `antigravity_wrapper.py:1381–1393` already appends its clause; A Gemini has no explicit web trigger | Preserve AGY research-agent selection; add authorized Gemini trigger when adopting that path. No permanent web archive. |
+| AGY search | `antigravity_wrapper.py:277–280,317–321` custom legacy tool list and init-inventory caveat | Do not infer live availability from init/model prose; do not silently alter the common prompt. |
+
+The archived A source pairs below remain useful at `92c8afd`; their B completion
+labels and D-B1/D-B2 pending claims are superseded above. Recheck each A source
+before its implementation. Preserve native Claude, Codex subprocess, raw admit,
+read-audit, worktree and auth guards. Read this published commit plus latest
+shared main; report disagreements on the same basis under R-AUTHORING-SYNC.
+
+<details>
+<summary>Preserved 0.2.555 release audit — historical basis, not current completion status</summary>
+
 # B 0.2.555: contract audit and Claude implementation handoff
 
 Status: informational source audit, 2026-09-20. This document neither changes the
@@ -185,3 +328,5 @@ For a common design/contract/prompt change, record evidence/version, current and
 proposed behavior, impact on both hosts, preserved features and verification in
 the shared repository, and request review of that same commit. Keep the shared
 expected outcomes intact; implementation and adoption remain distinct.
+
+</details>

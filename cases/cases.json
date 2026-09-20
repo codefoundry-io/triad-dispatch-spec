@@ -107,7 +107,7 @@
       "expected": "Receipt carries stdin delivery class, route, binary, observed version",
       "tests": {
         "A": "todo",
-        "B": "NOT IMPLEMENTED: common receipt-fields.json now exists; host emission/admission integration remains pending; existing audit/preflight data is not common-schema conformance."
+        "B": "PARTIAL at 8fd5245 (P1): tests/test_common_transport_receipt.py verifies common CLI transport production, actual stdin/route/binary/version and not-started/unexposed cases. Legacy invocation attempt remains 1. Native receipt production and per-entry/attempt v2 collection remain pending. Current status: decisions/host-b-0555-contract-compliance-handoff.md."
       }
     },
     {
@@ -119,7 +119,7 @@
       "expected": "Both hosts write the agreed fields; a leg mislabelling its family is caught by binding, not by the audit",
       "tests": {
         "A": "todo",
-        "B": "NOT IMPLEMENTED: common receipt-fields.json now exists; host emission/admission integration remains pending; tests/test_claude_receipt.py and tests/test_log_cleanup.py preserve current distinct audit/failure IPC behavior."
+        "B": "PARTIAL at 8fd5245 (P1): tests/test_common_transport_receipt.py verifies identical common transport data in audit and failure IPC while existing masking/failure-only behavior survives. Native and v2 per-entry admission integration remain pending; audit does not replace result binding."
       }
     },
     {
@@ -143,7 +143,7 @@
       "expected": "No file = three standing legs at recommended defaults; file entry overrides by name; unknown key refused; resolved roster printed before dispatch; unselected legs never start; runtime Google resolution recorded",
       "tests": {
         "A": "tests/unit/skills/t7*, t8* (v1 config arms) — v2: todo",
-        "B": "GAP / rev-2 schema dependency: no roster loader; existing selector/paired-leg fixtures are not arbitrary-roster conformance."
+        "B": "PARTIAL at 7cc70a7 (P2): bin/review_roster.py and review_round resolve-roster implement defaults, .agents/triad-review-legs.json discovery, merge-by-name, strict validation and enabled-roster display; tests/test_review_roster.py. Actual prepare/dispatch/capability consumption remains pending; capabilities_checked=false is explicit."
       }
     },
     {
@@ -179,7 +179,7 @@
       "expected": "Each shipped profile is BYTE-IDENTICAL to its selected complete contract: A contracts/gemini-readonly.toml (unchanged 100/200 profile), B contracts/gemini-readonly-b.toml (999 allow/deny plus existing 998 catch-all and Plan Mode transition denies). Both explicitly deny google_web_search and web_fetch. B moves only those tools out of its prior allow set; no overlay or loss of existing protection. Runtime effect requires attributable engine call/result or authoritative policy-exclusion evidence; model prose or missing files alone never prove enforcement. Unknown evidence is INCONCLUSIVE. Preserve local reads/search. A's V1-V5 remain NOT RUN and its proposed rows remain subject to contracts/gemini-readonly.verify.toml. B live checks are separate in contracts/gemini-readonly-b.verify.toml, also NOT RUN. Source/byte tests do not imply runtime conformance.",
       "tests": {
         "A": "tests/unit/wrappers/t50-gemini-policy-web-deny-c15.sh (file shape + byte identity with the contract, offline); runtime checks V1-V5: NOT RUN (owner runs where gemini is in service; V3/V5 use a candidate copy through the direct CLI invocation in the manifest)",
-        "B": "PARTIAL: source 900ddc5 and tests/test_review_no_web.py cover all-family rendered REVIEW no-web, AGY formal six-rule transient/project routes, preflight read-only refusal, flag omission, raw preservation and lease isolation/restoration; triad-b-p5-web-r2 ADMITTED_SAFE. Existing test_provider_wrappers.py protects B 999/998 profile, not shared policy byte equality. D-B1 is materialized in a separate candidate profile; host adoption is still OPEN. Authoring tests/test_policy_profiles.py verifies payload invariants and manifest digest only. B1-B3 and A V1-V5 NOT RUN."
+        "B": "P4 implemented at 8f12bd5: tests/test_investigation_completion.py verifies exact separate B candidate bytes, digest and explicit web denies while preserving 999/998 controls; existing test_review_no_web.py and provider tests retain AGY/render/raw boundaries. triad-b-p4-r1 ADMITTED_SAFE. B1-B3 and A V1-V5 remain NOT RUN; implementation/source equality is not effective-policy proof or revision adoption."
       }
     },
     {
@@ -287,7 +287,7 @@
       "expected": "macOS and Ubuntu 24.04 results recorded separately; an unrun platform is listed NOT RUN",
       "tests": {
         "A": "todo",
-        "B": "C29 slice ce68780: macOS 1348 passed; Ubuntu 24.04 1346 passed, 2 existing filesystem skips. Fresh skill behavior, validator and provider-free lifecycle passed; formal round triad-b-agy-web-r2 all four SAFE with matching integrity. See spikes/2026-09-20-b-agy-web-evidence.md. This is not complete installation or all-provider conformance."
+        "B": "P4 8f12bd5: dedicated fresh GREEN 108 focused and 1429 full macOS; Ubuntu 24.04 unprivileged uid 65534: 1427 passed, two existing filesystem skips. Skill validator/provider-free lifecycle passed; triad-b-p4-r1 four SAFE, ADMITTED_SAFE, integrity and owned cleanup verified. Not P3-draft, installation or all-provider conformance; current record: decisions/host-b-0555-contract-compliance-handoff.md."
       }
     },
     {
@@ -299,7 +299,7 @@
       "expected": "The chosen model/effort/perspective and the extra root/web reach the actual invocation; the result is free-form or custom-schema; no review verdict is demanded and no roster accounting occurs",
       "tests": {
         "A": "tests/*/dispatch/* (existing --web/--cwd dispatch cases; ids to map)",
-        "B": "Existing raw-route coverage: tests/test_provider_wrappers.py::test_gemini_route_keeps_native_json_without_review_protocol. Custom prompt/optional schema and caller-authorized scope preserved; explicit web trigger/evidence remains C29 gap."
+        "B": "P4 8f12bd5: tests/test_investigation_completion.py covers authorized raw extra roots, native argv, invalid-root and formal-expansion refusal, Gemini comma-path refusal and custom-schema preservation. Existing raw-route tests remain; both explicit Google web triggers are implemented under C29 without a mandatory investigation envelope."
       }
     },
     {
@@ -335,7 +335,7 @@
       "expected": "Existing relative --prompt-file and --cwd values resolve independently against the wrapper PROCESS cwd captured at entry (never child cwd). Preserve configured runtime roots, regular-file/UTF-8/non-empty/existence checks. Existing success summary and audit represent resolved absolute prompt-file and child-cwd values through the host's existing redaction mode (D-B2); no new log and no unmasked-path expansion. Invalid input exits 3 (argument error) before any vendor call, identifying the resolved candidate through the same masking policy.",
       "tests": {
         "A": "todo (t48-style axis on _common._load_prompt_file; today it refuses at :1167)",
-        "B": "PARTIAL at 6653bdc: tests/test_wrapper_relative_paths.py covers process-cwd-relative loading and child cwd, one entry snapshot in all three wrappers, absolute callers and pre-provider invalid-input refusals. tests/test_effective_cwd_receipt.py retains current masking. D-B2 keeps masking; resolved-path success summary/audit implementation remains OPEN; no full C28 conformance claim. See spikes/2026-09-20-b-wrapper-contracts.md."
+        "B": "Implemented at 8f12bd5 (P4), extending 6653bdc: tests/test_wrapper_relative_paths.py and test_investigation_completion.py cover entry-cwd-relative loading, preserved validation, resolved success/audit fields, masking, refusal and vanished entry cwd. Accepted diagnostic limits are recorded in decisions/host-b-0555-contract-compliance-handoff.md; no unmasked-path expansion."
       }
     },
     {
@@ -347,7 +347,7 @@
       "expected": "The vendor prompt ENDS with the shared web-evidence clause after the caller's text; only tool names are substituted per Google CLI. Existing audit/redaction/failure-log/retention rules apply (D-B2); do not require a new permanent exact-prompt or fetched-page store. Verify exact assembly in tests and actual fetch/interpretation using bounded task-authorized evidence. A URL in prose, search summary or successful exit never proves a fetch or complete body. A cited but unfetched/unverifiable URL, placeholder, undated claim or incomplete page evidence remains UNSURE. Preserve existing host read-audit capability without activating dormant hooks for symmetry.",
       "tests": {
         "A": "tests/unit/wrappers/t49-agy-web-evidence-c29.sh (prompt tail + audit record over a fake agy) + the live old-vs-new run recorded in the spike",
-        "B": "PARTIAL at ce68780: tests/test_agy_web_evidence.py proves explicit AGY --web, exact shared clause last, caller-byte preservation, formal/read-only/invalid-asset refusals and existing masking. Four-leg review admitted SAFE. One live pair completed 1 -> 12 page fetches; delivered bodies can be truncated, so complete research is not claimed. Gemini investigation integration remains. Owner D-B2 rejects a new permanent evidence store; common wording alignment is in decisions/2026-09-20-host-policy-and-evidence-amendment.md; implementation remains separately tracked. See spikes/2026-09-20-b-agy-web-evidence.md."
+        "B": "P4 8f12bd5: test_agy_web_evidence.py plus test_investigation_completion.py verify explicit raw AGY/Gemini triggers, clause-last assembly including Gemini schema repair, caller/custom-schema preservation and refusals. Cross-site live evidence records AGY URL-body prefix loss as non-fatal KI-AGY-URL-BODY-PREFIX under the owner disposition; incomplete evidence stays UNSURE where relevant. No new permanent store, dispatch failure or provider-fix claim. See decisions/2026-09-20-owner-follow-up.md and the current handoff."
       }
     },
     {
@@ -360,7 +360,7 @@
       "tests": {
         "shared": "tests/test_schemas.py; original schema absence RED 65 failed; terminal-newline RED 6 failed / 65 passed; final local authoring verification recorded in decisions/rev-2-implementation-spec.md. No host conformance implied.",
         "A": "NOT RUN / host integration pending",
-        "B": "Offline candidate validation IMPLEMENTED: bin/validate_v2.py and tests/test_validate_v2.py validate original JSON, canonical shape and six expected bindings with pinned local schemas and no external retrieval. Covered by the current 1330-test suite; roster/dispatch/render/transport/collector integration and adoption remain pending. See spikes/2026-09-20-b-contract-implementation-audit.md."
+        "B": "Offline candidate validation IMPLEMENTED: bin/validate_v2.py and tests/test_validate_v2.py validate original JSON, canonical shape and six expected bindings with pinned local schemas/no external retrieval. P2 configuration resolver is also implemented. Operational roster/dispatch/render/native-transport/collector integration remains P3; local producer adapter is an uncommitted draft. Adoption remains separate. See current handoff for completed P4 verification."
       }
     }
   ]
