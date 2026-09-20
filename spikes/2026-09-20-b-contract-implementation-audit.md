@@ -12,8 +12,9 @@ source and existing execution receipts. These audits did not run tests or provid
 and are not a formal multi-family admission round.
 
 Status below distinguishes shipped local behavior, missing integration and unrun
-evidence. The new C29 plan/tests are uncommitted; no production change is counted
-until its RED/GREEN and subsequent evidence are available.
+evidence. The original table is based on `56f0f665`; the explicit C29 follow-up
+below uses source `ce68780e8a29cb7455dbc94e660486fcea8c0679` and its new evidence.
+That follow-up is pushed source, not a merge, installed revision or deployment.
 
 ## Why C29 was left behind
 
@@ -58,7 +59,7 @@ Paths and lines refer to the B source above unless prefixed A.
 | C26 | Implemented local no-follow/link-text review evidence; prompt-controlled target boundary, not OS confinement. | `bin/review_round.py:1549-1578,2214-2219`; `tests/test_review_link_evidence.py:16-70` |
 | C27 | Implemented local route/binary/version binding and no-fallback; authenticated runtime identity is a separate observation. | `bin/review_round.py:1949`; `bin/gemini_wrapper.py:142-205`; `tests/test_gemini_version_floor.py:42-114` |
 | C28 | Partial: relative inputs resolve against process-entry cwd and keep existing validation. Complete success path-summary/audit semantics wait D-B2. | `bin/_common.py:482-515`; `tests/test_wrapper_relative_paths.py:74-154` |
-| C29 | Missing at production HEAD; settled trigger/clause repair now in progress independently of D-B2. Full durable exact prompt/fetch custody remains a separate gap. | [bounded repair](2026-09-20-b-agy-web-evidence.md); `bin/antigravity_wrapper.py:402-448` |
+| C29 | Partial at `ce68780`: AGY trigger/clause-last implemented and reviewed. Live calls increased, but provider page bodies can be truncated. Gemini integration remains. Owner rejects a new permanent evidence store; align common wording rather than implement that superseded proposal. | [bounded repair and live evidence](2026-09-20-b-agy-web-evidence.md); B `bin/antigravity_wrapper.py:53-60,419-423,459-473`; `tests/test_agy_web_evidence.py` |
 | C30 | Offline candidate schema validation is implemented and tested; runtime roster/render/receipt/collector adoption is missing. | `bin/validate_v2.py:74-96`; `tests/test_validate_v2.py`; `contracts/README.md:17-23` |
 
 ## Leader adjudication of audit findings

@@ -1,6 +1,9 @@
 # D-B1: bounded Gemini policy composition proposal
 
-Status: OWNER DECISION PENDING; proposal only. No shared contract, C15 expected
+Status: owner directed separate policies where usage differs; see the
+[current decision](2026-09-20-owner-follow-up.md#d-b1-preserve-separate-policies-where-usage-differs).
+The precise composition below is still a proposal requiring the shared contract
+check; the owner answer alone does not adopt this exact supplement. No C15 expected
 result, host policy, adopted revision or provider configuration is changed.
 Shared remote basis: `2eb883fee59e66556ee7c7f87189b38231136622`.
 A remains read-only at `92c8afd500499d8736afcc28b39a87a4f87fed50`.

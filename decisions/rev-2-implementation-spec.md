@@ -12,8 +12,9 @@ testable remaining obligations before the final Claude implementation handoff.
 This materializes the already aligned v2 wire, named variable roster, receipt
 vocabulary and host integration contract. Existing C1–C29 expected behavior
 remains binding. B leads implementation; A is read-only until the owner resumes
-its work. D-B1 and D-B2 remain separate pending choices until their owner answers
-are recorded. No implementation may turn a pending proposal into an accepted rule.
+its work. The [D-B1/D-B2/D-5 owner answers](2026-09-20-owner-follow-up.md) are now
+recorded; detailed common composition/custody wording still requires the stated
+cross-host check. Do not implement a superseded proposal or claim runtime adoption.
 
 The normative type definitions are the three files under `contracts/`, not a
 second host model definition. Shared clauses remain in `prompts/`. This document

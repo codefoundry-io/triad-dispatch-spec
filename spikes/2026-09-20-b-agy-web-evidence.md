@@ -108,3 +108,47 @@ the native B result alone cannot establish identical A behavior.
 Task-scoped raw diagnostics are retained locally for this requested spike only.
 No new permanent evidence store is added; see the
 [owner's D-B2 decision](../decisions/2026-09-20-owner-follow-up.md).
+
+## Implemented B source and verification
+
+B source: [`ce68780e8a29cb7455dbc94e660486fcea8c0679`](https://github.com/codefoundry-io/triad-codex-dispatch/commit/ce68780e8a29cb7455dbc94e660486fcea8c0679).
+The loader is at `bin/antigravity_wrapper.py:53-60`, option declaration at
+`:419-423`, and pre-provider validation/append at `:459-473`. The final prompt
+continues into unchanged command/audit/failure paths. A remains unchanged at
+`92c8afd` with the existing append at `:1381-1393`; do not replace its distinct
+custom-agent invocation with B's native plan-mode route.
+
+- Fresh dedicated Terra/high RED: 18 expected failures before implementation.
+- Focused C29/no-web/preflight checks: 37 passed; skill validator valid and
+  provider-free lifecycle SUCCESS with matching integrity and exact cleanup.
+- Three initial whole-suite failures were synthetic distribution fixtures
+  missing the newly hashed prompt assets. Only their two inventory entries
+  changed; a separate fresh GREEN passed all 1,348 macOS tests.
+- Ubuntu 24.04: 1,346 passed, two existing filesystem skips.
+- Required round `triad-b-agy-web-r2`: Claude Opus/xhigh, AGY Pro/high, AGY
+  Flash/high and fresh Codex Terra/xhigh all SAFE, matching source integrity,
+  `ADMITTED_SAFE`, verified export and exact owned staging cleanup. Claude's
+  confirmed Minor unused test import at `tests/test_agy_web_evidence.py:4` is
+  deferred to the next reviewed change; no reviewed bytes changed afterward.
+- Earlier preparation r1 failed before any producer at the temporary AGY lock
+  because the root invocation used the filesystem sandbox. Evidence was kept,
+  allocated staging was cleaned, and r2 used the existing authorized host guard
+  lifecycle. This was an execution-context mistake, not a vendor/model failure.
+
+This verifies the bounded AGY invocation repair. Gemini policy V1-V5, public-v2
+runtime integration, complete page delivery, A conformance and deployment remain
+separate claims.
+
+Clean archive verification for `ce68780` passed all 1,348 tests and all 29
+source/archive SHA-256 comparisons. Archive SHA-256:
+`35daf210d6b0b223de64222777df432d12ae78d99893ad928442d2f5cb9dd888`.
+The first archive run had 1,346 passes and two `ps` permission failures because
+the leader again used the filesystem sandbox for process-inspection regressions.
+Its receipt is retained; the unchanged commit passed the canonical verifier under
+authorized host execution. No source workaround, permission-policy weakening or
+test expectation change was used.
+
+[B pull request 37](https://github.com/codefoundry-io/triad-codex-dispatch/pull/37)
+contains the reviewed source; CodeQL passed. This handoff does not merge, install,
+tag or release it. Claude leader should inspect these exact B lines and this
+shared evidence before its own implementation resumes.

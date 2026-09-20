@@ -1,7 +1,9 @@
 # B project roster location — D-5 proposal
 
-Status: pending owner choice. No loader, project file or user-global setting was
-created from this proposal. The settled roster schema and R-ROSTER remain unchanged.
+Status: owner selected `.agents/triad-review-legs.json`; see the
+[current decision](2026-09-20-owner-follow-up.md#d-5-b-project-roster-location).
+No loader, project file or user-global setting has been created. The proposal
+history below is not a pending owner question; schema and merge rules remain unchanged.
 
 `units.json` retains D-5 for B's project-scope file location. The historical A
 [parity plan](https://github.com/codefoundry-io/triad/blob/92c8afd500499d8736afcc28b39a87a4f87fed50/docs/superpowers/plans/2026-09-19-triad-host-parity-plan.md#L602-L610)

@@ -1,6 +1,9 @@
 # D-B2: bounded evidence custody proposal
 
-Status: proposed, not adopted or implemented. Remote main inspected at
+Status: the private-store proposal below was superseded by the
+[owner's no-new-permanent-store decision](2026-09-20-owner-follow-up.md#d-b2-no-new-permanent-web-investigation-evidence-store).
+Do not implement the historical recommendation. Common wording alignment remains
+a separate cross-host task. Original proposal remote main inspected at
 `2eb883fee59e66556ee7c7f87189b38231136622`; B at `ba6344b` plus P1; A at
 `92c8afd500499d8736afcc28b39a87a4f87fed50`. No A files change.
 

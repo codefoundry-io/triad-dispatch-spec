@@ -287,7 +287,7 @@
       "expected": "macOS and Ubuntu 24.04 results recorded separately; an unrun platform is listed NOT RUN",
       "tests": {
         "A": "todo",
-        "B": "Latest completed slice 6653bdc and merged 56f0f665 have identical tree 01daefffd824f3bd37924f077f9360a2bda5fd52: macOS 1330 passed; Ubuntu 24.04 1328 passed, 2 existing filesystem skips. Skill validation, provider-free lifecycle and 27 archive/source hashes passed. See spikes/2026-09-20-b-wrapper-contracts.md. This is not complete installation or live-provider conformance, and excludes later uncommitted C29 work."
+        "B": "C29 slice ce68780: macOS 1348 passed; Ubuntu 24.04 1346 passed, 2 existing filesystem skips. Fresh skill behavior, validator and provider-free lifecycle passed; formal round triad-b-agy-web-r2 all four SAFE with matching integrity. See spikes/2026-09-20-b-agy-web-evidence.md. This is not complete installation or all-provider conformance."
       }
     },
     {
@@ -347,7 +347,7 @@
       "expected": "The prompt the vendor receives ENDS with the shared `web-evidence` clause (`prompts/investigation.md`), appended by the host after the caller's text and recorded with the prompt in the host's audit / run-log; the leg's read audit shows at least one page fetch (agy `read_url_content`, gemini `web_fetch`) for every URL the answer cites; a cited URL absent from the fetch log, a placeholder URL, or a bare year in place of a page date is an UNSURE item, never evidence. Measured before the fix (2026-09-19, agy Pro-high tier): round r1 4 `search_web` / 0 fetches, round r2 1 `search_web` / 0 fetches with placeholder URLs (`spikes/2026-09-19-google-web-evidence.md`)",
       "tests": {
         "A": "tests/unit/wrappers/t49-agy-web-evidence-c29.sh (prompt tail + audit record over a fake agy) + the live old-vs-new run recorded in the spike",
-        "B": "NOT IMPLEMENTED at production 56f0f665: raw Google investigation remains available. Authorized AGY trigger/clause-last repair is in progress independently of D-B2; see spikes/2026-09-20-b-agy-web-evidence.md. Complete exact successful prompt/fetch custody is a separate pending D-B2 boundary. No full C29 conformance claim."
+        "B": "PARTIAL at ce68780: tests/test_agy_web_evidence.py proves explicit AGY --web, exact shared clause last, caller-byte preservation, formal/read-only/invalid-asset refusals and existing masking. Four-leg review admitted SAFE. One live pair completed 1 -> 12 page fetches; delivered bodies can be truncated, so complete research is not claimed. Gemini investigation integration remains. Owner D-B2 rejects a new permanent evidence store; common wording alignment is recorded in decisions/2026-09-20-owner-follow-up.md. See spikes/2026-09-20-b-agy-web-evidence.md."
       }
     },
     {

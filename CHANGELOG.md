@@ -2,6 +2,11 @@
 
 ## rev-2 implementation candidate — 2026-09-20 (not tagged)
 
+- B `ce68780` implements the AGY C29 invocation repair: fresh RED/GREEN,
+  macOS 1,348 / Ubuntu 1,346 plus two existing skips, and four SAFE reviewers
+  with matching integrity. One live pair also exposed incomplete vendor page
+  bodies; preserve that residual rather than claiming complete web research.
+  Source lines, A follow-up and limits are in `spikes/2026-09-20-b-agy-web-evidence.md`.
 - Record the owner's D-B1/D-B2/D-5 answers in
   `decisions/2026-09-20-owner-follow-up.md`: preserve distinct host profiles where
   usage differs, add no permanent investigation-evidence store, and select
