@@ -76,17 +76,19 @@ Paths and lines refer to the B source above unless prefixed A.
 - Accepted stale shared descriptions of B cleanup/normal-exit reaping and stale
   grouping of all C29 work behind D-B2; update status without weakening cases.
 
-## Bounded remaining owner choices
+## Owner decisions and remaining implementation
 
-1. **D-B1:** exact shared Gemini policy plus an enumerated B supplement, or one
-   strengthened common file adopted by both hosts. Blocks policy composition;
-   not roster, receipts, v2 verdict consumers or AGY clause repair.
-2. **D-B2:** preserve ordinary masking plus an explicitly selected private web-
-   investigation evidence destination, or amend the contract to accept incomplete
-   original-text custody. Blocks complete evidence custody; not clause insertion
-   or relative path resolution.
-3. **D-5:** `.agents/triad-review-legs.json`, root-level configuration, or explicit-
-   file-only loading. Blocks default discovery; not the resolver and adapters.
+The [verbatim owner answers and applications](../decisions/2026-09-20-owner-follow-up.md)
+supersede the earlier open-choice wording below and in historical audit snapshots:
+
+1. **D-B1:** keep host-specific policies separate where usage differs; preserve
+   common no-web requirements and B's existing controls. Exact composition and
+   digest semantics still need cross-host contract review and implementation.
+2. **D-B2:** no new permanent web-evidence store. Retain masking and failure logs;
+   use bounded diagnostic/test capture. Align the common custody wording before
+   claiming conformance; do not treat a log subsystem as an implementation gap.
+3. **D-5:** B uses `.agents/triad-review-legs.json`. Discovery/resolution remains
+   unimplemented, but no further owner location decision is needed.
 
 Do not reask settled all-leg agreement, N-leg support, Pro/HIGH intent, full
 re-review after code changes, selected investigation behavior or canonical v2 fields.

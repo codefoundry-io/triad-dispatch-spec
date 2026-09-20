@@ -2,6 +2,11 @@
 
 ## rev-2 implementation candidate — 2026-09-20 (not tagged)
 
+- Record the owner's D-B1/D-B2/D-5 answers in
+  `decisions/2026-09-20-owner-follow-up.md`: preserve distinct host profiles where
+  usage differs, add no permanent investigation-evidence store, and select
+  `.agents/triad-review-legs.json` for B. Common wording/composition amendments
+  require the same-commit cross-host check; no runtime conformance is implied.
 - Audit C1-C30 against B `56f0f665` and A `92c8afd`, separating runtime integration,
   unrun evidence and owner decisions. Correct stale B terminal/cleanup/platform
   descriptions and offline-v2 status; preserve behavioral expectations and
