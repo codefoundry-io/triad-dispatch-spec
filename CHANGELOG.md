@@ -2,6 +2,14 @@
 
 ## rev-2 implementation candidate — 2026-09-20 (not tagged)
 
+- Materialize settled D-B1/D-B2: a separate complete B Gemini profile preserves
+  999/998 and Plan Mode controls with explicit REVIEW web denies; A payload and
+  V1–V5 stay unchanged. B1–B3 remain NOT RUN. C28 success paths use existing
+  masking; C29 uses existing audit/retention with no new permanent evidence store.
+  The shared web-evidence clause itself is unchanged. R-CONTAIN/R-INVEST,
+  C15/C28/C29 and units are aligned; host integration remains separate. See
+  `decisions/2026-09-20-host-policy-and-evidence-amendment.md`.
+
 - B `ce68780` implements the AGY C29 invocation repair: fresh RED/GREEN,
   macOS 1,348 / Ubuntu 1,346 plus two existing skips, and four SAFE reviewers
   with matching integrity. One live pair also exposed incomplete vendor page

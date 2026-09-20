@@ -51,7 +51,10 @@ it as their existing single-shot dispatch path (A `triad-*-dispatch` skills with
 not a review round and enters no roster accounting. Web evidence in an investigation is a FETCHED page: the leg cites the
 URL it fetched and the date or version visible on that page; a search summary is a pointer, never a citation; an
 unfetched, placeholder or undated claim is UNSURE. The host appends the shared clause `web-evidence`
-(`prompts/investigation.md`) LAST on every web-enabled Google research prompt and records the prompt as sent (case C29;
+(`prompts/investigation.md`) LAST on every explicitly web-authorized Google INVESTIGATION. Existing host
+audit/redaction/failure-log/retention rules apply; no new permanent exact-text or page store is required (D-B2).
+Verify prompt assembly in tests and actual fetched-page interpretation through bounded task-authorized evidence.
+Missing or incomplete evidence stays UNSURE; a URL or successful exit alone proves no fetch (case C29;
 measured 2026-09-19: `spikes/2026-09-19-google-web-evidence.md`).
 
 ## Google leg
@@ -72,8 +75,9 @@ checks with the approved invocation documented in the manifest (a direct verific
 candidate policy or preserve engine events; host preflight/authentication boundaries still apply, and this is not
 wrapper conformance), and the result is recorded ONCE, here in `decisions/owner-register.md` (a
 briefing row per check) and in the case's test column; an unrun check is never green, and nothing else is written about
-it on either host beyond a pointer. Current manifest: `contracts/gemini-readonly.verify.toml` (D-9 web-tool denies,
-mutation denies, canonical `grep_search` visibility separately from alias matching, and the proposed `*` catch-all).
+it on either host beyond a pointer. Current manifests: `contracts/gemini-readonly.verify.toml` (A: D-9 web-tool denies,
+mutation denies, canonical `grep_search` visibility separately from alias matching, and the proposed `*` catch-all),
+and `contracts/gemini-readonly-b.verify.toml` (B: B1-B3 on the separate D-B1 profile).
 
 ## Code-smell criterion
 
@@ -93,8 +97,13 @@ or size growth alone is never a stop or an owner question; it is disclosed with 
 
 <a id="R-CONTAIN"></a>
 Review legs read; they do not mutate, execute the candidate, or spawn vendors. The REVIEW operation has no web on any
-family (D-9 RULED 2026-09-19): codex `web_search="disabled"`; agy review agents without web tools (A ships this posture; B's formal builder explicitly denies `read_url(*)`; raw investigations retain web); gemini by the explicit deny rows in `contracts/gemini-readonly.toml`; every review prompt renderer
-stops permitting web reads. Authorized investigations (R-INVEST) keep web. No alignment may introduce a dangerous /
+family (D-9 RULED 2026-09-19): codex `web_search="disabled"`; agy review agents without web tools (A ships this posture; B's formal builder explicitly denies `read_url(*)`; raw investigations retain web); gemini by the explicit deny rows in its host profile below; every review prompt renderer
+stops permitting web reads. Gemini host profiles remain separate under D-B1: A vendors
+`contracts/gemini-readonly.toml`; B vendors `contracts/gemini-readonly-b.toml`. Equality means exact bytes of
+the selected complete profile, with its adjacent digest; no concatenated overlay is implied. Preserve B's
+existing 999/998 allow/deny/catch-all and Plan Mode transition restrictions while moving its two web tools
+to explicit denies. A's profile and V1–V5 manifest stay unchanged; B's live checks are separately recorded
+in `contracts/gemini-readonly-b.verify.toml`. Authorized investigations (R-INVEST) keep web. No alignment may introduce a dangerous /
 yolo permission bypass on any leg (each host discloses its existing permissive-route flags in `units.json` exceptions; none is on a review route). A leg a host runs natively stays native; no leader-model CLI subprocess is
 added for symmetry. Per vendor, the guards that ship today and must survive any alignment (host, symbol):
 
@@ -102,13 +111,14 @@ added for symmetry. Per vendor, the guards that ship today and must survive any 
   on every posture, `web_search="disabled"` unless search is selected (wrapper). The packet-egress precondition for a selected search is carried by A's review SKILL, not the wrapper. These are A's controls, not instructions for B's native session.
 - gemini leg (A `gemini_wrapper.py`): approval modes pinned to `default` / `auto_edit` (plan and yolo removed), the
   read-only × auto_edit conflict refusal, the read-only policy-file precondition, the hardened-install read-only default,
-  write posture requires `--cwd`; the shared read-only policy denies `google_web_search` / `web_fetch` by EXPLICIT rows
+  write posture requires `--cwd`; A's selected read-only profile denies `google_web_search` / `web_fetch` by EXPLICIT rows
   (D-9 RULED 2026-09-19 — `--policy` replaces only the user tier, so an unnamed tool keeps the default tier's decision;
-  runtime effect per `contracts/gemini-readonly.verify.toml`); B: `--help` capability preflight, policy self-check, credential/endpoint/model-selector
+  runtime effect per `contracts/gemini-readonly.verify.toml`); B: `--help` capability preflight, policy self-check against
+  `contracts/gemini-readonly-b.toml` (runtime effect per `contracts/gemini-readonly-b.verify.toml`), credential/endpoint/model-selector
   variables removed from the child on the formal route. Effective posture is computed BEFORE the conflict and policy checks
   (verified defect on A: the hardened default is assigned after the checks).
 - agy leg (A): per-round PreToolUse allow-list hook + hook load check + read-audit gate; B: non-mutating project route (`--mode plan --sandbox read-only`); B's hook stays dormant until separately agreed. The agy hook and the gemini read-only policy are TOOL-NAME controls: neither scopes paths, and the read audit records the argument path as given, not a resolved target — they do not by themselves contain a symlink escape (see the Q4 item in R-PREPARE).
-- all wrappers: binary presence; a relative `--prompt-file` or `--cwd` is ACCEPTED and resolved against the wrapper PROCESS cwd at argument processing (never the child `--cwd`); every existing validation stays — configured runtime roots where configured, regular file, UTF-8, non-empty; the resolved absolute path is recorded in the wrapper summary line and the per-call audit row (both exist on success; the run-log is failure-only) and named as the candidate on a pre-spawn refusal — relative spelling alone is never a reason to refuse (owner directive 2026-09-19 after the recurrence; wording per codex F5). B implements relative resolution and input validation; full success-record semantics remain pending D-B2, and A still refuses relative paths (C28); stdin delivery confirmed or refused (fail closed); process group captured at spawn and
+- all wrappers: binary presence; a relative `--prompt-file` or `--cwd` is ACCEPTED and resolved against the wrapper PROCESS cwd at argument processing (never the child `--cwd`); every existing validation stays — configured runtime roots where configured, regular file, UTF-8, non-empty; the resolved absolute prompt-file and child-cwd paths are represented in the existing success summary and audit row, using the host's current redaction mode (D-B2). Refusal names the resolved candidate through that same masking policy; failure-only run logs remain failure-only. Relative spelling alone is never a reason to refuse (C28). B implements relative resolution and validation; success-path evidence remains an implementation obligation, and A still refuses relative paths; stdin delivery confirmed or refused (fail closed); process group captured at spawn and
   reaped on timeout / abnormal unwind and normal exit under R-TERMINAL (implemented on B; A migration remains); reader and writer completion before success (B now rejects incomplete/error collection; A's remaining source gap is recorded in the current implementation audit); schema validation with one clean repair retry where a leg relies on it; verdict
   binding to review id, family and content digest; round integrity capture/verify.
 - cleanup: refuses without deleting when a tree is not provably its own; ownership is proven by an allocation record or

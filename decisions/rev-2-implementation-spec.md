@@ -13,8 +13,9 @@ This materializes the already aligned v2 wire, named variable roster, receipt
 vocabulary and host integration contract. Existing C1–C29 expected behavior
 remains binding. B leads implementation; A is read-only until the owner resumes
 its work. The [D-B1/D-B2/D-5 owner answers](2026-09-20-owner-follow-up.md) are now
-recorded; detailed common composition/custody wording still requires the stated
-cross-host check. Do not implement a superseded proposal or claim runtime adoption.
+recorded; their [profile and evidence wording amendment](2026-09-20-host-policy-and-evidence-amendment.md)
+is a candidate requiring the same-commit cross-host check. Do not implement a
+superseded proposal or claim runtime adoption.
 
 The normative type definitions are the three files under `contracts/`, not a
 second host model definition. Shared clauses remain in `prompts/`. This document
@@ -149,8 +150,8 @@ needed by R-RETRY and R-BIND, not a second scheduler or provider engine.
 C28 resolves both prompt-file and child cwd independently against the wrapper
 process cwd captured at entry. Keep current root/type/UTF-8/existence checks.
 The child's cwd is never the base for loading the prompt. A malformed argument
-fails before inference. The remaining success-evidence/redaction semantics are
-D-B2, not a reason to keep rejecting relative paths.
+fails before inference. C28 success evidence uses existing host redaction and log
+surfaces under D-B2; no unmasked-path expansion or new logger is required.
 
 C25/C29 extend the existing raw invocation: caller prompt, optional arbitrary
 schema, selected model/effort/perspective and authorized read roots remain usable
@@ -227,5 +228,5 @@ Preserve A's raw-reply admission marker, native Claude invocation and live AGY
 hook/read-audit checks; preserve B's native Codex, legacy development gate and
 dormant hook. Both hosts need the v2 validator, every shaped prompt and bound
 named-entry collection to switch together. Neither host may populate missing
-legacy evidence/coverage/uncertainty by conversion. D-B1/D-B2 are excluded from
-settled implementation until the owner resolves them.
+legacy evidence/coverage/uncertainty by conversion. D-B1/D-B2 owner decisions are
+settled; their linked common amendment is reviewed/published before host adoption.
