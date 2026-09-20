@@ -2,6 +2,10 @@
 
 ## rev-2 implementation candidate — 2026-09-20 (not tagged)
 
+- B `6653bdc` completes shared exit-map parity and C28 loader resolution; source-pinned A follow-up and actual
+  two-OS/four-leg evidence are in `spikes/2026-09-20-b-wrapper-contracts.md`. C28 evidence custody remains D-B2;
+  D-5 project roster location is recorded as a pending proposal. No shared schema, prompt, expected case or tag changes.
+
 - Materialize the aligned v2 verdict, named roster overrides/resolved roster and common transport vocabulary as JSON
   Schema Draft 2020-12. Validate with maintained `jsonschema`; preserve existing Pydantic boundaries and CLI-native
   capabilities without a new schema engine or vendor SDK. Rules: R-AGREE, R-ROSTER, R-BIND, R-RECEIPT; cases C9–C14,

@@ -95,7 +95,7 @@
       "expected": "Every emitted token is in contracts/exit-tokens.json with the same code; exceptions listed explicitly (the shipped `is not None` assert is vacuous on both hosts)",
       "tests": {
         "A": "todo",
-        "B": "GAP: no full emitted-token/direct-exit/alias membership test against contracts/exit-tokens.json; preserve phase-specific stdin behavior and recorded B exceptions."
+        "B": "6653bdc: tests/test_exit_token_contract.py checks all 18 shared map rows, classifier/vendor-map membership, bounded producer-literal census and explicit direct/alias exceptions. Three missing map rows added; producer/stdin/repair behavior unchanged. triad-b-wrapper-contracts-r1 ADMITTED_SAFE; one non-blocking local-variable census suggestion retained after leader verified the current token is registered. See spikes/2026-09-20-b-wrapper-contracts.md."
       }
     },
     {
@@ -335,7 +335,7 @@
       "expected": "Existing: loaded — relative spelling accepted and resolved against the wrapper PROCESS cwd at argument processing (not the child --cwd); every existing validation stays (configured runtime roots where configured, regular file, UTF-8, non-empty); the resolved absolute path appears in the wrapper summary line and the audit row (both exist on success). Missing or invalid: exit 3 (arg error) naming the resolved candidate; no vendor call. NOT YET applied on either host (codex F1). Recorded recurrences: 2026-07-11, 2026-09-19 r2 (both wrapper legs)",
       "tests": {
         "A": "todo (t48-style axis on _common._load_prompt_file; today it refuses at :1167)",
-        "B": "NOT IMPLEMENTED: bin/_common.py::load_prompt_text and validate_wrapper_cwd still refuse relative paths; tests/test_effective_cwd_receipt.py protects current cwd/redaction only."
+        "B": "PARTIAL at 6653bdc: tests/test_wrapper_relative_paths.py covers process-cwd-relative loading and child cwd, one entry snapshot in all three wrappers, absolute callers and pre-provider invalid-input refusals. tests/test_effective_cwd_receipt.py retains current masking. Resolved-path summary/audit semantics remain D-B2; no full C28 conformance claim. See spikes/2026-09-20-b-wrapper-contracts.md."
       }
     },
     {

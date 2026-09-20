@@ -13,7 +13,7 @@
     "exit-tokens": {
       "common": "bin/_common.py map_classification_to_exit",
       "contract": "contracts/exit-tokens.json",
-      "exceptions": "A 18 tokens incl. input-delivery-failed; B 16 tokens, route-mismatch unmapped — D-11 aligns",
+      "exceptions": "A 18 table tokens. B 6653bdc maps all 18 plus the inert permission-unavailable alias; three additions remain map-only, route-mismatch retains direct exit 65 and phase-specific stdin behavior is unchanged. Case C8 and spikes/2026-09-20-b-wrapper-contracts.md record verification.",
       "A_source": "3rd-Agent/wrappers/_common.py map_classification_to_exit",
       "A_shipped": "bin/_common.py",
       "B": "bin/_common.py map_classification_to_exit"
@@ -29,7 +29,7 @@
     "roster": {
       "common": "config/review-legs.example.json",
       "contract": "contracts/review-legs.schema.json, contracts/review-legs.example.json",
-      "exceptions": "B's project-scope file location = D-5; no shared user-global dependency",
+      "exceptions": "B's project-scope file location = pending D-5 (decisions/host-b-roster-location-proposal.md); no shared user-global dependency",
       "A_source": ".claude/skills/triad-cross-family-review/lib/review_scratch.py (x-leg config loader, prepare)",
       "A_shipped": "skills/triad-cross-family-review/lib/review_scratch.py; references/review-legs.example.json",
       "B": "bin/review_round.py and references/reviewer-routing.md; fixed routes today. v2 shared schema now exists; host roster loader NOT IMPLEMENTED."
