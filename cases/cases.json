@@ -287,7 +287,7 @@
       "expected": "macOS and Ubuntu 24.04 results recorded separately; an unrun platform is listed NOT RUN",
       "tests": {
         "A": "todo",
-        "B": "Per-slice macOS/Ubuntu evidence is retained in decisions/host-b-finding-closure.md and linked spikes. Latest completed slice f08e1e8: macOS 1201 passed; Ubuntu 24.04 1199 passed, 2 existing filesystem skips. Both skill validators and provider-free lifecycle passed. This is not complete installation or live-provider conformance."
+        "B": "Latest completed slice 6653bdc and merged 56f0f665 have identical tree 01daefffd824f3bd37924f077f9360a2bda5fd52: macOS 1330 passed; Ubuntu 24.04 1328 passed, 2 existing filesystem skips. Skill validation, provider-free lifecycle and 27 archive/source hashes passed. See spikes/2026-09-20-b-wrapper-contracts.md. This is not complete installation or live-provider conformance, and excludes later uncommitted C29 work."
       }
     },
     {
@@ -332,7 +332,7 @@
       "rule": "R-CONTAIN",
       "summary": "Relative --prompt-file / --cwd resolution (recurring dispatch failure)",
       "input": "a wrapper invoked from a cwd with `--prompt-file rel/brief.md` that exists there; the same with a path that does not exist",
-      "expected": "Existing: loaded — relative spelling accepted and resolved against the wrapper PROCESS cwd at argument processing (not the child --cwd); every existing validation stays (configured runtime roots where configured, regular file, UTF-8, non-empty); the resolved absolute path appears in the wrapper summary line and the audit row (both exist on success). Missing or invalid: exit 3 (arg error) naming the resolved candidate; no vendor call. NOT YET applied on either host (codex F1). Recorded recurrences: 2026-07-11, 2026-09-19 r2 (both wrapper legs)",
+      "expected": "Existing: loaded — relative spelling accepted and resolved against the wrapper PROCESS cwd at argument processing (not the child --cwd); every existing validation stays (configured runtime roots where configured, regular file, UTF-8, non-empty); the resolved absolute path appears in the wrapper summary line and the audit row (both exist on success). Missing or invalid: exit 3 (arg error) naming the resolved candidate; no vendor call. Recorded recurrences: 2026-07-11, 2026-09-19 r2 (both wrapper legs)",
       "tests": {
         "A": "todo (t48-style axis on _common._load_prompt_file; today it refuses at :1167)",
         "B": "PARTIAL at 6653bdc: tests/test_wrapper_relative_paths.py covers process-cwd-relative loading and child cwd, one entry snapshot in all three wrappers, absolute callers and pre-provider invalid-input refusals. tests/test_effective_cwd_receipt.py retains current masking. Resolved-path summary/audit semantics remain D-B2; no full C28 conformance claim. See spikes/2026-09-20-b-wrapper-contracts.md."
@@ -347,7 +347,7 @@
       "expected": "The prompt the vendor receives ENDS with the shared `web-evidence` clause (`prompts/investigation.md`), appended by the host after the caller's text and recorded with the prompt in the host's audit / run-log; the leg's read audit shows at least one page fetch (agy `read_url_content`, gemini `web_fetch`) for every URL the answer cites; a cited URL absent from the fetch log, a placeholder URL, or a bare year in place of a page date is an UNSURE item, never evidence. Measured before the fix (2026-09-19, agy Pro-high tier): round r1 4 `search_web` / 0 fetches, round r2 1 `search_web` / 0 fetches with placeholder URLs (`spikes/2026-09-19-google-web-evidence.md`)",
       "tests": {
         "A": "tests/unit/wrappers/t49-agy-web-evidence-c29.sh (prompt tail + audit record over a fake agy) + the live old-vs-new run recorded in the spike",
-        "B": "NOT IMPLEMENTED: raw Google investigation remains available, but explicit authorized-web trigger, shared clause tail, and complete sent-prompt/fetch evidence are absent. Custody conflict D-B2 in decisions/host-b-preimplementation-audit.md."
+        "B": "NOT IMPLEMENTED at production 56f0f665: raw Google investigation remains available. Authorized AGY trigger/clause-last repair is in progress independently of D-B2; see spikes/2026-09-20-b-agy-web-evidence.md. Complete exact successful prompt/fetch custody is a separate pending D-B2 boundary. No full C29 conformance claim."
       }
     },
     {
@@ -360,7 +360,7 @@
       "tests": {
         "shared": "tests/test_schemas.py; original schema absence RED 65 failed; terminal-newline RED 6 failed / 65 passed; final local authoring verification recorded in decisions/rev-2-implementation-spec.md. No host conformance implied.",
         "A": "NOT RUN / host integration pending",
-        "B": "NOT RUN / host integration pending"
+        "B": "Offline candidate validation IMPLEMENTED: bin/validate_v2.py and tests/test_validate_v2.py validate original JSON, canonical shape and six expected bindings with pinned local schemas and no external retrieval. Covered by the current 1330-test suite; roster/dispatch/render/transport/collector integration and adoption remain pending. See spikes/2026-09-20-b-contract-implementation-audit.md."
       }
     }
   ]

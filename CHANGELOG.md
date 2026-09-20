@@ -2,6 +2,14 @@
 
 ## rev-2 implementation candidate — 2026-09-20 (not tagged)
 
+- Audit C1-C30 against B `56f0f665` and A `92c8afd`, separating runtime integration,
+  unrun evidence and owner decisions. Correct stale B terminal/cleanup/platform
+  descriptions and offline-v2 status; preserve behavioral expectations and
+  revision/adoption boundaries. See `spikes/2026-09-20-b-contract-implementation-audit.md`.
+- Record the settled AGY C29 trigger/clause repair independently of D-B2's full
+  custody choice in `spikes/2026-09-20-b-agy-web-evidence.md`. No audit-redaction
+  or REVIEW web permission change is implied.
+
 - Owner-approved B PRs 35/36 merged; final main is `56f0f66`, with an identical reviewed tree, 1,330 merge-verification
   tests and successful merged-main CodeQL. The integration/draft-to-implementation briefing and grouped remaining
   work are recorded in `spikes/2026-09-20-b-wrapper-contracts.md`. D-B1/D-B2/D-5, public v2 activation and adoption remain open.
