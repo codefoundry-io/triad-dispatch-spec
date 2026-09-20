@@ -107,7 +107,7 @@
       "expected": "Receipt carries stdin delivery class, route, binary, observed version",
       "tests": {
         "A": "todo",
-        "B": "PARTIAL at 8fd5245 (P1): tests/test_common_transport_receipt.py verifies common CLI transport production, actual stdin/route/binary/version and not-started/unexposed cases. Legacy invocation attempt remains 1. Native receipt production and per-entry/attempt v2 collection remain pending. Current status: decisions/host-b-0555-contract-compliance-handoff.md."
+        "B": "Implemented in the local B P3 candidate based on 3d62b7c. Actual CLI transport object and native null binary/version are preserved in invocation-owned custody. Regression sources: tests/test_common_transport_receipt.py, tests/test_v2_evidence_custody.py, tests/test_v2_round_cli.py, tests/test_v2_review_findings.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred."
       }
     },
     {
@@ -119,7 +119,7 @@
       "expected": "Both hosts write the agreed fields; a leg mislabelling its family is caught by binding, not by the audit",
       "tests": {
         "A": "todo",
-        "B": "PARTIAL at 8fd5245 (P1): tests/test_common_transport_receipt.py verifies identical common transport data in audit and failure IPC while existing masking/failure-only behavior survives. Native and v2 per-entry admission integration remain pending; audit does not replace result binding."
+        "B": "Implemented in the local B P3 candidate based on 3d62b7c. Host observations distinguish unknown from observed empty/default; preflight versions are not fabricated as runtime versions. Regression sources: tests/test_common_transport_receipt.py, tests/test_v2_round_cli.py, tests/test_v2_runtime_boundaries.py, tests/test_v2_review_findings.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred."
       }
     },
     {
@@ -131,7 +131,7 @@
       "expected": "Loader/interpreter injection variables removed on every route; credential/endpoint/model-selector removal per the agreed set (A: no per-call seam today — verified)",
       "tests": {
         "A": "todo",
-        "B": "Existing coverage: tests/test_provider_wrappers.py formal env/preflight cases and tests/test_google_diagnostics.py production-scrub fake; preserve shared injection and route-specific scrub sets. No empty-environment requirement."
+        "B": "Implemented in the local B P3 candidate based on 3d62b7c. Common injection scrub plus route-specific environment controls, preserving configured authentication continuity. Regression sources: tests/test_provider_wrappers.py, tests/test_google_diagnostics.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred."
       }
     },
     {
@@ -143,7 +143,7 @@
       "expected": "No file = three standing legs at recommended defaults; file entry overrides by name; unknown key refused; resolved roster printed before dispatch; unselected legs never start; runtime Google resolution recorded",
       "tests": {
         "A": "tests/unit/skills/t7*, t8* (v1 config arms) — v2: todo",
-        "B": "PARTIAL at 7cc70a7 (P2): bin/review_roster.py and review_round resolve-roster implement defaults, .agents/triad-review-legs.json discovery, merge-by-name, strict validation and enabled-roster display; tests/test_review_roster.py. Actual prepare/dispatch/capability consumption remains pending; capabilities_checked=false is explicit."
+        "B": "Implemented P3 candidate: Three defaults, B project discovery, merge-by-name, enabled display and consumption by capability-checked invocation allocation. Malformed review identifier/root path types receive controlled CLI refusal before adapter preparation. Evidence: tests/test_review_roster.py, tests/test_v2_adapters.py, tests/test_v2_rounds.py, tests/test_v2_review_findings.py, tests/test_v2_input_refusals.py. Current verification and publication: decisions/host-b-p3-verification.md."
       }
     },
     {
@@ -155,7 +155,7 @@
       "expected": "A blocking finding or an unresolved open question from any leg blocks; a Minor-only non-affirmative verdict on the unchanged bytes counts as agreement and is recorded as a verdict-selection deviation; a leg that did not run is not agreement; probe-refuted / owner-decided releases are recorded",
       "tests": {
         "A": "todo",
-        "B": "PARTIAL: tests/test_verdict_schema.py::test_safe_accepts_minor_finding and test_not_safe_requires_blocker_or_open_question; Minor-only non-affirmative remains rejected pending wire migration."
+        "B": "Implemented in the local B P3 candidate based on 3d62b7c. Canonical v2 verdict validation and all-entry agreement, including Minor-only negative and blockers/questions. Regression sources: tests/test_validate_v2.py, tests/test_v2_producer_adapter.py, tests/test_v2_rounds.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred."
       }
     },
     {
@@ -167,7 +167,7 @@
       "expected": "review_id + leg identity + attempt + family + resolved route + content digest must match; duplicate JSON members rejected at the original-text boundary (A: only the raw-reply admission rejects today — verified)",
       "tests": {
         "A": "tests/unit/skills/* validate_verdict cases (partial)",
-        "B": "PARTIAL: B bc9ff69 and tests/test_verdict_original_json.py reject duplicate original JSON before normalization, including reserved AGY binding completeness; existing ID/family/digest validation retained. triad-b-p3a-r2 ADMITTED_SAFE. leg_name/attempt/route remain v2-dependent."
+        "B": "Implemented in the local B P3 candidate based on 3d62b7c. Opt-in producers/renderers/collector use all six bindings; explicit legacy wire remains separate. Regression sources: tests/test_validate_v2.py, tests/test_v2_review_prompts.py, tests/test_v2_round_cli.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred."
       }
     },
     {
@@ -191,7 +191,7 @@
       "expected": "Refuses below CLI 0.34.0, on a missing capability, when auth is not the approved subscription route; effective posture computed BEFORE the conflict/policy checks (A ordering defect — verified)",
       "tests": {
         "A": "todo",
-        "B": "PARTIAL: source 5e8b9fb adds tests/test_gemini_version_floor.py for explicit >=0.34.0 probe, SemVer/failure cases and receipt validation; existing help/capability and competing-auth scrub checks retained. Round triad-b-c16-r1 ADMITTED_SAFE. Runtime auth identity and V1-V5 enforcement are not proven."
+        "B": "Implemented in the local B P3 candidate based on 3d62b7c. Version/help/model-policy interface validation before review inference; actual OAuth principal and account entitlement remain unexposed unless independently observed. Regression sources: tests/test_gemini_version_floor.py, tests/test_v2_adapters.py, tests/test_v2_adapter_wrapper_bridge.py, tests/test_v2_review_findings.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred."
       }
     },
     {
@@ -203,7 +203,7 @@
       "expected": "Google credential / ADC / Vertex / endpoint / model-selector variables absent from the child env",
       "tests": {
         "A": "todo",
-        "B": "Existing coverage: tests/test_provider_wrappers.py::test_gemini_formal_preflight_is_provider_free_and_scrubs_competing_auth and formal dispatch environment test. Scrub does not prove OAuth principal."
+        "B": "Implemented in the local B P3 candidate based on 3d62b7c. Google route-specific environment and authentication guards remain in selected v2 and explicit legacy paths. Regression sources: tests/test_provider_wrappers.py, tests/test_google_diagnostics.py, tests/test_v2_google_wrappers.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred."
       }
     },
     {
@@ -215,7 +215,7 @@
       "expected": "Default = the Pro-high tier on agy and on gemini (dispatch-time slug from the roster, never in code); a different model is accepted only as an explicit roster choice to evaluate a future model and is validated against the route's catalog; the resolved model is recorded in the receipt",
       "tests": {
         "A": "todo",
-        "B": "GAP / roster dependency: AGY Pro-high/high preflight exists; Gemini formal -m auto is not the agreed Pro-high default."
+        "B": "Implemented in the local B P3 candidate based on 3d62b7c. Separate Google route blocks, explicit pin, Pro-high requested defaults; Gemini never receives a fabricated effort flag. Regression sources: tests/test_v2_adapters.py, tests/test_v2_google_wrappers.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred."
       }
     },
     {
@@ -227,7 +227,7 @@
       "expected": "Only the failed leg is re-dispatched on the same bound basis; other legs' results are retained; the receipt records attempt 2",
       "tests": {
         "A": "todo",
-        "B": "GAP: skills/triad-cross-family-review/references/convergence.md currently requires a new complete round after a failed leg; same-basis attempt reuse is not implemented."
+        "B": "Implemented in the local B P3 candidate based on 3d62b7c. Diagnosed unchanged-basis failed-entry retry increments attempt and retains siblings/history; preparation failures are preserved without fabricating provider attempts. Regression sources: tests/test_v2_rounds.py, tests/test_v2_round_custody.py, tests/test_v2_runtime_boundaries.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred."
       }
     },
     {
@@ -239,7 +239,7 @@
       "expected": "New basis digest; every participating leg reviews the full agreed scope; prior findings delivered as fenced data; no approval carried forward; no focused re-confirm path exists",
       "tests": {
         "A": "todo (SKILL.md rule 5(b) deletion at two sites)",
-        "B": "PARTIAL: B 7a2fdf3 and tests/test_review_conditions.py bind objective, criteria/order, boundary/order, kind, prepared path, review ID, toolkit bytes and Google receipt/policy bytes into the digest. Existing worktree binding and full fresh-round requirement retained; triad-b-p3b-r2 ADMITTED_SAFE. Prior-finding delivery is separately unproven."
+        "B": "Implemented in the local B P3 candidate based on 3d62b7c. Changed source/conditions require a new full review; prior residual inputs are fenced and bound. Runtime logs do not masquerade as implementation changes; policy bytes remain bound. Regression sources: tests/test_review_conditions.py, tests/test_v2_review_prompts.py, tests/test_v2_rounds.py, tests/test_v2_toolkit_inputs.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred."
       }
     },
     {
@@ -251,7 +251,7 @@
       "expected": "Blocks the round until released by an R-AGREE release path; the leg's acceptance label grants no exemption",
       "tests": {
         "A": "todo",
-        "B": "PARTIAL / roster dependency: fixed-family severity/open-question tests exist; no arbitrary informational-leg accounting."
+        "B": "Implemented in the local B P3 candidate based on 3d62b7c. Every enabled entry counts regardless of acceptance label, with missing/invalid/blocking states and independent family coverage. Regression sources: tests/test_v2_rounds.py, tests/test_v2_round_cli.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred."
       }
     },
     {
@@ -263,7 +263,7 @@
       "expected": "The roster's per-vendor block appears in the rendered argv / native tool arguments; an unsupported value is refused at the adapter with the reason",
       "tests": {
         "A": "todo",
-        "B": "PARTIAL: formal Claude/AGY argv and native Codex contract present; no common roster-to-invocation matrix; Gemini Auto restriction remains."
+        "B": "Implemented in the local B P3 candidate based on 3d62b7c. Native and CLI controls reach actual invocation interfaces; unsupported selections are rejected before review inference, without guessed runtime defaults. Regression sources: tests/test_v2_adapters.py, tests/test_v2_adapter_wrapper_bridge.py, tests/test_v2_claude_agent.py, tests/test_v2_runtime_boundaries.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred."
       }
     },
     {
@@ -275,7 +275,7 @@
       "expected": "Each leg has its own bound read-audit evidence and binding; one leg's hook/audit cannot satisfy another's",
       "tests": {
         "A": "todo (read_audit_gate.sh keys on x-* today)",
-        "B": "PARTIAL: tests/test_four_leg_custody.py paired receipts; legacy result identifies family/digest, not each same-family leg. Dormant AGY hook stays dormant."
+        "B": "Implemented P3 candidate: Exclusive named-entry/attempt results, original host files and read observations; sibling/attempt swaps and changed evidence are refused. Reserved collector output/metadata paths refuse before writes and permit same-attempt recovery using corrected input filenames. Evidence: tests/test_v2_rounds.py, tests/test_v2_round_custody.py, tests/test_v2_evidence_custody.py, tests/test_v2_round_cli.py, tests/test_v2_input_refusals.py. Current verification and publication: decisions/host-b-p3-verification.md."
       }
     },
     {
@@ -287,7 +287,7 @@
       "expected": "macOS and Ubuntu 24.04 results recorded separately; an unrun platform is listed NOT RUN",
       "tests": {
         "A": "todo",
-        "B": "P4 8f12bd5: dedicated fresh GREEN 108 focused and 1429 full macOS; Ubuntu 24.04 unprivileged uid 65534: 1427 passed, two existing filesystem skips. Skill validator/provider-free lifecycle passed; triad-b-p4-r1 four SAFE, ADMITTED_SAFE, integrity and owned cleanup verified. Not P3-draft, installation or all-provider conformance; current record: decisions/host-b-0555-contract-compliance-handoff.md."
+        "B": "Corrected P3 candidate: clean-input dedicated GREEN 27 focused and 1631 full macOS tests; Ubuntu 24.04 unprivileged uid 65534: 1629 passed, 2 existing filesystem skips. Validator/provider-free lifecycle passed; source hashes unchanged and exact fixtures/container removed. Formal admission and clean distribution are recorded separately in decisions/host-b-p3-verification.md. No installed-service or authenticated policy conformance is inferred. Historical P4 8f12bd5: 1429 macOS / 1427 Ubuntu plus two skips, triad-b-p4-r1 ADMITTED_SAFE."
       }
     },
     {
@@ -311,7 +311,7 @@
       "expected": "The link itself is reviewed: path, kind and exact link text fingerprinted and visible to legs; the target is never followed automatically; target content enters only as an independently authorized bound input; an unfollowable link is disclosed as a coverage gap; cleanup never follows a link to delete its target; the host's no-follow mechanism leaves evidence",
       "tests": {
         "A": "todo (A refuses untracked links at prepare/verify today)",
-        "B": "Guarded adaptation implemented in f08e1e8: scoped HEAD/index/working-tree link records in TASK, all-family no-follow renderer guidance, tests/test_review_link_evidence.py and fresh Terra/high preparation scenario; triad-b-c26-r1 ADMITTED_SAFE. Existing untracked-link fingerprint, prepared-copy refusal and cleanup no-follow checks retained. Reviewer restriction is prompt-controlled, not OS path confinement; target content is not implicitly bound or claimed inspected."
+        "B": "Implemented in the local B P3 candidate based on 3d62b7c. Guarded review shows link text without implicit target read; prepared copies retain existing refusal and cleanup preserves external targets. Prompt control is not OS path confinement. Regression sources: tests/test_review_cleanup_custody.py, tests/test_review_round.py, tests/test_review_link_evidence.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred."
       }
     },
     {
@@ -323,7 +323,7 @@
       "expected": "The resolved route, binary and observed version are frozen for the attempt and recorded; a started leg never switches route; neither-installed = the host's recorded policy (A skip-and-log, B refuse) and is never agreement",
       "tests": {
         "A": "todo",
-        "B": "Existing selector/no-fallback and AGY preflight cases plus source 5e8b9fb tests/test_gemini_version_floor.py: exact observed Gemini version in the private receipt and existing receipt-hash binding, invalid/missing versions refused. Round triad-b-c16-r1 ADMITTED_SAFE. This does not adopt future common receipt schemas or claim runtime model identity."
+        "B": "Implemented in the local B P3 candidate based on 3d62b7c. Selected route/executable and observed preflight version are frozen; exposed runtime contradictions refuse and unavailable runtime versions remain null. Regression sources: tests/test_v2_adapters.py, tests/test_v2_google_wrappers.py, tests/test_v2_runtime_boundaries.py, tests/test_v2_review_findings.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred."
       }
     },
     {
@@ -360,7 +360,7 @@
       "tests": {
         "shared": "tests/test_schemas.py; original schema absence RED 65 failed; terminal-newline RED 6 failed / 65 passed; final local authoring verification recorded in decisions/rev-2-implementation-spec.md. No host conformance implied.",
         "A": "NOT RUN / host integration pending",
-        "B": "Offline candidate validation IMPLEMENTED: bin/validate_v2.py and tests/test_validate_v2.py validate original JSON, canonical shape and six expected bindings with pinned local schemas/no external retrieval. P2 configuration resolver is also implemented. Operational roster/dispatch/render/native-transport/collector integration remains P3; local producer adapter is an uncommitted draft. Adoption remains separate. See current handoff for completed P4 verification."
+        "B": "Implemented in the local B P3 candidate based on 3d62b7c. Pinned canonical schema/prompts, thin generation projection, strict original local validation and legacy/v2 isolation. Regression sources: tests/test_validate_v2.py, tests/test_v2_producer_adapter.py, tests/test_v2_review_prompts.py, tests/test_v2_claude_wrapper.py, tests/test_v2_google_wrappers.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred."
       }
     }
   ]
