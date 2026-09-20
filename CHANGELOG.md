@@ -1,5 +1,20 @@
 # Changelog
 
+## rev-2 implementation candidate — 2026-09-20 (not tagged)
+
+- Materialize the aligned v2 verdict, named roster overrides/resolved roster and common transport vocabulary as JSON
+  Schema Draft 2020-12. Validate with maintained `jsonschema`; preserve existing Pydantic boundaries and CLI-native
+  capabilities without a new schema engine or vendor SDK. Rules: R-AGREE, R-ROSTER, R-BIND, R-RECEIPT; cases C9–C14,
+  C19–C23. Host implementation and adoption are not claimed by schema tests.
+- Align all three family prompt pins with required evidence/coverage/uncertainty and complete v2 binding. Resolve
+  packet filenames through host mappings; retain A-only raw-tail and active hook/audit controls. REVIEW stays no-web;
+  INVESTIGATION retains its authorized web trigger. Do not activate B's dormant hook.
+- `decisions/rev-2-implementation-spec.md` defines the exact shared-first implementation boundary, legacy development
+  gate compatibility and verification sequence. D-B1 policy composition and D-B2 private evidence custody remain
+  pending owner decisions. rev-1 acknowledgement rows and normative pin are unchanged.
+- Authoring checks include the reproduced terminal-newline path/binding rejection and the shipped example's schema
+  identity. Units touched: verdict-wire, roster, engine-transport, prompts; common behavioral fixture C30 added.
+
 ## Unreleased authoring proposal — 2026-09-20
 
 - Owner-requested `R-AUTHORING-SYNC`: latest remote source checks, same-commit cross-host design review, and three-family

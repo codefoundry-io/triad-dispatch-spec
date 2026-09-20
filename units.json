@@ -4,7 +4,7 @@
   "units": {
     "engine-transport": {
       "common": "bin/_common.py",
-      "contract": "contracts/exit-tokens.json, contracts/receipt-fields.json (todo)",
+      "contract": "contracts/exit-tokens.json, contracts/receipt-fields.json",
       "exceptions": "A native claude leg + codex CLI wrapper; B native codex leg + claude CLI wrapper; vendor-specific argv/auth stay host-specific; relative --prompt-file/--cwd: today A refuses (owner directive 2026-09-19: resolve + record instead — C28)",
       "A_source": "3rd-Agent/wrappers/_common.py (_run_once, _drain, scrubbed_child_env, _prune_dir_by_caps)",
       "A_shipped": "bin/_common.py",
@@ -20,19 +20,19 @@
     },
     "verdict-wire": {
       "common": "bin/verdict_schema.py",
-      "contract": "contracts/leg-verdict.schema.json (after D-3)",
-      "exceptions": "A's raw-reply admission (`validate_verdict.py --admit`) stays host-local; lossless field mapping = contracts/leg-verdict-mapping.md (round r2), schema pending D-3 adoption",
+      "contract": "contracts/leg-verdict.schema.json",
+      "exceptions": "A raw-reply admission stays host-local; mapping in contracts/leg-verdict-mapping.md. v2 candidate exists; legacy entry points are explicitly separate per decisions/rev-2-implementation-spec.md. Neither host adoption is claimed.",
       "A_source": "3rd-Agent/wrappers/verdict_schema.py; .claude/skills/triad-cross-family-review/lib/validate_verdict.py (raw-reply admission, A-only)",
       "A_shipped": "bin/verdict_schema.py; skills/triad-cross-family-review/lib/validate_verdict.py",
       "B": "bin/verdict_schema.py"
     },
     "roster": {
       "common": "config/review-legs.example.json",
-      "contract": "contracts/review-legs.example.json (schema todo)",
+      "contract": "contracts/review-legs.schema.json, contracts/review-legs.example.json",
       "exceptions": "B's project-scope file location = D-5; no shared user-global dependency",
       "A_source": ".claude/skills/triad-cross-family-review/lib/review_scratch.py (x-leg config loader, prepare)",
       "A_shipped": "skills/triad-cross-family-review/lib/review_scratch.py; references/review-legs.example.json",
-      "B": "bin/review_round.py prepare + skills/triad-cross-family-review/references/reviewer-routing.md; fixed routes today, roster loader NOT IMPLEMENTED (schema pending rev-2)"
+      "B": "bin/review_round.py and references/reviewer-routing.md; fixed routes today. v2 shared schema now exists; host roster loader NOT IMPLEMENTED."
     },
     "google-resolution": {
       "common": "(rule only — reference/review-rules.md#R-GOOGLE)",

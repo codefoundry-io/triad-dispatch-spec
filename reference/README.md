@@ -8,9 +8,9 @@ bug to fix in the same change.
 
 | Fact | Source of truth (in this repository unless noted) | Derived forms (conform to the source — by hand or by generation; a normative change happens only in the source) |
 |---|---|---|
-| Result wire: `LegVerdict` fields, enums, finding fields | `contracts/leg-verdict.schema.json` (NOT YET in rev-0 — after the D-3 adjudication round; until then each host's own schema) | host pydantic models; the shape pins inside `prompts/` |
-| Leg roster: fields, allowed values, recommended defaults | `contracts/review-legs.example.json` now; `contracts/review-legs.schema.json` (NOT YET in rev-0 — `contracts/README.md`) | host loaders; SKILL text points here |
-| Exit tokens and receipt vocabulary | `contracts/exit-tokens.json`; `contracts/receipt-fields.json` (NOT YET in rev-0 — `contracts/README.md`) | host `_common.py` tables, membership-tested against these files |
+| Result wire: `LegVerdict` fields, enums, finding fields | `contracts/leg-verdict.schema.json` (v2 candidate; host adoption is separate) | host adapters; shape pins inside `prompts/` |
+| Leg roster: fields, allowed values, recommended defaults | `contracts/review-legs.schema.json`; illustrative shape in `contracts/review-legs.example.json`; runnable defaults in each host's data file | host loaders; SKILL text points here |
+| Exit tokens and receipt vocabulary | `contracts/exit-tokens.json`; `contracts/receipt-fields.json` | host `_common.py` tables and adapters, checked against these files |
 | Review rules: agreement, correction re-review, roster semantics, Google leg, code-smell criterion, design-change stop, containment, no-cost | `reference/review-rules.md` | SKILL.md rule text (pointers + host invocation syntax), prompt clauses |
 | Process flow and failure diagnosis | `reference/process.md` (one diagram) | SKILL flow sections |
 | Latest-source verification and cross-host change coordination | `reference/spec-authoring.md#R-AUTHORING-SYNC` | shared agent entry files and host instructions point here |

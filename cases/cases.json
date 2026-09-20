@@ -107,7 +107,7 @@
       "expected": "Receipt carries stdin delivery class, route, binary, observed version",
       "tests": {
         "A": "todo",
-        "B": "DEFERRED: receipt-fields.json absent (rev-2); existing audit/preflight data is not common-schema conformance."
+        "B": "NOT IMPLEMENTED: common receipt-fields.json now exists; host emission/admission integration remains pending; existing audit/preflight data is not common-schema conformance."
       }
     },
     {
@@ -119,7 +119,7 @@
       "expected": "Both hosts write the agreed fields; a leg mislabelling its family is caught by binding, not by the audit",
       "tests": {
         "A": "todo",
-        "B": "DEFERRED: receipt-fields.json absent (rev-2); tests/test_claude_receipt.py and tests/test_log_cleanup.py preserve current distinct audit/failure IPC behavior."
+        "B": "NOT IMPLEMENTED: common receipt-fields.json now exists; host emission/admission integration remains pending; tests/test_claude_receipt.py and tests/test_log_cleanup.py preserve current distinct audit/failure IPC behavior."
       }
     },
     {
@@ -348,6 +348,19 @@
       "tests": {
         "A": "tests/unit/wrappers/t49-agy-web-evidence-c29.sh (prompt tail + audit record over a fake agy) + the live old-vs-new run recorded in the spike",
         "B": "NOT IMPLEMENTED: raw Google investigation remains available, but explicit authorized-web trigger, shared clause tail, and complete sent-prompt/fetch evidence are absent. Custody conflict D-B2 in decisions/host-b-preimplementation-audit.md."
+      }
+    },
+    {
+      "id": "C30",
+      "surface": "verdict-wire",
+      "rule": "R-BIND, R-ROSTER",
+      "summary": "Canonical v2 schemas reject ambiguous boundaries while preserving agreed result distinctions",
+      "input": "v2 verdict with Minor-only negative, uncertainty-only negative, legacy omissions, unsafe/terminal-newline paths or binding; partial roster overrides and shared template; native or CLI transport receipt",
+      "expected": "Minor-only negative and uncertainty-only DO NOT MERGE are valid; SAFE with blockers/questions, missing required v2 data, unknown fields, unsafe or newline-terminated paths/identifiers/digests are invalid. Named partial overrides validate before merge; complete resolved entries obey vendor blocks. Native receipts do not invent CLI identity. Schema success is not adapter/binding/admission/runtime proof. A pinned resolved Google route requires its own CLI block; absent/null route preserves host selection and adapter checks.",
+      "tests": {
+        "shared": "tests/test_schemas.py; original schema absence RED 65 failed; terminal-newline RED 6 failed / 65 passed; final local authoring verification recorded in decisions/rev-2-implementation-spec.md. No host conformance implied.",
+        "A": "NOT RUN / host integration pending",
+        "B": "NOT RUN / host integration pending"
       }
     }
   ]

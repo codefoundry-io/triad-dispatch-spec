@@ -7,13 +7,13 @@ skills reference the anchor. Owner rulings are quoted from `decisions/owner-regi
 
 <a id="R-AGREE"></a>
 A round is agreed when NO unresolved BLOCKING finding remains from any participating leg (owner Q-H / Q-Q / Q-S). A
-verified Critical or must-fix finding blocks whatever leg raised it and whatever label the leg carries. A MERGE WITH FIXES whose findings are all non-blocking counts as agreement on the reviewed bytes AS THEY STAND (owner Q-S: "Minor-only MERGE WITH FIXES counts (no extra round)"; owner via the codex session, Q1: "코드를 수정하면 전원 재검토. Minor만 남은 원본은 승인 가능"). Fixing those findings changes the reviewed content, which is a new basis (R-REREVIEW); approving the unchanged original and approving later-modified bytes are different acts. An UNRESOLVED OPEN QUESTION from any leg (a fact needed to judge the approved scope that the leg could not settle) blocks exactly like a blocking finding and is released by the same three paths — v2 target adopted by round r2 (all three families); today only host B's schema carries it. A missing, failed, invalid or unresolved non-affirmative result is not agreement. A block is released only by a probe that refutes the finding, a fix confirmed by
+verified Critical or must-fix finding blocks whatever leg raised it and whatever label the leg carries. A MERGE WITH FIXES whose findings are all non-blocking counts as agreement on the reviewed bytes AS THEY STAND (owner Q-S: "Minor-only MERGE WITH FIXES counts (no extra round)"; owner via the codex session, Q1: "코드를 수정하면 전원 재검토. Minor만 남은 원본은 승인 가능"). Fixing those findings changes the reviewed content, which is a new basis (R-REREVIEW); approving the unchanged original and approving later-modified bytes are different acts. An UNRESOLVED OPEN QUESTION from any leg (a fact needed to judge the approved scope that the leg could not settle) blocks exactly like a blocking finding and is released by the same three paths — v2 target agreed by round r2 (all three families), now materialized in the candidate schema; host adoption is separate. A missing, failed, invalid or unresolved non-affirmative result is not agreement. A block is released only by a probe that refutes the finding, a fix confirmed by
 the re-review, or a recorded owner decision. The leader verifies findings with evidence; a vote decides nothing. The
 leg-facing clause reserves MERGE WITH FIXES for a blocking finding (`prompts/common-clauses.md § verdict-selection-rule`);
 a Minor-only MERGE WITH FIXES still counts as agreement per Q-S and is recorded as a verdict-selection deviation. A round
 in which fewer than three families returned a verdict is released only by a recorded owner decision (shipped CFR rule 1;
 owner Q-L). The wire representation of "agreed" (verdict tokens, finding fields) is `contracts/leg-verdict.schema.json`
-after the D-3 round.
+and its v2 integration boundary in decisions/rev-2-implementation-spec.md.
 
 ## Correction re-review
 
@@ -39,7 +39,7 @@ switched off or breaks, another entry may be enabled in its place — a differen
 perspective (owner D-4); the round receipt records which legs actually ran and their family coverage: two legs of one
 family are one family (the release valve for a short round is R-AGREE). `vendor` is a FAMILY value — `claude` | `codex` |
 `google`; the Google CLI is named only by the `agy` / `gemini` block (R-GOOGLE). Selected investigations (custom prompt, web, extra read roots) are not review rounds and return no verdict
-(owner Q-D). Model and effort must be expressible for every vendor in the roster file — including the claude legs (B runs claude as a CLI child) — and are validated by the host adapter against actual capabilities at dispatch; `model: null` means the host's default; when both Google CLIs are present an explicit `route` (`agy` | `gemini`) in the `google` block pins the route, otherwise the shipped chain resolves it (R-GOOGLE); timeouts are adapter-validated (B's formal gemini route requires 600 s today). The runnable default roster is three legs; further entries in the example are opt-in. No configuration is a shared user-global dependency; the resolved roster is
+(owner Q-D). Model and effort must be expressible for every vendor in the roster file — including the claude legs (B runs claude as a CLI child) — and are validated by the host adapter against actual capabilities at dispatch; `model: null` means the host's default; when both Google CLIs are present an explicit `route` (`agy` | `gemini`) in the `google` block pins the route, otherwise the shipped chain resolves it (R-GOOGLE); timeouts are adapter-validated (B's current formal gemini route requires 600 s and its formal claude route requires 1200 s; the shared template's 900 s Claude values are not B runnable defaults). The runnable default roster is three legs; further entries in the example are opt-in. No configuration is a shared user-global dependency; the resolved roster is
 shown before any paid dispatch, and unselected legs are never started.
 
 ## Selected investigations
@@ -93,9 +93,7 @@ or size growth alone is never a stop or an owner question; it is disclosed with 
 
 <a id="R-CONTAIN"></a>
 Review legs read; they do not mutate, execute the candidate, or spawn vendors. The REVIEW operation has no web on any
-family (D-9 RULED 2026-09-19): codex `web_search="disabled"`; agy review agents without web tools (A ships this; B's
-agy read-only builder keeps `read_url` today — `_agy_settings.py:34-36` — and drops it for review dispatch only, never for
-raw investigations); gemini by the explicit deny rows in `contracts/gemini-readonly.toml`; every review prompt renderer
+family (D-9 RULED 2026-09-19): codex `web_search="disabled"`; agy review agents without web tools (A ships this posture; B's formal builder explicitly denies `read_url(*)`; raw investigations retain web); gemini by the explicit deny rows in `contracts/gemini-readonly.toml`; every review prompt renderer
 stops permitting web reads. Authorized investigations (R-INVEST) keep web. No alignment may introduce a dangerous /
 yolo permission bypass on any leg (each host discloses its existing permissive-route flags in `units.json` exceptions; none is on a review route). A leg a host runs natively stays native; no leader-model CLI subprocess is
 added for symmetry. Per vendor, the guards that ship today and must survive any alignment (host, symbol):
@@ -129,14 +127,16 @@ wrapper-only tokens and compatibility aliases are listed explicitly as exception
 `is not None` assert shipped on both hosts.
 
 <a id="R-RECEIPT"></a>
-The transport receipt and the audit / run-log records carry the agreed field vocabulary (`contracts/receipt-fields.json`, NOT YET — a
-case pointing here is NOT RUN until the file exists): stdin delivery class, resolved route, binary, observed CLI version, attempt.
+The transport receipt and audit / run-log records carry the common transport object defined by
+`contracts/receipt-fields.json`: stdin delivery class, execution route, binary, observed CLI version and attempt.
+Existing host envelopes remain. Schema validation alone does not prove host implementation or observed runtime identity.
 
 <a id="R-BIND"></a>
 Every leg's result binds `review_id`, `family` and `content_digest` today on both hosts; a mismatch is an INVALID leg, never
 a pass. v2 ADDS (round r2, all three families; lands with the D-3 wire — `contracts/leg-verdict-mapping.md`): `leg_name` (the
 roster entry), `attempt` (integer ≥ 1, per leg), `route` (the resolved Google route `agy` | `gemini`; null for a family with
-one route). Until then the prompt seeds and both shipped schemas bind the older set.
+one route). The common v2 prompt pins use these fields. Each host adopts its validator, all shaped clauses and collectors together;
+explicit legacy entry points retain their old contract and cannot admit v2 results.
 Duplicate JSON members are rejected at the original-text boundary before extraction or normalization can discard evidence
 (verified gap on BOTH hosts: each wrapper's schema path validates with `model_validate_json`, which does not detect duplicates; A's file path is a bare `json.loads`; A's raw-reply admission and B's result-file reader reject).
 

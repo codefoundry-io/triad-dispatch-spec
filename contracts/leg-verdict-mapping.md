@@ -54,4 +54,6 @@ ALIGNED 2026-09-19 (both leaders, co-review; no owner decision needed): the one 
 A's (`SAFE` and `Major` survive as IMPORT aliases only, never emitted); `correction` is optional; an uncertainty-only negative is
 `DO NOT MERGE` with a nonempty `open_questions` and no invented finding — no fourth `NOT-SAFE` token; a legacy result is kept as
 evidence and never converted into fabricated coverage, context or evidence — a v2 review is a fresh review. The schema file
-`contracts/leg-verdict.schema.json` is written from this section (still NOT YET).
+`contracts/leg-verdict.schema.json` materializes these choices. Its current v2 candidate is not a tagged revision or a
+host adoption claim. Legacy compatibility and atomic host integration follow
+`decisions/rev-2-implementation-spec.md`; tests live in `tests/test_schemas.py`.

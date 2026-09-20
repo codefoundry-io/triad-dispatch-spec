@@ -1,5 +1,5 @@
 {
-  "schema": "triad-review-legs.v2-draft",
+  "schema": "triad-review-legs.v2",
   "legs": [
     {
       "name": "claude",
@@ -40,7 +40,7 @@
         "effort": null
       },
       "timeout_s": 600,
-      "note": "vendor google = resolved at dispatch by the host's shipped chain; add `route`: `agy` | `gemini` to pin when both CLIs are present (R-GOOGLE). Default model = Pro family + verifiable HIGH on either CLI (R-NOCOST); `effort` applies to agy only. Timeouts are adapter-validated (B formal gemini 600 s; B claude route 1200 s). Placeholders mark this entry as a TEMPLATE until the hosts' catalogs are recorded"
+      "note": "Google route pin: google.route = agy or gemini; otherwise preserve the host's selection chain. Default Pro family with verifiable HIGH; model placeholders must be replaced from the route catalog. Adapter-specific timeout and effort support remain mandatory."
     },
     {
       "name": "x-claude-high",
