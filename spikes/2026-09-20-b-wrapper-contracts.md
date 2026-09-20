@@ -81,3 +81,59 @@ architecture and dormant B hooks are also unchanged.
 
 No live Gemini V1–V5, new model entitlement, installation or release is claimed.
 The shared schema/prompt bytes and behavioral expected results are unchanged.
+
+## Integration and draft-to-implementation briefing
+
+The owner approved the two implementation PRs for sequential merge. B
+[PR 35](https://github.com/codefoundry-io/triad-codex-dispatch/pull/35) merged as
+`2f379c7d1e5f51c263a35f2a718213f36f54dbf3`; after retargeting to main,
+[PR 36](https://github.com/codefoundry-io/triad-codex-dispatch/pull/36) merged as
+`56f0f6657084f81516217ee51698f9b18cfc71dc`. The development checkout and fetched
+remote main now identify the latter commit. Its complete Git tree is identical
+to reviewed source `6653bdc` (`01daefffd824f3bd37924f077f9360a2bda5fd52`).
+The separate protected common checkout and its intentional AGENTS.md edits were
+preserved. No tag, installation or release was performed in this integration.
+
+The merge verification reran all 1,330 macOS tests successfully. The three B
+contract payloads were also compared directly to shared authoring commit
+`055204c`: all original bytes and recorded digests matched. Both plan-level
+four-leg admissions above remain tied to their unchanged reviewed bytes.
+PR 35's checks passed; PR 36 had no required branch checks or PR check runs after
+retargeting. The final merged-main
+[CodeQL run 35486551717](https://github.com/codefoundry-io/triad-codex-dispatch/actions/runs/35486551717)
+completed successfully for `56f0f6657084f81516217ee51698f9b18cfc71dc`.
+
+No target behavior was changed from the settled shared candidate by these two
+PRs. The following distinctions explain what was concretized or staged:
+
+| Topic | Implementation choice and reason | Contract boundary |
+|---|---|---|
+| Canonical validation | Use maintained `jsonschema` and `referencing`, with exact shared payloads and offline reference resolution; preserve existing Pydantic boundaries. Avoid maintaining a second editable schema or a vendor SDK. | [Foundation plan](https://github.com/codefoundry-io/triad-codex-dispatch/blob/ec3d0df9b134f96bf39bcee11bea695878389146/docs/superpowers/plans/2026-09-20-v2-offline-validation.md), [validator](https://github.com/codefoundry-io/triad-codex-dispatch/blob/ec3d0df9b134f96bf39bcee11bea695878389146/bin/validate_v2.py#L39-L99). This implements the shared candidate, not a new wire format. |
+| v2 rollout | First expose an explicit offline validator. Keep current legacy dispatch working until validator, all shaped prompts, render binding and collectors can switch together. | [Shared integration boundary](../decisions/rev-2-implementation-spec.md#verdict-and-legacy-boundary). This is staged implementation, not permission to admit v2 through the old gate. |
+| C8 | Add the missing map entries and a contract test; retain each existing producer and phase-specific exit. | The C8 section above distinguishes map parity from future common transport emission. No retry or repair eligibility was expanded. |
+| C28 | Resolve both relative arguments with one process-cwd snapshot and the existing validation chain. Complete this independently of unresolved success-evidence custody. | The C28 section above identifies exact source lines. Existing masking remains; C28 is still partial, not silently weakened. |
+
+During earlier shared-schema authoring, terminal-newline rejection and the
+requirement for a pinned Google route's own configuration block were corrected
+after reproduced failures and full re-review. Those corrections already exist
+in the consumed `055204c` contract; they were not host-side reinterpretations.
+See [authoring evidence](../decisions/rev-2-implementation-spec.md#authoring-evidence-and-cross-host-handoff).
+
+Remaining work, grouped by functional outcome rather than a completion percentage:
+
+| Outcome | Still needed |
+|---|---|
+| Named N-leg configuration | Shipped three-family defaults, named override resolution, adapter capability checks and exact invocation display; project-file discovery awaits D-5. |
+| Public v2 activation | Integrate the validator, all shaped prompt clauses, render binding, wrapper adapters and collectors together; no legacy conversion. |
+| Transport and evidence identity | Emit/admit the common transport object and exclusive evidence locations for each review/leg/family/digest/attempt/route tuple. |
+| Retry and re-review | Retain successful siblings only on an unchanged failed-run retry; bind attempts, previous findings/rebuttals and every participating leg. Complete full re-review after any reviewed-basis change. |
+| Google review route | Adopt Pro plus verifiable HIGH while preserving authentication and route selection; settle D-B1 before policy composition. |
+| Investigation and path evidence | Complete C28 success evidence and the exact authorized C29 trigger, clause-last append and prompt/fetch custody under D-B2; retain raw/custom-schema investigation. |
+| Conformance and adoption | Finish case mappings and both-platform checks; separately record unavailable live checks, revision tagging/adoption and the final A implementation handoff. |
+
+The three pending choices are unchanged: [D-B1 policy composition](../decisions/host-b-gemini-policy-composition-proposal.md),
+[D-B2 evidence custody](../decisions/host-b-evidence-custody-proposal.md), and
+[D-5 project roster location](../decisions/host-b-roster-location-proposal.md).
+The owner-approved merge does not select an option in those proposals.
+V1–V5 remain NOT RUN. Shared PR 1 remains a candidate review, and A remains
+read-only at `92c8afd`; the source-paired handoff above is still its starting point.
