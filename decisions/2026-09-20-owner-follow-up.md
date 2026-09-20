@@ -60,3 +60,27 @@ subsystem. For D-5, verify absent/invalid/override cases with the common schema.
 Report any conflicting retained requirement at its source line before a host
 implements a changed common contract. No owner question in these three topics
 remains unanswered; implementation and cross-host review remain separate work.
+
+## KI-AGY-URL-BODY-PREFIX: non-fatal known issue
+
+Owner: “Known issue 로 기록하고 실패로 잡지말도록해”
+
+B leader application: the reproduced AGY 1.2.7 `read_url_content` saved-body
+suffix loss is a known external limitation. Its
+[cross-site evidence](../spikes/2026-09-20-b-cross-site-and-producer-spikes.md#c29-incomplete-agy-url-bodies-are-not-github-only)
+already records successful provider and wrapper exits. The exact internal
+component remains unconfirmed.
+
+Do not turn this observation alone into a TRIAD skill/dispatch failure, a failed
+implementation obligation, or an automatic repair/retry trigger. Preserve the
+actual terminal outcome; there is no new error token or permanent failure log
+for this issue. No per-call repeat investigation is required solely because this
+known issue exists.
+
+This disposition does not declare incomplete web evidence complete. Report the
+affected source/claim as incomplete or UNSURE when it matters. Independent
+timeouts, nonzero provider outcomes, invalid final output/schema, identity or
+integrity failures retain their existing handling. It does not waive review
+admission or claim a vendor repair. Existing D-B2 masking and retention remain.
+Future re-verification needs a relevant provider change or a requested probe,
+not an automatic retry loop for each occurrence.

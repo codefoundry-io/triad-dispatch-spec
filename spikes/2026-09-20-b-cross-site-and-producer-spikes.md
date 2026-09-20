@@ -8,6 +8,11 @@ Claude host A remained read-only at `92c8afd500499d8736afcc28b39a87a4f87fed50`.
 
 ## C29: incomplete AGY URL bodies are not GitHub-only
 
+Disposition: **KI-AGY-URL-BODY-PREFIX — known external issue, non-fatal to
+dispatch**. The [owner disposition](../decisions/2026-09-20-owner-follow-up.md#ki-agy-url-body-prefix-non-fatal-known-issue)
+defines failure accounting and preserves evidence-quality limits. This is not
+an open B implementation failure or a claim that AGY has been repaired.
+
 AGY 1.2.7 was invoked through B's existing raw read-only `--web` path, requesting
 `gemini-3.1-pro-high` and `high`, with a fresh call for each URL. Requested settings
 are not actual effort attestation. Direct source bytes were captured before and
