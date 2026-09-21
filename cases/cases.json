@@ -362,6 +362,31 @@
         "A": "NOT RUN / host integration pending",
         "B": "Implemented in the local B P3 candidate based on 3d62b7c. Pinned canonical schema/prompts, thin generation projection, strict original local validation and legacy/v2 isolation. Regression sources: tests/test_validate_v2.py, tests/test_v2_producer_adapter.py, tests/test_v2_review_prompts.py, tests/test_v2_claude_wrapper.py, tests/test_v2_google_wrappers.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred."
       }
+    },
+    {
+      "id": "C31",
+      "surface": "selected-investigations",
+      "rule": "R-INVEST",
+      "summary": "Explicit raw Claude web permission reaches the native CLI",
+      "input": "Caller explicitly requests raw Claude web via --web; compare an omitted flag.",
+      "expected": "Only the selected invocation adds native --allowedTools WebSearch WebFetch. The caller prompt, custom schema, default controls and native deny precedence survive; no review accounting, global settings mutation or arbitrary argv interface is added.",
+      "tests": {
+        "A": "Native route differs; maintainer mapping pending",
+        "B": "tests/test_claude_owner_web.py::test_C31_raw_fixed_web_permit; implementation verification pending"
+      }
+    },
+    {
+      "id": "C32",
+      "surface": "review-web-authorization",
+      "rule": "R-REVIEW-WEB, R-REREVIEW, R-CONTAIN",
+      "summary": "Direct owner request binds web authorization across every review leg",
+      "input": "A current review explicitly requests web; compare absent/false/nonboolean/mismatched conditions, preflight, prompt and invocation.",
+      "expected": "Only true current owner authorization enables all participating routes, using a short common permission clause and preserved native/read-only controls. The same condition enters common digest, preflight and allocation; changed conditions require a new basis; retry preserves it. Missing/mismatched permission refuses before inference; unsupported capability refuses rather than silently running a partially authorized round. No technology-detection heuristic, persistent roster permission or changed verdict schema. Default Gemini policy bytes remain unchanged; the complete web profile permits only its two web tools in addition to the existing read tools.",
+      "tests": {
+        "A": "NOT RUN / adoption pending",
+        "B": "tests/test_claude_owner_web.py C32 scenarios; implementation verification pending",
+        "service": "contracts/review-web.verify.toml; NOT RUN"
+      }
     }
   ]
 }

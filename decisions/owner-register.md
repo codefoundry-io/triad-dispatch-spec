@@ -1,5 +1,14 @@
 # Owner decisions — rulings and their effect (public, site-neutral)
 
+2026-09-21 follow-up: owner requested “Claude 웹 수정하고 원격 spec에도 기입해” and clarified
+“리뷰시도 웹감증 허용했는데 직접적으료 요청할때만”. The owner then clarified “다른 leg 마찬가지야. 리뷰시 신규기슐은 web검색없으면 없는 Api기능이라고 리뷰한다” and
+“그렇게까지 프롬프트를 늘리지마 내가 직접 요청할께 신기술 판단은 리더도못해”. Apply the direct-request condition
+to all legs with short permission wording, without technology-detection rules. This conditionally supersedes D-9's absolute
+REVIEW prohibition: direct owner request for the current round only. The normative rule is
+[R-REVIEW-WEB](../reference/review-rules.md#R-REVIEW-WEB); implementation and host boundaries are in
+[the amendment and handoff](2026-09-21-owner-requested-claude-web.md). This authorizes the requested
+branch amendment, not a revision tag, final merge, global permission change or host A implementation.
+
 This repository is public. Each row records WHAT the owner decided and WHERE it lands here; the owner's exact words
 (Korean, verbatim) are kept in the claude host's working record (`triad` plan `2026-09-19-triad-host-parity-plan.md § 8b`)
 and in codex's consolidated document for the directions given in codex's session. Where the owner selected an option the

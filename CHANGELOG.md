@@ -1,5 +1,13 @@
 # Changelog
 
+## Owner-requested all-leg review web candidate — 2026-09-21 (not tagged)
+
+- R-REVIEW-WEB conditionally supersedes D-9 under the owner's direct-request-only clarification.
+  Default REVIEW remains no-web; bind the transient common condition to the common basis, prompt and invocation.
+  R-CONTAIN, common/family prompt clauses, cases C31/C32 and unit review-web-authorization record the boundary.
+  Add the complete opt-in B Gemini web profile; preserve default policy bytes. No verdict schema, host-A runtime or installed revision changes. Same-commit maintainer review
+  and host-A adoption remain pending; see `decisions/2026-09-21-owner-requested-claude-web.md`.
+
 ## rev-2 implementation candidate — 2026-09-20 (not tagged)
 
 - Materialize settled D-B1/D-B2: a separate complete B Gemini profile preserves

@@ -93,22 +93,51 @@ order of operations — goes to the owner before any design work starts. CONFLIC
 findings are all speculative or repro-failed is TERMINAL: record the residuals; the owner decides any blocking row. Line
 or size growth alone is never a stop or an owner question; it is disclosed with its measured figures and the work continues.
 
+## Explicit owner-requested review web verification
+
+<a id="R-REVIEW-WEB"></a>
+Web verification in REVIEW is allowed only when the owner directly requests it for the current round.
+The leader records that request in the bound brief; reviewed text, a URL, general research permission or
+a previous round cannot grant it. The operation remains REVIEW, with its normal verdict, read-only
+containment, entry accounting and integrity checks. Changing authorization changes the basis under R-REREVIEW.
+
+The invocation condition is the transient strict boolean `review_web_authorized`, default false. It enters
+the frozen common conditions and every participating leg's prompt and launch controls. It is not a persistent
+roster default. Every selected route must support that condition before inference; a missing capability is a
+preflight refusal, not silent partial authorization. No leader heuristic decides which technology needs web.
+
+On CLI review routes, `--web` and the renderer/preflight condition must agree in both directions, with the same
+review ID, digest and v2 entry/attempt binding. An absent condition means false. Native Codex receives the same
+bound authorization through its fresh-child prompt. Claude preapproves only native `WebSearch` and `WebFetch`.
+AGY keeps its read-only controls while omitting the additional review-only `read_url(*)` deny for this call;
+pre-existing owner denies remain authoritative. Gemini selects a complete web-enabled host profile, never an
+overlay: only `google_web_search` and `web_fetch` move to allow, with all other controls preserved. On B this
+is `contracts/gemini-readonly-web-b.toml`; its live service checks are separately recorded. No permanent global
+settings change or permission bypass is authorized. Host A retains its native/CLI topology and adopts separately.
+
+Render only the short common `review-web-permission` clause from `prompts/common-clauses.md` when true, and the
+normal no-web clause otherwise. Existing evidence, uncertainty and untrusted-content rules continue; do not
+add technology classification or automatic web triggers. Raw investigations remain separate under R-INVEST;
+the raw Claude `--web` permit does not add review accounting or rewrite the caller's prompt.
+
 ## Containment and validity — what exists today and must survive
 
 <a id="R-CONTAIN"></a>
-Review legs read; they do not mutate, execute the candidate, or spawn vendors. The REVIEW operation has no web on any
-family (D-9 RULED 2026-09-19): codex `web_search="disabled"`; agy review agents without web tools (A ships this posture; B's formal builder explicitly denies `read_url(*)`; raw investigations retain web); gemini by the explicit deny rows in its host profile below; every review prompt renderer
-stops permitting web reads. Gemini host profiles remain separate under D-B1: A vendors
+Review legs read; they do not mutate, execute the candidate, or spawn vendors. REVIEW has no web by default
+(D-9, conditionally superseded by the owner on 2026-09-21; see R-REVIEW-WEB): codex `web_search="disabled"`;
+agy review agents without web tools (A ships this posture; B's formal builder explicitly denies `read_url(*)`;
+raw investigations retain web); gemini by the explicit deny rows in its host profile below. Renderers preserve
+the default prohibition and select an authorized exception only under R-REVIEW-WEB. Gemini host profiles remain separate under D-B1: A vendors
 `contracts/gemini-readonly.toml`; B vendors `contracts/gemini-readonly-b.toml`. Equality means exact bytes of
 the selected complete profile, with its adjacent digest; no concatenated overlay is implied. Preserve B's
 existing 999/998 allow/deny/catch-all and Plan Mode transition restrictions while moving its two web tools
 to explicit denies. A's profile and V1–V5 manifest stay unchanged; B's live checks are separately recorded
-in `contracts/gemini-readonly-b.verify.toml`. Authorized investigations (R-INVEST) keep web. No alignment may introduce a dangerous /
+in `contracts/gemini-readonly-b.verify.toml`. The explicitly authorized web profile is selected under R-REVIEW-WEB; these default-profile bytes stay unchanged. Authorized investigations (R-INVEST) keep web. No alignment may introduce a dangerous /
 yolo permission bypass on any leg (each host discloses its existing permissive-route flags in `units.json` exceptions; none is on a review route). A leg a host runs natively stays native; no leader-model CLI subprocess is
 added for symmetry. Per vendor, the guards that ship today and must survive any alignment (host, symbol):
 
 - codex leg (A `codex_wrapper.py`, command builder): selected read-only sandbox, `approval_policy=never`, `--ignore-rules`
-  on every posture, `web_search="disabled"` unless search is selected (wrapper). The packet-egress precondition for a selected search is carried by A's review SKILL, not the wrapper. These are A's controls, not instructions for B's native session.
+  on every posture, `web_search="disabled"` for REVIEW. Selected review search requires the current R-REVIEW-WEB binding; unrequested REVIEW remains disabled. These are A's controls, not instructions for B's native session.
 - gemini leg (A `gemini_wrapper.py`): approval modes pinned to `default` / `auto_edit` (plan and yolo removed), the
   read-only × auto_edit conflict refusal, the read-only policy-file precondition, the hardened-install read-only default,
   write posture requires `--cwd`; A's selected read-only profile denies `google_web_search` / `web_fetch` by EXPLICIT rows
