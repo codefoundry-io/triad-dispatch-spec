@@ -4,6 +4,10 @@ Complete the existing TRIAD skill infrastructure first. PRD/contract-anchor
 spec-to-code methodology remains a research proposal; no UI or general framework
 is part of this implementation.
 
+Later operating-profile request: use
+[the Codex + three Google handoff](claude-codex-google-four-leg-handoff.md) for
+the four-entry/two-family scenario and current published A/B source distinctions.
+
 ## Primary implementation inputs
 
 1. [Claude implementation PRD, including source-line migration guidance](https://github.com/codefoundry-io/triad-dispatch-spec/blob/140dda4ce66dfb5b34ba86d7e4c1356dafd026a0/decisions/claude-host-v2-implementation-prd.md).

@@ -55,3 +55,27 @@ new rule; every row points at the normative location.
 | Codex verification amendment (2026-09-19; technical disposition) | Earlier F3/F4 verification changes required further corrections A1–A4; the owner authorized Codex to publish the bounded shared-spec amendment. Runtime checks remain NOT RUN, shipped policy bytes unchanged, and Claude acknowledgement on the amended basis is pending | `decisions/rev-1-codex-verification-amendment.md`; procedure only in `contracts/gemini-readonly.verify.toml`, C15, `R-GOOGLE` |
 
 Withdrawn at the owner's word: a usage-measurement item (2026-09-19) is not recorded anywhere.
+
+<a id="d-four-leg-20260921"></a>
+## D-FOUR-LEG-20260921: one Codex and three Google reviewers
+
+The owner requested one Codex subagent and three independently invoked Google
+legs with different review emphases, with final review approval decided by the
+owner. This specializes existing R-ROSTER/R-AGREE; it does not add an automatic
+lens field, a majority vote or a new approval token. Four legs cover two families.
+The precise request, source evidence and publication boundary are in
+[the operating agreement](2026-09-21-codex-google-four-leg-agreement.md), with
+[setup and verification](codex-google-four-leg-operating-spec.md) and case C33.
+Publication is owner-requested; Claude acknowledgement and exact live-profile
+verification remain pending. A's native topology remains distinct from B's.
+
+<a id="gemini-invocation-20260921"></a>
+## Gemini invocation briefing: 2026-09-21
+
+The owner reported that Gemini CLI invocation succeeded in the reported
+environment. This is the R-GOOGLE service briefing, also reflected in the
+[B v0.2.556 release](https://github.com/codefoundry-io/triad-codex-dispatch/releases/tag/v0.2.556).
+The report did not supply an exact installed revision, CLI version, authentication
+class or transcript. It confirms the reported invocation only; it does not mark
+B1-B3, WEB-B-1, three concurrent Google calls, lens coverage or host A adoption
+as passed. Preserve those separate verification statuses.

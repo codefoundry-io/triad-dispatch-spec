@@ -47,3 +47,8 @@ triad-dispatch-spec/
 
 `reference/README.md` → `reference/review-rules.md` → `reference/process.md` → `reference/spec-authoring.md` → `prompts/`
 → `contracts/` → `cases/` + `units.json` → `decisions/`.
+
+Current owner-requested operating profile:
+[Codex + three Google legs: agreement](decisions/2026-09-21-codex-google-four-leg-agreement.md),
+[operating specification](decisions/codex-google-four-leg-operating-spec.md), and
+[Claude handoff](decisions/claude-codex-google-four-leg-handoff.md).

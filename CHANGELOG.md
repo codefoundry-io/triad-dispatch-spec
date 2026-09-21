@@ -1,5 +1,17 @@
 # Changelog
 
+## Codex + three Google operating handoff — 2026-09-21 (not tagged)
+
+- Record the owner-requested four-entry/two-family profile under existing
+  R-ROSTER/R-AGREE, a concrete B roster and shared-task emphasis mapping, and
+  case C33. No schema, shared prompt, default roster or agreement-token changes.
+  Keep owner approval separate from the machine result. Current A/B source
+  differences and Claude's bounded follow-up are in
+  `decisions/claude-codex-google-four-leg-handoff.md`.
+- Record the owner-reported Gemini invocation once in `decisions/owner-register.md`.
+  Exact four-leg live execution and Claude acknowledgement remain pending;
+  no host adoption, main merge or revision tag is implied.
+
 ## Owner-requested all-leg review web candidate — 2026-09-21 (not tagged)
 
 - R-REVIEW-WEB conditionally supersedes D-9 under the owner's direct-request-only clarification.
