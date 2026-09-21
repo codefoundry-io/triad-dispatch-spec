@@ -1,6 +1,8 @@
-# Owner-requested Claude web verification — candidate and host handoff
+# Owner-requested all-leg review web — verification and host handoff
 
-Status: owner-authorized amendment; B implementation/verification in progress. No revision tag or host adoption.
+Status: owner-authorized amendment; B source implementation verified in
+[the current verification record](host-b-review-web-verification.md). Host A acknowledgement
+and adoption remain pending; no revision tag or release is claimed.
 The owner request and its exact clarification are in the owner register; the normative rule is
 [R-REVIEW-WEB](../reference/review-rules.md#R-REVIEW-WEB). Research methodology work remains a proposal.
 
@@ -10,7 +12,8 @@ Shared pre-change basis: `140dda4ce66dfb5b34ba86d7e4c1356dafd026a0`.
 Remote main fetched before authoring: `2eb883fee59e66556ee7c7f87189b38231136622`; no main-only changes.
 B pre-change source: `add5805d8dec70f5e133164c49bc0fe3bff75095`.
 
-B `bin/claude_wrapper.py:391` builds fixed native argv without web preapproval; `:226` exposes no `--web`.
+At the B pre-change baseline, `bin/claude_wrapper.py:391` built fixed native argv
+without web preapproval; `:226` exposed no `--web`.
 An authorized research call returned exit zero but four native permission denials and no fetched pages.
 The prompt's authorization could not grant native tool permission. A task-scoped native probe using
 `--allowedTools WebSearch WebFetch` succeeded with no denials; the shared wrapper was still unchanged.
@@ -23,34 +26,54 @@ about new technology. B adds fixed Claude `--web`, legacy `--web-authorized`, an
 `review_web_authorized`. Google preflight and wrappers bind the same option; native Codex receives the same
 short common permission clause. Gemini selects the complete web-enabled B profile while default bytes stay.
 Raw Claude forwards the caller prompt unchanged. Existing raw Google evidence procedure remains unchanged.
-Cases C31/C32 bind this behavior. Production implementation, dedicated RED/GREEN and formal review remain pending.
+Cases C31/C32 bind this behavior. Completed B source checks and their exact limits are
+recorded in [the verification record](host-b-review-web-verification.md).
 
 ## Host A review request for this commit
 
-Claude maintainer: review this exact amendment commit, including rules, Claude clause and C31/C32, before adopting.
+Claude maintainer: review amendment `7f527ef1777336b93ca626744aedcd0c7d90aff9`,
+including the all-leg rule, shared clause and C31/C32, before adopting.
 Acknowledgement is PENDING; no previous agreement is carried forward. Under the owner-designated B-first sequence,
 B proceeds on the owner's settled scope and records its result for your later implementation. Do not infer adoption
 from this shared branch publication or copy B CLI controls into A's native agent route.
 
-Current A read-only source inspected at `55e0c677da8a6b0011013cfcc96aa04ed4f01b55`:
+Read-only observation on 2026-09-21: A HEAD
+`db9d97e0f3ef81af65be92ee463bca6fc26babcd`, with uncommitted skill/reference and wrapper
+guidance work after its gate-1 fix-wave-8 commit. Its round-9 ledger is in progress. No A changes were made by B. Preserve
+that work and continue its current stage. Line locations below describe the observed
+working tree; recheck dirty files before editing. This is no A implementation or
+effective-permission attestation.
 
-- `.claude/skills/triad-cross-family-review/lib/review_scratch.py:2841` renders the native Claude review prompt
-  with no transient web condition. Add the condition to the shared review basis and every family rendering;
-  select the common web clause in every participating leg only when that current request is true.
-- `.claude/agents/triad-reviewer.md:6` exposes `Read, Grep, Glob`; web tools are absent.
-  `.claude/agents/triad-researcher.md:6` exposes web, but selecting that investigation agent is not review parity.
-  Preserve the native review path and raw-reply admission; implement a scoped review capability only when you adopt.
-- `review_scratch.py:3525` explicitly forbids Codex `--search` for REVIEW. At A adoption, select its native search control only under the same bound current permission. Preserve A's live AGY hook/load/read-audit and existing auth controls.
+- Native Claude v2 identity comes from the resolved roster:
+  `.claude/skills/triad-cross-family-review/spec/review-legs.default.json:10-14`
+  names `cross-family-review-reviewer`; `lib/roster_v2.py:884-895` emits the native
+  subagent_type from the selected entry. Inspect that actual selected native path.
+  `.claude/agents/cross-family-review-reviewer.md:4` currently lists Read/Grep/Glob,
+  and its body excludes network tools. Preserve its native raw-admission boundary
+  while supporting the explicit current-review web condition at A adoption.
+  The separate `triad-reviewer` preset is not the cross-family review leg.
+- `lib/prompts_v2.py` and `lib/review_scratch.py` remain the prompt/basis seams.
+  No `review_web_authorized` occurrence was found in the inspected current files.
+  `review_scratch.py:3525` still describes the legacy Codex review route as never
+  passing --search. Add no unbound default search behavior.
+- `3rd-Agent/wrappers/codex_wrapper.py:103-115,448-453` already distinguishes live
+  `codex --search exec` from the explicit no-search `web_search="disabled"` setting.
+  Merely omitting --search would leave Codex's cached default available; preserve
+  the existing explicit no-web behavior. The common permission bit does not choose
+  a uniform cached/live mode for all vendors.
 
-No A edits were made. Existing unrelated A files were preserved. Default Google policies and their unrun verification manifests are unchanged. A requested unsupported web verification remains an explicit evidence gap until supported.
+This refresh supersedes older source-location guidance only. Shared contract
+adoption, A review acknowledgement, and A service verification remain pending.
 
 ## Verification boundary
 
-Before B implementation: root-authored tests and a fresh dedicated source-skill RED executor.
-After: fresh dedicated GREEN, full regression suite, source skill validator, applicable lifecycle checks, bounded
-real wrapper web probe and the workspace's complete formal multi-family review. Shared schema tests and anchor/
-case/unit checks verify document structure only. Record unrun host/service checks as NOT RUN; do not turn search
-summaries, prose URLs, successful exit, or prefix-only fetched bodies into complete evidence.
+The [B verification record](host-b-review-web-verification.md) identifies dedicated
+RED/GREEN, regressions, source-skill validation, provider-free lifecycle and the
+complete formal review. Shared schema tests and anchor/case/unit checks verify
+document structure only. Unrun host/service checks remain NOT RUN; search
+summaries, prose URLs, successful exit and prefix-only fetched bodies are not
+complete evidence. Source checks do not establish host A adoption or installed
+behavior.
 
 Known AGY delivered-body limitation remains independently documented as KI-AGY-URL-BODY-PREFIX; no new failure token,
 automatic retry, provider-fix claim or permanent raw web-content store is introduced.
