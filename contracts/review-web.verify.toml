@@ -1,0 +1,16 @@
+# Owner-authorized REVIEW web; declaration of unrun authenticated host checks.
+schema = "triad-review-web-verification.v1"
+rule = "R-REVIEW-WEB"
+case = "C32"
+
+[[check]]
+id = "WEB-B-1"
+host = "B"
+status = "NOT RUN"
+procedure = "On a configured Gemini Enterprise host, compare default and explicitly authorized review preflight/dispatch; verify the complete selected policy and actual web search/fetch while mutation, shell and mode-transition controls remain denied. Preserve native admin denies."
+
+[[check]]
+id = "WEB-A-1"
+host = "A"
+status = "NOT RUN"
+procedure = "After A adoption, verify every participating native/CLI route receives only current bound authorization; absent/false/mismatched permission refuses web, and all existing read-only and admission controls remain."

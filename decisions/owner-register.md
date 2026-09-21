@@ -1,5 +1,14 @@
 # Owner decisions — rulings and their effect (public, site-neutral)
 
+2026-09-21 follow-up: owner requested “Claude 웹 수정하고 원격 spec에도 기입해” and clarified
+“리뷰시도 웹감증 허용했는데 직접적으료 요청할때만”. The owner then clarified “다른 leg 마찬가지야. 리뷰시 신규기슐은 web검색없으면 없는 Api기능이라고 리뷰한다” and
+“그렇게까지 프롬프트를 늘리지마 내가 직접 요청할께 신기술 판단은 리더도못해”. Apply the direct-request condition
+to all legs with short permission wording, without technology-detection rules. This conditionally supersedes D-9's absolute
+REVIEW prohibition: direct owner request for the current round only. The normative rule is
+[R-REVIEW-WEB](../reference/review-rules.md#R-REVIEW-WEB); implementation and host boundaries are in
+[the amendment and handoff](2026-09-21-owner-requested-claude-web.md). This authorizes the requested
+branch amendment, not a revision tag, final merge, global permission change or host A implementation.
+
 This repository is public. Each row records WHAT the owner decided and WHERE it lands here; the owner's exact words
 (Korean, verbatim) are kept in the claude host's working record (`triad` plan `2026-09-19-triad-host-parity-plan.md § 8b`)
 and in codex's consolidated document for the directions given in codex's session. Where the owner selected an option the
@@ -8,6 +17,8 @@ new rule; every row points at the normative location.
 
 | ID | Decision | Effect here |
 |---|---|---|
+| Directive (2026-09-19, current-source and cross-host coordination) | Both leaders read latest remote main; share every common design/contract/prompt/behavior change before implementation; diagnose any omitted existing functionality with three families, however small. Codex drafts the shared protocol; Claude reviews the same commit. Each leader owns only its host | `reference/spec-authoring.md#R-AUTHORING-SYNC`; this new authoring draft awaits Claude review, without carrying forward the old basis acknowledgement |
+| Directive (2026-09-20, Codex first) | "니가 먼저 진행하고 같은 문제가 있는지 항상 claude host 쪽 코드를 보고 지적 업데이트해 라인으로 지적하고 codex업데이트가 끝날때 까지 claude 쪽은 업데이트 안할거야" | Lead-host sequencing in `reference/spec-authoring.md#R-AUTHORING-SYNC`; B leads implementation and verification, inspects A at each change, and accumulates commit/file/line evidence and final A instructions. No A edits by Codex |
 | D-3 | Verdict wire contract: adjudicate via ONE three-family round, each host keeps its own schema until then | `contracts/leg-verdict.schema.json` NOT YET; `R-AGREE` last sentence |
 | D-4 / Q-L | Three-family review is the default; substitutes are contingency; the model behind each slot is replaceable; at least three legs run | `R-ROSTER` |
 | D-9 | Network tools in the gemini review policy: same three-family round, date-anchored web evidence only | `contracts/README.md` (policy row) |
@@ -44,3 +55,27 @@ new rule; every row points at the normative location.
 | Codex verification amendment (2026-09-19; technical disposition) | Earlier F3/F4 verification changes required further corrections A1–A4; the owner authorized Codex to publish the bounded shared-spec amendment. Runtime checks remain NOT RUN, shipped policy bytes unchanged, and Claude acknowledgement on the amended basis is pending | `decisions/rev-1-codex-verification-amendment.md`; procedure only in `contracts/gemini-readonly.verify.toml`, C15, `R-GOOGLE` |
 
 Withdrawn at the owner's word: a usage-measurement item (2026-09-19) is not recorded anywhere.
+
+<a id="d-four-leg-20260921"></a>
+## D-FOUR-LEG-20260921: one Codex and three Google reviewers
+
+The owner requested one Codex subagent and three independently invoked Google
+legs with different review emphases, with final review approval decided by the
+owner. This specializes existing R-ROSTER/R-AGREE; it does not add an automatic
+lens field, a majority vote or a new approval token. Four legs cover two families.
+The precise request, source evidence and publication boundary are in
+[the operating agreement](2026-09-21-codex-google-four-leg-agreement.md), with
+[setup and verification](codex-google-four-leg-operating-spec.md) and case C33.
+Publication is owner-requested; Claude acknowledgement and exact live-profile
+verification remain pending. A's native topology remains distinct from B's.
+
+<a id="gemini-invocation-20260921"></a>
+## Gemini invocation briefing: 2026-09-21
+
+The owner reported that Gemini CLI invocation succeeded in the reported
+environment. This is the R-GOOGLE service briefing, also reflected in the
+[B v0.2.556 release](https://github.com/codefoundry-io/triad-codex-dispatch/releases/tag/v0.2.556).
+The report did not supply an exact installed revision, CLI version, authentication
+class or transcript. It confirms the reported invocation only; it does not mark
+B1-B3, WEB-B-1, three concurrent Google calls, lens coverage or host A adoption
+as passed. Preserve those separate verification statuses.

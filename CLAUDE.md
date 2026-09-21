@@ -11,3 +11,4 @@ same change.
    Ownership map: `units.json` · Owner decisions: `decisions/owner-register.md`.
 4. Writing and one-source rules: `reference/README.md`. How a change enters this repository: `README.md` § How a host
    uses a revision.
+5. Current-source and cross-host coordination: `reference/spec-authoring.md#R-AUTHORING-SYNC`.

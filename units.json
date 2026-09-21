@@ -1,10 +1,10 @@
 {
   "schema": "triad-units.v1-draft",
-  "note": "surface -> common shipped name -> contract -> preserved host exceptions -> host paths (A_source = ~/triad SoT path; A_shipped = flattened export path in triad-dispatch; B = source = shipped at 105a1e4, codex to confirm). Case ids live in cases/cases.json `surface`. Parity scope: reference/review-rules.md#R-PARITY",
+  "note": "surface -> common shipped name -> contract -> preserved host exceptions -> host paths. A_source = ~/triad SoT path; A_shipped = flattened export path in triad-dispatch. Initial B audit at 520caa9 (0.2.554); completed/open source mapping at B 51f8bfe: decisions/host-b-finding-closure.md; original diagnostic basis: decisions/host-b-preimplementation-audit.md. Case ids live in cases/cases.json surface. Parity scope: reference/review-rules.md#R-PARITY. Current B P3 source mapping: published reviewed commit add5805d8dec70f5e133164c49bc0fe3bff75095; formal admission and clean archive verification are recorded separately from adoption and installation. See decisions/host-b-p3-verification.md.",
   "units": {
     "engine-transport": {
       "common": "bin/_common.py",
-      "contract": "contracts/exit-tokens.json, contracts/receipt-fields.json (todo)",
+      "contract": "contracts/exit-tokens.json, contracts/receipt-fields.json",
       "exceptions": "A native claude leg + codex CLI wrapper; B native codex leg + claude CLI wrapper; vendor-specific argv/auth stay host-specific; relative --prompt-file/--cwd: today A refuses (owner directive 2026-09-19: resolve + record instead — C28)",
       "A_source": "3rd-Agent/wrappers/_common.py (_run_once, _drain, scrubbed_child_env, _prune_dir_by_caps)",
       "A_shipped": "bin/_common.py",
@@ -13,26 +13,26 @@
     "exit-tokens": {
       "common": "bin/_common.py map_classification_to_exit",
       "contract": "contracts/exit-tokens.json",
-      "exceptions": "A 18 tokens incl. input-delivery-failed; B 16 tokens, route-mismatch unmapped — D-11 aligns",
+      "exceptions": "A 18 table tokens. B 6653bdc maps all 18 plus the inert permission-unavailable alias; three additions remain map-only, route-mismatch retains direct exit 65 and phase-specific stdin behavior is unchanged. Case C8 and spikes/2026-09-20-b-wrapper-contracts.md record verification.",
       "A_source": "3rd-Agent/wrappers/_common.py map_classification_to_exit",
       "A_shipped": "bin/_common.py",
       "B": "bin/_common.py map_classification_to_exit"
     },
     "verdict-wire": {
       "common": "bin/verdict_schema.py",
-      "contract": "contracts/leg-verdict.schema.json (after D-3)",
-      "exceptions": "A's raw-reply admission (`validate_verdict.py --admit`) stays host-local; lossless field mapping = contracts/leg-verdict-mapping.md (round r2), schema pending D-3 adoption",
+      "contract": "contracts/leg-verdict.schema.json",
+      "exceptions": "A raw-reply admission stays host-local; mapping in contracts/leg-verdict-mapping.md. v2 candidate exists; legacy entry points are explicitly separate per decisions/rev-2-implementation-spec.md. B has an opt-in operational v2 candidate; A migration and formal shared revision adoption remain separate.",
       "A_source": "3rd-Agent/wrappers/verdict_schema.py; .claude/skills/triad-cross-family-review/lib/validate_verdict.py (raw-reply admission, A-only)",
       "A_shipped": "bin/verdict_schema.py; skills/triad-cross-family-review/lib/validate_verdict.py",
-      "B": "bin/verdict_schema.py"
+      "B": "bin/verdict_schema.py (explicit legacy); bin/validate_v2.py, bin/verdict_v2.py and bin/review_round_v2.py (opt-in canonical v2 producer/validation/collection)"
     },
     "roster": {
       "common": "config/review-legs.example.json",
-      "contract": "contracts/review-legs.example.json (schema todo)",
-      "exceptions": "B's project-scope file location = D-5; no shared user-global dependency",
+      "contract": "contracts/review-legs.schema.json, contracts/review-legs.example.json",
+      "exceptions": "D-5 settled: B project .agents/triad-review-legs.json merges by name with contracts/review-legs.default.json; A retains its host-specific project location; no shared user-global dependency",
       "A_source": ".claude/skills/triad-cross-family-review/lib/review_scratch.py (x-leg config loader, prepare)",
       "A_shipped": "skills/triad-cross-family-review/lib/review_scratch.py; references/review-legs.example.json",
-      "B": "bin/review_round.py prepare + references/reviewer-routing.md"
+      "B": "bin/review_roster.py resolve_roster; bin/review_round.py resolve-roster; bin/review_adapters_v2.py prepare_adapters; bin/review_round_v2.py create_basis/_invocation (explicit v2); legacy fixed development routes remain separate"
     },
     "google-resolution": {
       "common": "(rule only — reference/review-rules.md#R-GOOGLE)",
@@ -48,15 +48,15 @@
       "exceptions": "A keeps open/touch/close and sibling-resolved helpers moving as one unit; B keeps fingerprint-worktree/render-worktree, guarded-worktree and prepared-directory modes; destructive behavior defined by fences, not a forced rename; no generic `legs` command",
       "A_source": ".claude/skills/triad-cross-family-review/lib/review_scratch.py (open, touch, close, capture, verify, prepare) + agy_hook.py, read_audit_gate.sh, validate_verdict.py as siblings",
       "A_shipped": "skills/triad-cross-family-review/lib/{review_scratch,agy_hook,validate_verdict}.py, read_audit_gate.sh",
-      "B": "bin/review_round.py (prepare, capture, verify, manifest, cleanup, render, render-worktree, fingerprint-worktree, select-google-route)"
+      "B": "bin/review_round.py (prepare, capture, verify, manifest, cleanup, render, render-worktree, fingerprint-worktree, select-google-route); bin/review_round_v2.py (v2 basis, immutable entry/attempt allocation, native/CLI/start-failure record, all-N collection, same-basis retry and changed-basis full re-review)"
     },
     "gemini-policy": {
       "common": "bin/policies/gemini-readonly.toml",
-      "contract": "contracts/gemini-readonly.toml",
-      "exceptions": "B keeps its current policy filename until the rename is specified; authentication constraints are adapter rules and stay; B's Auto-only formal model path is a MIGRATION item under owner Q2 (not a preserved exception); D-9 migration on B is operation-level: drop the two web tools from the 999 allow list, drop `read_url` from the agy read-only builder for REVIEW dispatch only (`_agy_settings.py:34-36`), stop permitting web reads in the review prompt renderers (`review_round.py:62-86, 1771-1776`)",
+      "contract": "contracts/gemini-readonly.toml (A); contracts/gemini-readonly-b.toml (B)",
+      "exceptions": "B keeps its current policy filename until the rename is specified; authentication constraints are adapter rules and stay; B retains Auto only in its explicit legacy development route; opt-in v2 selects route-valid Pro/default controls through bin/review_adapters_v2.py and bin/google_preflight_v2.py. Requested settings and preflight observations do not prove effective runtime identity. B 900ddc5 forbids web by default in every REVIEW renderer, adds read_url(*) to the AGY formal deny list and omits formal autoapproval while preserving raw investigations. The earlier 'drop read_url from builder' wording described removal of capability, not removal of a deny rule; see spikes/2026-09-20-b-review-no-web.md. D-B1 preserves complete separate host profiles with byte equality to each selected contract; no overlay. A bytes stay unchanged; B candidate preserves its existing controls and moves web tools to explicit denies. B runs non-interactive Plan Mode (--approval-mode plan) with enter/exit_plan_mode denied; A pins default/auto_edit with plan removed. Host B adoption and live checks remain separate.",
       "A_source": "3rd-Agent/wrappers/policies/gemini-readonly.toml; 3rd-Agent/wrappers/gemini_wrapper.py",
       "A_shipped": "bin/policies/gemini-readonly.toml; bin/gemini_wrapper.py",
-      "B": "bin/policies/gemini-formal-readonly.toml; bin/gemini_wrapper.py"
+      "B": "bin/policies/gemini-formal-readonly.toml; bin/gemini_wrapper.py; bin/google_preflight_v2.py; bin/review_adapters_v2.py (v2); contracts/gemini-readonly-b.verify.toml B1-B3 remain NOT RUN in the shared specification"
     },
     "prompts": {
       "common": "prompts/*.md (vendored into skills/triad-cross-family-review/)",
@@ -64,7 +64,7 @@
       "exceptions": "host skills keep native calling syntax, agent registration, manifests, install scripts/hooks, permissions",
       "A_source": ".claude/skills/triad-cross-family-review/lib/review_scratch.py (_render_codex_body, _render_agy_prompt, _render_claude_prompt, clause constants)",
       "A_shipped": "skills/triad-cross-family-review/lib/review_scratch.py (render_*)",
-      "B": "bin/review_round.py render_review_prompt, render_worktree_review_prompt; skills/triad-cross-family-review/references/review-prompt-contract.md"
+      "B": "bin/review_round.py legacy renderers; bin/review_prompts_v2.py and prompts/review-v2/ with source-manifest.json (published common/family payloads); skills/triad-cross-family-review/references/public-v2-review.md"
     },
     "agy-containment": {
       "common": "bin/agy_hook.py",
@@ -85,10 +85,18 @@
     "selected-investigations": {
       "common": "(existing single-shot dispatch path — reference/review-rules.md#R-INVEST)",
       "contract": "none (free-form or custom-schema output)",
-      "exceptions": "no review verdict; no roster accounting; A `--web`/`--cwd` dispatch skills, B raw dispatch (custom prompt + optional schema under its web-permitting read-only policy = B's investigation path, no `--web` flag); web evidence: the host appends the shared clause `web-evidence` (prompts/investigation.md) LAST on every web-enabled Google INVESTIGATION prompt and records the prompt as sent (C29) — A ships it (AGY_WEB_EVIDENCE_CLAUSE); B places it on its authorized web investigation invocation (codex names the trigger); after D-9 no review prompt permits web",
+      "exceptions": "No review verdict or roster accounting. A keeps its custom research-agent route; B ce68780 adds explicit AGY --web --sandbox read-only with a custom caller prompt and optional schema, appending the shared clause last. No --web flag is passed to the vendor. B raw Gemini keeps the formal policy separate and appends the shared investigation clause last on explicit --web, including schema repair (P4). Authorization is explicit, never inferred from a policy filename. Existing audit masking/failure logging stays; owner D-B2 rejects a new permanent evidence store (decisions/2026-09-20-owner-follow-up.md), with common wording aligned by decisions/2026-09-20-host-policy-and-evidence-amendment.md; no permanent exact-text/fetch store is required. One B live pair confirms more fetch calls but also incomplete delivered bodies; see spikes/2026-09-20-b-agy-web-evidence.md. REVIEW defaults to no-web; current owner authorization follows R-REVIEW-WEB.",
       "A_source": ".claude/skills/triad-{codex,gemini,antigravity,claude}-dispatch/SKILL.md; 3rd-Agent/wrappers/*_wrapper.py (--web, --cwd, --pydantic optional); antigravity_wrapper.py AGY_WEB_EVIDENCE_CLAUSE + the --web append in main (tests/unit/wrappers/t49-agy-web-evidence-c29.sh)",
       "A_shipped": "skills/triad-*-dispatch/; bin/*_wrapper.py",
-      "B": "bin/*_wrapper.py raw route (tests/test_provider_wrappers.py:1331 raw-route test per codex)"
+      "B": "bin/antigravity_wrapper.py and bin/gemini_wrapper.py explicit raw --web; bin/*_wrapper.py raw caller prompt/custom schema/settings/extra roots; tests/test_investigation_completion.py, tests/test_agy_web_evidence.py and tests/test_provider_wrappers.py"
+    },
+    "review-web-authorization": {
+      "common": "review_web_authorized per-round condition; prompts/common-clauses.md review-web-permission",
+      "contract": "reference/review-rules.md#R-REVIEW-WEB; contracts/gemini-readonly-web-b.toml; cases C31/C32",
+      "exceptions": "Native host topology and auth remain. A adoption pending; no permanent defaults or new-technology heuristic.",
+      "A_source": ".claude/skills/triad-cross-family-review/lib/review_scratch.py; .claude/agents/triad-reviewer.md; 3rd-Agent/wrappers/{codex,gemini,antigravity}_wrapper.py",
+      "A_shipped": "skills/triad-cross-family-review/lib/review_scratch.py; bin/*_wrapper.py; native reviewer profile",
+      "B": "bin/{claude,gemini,antigravity}_wrapper.py; bin/review_round.py; bin/review_round_v2.py; bin/review_prompts_v2.py; bin/review_adapters_v2.py; bin/google_preflight_v2.py; bin/policies/gemini-formal-web.toml"
     }
   },
   "packet_files": {
@@ -105,7 +113,7 @@
       "evidence": "EVIDENCE.md (optional)",
       "source": "source/product/ + SOURCE_SHA256SUMS"
     },
-    "B_worktree": "render-worktree route (codex to fill)",
+    "B_worktree": "Guarded canonical worktree: task_file, status_file and diff_file are regular custody files inside the worktree, each content-hashed by render-worktree; relevant tests stay in scope. fingerprint-worktree before/after. Selector/preflight receipts, prompts and results use a separate review_run_root outside the guarded basis. Additional evidence must be expressly authorized and bound. Current implementation: bin/review_round.py::render_worktree_review_prompt.",
     "note": "host packet filename mapping referenced by R-PREPARE; prompt placeholders resolve through this table"
   }
 }

@@ -1,5 +1,85 @@
 # Changelog
 
+## Codex + three Google operating handoff — 2026-09-21 (not tagged)
+
+- Record the owner-requested four-entry/two-family profile under existing
+  R-ROSTER/R-AGREE, a concrete B roster and shared-task emphasis mapping, and
+  case C33. No schema, shared prompt, default roster or agreement-token changes.
+  Keep owner approval separate from the machine result. Current A/B source
+  differences and Claude's bounded follow-up are in
+  `decisions/claude-codex-google-four-leg-handoff.md`.
+- Record the owner-reported Gemini invocation once in `decisions/owner-register.md`.
+  Exact four-leg live execution and Claude acknowledgement remain pending;
+  no host adoption, main merge or revision tag is implied.
+
+## Owner-requested all-leg review web candidate — 2026-09-21 (not tagged)
+
+- R-REVIEW-WEB conditionally supersedes D-9 under the owner's direct-request-only clarification.
+  Default REVIEW remains no-web; bind the transient common condition to the common basis, prompt and invocation.
+  R-CONTAIN, common/family prompt clauses, cases C31/C32 and unit review-web-authorization record the boundary.
+  Add the complete opt-in B Gemini web profile; preserve default policy bytes. No verdict schema, host-A runtime or installed revision changes. Same-commit maintainer review
+  and host-A adoption remain pending; see `decisions/2026-09-21-owner-requested-claude-web.md`.
+
+## rev-2 implementation candidate — 2026-09-20 (not tagged)
+
+- Materialize settled D-B1/D-B2: a separate complete B Gemini profile preserves
+  999/998 and Plan Mode controls with explicit REVIEW web denies; A payload and
+  V1–V5 stay unchanged. B1–B3 remain NOT RUN. C28 success paths use existing
+  masking; C29 uses existing audit/retention with no new permanent evidence store.
+  The shared web-evidence clause itself is unchanged. R-CONTAIN/R-INVEST,
+  C15/C28/C29 and units are aligned; host integration remains separate. See
+  `decisions/2026-09-20-host-policy-and-evidence-amendment.md`.
+
+- B `ce68780` implements the AGY C29 invocation repair: fresh RED/GREEN,
+  macOS 1,348 / Ubuntu 1,346 plus two existing skips, and four SAFE reviewers
+  with matching integrity. One live pair also exposed incomplete vendor page
+  bodies; preserve that residual rather than claiming complete web research.
+  Source lines, A follow-up and limits are in `spikes/2026-09-20-b-agy-web-evidence.md`.
+- Record the owner's D-B1/D-B2/D-5 answers in
+  `decisions/2026-09-20-owner-follow-up.md`: preserve distinct host profiles where
+  usage differs, add no permanent investigation-evidence store, and select
+  `.agents/triad-review-legs.json` for B. Common wording/composition amendments
+  require the same-commit cross-host check; no runtime conformance is implied.
+- Audit C1-C30 against B `56f0f665` and A `92c8afd`, separating runtime integration,
+  unrun evidence and owner decisions. Correct stale B terminal/cleanup/platform
+  descriptions and offline-v2 status; preserve behavioral expectations and
+  revision/adoption boundaries. See `spikes/2026-09-20-b-contract-implementation-audit.md`.
+- Record the settled AGY C29 trigger/clause repair independently of D-B2's full
+  custody choice in `spikes/2026-09-20-b-agy-web-evidence.md`. No audit-redaction
+  or REVIEW web permission change is implied.
+
+- Owner-approved B PRs 35/36 merged; final main is `56f0f66`, with an identical reviewed tree, 1,330 merge-verification
+  tests and successful merged-main CodeQL. The integration/draft-to-implementation briefing and grouped remaining
+  work are recorded in `spikes/2026-09-20-b-wrapper-contracts.md`. D-B1/D-B2/D-5, public v2 activation and adoption remain open.
+
+- B `6653bdc` completes shared exit-map parity and C28 loader resolution; source-pinned A follow-up and actual
+  two-OS/four-leg evidence are in `spikes/2026-09-20-b-wrapper-contracts.md`. C28 evidence custody remains D-B2;
+  D-5 project roster location is recorded as a pending proposal. No shared schema, prompt, expected case or tag changes.
+
+- Materialize the aligned v2 verdict, named roster overrides/resolved roster and common transport vocabulary as JSON
+  Schema Draft 2020-12. Validate with maintained `jsonschema`; preserve existing Pydantic boundaries and CLI-native
+  capabilities without a new schema engine or vendor SDK. Rules: R-AGREE, R-ROSTER, R-BIND, R-RECEIPT; cases C9–C14,
+  C19–C23. Host implementation and adoption are not claimed by schema tests.
+- Align all three family prompt pins with required evidence/coverage/uncertainty and complete v2 binding. Resolve
+  packet filenames through host mappings; retain A-only raw-tail and active hook/audit controls. REVIEW stays no-web;
+  INVESTIGATION retains its authorized web trigger. Do not activate B's dormant hook.
+- `decisions/rev-2-implementation-spec.md` defines the exact shared-first implementation boundary, legacy development
+  gate compatibility and verification sequence. D-B1 policy composition and D-B2 private evidence custody remain
+  pending owner decisions. rev-1 acknowledgement rows and normative pin are unchanged.
+- Authoring checks include the reproduced terminal-newline path/binding rejection and the shipped example's schema
+  identity. Units touched: verdict-wire, roster, engine-transport, prompts; common behavioral fixture C30 added.
+
+## Unreleased authoring proposal — 2026-09-20
+
+- Owner-requested `R-AUTHORING-SYNC`: latest remote source checks, same-commit cross-host design review, and three-family
+  diagnosis for any omitted existing functionality. One normative location with identical shared agent-entry pointers.
+- Owner-directed Codex-first sequencing: B develops and verifies, audits the corresponding A source at each change,
+  and accumulates line-based follow-up instructions while A remains unchanged. A's implementation or reply does not
+  block B work under settled contracts; unresolved common contract decisions retain their existing boundary.
+- This proposal does not extend the acknowledgements on basis `bd506054`, adopt a host revision, tag a revision, or
+  authorize a design change. Claude leader review of this new commit is pending. Host B's preimplementation audit is in
+  `decisions/host-b-preimplementation-audit.md`; it records case mapping, evidence, remaining design questions and handoff.
+
 ## rev-1 (draft, unpushed as a tag) — 2026-09-19 late
 
 Current verification amendment (Codex; owner-authorized publication):

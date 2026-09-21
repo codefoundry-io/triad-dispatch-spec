@@ -1,19 +1,19 @@
 # Review rules — the one normative location
 
-Both hosts implement these rules. Each carries an anchor; `process.md`, `cases/cases.json`, `units.json` and the host
+These rules govern both hosts; current implementation and migration status are recorded separately. Each rule carries an anchor; `process.md`, `cases/cases.json`, `units.json` and the host
 skills reference the anchor. Owner rulings are quoted from `decisions/owner-register.md`.
 
 ## Agreement
 
 <a id="R-AGREE"></a>
 A round is agreed when NO unresolved BLOCKING finding remains from any participating leg (owner Q-H / Q-Q / Q-S). A
-verified Critical or must-fix finding blocks whatever leg raised it and whatever label the leg carries. A MERGE WITH FIXES whose findings are all non-blocking counts as agreement on the reviewed bytes AS THEY STAND (owner Q-S: "Minor-only MERGE WITH FIXES counts (no extra round)"; owner via the codex session, Q1: "코드를 수정하면 전원 재검토. Minor만 남은 원본은 승인 가능"). Fixing those findings changes the reviewed content, which is a new basis (R-REREVIEW); approving the unchanged original and approving later-modified bytes are different acts. An UNRESOLVED OPEN QUESTION from any leg (a fact needed to judge the approved scope that the leg could not settle) blocks exactly like a blocking finding and is released by the same three paths — v2 target adopted by round r2 (all three families); today only host B's schema carries it. A missing, failed, invalid or unresolved non-affirmative result is not agreement. A block is released only by a probe that refutes the finding, a fix confirmed by
+verified Critical or must-fix finding blocks whatever leg raised it and whatever label the leg carries. A MERGE WITH FIXES whose findings are all non-blocking counts as agreement on the reviewed bytes AS THEY STAND (owner Q-S: "Minor-only MERGE WITH FIXES counts (no extra round)"; owner via the codex session, Q1: "코드를 수정하면 전원 재검토. Minor만 남은 원본은 승인 가능"). Fixing those findings changes the reviewed content, which is a new basis (R-REREVIEW); approving the unchanged original and approving later-modified bytes are different acts. An UNRESOLVED OPEN QUESTION from any leg (a fact needed to judge the approved scope that the leg could not settle) blocks exactly like a blocking finding and is released by the same three paths — v2 target agreed by round r2 (all three families), now materialized in the candidate schema; host adoption is separate. A missing, failed, invalid or unresolved non-affirmative result is not agreement. A block is released only by a probe that refutes the finding, a fix confirmed by
 the re-review, or a recorded owner decision. The leader verifies findings with evidence; a vote decides nothing. The
 leg-facing clause reserves MERGE WITH FIXES for a blocking finding (`prompts/common-clauses.md § verdict-selection-rule`);
 a Minor-only MERGE WITH FIXES still counts as agreement per Q-S and is recorded as a verdict-selection deviation. A round
 in which fewer than three families returned a verdict is released only by a recorded owner decision (shipped CFR rule 1;
 owner Q-L). The wire representation of "agreed" (verdict tokens, finding fields) is `contracts/leg-verdict.schema.json`
-after the D-3 round.
+and its v2 integration boundary in decisions/rev-2-implementation-spec.md.
 
 ## Correction re-review
 
@@ -39,7 +39,7 @@ switched off or breaks, another entry may be enabled in its place — a differen
 perspective (owner D-4); the round receipt records which legs actually ran and their family coverage: two legs of one
 family are one family (the release valve for a short round is R-AGREE). `vendor` is a FAMILY value — `claude` | `codex` |
 `google`; the Google CLI is named only by the `agy` / `gemini` block (R-GOOGLE). Selected investigations (custom prompt, web, extra read roots) are not review rounds and return no verdict
-(owner Q-D). Model and effort must be expressible for every vendor in the roster file — including the claude legs (B runs claude as a CLI child) — and are validated by the host adapter against actual capabilities at dispatch; `model: null` means the host's default; when both Google CLIs are present an explicit `route` (`agy` | `gemini`) in the `google` block pins the route, otherwise the shipped chain resolves it (R-GOOGLE); timeouts are adapter-validated (B's formal gemini route requires 600 s today). The runnable default roster is three legs; further entries in the example are opt-in. No configuration is a shared user-global dependency; the resolved roster is
+(owner Q-D). Model and effort must be expressible for every vendor in the roster file — including the claude legs (B runs claude as a CLI child) — and are validated by the host adapter against actual capabilities at dispatch; `model: null` means the host's default; when both Google CLIs are present an explicit `route` (`agy` | `gemini`) in the `google` block pins the route, otherwise the shipped chain resolves it (R-GOOGLE); timeouts are adapter-validated (B's legacy formal gemini route requires 600 s and its legacy formal claude route requires 1200 s; the shared template's 900 s Claude values are not B runnable defaults). The runnable default roster is three legs; further entries in the example are opt-in. No configuration is a shared user-global dependency; the resolved roster is
 shown before any paid dispatch, and unselected legs are never started.
 
 ## Selected investigations
@@ -51,7 +51,10 @@ it as their existing single-shot dispatch path (A `triad-*-dispatch` skills with
 not a review round and enters no roster accounting. Web evidence in an investigation is a FETCHED page: the leg cites the
 URL it fetched and the date or version visible on that page; a search summary is a pointer, never a citation; an
 unfetched, placeholder or undated claim is UNSURE. The host appends the shared clause `web-evidence`
-(`prompts/investigation.md`) LAST on every web-enabled Google research prompt and records the prompt as sent (case C29;
+(`prompts/investigation.md`) LAST on every explicitly web-authorized Google INVESTIGATION. Existing host
+audit/redaction/failure-log/retention rules apply; no new permanent exact-text or page store is required (D-B2).
+Verify prompt assembly in tests and actual fetched-page interpretation through bounded task-authorized evidence.
+Missing or incomplete evidence stays UNSURE; a URL or successful exit alone proves no fetch (case C29;
 measured 2026-09-19: `spikes/2026-09-19-google-web-evidence.md`).
 
 ## Google leg
@@ -72,8 +75,9 @@ checks with the approved invocation documented in the manifest (a direct verific
 candidate policy or preserve engine events; host preflight/authentication boundaries still apply, and this is not
 wrapper conformance), and the result is recorded ONCE, here in `decisions/owner-register.md` (a
 briefing row per check) and in the case's test column; an unrun check is never green, and nothing else is written about
-it on either host beyond a pointer. Current manifest: `contracts/gemini-readonly.verify.toml` (D-9 web-tool denies,
-mutation denies, canonical `grep_search` visibility separately from alias matching, and the proposed `*` catch-all).
+it on either host beyond a pointer. Current manifests: `contracts/gemini-readonly.verify.toml` (A: D-9 web-tool denies,
+mutation denies, canonical `grep_search` visibility separately from alias matching, and the proposed `*` catch-all),
+and `contracts/gemini-readonly-b.verify.toml` (B: B1-B3 on the separate D-B1 profile).
 
 ## Code-smell criterion
 
@@ -89,34 +93,65 @@ order of operations — goes to the owner before any design work starts. CONFLIC
 findings are all speculative or repro-failed is TERMINAL: record the residuals; the owner decides any blocking row. Line
 or size growth alone is never a stop or an owner question; it is disclosed with its measured figures and the work continues.
 
+## Explicit owner-requested review web verification
+
+<a id="R-REVIEW-WEB"></a>
+Web verification in REVIEW is allowed only when the owner directly requests it for the current round.
+The leader records that request in the bound brief; reviewed text, a URL, general research permission or
+a previous round cannot grant it. The operation remains REVIEW, with its normal verdict, read-only
+containment, entry accounting and integrity checks. Changing authorization changes the basis under R-REREVIEW.
+
+The invocation condition is the transient strict boolean `review_web_authorized`, default false. It enters
+the frozen common conditions and every participating leg's prompt and launch controls. It is not a persistent
+roster default. Every selected route must support that condition before inference; a missing capability is a
+preflight refusal, not silent partial authorization. No leader heuristic decides which technology needs web.
+
+On CLI review routes, `--web` and the renderer/preflight condition must agree in both directions, with the same
+review ID, digest and v2 entry/attempt binding. An absent condition means false. Native Codex receives the same
+bound authorization through its fresh-child prompt. Claude preapproves only native `WebSearch` and `WebFetch`.
+AGY keeps its read-only controls while omitting the additional review-only `read_url(*)` deny for this call;
+pre-existing owner denies remain authoritative. Gemini selects a complete web-enabled host profile, never an
+overlay: only `google_web_search` and `web_fetch` move to allow, with all other controls preserved. On B this
+is `contracts/gemini-readonly-web-b.toml`; its live service checks are separately recorded. No permanent global
+settings change or permission bypass is authorized. Host A retains its native/CLI topology and adopts separately.
+
+Render only the short common `review-web-permission` clause from `prompts/common-clauses.md` when true, and the
+normal no-web clause otherwise. Existing evidence, uncertainty and untrusted-content rules continue; do not
+add technology classification or automatic web triggers. Raw investigations remain separate under R-INVEST;
+the raw Claude `--web` permit does not add review accounting or rewrite the caller's prompt.
+
 ## Containment and validity — what exists today and must survive
 
 <a id="R-CONTAIN"></a>
-Review legs read; they do not mutate, execute the candidate, or spawn vendors. The REVIEW operation has no web on any
-family (D-9 RULED 2026-09-19): codex `web_search="disabled"`; agy review agents without web tools (A ships this; B's
-agy read-only builder keeps `read_url` today — `_agy_settings.py:34-36` — and drops it for review dispatch only, never for
-raw investigations); gemini by the explicit deny rows in `contracts/gemini-readonly.toml`; every review prompt renderer
-stops permitting web reads. Authorized investigations (R-INVEST) keep web. No alignment may introduce a dangerous /
+Review legs read; they do not mutate, execute the candidate, or spawn vendors. REVIEW has no web by default
+(D-9, conditionally superseded by the owner on 2026-09-21; see R-REVIEW-WEB): codex `web_search="disabled"`;
+agy review agents without web tools (A ships this posture; B's formal builder explicitly denies `read_url(*)`;
+raw investigations retain web); gemini by the explicit deny rows in its host profile below. Renderers preserve
+the default prohibition and select an authorized exception only under R-REVIEW-WEB. Gemini host profiles remain separate under D-B1: A vendors
+`contracts/gemini-readonly.toml`; B vendors `contracts/gemini-readonly-b.toml`. Equality means exact bytes of
+the selected complete profile, with its adjacent digest; no concatenated overlay is implied. Preserve B's
+existing 999/998 allow/deny/catch-all and Plan Mode transition restrictions while moving its two web tools
+to explicit denies. A's profile and V1–V5 manifest stay unchanged; B's live checks are separately recorded
+in `contracts/gemini-readonly-b.verify.toml`. The explicitly authorized web profile is selected under R-REVIEW-WEB; these default-profile bytes stay unchanged. Authorized investigations (R-INVEST) keep web. No alignment may introduce a dangerous /
 yolo permission bypass on any leg (each host discloses its existing permissive-route flags in `units.json` exceptions; none is on a review route). A leg a host runs natively stays native; no leader-model CLI subprocess is
 added for symmetry. Per vendor, the guards that ship today and must survive any alignment (host, symbol):
 
 - codex leg (A `codex_wrapper.py`, command builder): selected read-only sandbox, `approval_policy=never`, `--ignore-rules`
-  on every posture, `web_search="disabled"` unless search is selected (wrapper). The packet-egress precondition for a selected search is carried by A's review SKILL, not the wrapper. These are A's controls, not instructions for B's native session.
+  on every posture, `web_search="disabled"` for REVIEW. Selected review search requires the current R-REVIEW-WEB binding; unrequested REVIEW remains disabled. These are A's controls, not instructions for B's native session.
 - gemini leg (A `gemini_wrapper.py`): approval modes pinned to `default` / `auto_edit` (plan and yolo removed), the
   read-only × auto_edit conflict refusal, the read-only policy-file precondition, the hardened-install read-only default,
-  write posture requires `--cwd`; the shared read-only policy denies `google_web_search` / `web_fetch` by EXPLICIT rows
+  write posture requires `--cwd`; A's selected read-only profile denies `google_web_search` / `web_fetch` by EXPLICIT rows
   (D-9 RULED 2026-09-19 — `--policy` replaces only the user tier, so an unnamed tool keeps the default tier's decision;
-  runtime effect per `contracts/gemini-readonly.verify.toml`); B: `--help` capability preflight, policy self-check, credential/endpoint/model-selector
+  runtime effect per `contracts/gemini-readonly.verify.toml`); B: `--help` capability preflight, policy self-check against
+  `contracts/gemini-readonly-b.toml` (runtime effect per `contracts/gemini-readonly-b.verify.toml`), credential/endpoint/model-selector
   variables removed from the child on the formal route. Effective posture is computed BEFORE the conflict and policy checks
   (verified defect on A: the hardened default is assigned after the checks).
 - agy leg (A): per-round PreToolUse allow-list hook + hook load check + read-audit gate; B: non-mutating project route (`--mode plan --sandbox read-only`); B's hook stays dormant until separately agreed. The agy hook and the gemini read-only policy are TOOL-NAME controls: neither scopes paths, and the read audit records the argument path as given, not a resolved target — they do not by themselves contain a symlink escape (see the Q4 item in R-PREPARE).
-- all wrappers: binary presence; a relative `--prompt-file` or `--cwd` is ACCEPTED and resolved against the wrapper PROCESS cwd at argument processing (never the child `--cwd`); every existing validation stays — configured runtime roots where configured, regular file, UTF-8, non-empty; the resolved absolute path is recorded in the wrapper summary line and the per-call audit row (both exist on success; the run-log is failure-only) and named as the candidate on a pre-spawn refusal — relative spelling alone is never a reason to refuse (owner directive 2026-09-19 after the recurrence; wording per codex F5). NOT YET applied on either host (C28); stdin delivery confirmed or refused (fail closed); process group captured at spawn and
-  reaped on timeout / abnormal unwind (normal-exit reaping is the R-TERMINAL target, not shipped on either host); reader and writer completion before success (verified gap on both: a decode error or a surviving descendant can
-  leave a "successful" prefix — R-TERMINAL); schema validation with one clean repair retry where a leg relies on it; verdict
+- all wrappers: binary presence; a relative `--prompt-file` or `--cwd` is ACCEPTED and resolved against the wrapper PROCESS cwd at argument processing (never the child `--cwd`); every existing validation stays — configured runtime roots where configured, regular file, UTF-8, non-empty; the resolved absolute prompt-file and child-cwd paths are represented in the existing success summary and audit row, using the host's current redaction mode (D-B2). Refusal names the resolved candidate through that same masking policy; failure-only run logs remain failure-only. Relative spelling alone is never a reason to refuse (C28). B implements relative resolution, validation and masked success/refusal evidence (C28, P4); A still refuses relative paths; stdin delivery confirmed or refused (fail closed); process group captured at spawn and
+  reaped on timeout / abnormal unwind and normal exit under R-TERMINAL (implemented on B; A migration remains); reader and writer completion before success (B now rejects incomplete/error collection; A's remaining source gap is recorded in the current implementation audit); schema validation with one clean repair retry where a leg relies on it; verdict
   binding to review id, family and content digest; round integrity capture/verify.
 - cleanup: refuses without deleting when a tree is not provably its own; ownership is proven by an allocation record or
-  marker, never by a name shape (verified defect on A: the `.pruning` reclaim branch deletes on name shape alone; B's stale
-  sweep accepts same-uid/prefix/age without provenance).
+  marker, never by a name shape (verified defect on A: the `.pruning` reclaim branch deletes on name shape alone; B now requires allocation provenance, verified export and root identity for stale and explicit cleanup).
 
 <a id="R-TERMINAL"></a>
 Transport success requires: process exit collected, all reader threads joined without error, the owned process group
@@ -129,16 +164,18 @@ wrapper-only tokens and compatibility aliases are listed explicitly as exception
 `is not None` assert shipped on both hosts.
 
 <a id="R-RECEIPT"></a>
-The transport receipt and the audit / run-log records carry the agreed field vocabulary (`contracts/receipt-fields.json`, NOT YET — a
-case pointing here is NOT RUN until the file exists): stdin delivery class, resolved route, binary, observed CLI version, attempt.
+The transport receipt and audit / run-log records carry the common transport object defined by
+`contracts/receipt-fields.json`: stdin delivery class, execution route, binary, observed CLI version and attempt.
+Existing host envelopes remain. Schema validation alone does not prove host implementation or observed runtime identity.
 
 <a id="R-BIND"></a>
 Every leg's result binds `review_id`, `family` and `content_digest` today on both hosts; a mismatch is an INVALID leg, never
 a pass. v2 ADDS (round r2, all three families; lands with the D-3 wire — `contracts/leg-verdict-mapping.md`): `leg_name` (the
 roster entry), `attempt` (integer ≥ 1, per leg), `route` (the resolved Google route `agy` | `gemini`; null for a family with
-one route). Until then the prompt seeds and both shipped schemas bind the older set.
+one route). The common v2 prompt pins use these fields. Each host adopts its validator, all shaped clauses and collectors together;
+explicit legacy entry points retain their old contract and cannot admit v2 results.
 Duplicate JSON members are rejected at the original-text boundary before extraction or normalization can discard evidence
-(verified gap on BOTH hosts: each wrapper's schema path validates with `model_validate_json`, which does not detect duplicates; A's file path is a bare `json.loads`; A's raw-reply admission and B's result-file reader reject).
+(A's wrapper schema path and bare `json.loads` file path retain the previously recorded gap; A's raw-reply admission rejects duplicates. B rejects duplicates at the original-text boundary in its review wrapper/result paths, including explicit v2; see C14/C30).
 
 ## Preparation, verification, cleanup (lifecycle obligations)
 
@@ -163,7 +200,7 @@ files keeps a minimum age floor so a fresh sibling file is never deleted to sati
 Both hosts call vendor CLIs only — no vendor HTTP API, SDK or API key. Login is the user's own OAuth login in each CLI;
 wrappers check the binary and never enter or store credentials. Billing follows the AUTHENTICATION type, not the model
 flag (Gemini CLI v0.60.0 `contentGenerator.ts`: auth is selected before the model is resolved); environment scrubbing and
-the absence of `-m` are hygiene, not proof of the billing route. Default model for the Google review leg on BOTH CLIs: the Pro family with a verifiable HIGH thinking configuration (owner Q-W; owner via the codex session, Q2: "두 CLI 모두 Pro 계열 + 확인 가능한 high로 맞춤; 인증 경계 유지"). agy: today's Pro-high catalog slug, recorded in the roster; gemini CLI: a route-valid Pro model whose default thinking level is HIGH (v0.60.0 `defaultModelConfigs.ts` gives Gemini 3 Pro `ThinkingLevel.HIGH`; the agy slug is NOT a portable gemini CLI argument). Flash was retired as a reviewer (0 unique blocking defects over ten rounds, owner 2026-09-14). Slugs are dispatch-time values in the roster's `agy` / `gemini` block, never constants in code; the configured default is recorded separately from the exposed runtime identity; the model option stays selectable only so a future model can be evaluated. B's Auto-only formal path and A's unpinned gemini invocation are MIGRATION items, not conformance. Deterministic
+the absence of `-m` are hygiene, not proof of the billing route. Default model for the Google review leg on BOTH CLIs: the Pro family with a verifiable HIGH thinking configuration (owner Q-W; owner via the codex session, Q2: "두 CLI 모두 Pro 계열 + 확인 가능한 high로 맞춤; 인증 경계 유지"). agy: today's Pro-high catalog slug, recorded in the roster; gemini CLI: a route-valid Pro model whose default thinking level is HIGH (v0.60.0 `defaultModelConfigs.ts` gives Gemini 3 Pro `ThinkingLevel.HIGH`; the agy slug is NOT a portable gemini CLI argument). Flash was retired as a reviewer (0 unique blocking defects over ten rounds, owner 2026-09-14). Slugs are dispatch-time values in the roster's `agy` / `gemini` block, never constants in code; the configured default is recorded separately from the exposed runtime identity; the model option stays selectable only so a future model can be evaluated. B's explicit legacy development path remains Auto-only. B's opt-in v2 adapter selects route-valid Pro defaults and checks supported controls before inference; preflight settings do not prove runtime identity. A's unpinned gemini invocation remains a migration item. Deterministic
 provider-free checks (help, version, policy, argv, env, preflight) stay in each host's automated suite; only authenticated
 service checks go through the owner-briefing route (R-GOOGLE); an unrun authenticated check is unverified, never green. Gemini formal review requires CLI
 `>= 0.34.0` (PR #20639 lands the headless policy-allow fix) and tests the declared supported range. Gemini `--policy`

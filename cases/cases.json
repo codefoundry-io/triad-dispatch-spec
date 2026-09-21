@@ -11,7 +11,7 @@
       "expected": "Success only after readers joined and the owned group is reaped; incomplete stdin = fail closed (A token input-delivery-failed / exit 65; B RunResult flag); timeout and signals leave a terminal record and no orphan",
       "tests": {
         "A": "tests/unit/wrappers/t48*, tests/integration/f12* (stdin); timeout/signal: todo",
-        "B": "codex-fill (stdin fail-closed tests landed 0.2.554)"
+        "B": "Implemented and regression-covered in B e29d820 (P1, triad-b-p1-r2 ADMITTED_SAFE): tests/test_terminal_transport.py and existing stdin/provider tests cover bounded readers/stdin reconciliation, owned-group cleanup, normal exit and timeout/error custody. This is source/test evidence, not shared receipt-schema or every provider/platform conformance."
       }
     },
     {
@@ -23,7 +23,7 @@
       "expected": "Terminal failure recorded; partial resources released; no success token",
       "tests": {
         "A": "todo",
-        "B": "codex-fill"
+        "B": "Implemented in B e29d820: tests/test_terminal_transport.py covers post-spawn reader/writer start failures and cleanup of the child and already-started threads; existing spawn/interrupt cases retained. triad-b-p1-r2 ADMITTED_SAFE."
       }
     },
     {
@@ -35,7 +35,7 @@
       "expected": "A file younger than the age floor survives a cap prune; only the time-based sweep may delete by age",
       "tests": {
         "A": "todo (cap path has no floor — verified 2026-09-19)",
-        "B": "codex-fill (B protects fresh siblings)"
+        "B": "Existing coverage: tests/test_log_cleanup.py::test_run_log_count_cap_prunes_only_stale_files_and_allows_fresh_overflow and byte-cap counterpart; included in completed macOS/Ubuntu full-suite runs summarized at C24. No installed-provider conformance inferred."
       }
     },
     {
@@ -47,7 +47,7 @@
       "expected": "(i) preserved and reported — cleanup refuses without deleting and states what it observes; (ii) original or foreign content is never disposed of by cleanup; (iii) a provably owned temporary copy may be disposed of, only after the evidence-export checks (R-CLEANUP). Symlinks: C26 (Q4 RULED)",
       "tests": {
         "A": "todo (`.pruning` name-shape branch deletes — verified 2026-09-19)",
-        "B": "codex-fill (stale sweep lacks provenance — codex spike)"
+        "B": "Allocation/export portion implemented in B a85a800: tests/test_review_cleanup_custody.py covers refusal without provenance, foreign roots, verified export and disposal. Existing UID/type/age and internal-symlink checks retained; C26 separately tracks reviewer link visibility. triad-b-p2-r2 ADMITTED_SAFE."
       }
     },
     {
@@ -59,7 +59,7 @@
       "expected": "Resume requires the allocation record or marker; otherwise refuse",
       "tests": {
         "A": "todo",
-        "B": "codex-fill"
+        "B": "Implemented in B a85a800: tests/test_review_cleanup_custody.py partial-cleanup resume requires a validated allocation-bound claim. triad-b-p2-r2 ADMITTED_SAFE."
       }
     },
     {
@@ -71,7 +71,7 @@
       "expected": "Still a failure; the transcript is preserved",
       "tests": {
         "A": "todo",
-        "B": "codex-fill"
+        "B": "Implemented in B e29d820: tests/test_antigravity_stream_json.py covers completed transcript followed by settings-guard release failure; terminal failure preserves captured evidence. triad-b-p1-r2 ADMITTED_SAFE."
       }
     },
     {
@@ -83,7 +83,7 @@
       "expected": "Second cleanup is a no-op; disposal never precedes export verification",
       "tests": {
         "A": "todo",
-        "B": "codex-fill"
+        "B": "Implemented in B a85a800: tests/test_review_cleanup_custody.py requires/revalidates an external export before disposal; existing missing-root idempotence remains covered. triad-b-p2-r2 ADMITTED_SAFE."
       }
     },
     {
@@ -95,7 +95,7 @@
       "expected": "Every emitted token is in contracts/exit-tokens.json with the same code; exceptions listed explicitly (the shipped `is not None` assert is vacuous on both hosts)",
       "tests": {
         "A": "todo",
-        "B": "codex-fill"
+        "B": "6653bdc: tests/test_exit_token_contract.py checks all 18 shared map rows, classifier/vendor-map membership, bounded producer-literal census and explicit direct/alias exceptions. Three missing map rows added; producer/stdin/repair behavior unchanged. triad-b-wrapper-contracts-r1 ADMITTED_SAFE; one non-blocking local-variable census suggestion retained after leader verified the current token is registered. See spikes/2026-09-20-b-wrapper-contracts.md."
       }
     },
     {
@@ -107,7 +107,7 @@
       "expected": "Receipt carries stdin delivery class, route, binary, observed version",
       "tests": {
         "A": "todo",
-        "B": "codex-fill"
+        "B": "Implemented in the local B P3 candidate based on 3d62b7c. Actual CLI transport object and native null binary/version are preserved in invocation-owned custody. Regression sources: tests/test_common_transport_receipt.py, tests/test_v2_evidence_custody.py, tests/test_v2_round_cli.py, tests/test_v2_review_findings.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred."
       }
     },
     {
@@ -119,7 +119,7 @@
       "expected": "Both hosts write the agreed fields; a leg mislabelling its family is caught by binding, not by the audit",
       "tests": {
         "A": "todo",
-        "B": "codex-fill"
+        "B": "Implemented in the local B P3 candidate based on 3d62b7c. Host observations distinguish unknown from observed empty/default; preflight versions are not fabricated as runtime versions. Regression sources: tests/test_common_transport_receipt.py, tests/test_v2_round_cli.py, tests/test_v2_runtime_boundaries.py, tests/test_v2_review_findings.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred."
       }
     },
     {
@@ -131,7 +131,7 @@
       "expected": "Loader/interpreter injection variables removed on every route; credential/endpoint/model-selector removal per the agreed set (A: no per-call seam today — verified)",
       "tests": {
         "A": "todo",
-        "B": "tests/test_provider_wrappers.py (formal-route env cases; codex-fill exact ids)"
+        "B": "Implemented in the local B P3 candidate based on 3d62b7c. Common injection scrub plus route-specific environment controls, preserving configured authentication continuity. Regression sources: tests/test_provider_wrappers.py, tests/test_google_diagnostics.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred."
       }
     },
     {
@@ -143,7 +143,7 @@
       "expected": "No file = three standing legs at recommended defaults; file entry overrides by name; unknown key refused; resolved roster printed before dispatch; unselected legs never start; runtime Google resolution recorded",
       "tests": {
         "A": "tests/unit/skills/t7*, t8* (v1 config arms) — v2: todo",
-        "B": "codex-fill"
+        "B": "Implemented P3 candidate: Three defaults, B project discovery, merge-by-name, enabled display and consumption by capability-checked invocation allocation. Malformed review identifier/root path types receive controlled CLI refusal before adapter preparation. Evidence: tests/test_review_roster.py, tests/test_v2_adapters.py, tests/test_v2_rounds.py, tests/test_v2_review_findings.py, tests/test_v2_input_refusals.py. Current verification and publication: decisions/host-b-p3-verification.md."
       }
     },
     {
@@ -155,7 +155,7 @@
       "expected": "A blocking finding or an unresolved open question from any leg blocks; a Minor-only non-affirmative verdict on the unchanged bytes counts as agreement and is recorded as a verdict-selection deviation; a leg that did not run is not agreement; probe-refuted / owner-decided releases are recorded",
       "tests": {
         "A": "todo",
-        "B": "codex-fill"
+        "B": "Implemented in the local B P3 candidate based on 3d62b7c. Canonical v2 verdict validation and all-entry agreement, including Minor-only negative and blockers/questions. Regression sources: tests/test_validate_v2.py, tests/test_v2_producer_adapter.py, tests/test_v2_rounds.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred."
       }
     },
     {
@@ -167,19 +167,19 @@
       "expected": "review_id + leg identity + attempt + family + resolved route + content digest must match; duplicate JSON members rejected at the original-text boundary (A: only the raw-reply admission rejects today — verified)",
       "tests": {
         "A": "tests/unit/skills/* validate_verdict cases (partial)",
-        "B": "bin/verdict_schema.py raw-file duplicate rejection tests (codex-fill)"
+        "B": "Implemented in the local B P3 candidate based on 3d62b7c. Opt-in producers/renderers/collector use all six bindings; explicit legacy wire remains separate. Regression sources: tests/test_validate_v2.py, tests/test_v2_review_prompts.py, tests/test_v2_round_cli.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred."
       }
     },
     {
       "id": "C15",
       "surface": "gemini-policy",
       "rule": "R-CONTAIN",
-      "summary": "Gemini read-only policy: allow/deny sets equal the contract file; web tools denied by explicit rows (D-9)",
+      "summary": "Gemini host profiles remain byte-identical to their selected contract and deny REVIEW web tools explicitly (D-9, D-B1)",
       "input": "the shipped TOML vs the contract file; a dedicated fixture with read/search controls and attempted web/write calls; final-model prose without engine evidence; a candidate policy with a catch-all and a base-versus-candidate unlisted-tool control",
-      "expected": "The shipped file is BYTE-IDENTICAL to the contract (one definition of equality — README step 2; host notes live outside the payload). Allow: read/search tools (priority 100). Deny (priority 200): write_file, replace, run_shell_command, mcp_*, and — D-9 RULED 2026-09-19 — google_web_search + web_fetch by an explicit row. Runtime effect is proved by attributable engine call/result records or authoritative pre-dispatch policy-exclusion evidence, never model prose or a missing output file alone; unknown evidence stays INCONCLUSIVE. Reads/search still succeed. V3 separates alias matching from canonical tool visibility; V5 requires a discriminating base-versus-candidate control as well as compatibility checks. Follow contracts/gemini-readonly.verify.toml; proposed canonical `grep_search` and `*` rows land only after their checks pass. No runtime pass is implied by source inspection",
+      "expected": "Each shipped profile is BYTE-IDENTICAL to its selected complete contract: A contracts/gemini-readonly.toml (unchanged 100/200 profile), B contracts/gemini-readonly-b.toml (999 allow/deny plus existing 998 catch-all and Plan Mode transition denies). Both explicitly deny google_web_search and web_fetch. B moves only those tools out of its prior allow set; no overlay or loss of existing protection. Runtime effect requires attributable engine call/result or authoritative policy-exclusion evidence; model prose or missing files alone never prove enforcement. Unknown evidence is INCONCLUSIVE. Preserve local reads/search. A's V1-V5 remain NOT RUN and its proposed rows remain subject to contracts/gemini-readonly.verify.toml. B live checks are separate in contracts/gemini-readonly-b.verify.toml, also NOT RUN. Source/byte tests do not imply runtime conformance.",
       "tests": {
         "A": "tests/unit/wrappers/t50-gemini-policy-web-deny-c15.sh (file shape + byte identity with the contract, offline); runtime checks V1-V5: NOT RUN (owner runs where gemini is in service; V3/V5 use a candidate copy through the direct CLI invocation in the manifest)",
-        "B": "tests/test_provider_wrappers.py:2107 policy cases (5 pass provider-free — codex second pass); B removes the web tools from its 999 allow list and names the test after C15 (codex-fill)"
+        "B": "P4 implemented at 8f12bd5: tests/test_investigation_completion.py verifies exact separate B candidate bytes, digest and explicit web denies while preserving 999/998 controls; existing test_review_no_web.py and provider tests retain AGY/render/raw boundaries. triad-b-p4-r1 ADMITTED_SAFE. B1-B3 and A V1-V5 remain NOT RUN; implementation/source equality is not effective-policy proof or revision adoption."
       }
     },
     {
@@ -191,7 +191,7 @@
       "expected": "Refuses below CLI 0.34.0, on a missing capability, when auth is not the approved subscription route; effective posture computed BEFORE the conflict/policy checks (A ordering defect — verified)",
       "tests": {
         "A": "todo",
-        "B": "tests/test_provider_wrappers.py:1733 provider-free case (codex-fill exact ids)"
+        "B": "Implemented in the local B P3 candidate based on 3d62b7c. Version/help/model-policy interface validation before review inference; actual OAuth principal and account entitlement remain unexposed unless independently observed. Regression sources: tests/test_gemini_version_floor.py, tests/test_v2_adapters.py, tests/test_v2_adapter_wrapper_bridge.py, tests/test_v2_review_findings.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred."
       }
     },
     {
@@ -203,7 +203,7 @@
       "expected": "Google credential / ADC / Vertex / endpoint / model-selector variables absent from the child env",
       "tests": {
         "A": "todo",
-        "B": "tests/test_provider_wrappers.py (env cases; codex-fill)"
+        "B": "Implemented in the local B P3 candidate based on 3d62b7c. Google route-specific environment and authentication guards remain in selected v2 and explicit legacy paths. Regression sources: tests/test_provider_wrappers.py, tests/test_google_diagnostics.py, tests/test_v2_google_wrappers.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred."
       }
     },
     {
@@ -215,7 +215,7 @@
       "expected": "Default = the Pro-high tier on agy and on gemini (dispatch-time slug from the roster, never in code); a different model is accepted only as an explicit roster choice to evaluate a future model and is validated against the route's catalog; the resolved model is recorded in the receipt",
       "tests": {
         "A": "todo",
-        "B": "codex-fill (B's gemini formal route uses `-m auto` today — reconcile with the Pro-high default)"
+        "B": "Implemented in the local B P3 candidate based on 3d62b7c. Separate Google route blocks, explicit pin, Pro-high requested defaults; Gemini never receives a fabricated effort flag. Regression sources: tests/test_v2_adapters.py, tests/test_v2_google_wrappers.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred."
       }
     },
     {
@@ -227,7 +227,7 @@
       "expected": "Only the failed leg is re-dispatched on the same bound basis; other legs' results are retained; the receipt records attempt 2",
       "tests": {
         "A": "todo",
-        "B": "codex-fill"
+        "B": "Implemented in the local B P3 candidate based on 3d62b7c. Diagnosed unchanged-basis failed-entry retry increments attempt and retains siblings/history; preparation failures are preserved without fabricating provider attempts. Regression sources: tests/test_v2_rounds.py, tests/test_v2_round_custody.py, tests/test_v2_runtime_boundaries.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred."
       }
     },
     {
@@ -239,7 +239,7 @@
       "expected": "New basis digest; every participating leg reviews the full agreed scope; prior findings delivered as fenced data; no approval carried forward; no focused re-confirm path exists",
       "tests": {
         "A": "todo (SKILL.md rule 5(b) deletion at two sites)",
-        "B": "codex-fill"
+        "B": "Implemented in the local B P3 candidate based on 3d62b7c. Changed source/conditions require a new full review; prior residual inputs are fenced and bound. Runtime logs do not masquerade as implementation changes; policy bytes remain bound. Regression sources: tests/test_review_conditions.py, tests/test_v2_review_prompts.py, tests/test_v2_rounds.py, tests/test_v2_toolkit_inputs.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred."
       }
     },
     {
@@ -251,7 +251,7 @@
       "expected": "Blocks the round until released by an R-AGREE release path; the leg's acceptance label grants no exemption",
       "tests": {
         "A": "todo",
-        "B": "codex-fill"
+        "B": "Implemented in the local B P3 candidate based on 3d62b7c. Every enabled entry counts regardless of acceptance label, with missing/invalid/blocking states and independent family coverage. Regression sources: tests/test_v2_rounds.py, tests/test_v2_round_cli.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred."
       }
     },
     {
@@ -263,7 +263,7 @@
       "expected": "The roster's per-vendor block appears in the rendered argv / native tool arguments; an unsupported value is refused at the adapter with the reason",
       "tests": {
         "A": "todo",
-        "B": "codex-fill (B formal route pins two Google models today — codex High #2)"
+        "B": "Implemented in the local B P3 candidate based on 3d62b7c. Native and CLI controls reach actual invocation interfaces; unsupported selections are rejected before review inference, without guessed runtime defaults. Regression sources: tests/test_v2_adapters.py, tests/test_v2_adapter_wrapper_bridge.py, tests/test_v2_claude_agent.py, tests/test_v2_runtime_boundaries.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred."
       }
     },
     {
@@ -275,7 +275,7 @@
       "expected": "Each leg has its own bound read-audit evidence and binding; one leg's hook/audit cannot satisfy another's",
       "tests": {
         "A": "todo (read_audit_gate.sh keys on x-* today)",
-        "B": "codex-fill"
+        "B": "Implemented P3 candidate: Exclusive named-entry/attempt results, original host files and read observations; sibling/attempt swaps and changed evidence are refused. Reserved collector output/metadata paths refuse before writes and permit same-attempt recovery using corrected input filenames. Evidence: tests/test_v2_rounds.py, tests/test_v2_round_custody.py, tests/test_v2_evidence_custody.py, tests/test_v2_round_cli.py, tests/test_v2_input_refusals.py. Current verification and publication: decisions/host-b-p3-verification.md."
       }
     },
     {
@@ -287,7 +287,7 @@
       "expected": "macOS and Ubuntu 24.04 results recorded separately; an unrun platform is listed NOT RUN",
       "tests": {
         "A": "todo",
-        "B": "codex-fill"
+        "B": "Corrected P3 candidate: clean-input dedicated GREEN 27 focused and 1631 full macOS tests; Ubuntu 24.04 unprivileged uid 65534: 1629 passed, 2 existing filesystem skips. Validator/provider-free lifecycle passed; source hashes unchanged and exact fixtures/container removed. Formal admission and clean distribution are recorded separately in decisions/host-b-p3-verification.md. No installed-service or authenticated policy conformance is inferred. Historical P4 8f12bd5: 1429 macOS / 1427 Ubuntu plus two skips, triad-b-p4-r1 ADMITTED_SAFE."
       }
     },
     {
@@ -299,7 +299,7 @@
       "expected": "The chosen model/effort/perspective and the extra root/web reach the actual invocation; the result is free-form or custom-schema; no review verdict is demanded and no roster accounting occurs",
       "tests": {
         "A": "tests/*/dispatch/* (existing --web/--cwd dispatch cases; ids to map)",
-        "B": "tests/test_provider_wrappers.py:1331 raw-route test (codex-fill)"
+        "B": "P4 8f12bd5: tests/test_investigation_completion.py covers authorized raw extra roots, native argv, invalid-root and formal-expansion refusal, Gemini comma-path refusal and custom-schema preservation. Existing raw-route tests remain; both explicit Google web triggers are implemented under C29 without a mandatory investigation envelope."
       }
     },
     {
@@ -311,7 +311,7 @@
       "expected": "The link itself is reviewed: path, kind and exact link text fingerprinted and visible to legs; the target is never followed automatically; target content enters only as an independently authorized bound input; an unfollowable link is disclosed as a coverage gap; cleanup never follows a link to delete its target; the host's no-follow mechanism leaves evidence",
       "tests": {
         "A": "todo (A refuses untracked links at prepare/verify today)",
-        "B": "tests/test_review_round.py:2496-2512 (link-text fingerprint; codex-fill)"
+        "B": "Implemented in the local B P3 candidate based on 3d62b7c. Guarded review shows link text without implicit target read; prepared copies retain existing refusal and cleanup preserves external targets. Prompt control is not OS path confinement. Regression sources: tests/test_review_cleanup_custody.py, tests/test_review_round.py, tests/test_review_link_evidence.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred."
       }
     },
     {
@@ -323,7 +323,7 @@
       "expected": "The resolved route, binary and observed version are frozen for the attempt and recorded; a started leg never switches route; neither-installed = the host's recorded policy (A skip-and-log, B refuse) and is never agreement",
       "tests": {
         "A": "todo",
-        "B": "codex-fill (select_google_route tests)"
+        "B": "Implemented in the local B P3 candidate based on 3d62b7c. Selected route/executable and observed preflight version are frozen; exposed runtime contradictions refuse and unavailable runtime versions remain null. Regression sources: tests/test_v2_adapters.py, tests/test_v2_google_wrappers.py, tests/test_v2_runtime_boundaries.py, tests/test_v2_review_findings.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred."
       }
     },
     {
@@ -332,10 +332,10 @@
       "rule": "R-CONTAIN",
       "summary": "Relative --prompt-file / --cwd resolution (recurring dispatch failure)",
       "input": "a wrapper invoked from a cwd with `--prompt-file rel/brief.md` that exists there; the same with a path that does not exist",
-      "expected": "Existing: loaded — relative spelling accepted and resolved against the wrapper PROCESS cwd at argument processing (not the child --cwd); every existing validation stays (configured runtime roots where configured, regular file, UTF-8, non-empty); the resolved absolute path appears in the wrapper summary line and the audit row (both exist on success). Missing or invalid: exit 3 (arg error) naming the resolved candidate; no vendor call. NOT YET applied on either host (codex F1). Recorded recurrences: 2026-07-11, 2026-09-19 r2 (both wrapper legs)",
+      "expected": "Existing relative --prompt-file and --cwd values resolve independently against the wrapper PROCESS cwd captured at entry (never child cwd). Preserve configured runtime roots, regular-file/UTF-8/non-empty/existence checks. Existing success summary and audit represent resolved absolute prompt-file and child-cwd values through the host's existing redaction mode (D-B2); no new log and no unmasked-path expansion. Invalid input exits 3 (argument error) before any vendor call, identifying the resolved candidate through the same masking policy.",
       "tests": {
         "A": "todo (t48-style axis on _common._load_prompt_file; today it refuses at :1167)",
-        "B": "codex-fill (B's prompt-file loader)"
+        "B": "Implemented at 8f12bd5 (P4), extending 6653bdc: tests/test_wrapper_relative_paths.py and test_investigation_completion.py cover entry-cwd-relative loading, preserved validation, resolved success/audit fields, masking, refusal and vanished entry cwd. Accepted diagnostic limits are recorded in decisions/host-b-0555-contract-compliance-handoff.md; no unmasked-path expansion."
       }
     },
     {
@@ -343,11 +343,61 @@
       "surface": "selected-investigations",
       "rule": "R-INVEST",
       "summary": "Web evidence on a research dispatch is a fetched page, never a search summary",
-      "input": "a Google-family research dispatch with web enabled (A: `--sandbox read-only --web`; B: its Google route with web reads permitted) asked for an external fact with URL + page date",
-      "expected": "The prompt the vendor receives ENDS with the shared `web-evidence` clause (`prompts/investigation.md`), appended by the host after the caller's text and recorded with the prompt in the host's audit / run-log; the leg's read audit shows at least one page fetch (agy `read_url_content`, gemini `web_fetch`) for every URL the answer cites; a cited URL absent from the fetch log, a placeholder URL, or a bare year in place of a page date is an UNSURE item, never evidence. Measured before the fix (2026-09-19, agy Pro-high tier): round r1 4 `search_web` / 0 fetches, round r2 1 `search_web` / 0 fetches with placeholder URLs (`spikes/2026-09-19-google-web-evidence.md`)",
+      "input": "Explicitly web-authorized Google-family INVESTIGATION with caller prompt and optional schema; REVIEW and unrequested raw calls do not trigger clause insertion.",
+      "expected": "The vendor prompt ENDS with the shared web-evidence clause after the caller's text; only tool names are substituted per Google CLI. Existing audit/redaction/failure-log/retention rules apply (D-B2); do not require a new permanent exact-prompt or fetched-page store. Verify exact assembly in tests and actual fetch/interpretation using bounded task-authorized evidence. A URL in prose, search summary or successful exit never proves a fetch or complete body. A cited but unfetched/unverifiable URL, placeholder, undated claim or incomplete page evidence remains UNSURE. Preserve existing host read-audit capability without activating dormant hooks for symmetry.",
       "tests": {
         "A": "tests/unit/wrappers/t49-agy-web-evidence-c29.sh (prompt tail + audit record over a fake agy) + the live old-vs-new run recorded in the spike",
-        "B": "codex-fill — B has no `--web` flag but its raw dispatch (custom prompt, optional schema) with the web-permitting read-only policy IS its investigation path: the clause is appended LAST there on an explicitly authorized web investigation (codex names the trigger); after D-9 no B REVIEW prompt permits web, so the clause never lands on the formal review route"
+        "B": "P4 8f12bd5: test_agy_web_evidence.py plus test_investigation_completion.py verify explicit raw AGY/Gemini triggers, clause-last assembly including Gemini schema repair, caller/custom-schema preservation and refusals. Cross-site live evidence records AGY URL-body prefix loss as non-fatal KI-AGY-URL-BODY-PREFIX under the owner disposition; incomplete evidence stays UNSURE where relevant. No new permanent store, dispatch failure or provider-fix claim. See decisions/2026-09-20-owner-follow-up.md and the current handoff."
+      }
+    },
+    {
+      "id": "C30",
+      "surface": "verdict-wire",
+      "rule": "R-BIND, R-ROSTER",
+      "summary": "Canonical v2 schemas reject ambiguous boundaries while preserving agreed result distinctions",
+      "input": "v2 verdict with Minor-only negative, uncertainty-only negative, legacy omissions, unsafe/terminal-newline paths or binding; partial roster overrides and shared template; native or CLI transport receipt",
+      "expected": "Minor-only negative and uncertainty-only DO NOT MERGE are valid; SAFE with blockers/questions, missing required v2 data, unknown fields, unsafe or newline-terminated paths/identifiers/digests are invalid. Named partial overrides validate before merge; complete resolved entries obey vendor blocks. Native receipts do not invent CLI identity. Schema success is not adapter/binding/admission/runtime proof. A pinned resolved Google route requires its own CLI block; absent/null route preserves host selection and adapter checks.",
+      "tests": {
+        "shared": "tests/test_schemas.py; original schema absence RED 65 failed; terminal-newline RED 6 failed / 65 passed; final local authoring verification recorded in decisions/rev-2-implementation-spec.md. No host conformance implied.",
+        "A": "NOT RUN / host integration pending",
+        "B": "Implemented in the local B P3 candidate based on 3d62b7c. Pinned canonical schema/prompts, thin generation projection, strict original local validation and legacy/v2 isolation. Regression sources: tests/test_validate_v2.py, tests/test_v2_producer_adapter.py, tests/test_v2_review_prompts.py, tests/test_v2_claude_wrapper.py, tests/test_v2_google_wrappers.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred."
+      }
+    },
+    {
+      "id": "C31",
+      "surface": "selected-investigations",
+      "rule": "R-INVEST",
+      "summary": "Explicit raw Claude web permission reaches the native CLI",
+      "input": "Caller explicitly requests raw Claude web via --web; compare an omitted flag.",
+      "expected": "Only the selected invocation adds native --allowedTools WebSearch WebFetch. The caller prompt, custom schema, default controls and native deny precedence survive; no review accounting, global settings mutation or arbitrary argv interface is added.",
+      "tests": {
+        "A": "Native route differs; maintainer mapping pending",
+        "B": "tests/test_claude_owner_web.py::test_C31_raw_fixed_web_permit; implementation verification pending"
+      }
+    },
+    {
+      "id": "C32",
+      "surface": "review-web-authorization",
+      "rule": "R-REVIEW-WEB, R-REREVIEW, R-CONTAIN",
+      "summary": "Direct owner request binds web authorization across every review leg",
+      "input": "A current review explicitly requests web; compare absent/false/nonboolean/mismatched conditions, preflight, prompt and invocation.",
+      "expected": "Only true current owner authorization enables all participating routes, using a short common permission clause and preserved native/read-only controls. The same condition enters common digest, preflight and allocation; changed conditions require a new basis; retry preserves it. Missing/mismatched permission refuses before inference; unsupported capability refuses rather than silently running a partially authorized round. No technology-detection heuristic, persistent roster permission or changed verdict schema. Default Gemini policy bytes remain unchanged; the complete web profile permits only its two web tools in addition to the existing read tools.",
+      "tests": {
+        "A": "NOT RUN / adoption pending",
+        "B": "tests/test_claude_owner_web.py C32 scenarios; implementation verification pending",
+        "service": "contracts/review-web.verify.toml; NOT RUN"
+      }
+    },
+    {
+      "id": "C33",
+      "surface": "roster",
+      "rule": "R-ROSTER, R-AGREE, R-BIND, R-RETRY, R-REREVIEW",
+      "summary": "One Codex and three named Google legs with shared-task emphases and owner decision",
+      "input": "Exactly four enabled entries: codex, google-contracts, google-failures and google-state; all review the full common scope, with a frozen leg-name-to-emphasis table in the shared task. Compare same-family result/receipt swaps, missing/invalid/blocking output, failed-to-run unchanged-basis retry and a changed task table.",
+      "expected": "Four independent named attempts and exclusive evidence paths cover two families. Sibling result/receipt swaps cannot satisfy binding. Clean complete two-family output requires a recorded owner decision (B: OWNER_DECISION_REQUIRED), never inferred three-family agreement. Missing/invalid and blocking results remain distinguishable and cannot be silently counted as agreement. The task mapping reaches each bound leg; emphasis coverage is a semantic check, not a new schema field. Retry only the diagnosed failed-to-run entry with unchanged conditions; changed task/roster/controls require every participating entry to review again. Preserve the machine result separately from any subsequent owner decision.",
+      "tests": {
+        "A": "NOT RUN for this exact profile. Published main 8efeb74 has legacy advisory X legs, not proof of the named v2 task mapping; reconcile the current in-progress checkout. Source-line handoff: decisions/claude-codex-google-four-leg-handoff.md.",
+        "B": "NOT RUN for this exact live profile. v0.2.556 source supports named entries, exclusive paths and two-family OWNER_DECISION_REQUIRED; generic-N/renamed-Google tests are supporting evidence only. Operating example and checks: decisions/codex-google-four-leg-operating-spec.md."
       }
     }
   ]
