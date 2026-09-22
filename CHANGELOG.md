@@ -1,5 +1,13 @@
 # Changelog
 
+## Skipped-entry interpretation check — 2026-09-22 (not tagged)
+
+- Reconcile PR #2 against merged main: existing R-AGREE/R-GOOGLE and v2
+  collection already preserve missing enabled entries independently of family
+  coverage. Retain the skipped-entry/successful-sibling input explicitly in C33.
+  Record the refuted new-rule rationale and source evidence in
+  `decisions/host-a-skipped-entry-outcome-gap.md`. No new rule or host fix is claimed.
+
 ## Codex + three Google operating handoff — 2026-09-21 (not tagged)
 
 - Record the owner-requested four-entry/two-family profile under existing
