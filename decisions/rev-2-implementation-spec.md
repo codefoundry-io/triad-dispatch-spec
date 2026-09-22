@@ -7,6 +7,7 @@ the shared schemas/specification first, then implement from that shared commit;
 prefer maintained official libraries and supported CLI features. Complete the
 testable remaining obligations before the final Claude implementation handoff.
 
+<a id="SPEC-SCOPE"></a>
 ## Scope and authority
 
 This materializes the already aligned v2 wire, named variable roster, receipt
@@ -49,6 +50,7 @@ review rules instead of replacing them.
   evidence is Python 3.12.13, jsonschema 4.26.0, referencing 0.37.0 and Pydantic
   2.13.3. This is not an authenticated provider compatibility claim.
 
+<a id="SPEC-VERDICT"></a>
 ## Verdict and legacy boundary
 
 `contracts/leg-verdict.schema.json` implements the aligned
@@ -70,6 +72,7 @@ Its copied standalone validator, paired Google receipts and identity/integrity
 controls must keep working. This requires no change to workspace governance.
 The public v2 roster follows the shared rules, including informational legs.
 
+<a id="SPEC-ROSTER"></a>
 ## Roster resolution
 
 `contracts/review-legs.schema.json` validates a named override document. Its
@@ -98,6 +101,7 @@ The three-family default and variable count follow R-ROSTER. Missing required
 family coverage follows the existing owner-decision release boundary in R-AGREE;
 the schema does not invent a degraded mode or a vote threshold.
 
+<a id="SPEC-CUSTODY"></a>
 ## Transport receipts and evidence ownership
 
 `contracts/receipt-fields.json` defines the common `transport` object attached
@@ -124,6 +128,7 @@ another entry even if the family/model is identical. Preserve raw provider
 evidence and distinguish missing/unexposed observations from observed empty
 sets. Do not activate dormant hooks to manufacture evidence.
 
+<a id="SPEC-RETRY"></a>
 ## Same-basis retry and changed-basis review
 
 Reuse existing lifecycle operations; add only the named-entry/attempt accounting
@@ -145,6 +150,7 @@ needed by R-RETRY and R-BIND, not a second scheduler or provider engine.
 - Keep cleanup ownership/export/failure retention. No retry deletes prior
   evidence or overwrites immutable result files.
 
+<a id="SPEC-INVESTIGATION"></a>
 ## Paths, investigations and unresolved decisions
 
 C28 resolves both prompt-file and child cwd independently against the wrapper
@@ -161,10 +167,12 @@ tool-name substitution. REVIEW never uses that trigger. Exact sent-prompt and
 fetched-page evidence custody follows the recorded D-B2 choice; do not infer a
 fetch from a URL in final prose.
 
-Gemini REVIEW adopts the recorded D-B1 choice and preserves no-web plus existing
-controls. Provider-free policy-engine/argv/receipt tests are distinct from
+Gemini REVIEW adopts the recorded D-B1 choice and preserves its default no-web
+controls; the later [R-REVIEW-WEB](../reference/review-rules.md#R-REVIEW-WEB)
+amendment governs directly requested exceptions. Provider-free policy-engine/argv/receipt tests are distinct from
 V1–V5. An unrun authenticated or effective-policy test remains NOT RUN.
 
+<a id="SPEC-VERIFICATION"></a>
 ## Sequence and verification
 
 1. Author schemas, aligned shared prompt pins and explicit behavioral fixtures.

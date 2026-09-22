@@ -57,7 +57,10 @@ Shared remote `main` was fetched on 2026-09-21 at
 `2eb883fee59e66556ee7c7f87189b38231136622`. The existing authoring branch
 `codex/host-b-preimplementation-audit` and local authoring basis both resolved to
 `921388bfb3973c64c19677fa8bf5eebb34f1aac1`, with no main-only changes.
-This amendment is published on that branch, not merged into `main` or tagged.
+At that publication checkpoint, this amendment was on the authoring branch.
+PR #1 subsequently merged it into `main` at
+`c6406eb1a3a09fefdc1d7e98f26095242bd07c07`; revision tagging and host adoption
+remain separate.
 
 Host B is publicly released as
 [v0.2.556](https://github.com/codefoundry-io/triad-codex-dispatch/releases/tag/v0.2.556)

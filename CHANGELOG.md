@@ -1,5 +1,16 @@
 # Changelog
 
+## Shared PRD/Spec authoring map — 2026-09-22 (not tagged)
+
+- Add a reference-only authoring schema and the current Claude v2 PRD/Spec
+  bundle, with stable document anchors and offline file/anchor/case/unit checks.
+  The schema governs authoring structure; shared runtime contracts stay unchanged.
+- Keep AGENTS.md, CLAUDE.md and GEMINI.md as identical short link maps into the
+  common guidance. Clarify current main publication and replace superseded
+  unconditional no-web prose with the existing R-REVIEW-WEB pointer.
+- Rules: R-PRD-SPEC and existing R-AUTHORING-SYNC. No host implementation,
+  spec-to-code runner, revision tag or host adoption is introduced.
+
 ## Skipped-entry interpretation check — 2026-09-22 (not tagged)
 
 - Reconcile PR #2 against merged main: existing R-AGREE/R-GOOGLE and v2

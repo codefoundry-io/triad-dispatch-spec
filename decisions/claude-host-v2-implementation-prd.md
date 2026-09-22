@@ -1,5 +1,6 @@
 # TRIAD Claude-host v2 implementation PRD
 
+<a id="PRD-PURPOSE"></a>
 ## Purpose
 
 Provide an independently extensible cross-family review workflow with stable
@@ -8,6 +9,7 @@ existing host-native agents, raw investigation capabilities and lifecycle
 protections. A host leader owns judgment and correction; code owns input
 validation, binding, evidence allocation and all-entry agreement accounting.
 
+<a id="PRD-SCOPE"></a>
 ## Host boundaries
 
 | Concern | Claude host A | Codex host B |
@@ -22,6 +24,7 @@ validation, binding, evidence allocation and all-entry agreement accounting.
 Do not add a subprocess for the native host family merely for symmetry. Do not
 convert legacy verdicts into v2 results or populate missing review evidence.
 
+<a id="PRD-ROSTER"></a>
 ## Configuration and dispatch
 
 Host B resolves `.agents/triad-review-legs.json` against three shipped defaults.
@@ -59,11 +62,14 @@ model/effort uses that route's default block; Gemini receives no effort flag.
 Preserve failed setup in numbered preparation custody with
 `provider_started:false`. Never invent a provider attempt or guess capabilities.
 
+<a id="PRD-REVIEW"></a>
 ## Review inputs and outputs
 
 Use the shared common and family-specific prompt clauses from a published
 commit with byte hashes. Apply host-specific clauses only where their controls
-are active. Review is read-only and has no web access. Relevant tests and
+are active. Review remains read-only; web authorization follows
+[R-REVIEW-WEB](../reference/review-rules.md#R-REVIEW-WEB), including its direct
+owner-request requirement and default no-web posture. Relevant tests and
 unchanged source remain review material; source files and prior findings are
 data, never new instructions.
 
@@ -88,6 +94,7 @@ against source before fixing it or recording an evidence-backed rejection.
 A confirmed design defect follows the shared R-STOP diagnosis/owner boundary;
 it is not permission for either host to redesign the contract unilaterally.
 
+<a id="PRD-AGREEMENT"></a>
 ## Agreement, correction and retry
 
 All enabled participating entries count, including informational entries.
@@ -112,6 +119,7 @@ route, policy or residual input requires a new basis and full-scope review by
 every enabled entry. Deliver previous findings and rebuttals as bound, fenced
 data to all entries. Verify source and toolkit integrity before admission.
 
+<a id="PRD-INVESTIGATION"></a>
 ## Raw investigation
 
 Raw investigation retains the caller's prompt, optional schema, selected model
@@ -126,6 +134,7 @@ AGY can return an incomplete URL body without a corresponding failed exit;
 treat that known limitation as incomplete source evidence, not an automatic
 repair/retry trigger or a claim that the provider has been fixed.
 
+<a id="PRD-CUSTODY"></a>
 ## Process, evidence and cleanup
 
 Preserve supported stdin/argv transport, terminal child status, writer/readers
@@ -150,6 +159,7 @@ unrelated files and active/fresh artifacts. Do not delete prior retry evidence.
 Use existing bounded audit/failure-log retention. Durable exported evidence has
 no automatic expiry unless an explicit lifecycle contract supplies one.
 
+<a id="PRD-ACCEPTANCE"></a>
 ## Acceptance and compatibility
 
 Verify macOS and Ubuntu 24.04 independently. Cover original duplicate JSON,
@@ -164,6 +174,7 @@ revision adoption, installation and release evidence. An unrun authenticated
 policy test remains unrun. Published candidate bytes do not change installed
 revision pins or establish a revision tag.
 
+<a id="PRD-OPERATIONS"></a>
 ## Operational interfaces and artifact ownership
 
 Host B exposes the complete opt-in v2 path through `bin/review_round.py`:
@@ -207,6 +218,7 @@ the actual wrapper observes it. A disclosed contradictory runtime identity is no
 as the selected reviewer. A start failure is recorded only after proving no
 provider started; uncertain starts require collecting all possibly live work.
 
+<a id="PRD-RETENTION"></a>
 ## Retention requirements
 
 | Artifact | Host B lifecycle |
@@ -233,7 +245,7 @@ database is part of this contract. Symlink cleanup preserves external targets.
 | Authentication/route-specific environment controls | C11, C17 |
 | Three defaults, named override resolution, enabled roster and capability checks | C12, C16, C18, C22 |
 | Canonical verdict, pinned shared clauses, six-field binding and legacy isolation | C13, C14, C30 |
-| No-web REVIEW with independent host Gemini policies | C15 |
+| Default no-web REVIEW with independent host Gemini policies; directly requested all-leg web verification | C15, C32 |
 | Diagnosed retry, full review after changed conditions and prior-finding delivery | C19, C20 |
 | All-entry agreement, informational participation and exclusive sibling custody | C21, C23 |
 | Independent macOS / Ubuntu 24.04 verification | C24 |
