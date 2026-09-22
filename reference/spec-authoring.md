@@ -37,6 +37,17 @@ table says. A question the owner already answered is not asked again (`decisions
   they adopt (owner Q-U; vendoring rule: `README.md` § How a host uses a revision). A host skill body carries invocation
   syntax and pointers, not the clauses.
 
+### PRD and Spec bundles
+
+<a id="R-PRD-SPEC"></a>
+Implementation PRDs state purpose, scope and acceptance. Specs connect those
+requirements to the existing rule anchors, typed contracts, behavioral cases and
+owning units. Keep the prose at its source; record only references in a bundle
+under `authoring/maps/`, using [the authoring schema](../authoring/implementation-map.schema.json).
+The [authoring guide](../authoring/README.md) defines the editing and checking entry points.
+Run the offline check before handing off a changed bundle. Structural validity
+does not establish semantic completeness, owner approval or host conformance.
+
 ## 4. Cases accumulate; they are never weakened
 
 ```
@@ -86,15 +97,16 @@ source and update the handoff with its commit, file, line, actual difference and
 host unchanged until the owner-designated handoff point. This sequencing does not authorize a silent contract change
 or override unresolved owner decisions, review gates, adoption, merge or publication boundaries.
 
-This section is the one normative copy of this authoring protocol. Shared `AGENTS.md` and `CLAUDE.md` carry the same
+This section is the one normative copy of this authoring protocol. Shared `AGENTS.md`, `CLAUDE.md` and `GEMINI.md` carry the same
 pointer; host instructions also point here. Reading latest authoring `main` does not change a host's adopted revision,
 vendored payload bytes or digest manifest; adoption and publication still follow `README.md` § How a host uses a revision.
 
 ## 6. What code does and what AI does
 
-- Code (deterministic, thin, added only when a repeated manual check exists): a `spec-check` that resolves every anchor,
-  case id and unit reference; a digest check that a host's vendored prompt or contract equals the source at the adopted
-  revision. Neither exists yet; they are described so the first one is small.
+- Code: `tools/check_authoring.py` validates registered PRD/Spec bundles against
+  the authoring schema and resolves their local files, explicit anchors, case IDs
+  and unit IDs. It does not inspect unregistered narrative documents or prove
+  requirement completeness. Host payload digest/adoption checks remain host-owned.
 - AI: detecting ambiguity while authoring, reviewing a rule's meaning, judging a finding semantically. AI never decides a case's pass/fail; deterministic schema and integrity validation is code.
 
 ## 7. Not in this lab (rev-0)

@@ -1,14 +1,8 @@
-# triad-dispatch-spec — agent entry (pointer only)
+# Repository map
 
-This repository holds the shared specification for the TRIAD dispatch hosts. Guidance is written ONCE under
-`reference/`; this file only points. `AGENTS.md` and `CLAUDE.md` are byte-identical copies of this text; edit both in the
-same change.
-
-1. Start: `reference/README.md` — the index and the one-source-per-fact table.
-2. Rules: `reference/review-rules.md` · Process: `reference/process.md` · How specs are written here:
-   `reference/spec-authoring.md`.
-3. Prompts (the one editable copy): `prompts/` · Contracts: `contracts/` · Behavioral cases: `cases/cases.json` ·
-   Ownership map: `units.json` · Owner decisions: `decisions/owner-register.md`.
-4. Writing and one-source rules: `reference/README.md`. How a change enters this repository: `README.md` § How a host
-   uses a revision.
-5. Current-source and cross-host coordination: `reference/spec-authoring.md#R-AUTHORING-SYNC`.
+- [Start and source map](reference/README.md)
+- [PRD and Spec authoring](reference/spec-authoring.md) · [Authoring schema and checks](authoring/README.md)
+- [Review rules](reference/review-rules.md) · [Process](reference/process.md)
+- [Contracts](contracts/README.md) · [Prompts](prompts/) · [Cases](cases/cases.json) · [Units](units.json)
+- [Current-source coordination](reference/spec-authoring.md#R-AUTHORING-SYNC)
+- [Claude implementation handoff](decisions/claude-codex-google-four-leg-handoff.md) · [Owner decisions](decisions/owner-register.md)

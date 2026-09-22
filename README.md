@@ -1,10 +1,9 @@
 # triad-dispatch-spec — shared specification for the TRIAD dispatch hosts
 
 Shared specification for the two TRIAD dispatch hosts: the Claude-hosted `triad-dispatch` (source of truth `~/triad`) and
-the Codex-hosted `triad-codex-dispatch`. Owner-designated home (2026-09-19): this repository, public, owner-only push. rev-0 was tagged at the owner's
-instruction; the current main is the rev-1 draft pushed at the owner's
-instruction ("그 레파지토리 자체가 제작소 역할을 할테니까"): the repository is the workshop — codex reviews and amends in place,
-revisions follow. Current authoring adds a v2 implementation candidate; rev-0 remains the only published revision tag.
+the Codex-hosted `triad-codex-dispatch`. This public repository is the owner-published
+authoring source. `main` contains the current v2 implementation candidate and
+subsequent amendments; rev-0 remains the only published revision tag.
 The owner subsequently authorized Codex-host implementation first, using the shared schemas/specification before host
 code. See `reference/spec-authoring.md#R-AUTHORING-SYNC` and `decisions/rev-2-implementation-spec.md`. This does not
 authorize Claude-host edits, silently change a deployed revision, or create a tag.
@@ -19,8 +18,10 @@ released; each host records the revision of this repository it conforms to.
 ```
 triad-dispatch-spec/
 ├── README.md                      this file: purpose, layout, how a host adopts a revision
-├── AGENTS.md                      pointer-only entry (byte-identical to CLAUDE.md)
-├── CLAUDE.md                      pointer-only entry (byte-identical to AGENTS.md)
+├── AGENTS.md                      identical link map for Codex, Claude and Gemini
+├── CLAUDE.md                      identical link map
+├── GEMINI.md                      identical link map
+├── authoring/                     PRD/Spec reference schema, guide and registered bundles
 ├── reference/                     common guidance, written ONCE — every host doc points here
 │   ├── README.md                  index + the one-source-per-fact table
 │   ├── spec-authoring.md          HOW specs are written in this lab (the method)
@@ -31,6 +32,7 @@ triad-dispatch-spec/
 ├── cases/cases.json               behavioral cases with stable ids — the accumulating test asset
 ├── units.json                     surface → common shipped name → contract → preserved host exceptions → host paths
 ├── tests/test_schemas.py           provider-free canonical schema examples (python-jsonschema)
+├── tools/check_authoring.py        offline PRD/Spec reference validation
 ├── requirements-dev.txt           authoring test dependencies
 ├── decisions/owner-register.md    owner rulings and their effect (site-neutral; verbatim record stays in the host plan)
 └── CHANGELOG.md                   one entry per revision
@@ -45,8 +47,13 @@ triad-dispatch-spec/
 
 ## Reading order
 
-`reference/README.md` → `reference/review-rules.md` → `reference/process.md` → `reference/spec-authoring.md` → `prompts/`
-→ `contracts/` → `cases/` + `units.json` → `decisions/`.
+Start at [the common map](reference/README.md), then load the linked sources
+needed for the current task. For PRD/Spec edits, use
+[the authoring guide](authoring/README.md) and
+[the current Claude v2 bundle](authoring/maps/claude-host-v2.json).
+
+Verify before handoff: `python3 tools/check_authoring.py`, then
+`python3 -m pytest -q tests` (dependencies: `requirements-dev.txt`).
 
 Current owner-requested operating profile:
 [Codex + three Google legs: agreement](decisions/2026-09-21-codex-google-four-leg-agreement.md),

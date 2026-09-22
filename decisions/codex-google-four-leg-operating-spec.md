@@ -5,6 +5,7 @@ This is the operating profile authorized by
 schemas remain authoritative; this document supplies a concrete setup and
 verification procedure. It introduces no new configuration or result fields.
 
+<a id="SPEC-FOUR-LEG-SCOPE"></a>
 ## Topology and review emphasis
 
 The following names and emphases are a maintainer-proposed example, not additional
@@ -99,6 +100,7 @@ X legs and its older family renderer; it does not establish this named v2 task
 mapping. Claude must reconcile its in-progress v2 checkout against
 [the current-source handoff](claude-codex-google-four-leg-handoff.md) first.
 
+<a id="SPEC-FOUR-LEG-COLLECTION"></a>
 ## B: dispatch, collection and owner decision
 
 Use B's existing explicit v2 workflow. Resolve and show the four entries,
