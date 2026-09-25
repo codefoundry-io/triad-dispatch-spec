@@ -1,5 +1,17 @@
 # Changelog
 
+## Shared development log DL-11 — interrupted transcripts — 2026-09-26 (not tagged)
+
+- `authoring/shared-dev-log.md` DL-11 (C1, C23): a wrapper-killed agy attempt's
+  census row carries an explicit `interrupted` marker (host A fix wave 17), and
+  the attribution check's incompleteness predicate is lost-events only — a
+  vendor-ended run with no terminal result event is complete. Records the
+  withdrawn over-reach ("no result event = prefix") so no host re-derives it.
+- C1 `tests.A`: names host A's timeout/signal terminal-record tests on the agy
+  route (the `todo` is closed for that route).
+- No schema, prompt payload, rule text, revision tag, host adoption or release
+  changes.
+
 ## Shared development log and codex review default — 2026-09-25 (not tagged)
 
 - Add `authoring/shared-dev-log.md` (`R-DEV-LOG`): one row per defect or drift
