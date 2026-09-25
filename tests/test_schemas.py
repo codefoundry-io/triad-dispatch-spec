@@ -116,6 +116,8 @@ def test_c12_named_partial_override_is_valid():
 def test_c12_shipped_template_has_valid_structure_but_is_not_a_catalog():
     data = json.loads((ROOT / "contracts/review-legs.example.json").read_text())
     validator("review-legs.schema.json", "resolvedRoster").validate(data)
+    claude = next(leg["claude"] for leg in data["legs"] if leg["name"] == "claude")
+    assert (claude["model"], claude["effort"]) == ("claude-opus-5-5", "xhigh")
     assert any("<" in leg.get("agy", {}).get("model", "") for leg in data["legs"])
 
 

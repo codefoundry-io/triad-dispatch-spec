@@ -8,11 +8,11 @@
       "acceptance": "required",
       "claude": {
         "agent": "cross-family-review-reviewer",
-        "model": null,
+        "model": "claude-opus-5-5",
         "effort": "xhigh"
       },
       "timeout_s": 900,
-      "note": "model null = the host's default (A: the agent's frontmatter; B: its claude CLI default); agent applies on A only"
+      "note": "Recommended Claude model/effort: R-ROSTER. Explicit model overrides and null retain host selection semantics; agent applies on A only. B's runnable default timeout is 1200 s."
     },
     {
       "name": "codex",

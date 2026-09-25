@@ -140,7 +140,7 @@
       "rule": "R-ROSTER, R-PREPARE",
       "summary": "Roster resolution",
       "input": "no file / a file overriding one default by name / a file with an unknown key / two Google CLIs present",
-      "expected": "No file = three standing legs at recommended defaults; file entry overrides by name; unknown key refused; resolved roster printed before dispatch; unselected legs never start; runtime Google resolution recorded",
+      "expected": "No file = three standing legs at recommended defaults, including Claude claude-opus-5-5 with xhigh; file entry overrides by name, including an explicit supported older Claude model; explicit null retains host selection semantics; unknown key refused; resolved roster printed before dispatch; unselected legs never start; runtime Google resolution recorded",
       "tests": {
         "A": "tests/unit/skills/t7*, t8* (v1 config arms) — v2: todo",
         "B": "Implemented P3 candidate: Three defaults, B project discovery, merge-by-name, enabled display and consumption by capability-checked invocation allocation. Malformed review identifier/root path types receive controlled CLI refusal before adapter preparation. Evidence: tests/test_review_roster.py, tests/test_v2_adapters.py, tests/test_v2_rounds.py, tests/test_v2_review_findings.py, tests/test_v2_input_refusals.py. Current verification and publication: decisions/host-b-p3-verification.md."
@@ -398,6 +398,18 @@
       "tests": {
         "A": "NOT RUN for this exact profile. Published main 8efeb74 has legacy advisory X legs, not proof of the named v2 task mapping; reconcile the current in-progress checkout. Source-line handoff: decisions/claude-codex-google-four-leg-handoff.md.",
         "B": "NOT RUN for this exact live profile. v0.2.556 source supports named entries, exclusive paths and two-family OWNER_DECISION_REQUIRED; generic-N/renamed-Google tests are supporting evidence only. Operating example and checks: decisions/codex-google-four-leg-operating-spec.md."
+      }
+    },
+    {
+      "id": "C34",
+      "surface": "roster",
+      "rule": "R-ROSTER",
+      "summary": "Explicit Claude Opus 5.5 selection and conflicting capability evidence",
+      "input": "Default Claude selection claude-opus-5-5 / xhigh; a session-only model probe reporting Opus 5.5, or one reporting Opus 5 instead",
+      "expected": "Recognize the documented Opus 5.5 effort capability and retain requested and selected IDs separately. Refuse a reported Opus 5 substitution before review inference. A capability receipt does not attest eventual runtime identity.",
+      "tests": {
+        "A": "Pending host maintainer review and conformance; no A source change.",
+        "B": "tests/test_v2_adapters.py::test_resolved_three_family_invocations_have_real_capability_evidence and ::test_C34_opus_55_pin_rejects_provider_selection_of_opus_5; results recorded in decisions/2026-09-25-opus-5-5-default.md."
       }
     }
   ]
