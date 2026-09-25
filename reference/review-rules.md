@@ -42,6 +42,15 @@ family are one family (the release valve for a short round is R-AGREE). `vendor`
 (owner Q-D). Model and effort must be expressible for every vendor in the roster file — including the claude legs (B runs claude as a CLI child) — and are validated by the host adapter against actual capabilities at dispatch; `model: null` means the host's default; when both Google CLIs are present an explicit `route` (`agy` | `gemini`) in the `google` block pins the route, otherwise the shipped chain resolves it (R-GOOGLE); timeouts are adapter-validated (B's legacy formal gemini route requires 600 s and its legacy formal claude route requires 1200 s; the shared template's 900 s Claude values are not B runnable defaults). The runnable default roster is three legs; further entries in the example are opt-in. No configuration is a shared user-global dependency; the resolved roster is
 shown before any paid dispatch, and unselected legs are never started.
 
+The recommended Claude review default is `claude-opus-5-5` (Opus 5.5) with
+`xhigh` effort (owner, 2026-09-25). Ship the explicit model ID rather than the
+moving `opus` alias. Named model/effort overrides and explicit null selection
+retain their existing semantics; older supported models remain selectable.
+The adapter checks the requested model and effort before review inference and
+refuses a reported selection that contradicts a catalogued explicit model ID. Selection
+evidence is not proof of the eventual runtime model. B's fixed legacy formal
+route uses this same model/effort pin; its raw wrapper keeps caller passthrough.
+
 ## Selected investigations
 
 <a id="R-INVEST"></a>

@@ -1,5 +1,16 @@
 # Changelog
 
+## Claude Opus 5.5 review default — 2026-09-25 (not tagged)
+
+- Set the recommended Claude default to the explicit `claude-opus-5-5` model ID
+  with the existing `xhigh` effort; retain named overrides, nullable selection,
+  supported older models and host-specific raw invocation behavior.
+- Update R-ROSTER, its example, C12 and C34 under the existing `roster` unit.
+  Record evidence and host verification in
+  [the model-default handoff](decisions/2026-09-25-opus-5-5-default.md).
+- This authoring change does not tag a revision, adopt one on either host or
+  install/release a host implementation.
+
 ## Shared PRD/Spec authoring map — 2026-09-22 (not tagged)
 
 - Add a reference-only authoring schema and the current Claude v2 PRD/Spec
