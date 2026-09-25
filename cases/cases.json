@@ -411,6 +411,18 @@
         "A": "Pending host maintainer review and conformance; no A source change.",
         "B": "tests/test_v2_adapters.py::test_resolved_three_family_invocations_have_real_capability_evidence and ::test_C34_opus_55_pin_rejects_provider_selection_of_opus_5; results recorded in decisions/2026-09-25-opus-5-5-default.md."
       }
+    },
+    {
+      "id": "C35",
+      "surface": "roster",
+      "rule": "R-ROSTER",
+      "summary": "Explicit codex review default and requested-model custody",
+      "input": "no roster file / an override setting codex.model to null / an override naming an explicit codex model; the CLI route (A) and the native route (B)",
+      "expected": "No file = the codex leg requests the recommended explicit default (gpt-5.6-terra / xhigh), never a value read from the operator's personal CLI configuration. An explicit null override keeps host-default semantics and is frozen as null. The requested model and reasoning are frozen in the bound round inputs and visible in the per-attempt dispatch record (A: wrapper argv and summary line; B: adapter record). A runtime model identity the CLI does not expose stays null and is never inferred from the request; an exposed identity that contradicts the request is refused, never relabelled.",
+      "tests": {
+        "A": "todo — tests/unit/skills/t12-roster-v2.sh (C35 axes) and the codex wrapper summary test are named when the triad slice lands; the operator-config baseline was observed live on 2026-09-25 (authoring/shared-dev-log.md DL-2, DL-3)",
+        "B": "Existing assertions exercise the expected: contracts/review-legs.default.json:12 (gpt-5.6-terra / xhigh), tests/test_v2_adapters.py:183 (null request resolves to the host-exposed default and is recorded), bin/review_round_v2.py:454-477 (runtime_model observed separately; identity-mismatch refused). B maintainer names the case in its test."
+      }
     }
   ]
 }

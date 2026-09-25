@@ -26,7 +26,7 @@
       "spec_refs": ["decisions/rev-2-implementation-spec.md#SPEC-ROSTER"],
       "rule_refs": ["reference/review-rules.md#R-ROSTER","reference/review-rules.md#R-GOOGLE","reference/review-rules.md#R-PREPARE","reference/review-rules.md#R-NOCOST"],
       "contract_refs": ["contracts/review-legs.schema.json"],
-      "case_ids": ["C11","C12","C16","C17","C18","C22","C27"],
+      "case_ids": ["C11","C12","C16","C17","C18","C22","C27","C35"],
       "unit_ids": ["roster","google-resolution","engine-transport","gemini-policy"]
     },
     {

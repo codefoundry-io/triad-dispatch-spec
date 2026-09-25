@@ -1,5 +1,22 @@
 # Changelog
 
+## Shared development log and codex review default — 2026-09-25 (not tagged)
+
+- Add `authoring/shared-dev-log.md` (`R-DEV-LOG`): one row per defect or drift
+  found while a host implements the common items, with the case id, the
+  `file:line @ commit` observation, the host that acts and a status. Seeded with
+  four rows from host A's implementation reading (spec: stale `units.json` A
+  paths, codex default unspecified; A: requested codex model not on the
+  dispatch record, reviewer presets on the moving `opus` alias).
+- R-ROSTER: recommend the codex review default `gpt-5.6-terra` / `xhigh` as an
+  explicit ID and require shipped default rosters to carry explicit IDs; a null
+  request stays an operator override frozen as null; a comparison model is an
+  ordinary opt-in entry whose difference is a ledger observation. Example roster
+  and case C35 follow; the owner register records the 2026-09-25 decision.
+- `units.json`: refresh host A's paths for roster, google-resolution,
+  verdict-wire, review-lifecycle and agy-containment to its v2 libraries.
+- No schema, prompt payload, revision tag, host adoption or release changes.
+
 ## Claude Opus 5.5 review default — 2026-09-25 (not tagged)
 
 - Set the recommended Claude default to the explicit `claude-opus-5-5` model ID

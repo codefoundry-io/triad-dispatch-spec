@@ -51,6 +51,20 @@ refuses a reported selection that contradicts a catalogued explicit model ID. Se
 evidence is not proof of the eventual runtime model. B's fixed legacy formal
 route uses this same model/effort pin; its raw wrapper keeps caller passthrough.
 
+The recommended codex review default is `gpt-5.6-terra` with `xhigh` reasoning
+(owner, 2026-09-25; B v0.2.557 ships it as data). A host's SHIPPED default roster
+carries an explicit model ID for every leg whose CLI exposes a catalogued ID: a
+shipped `null` resolves to the operator's personal CLI configuration and makes the
+review baseline differ per machine (found on host A, `authoring/shared-dev-log.md`
+DL-2). `model: null` remains an operator OVERRIDE meaning the host's default and is
+frozen as null. The requested model and effort are frozen in the bound round inputs
+and visible in the per-attempt dispatch record; a runtime identity the CLI does not
+expose stays null, never inferred from the request, and an exposed identity that
+contradicts the request is refused. A comparison or trial model on any family is an
+ordinary opt-in entry (owner, 2026-09-25: host A runs `gpt-6-astra` / `high` beside
+the baseline); its findings count under R-AGREE like any leg's, and the difference
+between two entries is a ledger observation, never a vote (C35).
+
 ## Selected investigations
 
 <a id="R-INVEST"></a>
