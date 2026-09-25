@@ -13,7 +13,7 @@ The B implementation is commit `45e21f5d32fce88ba674f4783bd1391d678ef662`
 in [PR #38](https://github.com/codefoundry-io/triad-codex-dispatch/pull/38).
 The owner subsequently requested deployment and both repositories' `main`
 updates: "배포랑 spec 업데이트까지 진행해줘 둘다 메인". The B release target
-is `0.2.557`; PR and release receipts establish its terminal publication status.
+is `0.2.557`. See PR #38 and the linked release for delivery status.
 
 Anthropic documents `claude-opus-5-5` in its
 [Claude Code model guide](https://support.claude.com/en/articles/11940350-claude-code-model-configuration).
