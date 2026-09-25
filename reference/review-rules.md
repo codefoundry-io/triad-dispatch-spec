@@ -47,7 +47,7 @@ The recommended Claude review default is `claude-opus-5-5` (Opus 5.5) with
 moving `opus` alias. Named model/effort overrides and explicit null selection
 retain their existing semantics; older supported models remain selectable.
 The adapter checks the requested model and effort before review inference and
-refuses a reported selection that contradicts an explicit model ID. Selection
+refuses a reported selection that contradicts a catalogued explicit model ID. Selection
 evidence is not proof of the eventual runtime model. B's fixed legacy formal
 route uses this same model/effort pin; its raw wrapper keeps caller passthrough.
 

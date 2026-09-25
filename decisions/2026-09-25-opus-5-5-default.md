@@ -22,6 +22,15 @@ lists `low`, `medium`, `high`, `xhigh` and `max` for Opus 5.5.
 The locally observed Claude Code version was 2.1.282. Documentation and version
 inspection establish supported controls, not account entitlement or inference.
 
+Anthropic's [Claude Code 2.1.280 release](https://github.com/anthropics/claude-code/releases/tag/v2.1.280)
+introduced Opus 5.5. B's installation prerequisite for this default is therefore
+2.1.280+, with actual selection and a complete review invocation observed on
+2.1.282. The generic preflight-interface floor is a separate compatibility check;
+bootstrap checks executable presence, not model entitlement or effective effort.
+The explicit-selection guard described in R-ROSTER covers catalogued IDs.
+Uncatalogued deployment strings retain existing handling and are not certified
+by C34 or this default-model change.
+
 Before this change, B shipped `opus` in `contracts/review-legs.default.json` and in
 `bin/claude_wrapper.py:FORMAL_CLAUDE_MODEL`. Its capability document recognized
 Opus 5 but lacked Opus 5.5. A new capability row alone cannot pin the CLI alias.
