@@ -10,7 +10,10 @@ Authoring base: remote `main` at
 Codex host source base: `2d4d71b1a6df09b26fae44d228229cd9aa43218d`;
 remote main merge: `5a12f822b6e19f5ecd162e4cc54888269ec0ffd9`.
 The B implementation is commit `45e21f5d32fce88ba674f4783bd1391d678ef662`
-in [draft PR #38](https://github.com/codefoundry-io/triad-codex-dispatch/pull/38).
+in [PR #38](https://github.com/codefoundry-io/triad-codex-dispatch/pull/38).
+The owner subsequently requested deployment and both repositories' `main`
+updates: "배포랑 spec 업데이트까지 진행해줘 둘다 메인". The B release target
+is `0.2.557`; PR and release receipts establish its terminal publication status.
 
 Anthropic documents `claude-opus-5-5` in its
 [Claude Code model guide](https://support.claude.com/en/articles/11940350-claude-code-model-configuration).
@@ -19,9 +22,9 @@ lists `low`, `medium`, `high`, `xhigh` and `max` for Opus 5.5.
 The locally observed Claude Code version was 2.1.282. Documentation and version
 inspection establish supported controls, not account entitlement or inference.
 
-B currently ships `opus` in `contracts/review-legs.default.json` and in
-`bin/claude_wrapper.py:FORMAL_CLAUDE_MODEL`. Its capability document recognizes
-Opus 5 but lacks Opus 5.5. A new capability row alone cannot pin the CLI alias.
+Before this change, B shipped `opus` in `contracts/review-legs.default.json` and in
+`bin/claude_wrapper.py:FORMAL_CLAUDE_MODEL`. Its capability document recognized
+Opus 5 but lacked Opus 5.5. A new capability row alone cannot pin the CLI alias.
 
 The owner-selected behavior is defined once in
 [R-ROSTER](../reference/review-rules.md#R-ROSTER) and exercised by C12/C34.
@@ -38,6 +41,24 @@ same shared commit and check the roster/agent defaults at the existing `roster`
 unit paths in `units.json`; preserve its native topology and override behavior.
 A's source and installed configuration have not been changed. A implementation,
 acknowledgement and conformance remain pending; they are not inferred from B.
+
+The read-only A inspection used `main` commit
+`8efeb74d127a3ca90efe6ed22bbe39cb53719204`. Its standing Claude reviewer still
+has `model: opus` and `effort: xhigh` in
+[`agents/cross-family-review-reviewer.md:5`](https://github.com/codefoundry-io/triad-dispatch/blob/8efeb74d127a3ca90efe6ed22bbe39cb53719204/agents/cross-family-review-reviewer.md#L5).
+A's maintainer must verify exact-ID support in its native Agent frontmatter;
+B's CLI selection preflight does not prove that interface supports the same ID.
+A's current `review-legs.example.json` is its v1 advisory X-leg configuration,
+not a v2 standing roster. Its
+[`review_scratch.py:2522`](https://github.com/codefoundry-io/triad-dispatch/blob/8efeb74d127a3ca90efe6ed22bbe39cb53719204/skills/triad-cross-family-review/lib/review_scratch.py#L2522)
+treats model/effort as opaque dispatch values and uses an agent type for a Claude
+X-leg. The shared R-ROSTER text is the target contract: override/null evidence
+here establishes B v2 behavior only, while A native-agent conformance remains
+pending. This handoff does not authorize changing A's legacy schema or payload.
+
+The case allocation reuses C12 for existing override/null compatibility and
+adds C34 for explicit-pin selection and substitution refusal; B's corresponding
+regressions use those same case IDs.
 
 Verify no-file default selection, explicit older-model override, null selection,
 Opus 5.5 capability recognition and refusal when that pin reports Opus 5.
@@ -60,8 +81,11 @@ Verification completed in B's existing source worktree:
   `provider_started: false`. This was session-only selection, not inference.
 - Independent read-only source audit found no actionable issues.
 
-The required multi-family gate remains pending: both existing AGY projects for
+At the initial source-verification checkpoint, the multi-family gate was pending:
+both existing AGY projects for
 the selected B worktree lack the default-review `read_url(*)` deny and fail the
 read-only project guard. Their bytes were unchanged and no review provider was
-started. No permission change, authenticated inference, installation, revision
-tag, host adoption or public release is claimed.
+started at that checkpoint. That source-only evidence does not establish
+permission changes, authenticated inference, installation, a revision tag,
+host adoption or public release. Later delivery is tracked by PR #38 and
+[release v0.2.557](https://github.com/codefoundry-io/triad-codex-dispatch/releases/tag/v0.2.557).
