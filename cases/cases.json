@@ -408,7 +408,7 @@
       "input": "Default Claude selection claude-opus-5-5 / xhigh; a session-only model probe reporting Opus 5.5, or one reporting Opus 5 instead",
       "expected": "Recognize the documented Opus 5.5 effort capability and retain requested and selected IDs separately. Refuse a reported Opus 5 substitution before review inference. A capability receipt does not attest eventual runtime identity.",
       "tests": {
-        "A": "Pending host maintainer review and conformance; no A source change.",
+        "A": "tests/unit/skills/t7-reviewer-siblings-mirror.sh (C34 checks: the three presets cross-family-review-reviewer{,-max,-high}.md pin model: claude-opus-5-5 with effort xhigh / max / high; bodies byte-identical) — triad parity/host-a-v2 c056a2a. The frontmatter pin is A's SELECTION evidence (A refuses claude.model in the roster; the tier rides in the agent id); acceptance of the pin by Claude Code 2.1.282 is recorded in A's gate ledger; runtime identity is not attested.",
         "B": "tests/test_v2_adapters.py::test_resolved_three_family_invocations_have_real_capability_evidence and ::test_C34_opus_55_pin_rejects_provider_selection_of_opus_5; results recorded in decisions/2026-09-25-opus-5-5-default.md."
       }
     },
@@ -420,7 +420,7 @@
       "input": "no roster file / an override setting codex.model to null / an override naming an explicit codex model; the CLI route (A) and the native route (B)",
       "expected": "No file = the codex leg requests the recommended explicit default (gpt-5.6-terra / xhigh), never a value read from the operator's personal CLI configuration. An explicit null override keeps host-default semantics and is frozen as null. The requested model and reasoning are frozen in the bound round inputs and visible in the per-attempt dispatch record (A: wrapper argv and summary line; B: adapter record). A runtime model identity the CLI does not expose stays null and is never inferred from the request; an exposed identity that contradicts the request is refused, never relabelled.",
       "tests": {
-        "A": "todo — tests/unit/skills/t12-roster-v2.sh (C35 axes) and the codex wrapper summary test are named when the triad slice lands; the operator-config baseline was observed live on 2026-09-25 (authoring/shared-dev-log.md DL-2, DL-3)",
+        "A": "tests/unit/skills/t12-roster-v2.sh axes 36-37 (no file -> codex gpt-5.6-terra / xhigh and --model on the argv; an explicit null override frozen as null with NO --model and a roster_v2 drift WARNING; the shipped four-leg example resolves with the codex-astra gpt-6-astra / high comparison entry, five entries / two families) + tests/unit/wrappers/t60-codex-requested-model-c35.sh (` model=<slug>` on the summary tail after prompt_file=, `requested_model` in the audit row and failure run-log, omit-when-None, unredacted, percent-escaped; other wrappers' lines byte-identical) — triad parity/host-a-v2 c056a2a. codex exec --json exposes no runtime model, so the runtime identity stays unexposed.",
         "B": "Existing assertions exercise the expected: contracts/review-legs.default.json:12 (gpt-5.6-terra / xhigh), tests/test_v2_adapters.py:183 (null request resolves to the host-exposed default and is recorded), bin/review_round_v2.py:454-477 (runtime_model observed separately; identity-mismatch refused). B maintainer names the case in its test."
       }
     }
