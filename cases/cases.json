@@ -420,8 +420,20 @@
       "input": "no roster file / an override setting codex.model to null / an override naming an explicit codex model; the CLI route (A) and the native route (B)",
       "expected": "No file = the codex leg requests the recommended explicit default (gpt-5.6-terra / xhigh), never a value read from the operator's personal CLI configuration. An explicit null override keeps host-default semantics and is frozen as null. The requested model and reasoning are frozen in the bound round inputs and visible in the per-attempt dispatch record (A: wrapper argv and summary line; B: adapter record). A runtime model identity the CLI does not expose stays null and is never inferred from the request; an exposed identity that contradicts the request is refused, never relabelled.",
       "tests": {
-        "A": "tests/unit/skills/t12-roster-v2.sh axes 36-37 (no file -> codex gpt-5.6-terra / xhigh and --model on the argv; an explicit null override frozen as null with NO --model and a roster_v2 drift WARNING; the shipped four-leg example resolves with the codex-astra gpt-6-astra / high comparison entry, five entries / two families) + tests/unit/wrappers/t60-codex-requested-model-c35.sh (` model=<slug>` on the summary tail after prompt_file=, `requested_model` in the audit row and failure run-log, omit-when-None, unredacted, percent-escaped; other wrappers' lines byte-identical) — triad parity/host-a-v2 c056a2a. codex exec --json exposes no runtime model, so the runtime identity stays unexposed.",
+        "A": "tests/unit/skills/t12-roster-v2.sh axes 36-37 (no file -> codex gpt-5.6-terra / xhigh and --model on the argv; an explicit null override frozen as null with NO --model and a roster_v2 drift WARNING; the shipped four-leg example resolves with the codex-astra gpt-6-astra / high comparison entry, five entries / two families) + tests/unit/wrappers/t60-codex-requested-model-c35.sh (` model=<slug>` on the summary tail after prompt_file=, `requested_model` in the audit row and failure run-log, omit-when-None, unredacted, percent-escaped — on EVERY wrapper since fix wave 13a (codex, gemini, claude, agy; an empty or whitespace --model normalizes to None), and on every promotion re-emission since fix wave 12) — triad parity/host-a-v2 c056a2a. codex exec --json exposes no runtime model, so the runtime identity stays unexposed.",
         "B": "Existing assertions exercise the expected: contracts/review-legs.default.json:12 (gpt-5.6-terra / xhigh), tests/test_v2_adapters.py:183 (null request resolves to the host-exposed default and is recorded), bin/review_round_v2.py:454-477 (runtime_model observed separately; identity-mismatch refused). B maintainer names the case in its test."
+      }
+    },
+    {
+      "id": "C36",
+      "surface": "review-lifecycle",
+      "rule": "R-BIND, R-CONTAIN",
+      "summary": "Evidence binding survives exotic evidence paths",
+      "input": "an attempt whose evidence directory path carries a space, brackets, an embedded newline or a byte that is not valid UTF-8; the attempt's own read evidence and a sibling's",
+      "expected": "The host's evidence binding (A: the wrapper's custody line matched by the collector; B: the review_binding member of the read evidence) admits the attempt's OWN evidence and refuses a sibling's regardless of the path's bytes — a legitimate attempt is never refused forever because of its path, and a foreign one is never admitted. A path-carrying line is one line on both the producing and the comparing side.",
+      "tests": {
+        "A": "tests/unit/skills/t15-collect-v2.sh axis 66 (pure arms for a newline and a \\xff path; end-to-end for a space + brackets path; drift guard between the wrapper's _summary_field safe set and the collector's) and tests/unit/wrappers/t40-agy-read-audit-file.sh axes 16/22 — triad parity/host-a-v2 8331680 (fix wave 13a, row r13-5; found by the google-failures and google-state legs of round r13).",
+        "B": "Satisfied by construction: read evidence is bound by the JSON review_binding member and compared as data, never through a path-carrying text line (bin/review_round_v2.py:309-314 at v0.2.557). B maintainer may name a regression if one exists."
       }
     }
   ]
