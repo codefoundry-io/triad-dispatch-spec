@@ -157,7 +157,10 @@ existing 999/998 allow/deny/catch-all and Plan Mode transition restrictions whil
 to explicit denies. A's profile and V1–V5 manifest stay unchanged; B's live checks are separately recorded
 in `contracts/gemini-readonly-b.verify.toml`. The explicitly authorized web profile is selected under R-REVIEW-WEB; these default-profile bytes stay unchanged. Authorized investigations (R-INVEST) keep web. No alignment may introduce a dangerous /
 yolo permission bypass on any leg (each host discloses its existing permissive-route flags in `units.json` exceptions; none is on a review route). A leg a host runs natively stays native; no leader-model CLI subprocess is
-added for symmetry. Per vendor, the guards that ship today and must survive any alignment (host, symbol):
+added for symmetry. Containment EVIDENCE is attributed to the leg attempt that produced it (C23): on a host with a LIVE
+per-round hook (A) the wrapper records each attempt's vendor conversation id in its read audit and the hook load check
+attributes hook rows by that id — a shared, unattributed hook log never certifies a leg, and a count of conversations is
+not attribution (found on A over rounds r11–r13, `authoring/shared-dev-log.md` DL-6). Per vendor, the guards that ship today and must survive any alignment (host, symbol):
 
 - codex leg (A `codex_wrapper.py`, command builder): selected read-only sandbox, `approval_policy=never`, `--ignore-rules`
   on every posture, `web_search="disabled"` for REVIEW. Selected review search requires the current R-REVIEW-WEB binding; unrequested REVIEW remains disabled. These are A's controls, not instructions for B's native session.
