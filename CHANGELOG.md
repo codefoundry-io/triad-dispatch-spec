@@ -1,5 +1,15 @@
 # Changelog
 
+## Shared development log DL-12 — round-wide retry refusal, in-flight step marker, parser isolation — 2026-09-26 (not tagged)
+
+- `authoring/shared-dev-log.md` DL-12 (C1, C23, C33): host A round r18's three
+  shapes — a retry refusal must mirror the ROUND's census (unanimous across
+  three families), a run that exits with a tool step in flight carries an
+  explicit `steps_open` marker (the DL-11 withdrawn rule stays withdrawn), and
+  an over-nested evidence file is unreadable evidence, never a traceback that
+  aborts a collection. Record only; no rule text change.
+- No schema, prompt payload, revision tag, host adoption or release changes.
+
 ## Shared development log DL-11 — interrupted transcripts — 2026-09-26 (not tagged)
 
 - `authoring/shared-dev-log.md` DL-11 (C1, C23): a wrapper-killed agy attempt's
