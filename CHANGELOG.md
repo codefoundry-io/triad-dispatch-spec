@@ -1,5 +1,15 @@
 # Changelog
 
+## Shared development log DL-14 — agy 503 classification, wait-vs-new-round retry guard — 2026-09-26 (not tagged)
+
+- `authoring/shared-dev-log.md` DL-14 (C1, C23, C33): the agy server-side
+  deadline expiry (`UNAVAILABLE (code 503)`, rc 3, retryable) is a capacity
+  shape and belongs in the SHIPPED classifier list, not only an operator's
+  extension; a retry guard distinguishes "cannot ever certify" from "a sibling
+  is still running" (WAIT); every in-process evidence read is size-bounded.
+  Two checks suggested for host B. Record only; no rule text change.
+- No schema, prompt payload, revision tag, host adoption or release changes.
+
 ## Shared development log DL-13 — finish-typed terminals, atomic evidence publish — 2026-09-26 (not tagged)
 
 - `authoring/shared-dev-log.md` DL-13 (C1, C23, C33, C36): the agy stream's final
