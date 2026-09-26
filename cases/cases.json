@@ -435,6 +435,18 @@
         "A": "tests/unit/skills/t15-collect-v2.sh axis 66 (pure arms for a newline and a \\xff path; end-to-end for a space + brackets path; drift guard between the wrapper's _summary_field safe set and the collector's) and tests/unit/wrappers/t40-agy-read-audit-file.sh axes 16/22 — triad parity/host-a-v2 8331680 (fix wave 13a, row r13-5; found by the google-failures and google-state legs of round r13).",
         "B": "Satisfied by construction: read evidence is bound by the JSON review_binding member and compared as data, never through a path-carrying text line (bin/review_round_v2.py:309-314 at v0.2.557). B maintainer may name a regression if one exists."
       }
+    },
+    {
+      "id": "C37",
+      "surface": "engine-transport",
+      "rule": "R-AUTH, R-NOCOST",
+      "summary": "Browser login only: no API-key-shaped credential is ever tried, and an observed one is a STOP",
+      "input": "a vendor CLI whose subscription login is missing or expired; a child environment that carries a vendor API-key or endpoint variable; a CLI that answers a dispatch with a `401 Incorrect API key` class error or an auth banner naming an API key",
+      "expected": "No route issues, configures, reads, stores, sends or tries an API-key-shaped credential and no route has an API-key authentication fallback (the credential / endpoint / model-selector variables are scrubbed from the child on every route — hygiene, their values never read). The observed API-key-shaped failure is a terminal failed-to-run record for that attempt (A: classification oauth-env, exit 65; B: its auth-class refusal / start-failure record) whose remedy is the owner's browser re-login through the CLI's own flow; the host never retries on that basis by itself, never inspects or repairs the credential store, and a same-basis retry (R-RETRY) runs only after the owner reports the re-login.",
+      "tests": {
+        "A": "tests/unit/wrappers/t37-child-env-scrub.sh (the three families' credential / endpoint / model-selector tuple removed from the child on every route; per-name membership pin); tests/unit/wrappers/t57-gemini-preflight-c16.sh (api-key / Vertex / ADC auth classes refused before any vendor call); tests/integration/wrappers/classifier/f1-known-patterns.sh (the 401 phrase forms map to oauth-env / exit 65 — the token the r18 codex attempts carried). Live evidence: gate-1 round r18 (2026-09-25T23:07Z) — both codex entries' first attempts returned oauth-env rc 65 in 41-42 s on a `401 Incorrect API key provided` shape (an `sk-svcacct…` bearer presented to the ChatGPT backend); the leader configured nothing, retried nothing, stopped its own environment inspection when the auto-mode classifier refused it, and the same-basis retry ran only after the owner reported the CLI login working (docs/reviews/2026-09-21-host-a-v2-gate1.md row r18-L1). NOT YET PINNED (owner-gated follow-up): a codex / claude preflight that STOPS on an OBSERVED api-key authentication mode before the vendor call, mirroring the gemini C16 gate; and a negative test that no wrapper argv or child env ever carries an API-key form of authentication.",
+        "B": "B maintainer to name: the wrapper's credential scrub; the gemini auth-class preflight refusal (C16); whether B's start-failure record (`v2-record-start-failure`) for an API-key-shaped 401 names the browser re-login as the remedy and never retries on its own; that no adapter has an API-key fallback."
+      }
     }
   ]
 }

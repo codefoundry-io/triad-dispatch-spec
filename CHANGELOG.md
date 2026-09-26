@@ -1,5 +1,26 @@
 # Changelog
 
+## R-AUTH — CLI authentication is the user's own browser login only — 2026-09-26 (not tagged)
+
+- `reference/review-rules.md` R-AUTH (NEW rule, a section of its own after "No
+  cost, CLI only"): every vendor CLI is authenticated by the user's own
+  interactive browser login and by nothing else; no host component ever issues,
+  configures, reads, stores, sends or TRIES an API-key-shaped credential and no
+  route has an API-key authentication fallback; a CLI OBSERVED presenting an
+  API-key-shaped bearer (a `401 Incorrect API key` class error) is a STOP —
+  terminal failed-to-run record, browser re-login by the owner, no retry on
+  that basis, the credential store never inspected. Owner ruling 2026-09-26
+  (billing risk), quoted verbatim in the rule; evidence host A round r18.
+- `cases/cases.json` C37 (engine-transport; R-AUTH, R-NOCOST) with host A's
+  tests and the live r18 evidence; `authoring/maps/claude-host-v2.json`
+  REQ-CUSTODY gains R-NOCOST, R-AUTH and C37; `authoring/shared-dev-log.md`
+  DL-16; `decisions/owner-register.md` records the ruling.
+- Normative rule text ADDED; no schema, prompt payload, contract or revision
+  tag change. Host adoption: A documents the rule in force (`CLAUDE.md`
+  § Safety invariants, triad `39eabac`) and keeps its `oauth-env` terminal
+  record as the STOP; an observed-auth-mode preflight for codex / claude is
+  owner-gated; B: two checks suggested (DL-16).
+
 ## Shared development log DL-15 — timeout_s is per attempt (owner ruling) — 2026-09-26 (not tagged)
 
 - `authoring/shared-dev-log.md` DL-15 (C1, C12): the roster's `timeout_s` had no

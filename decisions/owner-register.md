@@ -80,3 +80,17 @@ The report did not supply an exact installed revision, CLI version, authenticati
 class or transcript. It confirms the reported invocation only; it does not mark
 B1-B3, WEB-B-1, three concurrent Google calls, lens coverage or host A adoption
 as passed. Preserve those separate verification statuses.
+
+<a id="d-auth-browser-login-20260926"></a>
+## D-AUTH-BROWSER-LOGIN-20260926: CLI authentication is the user's own browser login only
+
+Owner, 2026-09-26, ruling on the host A round r18 incident (a codex CLI that
+presented an API-key-shaped bearer, `401 Incorrect API key`, on a subscription
+login): "api key 형태의 어떤 것도 시도하지 말아야하는데 스펙이나 이런 사양이 있으면
+금지시키도록 명시해 사용자 직접 웹을 통한 로그인만 허용 비용 발생 위험" — nothing
+API-key-shaped is ever tried; the spec states the ban; only the user's own direct
+browser (web) login of a CLI is allowed; the reason is billing risk. Recorded as
+rule R-AUTH (`reference/review-rules.md#R-AUTH`), case C37 and dev-log row
+DL-16. It sharpens R-NOCOST (CLI only, the user's own login); it adds no
+credential handling of any kind to either host — an observed API-key-shaped
+authentication is a STOP whose only remedy is the owner's browser re-login.

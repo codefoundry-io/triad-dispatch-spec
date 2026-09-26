@@ -234,6 +234,24 @@ REPLACES the user-tier policy directory only; system/admin, workspace and built-
 v0.60.0 `packages/core/src/policy/config.ts`), so an admin policy can outrank the wrapper's denies; the CLI help string
 "Additional policy files" is misleading and the wrapper's TOML header is right.
 
+## Authentication — the user's own browser login only
+
+<a id="R-AUTH"></a>
+Every vendor CLI is authenticated by the USER'S OWN interactive browser (web) login in that CLI, and by nothing else
+(owner, 2026-09-26: "api key 형태의 어떤 것도 시도하지 말아야 … 사용자 직접 웹을 통한 로그인만 허용, 비용 발생 위험" — an
+API-key-shaped credential bills a paid API outside the subscription). No host component — wrapper, hook, skill, helper,
+test, adapter or dispatch — ever issues, configures, reads, stores, sends, forwards or TRIES an API-key-shaped credential
+(a vendor API key, a service-account key, a bearer token, or an environment variable that carries one), and no route has
+an API-key form of authentication as a fallback when the login is missing, expired or refused. The R-NOCOST child-environment
+scrub removes such variables from the vendor child; the scrub is hygiene and never a licence to read their values. A vendor
+CLI OBSERVED presenting an API-key-shaped bearer — a `401 Incorrect API key` class error, an auth banner or preflight that
+names an API key, a receipt whose authentication class is not the subscription login — is a STOP for that attempt: the host
+records it as a terminal failed-to-run record whose remedy is the owner's browser re-login through the CLI's own flow (A:
+classification `oauth-env`, exit 65; B: its auth-class refusal or start-failure record), never retries on that basis by
+itself, and never inspects, repairs or "fixes" the credential store. A same-basis retry (R-RETRY) runs only after the owner
+reports the re-login. The gemini review preflight's refusal of the api-key / Vertex / ADC classes (C16) is one instance of
+this rule; the rule holds for every CLI, every route and every credential shape.
+
 ## Parity scope
 
 <a id="R-PARITY"></a>
