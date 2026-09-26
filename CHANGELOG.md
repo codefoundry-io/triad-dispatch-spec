@@ -1,5 +1,17 @@
 # Changelog
 
+## Shared development log DL-13 — finish-typed terminals, atomic evidence publish — 2026-09-26 (not tagged)
+
+- `authoring/shared-dev-log.md` DL-13 (C1, C23, C33, C36): the agy stream's final
+  `finish` call ends with a terminal update typed `finish`, not `tool` (measured
+  live) — a marker paired on tool-typed terminals fired on every successful run
+  and blinded a round; the fix pairs by index with last-state semantics and the
+  marker blinds only the zero-step refusal. Also recorded: a size cap before
+  reading evidence, a retry guard that runs the hook check itself, and atomic
+  publication of the read audit (a suggestion for B's evidence files under C36).
+  Record only; no rule text change.
+- No schema, prompt payload, revision tag, host adoption or release changes.
+
 ## Shared development log DL-12 — round-wide retry refusal, in-flight step marker, parser isolation — 2026-09-26 (not tagged)
 
 - `authoring/shared-dev-log.md` DL-12 (C1, C23, C33): host A round r18's three
