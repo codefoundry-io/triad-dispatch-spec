@@ -1,5 +1,98 @@
 # Changelog
 
+## R-AUTH — CLI authentication is the user's own browser login only — 2026-09-26 (not tagged)
+
+- `reference/review-rules.md` R-AUTH (NEW rule, a section of its own after "No
+  cost, CLI only"): every vendor CLI is authenticated by the user's own
+  interactive browser login and by nothing else; no host component ever issues,
+  configures, reads, stores, sends or TRIES an API-key-shaped credential and no
+  route has an API-key authentication fallback; a CLI OBSERVED presenting an
+  API-key-shaped bearer (a `401 Incorrect API key` class error) is a STOP —
+  terminal failed-to-run record, browser re-login by the owner, no retry on
+  that basis, the credential store never inspected. Owner ruling 2026-09-26
+  (billing risk), quoted verbatim in the rule; evidence host A round r18.
+- `cases/cases.json` C37 (engine-transport; R-AUTH, R-NOCOST) with host A's
+  tests and the live r18 evidence; `authoring/maps/claude-host-v2.json`
+  REQ-CUSTODY gains R-NOCOST, R-AUTH and C37; `authoring/shared-dev-log.md`
+  DL-16; `decisions/owner-register.md` records the ruling.
+- Normative rule text ADDED; no schema, prompt payload, contract or revision
+  tag change. Host adoption: A documents the rule in force (`CLAUDE.md`
+  § Safety invariants, triad `39eabac`) and keeps its `oauth-env` terminal
+  record as the STOP; an observed-auth-mode preflight for codex / claude is
+  owner-gated; B: two checks suggested (DL-16).
+
+## Shared development log DL-15 — timeout_s is per attempt (owner ruling) — 2026-09-26 (not tagged)
+
+- `authoring/shared-dev-log.md` DL-15 (C1, C12): the roster's `timeout_s` had no
+  stated semantics under a host-internal retry ladder. Host A first implemented
+  "the field bounds the whole leg" (deadline arithmetic, a retry floor, rebuilt
+  vendor timers); the OWNER ruled it over-design (zero observed harm, reduced
+  automatic recovery) and host A reverted it. Recorded as a FACT, not a rule:
+  `timeout_s` bounds one attempt; a ladder may add its N retries and backoffs.
+- No schema, prompt payload, rule text, revision tag, host adoption or release
+  changes.
+
+## Shared development log DL-14 — agy 503 classification, wait-vs-new-round retry guard — 2026-09-26 (not tagged)
+
+- `authoring/shared-dev-log.md` DL-14 (C1, C23, C33): the agy server-side
+  deadline expiry (`UNAVAILABLE (code 503)`, rc 3, retryable) is a capacity
+  shape and belongs in the SHIPPED classifier list, not only an operator's
+  extension; a retry guard distinguishes "cannot ever certify" from "a sibling
+  is still running" (WAIT); every in-process evidence read is size-bounded.
+  Two checks suggested for host B. Record only; no rule text change.
+- No schema, prompt payload, revision tag, host adoption or release changes.
+
+## Shared development log DL-13 — finish-typed terminals, atomic evidence publish — 2026-09-26 (not tagged)
+
+- `authoring/shared-dev-log.md` DL-13 (C1, C23, C33, C36): the agy stream's final
+  `finish` call ends with a terminal update typed `finish`, not `tool` (measured
+  live) — a marker paired on tool-typed terminals fired on every successful run
+  and blinded a round; the fix pairs by index with last-state semantics and the
+  marker blinds only the zero-step refusal. Also recorded: a size cap before
+  reading evidence, a retry guard that runs the hook check itself, and atomic
+  publication of the read audit (a suggestion for B's evidence files under C36).
+  Record only; no rule text change.
+- No schema, prompt payload, revision tag, host adoption or release changes.
+
+## Shared development log DL-12 — round-wide retry refusal, in-flight step marker, parser isolation — 2026-09-26 (not tagged)
+
+- `authoring/shared-dev-log.md` DL-12 (C1, C23, C33): host A round r18's three
+  shapes — a retry refusal must mirror the ROUND's census (unanimous across
+  three families), a run that exits with a tool step in flight carries an
+  explicit `steps_open` marker (the DL-11 withdrawn rule stays withdrawn), and
+  an over-nested evidence file is unreadable evidence, never a traceback that
+  aborts a collection. Record only; no rule text change.
+- No schema, prompt payload, revision tag, host adoption or release changes.
+
+## Shared development log DL-11 — interrupted transcripts — 2026-09-26 (not tagged)
+
+- `authoring/shared-dev-log.md` DL-11 (C1, C23): a wrapper-killed agy attempt's
+  census row carries an explicit `interrupted` marker (host A fix wave 17), and
+  the attribution check's incompleteness predicate is lost-events only — a
+  vendor-ended run with no terminal result event is complete. Records the
+  withdrawn over-reach ("no result event = prefix") so no host re-derives it.
+- C1 `tests.A`: names host A's timeout/signal terminal-record tests on the agy
+  route (the `todo` is closed for that route).
+- No schema, prompt payload, rule text, revision tag, host adoption or release
+  changes.
+
+## Shared development log and codex review default — 2026-09-25 (not tagged)
+
+- Add `authoring/shared-dev-log.md` (`R-DEV-LOG`): one row per defect or drift
+  found while a host implements the common items, with the case id, the
+  `file:line @ commit` observation, the host that acts and a status. Seeded with
+  four rows from host A's implementation reading (spec: stale `units.json` A
+  paths, codex default unspecified; A: requested codex model not on the
+  dispatch record, reviewer presets on the moving `opus` alias).
+- R-ROSTER: recommend the codex review default `gpt-5.6-terra` / `xhigh` as an
+  explicit ID and require shipped default rosters to carry explicit IDs; a null
+  request stays an operator override frozen as null; a comparison model is an
+  ordinary opt-in entry whose difference is a ledger observation. Example roster
+  and case C35 follow; the owner register records the 2026-09-25 decision.
+- `units.json`: refresh host A's paths for roster, google-resolution,
+  verdict-wire, review-lifecycle and agy-containment to its v2 libraries.
+- No schema, prompt payload, revision tag, host adoption or release changes.
+
 ## Claude Opus 5.5 review default — 2026-09-25 (not tagged)
 
 - Set the recommended Claude default to the explicit `claude-opus-5-5` model ID

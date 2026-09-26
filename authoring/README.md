@@ -7,6 +7,10 @@ machine-readable structure. [The Claude v2 bundle](maps/claude-host-v2.json)
 connects the existing documents; it contains references, not a second copy of
 their requirements or expected results.
 
+[The shared development log](shared-dev-log.md) records what a host's
+implementation reading found — in A, in B or in this specification — as rows
+keyed by case id, so the host that must act can find it (`R-DEV-LOG`).
+
 ## Edit a bundle
 
 1. Read current remote main and record its commit under

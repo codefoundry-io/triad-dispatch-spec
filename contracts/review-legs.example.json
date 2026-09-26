@@ -20,11 +20,11 @@
       "enabled": true,
       "acceptance": "required",
       "codex": {
-        "model": null,
+        "model": "gpt-5.6-terra",
         "reasoning": "xhigh"
       },
       "timeout_s": 900,
-      "note": "model null = the host's default codex model"
+      "note": "Recommended codex model/reasoning: R-ROSTER (shipped defaults carry the explicit ID). An explicit null override retains host-default semantics and is frozen as null."
     },
     {
       "name": "google",

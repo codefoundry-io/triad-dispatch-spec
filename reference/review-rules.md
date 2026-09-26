@@ -51,6 +51,20 @@ refuses a reported selection that contradicts a catalogued explicit model ID. Se
 evidence is not proof of the eventual runtime model. B's fixed legacy formal
 route uses this same model/effort pin; its raw wrapper keeps caller passthrough.
 
+The recommended codex review default is `gpt-5.6-terra` with `xhigh` reasoning
+(owner, 2026-09-25; B v0.2.557 ships it as data). A host's SHIPPED default roster
+carries an explicit model ID for every leg whose CLI exposes a catalogued ID: a
+shipped `null` resolves to the operator's personal CLI configuration and makes the
+review baseline differ per machine (found on host A, `authoring/shared-dev-log.md`
+DL-2). `model: null` remains an operator OVERRIDE meaning the host's default and is
+frozen as null. The requested model and effort are frozen in the bound round inputs
+and visible in the per-attempt dispatch record; a runtime identity the CLI does not
+expose stays null, never inferred from the request, and an exposed identity that
+contradicts the request is refused. A comparison or trial model on any family is an
+ordinary opt-in entry (owner, 2026-09-25: host A runs `gpt-6-astra` / `high` beside
+the baseline); its findings count under R-AGREE like any leg's, and the difference
+between two entries is a ledger observation, never a vote (C35).
+
 ## Selected investigations
 
 <a id="R-INVEST"></a>
@@ -143,7 +157,10 @@ existing 999/998 allow/deny/catch-all and Plan Mode transition restrictions whil
 to explicit denies. A's profile and V1–V5 manifest stay unchanged; B's live checks are separately recorded
 in `contracts/gemini-readonly-b.verify.toml`. The explicitly authorized web profile is selected under R-REVIEW-WEB; these default-profile bytes stay unchanged. Authorized investigations (R-INVEST) keep web. No alignment may introduce a dangerous /
 yolo permission bypass on any leg (each host discloses its existing permissive-route flags in `units.json` exceptions; none is on a review route). A leg a host runs natively stays native; no leader-model CLI subprocess is
-added for symmetry. Per vendor, the guards that ship today and must survive any alignment (host, symbol):
+added for symmetry. Containment EVIDENCE is attributed to the leg attempt that produced it (C23): on a host with a LIVE
+per-round hook (A) the wrapper records each attempt's vendor conversation id in its read audit and the hook load check
+attributes hook rows by that id — a shared, unattributed hook log never certifies a leg, and a count of conversations is
+not attribution (found on A over rounds r11–r13, `authoring/shared-dev-log.md` DL-6). Per vendor, the guards that ship today and must survive any alignment (host, symbol):
 
 - codex leg (A `codex_wrapper.py`, command builder): selected read-only sandbox, `approval_policy=never`, `--ignore-rules`
   on every posture, `web_search="disabled"` for REVIEW. Selected review search requires the current R-REVIEW-WEB binding; unrequested REVIEW remains disabled. These are A's controls, not instructions for B's native session.
@@ -216,6 +233,24 @@ service checks go through the owner-briefing route (R-GOOGLE); an unrun authenti
 REPLACES the user-tier policy directory only; system/admin, workspace and built-in defaults still load (v0.46.0 and
 v0.60.0 `packages/core/src/policy/config.ts`), so an admin policy can outrank the wrapper's denies; the CLI help string
 "Additional policy files" is misleading and the wrapper's TOML header is right.
+
+## Authentication — the user's own browser login only
+
+<a id="R-AUTH"></a>
+Every vendor CLI is authenticated by the USER'S OWN interactive browser (web) login in that CLI, and by nothing else
+(owner, 2026-09-26: "api key 형태의 어떤 것도 시도하지 말아야 … 사용자 직접 웹을 통한 로그인만 허용, 비용 발생 위험" — an
+API-key-shaped credential bills a paid API outside the subscription). No host component — wrapper, hook, skill, helper,
+test, adapter or dispatch — ever issues, configures, reads, stores, sends, forwards or TRIES an API-key-shaped credential
+(a vendor API key, a service-account key, a bearer token, or an environment variable that carries one), and no route has
+an API-key form of authentication as a fallback when the login is missing, expired or refused. The R-NOCOST child-environment
+scrub removes such variables from the vendor child; the scrub is hygiene and never a licence to read their values. A vendor
+CLI OBSERVED presenting an API-key-shaped bearer — a `401 Incorrect API key` class error, an auth banner or preflight that
+names an API key, a receipt whose authentication class is not the subscription login — is a STOP for that attempt: the host
+records it as a terminal failed-to-run record whose remedy is the owner's browser re-login through the CLI's own flow (A:
+classification `oauth-env`, exit 65; B: its auth-class refusal or start-failure record), never retries on that basis by
+itself, and never inspects, repairs or "fixes" the credential store. A same-basis retry (R-RETRY) runs only after the owner
+reports the re-login. The gemini review preflight's refusal of the api-key / Vertex / ADC classes (C16) is one instance of
+this rule; the rule holds for every CLI, every route and every credential shape.
 
 ## Parity scope
 

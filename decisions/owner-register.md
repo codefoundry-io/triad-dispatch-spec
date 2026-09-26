@@ -52,6 +52,7 @@ new rule; every row points at the normative location.
 | D-9 RULED (2026-09-19) | Review legs have no web tools: DENY `google_web_search` / `web_fetch` by explicit rows in the shared gemini read-only policy; investigations (R-INVEST) keep web with the `web-evidence` clause. The rule is per OPERATION, not per CLI: codex `web_search` disabled, agy review agents without web tools (B's read-only builder drops `read_url` for review dispatch only), gemini deny rows, every review prompt renderer stops permitting web (codex F2). Applied first; the runtime effect is verified where gemini is in service (owner: apply now, leave the untested part as a separate config-like record) | `contracts/gemini-readonly.toml` (rows at 200), `contracts/gemini-readonly.verify.toml` (V1-V5, NOT RUN), C15, `R-GOOGLE` convention sentence, `R-CONTAIN` gemini bullet; host A applied (t50); B: codex removes the two tools from its 999 allow list |
 | Codex rev-1 addendum review (2026-09-19) | Findings F1–F8 accepted and applied by the claude leader — status accuracy (C28 NOT applied on either host), D-9 as an operation-level rule, executable V3/V5 with an isolated control and an evidence rule, C28 wording, Google shape pin in the v2 migration list, byte-identical vendoring of the policy (one definition), C4 original-vs-owned-copy split; leader-level wire choices aligned (`path`, three canonical verdicts, optional `correction`, uncertainty-only negative = DO NOT MERGE + `open_questions`, `SAFE`/`Major` import aliases only) | `R-CONTAIN`, `contracts/gemini-readonly{,.verify}.toml`, C4/C15/C28/C29, `contracts/leg-verdict-mapping.md`, `prompts/leg-google.md`, `units.json`, `spikes/2026-09-19-google-web-evidence.md` |
 | Directive (2026-09-19, one place) | A large host restructuring is coming: rulings and conventions are written ONCE, in this shared repository; host documents carry pointers, never a second narration ("do not make the work happen three times") | `reference/spec-authoring.md § 3/§ 4`, `R-GOOGLE` convention; host plans quote verbatim only |
+| Directive (2026-09-25, codex baseline and comparison; shared development log) | Codex review BASELINE = `gpt-5.6-terra` / `xhigh` as shipped roster DATA on both hosts (a shipped `null` had left host A's baseline to the operator's personal CLI configuration). Host A additionally runs a COMPARISON entry `codex-astra` = `gpt-6-astra` / `high` in its next round; both entries count, and the terra/astra difference is a ledger observation, never a vote or a policy. The Claude review leg is `claude-opus-5-5` / `xhigh` (the 2026-09-25 default-model handoff). PRD and spec move together; what the other host must fix is written into a shared development log, not a session note | `R-ROSTER` codex paragraph, C35, `contracts/review-legs.example.json`; `authoring/shared-dev-log.md` (`R-DEV-LOG`) |
 | Codex verification amendment (2026-09-19; technical disposition) | Earlier F3/F4 verification changes required further corrections A1–A4; the owner authorized Codex to publish the bounded shared-spec amendment. Runtime checks remain NOT RUN, shipped policy bytes unchanged, and Claude acknowledgement on the amended basis is pending | `decisions/rev-1-codex-verification-amendment.md`; procedure only in `contracts/gemini-readonly.verify.toml`, C15, `R-GOOGLE` |
 
 Withdrawn at the owner's word: a usage-measurement item (2026-09-19) is not recorded anywhere.
@@ -79,3 +80,17 @@ The report did not supply an exact installed revision, CLI version, authenticati
 class or transcript. It confirms the reported invocation only; it does not mark
 B1-B3, WEB-B-1, three concurrent Google calls, lens coverage or host A adoption
 as passed. Preserve those separate verification statuses.
+
+<a id="d-auth-browser-login-20260926"></a>
+## D-AUTH-BROWSER-LOGIN-20260926: CLI authentication is the user's own browser login only
+
+Owner, 2026-09-26, ruling on the host A round r18 incident (a codex CLI that
+presented an API-key-shaped bearer, `401 Incorrect API key`, on a subscription
+login): "api key 형태의 어떤 것도 시도하지 말아야하는데 스펙이나 이런 사양이 있으면
+금지시키도록 명시해 사용자 직접 웹을 통한 로그인만 허용 비용 발생 위험" — nothing
+API-key-shaped is ever tried; the spec states the ban; only the user's own direct
+browser (web) login of a CLI is allowed; the reason is billing risk. Recorded as
+rule R-AUTH (`reference/review-rules.md#R-AUTH`), case C37 and dev-log row
+DL-16. It sharpens R-NOCOST (CLI only, the user's own login); it adds no
+credential handling of any kind to either host — an observed API-key-shaped
+authentication is a STOP whose only remedy is the owner's browser re-login.
