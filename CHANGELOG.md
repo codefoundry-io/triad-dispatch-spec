@@ -1,14 +1,15 @@
 # Changelog
 
-## Shared development log DL-15 — timeout_s bounds the leg, not one attempt — 2026-09-26 (not tagged)
+## Shared development log DL-15 — timeout_s is per attempt (owner ruling) — 2026-09-26 (not tagged)
 
 - `authoring/shared-dev-log.md` DL-15 (C1, C12): the roster's `timeout_s` had no
-  stated semantics under a host-internal retry ladder; host A's agy capacity
-  ladder gave every attempt the full timeout (≈ 3 × the budget). Leader decision
-  recorded as a PROPOSED R-ROSTER sentence (rule text — owner-gated): the field
-  bounds the whole leg dispatch; retries run inside the remaining budget.
-  A fix ordered; a check suggested for B.
-- No schema, prompt payload, revision tag, host adoption or release changes.
+  stated semantics under a host-internal retry ladder. Host A first implemented
+  "the field bounds the whole leg" (deadline arithmetic, a retry floor, rebuilt
+  vendor timers); the OWNER ruled it over-design (zero observed harm, reduced
+  automatic recovery) and host A reverted it. Recorded as a FACT, not a rule:
+  `timeout_s` bounds one attempt; a ladder may add its N retries and backoffs.
+- No schema, prompt payload, rule text, revision tag, host adoption or release
+  changes.
 
 ## Shared development log DL-14 — agy 503 classification, wait-vs-new-round retry guard — 2026-09-26 (not tagged)
 
