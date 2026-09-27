@@ -39,7 +39,7 @@ switched off or breaks, another entry may be enabled in its place — a differen
 perspective (owner D-4); the round receipt records which legs actually ran and their family coverage: two legs of one
 family are one family (the release valve for a short round is R-AGREE). `vendor` is a FAMILY value — `claude` | `codex` |
 `google`; the Google CLI is named only by the `agy` / `gemini` block (R-GOOGLE). Selected investigations (custom prompt, web, extra read roots) are not review rounds and return no verdict
-(owner Q-D). Model and effort must be expressible for every vendor in the roster file — including the claude legs (B runs claude as a CLI child) — and are validated by the host adapter against actual capabilities at dispatch; `model: null` means the host's default; when both Google CLIs are present an explicit `route` (`agy` | `gemini`) in the `google` block pins the route, otherwise the shipped chain resolves it (R-GOOGLE); timeouts are adapter-validated (B's legacy formal gemini route requires 600 s and its legacy formal claude route requires 1200 s; the shared template's 900 s Claude values are not B runnable defaults). The runnable default roster is three legs; further entries in the example are opt-in. No configuration is a shared user-global dependency; the resolved roster is
+(owner Q-D). Model and effort must be expressible for every vendor in the roster file — including the claude legs (B runs claude as a CLI child) — and are validated by the host adapter against its supported option vocabulary at dispatch (never against a vendor catalog — R-MODEL); `model: null` means the host's default; when both Google CLIs are present an explicit `route` (`agy` | `gemini`) in the `google` block pins the route, otherwise the shipped chain resolves it (R-GOOGLE); timeouts are adapter-validated (B's legacy formal gemini route requires 600 s and its legacy formal claude route requires 1200 s; the shared template's 900 s Claude values are not B runnable defaults). The runnable default roster is three legs; further entries in the example are opt-in. No configuration is a shared user-global dependency; the resolved roster is
 shown before any paid dispatch, and unselected legs are never started.
 
 The recommended Claude review default is `claude-opus-5-5` (Opus 5.5) with
@@ -47,7 +47,7 @@ The recommended Claude review default is `claude-opus-5-5` (Opus 5.5) with
 moving `opus` alias. Named model/effort overrides and explicit null selection
 retain their existing semantics; older supported models remain selectable.
 The adapter checks the requested model and effort before review inference and
-refuses a reported selection that contradicts a catalogued explicit model ID. Selection
+refuses a reported selection that contradicts the requested explicit model ID. Selection
 evidence is not proof of the eventual runtime model. B's fixed legacy formal
 route uses this same model/effort pin; its raw wrapper keeps caller passthrough.
 
@@ -64,6 +64,21 @@ contradicts the request is refused. A comparison or trial model on any family is
 ordinary opt-in entry (owner, 2026-09-25: host A runs `gpt-6-astra` / `high` beside
 the baseline); its findings count under R-AGREE like any leg's, and the difference
 between two entries is a ledger observation, never a vote (C35).
+
+## Models are user-pinned data
+
+<a id="R-MODEL"></a>
+A leg's model and effort are data the user pins in the roster entry — on a host whose native leg cannot carry a model,
+in the agent definition the entry names — and the user changes them (owner, 2026-09-27: "모델 변경은 사용자가 직접하고
+니가 추론하지마 … 니가 프로브로 검사하는 라운드 자체가 비용에 영향을 줌 그 모델이 없어지면 사용자에게 알리는 정도로"). A
+host never chooses, infers, substitutes or falls back to another model, and runs no model-list or model-availability
+probe on the review or dispatch path: a probe is a paid call, and model names change faster than any packaged list. A
+host-packaged model list is data a host may display, never a gate on the user's pin. A capability check that a rule
+requires — a CLI version floor that names the capability it guards, the R-REVIEW-WEB route preflight — is not a model
+probe. When the vendor CLI refuses a pinned model (withdrawn, renamed, or unsupported by the installed CLI version), the
+attempt ends as ONE terminal failed-to-run record that names the leg and the model and tells the user to change the roster
+entry; the change is a new basis (R-REREVIEW). An exposed runtime identity that contradicts the request is still refused
+(R-ROSTER) — that is an observation of the answer already paid for, not a probe.
 
 ## Selected investigations
 
@@ -218,7 +233,7 @@ speculative → recorded residual, no code. Reviewer labels are claims, never re
 
 <a id="R-CLEANUP"></a>
 Cleanup exports and verifies the round's evidence first, then releases only resources the helper can PROVE it allocated or claimed (its own allocation record or marker — never a name shape; an empty directory or a plausible-looking marker can still be foreign); uncertain residue is preserved and reported; it refuses without deleting, states what it observes, and points at the one documented recovery when a tree is not its own. A second cleanup is a no-op. Cap-based pruning of run-log and repair-IPC
-files keeps a minimum age floor so a fresh sibling file is never deleted to satisfy a cap (mtime is not only a sort key).
+files keeps a minimum age floor so a fresh sibling file is never deleted to satisfy a cap (mtime is not only a sort key). An EMPTY name-shaped candidate past the age floor may be removed with `rmdir` alone (owner, 2026-09-27: it removes no data — `rmdir` can only remove an empty directory); a directory holding any entry without its record stays preserved and reported.
 
 ## No cost, CLI only
 

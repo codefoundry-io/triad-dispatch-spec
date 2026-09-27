@@ -110,3 +110,30 @@ retention ruling upheld; item 6 of 2026-09-26 adds "모든 로그와 워크트�
 push and merge under the owner's explicit approval; item 18 → the deploy push of
 the directives-only distribution approved.
 
+<a id="d-rulings-20260927b"></a>
+## D-RULINGS-20260927B: quota-cap default, R-MODEL, web for every leg
+
+Owner answers of 2026-09-27 to the leader's proposals: Q7-1 "a 그리고 leg를 추가할지
+다른 관점의 같은 모델을 추가할지는 사용자가 직접 요청할테니 기능만 가능하면 이걸로 종결"
+— after a quota cap the round ends with the answering families and the owner's
+decision; adding a leg or a same-model different-perspective entry is the user's
+explicit request (DL-20). Q7-2: nothing is substituted by default, so no re-run
+follows. Q10-1 "올림" — R-MODEL is a shared rule (`reference/review-rules.md#R-MODEL`,
+DL-21). Q10-2 "거부 유지" — an exposed runtime identity that contradicts the request
+is refused. Q11-2 "모든 다리 일괄임" — owner-authorized web verification applies to
+every participating leg of the round, never to a subset (R-REVIEW-WEB as written).
+
+<a id="d-rulings-20260927c"></a>
+## D-RULINGS-20260927C: cleanup records, empty directories, distribution
+
+Owner, 2026-09-27, on host A's retention slice and distribution: (1) "악의적 공격을
+당할 이유가 없는 환경인 A 안으로" — a program-owned root + the name shape + the
+program-written record are the allocation proof; no content-bound record is
+built (DL-22 reading 1). (2) "권고안으로 진행할거고" — an EMPTY name-shaped
+candidate past the age floor may be removed with `rmdir` alone
+(`reference/review-rules.md#R-CLEANUP`, amended; DL-22 reading 2). (3) "현재
+배포판 동작으로 하되 설치되는 파일을 고지하고 언인스톨만 깨끗하게 하면 돼 복잡하게
+하지말자" — the distributed plugin keeps applying a repair proposal
+automatically; every file it writes is disclosed and one clean uninstall is
+provided (host A slice; no shared rule).
+
