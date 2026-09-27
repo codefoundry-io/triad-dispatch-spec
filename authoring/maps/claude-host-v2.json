@@ -26,7 +26,7 @@
       "spec_refs": ["decisions/rev-2-implementation-spec.md#SPEC-ROSTER"],
       "rule_refs": ["reference/review-rules.md#R-ROSTER","reference/review-rules.md#R-GOOGLE","reference/review-rules.md#R-PREPARE","reference/review-rules.md#R-NOCOST"],
       "contract_refs": ["contracts/review-legs.schema.json"],
-      "case_ids": ["C11","C12","C16","C17","C18","C22","C27"],
+      "case_ids": ["C11","C12","C16","C17","C18","C22","C27","C35"],
       "unit_ids": ["roster","google-resolution","engine-transport","gemini-policy"]
     },
     {
@@ -60,9 +60,9 @@
       "id": "REQ-CUSTODY",
       "prd_ref": "decisions/claude-host-v2-implementation-prd.md#PRD-CUSTODY",
       "spec_refs": ["decisions/rev-2-implementation-spec.md#SPEC-CUSTODY","decisions/rev-2-implementation-spec.md#SPEC-RETRY"],
-      "rule_refs": ["reference/review-rules.md#R-TERMINAL","reference/review-rules.md#R-RECEIPT","reference/review-rules.md#R-PREPARE","reference/review-rules.md#R-CLEANUP","reference/review-rules.md#R-TOKENS"],
+      "rule_refs": ["reference/review-rules.md#R-TERMINAL","reference/review-rules.md#R-RECEIPT","reference/review-rules.md#R-PREPARE","reference/review-rules.md#R-CLEANUP","reference/review-rules.md#R-TOKENS","reference/review-rules.md#R-NOCOST","reference/review-rules.md#R-AUTH"],
       "contract_refs": ["contracts/receipt-fields.json","contracts/exit-tokens.json"],
-      "case_ids": ["C1","C2","C3","C4","C5","C6","C7","C8","C9","C10","C26","C28"],
+      "case_ids": ["C1","C2","C3","C4","C5","C6","C7","C8","C9","C10","C26","C28","C36","C37"],
       "unit_ids": ["engine-transport","exit-tokens","review-lifecycle","cleanup"]
     },
     {

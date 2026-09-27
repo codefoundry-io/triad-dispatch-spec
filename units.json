@@ -22,7 +22,7 @@
       "common": "bin/verdict_schema.py",
       "contract": "contracts/leg-verdict.schema.json",
       "exceptions": "A raw-reply admission stays host-local; mapping in contracts/leg-verdict-mapping.md. v2 candidate exists; legacy entry points are explicitly separate per decisions/rev-2-implementation-spec.md. B has an opt-in operational v2 candidate; A migration and formal shared revision adoption remain separate.",
-      "A_source": "3rd-Agent/wrappers/verdict_schema.py; .claude/skills/triad-cross-family-review/lib/validate_verdict.py (raw-reply admission, A-only)",
+      "A_source": "3rd-Agent/wrappers/verdict_schema.py; .claude/skills/triad-cross-family-review/lib/verdict_v2.py (v2 six-field binding admission on the output file); lib/validate_verdict.py (legacy raw-reply admission, A-only)",
       "A_shipped": "bin/verdict_schema.py; skills/triad-cross-family-review/lib/validate_verdict.py",
       "B": "bin/verdict_schema.py (explicit legacy); bin/validate_v2.py, bin/verdict_v2.py and bin/review_round_v2.py (opt-in canonical v2 producer/validation/collection)"
     },
@@ -30,15 +30,15 @@
       "common": "config/review-legs.example.json",
       "contract": "contracts/review-legs.schema.json, contracts/review-legs.example.json",
       "exceptions": "D-5 settled: B project .agents/triad-review-legs.json merges by name with contracts/review-legs.default.json; A retains its host-specific project location; no shared user-global dependency",
-      "A_source": ".claude/skills/triad-cross-family-review/lib/review_scratch.py (x-leg config loader, prepare)",
-      "A_shipped": "skills/triad-cross-family-review/lib/review_scratch.py; references/review-legs.example.json",
+      "A_source": ".claude/skills/triad-cross-family-review/lib/roster_v2.py (v2 named roster: shipped data .claude/skills/triad-cross-family-review/spec/review-legs.default.json + project override <source-repo>/.claude/triad-review-legs.json merged by name; drift warnings; per-entry Google chain; dispatch rendering); the resolved roster is frozen per round in <packet-dir>/.roster-r<N>.json; lib/review_scratch.py keeps only the legacy v1 x-leg loader (prepare without --v2)",
+      "A_shipped": "skills/triad-cross-family-review/lib/roster_v2.py; skills/triad-cross-family-review/spec/review-legs.default.json; references/review-legs.four-leg.example.json (v2 is not yet in the published export — main 8efeb74 predates it)",
       "B": "bin/review_roster.py resolve_roster; bin/review_round.py resolve-roster; bin/review_adapters_v2.py prepare_adapters; bin/review_round_v2.py create_basis/_invocation (explicit v2); legacy fixed development routes remain separate"
     },
     "google-resolution": {
       "common": "(rule only — reference/review-rules.md#R-GOOGLE)",
       "contract": "reference/review-rules.md#R-GOOGLE (prose; no schema)",
       "exceptions": "A skip-and-log vs B refuse on 'neither installed' = recorded host policy (N16)",
-      "A_source": ".claude/skills/triad-cross-family-review/references/leg-contracts.md § Google-family leg selection (bash snippet)",
+      "A_source": ".claude/skills/triad-cross-family-review/lib/roster_v2.py (per-entry chain: explicit google.route pin, else agy if installed, else gemini, else skip-and-log; tests/unit/skills/t12-roster-v2.sh axes 9, 16); prose in references/leg-contracts.md § Google-family leg selection",
       "A_shipped": "skills/triad-cross-family-review/references/leg-contracts.md",
       "B": "bin/review_round.py select_google_route"
     },
@@ -46,7 +46,7 @@
       "common": "bin/review_round.py",
       "contract": "reference/process.md",
       "exceptions": "A keeps open/touch/close and sibling-resolved helpers moving as one unit; B keeps fingerprint-worktree/render-worktree, guarded-worktree and prepared-directory modes; destructive behavior defined by fences, not a forced rename; no generic `legs` command",
-      "A_source": ".claude/skills/triad-cross-family-review/lib/review_scratch.py (open, touch, close, capture, verify, prepare) + agy_hook.py, read_audit_gate.sh, validate_verdict.py as siblings",
+      "A_source": ".claude/skills/triad-cross-family-review/lib/review_scratch.py (open, touch, close, capture, verify, prepare) + lib/collect_v2.py (all-entry collection, outcome ladder, retry) + lib/prompts_v2.py (bound prompts) + agy_hook.py, read_audit_gate.sh, validate_verdict.py as siblings",
       "A_shipped": "skills/triad-cross-family-review/lib/{review_scratch,agy_hook,validate_verdict}.py, read_audit_gate.sh",
       "B": "bin/review_round.py (prepare, capture, verify, manifest, cleanup, render, render-worktree, fingerprint-worktree, select-google-route); bin/review_round_v2.py (v2 basis, immutable entry/attempt allocation, native/CLI/start-failure record, all-N collection, same-basis retry and changed-basis full re-review)"
     },
@@ -70,7 +70,7 @@
       "common": "bin/agy_hook.py",
       "contract": "reference/review-rules.md#R-CONTAIN",
       "exceptions": "A live per-round hook; B dormant — activation is a separate design change",
-      "A_source": ".claude/skills/triad-cross-family-review/lib/agy_hook.py (live per-round hook), lib/read_audit_gate.sh",
+      "A_source": ".claude/skills/triad-cross-family-review/lib/agy_hook.py (live per-round hook; `check` = round-level LOAD check over every allocated attempt's read audit), lib/read_audit_gate.sh; lib/collect_v2.py consumes both before an agy verdict is weighed",
       "A_shipped": "skills/triad-cross-family-review/lib/agy_hook.py, read_audit_gate.sh",
       "B": "bin/agy_hook.py (dormant), --project non-mutating route"
     },

@@ -25,6 +25,7 @@ the sources below and update the three maps together when a destination changes.
 | Revision agreement and signatures | `decisions/rev-N-agreement.md` (rev-1: `decisions/rev-1-agreement.md`) | the relayed round documents point here |
 | Which revision a host conforms to | the host repository's `SPEC_REVISION` file | drift reports |
 | Gemini read-only host profiles | `contracts/gemini-readonly.toml` (A); `contracts/gemini-readonly-b.toml` (B), selected under R-CONTAIN / D-B1 | exact selected payload and adjacent digest at the host's adopted revision |
+| Defects and drift found while a host implements the common items (which host acts, `file:line @ commit`, status) | `authoring/shared-dev-log.md` (`R-DEV-LOG`) | host checklists and ledgers point at rows by id (`DL-n`); the case a row minted lives in `cases/cases.json` |
 | Measured evidence behind a rule or case change (a spike record: observation with `path:line`, cause chain, the fix on the owning host, the live before/after run, what the other host should touch) | `spikes/<UTC-date>-<slug>.md` | quotes in host plans and ledgers; the case in `cases/cases.json` it produced |
 
 ## Anchors

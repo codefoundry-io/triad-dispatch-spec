@@ -10,7 +10,7 @@
       "input": "a vendor child that exits normally with inherited pipes / one whose stdin write fails / one that exceeds the timeout / one killed by SIGTERM",
       "expected": "Success only after readers joined and the owned group is reaped; incomplete stdin = fail closed (A token input-delivery-failed / exit 65; B RunResult flag); timeout and signals leave a terminal record and no orphan",
       "tests": {
-        "A": "tests/unit/wrappers/t48*, tests/integration/f12* (stdin); timeout/signal: todo",
+        "A": "tests/unit/wrappers/t48*, tests/integration/f12* (stdin); timeout/signal terminal record on the agy route: tests/unit/wrappers/t15-agy-driver-decision.sh axis 28/28b (a wrapper timeout on a newline-terminated stream stamps the census row `interrupted: \"timeout\"` and no `truncated_tail`; a signalled child stamps `\"signal\"`; a child's own exit stamps nothing), tests/unit/wrappers/t13-agy-stream-digest.sh axis 32 (merge carries it), tests/unit/wrappers/t40-agy-read-audit-file.sh axis 24 (the written read-audit file carries it); the reader side: tests/unit/skills/t9-agy-hook.sh axes 23/34 (an `interrupted` row is INCONCLUSIVE; a vendor-ended `result_events: 0` row with a complete transcript stays whole) — fix wave 17 (DL-11)",
         "B": "Implemented and regression-covered in B e29d820 (P1, triad-b-p1-r2 ADMITTED_SAFE): tests/test_terminal_transport.py and existing stdin/provider tests cover bounded readers/stdin reconciliation, owned-group cleanup, normal exit and timeout/error custody. This is source/test evidence, not shared receipt-schema or every provider/platform conformance."
       }
     },
@@ -396,7 +396,7 @@
       "input": "Exactly four enabled entries: codex, google-contracts, google-failures and google-state; all review the full common scope, with a frozen leg-name-to-emphasis table in the shared task. Compare same-family result/receipt swaps, missing/invalid/blocking output, an enabled Google entry skipped before dispatch while its same-family siblings complete, failed-to-run unchanged-basis retry and a changed task table.",
       "expected": "Four independent named attempts and exclusive evidence paths cover two families. Sibling result/receipt swaps cannot satisfy binding. Clean complete two-family output requires a recorded owner decision (B: OWNER_DECISION_REQUIRED), never inferred three-family agreement. Missing/invalid and blocking results remain distinguishable and cannot be silently counted as agreement. A skipped enabled entry remains named and missing even when a same-family sibling completes; family coverage cannot erase it (B: INCOMPLETE). Preparation refusal does not produce a completed round. The task mapping reaches each bound leg; emphasis coverage is a semantic check, not a new schema field. Retry only the diagnosed failed-to-run entry with unchanged conditions; changed task/roster/controls require every participating entry to review again. Preserve the machine result separately from any subsequent owner decision.",
       "tests": {
-        "A": "NOT RUN for this exact profile. Published main 8efeb74 has legacy advisory X legs, not proof of the named v2 task mapping; reconcile the current in-progress checkout. Source-line handoff: decisions/claude-codex-google-four-leg-handoff.md.",
+        "A": "IMPLEMENTED on host A (parity/host-a-v2): collect_v2 counts every enabled SKIPPED entry as `missing`, named with its skip reason, and the round is INCOMPLETE even when same-family siblings cover the family; sibling/attempt swaps and changed evidence are refused by the six-field binding + custody (`verdict_v2`, `collect_v2`); retry only for the diagnosed failed-to-run entry with unchanged conditions (`review_scratch retry`). Tests: tests/unit/skills/t15-collect-v2.sh axis 62 (skipped enabled entry → INCOMPLETE 5, family coverage cannot erase it), axes 66-71 (binding, retry refusals); live: gate-1 rounds r12–r23 on the six-entry / three-family profile (same-basis retries of failed-to-run entries in r18 and r20), ledger docs/reviews/2026-09-21-host-a-v2-gate1.md. Compatibility with the older gemini CLI exists (not a live leg on A).",
         "B": "NOT RUN for this exact live profile. v0.2.556 source supports named entries, exclusive paths and two-family OWNER_DECISION_REQUIRED; generic-N/renamed-Google tests are supporting evidence only. Operating example and checks: decisions/codex-google-four-leg-operating-spec.md."
       }
     },
@@ -408,8 +408,44 @@
       "input": "Default Claude selection claude-opus-5-5 / xhigh; a session-only model probe reporting Opus 5.5, or one reporting Opus 5 instead",
       "expected": "Recognize the documented Opus 5.5 effort capability and retain requested and selected IDs separately. Refuse a reported Opus 5 substitution before review inference. A capability receipt does not attest eventual runtime identity.",
       "tests": {
-        "A": "Pending host maintainer review and conformance; no A source change.",
+        "A": "tests/unit/skills/t7-reviewer-siblings-mirror.sh (C34 checks: the three presets cross-family-review-reviewer{,-max,-high}.md pin model: claude-opus-5-5 with effort xhigh / max / high; bodies byte-identical) — triad parity/host-a-v2 c056a2a. The frontmatter pin is A's SELECTION evidence (A refuses claude.model in the roster; the tier rides in the agent id); acceptance of the pin by Claude Code 2.1.282 is recorded in A's gate ledger; runtime identity is not attested.",
         "B": "tests/test_v2_adapters.py::test_resolved_three_family_invocations_have_real_capability_evidence and ::test_C34_opus_55_pin_rejects_provider_selection_of_opus_5; results recorded in decisions/2026-09-25-opus-5-5-default.md."
+      }
+    },
+    {
+      "id": "C35",
+      "surface": "roster",
+      "rule": "R-ROSTER",
+      "summary": "Explicit codex review default and requested-model custody",
+      "input": "no roster file / an override setting codex.model to null / an override naming an explicit codex model; the CLI route (A) and the native route (B)",
+      "expected": "No file = the codex leg requests the recommended explicit default (gpt-5.6-terra / xhigh), never a value read from the operator's personal CLI configuration. An explicit null override keeps host-default semantics and is frozen as null. The requested model and reasoning are frozen in the bound round inputs and visible in the per-attempt dispatch record (A: wrapper argv and summary line; B: adapter record). A runtime model identity the CLI does not expose stays null and is never inferred from the request; an exposed identity that contradicts the request is refused, never relabelled.",
+      "tests": {
+        "A": "tests/unit/skills/t12-roster-v2.sh axes 36-37 (no file -> codex gpt-5.6-terra / xhigh and --model on the argv; an explicit null override frozen as null with NO --model and a roster_v2 drift WARNING; the shipped four-leg example resolves with the codex-astra gpt-6-astra / high comparison entry, five entries / two families) + tests/unit/wrappers/t60-codex-requested-model-c35.sh (` model=<slug>` on the summary tail after prompt_file=, `requested_model` in the audit row and failure run-log, omit-when-None, unredacted, percent-escaped — on EVERY wrapper since fix wave 13a (codex, gemini, claude, agy; an empty or whitespace --model normalizes to None), and on every promotion re-emission since fix wave 12) — triad parity/host-a-v2 c056a2a. codex exec --json exposes no runtime model, so the runtime identity stays unexposed.",
+        "B": "Existing assertions exercise the expected: contracts/review-legs.default.json:12 (gpt-5.6-terra / xhigh), tests/test_v2_adapters.py:183 (null request resolves to the host-exposed default and is recorded), bin/review_round_v2.py:454-477 (runtime_model observed separately; identity-mismatch refused). B maintainer names the case in its test."
+      }
+    },
+    {
+      "id": "C36",
+      "surface": "review-lifecycle",
+      "rule": "R-BIND, R-CONTAIN",
+      "summary": "Evidence binding survives exotic evidence paths",
+      "input": "an attempt whose evidence directory path carries a space, brackets, an embedded newline or a byte that is not valid UTF-8; the attempt's own read evidence and a sibling's",
+      "expected": "The host's evidence binding (A: the wrapper's custody line matched by the collector; B: the review_binding member of the read evidence) admits the attempt's OWN evidence and refuses a sibling's regardless of the path's bytes — a legitimate attempt is never refused forever because of its path, and a foreign one is never admitted. A path-carrying line is one line on both the producing and the comparing side.",
+      "tests": {
+        "A": "tests/unit/skills/t15-collect-v2.sh axis 66 (pure arms for a newline and a \\xff path; end-to-end for a space + brackets path; drift guard between the wrapper's _summary_field safe set and the collector's) and tests/unit/wrappers/t40-agy-read-audit-file.sh axes 16/22 — triad parity/host-a-v2 8331680 (fix wave 13a, row r13-5; found by the google-failures and google-state legs of round r13).",
+        "B": "Satisfied by construction: read evidence is bound by the JSON review_binding member and compared as data, never through a path-carrying text line (bin/review_round_v2.py:309-314 at v0.2.557). B maintainer may name a regression if one exists."
+      }
+    },
+    {
+      "id": "C37",
+      "surface": "engine-transport",
+      "rule": "R-AUTH, R-NOCOST",
+      "summary": "Browser login only: no API-key-shaped credential is ever tried, and an observed one is a STOP",
+      "input": "a vendor CLI whose subscription login is missing or expired; a child environment that carries a vendor API-key or endpoint variable; a CLI that answers a dispatch with a `401 Incorrect API key` class error or an auth banner naming an API key",
+      "expected": "No route issues, configures, reads, stores, sends or tries an API-key-shaped credential and no route has an API-key authentication fallback (the credential / endpoint / model-selector variables are scrubbed from the child on every route — hygiene, their values never read). The observed API-key-shaped failure is a terminal failed-to-run record for that attempt (A: classification oauth-env, exit 65; B: its auth-class refusal / start-failure record) whose remedy is the owner's browser re-login through the CLI's own flow; the host never retries on that basis by itself, never inspects or repairs the credential store, and a same-basis retry (R-RETRY) runs only after the owner reports the re-login.",
+      "tests": {
+        "A": "tests/unit/wrappers/t37-child-env-scrub.sh (the three families' credential / endpoint / model-selector tuple removed from the child on every route; per-name membership pin); tests/unit/wrappers/t57-gemini-preflight-c16.sh (api-key / Vertex / ADC auth classes refused before any vendor call); tests/integration/wrappers/classifier/f1-known-patterns.sh (the 401 phrase forms map to oauth-env / exit 65 — the token the r18 codex attempts carried). Live evidence: gate-1 round r18 (2026-09-25T23:07Z) — both codex entries' first attempts returned oauth-env rc 65 in 41-42 s on a `401 Incorrect API key provided` shape (an `sk-svcacct…` bearer presented to the ChatGPT backend); the leader configured nothing, retried nothing, stopped its own environment inspection when the auto-mode classifier refused it, and the same-basis retry ran only after the owner reported the CLI login working (docs/reviews/2026-09-21-host-a-v2-gate1.md row r18-L1). NOT YET PINNED (owner-gated follow-up): a codex / claude preflight that STOPS on an OBSERVED api-key authentication mode before the vendor call, mirroring the gemini C16 gate; and a negative test that no wrapper argv or child env ever carries an API-key form of authentication.",
+        "B": "B maintainer to name: the wrapper's credential scrub; the gemini auth-class preflight refusal (C16); whether B's start-failure record (`v2-record-start-failure`) for an API-key-shaped 401 names the browser re-login as the remedy and never retries on its own; that no adapter has an API-key fallback."
       }
     }
   ]
