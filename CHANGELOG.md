@@ -1,5 +1,15 @@
 # Changelog
 
+## Shared development log DL-22 — three R-CLEANUP readings from host A's retention slice — 2026-09-27 (not tagged)
+
+- `authoring/shared-dev-log.md` DL-22 (C3, C4, C5): the owner's option-A
+  decision on name-bound allocation records (root + name shape + the
+  program-written record are the proof in a no-malicious-actor deployment);
+  an EMPTY name-shaped residue past the floor is removed by `rmdir` only (no
+  data is ever removed without a record); a failed removal restores the
+  directory's mtime so the next sweep retries it. Record only; no rule text
+  change. One check suggested for host B's cleanup.
+
 ## R-MODEL — models are user-pinned data; no catalog probe (owner ruling 2026-09-27) — 2026-09-27 (not tagged)
 
 - `reference/review-rules.md` R-MODEL (NEW rule, after "Selected investigations"):
