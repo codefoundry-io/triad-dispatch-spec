@@ -110,3 +110,16 @@ retention ruling upheld; item 6 of 2026-09-26 adds "모든 로그와 워크트�
 push and merge under the owner's explicit approval; item 18 → the deploy push of
 the directives-only distribution approved.
 
+<a id="d-rulings-20260927b"></a>
+## D-RULINGS-20260927B: quota-cap default, R-MODEL, web for every leg
+
+Owner answers of 2026-09-27 to the leader's proposals: Q7-1 "a 그리고 leg를 추가할지
+다른 관점의 같은 모델을 추가할지는 사용자가 직접 요청할테니 기능만 가능하면 이걸로 종결"
+— after a quota cap the round ends with the answering families and the owner's
+decision; adding a leg or a same-model different-perspective entry is the user's
+explicit request (DL-20). Q7-2: nothing is substituted by default, so no re-run
+follows. Q10-1 "올림" — R-MODEL is a shared rule (`reference/review-rules.md#R-MODEL`,
+DL-21). Q10-2 "거부 유지" — an exposed runtime identity that contradicts the request
+is refused. Q11-2 "모든 다리 일괄임" — owner-authorized web verification applies to
+every participating leg of the round, never to a subset (R-REVIEW-WEB as written).
+

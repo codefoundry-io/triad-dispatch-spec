@@ -1,5 +1,24 @@
 # Changelog
 
+## R-MODEL — models are user-pinned data; no catalog probe (owner ruling 2026-09-27) — 2026-09-27 (not tagged)
+
+- `reference/review-rules.md` R-MODEL (NEW rule, after "Selected investigations"):
+  a leg's model and effort are data the user pins and changes; a host never
+  chooses, infers, substitutes or falls back, and runs no model-list or
+  availability probe on the review or dispatch path; a packaged list is
+  display data, never a gate; a refused pinned model ends as ONE terminal
+  record naming the leg and the model (a roster change is a new basis); an
+  exposed runtime identity that contradicts the request stays refused.
+  R-ROSTER amended in two places ("supported option vocabulary" instead of
+  "actual capabilities"; "requested" instead of "catalogued" explicit model ID).
+- `authoring/shared-dev-log.md` DL-20 (quota-cap default = the answering
+  families + the owner's decision; substitution is the user's explicit
+  request; FACT: neither host has runtime compensation) and DL-21 (the R-MODEL
+  ruling, A clean-ups, B's gates to decide). `decisions/owner-register.md`
+  D-RULINGS-20260927B.
+- Normative rule text ADDED (binds both hosts); no schema, prompt payload,
+  contract or revision tag change.
+
 ## Owner rulings 2026-09-27 recorded — DL-17 / DL-18 / DL-19 (facts, no rule change) — 2026-09-27 (not tagged)
 
 - `authoring/shared-dev-log.md` DL-17 (C7, C19): host A's refuse-before-write plus
