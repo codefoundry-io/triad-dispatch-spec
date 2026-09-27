@@ -142,6 +142,10 @@ and process-group cleanup, existing exit vocabulary, redaction and failure
 diagnostics. The common transport object records observed stdin delivery,
 execution route, executable/version when available and invocation attempt.
 Native transport has null executable and CLI version.
+Owner ruling 2026-09-27 (DL-18): a native same-family sub-agent leg records no
+transport receipt at all — the host CLI's own diagnostics stand in, and only the
+review history is kept; the native acceptance values above describe B's native
+route.
 
 Interpret delivery according to the actual route. A successful AGY/Gemini
 wrapper receipt accepts `stdin_delivery:"not-used"`; a successful Claude CLI
@@ -196,6 +200,11 @@ adding a native-leader subprocess for symmetry. B's source procedure defines
 its exact host-receipt shapes; those host envelopes are not reviewer output or
 another shared verdict schema.
 
+Owner ruling 2026-09-27 (shared dev log DL-17): on host A, refusing before any
+write plus the committed review ledger is the equivalent of the start-failure
+record, the numbered preparation custody and the export step; A adds no command
+for them.
+
 The managed review root contains a fixed shared packet and separate mutable
 custody. A basis binds packet/source/toolkit/roster/controls. Numbered
 `preflight-v2/preparation-N` directories preserve partial setup evidence.
@@ -233,6 +242,12 @@ provider started; uncertain starts require collecting all possibly live work.
 
 No scheduled cleaner, unconditional directory sweep or new permanent web-evidence
 database is part of this contract. Symlink cleanup preserves external targets.
+
+Host A (owner rulings 2026-09-17 and 2026-09-26/27; DL-19): the committed review
+ledger is the export; the managed review root is deleted by an ownership-proven
+`close` and stale round trees are reclaimed after 7 days; every other log or
+worktree the program creates expires after a period (audit rotation, failure-IPC
+caps, 30-day test-run and debug expiry), so storage never grows without bound.
 
 ## Functional coverage map
 

@@ -1,5 +1,17 @@
 # Changelog
 
+## Owner rulings 2026-09-27 recorded — DL-17 / DL-18 / DL-19 (facts, no rule change) — 2026-09-27 (not tagged)
+
+- `authoring/shared-dev-log.md` DL-17 (C7, C19): host A's refuse-before-write plus
+  its committed ledger is ruled EQUIVALENT to B's start-failure record,
+  preparation custody and export (PRD-OPERATIONS note). DL-18 (C9, C10): a
+  native same-family sub-agent leg records no transport receipt; only the review
+  history is kept (PRD-CUSTODY note). DL-19 (C4, C5, C7): the 2026-09-17
+  retention ruling upheld; every log and worktree the program creates expires
+  after a period (PRD-RETENTION host-A note; A retention slice in progress).
+- `decisions/owner-register.md` D-RULINGS-20260927.
+- No schema, prompt payload, contract, rule text or revision tag change.
+
 ## R-AUTH — CLI authentication is the user's own browser login only — 2026-09-26 (not tagged)
 
 - `reference/review-rules.md` R-AUTH (NEW rule, a section of its own after "No

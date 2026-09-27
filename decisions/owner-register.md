@@ -94,3 +94,19 @@ rule R-AUTH (`reference/review-rules.md#R-AUTH`), case C37 and dev-log row
 DL-16. It sharpens R-NOCOST (CLI only, the user's own login); it adds no
 credential handling of any kind to either host — an observed API-key-shaped
 authentication is a STOP whose only remedy is the owner's browser re-login.
+
+<a id="d-rulings-20260927"></a>
+## D-RULINGS-20260927: operations equivalence, native legs, retention, identity
+
+Owner rulings of 2026-09-27 on the leader's issue list, recorded once here and
+carried by the dev-log rows named: item 8 → DL-17 (A's refuse-before-write plus
+the committed ledger equals the start-failure record, preparation custody and
+export); item 9 → DL-18 ("네이티브 서브에이전트 스폰 … 자체 진단 기능이 있어서 별도
+디버그용 감사가 필요 없음 이전 리뷰 히스토리 정도만 필요" — a native same-family
+sub-agent leg keeps only its review history); item 16 → DL-19 (the 2026-09-17
+retention ruling upheld; item 6 of 2026-09-26 adds "모든 로그와 워크트리 생성이
+기간이 지나면 clean up 되어서 용량이 무제한 늘어나는 일이 없어야함"); item 14 →
+"일단 지금 체제로": the leader keeps pushing as the owner account for now, every
+push and merge under the owner's explicit approval; item 18 → the deploy push of
+the directives-only distribution approved.
+
