@@ -1,5 +1,15 @@
 # Changelog
 
+## R-CLEANUP amended — an empty candidate may be removed by rmdir (owner ruling 2026-09-27) — 2026-09-27 (not tagged)
+
+- `reference/review-rules.md` R-CLEANUP: one sentence added — an EMPTY
+  name-shaped candidate past the age floor may be removed with `rmdir` alone
+  (it removes no data); a directory holding any entry without its record stays
+  preserved and reported. `authoring/shared-dev-log.md` DL-22 status;
+  `decisions/owner-register.md` D-RULINGS-20260927C.
+- Normative sentence ADDED (a permission, not an obligation); no schema,
+  prompt payload, contract or revision tag change.
+
 ## Shared development log DL-22 — three R-CLEANUP readings from host A's retention slice — 2026-09-27 (not tagged)
 
 - `authoring/shared-dev-log.md` DL-22 (C3, C4, C5): the owner's option-A

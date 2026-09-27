@@ -233,7 +233,7 @@ speculative → recorded residual, no code. Reviewer labels are claims, never re
 
 <a id="R-CLEANUP"></a>
 Cleanup exports and verifies the round's evidence first, then releases only resources the helper can PROVE it allocated or claimed (its own allocation record or marker — never a name shape; an empty directory or a plausible-looking marker can still be foreign); uncertain residue is preserved and reported; it refuses without deleting, states what it observes, and points at the one documented recovery when a tree is not its own. A second cleanup is a no-op. Cap-based pruning of run-log and repair-IPC
-files keeps a minimum age floor so a fresh sibling file is never deleted to satisfy a cap (mtime is not only a sort key).
+files keeps a minimum age floor so a fresh sibling file is never deleted to satisfy a cap (mtime is not only a sort key). An EMPTY name-shaped candidate past the age floor may be removed with `rmdir` alone (owner, 2026-09-27: it removes no data — `rmdir` can only remove an empty directory); a directory holding any entry without its record stays preserved and reported.
 
 ## No cost, CLI only
 
