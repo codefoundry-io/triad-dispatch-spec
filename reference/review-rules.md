@@ -189,6 +189,13 @@ Every classification token a host EMITS is a member of `contracts/exit-tokens.js
 wrapper-only tokens and compatibility aliases are listed explicitly as exceptions. A membership test replaces the vacuous
 `is not None` assert shipped on both hosts.
 
+<a id="R-CLASSIFY"></a>
+A failed vendor call is classified by the vendor's own error sentence, and a sentence applies to the CLI that emits it.
+The known sentences are data in `contracts/vendor-failure-lines.json`: each row names the CLI, the sentence, the part of
+it a host matches (lowercase) and the token. Every host classifies a row's sentence as the row's token on the row's CLI.
+A plain fragment that an answer, a reviewed file or a tool's output can contain is never a match phrase: a host may
+search the whole output of a failed run, and such a fragment would hide the real cause behind a retry.
+
 <a id="R-RECEIPT"></a>
 The transport receipt and audit / run-log records carry the common transport object defined by
 `contracts/receipt-fields.json`: stdin delivery class, execution route, binary, observed CLI version and attempt.

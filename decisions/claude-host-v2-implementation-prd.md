@@ -147,6 +147,10 @@ transport receipt at all — the host CLI's own diagnostics stand in, and only t
 review history is kept; the native acceptance values above describe B's native
 route.
 
+A failed vendor call is classified by the vendor's own error sentence. The known
+sentences are data in `contracts/vendor-failure-lines.json` (rule R-CLASSIFY,
+case C43); both hosts carry the same rows.
+
 Interpret delivery according to the actual route. A successful AGY/Gemini
 wrapper receipt accepts `stdin_delivery:"not-used"`; a successful Claude CLI
 receipt requires `"complete"`; native host observations accept `"not-used"` or
@@ -256,6 +260,7 @@ caps, 30-day test-run and debug expiry), so storage never grows without bound.
 | Terminal process, stdin/readers and signal cleanup; setup failure custody | C1, C2, C6 |
 | Safe resume, ownership, stale retention and export/cleanup | C3, C4, C5, C7 |
 | Existing error vocabulary and phase-specific exceptions | C8 |
+| Known vendor failure sentences, each classified on its own CLI | C43 |
 | Actual transport observations and native/CLI envelope preservation | C9, C10 |
 | Authentication/route-specific environment controls | C11, C17 |
 | Three defaults, named override resolution, enabled roster and capability checks | C12, C16, C18, C22 |
