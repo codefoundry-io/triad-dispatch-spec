@@ -447,6 +447,18 @@
         "A": "tests/unit/wrappers/t37-child-env-scrub.sh (the three families' credential / endpoint / model-selector tuple removed from the child on every route; per-name membership pin); tests/unit/wrappers/t57-gemini-preflight-c16.sh (api-key / Vertex / ADC auth classes refused before any vendor call); tests/integration/wrappers/classifier/f1-known-patterns.sh (the 401 phrase forms map to oauth-env / exit 65 — the token the r18 codex attempts carried). Live evidence: gate-1 round r18 (2026-09-25T23:07Z) — both codex entries' first attempts returned oauth-env rc 65 in 41-42 s on a `401 Incorrect API key provided` shape (an `sk-svcacct…` bearer presented to the ChatGPT backend); the leader configured nothing, retried nothing, stopped its own environment inspection when the auto-mode classifier refused it, and the same-basis retry ran only after the owner reported the CLI login working (docs/reviews/2026-09-21-host-a-v2-gate1.md row r18-L1). NOT YET PINNED (owner-gated follow-up): a codex / claude preflight that STOPS on an OBSERVED api-key authentication mode before the vendor call, mirroring the gemini C16 gate; and a negative test that no wrapper argv or child env ever carries an API-key form of authentication.",
         "B": "B maintainer to name: the wrapper's credential scrub; the gemini auth-class preflight refusal (C16); whether B's start-failure record (`v2-record-start-failure`) for an API-key-shaped 401 names the browser re-login as the remedy and never retries on its own; that no adapter has an API-key fallback."
       }
+    },
+    {
+      "id": "C43",
+      "surface": "exit-tokens",
+      "rule": "R-CLASSIFY",
+      "summary": "A known vendor failure sentence is classified on its own CLI only, and a plain fragment is not",
+      "input": "a failed run (vendor exit 1) whose output carries a sentence of contracts/vendor-failure-lines.json, on the row's CLI and on another CLI; a failed run whose output carries the plain sentence `The venue is at capacity, so the event moved.`; no user classifier extension present",
+      "expected": "On the row's CLI the classification is the row's token. On another CLI the sentence does not produce that token. The plain sentence does not produce `server-capacity`.",
+      "tests": {
+        "A": "tests/unit/wrappers/t1-classify-timeout.sh (the codex sentence -> server-capacity on codex, unknown on gemini and on claude; the agy sentence in a failed codex run -> unknown; the plain sentence -> unknown) + tests/unit/wrappers/t14-agy-classify.sh (the agy sentence -> server-capacity on the agy path; the codex sentence on the agy path -> unknown) — triad parity/host-a-v2 44da3d1",
+        "B": "NOT RUN — B maintainer to name its test"
+      }
     }
   ]
 }

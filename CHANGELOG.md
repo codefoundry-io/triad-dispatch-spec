@@ -1,5 +1,17 @@
 # Changelog
 
+## R-CLASSIFY — a failed call is classified by the vendor's own sentence — 2026-09-28 (not tagged)
+
+- `reference/review-rules.md` R-CLASSIFY (NEW rule, after R-TOKENS).
+- `contracts/vendor-failure-lines.json` (NEW): two sentences, one of codex and
+  one of agy, both `server-capacity`.
+- `cases/cases.json` C43. `authoring/maps/claude-host-v2.json` REQ-CUSTODY gains
+  the rule, the contract and the case. `units.json` exit-tokens names the
+  contract. PRD-CUSTODY: one sentence and one row of the coverage map.
+- Written in the present form only (`decisions/owner-register.md`
+  D-RULINGS-20260928B): the rule, the data and the case, no development-log row.
+- No schema, prompt payload or revision tag change.
+
 ## Owner rulings 2026-09-27 recorded — DL-17 / DL-18 / DL-19 (facts, no rule change) — 2026-09-27 (not tagged)
 
 - `authoring/shared-dev-log.md` DL-17 (C7, C19): host A's refuse-before-write plus

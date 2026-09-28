@@ -110,3 +110,19 @@ retention ruling upheld; item 6 of 2026-09-26 adds "모든 로그와 워크트�
 push and merge under the owner's explicit approval; item 18 → the deploy push of
 the directives-only distribution approved.
 
+<a id="d-rulings-20260928b"></a>
+## D-RULINGS-20260928B: a fact is written in its present form
+
+Owner, 2026-09-28, on how a vendor failure sentence enters this specification:
+"스펙에 이력이 즁요할까? 지금 형태만 나타내면 딻은 인터페이스와 prd규약에 에러로
+들어가야할 것같은데" — is history important in the spec; stated as it is now, it
+belongs in a short interface and as an error in the rules. On publishing it:
+"스펙에도 올려 목적자체가 같은코드와 같은 프롬프트를 가지려는거니까" — publish it
+to the spec; the purpose is that the hosts have the same code and the same
+prompts. Recorded as rule R-CLASSIFY (`reference/review-rules.md#R-CLASSIFY`),
+contract `contracts/vendor-failure-lines.json` and case C43, with no
+development-log row. The owner also confirmed the narrow codex match phrase
+`selected model is at capacity` in place of the wide `is at capacity`. This
+decides this item only; whether other parts of the specification are rewritten
+the same way is a later decision of the owner.
+

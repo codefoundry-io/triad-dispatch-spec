@@ -12,7 +12,7 @@
     },
     "exit-tokens": {
       "common": "bin/_common.py map_classification_to_exit",
-      "contract": "contracts/exit-tokens.json",
+      "contract": "contracts/exit-tokens.json, contracts/vendor-failure-lines.json",
       "exceptions": "A 18 table tokens. B 6653bdc maps all 18 plus the inert permission-unavailable alias; three additions remain map-only, route-mismatch retains direct exit 65 and phase-specific stdin behavior is unchanged. Case C8 and spikes/2026-09-20-b-wrapper-contracts.md record verification.",
       "A_source": "3rd-Agent/wrappers/_common.py map_classification_to_exit",
       "A_shipped": "bin/_common.py",

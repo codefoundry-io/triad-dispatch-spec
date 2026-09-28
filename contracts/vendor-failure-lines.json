@@ -1,0 +1,22 @@
+{
+  "schema": "triad-vendor-failure-lines.v1-draft",
+  "rule": "reference/review-rules.md#R-CLASSIFY",
+  "lines": [
+    {
+      "cli": "codex",
+      "line": "Selected model is at capacity. Please try a different model.",
+      "match": "selected model is at capacity",
+      "carrier": "JSONL `error` event and `turn.failed`, vendor exit 1",
+      "token": "server-capacity",
+      "observed": "2026-09"
+    },
+    {
+      "cli": "agy",
+      "line": "There was a network issue connecting to the server, please try again.",
+      "match": "network issue connecting to the server",
+      "carrier": "print mode result with status ERROR and an empty response, vendor exit 1",
+      "token": "server-capacity",
+      "observed": "2026-08-20"
+    }
+  ]
+}
