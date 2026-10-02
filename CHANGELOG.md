@@ -1,5 +1,21 @@
 # Changelog
 
+## Review legs: codex Astra/high default; web search for every AI leg — 2026-10-03 (not tagged)
+
+- Owner decision `D-REVIEW-LEGS-20261003` (`decisions/owner-register.md`).
+- R-ROSTER: the recommended codex review default is `gpt-6-astra` / `high` on both hosts;
+  `contracts/review-legs.example.json` codex entry follows. Exact IDs stay roster data; explicit-null and
+  requested-versus-runtime identity rules are unchanged.
+- R-REVIEW-WEB: review web is allowed for every selected review leg in every round by the owner's standing
+  authorization; `review_web_authorized` is true for every round unless the owner revokes it. Binding, preflight,
+  rendering, read-only containment, verdict, accounting and integrity mechanisms are unchanged.
+- R-CONTAIN: the no-web posture (codex `web_search="disabled"`, agy without web tools, gemini deny rows) applies to
+  a false condition; the gemini profile bytes are unchanged. R-INVEST: web search is allowed for every
+  investigation/dispatch leg; the web-evidence rule (C29) is unchanged.
+- Cases C29 (input wording), C32 and C35 aligned; host test cells say adoption is pending. PRD-REVIEW and
+  SPEC-INVESTIGATION sentences aligned. Dev-log row DL-20 (OPEN for A and B). Schema test asserts the codex example
+  entry. No schema, prompt payload or revision tag change.
+
 ## Review strategy candidate — 2026-10-02 (not tagged)
 
 - R-AGREE/R-ROSTER now require explicit approval from every selected enabled leg on the current basis, without a

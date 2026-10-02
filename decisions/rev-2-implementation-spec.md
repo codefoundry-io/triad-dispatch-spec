@@ -179,9 +179,9 @@ tool-name substitution. REVIEW never uses that trigger. Exact sent-prompt and
 fetched-page evidence custody follows the recorded D-B2 choice; do not infer a
 fetch from a URL in final prose.
 
-Gemini REVIEW adopts the recorded D-B1 choice and preserves its default no-web
-controls; the later [R-REVIEW-WEB](../reference/review-rules.md#R-REVIEW-WEB)
-amendment governs directly requested exceptions. Provider-free policy-engine/argv/receipt tests are distinct from
+Gemini REVIEW adopts the recorded D-B1 choice and preserves its no-web profile
+controls; [R-REVIEW-WEB](../reference/review-rules.md#R-REVIEW-WEB) selects the
+web-enabled profile under the owner's standing authorization. Provider-free policy-engine/argv/receipt tests are distinct from
 V1–V5. An unrun authenticated or effective-policy test remains NOT RUN.
 
 <a id="SPEC-VERIFICATION"></a>

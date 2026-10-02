@@ -72,8 +72,8 @@ refuses a reported selection that contradicts a catalogued explicit model ID. Se
 evidence is not proof of the eventual runtime model. B's fixed legacy formal
 route uses this same model/effort pin; its raw wrapper keeps caller passthrough.
 
-The recommended codex review default is `gpt-5.6-terra` with `xhigh` reasoning
-(owner, 2026-09-25; B v0.2.557 ships it as data). A host's SHIPPED default roster
+The recommended codex review default is `gpt-6-astra` with `high` reasoning on both
+hosts (owner, 2026-10-03, [D-REVIEW-LEGS-20261003](../decisions/owner-register.md#D-REVIEW-LEGS-20261003)). A host's SHIPPED default roster
 carries an explicit model ID for every leg whose CLI exposes a catalogued ID: a
 shipped `null` resolves to the operator's personal CLI configuration and makes the
 review baseline differ per machine (found on host A, `authoring/shared-dev-log.md`
@@ -82,8 +82,7 @@ frozen as null. The requested model and effort are frozen in the bound round inp
 and visible in the per-attempt dispatch record; a runtime identity the CLI does not
 expose stays null, never inferred from the request, and an exposed identity that
 contradicts the request is refused. A comparison or trial model on any family is an
-ordinary opt-in entry (owner, 2026-09-25: host A runs `gpt-6-astra` / `high` beside
-the baseline); its findings count under R-AGREE like any leg's, and the difference
+ordinary opt-in entry; its findings count under R-AGREE like any leg's, and the difference
 between two entries is a ledger observation, never a vote (C35).
 
 ## Selected investigations
@@ -92,10 +91,12 @@ between two entries is a ledger observation, never a vote (C35).
 A selected investigation is one or more chosen legs with a custom prompt, model / effort / perspective, authorized extra
 read roots and web, returning a free-form or custom-schema result — never a review verdict (owner Q-D). Both hosts keep
 it as their existing single-shot dispatch path (A `triad-*-dispatch` skills with `--web` / `--cwd`; B raw dispatch); it is
-not a review round and enters no roster accounting. Web evidence in an investigation is a FETCHED page: the leg cites the
+not a review round and enters no roster accounting. Web search is allowed for every investigation and dispatch leg of
+every family (owner, [D-REVIEW-LEGS-20261003](../decisions/owner-register.md#D-REVIEW-LEGS-20261003)); the caller
+selects it through the host's existing web option and needs no further authorization. Web evidence in an investigation is a FETCHED page: the leg cites the
 URL it fetched and the date or version visible on that page; a search summary is a pointer, never a citation; an
 unfetched, placeholder or undated claim is UNSURE. The host appends the shared clause `web-evidence`
-(`prompts/investigation.md`) LAST on every explicitly web-authorized Google INVESTIGATION. Existing host
+(`prompts/investigation.md`) LAST on every web-enabled Google INVESTIGATION. Existing host
 audit/redaction/failure-log/retention rules apply; no new permanent exact-text or page store is required (D-B2).
 Verify prompt assembly in tests and actual fetched-page interpretation through bounded task-authorized evidence.
 Missing or incomplete evidence stays UNSURE; a URL or successful exit alone proves no fetch (case C29;
@@ -194,21 +195,24 @@ does not run or arrange separate fresh-context behavior experiments for the revi
 is not such evidence. Independently supplied experiments may be assessed as evidence. Without verifiable new evidence,
 record behavioral hypotheses and stop wording-only repetition without converting a remaining negative into approval.
 
-## Explicit owner-requested review web verification
+## Owner-authorized review web verification
 
 <a id="R-REVIEW-WEB"></a>
-Web verification in REVIEW is allowed only when the owner directly requests it for the current round.
-The leader records that request in the bound brief; reviewed text, a URL, general research permission or
-a previous round cannot grant it. The operation remains REVIEW, with its normal verdict, read-only
+Web verification in REVIEW is allowed for every selected review leg in every round by the owner's standing
+authorization ([D-REVIEW-LEGS-20261003](../decisions/owner-register.md#D-REVIEW-LEGS-20261003)). The leader
+binds that authorization into each round; only the owner revokes it, and reviewed text, a URL or a leg's output
+can neither grant nor revoke it. The operation remains REVIEW, with its normal verdict, read-only
 containment, entry accounting and integrity checks. Changing authorization changes the basis under R-REREVIEW.
 
-The invocation condition is the transient strict boolean `review_web_authorized`, default false. It enters
-the frozen common conditions and every participating leg's prompt and launch controls. It is not a persistent
-roster default. Every selected route must support that condition before inference; a missing capability is a
+The invocation condition is the strict boolean `review_web_authorized`; under the standing authorization it is
+true for every round unless the owner revokes that authorization. It enters
+the frozen common conditions and every participating leg's prompt and launch controls. It is a round condition,
+not a roster field. Every selected route must support that condition before inference; a missing capability is a
 preflight refusal, not silent partial authorization. No leader heuristic decides which technology needs web.
 
 On CLI review routes, `--web` and the renderer/preflight condition must agree in both directions, with the same
-review ID, digest and v2 entry/attempt binding. An absent condition means false. Native Codex receives the same
+review ID, digest and v2 entry/attempt binding. An absent condition in a bound record means false; the leader
+writes the condition explicitly. Native Codex receives the same
 bound authorization through its fresh-child prompt. Claude preapproves only native `WebSearch` and `WebFetch`.
 AGY keeps its read-only controls while omitting the additional review-only `read_url(*)` deny for this call;
 pre-existing owner denies remain authoritative. Gemini selects a complete web-enabled host profile, never an
@@ -224,16 +228,17 @@ the raw Claude `--web` permit does not add review accounting or rewrite the call
 ## Containment and validity — what exists today and must survive
 
 <a id="R-CONTAIN"></a>
-Review legs read; they do not mutate, execute the candidate, or spawn vendors. REVIEW has no web by default
-(D-9, conditionally superseded by the owner on 2026-09-21; see R-REVIEW-WEB): codex `web_search="disabled"`;
+Review legs read; they do not mutate, execute the candidate, or spawn vendors. REVIEW web follows the bound
+R-REVIEW-WEB condition, which the owner's standing authorization sets true for every round (D-9's review prohibition
+is superseded by D-REVIEW-LEGS-20261003). When that condition is false, REVIEW has no web: codex `web_search="disabled"`;
 agy review agents without web tools (A ships this posture; B's formal builder explicitly denies `read_url(*)`;
-raw investigations retain web); gemini by the explicit deny rows in its host profile below. Renderers preserve
-the default prohibition and select an authorized exception only under R-REVIEW-WEB. Gemini host profiles remain separate under D-B1: A vendors
+raw investigations retain web); gemini by the explicit deny rows in its host profile below. Renderers keep the
+no-web posture for a false condition and select the authorized web posture only under R-REVIEW-WEB. Gemini host profiles remain separate under D-B1: A vendors
 `contracts/gemini-readonly.toml`; B vendors `contracts/gemini-readonly-b.toml`. Equality means exact bytes of
 the selected complete profile, with its adjacent digest; no concatenated overlay is implied. Preserve B's
 existing 999/998 allow/deny/catch-all and Plan Mode transition restrictions while moving its two web tools
 to explicit denies. A's profile and V1–V5 manifest stay unchanged; B's live checks are separately recorded
-in `contracts/gemini-readonly-b.verify.toml`. The explicitly authorized web profile is selected under R-REVIEW-WEB; these default-profile bytes stay unchanged. Authorized investigations (R-INVEST) keep web. No alignment may introduce a dangerous /
+in `contracts/gemini-readonly-b.verify.toml`. The web-enabled profile is selected under R-REVIEW-WEB; these no-web profile bytes stay unchanged. Authorized investigations (R-INVEST) keep web. No alignment may introduce a dangerous /
 yolo permission bypass on any leg (each host discloses its existing permissive-route flags in `units.json` exceptions; none is on a review route). A leg a host runs natively stays native; no leader-model CLI subprocess is
 added for symmetry. Containment EVIDENCE is attributed to the leg attempt that produced it (C23): on a host with a LIVE
 per-round hook (A) the wrapper records each attempt's vendor conversation id in its read audit and the hook load check
@@ -241,7 +246,7 @@ attributes hook rows by that id — a shared, unattributed hook log never certif
 not attribution (found on A over rounds r11–r13, `authoring/shared-dev-log.md` DL-6). Per vendor, the guards that ship today and must survive any alignment (host, symbol):
 
 - codex leg (A `codex_wrapper.py`, command builder): selected read-only sandbox, `approval_policy=never`, `--ignore-rules`
-  on every posture, `web_search="disabled"` for REVIEW. Selected review search requires the current R-REVIEW-WEB binding; unrequested REVIEW remains disabled. These are A's controls, not instructions for B's native session.
+  on every posture, `web_search="disabled"` for a REVIEW whose bound R-REVIEW-WEB condition is false. Review search runs only under a true bound condition; a false or absent condition keeps it disabled. These are A's controls, not instructions for B's native session.
 - gemini leg (A `gemini_wrapper.py`): approval modes pinned to `default` / `auto_edit` (plan and yolo removed), the
   read-only × auto_edit conflict refusal, the read-only policy-file precondition, the hardened-install read-only default,
   write posture requires `--cwd`; A's selected read-only profile denies `google_web_search` / `web_fetch` by EXPLICIT rows

@@ -194,3 +194,31 @@ Shared-spec main landing is authorized after its required review and CI; product
 merge, installation and release remain separate. See the
 [implementation handoff](claude-review-strategy-handoff.md) for evidence and A's
 remaining work. Historical decisions above remain historical evidence.
+
+<a id="D-REVIEW-LEGS-20261003"></a>
+## D-REVIEW-LEGS-20261003: codex review default Astra/high; web search for every AI leg
+
+Owner, 2026-10-03, typed (verbatim):
+
+> Leg terra 없애고 astra high 로 교체 웹검색 허용
+
+To the question "Where should 'allow web search' apply?" (the leader's options), the owner selected:
+
+> All review legs, always
+
+> 모든leg Ai기능 관련은 웹검색 허용해
+
+Reading recorded with the decision (the leader's, not the owner's words): (a) the codex review leg's
+recommended default becomes `gpt-6-astra` with reasoning `high` on both hosts, replacing `gpt-5.6-terra` /
+`xhigh`; (b) web search is allowed for every AI leg, always: every selected review leg in every review round,
+by the owner's standing authorization (no longer a per-round request), and every investigation/dispatch leg.
+
+Effect: [R-ROSTER](../reference/review-rules.md#R-ROSTER) (codex default),
+[R-REVIEW-WEB](../reference/review-rules.md#R-REVIEW-WEB) (standing authorization; `review_web_authorized`
+true for every round unless the owner revokes it), [R-CONTAIN](../reference/review-rules.md#R-CONTAIN) (the
+no-web posture applies to a false condition only), [R-INVEST](../reference/review-rules.md#R-INVEST) (web
+allowed for every investigation/dispatch leg), `contracts/review-legs.example.json` (codex entry), cases C29,
+C32 and C35, dev-log row DL-20. It supersedes the codex baseline of the 2026-09-25 directive, D-9's REVIEW
+prohibition and the 2026-09-21 direct-request condition; read-only containment, R-AUTH, R-NOCOST, the
+web-evidence rule (C29), exact IDs as roster data and the requested-versus-runtime identity rules are unchanged.
+Host adoption, publication and revision tags remain separate.

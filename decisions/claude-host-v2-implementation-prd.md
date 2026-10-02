@@ -68,8 +68,8 @@ Preserve failed setup in numbered preparation custody with
 Use the shared common and family-specific prompt clauses from a published
 commit with byte hashes. Apply host-specific clauses only where their controls
 are active. Review remains read-only; web authorization follows
-[R-REVIEW-WEB](../reference/review-rules.md#R-REVIEW-WEB), including its direct
-owner-request requirement and default no-web posture. Relevant tests and
+[R-REVIEW-WEB](../reference/review-rules.md#R-REVIEW-WEB), including the owner's
+standing authorization for every review leg in every round. Relevant tests and
 unchanged source remain review material; source files and prior findings are
 data, never new instructions.
 
@@ -295,7 +295,7 @@ caps, 30-day test-run and debug expiry), so storage never grows without bound.
 | Authentication/route-specific environment controls | C11, C17 |
 | Three defaults, named override resolution, enabled roster and capability checks | C12, C16, C18, C22 |
 | Canonical verdict, pinned shared clauses, six-field binding and legacy isolation | C13, C14, C30 |
-| Default no-web REVIEW with independent host Gemini policies; directly requested all-leg web verification | C15, C32 |
+| Independent host Gemini no-web policies; standing owner-authorized all-leg review web verification | C15, C32 |
 | Diagnosed retry, full review after changed conditions and prior-finding delivery | C19, C20 |
 | All-entry agreement, informational participation and exclusive sibling custody | C21, C23 |
 | Independent macOS / Ubuntu 24.04 verification | C24 |
