@@ -6,4 +6,4 @@
 - [Contracts](contracts/README.md) · [Prompts](prompts/) · [Cases](cases/cases.json) · [Units](units.json)
 - [Current-source coordination](reference/spec-authoring.md#R-AUTHORING-SYNC)
 - [Shared development log](authoring/shared-dev-log.md) — defects and drift found while implementing, by host and case
-- [Claude implementation handoff](decisions/claude-codex-google-four-leg-handoff.md) · [Owner decisions](decisions/owner-register.md)
+- [Claude implementation handoff](decisions/claude-review-strategy-handoff.md) · [Owner decisions](decisions/owner-register.md)

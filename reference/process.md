@@ -18,8 +18,9 @@ flowchart TD
   X -->|preparation retry or changed basis| P
   L -->|in-scope correction: full roster again — R-REREVIEW| P
   L -->|design defect or unresolved conflict — R-STOP| O[Owner decision boundary]
-  L -->|no unresolved blocking finding — R-AGREE| E[Record outcome and verify evidence export]
-  X -->|stop after diagnosis| E
+  L -->|every selected leg explicitly approves current basis — R-AGREE| E[Record outcome and verify evidence export]
+  L -->|no verifiable progress or resource limit: not agreed — R-STOP| E
+  X -->|stop after diagnosis: not agreed| E
   O -->|retain evidence and stop| E
   E --> K[Clean eligible owned disposable resources — R-CLEANUP]
 ```
@@ -40,6 +41,9 @@ flowchart TD
    are unchanged (R-RETRY). Before dispatch exists, retry the corrected preparation step. Any correction to reviewed content
    or review conditions is a new bound basis and a complete full-scope review by the participating roster (R-REREVIEW);
    replacing a leg never relabels a failed round as approved.
+
+Owner exceptions and stopped rounds retain their non-agreed machine outcome; only R-AGREE establishes agreement.
+An item with no new evidence may stop while other verifiable corrections continue (R-STOP).
 
 Failures keep their terminal evidence and an actionable next step. Repeated or conflicting findings that do not converge
 go to leader analysis and the owner decision boundary (R-STOP), not to an automatic correction loop. Evidence export and

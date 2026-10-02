@@ -55,7 +55,16 @@ needed for the current task. For PRD/Spec edits, use
 Verify before handoff: `python3 tools/check_authoring.py`, then
 `python3 -m pytest -q tests` (dependencies: `requirements-dev.txt`).
 
-Current owner-requested operating profile:
-[Codex + three Google legs: agreement](decisions/2026-09-21-codex-google-four-leg-agreement.md),
+Historical 2026-09-21 operating profile (topology and setup context):
+[Codex + three Google legs: historical agreement](decisions/2026-09-21-codex-google-four-leg-agreement.md),
 [operating specification](decisions/codex-google-four-leg-operating-spec.md), and
-[Claude handoff](decisions/claude-codex-google-four-leg-handoff.md).
+[historical Claude handoff](decisions/claude-codex-google-four-leg-handoff.md).
+Its family-count approval condition and per-leg review emphases are superseded by the current strategy.
+
+Current review-strategy amendment (candidate, host adoption pending):
+[2026-10-02 direction, evidence and verification](decisions/2026-10-02-review-strategy.md).
+It updates agreement and default prompting for configurable rosters; the four-leg setup above is an example,
+not a minimum count or mandatory set of review personas. Use the
+[current Claude implementation handoff](decisions/claude-review-strategy-handoff.md) and normative
+[R-AGREE](reference/review-rules.md#R-AGREE), [R-ROSTER](reference/review-rules.md#R-ROSTER) and
+[R-PROMPT](reference/review-rules.md#R-PROMPT) for current work.

@@ -1,5 +1,16 @@
 # Claude handoff: Codex + three Google review legs
 
+> **Historical handoff; agreement and per-leg personas superseded on 2026-10-02.**
+> The two-family `OWNER_DECISION_REQUIRED` condition, separate leg emphases and owner-final
+> machine-review approval below describe the earlier contract, including its copy-ready prompt.
+> Current [R-AGREE](../reference/review-rules.md#R-AGREE),
+> [R-ROSTER](../reference/review-rules.md#R-ROSTER) and
+> [R-PROMPT](../reference/review-rules.md#R-PROMPT) require explicit approval from every selected leg,
+> independent of family count, with one shared purpose and no default per-leg personas.
+> Use the [current Claude implementation handoff](claude-review-strategy-handoff.md).
+> Historical source evidence remains a record; human integration, merge, installation and release
+> authority stays separate from machine agreement.
+
 Finish the existing TRIAD skill infrastructure. This is a concrete operating
 profile under existing contracts, not a UI project or PRD/spec-to-code research
 framework. Claude acknowledgement of this amendment remains pending.

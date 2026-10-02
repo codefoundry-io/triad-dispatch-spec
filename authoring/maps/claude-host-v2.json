@@ -33,18 +33,18 @@
       "id": "REQ-REVIEW",
       "prd_ref": "decisions/claude-host-v2-implementation-prd.md#PRD-REVIEW",
       "spec_refs": ["decisions/rev-2-implementation-spec.md#SPEC-VERDICT"],
-      "rule_refs": ["reference/review-rules.md#R-BIND","reference/review-rules.md#R-CONTAIN","reference/review-rules.md#R-REVIEW-WEB","reference/review-rules.md#R-SMELL"],
-      "contract_refs": ["contracts/leg-verdict.schema.json","contracts/gemini-readonly.toml","contracts/gemini-readonly-b.toml"],
-      "case_ids": ["C13","C14","C15","C30","C32"],
-      "unit_ids": ["verdict-wire","prompts","gemini-policy","agy-containment","review-web-authorization"]
+      "rule_refs": ["reference/review-rules.md#R-BIND","reference/review-rules.md#R-CONTAIN","reference/review-rules.md#R-REVIEW-WEB","reference/review-rules.md#R-SMELL","reference/review-rules.md#R-PROMPT","reference/review-rules.md#R-CONTEXT"],
+      "contract_refs": ["contracts/leg-verdict.schema.json","contracts/gemini-readonly.toml","contracts/gemini-readonly-b.toml","contracts/review-kind.schema.json","contracts/review-strategy.verify.toml"],
+      "case_ids": ["C13","C14","C15","C30","C32","C60","C61","C62"],
+      "unit_ids": ["verdict-wire","prompts","gemini-policy","agy-containment","review-web-authorization","review-lifecycle"]
     },
     {
       "id": "REQ-AGREEMENT",
       "prd_ref": "decisions/claude-host-v2-implementation-prd.md#PRD-AGREEMENT",
       "spec_refs": ["decisions/rev-2-implementation-spec.md#SPEC-RETRY","decisions/codex-google-four-leg-operating-spec.md#SPEC-FOUR-LEG-COLLECTION"],
-      "rule_refs": ["reference/review-rules.md#R-AGREE","reference/review-rules.md#R-RETRY","reference/review-rules.md#R-REREVIEW"],
+      "rule_refs": ["reference/review-rules.md#R-AGREE","reference/review-rules.md#R-RETRY","reference/review-rules.md#R-REREVIEW","reference/review-rules.md#R-STOP"],
       "contract_refs": ["contracts/leg-verdict.schema.json"],
-      "case_ids": ["C19","C20","C21","C23","C33"],
+      "case_ids": ["C19","C20","C21","C23","C33","C64"],
       "unit_ids": ["verdict-wire","review-lifecycle","agy-containment","roster"]
     },
     {
@@ -60,9 +60,9 @@
       "id": "REQ-CUSTODY",
       "prd_ref": "decisions/claude-host-v2-implementation-prd.md#PRD-CUSTODY",
       "spec_refs": ["decisions/rev-2-implementation-spec.md#SPEC-CUSTODY","decisions/rev-2-implementation-spec.md#SPEC-RETRY"],
-      "rule_refs": ["reference/review-rules.md#R-TERMINAL","reference/review-rules.md#R-RECEIPT","reference/review-rules.md#R-PREPARE","reference/review-rules.md#R-CLEANUP","reference/review-rules.md#R-TOKENS","reference/review-rules.md#R-CLASSIFY","reference/review-rules.md#R-NOCOST","reference/review-rules.md#R-AUTH"],
+      "rule_refs": ["reference/review-rules.md#R-TERMINAL","reference/review-rules.md#R-RECEIPT","reference/review-rules.md#R-PREPARE","reference/review-rules.md#R-CLEANUP","reference/review-rules.md#R-TOKENS","reference/review-rules.md#R-CLASSIFY","reference/review-rules.md#R-NOCOST","reference/review-rules.md#R-AUTH","reference/review-rules.md#R-CLI-VERSION"],
       "contract_refs": ["contracts/receipt-fields.json","contracts/exit-tokens.json","contracts/vendor-failure-lines.json"],
-      "case_ids": ["C1","C2","C3","C4","C5","C6","C7","C8","C9","C10","C26","C28","C36","C37","C43"],
+      "case_ids": ["C1","C2","C3","C4","C5","C6","C7","C8","C9","C10","C26","C28","C36","C37","C43","C65"],
       "unit_ids": ["engine-transport","exit-tokens","review-lifecycle","cleanup"]
     },
     {
@@ -87,9 +87,9 @@
       "id": "REQ-RETENTION",
       "prd_ref": "decisions/claude-host-v2-implementation-prd.md#PRD-RETENTION",
       "spec_refs": ["decisions/rev-2-implementation-spec.md#SPEC-CUSTODY","decisions/rev-2-implementation-spec.md#SPEC-RETRY"],
-      "rule_refs": ["reference/review-rules.md#R-CLEANUP"],
+      "rule_refs": ["reference/review-rules.md#R-CLEANUP","reference/review-rules.md#R-CONTEXT"],
       "contract_refs": [],
-      "case_ids": ["C4","C5","C7"],
+      "case_ids": ["C4","C5","C7","C63"],
       "unit_ids": ["cleanup"]
     }
   ]

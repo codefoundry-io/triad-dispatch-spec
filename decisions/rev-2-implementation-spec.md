@@ -57,8 +57,10 @@ review rules instead of replacing them.
 [wire mapping](../contracts/leg-verdict-mapping.md): three canonical verdicts,
 four severities, required evidence/coverage/uncertainty, optional correction,
 strict field names and complete binding. A Minor-only non-affirmative result is
-valid and recorded as a selection deviation; a blocker or unresolved question
-still blocks. Original JSON duplicates are rejected before the first lossy parse.
+schema-valid and recorded as a selection deviation, but never establishes
+agreement. Every selected entry must explicitly return `SAFE TO MERGE` without
+blockers or open questions under [R-AGREE](../reference/review-rules.md#R-AGREE).
+Original JSON duplicates are rejected before the first lossy parse.
 
 An existing host-local v1 validator may remain as an explicitly selected
 compatibility entry point for historical records and existing development gates.
@@ -97,9 +99,12 @@ before inference. Disabled or unselected entries cannot start. Freeze the chosen
 route, executable and requested model/effort in the bound round inputs. An exposed
 runtime identity is an observation; an unexposed identity is not inferred.
 
-The three-family default and variable count follow R-ROSTER. Missing required
-family coverage follows the existing owner-decision release boundary in R-AGREE;
-the schema does not invent a degraded mode or a vote threshold.
+The three-family default is convenience data under
+[R-ROSTER](../reference/review-rules.md#R-ROSTER), not an agreement threshold.
+The owner chooses a nonempty roster. Family coverage is receipt data; R-AGREE
+imposes no minimum leg or family count. A failed selected entry cannot be
+removed by the leader to turn that basis into agreement; changing the roster
+requires a new basis.
 
 <a id="SPEC-CUSTODY"></a>
 ## Transport receipts and evidence ownership
@@ -141,12 +146,19 @@ needed by R-RETRY and R-BIND, not a second scheduler or provider engine.
   without changing the substantive prompt/body basis.
 - A valid negative verdict is a completed review, not a transport retry.
 - Any change to reviewed content or review conditions creates a new basis and
-  full-scope review by every participating entry. Deliver previous findings and
-  rebuttal evidence as fenced data to every leg; bind those input bytes too.
-  Prior approval is not transferred.
+  full-scope review by every selected entry. The leader carries the prior
+  excerpts, rebuttals and verification needed for the current judgment in the
+  existing bound `prior_residual` string or host evidence/brief surfaces. On B,
+  use `EVIDENCE.md` for longer material and existing allowed source members for
+  additional sources; A uses its own existing bound surfaces. An old file path
+  alone is provenance, not delivered evidence. Bind current input bytes; do not
+  automatically append transcripts, accumulate prior residuals or deduplicate
+  their meaning. Prior approval is not transferred.
 - All participating legs count. Acceptance labels do not exempt findings,
-  uncertainty or absent results. Record family coverage separately from leg
-  count. Verify final source/toolkit integrity before admission.
+  uncertainty or absent results. All must explicitly return `SAFE TO MERGE`
+  without blockers or open questions for `AGREED`. Record family coverage
+  separately from leg count, without a minimum-family gate. Verify final
+  source/toolkit integrity before admission.
 - Keep cleanup ownership/export/failure retention. No retry deletes prior
   evidence or overwrites immutable result files.
 
@@ -180,13 +192,15 @@ V1–V5. An unrun authenticated or effective-policy test remains NOT RUN.
    maintained library. Review the complete shared change and publish one commit.
 2. Vendor that exact commit's consumed files and adjacent hashes into B.
    Implement tokens/paths, roster/invocation, v2 validation, receipts/retry and
-   investigations as bounded plans. Use TDD, current required plan-level reviews,
-   dedicated fresh skill-executor RED/GREEN where behavior changes, and compare
-   A source at each B change.
+   investigations as bounded plans after a separate implementation plan. Use TDD
+   and current required plan-level reviews. Skill/prompt behavior experiments,
+   when a project requires them, are separately owned; TRIAD does not arrange or
+   run them. Defer A source inspection until shared-spec adoption and A planning.
 3. Verify both macOS and Ubuntu 24.04. Test offline source/archive payload equality
    and altered/missing contract refusal. Update case mappings with actual named
    tests and evidence; do not change expected outcomes to match code.
-4. Final Claude handoff records B implementation and A source lines, preserved
+4. Final Claude handoff records B implementation and, after deferred A inspection,
+   verified A source lines, preserved
    behavior, actual deviations and remaining untestable checks. Revision tagging
    and `SPEC_REVISION` adoption remain explicit: a candidate commit/digest
    manifest is not an uncreated rev-N tag.
@@ -217,8 +231,9 @@ Ubuntu 24.04.4 in a task-specific container with jsonschema 4.26.0: 72 passed;
 source/root filesystem read-only, network disabled during execution. The older
 verification image lacked jsonschema; its dependency check failed before tests,
 then the declared dependency was installed in the task image only.
-These runs use `tests/test_schemas.py` with the versions recorded above. They
-are not provider execution, a B behavior-test certification or V1–V5 evidence.
+These historical runs used `tests/test_schemas.py` with the versions recorded
+above. They are not verification of this 2026-10-02 amendment, provider
+execution, B behavior-test certification or V1–V5 evidence.
 
 First full review (`triad-shared-v2-r1`) completed with all four valid results
 and matching integrity, outcome NOT-SAFE. A pinned Google route lacking its own
@@ -229,9 +244,11 @@ the omitted B Claude timeout fact were corrected without changing case outcomes.
 The corrected whole scope requires a fresh complete review; prior approvals do
 not transfer.
 
-Claude leader: review this entire candidate commit against the aligned mapping
-before adopting it. A's current source and B's baseline differences are linked
-by exact source lines in [the 0.2.555 compliance handoff](host-b-0555-contract-compliance-handoff.md).
+The Claude leader reviews this complete shared-spec candidate commit against
+the aligned mapping before adoption. Inspection of A's actual host-code checkout
+is deferred until shared-spec adoption and separate implementation planning.
+Earlier source pointers in [the 0.2.555 compliance handoff](host-b-0555-contract-compliance-handoff.md)
+are historical provenance, not current A verification.
 Preserve A's raw-reply admission marker, native Claude invocation and live AGY
 hook/read-audit checks; preserve B's native Codex, legacy development gate and
 dormant hook. Both hosts need the v2 validator, every shaped prompt and bound

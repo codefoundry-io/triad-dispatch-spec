@@ -97,6 +97,11 @@ source and update the handoff with its commit, file, line, actual difference and
 host unchanged until the owner-designated handoff point. This sequencing does not authorize a silent contract change
 or override unresolved owner decisions, review gates, adoption, merge or publication boundaries.
 
+Task-specific exception: for the 2026-10-02 review-strategy amendment, the owner explicitly excludes A implementation
+inspection before it adopts the spec. Follow [the recorded direction](../decisions/owner-register.md#D-REVIEW-STRATEGY-20261002),
+keep prior A source pointers historical, and mark current A behavior unverified. This does not prevent review of the shared
+specification commit or change the later host-adoption and publication boundaries.
+
 This section is the one normative copy of this authoring protocol. Shared `AGENTS.md`, `CLAUDE.md` and `GEMINI.md` carry the same
 pointer; host instructions also point here. Reading latest authoring `main` does not change a host's adopted revision,
 vendored payload bytes or digest manifest; adoption and publication still follow `README.md` § How a host uses a revision.

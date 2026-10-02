@@ -12,10 +12,11 @@ the sources below and update the three maps together when a destination changes.
 | Fact | Source of truth (in this repository unless noted) | Derived forms (conform to the source — by hand or by generation; a normative change happens only in the source) |
 |---|---|---|
 | Result wire: `LegVerdict` fields, enums, finding fields | `contracts/leg-verdict.schema.json` (v2 candidate; host adoption is separate) | host adapters; shape pins inside `prompts/` |
+| Review phase values | `contracts/review-kind.schema.json` | invocation defaulting and shared purpose selection under R-PROMPT; host adoption pending |
 | Leg roster: fields, allowed values, recommended defaults | `contracts/review-legs.schema.json`; illustrative shape in `contracts/review-legs.example.json`; runnable defaults in each host's data file | host loaders; SKILL text points here |
 | Exit tokens and receipt vocabulary | `contracts/exit-tokens.json`; `contracts/receipt-fields.json` | host `_common.py` tables and adapters, checked against these files |
 | Known vendor failure sentences: CLI, sentence, match phrase, token | `contracts/vendor-failure-lines.json` (rule `R-CLASSIFY`) | host classifier pattern lists, checked against this file |
-| Review rules: agreement, correction re-review, roster semantics, Google leg, code-smell criterion, design-change stop, containment, no-cost | `reference/review-rules.md` | SKILL.md rule text (pointers + host invocation syntax), prompt clauses |
+| Review rules: agreement, correction re-review, phase/context, roster semantics, Google leg, leader triage, convergence, containment, CLI compatibility, no-cost | `reference/review-rules.md` | SKILL.md rule text (pointers + host invocation syntax), prompt clauses |
 | Process flow and failure diagnosis | `reference/process.md` (one diagram) | SKILL flow sections |
 | Latest-source verification and cross-host change coordination | `reference/spec-authoring.md#R-AUTHORING-SYNC` | shared agent entry files and host instructions point here |
 | PRD/Spec authoring structure and requirement links | `authoring/implementation-map.schema.json`; current bundles in `authoring/maps/` | [Authoring guide and checks](../authoring/README.md); document prose remains at the linked anchors |
@@ -39,3 +40,7 @@ reference anchors, never line numbers. Renaming an anchor is a revision.
 - `spec-authoring.md` — how a spec is written and changed in this lab (the method the owner asked to try).
 - `review-rules.md` — the rules both hosts implement.
 - `process.md` — the shared flow and the failure-diagnosis rules.
+
+## Review strategy implementation handoff
+
+[Claude-host guide](../decisions/claude-review-strategy-handoff.md) connects the normative anchors, acceptance cases and verified B evidence. A conformance and host adoption remain separately recorded.

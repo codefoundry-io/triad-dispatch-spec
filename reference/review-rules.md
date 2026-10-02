@@ -6,22 +6,35 @@ skills reference the anchor. Owner rulings are quoted from `decisions/owner-regi
 ## Agreement
 
 <a id="R-AGREE"></a>
-A round is agreed when NO unresolved BLOCKING finding remains from any participating leg (owner Q-H / Q-Q / Q-S). A
-verified Critical or must-fix finding blocks whatever leg raised it and whatever label the leg carries. A MERGE WITH FIXES whose findings are all non-blocking counts as agreement on the reviewed bytes AS THEY STAND (owner Q-S: "Minor-only MERGE WITH FIXES counts (no extra round)"; owner via the codex session, Q1: "코드를 수정하면 전원 재검토. Minor만 남은 원본은 승인 가능"). Fixing those findings changes the reviewed content, which is a new basis (R-REREVIEW); approving the unchanged original and approving later-modified bytes are different acts. An UNRESOLVED OPEN QUESTION from any leg (a fact needed to judge the approved scope that the leg could not settle) blocks exactly like a blocking finding and is released by the same three paths — v2 target agreed by round r2 (all three families), now materialized in the candidate schema; host adoption is separate. A missing, failed, invalid or unresolved non-affirmative result is not agreement. A block is released only by a probe that refutes the finding, a fix confirmed by
-the re-review, or a recorded owner decision. The leader verifies findings with evidence; a vote decides nothing. The
-leg-facing clause reserves MERGE WITH FIXES for a blocking finding (`prompts/common-clauses.md § verdict-selection-rule`);
-a Minor-only MERGE WITH FIXES still counts as agreement per Q-S and is recorded as a verdict-selection deviation. A round
-in which fewer than three families returned a verdict is released only by a recorded owner decision (shipped CFR rule 1;
-owner Q-L). The wire representation of "agreed" (verdict tokens, finding fields) is `contracts/leg-verdict.schema.json`
-and its v2 integration boundary in decisions/rev-2-implementation-spec.md.
+A round is agreed only when its selected roster is nonempty and EVERY selected enabled leg supplies a valid,
+current-basis, explicitly affirmative `SAFE TO MERGE` result, with no blocking finding, unresolved `open_questions`,
+missing result or integrity failure. Leg count and family diversity are descriptive, not additional approval thresholds
+(owner [2026-10-02 ruling](../decisions/owner-register.md#D-REVIEW-STRATEGY-20261002)). Acceptance labels do not exempt a
+selected leg. A Minor-only negative is schema-valid but does NOT count as agreement; preserve its verdict and record the
+selection deviation. Neither a leader's refutation nor an owner exception rewrites a leg's negative verdict into approval.
+An exception may authorize separate human action, but is recorded as an exception to a non-agreed round, never as machine
+agreement. A later agreed round must independently satisfy this rule on its current basis (R-REREVIEW).
+
+`open_questions` contains unresolved facts necessary to judge approval, not optional curiosities; every remaining entry
+blocks, without a collector importance heuristic. A `SAFE TO MERGE` with a blocker or open question is invalid under the
+existing wire. Explicit approval may coexist with Minor or HARDENING-SUGGESTION findings. For a plan review, the existing
+affirmative token means the plan can proceed to implementation as written; it is not approval of future implementation
+bytes. The wire remains `contracts/leg-verdict.schema.json`; this amendment changes collection, not its verdict enum.
+Historical Minor-only and three-family release decisions are superseded for this contract; historical results remain
+records of the contract under which they ran.
 
 ## Correction re-review
 
 <a id="R-REREVIEW"></a>
 Any correction to reviewed content or to the review conditions (prompts, criteria, roster, model, effort, route, policy)
-creates a new bound basis, and EVERY participating leg reviews the complete agreed scope again. Previous findings and
-their rebuttal evidence are delivered as input (the prior residual table, fenced as data); previous approval never carries
-forward to changed bytes. The shipped "one focused re-confirm scoped to the wave's hunks" is withdrawn on both hosts.
+creates a new bound basis, and EVERY selected enabled leg reviews the complete agreed scope again. Rebuild the current
+brief and leader-authored `prior_residual` string: current findings, dispositions, necessary rebuttal evidence, changes
+and remaining uncertainties. Treat these as data and claims to check. Do not automatically append previous prompts,
+verbatim conversations or successive residuals. There is no new structured residual table, state enum or semantic deduper.
+Needed prior excerpts and verification outputs must be materialized in this round's bound inputs (R-CONTEXT); a historical
+path alone is not current evidence or permission. Previous approval never carries forward to changed bytes or conditions.
+A narrow follow-up investigation can resolve a question but cannot substitute for this full-scope re-review. The shipped
+"one focused re-confirm scoped to the wave's hunks" remains withdrawn on both hosts.
 
 <a id="R-RETRY"></a>
 When a leg failed to RUN and nothing changed (source, prompts, criteria, roster, model, effort, route, policy), retry only
@@ -30,17 +43,25 @@ that leg on the same bound basis (owner Q-C). Before any dispatch exists, retry 
 ## Roster
 
 <a id="R-ROSTER"></a>
-The default runnable roster is three legs, one per family — claude, codex, google (owner Q-L: "3자 리뷰가
-기본이야 나머지는 대처제이고 3자리뷰 모델은 교체가능해야해"). Every leg is an entry in the roster file with a recommended
-default model and effort, changeable at any time; the number of legs is variable (owner Q-M). No leg carries a special
-rule. `acceptance` is an operator-set data field with a recommended default per leg; no rule is derived from it (owner
-Q-O) — R-AGREE decides what blocks. Additional legs (a second claude arm, a trial model) are ordinary entries. When a leg is
-switched off or breaks, another entry may be enabled in its place — a different model, or the same model with a different
-perspective (owner D-4); the round receipt records which legs actually ran and their family coverage: two legs of one
-family are one family (the release valve for a short round is R-AGREE). `vendor` is a FAMILY value — `claude` | `codex` |
-`google`; the Google CLI is named only by the `agy` / `gemini` block (R-GOOGLE). Selected investigations (custom prompt, web, extra read roots) are not review rounds and return no verdict
-(owner Q-D). Model and effort must be expressible for every vendor in the roster file — including the claude legs (B runs claude as a CLI child) — and are validated by the host adapter against actual capabilities at dispatch; `model: null` means the host's default; when both Google CLIs are present an explicit `route` (`agy` | `gemini`) in the `google` block pins the route, otherwise the shipped chain resolves it (R-GOOGLE); timeouts are adapter-validated (B's legacy formal gemini route requires 600 s and its legacy formal claude route requires 1200 s; the shared template's 900 s Claude values are not B runnable defaults). The runnable default roster is three legs; further entries in the example are opt-in. No configuration is a shared user-global dependency; the resolved roster is
-shown before any paid dispatch, and unselected legs are never started.
+The default runnable roster remains three legs, one per family, as a convenience, not an agreement requirement.
+The owner may select any nonempty roster, including one leg or several entries from the same model or family, according
+to subscription and capacity. Every enabled entry counts under R-AGREE, including one labelled `informational`; no leg
+has a special approval rule. Only the owner changes this selection. Changing it creates a new basis; do not drop a
+failed or dissenting leg to relabel an old round as agreed. Preserve unresolved findings when a later roster changes.
+The receipt records entries actually run and family coverage; two legs of one family remain one family, without a veto
+on an otherwise agreed round. Selected investigations remain separate under R-INVEST.
+
+Reuse each host's existing JSON roster and shipped data defaults (B: `.agents/triad-review-legs.json` and its existing
+shipped default file). Change an entry's model/effort in that configuration location; resolve and pass its exact requested
+model ID to the CLI/native invocation without separately editable copies in prompts or orchestration code. This creates
+no new settings layer and changes no default model. Existing override precedence and explicit `model: null` semantics
+remain. `vendor` is a FAMILY value (`claude` | `codex` | `google`); `agy` / `gemini` blocks hold route-specific settings.
+Model and effort remain expressible for every vendor and adapter-validated against actual capabilities before inference.
+When both Google CLIs are present, an explicit `google.route` pin selects one; otherwise keep R-GOOGLE's existing chain.
+Timeouts remain adapter-validated (B legacy formal Gemini requires 600 s and Claude 1200 s; illustrative shared 900 s
+Claude entries are not B runnable defaults). No configuration is a shared user-global dependency. Show the resolved
+roster before inference, and never start unselected entries. Model catalogue/probe policy changes are a separate scope;
+exact CLI model selection is not relaxed by the version rule R-CLI-VERSION.
 
 The recommended Claude review default is `claude-opus-5-5` (Opus 5.5) with
 `xhigh` effort (owner, 2026-09-25). Ship the explicit model ID rather than the
@@ -102,19 +123,76 @@ it on either host beyond a pointer. Current manifests: `contracts/gemini-readonl
 mutation denies, canonical `grep_search` visibility separately from alias matching, and the proposed `*` catch-all),
 and `contracts/gemini-readonly-b.verify.toml` (B: B1-B3 on the separate D-B1 profile).
 
+## Review purpose and context
+
+<a id="R-PROMPT"></a>
+Select one short shared purpose using `review_kind` (`contracts/review-kind.schema.json`): `formal-plan` selects
+`plan-purpose`; `pre-merge` and `implementation-review` select `code-purpose`; omission defaults to `pre-merge` at the
+host invocation boundary. Unknown or null values are refused before dispatch. The plan purpose REPLACES the code purpose,
+not a checklist appended to it. Bind this condition with the existing review inputs; no verdict field is added.
+All selected legs receive the same semantic purpose, requirements, scope and evidence. Identity, output handling and
+provider tools remain route-specific. The default first review uses no separate personas or predicted-defect checklist.
+A leader's hypotheses never limit findings elsewhere in scope. Targeted perspectives remain available through R-INVEST.
+Use the existing shared clauses and renderer, not a new prompt engine. A fresh conversation is the default for a new
+formal basis, but does not prove isolation from memory or inherited instructions; record actual isolation limits without
+changing global memory settings. Continued-context investigations must be identified as such.
+
+<a id="R-CONTEXT"></a>
+The leader writes a concise environment summary in the existing TASK/brief: review basis and scope; supported target
+runtime/deployment; relevant dependency declarations and locked/resolved versions; actually observed verification
+environment and results; material execution assumptions; unknown or conflicting facts. Cite the evidence and its
+revision; use `unknown` or `not applicable` with a reason rather than guessing. Support declarations, lockfile resolutions
+and installed/tested versions are distinct observations. The review host's version is not automatically the target's.
+Keep requirements/owner decisions, observations, claims to verify and unknowns distinguishable. An unsupported assertion
+that a scenario cannot occur is not an exclusion. Do not dump credentials or the entire environment.
+
+This is authoring guidance for leader prose, not a new environment schema. Hosts preserve existing input, regular-file,
+source/packet and digest checks and transport the supplied values faithfully. Those checks do not parse Markdown rows,
+verify truth/completeness, classify issues, or prove that the reviewer stayed within the instructed read boundary.
+On B, existing nonempty checks cover objective, criteria and approved_boundary; `prior_residual` may be empty and TASK.md
+is checked as a regular file. Decoded-value equality may prove text transport despite JSON escaping, not semantic quality.
+Unknown context does not automatically invalidate preparation; a necessary unsettled fact becomes an open question.
+
+Needed prior findings, refutations and verification results must be present in the current bound `prior_residual` or
+existing evidence/brief surface. On B, prefer existing `EVIDENCE.md` for long excerpts; additional source uses existing
+source members or EVIDENCE.md, never an invented packet slot. On A, use its existing bound brief/evidence surfaces.
+Historical root/export/ledger paths are provenance only, not implicit read grants or current binding. Obtain any missing
+authorization before including extra source. Retain the evidence needed to assess current claims, without automatically
+copying entire old rounds or delaying old-root cleanup. Leader condensation must preserve unresolved risks and relevant
+counterevidence; the host neither summarizes nor semantically deduplicates it.
+
 ## Code-smell criterion
 
 <a id="R-SMELL"></a>
-The common brief carries ONE code-smell criterion — the clause `smell-criterion` in `prompts/common-clauses.md` (owner R2).
-No dedicated smell reviewer, no extra test-strengthening round. A confirmed correctness or security defect is not downgraded because its fix needs a larger change — its size is disclosed, never a downgrade (R-STOP covers only a fix that changes the gated design).
+The leader assesses simplicity while verifying findings: a smell needs a concrete current correctness or maintenance
+cost. Prefer the smallest correction satisfying the agreed requirements; no hypothetical extensibility, new abstraction
+or stylistic redesign merely to satisfy a reviewer. The shared `smell-criterion` is leader triage guidance, not a mandatory
+long checklist inserted into every initial leg prompt. No dedicated smell reviewer or extra test-strengthening round.
+A confirmed correctness or security defect is not downgraded because its fix is large; disclose its size. A change of the
+gated design still follows R-STOP.
 
-## Design-change stop
+## Design-change stop and convergence
 
 <a id="R-STOP"></a>
-A finding whose fix requires changing the gated plan or design — a new contract, a new public definition, a restructured
-order of operations — goes to the owner before any design work starts. CONFLICTED = two findings that BOTH survive the leader's verification (R-VERIFY) and are mutually incompatible; different overall verdicts or different finding sets alone are not a conflict. A CONFLICTED item, or an OSCILLATING round (the same item flipping without new evidence), is an owner call at first occurrence. A round whose remaining
-findings are all speculative or repro-failed is TERMINAL: record the residuals; the owner decides any blocking row. Line
-or size growth alone is never a stop or an owner question; it is disclosed with its measured figures and the work continues.
+A fix requiring a new contract, public definition or substantive change to the gated design goes to the owner before that
+design work starts. Line growth alone is not such a change. Continue authorized in-scope corrections while new material
+counterexamples, meaningful verification of fixes, or evidence resolving necessary unknowns improve the current basis.
+A passing test copied from the implementation, rewording, another vote or the same assertion without new evidence is not
+progress. Verification must exercise the governing requirement; a static contradiction or a checked source can also
+resolve a fact without executing code.
+
+The leader stops repeating an item when no new evidence addresses it, while other independently progressing items may
+continue. Reopen a closed claim for a new counterexample, relevant source/context change or demonstrated error in its
+refutation. Two findings are CONFLICTED only if both survive verification and cannot coexist, not merely because verdicts
+differ. Escalate that affected decision to the owner. Stop automatic rounds when no remaining item has a concrete path to
+new verification or resolving a necessary fact; retain unresolved dissent, uncertainty and stop reason. There is no fixed
+round cap or mandatory duplicate run. An owner-set resource limit is a valid stop reason, never agreement. A stalled or
+exception-released process cannot bypass R-AGREE.
+
+For skills and prompts, distinguish structural checks and static contradictions from claims about model behavior. TRIAD
+does not run or arrange separate fresh-context behavior experiments for the reviewed skill/prompt; a leader's reenactment
+is not such evidence. Independently supplied experiments may be assessed as evidence. Without verifiable new evidence,
+record behavioral hypotheses and stop wording-only repetition without converting a remaining negative into approval.
 
 ## Explicit owner-requested review web verification
 
@@ -220,12 +298,22 @@ schema, prompt clause or policy file is behavioral review scope even when the fi
 rule covers narrative documentation only. Symlinks (owner Q4, RULED 2026-09-19: "링크 자체는 검토하되, 대상을 자동으로 따라가지 않는 방식"): the LINK ITSELF is review material — its path, kind and exact link text are fingerprinted and available to reviewers; its TARGET is never followed automatically. Target content enters a review only as an independently authorized, bound input; a link the review cannot follow is disclosed as a coverage gap, never claimed inspected; cleanup never follows a link to delete its target. Each host implements "never followed" its own way and records the evidence (B: link-text fingerprint + symlink refusal in the prepared copy; A: replace its untracked-link refusal with link-text admission and either materialize the text in the round copy or prove no-follow through its read audit) — mechanism = host migration item, principle = shared rule.
 
 <a id="R-VERIFY"></a>
-The leader verifies every finding against the reviewed bytes before acting: REAL (reproduced) blocking → minimal fix and full re-review (R-REREVIEW); REAL non-blocking → recorded, fixed at the maintainer's option (any fix is a new basis, R-REREVIEW); refuted by a probe → recorded refutation, source unchanged; design or scope change → R-STOP;
-speculative → recorded residual, no code. Reviewer labels are claims, never repair instructions; a vote decides nothing.
+The leader checks each claim against the current reviewed bytes, required behavior, concrete trigger and impact before
+acting. Preserve the original finding and evidence for each disposition: verified blocking defect → smallest adequate
+fix and full re-review (R-REREVIEW); verified non-blocking issue → record, with correction at the maintainer's option;
+refuted claim → record the specific counterevidence and its limits; design/scope change → R-STOP; speculation → residual,
+not speculative code. A fix changes the basis. Verify the proposed repair too: a reviewer's label or suggested design is
+a claim, not an instruction, and a vote is not evidence. Leader triage cannot rewrite approval under R-AGREE.
 
 <a id="R-CLEANUP"></a>
 Cleanup exports and verifies the round's evidence first, then releases only resources the helper can PROVE it allocated or claimed (its own allocation record or marker — never a name shape; an empty directory or a plausible-looking marker can still be foreign); uncertain residue is preserved and reported; it refuses without deleting, states what it observes, and points at the one documented recovery when a tree is not its own. A second cleanup is a no-op. Cap-based pruning of run-log and repair-IPC
 files keeps a minimum age floor so a fresh sibling file is never deleted to satisfy a cap (mtime is not only a sort key).
+Generated environment briefs, condensed residuals and copied verification evidence follow these same existing ownership,
+writer-completion, export and cleanup rules. Needed prior evidence is materialized in the current packet under R-CONTEXT,
+so cleanup of an eligible previous temporary root need not wait for future rounds. Preserve the host-specific retention
+and export exceptions in [PRD-RETENTION](../decisions/claude-host-v2-implementation-prd.md#PRD-RETENTION), including A's
+committed-ledger export and B's verified durable export. Do not invent a common age threshold, new cleanup service,
+automatic expiry for durable exports/investigation records, or authority over provider-owned resources.
 
 ## No cost, CLI only
 
@@ -258,6 +346,17 @@ classification `oauth-env`, exit 65; B: its auth-class refusal or start-failure 
 itself, and never inspects, repairs or "fixes" the credential store. A same-basis retry (R-RETRY) runs only after the owner
 reports the re-login. The gemini review preflight's refusal of the api-key / Vertex / ADC classes (C16) is one instance of
 this rule; the rule holds for every CLI, every route and every credential shape.
+
+## CLI version evidence
+
+<a id="R-CLI-VERSION"></a>
+For Codex, AGY, Claude and other CLI adapters, record the observed version and test the controls the route actually needs.
+Preserve capability, authentication, containment, transport and output checks, and minimum-version restrictions justified
+by a specific known defect (including R-NOCOST's Gemini policy floor). An observed/tested patch version is evidence, not
+an exact supported-version lock or an upper bound. A different or newer version alone is neither refusal nor conformance;
+missing or changed required controls still fail preflight. Do not demand the globally latest CLI or equate version output
+with effective policy enforcement. Native routes have no CLI version. This rule does not loosen exact model selection or
+authorize new catalogue/probe policy, fallback, global settings or provider permission changes.
 
 ## Parity scope
 
