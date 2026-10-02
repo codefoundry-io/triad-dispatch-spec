@@ -27,4 +27,4 @@ def test_c66_sealed_attempt_case_is_owned_by_review_lifecycle():
     case = cases()["C66"]
     assert case["surface"] == "review-lifecycle"
     assert "R-BIND" in case["rule"]
-    assert "A" in case["tests"] and "B" in case["tests"]
+    assert case["tests"].get("A", "").strip() and case["tests"].get("B", "").strip()
