@@ -54,7 +54,7 @@ The authoritative rules are [review-rules.md](../reference/review-rules.md); thi
 | Existing TASK/brief and residual strings | Leader writes environment and current issues; host transports without new semantic machinery | prompts / C61, C62 |
 | Prior findings can point to earlier records | Materialize evidence needed now in existing currently bound surfaces | cleanup, review-lifecycle / C20, C63 |
 | Conflicts/repetition go to the owner | Continue verifiable progress; stop exhausted wording loops without approval | review-lifecycle / C64 |
-| Model IDs and efforts are existing roster data | Reuse that single configuration seam and exact CLI IDs; no default/model policy change | roster / existing C12, C22 |
+| B model IDs/efforts use existing roster data; A's native preset pin seam is historical, current A uninspected | Preserve R-ROSTER's single-edit-location target and exact IDs; verify/reconcile A's JSON selection and native pins at implementation start, without a new design here | roster / existing C12, C22, C34; DL-4 |
 | Observed CLI versions and capability controls | Observed patch is evidence, not an equality pin; retain justified capability/version guards | engine-transport / C65 |
 
 B proposal baseline was `8bc6b07684058eccc0ed6e7f632077ef4a207b8c`. The owner's later
@@ -63,6 +63,13 @@ B source `f6651121bf775a40f8743c10cd6c3f3590fef88c` now selects/binds phase and 
 reusing roster, binding, retry and cleanup paths. [Verification and A handoff](claude-review-strategy-handoff.md)
 record actual evidence; this shared-spec PR itself contains no product code. The owner excluded A implementation
 inspection. A entries in `units.json` remain historical pointers; current A behavior is not asserted.
+Historical [DL-4](../authoring/shared-dev-log.md) and [C34](../cases/cases.json) record A's
+JSON `claude.agent` selection of a native preset, refusal of roster `claude.model`, and
+model/effort pins in preset frontmatter. A must verify its actual configuration boundary
+at implementation start and reconcile the single-edit-location intent through its native
+seam; native constraints requiring a new design go to the owner under
+[R-STOP](../reference/review-rules.md#R-STOP). This remains an A implementation
+planning item; shared publication establishes neither present conformance nor its completion.
 
 The `ultrathink` removal is a prompt change, not a claim of equivalent model behavior.
 [Official Claude Code documentation](https://code.claude.com/docs/en/model-config)

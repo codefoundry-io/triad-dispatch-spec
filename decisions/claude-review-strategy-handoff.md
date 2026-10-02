@@ -24,7 +24,7 @@ shared-spec publication and a host's `SPEC_REVISION`/digest adoption are separat
 | Surface | Normative source | A implementation responsibility |
 |---|---|---|
 | Phase and purpose | [R-PROMPT][purpose], [stage schema][kind], [shared clauses][clauses] | Select one shared purpose through existing renderer/input surfaces. |
-| Configurable roster | [R-ROSTER][roster], [roster schema][roster-schema] | Keep owner selection and exact models in A's existing JSON configuration. |
+| Configurable roster | [R-ROSTER][roster], [roster schema][roster-schema] | Keep owner selection in existing JSON; verify A's native preset pin boundary and reconcile the single-edit-location target at implementation start. |
 | Collection | [R-AGREE][agree], [verdict wire][wire], [R-BIND][binding] | Require explicit approval from every selected entry on its exclusive bound attempt. |
 | Environment and evidence | [R-CONTEXT][context] | Faithfully bind/transport leader prose through existing brief/evidence surfaces. |
 | Changed basis | [R-REREVIEW][rereview], [R-RETRY][retry] | Full current-scope review after changes; unchanged failed-to-run retry stays separate. |
@@ -67,10 +67,24 @@ wording changes and repeated votes cannot create agreement. Structural/static ch
 skills or prompts do not prove model behavior. Do not arrange prompt-efficacy experiments
 or treat a leader reenactment as independent evidence; preserve unverified hypotheses.
 
-Keep model/effort changes in the existing JSON roster, with no independently editable
-prompt/code copies. Preserve the existing exact CLI model IDs, explicit null overrides
-and route-valid Google Pro/HIGH selection; read defaults from the current roster data.
-Validate adapter capabilities before inference and expose the resolved roster.
+[R-ROSTER][roster] retains the single-edit-location target for model/effort configuration;
+B's CLI model/effort selections use its existing JSON roster. For A's native Claude route,
+the historical [DL-4 record](../authoring/shared-dev-log.md) and [C34][cases] instead record
+JSON `claude.agent` selecting a native preset, refusal of roster `claude.model`, and exact
+model/effort pins in preset frontmatter. The shared [schema][roster-schema] permits
+`claude.agent`, `claude.model` and `claude.effort`; schema acceptance does not establish
+which inputs an A adapter supports. [Official native subagent documentation](https://code.claude.com/docs/en/sub-agents#frontmatter-reference)
+(checked 2026-10-02) supports model and effort frontmatter, but does not prove current A behavior.
+
+At A implementation start, verify the actual JSON selection, native preset pin and
+override boundaries. Reconcile the single-edit-location intent through that native seam
+as a bounded A planning item; if native constraints require a new design, obtain the
+owner's decision under [R-STOP][stop]. This guide prescribes no new configuration
+mechanism or subprocess replacement. This remains an A implementation planning item;
+publication of this guide does not establish that A already satisfies the target.
+
+Preserve existing exact CLI model IDs, explicit null overrides and route-valid Google
+Pro/HIGH selection. Validate adapter capabilities before inference and expose the resolved roster.
 Requested selection is not runtime identity; unexposed identity stays unknown/null.
 Observed patch versions are evidence, not equality pins or upper bounds. A later version
 alone does not refuse; missing required controls and justified defect floors still do.
@@ -96,7 +110,7 @@ provides deferred check briefs. Carry the case IDs into A tests and record actua
 
 ## Dependency order for A
 
-1. Reconcile the adopted shared basis and current A interfaces using the [implementation map][map]. Freeze the bounded change and applicable capability/containment assumptions.
+1. Reconcile the adopted shared basis and current A interfaces using the [implementation map][map], including the actual JSON/native preset configuration boundary described above. Freeze the bounded change and applicable capability/containment assumptions.
 2. Add provider-free failing fixtures for phase/default/refusal and entry-binding/collection; then implement stage transport and all-selected agreement through existing A machinery.
 3. Extend existing shared-clause rendering and current brief/residual transport; prove decoded equality and once-only delivery before touching cleanup tests.
 4. Exercise evidence materialization through A's existing export/close lifecycle with negative ownership/in-progress controls; preserve its native layout and numeric retention policy.

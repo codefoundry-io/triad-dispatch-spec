@@ -9,7 +9,7 @@
   evidence, minimal correction, verifiable progress and non-approved stopping. No prompt behavior experiment is implied.
 - R-CLI-VERSION preserves required controls and justified floors without exact patch pins. Existing JSON roster and
   exact model IDs/defaults remain; R-CLEANUP extends existing host-specific custody to the new brief/evidence content.
-- Revised C13/C20/C33 and new C60–C65; phase schema and focused schema tests; prompt order, process, active derived
+- Revised C13/C20/C21/C25/C33 and new C60–C65; phase schema and focused schema tests; prompt order, process, active derived
   specs, owner register, authoring map and existing unit mappings aligned. B provider-free source verification is recorded; A remains NOT RUN.
 - Direction reviewed by Astra/xhigh and Opus 5.5/xhigh; two material input/evidence gaps closed before editing.
   [Evidence, scope and deferred verification](decisions/2026-10-02-review-strategy.md). A implementation code was excluded
