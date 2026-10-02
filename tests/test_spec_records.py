@@ -11,9 +11,10 @@ def cases():
     return {case["id"]: case for case in json.loads((ROOT / "cases/cases.json").read_text())["cases"]}
 
 
-def test_dev_log_ids_are_unique_and_consecutive():
+def test_dev_log_ids_are_unique_and_increasing():
+    # Ids held by other unpublished spec branches leave gaps (authoring/shared-dev-log.md).
     ids = [int(n) for n in re.findall(r"^\| DL-(\d+) \|", (ROOT / "authoring/shared-dev-log.md").read_text(), re.M)]
-    assert ids == list(range(1, len(ids) + 1))
+    assert ids == sorted(set(ids))
 
 
 def test_dev_log_rows_name_existing_cases():

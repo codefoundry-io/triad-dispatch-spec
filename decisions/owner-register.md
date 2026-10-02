@@ -218,7 +218,7 @@ Effect: [R-ROSTER](../reference/review-rules.md#R-ROSTER) (codex default),
 true for every round unless the owner revokes it), [R-CONTAIN](../reference/review-rules.md#R-CONTAIN) (the
 no-web posture applies to a false condition only), [R-INVEST](../reference/review-rules.md#R-INVEST) (web
 allowed for every investigation/dispatch leg), `contracts/review-legs.example.json` (codex entry), cases C29,
-C32 and C35, dev-log row DL-20. It supersedes the codex baseline of the 2026-09-25 directive, D-9's REVIEW
+C32 and C35, dev-log row DL-39. It supersedes the codex baseline of the 2026-09-25 directive, D-9's REVIEW
 prohibition and the 2026-09-21 direct-request condition, including the review-web instructions of
 [the review-web handoff](claude-review-web-handoff.md) and
 [the Codex + three Google handoff](claude-codex-google-four-leg-handoff.md), the web condition of
@@ -273,5 +273,5 @@ R-REREVIEW, R-PROMPT and R-REVIEW-WEB), [R-PROMPT](../reference/review-rules.md#
 [R-BIND](../reference/review-rules.md#R-BIND) (sealed attempt), [R-REREVIEW](../reference/review-rules.md#R-REREVIEW)
 (the leader's range), [R-AGREE](../reference/review-rules.md#R-AGREE) (collection checks integrity); prompt clauses
 `current-date` and `review-no-web` and `prompts/README.md` § Clause-file format; README § How a host uses a revision;
-`units.json`; cases C13, C19, C20, C32, C33, C60, C61, C64 amended, C66 and C67 added; dev-log rows DL-21–DL-33. Host
+`units.json`; cases C13, C19, C20, C32, C33, C60, C61, C64 amended, C66 and C67 added; dev-log rows DL-40–DL-52. Host
 adoption, publication and revision tags remain separate.

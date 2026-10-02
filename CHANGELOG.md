@@ -2,6 +2,20 @@
 
 ## Spec gaps exposed by host A's conformance work — 2026-10-03 (not tagged)
 
+- Branch fix round 1 (whole-branch verification): every "On A:" / "On B:" statement now cites today's host code
+  (A: triad `goal/spec-main-conformance` @ `ebc4dc7`; B: 0.2.558 @ `7f75863`) or is marked "(open, DL-n)". R-REVIEW-WEB's
+  On A bullet separates the mechanisms that exist (codex `--search`, the two claude web twins, agy `--web` + hook
+  `--web`, the small path) from the open v2 carrier, `-max` twin, gemini web profile and the web-evidence append;
+  R-CONTAIN lists only shipped guards. R-RETRY refuses a changed condition, selection or control before an attempt is
+  allocated (B's preparation receipts are setup evidence) and leaves changed reviewed bytes to the final integrity
+  verification. R-BIND seals what each route records (native exemption, DL-18). R-CONTEXT and R-PREPARE state the exact
+  A refusals, A's open collection re-derivation (DL-41) and B's toolkit exclusions. C13, C19 (preset arm), C20, C21, C35,
+  C64 tests cells; `units.json` note; `reference/README.md` revision record; example roster `agent` note.
+- Prompt payload (re-vendor obligation, `units.json` prompts): `current-basis`, `review-web-permission` and
+  `codex-read-grant` allow fetched, cited web pages as evidence under the round's web authorization; the `leg-claude.md`
+  preamble names the web twin.
+- Dev-log rows renumbered DL-39–DL-52 (DL-20–DL-38 are held by other unpublished branches); rule 1 states that a row
+  about the adoption record names no case.
 - Owner decision `D-SPEC-GAPS-20261003` (`decisions/owner-register.md`).
 - R-PREPARE defines the bound basis once (reviewed bytes, review conditions including the round date, selection,
   every resolved control from whatever source, installed clauses/schema/contract), what the content digest covers, what
@@ -22,7 +36,7 @@
 - README § How a host uses a revision: the candidate `SPEC_REVISION` line (On A) and B's `source-manifest.json` record.
 - `units.json`: host A's legacy entry points (v1 `prepare` without `--v2`, `review_small.py`); the stage carrier.
 - Cases C13, C19 (negative arm), C20, C32, C33 (all-disabled roster; negative arm), C60, C61, C64 amended; NEW C66 (sealed
-  attempt) and C67 (round date); authoring map lists both. Dev-log rows DL-21–DL-33. Payload and record tests
+  attempt) and C67 (round date); authoring map lists both. Dev-log rows DL-40–DL-52. Payload and record tests
   `tests/test_prompt_payload.py`, `tests/test_spec_records.py`. No schema change; no revision tag.
 
 ## Review legs: codex Astra/high default; web search for every AI leg — 2026-10-03 (not tagged)
@@ -38,7 +52,7 @@
   a false condition; the gemini profile bytes are unchanged. R-INVEST: web search is allowed for every
   investigation/dispatch leg; the web-evidence rule (C29) is unchanged.
 - Cases C29 (input wording), C32 and C35 aligned; host test cells say adoption is pending. PRD-REVIEW and
-  SPEC-INVESTIGATION sentences aligned. Dev-log row DL-20 (OPEN for A and B). Schema test asserts the codex example
+  SPEC-INVESTIGATION sentences aligned. Dev-log row DL-39 (OPEN for A and B). Schema test asserts the codex example
   entry.
 - Follow-up owner rulings (same day): every route of every host supports review web (a missing capability stays a
   preflight refusal); host-only behaviour is written "On A: …" / "On B: …"; each host is rebuildable from the spec.
@@ -57,7 +71,7 @@
   every-leg reading as the leader's. Prompt payload (re-vendor obligation for both hosts, `units.json` prompts):
   `review-web-permission` now carries the rule never to send reviewed material, a local path or a person's name to a
   search or a page. Superseded sentences marked in the 2026-10-02 review strategy, README, the 2026-09-21 amendment and
-  B's review-web verification record; PRD rows aligned; DL-20 restated (A's two codex entries, one-leg end state as the
+  B's review-web verification record; PRD rows aligned; DL-39 restated (A's two codex entries, one-leg end state as the
   leader's reading, B at v0.2.558, `-max` web twin, claude worker web option); dev-log footer corrected.
 
 ## Review strategy candidate — 2026-10-02 (not tagged)

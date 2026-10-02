@@ -2,7 +2,7 @@
 
 > Shared v2 clauses. Packet paths resolve through `units.json`; binding placeholders come from the frozen invocation. Vendoring rule: `README.md` § How a host uses a revision.
 
-> On A this leg is an in-session Agent (Read/Grep/Glob only) admitted from a RAW reply; on B it is a wrapper-dispatched CLI child with schema output. Only the output-shape NOTICE and output-integrity MARKER clause are A-only; the v2 shape applies to both.
+> On A this leg is an in-session Agent (Read/Grep/Glob; its web twin adds WebSearch/WebFetch when the round authorizes web) admitted from a RAW reply; on B it is a wrapper-dispatched CLI child with schema output. Only the output-shape NOTICE and output-integrity MARKER clause are A-only; the v2 shape applies to both.
 
 ## claude-output-shape-notice (R-BIND; A-only: raw-reply admission)
 

@@ -24,7 +24,7 @@ Review this change's correctness and completeness under the stated requirements 
 ## current-basis (R-REREVIEW, R-CONTEXT)
 
 ```text
-Judge the complete current scope, including supplied environment evidence and uncertainties. Previous approval does not carry forward. Check current fixes, refutations and their evidence as claims, and look for regressions. To reopen a closed claim, identify a new counterexample, relevant change or error in its refutation. Use only currently authorized, bound evidence; a historical path alone grants neither access nor proof. Put unresolved facts necessary for approval in open_questions. Do not put optional curiosities in that blocking list or invent a finding merely to carry them.
+Judge the complete current scope, including supplied environment evidence and uncertainties. Previous approval does not carry forward. Check current fixes, refutations and their evidence as claims, and look for regressions. To reopen a closed claim, identify a new counterexample, relevant change or error in its refutation. Use only currently authorized evidence: the bound inputs and, when this round authorizes web verification, the pages you fetch and cite; a historical path alone grants neither access nor proof. Put unresolved facts necessary for approval in open_questions. Do not put optional curiosities in that blocking list or invent a finding merely to carry them.
 ```
 
 ## current-date (R-PROMPT)
@@ -66,7 +66,7 @@ Check evidence-backed code smells and simplicity after the change: identify unne
 ## review-web-permission (R-REVIEW-WEB)
 
 ```text
-Web verification is authorized for this round. Use native web tools when an external fact needs checking and cite checked sources; never send the reviewed material, a local path or a person's name to a search or a page. Other review restrictions remain.
+Web verification is authorized for this round. Use native web tools when an external fact needs checking; a search result is a pointer, so fetch the page and cite its URL with the date or version shown on it; never send the reviewed material, a local path or a person's name to a search or a page. Other review restrictions remain.
 ```
 
 ## review-no-web (R-REVIEW-WEB, R-CONTAIN)

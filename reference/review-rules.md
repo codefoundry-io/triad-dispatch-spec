@@ -15,10 +15,11 @@ selection deviation. Neither a leader's refutation nor an owner exception rewrit
 An exception may authorize separate human action, but is recorded as an exception to a non-agreed round, never as machine
 agreement. A later agreed round must independently satisfy this rule on its current basis (R-REREVIEW).
 Collection itself checks round integrity: it reports AGREED only after a passed integrity verification of the current
-bound basis (On A: `review_scratch.py verify`; On B: `bin/review_round.py` `verify_round`), and otherwise reports a
-non-agreed outcome naming the missing or failed check. On B: `collect` runs `_load_basis` (seal, digest, `verify_round`)
-at its start and end. On A: `verify` writes `.verified-r<N>.json` and `collect_v2.collect` does not read it; `close`
-only warns when it is absent (open, `authoring/shared-dev-log.md` DL-33).
+bound basis (On A: `review_scratch.py verify`, `lib/review_scratch.py:2445`; On B: `verify_round`,
+`bin/review_round.py:1908-1931`), and otherwise reports a non-agreed outcome naming the missing or failed check. On B:
+`collect` runs `_load_basis` (seal, digest, `verify_round`) at its start and end (`bin/review_round_v2.py:508`, `:532`).
+On A: `verify` writes `.verified-r<N>.json`, `collect_v2.collect` does not read it (`lib/collect_v2.py:1613-1641`), and
+`close` only warns when it is absent (`lib/review_scratch.py:18-23`) (open, `authoring/shared-dev-log.md` DL-52).
 
 `open_questions` contains unresolved facts necessary to judge approval, not optional curiosities; every remaining entry
 blocks, without a collector importance heuristic. A `SAFE TO MERGE` with a blocker or open question is invalid under the
@@ -45,9 +46,15 @@ A narrow follow-up investigation can resolve a question but cannot substitute fo
 
 <a id="R-RETRY"></a>
 When a leg failed to RUN and nothing changed (source, prompts, criteria, roster, model, effort, route, policy), retry only
-that leg on the same [bound basis](#R-PREPARE) (owner Q-C). A changed member of that basis, including a changed recorded
-selection or control, refuses the retry before any allocation or write; prepare a new round. Before any dispatch exists,
-retry the corrected preparation step.
+that leg on the same [bound basis](#R-PREPARE) (owner Q-C). A changed review condition, selection or control of that
+basis refuses the retry before an attempt is allocated or dispatched; prepare a new round. Changed reviewed bytes are
+caught by the round integrity verification before agreement (R-AGREE); a pre-retry rehash of the reviewed tree is not
+required (`decisions/host-b-preimplementation-audit.md`, "Every renderer must immediately rehash"). On A: `retry` runs
+`_check_contract_basis` and `_bound_metadata` before allocating (`lib/collect_v2.py:2187-2188`). On B: `allocate_attempt`
+loads the basis (which also re-verifies the reviewed tree), re-prepares the entry's adapter — writing its capability
+receipts into a new numbered preparation directory, kept as setup evidence — and then refuses changed launch controls
+before the attempt directory exists (`bin/review_round_v2.py:267`, `:276-284`). Before any dispatch exists, retry the
+corrected preparation step.
 
 ## Roster
 
@@ -58,12 +65,14 @@ to subscription and capacity. Every enabled entry counts under R-AGREE, includin
 has a special approval rule. Only the owner changes this selection. Changing it creates a new basis; do not drop a
 failed or dissenting leg to relabel an old round as agreed. Preserve unresolved findings when a later roster changes.
 Preparation refuses a roster with no enabled entry before any adapter, dispatch or round record exists; that refusal is a
-preparation failure, never a round outcome (On A: `lib/roster_v2.py` `resolve_roster` raises "the selected roster is
-empty"; On B: `bin/review_round_v2.py` `create_basis` raises "v2 review requires at least one enabled entry").
+preparation failure, never a round outcome (On A: `resolve_roster` raises "the selected roster is empty",
+`lib/roster_v2.py:782-788`; On B: `create_basis` raises "v2 review requires at least one enabled entry",
+`bin/review_round_v2.py:146-148`).
 A control a host resolves from a host-native source outside the roster file is a member of the bound basis like a roster
 value (R-PREPARE). On A: the claude entry's model and effort come from the agent preset frontmatter
-(`.claude/agents/cross-family-review-reviewer*.md`, `model:` / `effort:`), which the round does not yet bind (open,
-`authoring/shared-dev-log.md` DL-30). On B: every control comes from the resolved roster and its adapters.
+(`.claude/agents/cross-family-review-reviewer.md:5-6` and its siblings), which the round does not yet bind (open,
+`authoring/shared-dev-log.md` DL-49). On B: every control comes from the resolved roster and its adapters, sealed in
+the basis (`bin/review_round_v2.py:146`, `:152-169`).
 The receipt records entries actually run and family coverage; two legs of one family remain one family, without a veto
 on an otherwise agreed round. Selected investigations remain separate under R-INVEST.
 
@@ -110,9 +119,12 @@ it as their existing single-shot dispatch path (On A: the `triad-*-dispatch` ski
 dispatch); it is not a review round and enters no roster accounting. Web search is allowed for every investigation and
 dispatch leg of every family (the leader's reading of the owner's words, recorded in
 [D-REVIEW-LEGS-20261003](../decisions/owner-register.md#D-REVIEW-LEGS-20261003)); the caller selects it through the
-host's existing web option and needs no further authorization. On A the web option today is: codex `--search`, agy
-`--web` (the read-only research agent) and gemini `--web` (A's research profile, without `--sandbox`); the claude worker
-dispatch has no web option yet (an open A item, DL-20). On B: its raw AGY, Gemini and Claude wrappers' explicit `--web` (C29, C31). Web evidence in an investigation is a FETCHED page: the
+host's existing web option and needs no further authorization. On A the web option today is: codex `--search`
+(`3rd-Agent/wrappers/codex_wrapper.py:103-116`, `:161`), agy `--web` (the read-only research agent,
+`antigravity_wrapper.py:1907`) and gemini `--web` (A's research profile, without `--sandbox`, `gemini_wrapper.py:378-392`,
+`:510-515`); the claude worker dispatch has no web option yet (`claude_wrapper.py`; open, DL-39). On B: the raw AGY,
+Gemini and Claude wrappers' explicit `--web` (`bin/antigravity_wrapper.py:421`, `bin/gemini_wrapper.py:256`,
+`bin/claude_wrapper.py:286`; C29, C31). Web evidence in an investigation is a FETCHED page: the
 leg cites the URL it fetched and the date or version visible on that page; a search summary is a pointer, never a
 citation; an unfetched, placeholder or undated claim is UNSURE. The host appends the shared clause `web-evidence`
 (`prompts/investigation.md`) LAST on every web-enabled Google INVESTIGATION. Existing host
@@ -152,8 +164,9 @@ Select one short shared purpose using `review_kind` (`contracts/review-kind.sche
 `plan-purpose`; `pre-merge` and `implementation-review` select `code-purpose`; omission defaults to `pre-merge` at the
 host invocation boundary. Unknown or null values are refused before dispatch. The stage input is the value `review_kind`;
 the command or request that carries it is host-native calling syntax (`units.json` prompts exceptions), and a stage under
-any other name is an unknown input. On A: `review_scratch.py prepare --v2 --review-kind <value>`. On B: the
-`review_kind` member of the `review_round.py v2-create --request-file` request. The plan purpose REPLACES the code
+any other name is an unknown input. On A: `review_scratch.py prepare --v2 --review-kind <value>`
+(`lib/review_scratch.py:3711-3778`). On B: the `review_kind` member of the `review_round.py v2-create --request-file`
+request (`bin/review_round.py:2325-2326`, `bin/review_round_v2.py:130-136`). The plan purpose REPLACES the code
 purpose, not a checklist appended to it. The resolved stage is a member of the bound basis (R-PREPARE); no verdict field
 is added.
 All selected legs receive the same semantic purpose, requirements, scope and evidence. Identity, output handling and
@@ -177,12 +190,16 @@ source/packet and digest checks and transport the supplied values faithfully. A 
 leading and trailing blank lines and the presence or absence of a final newline reach the bound prompt unchanged, and
 any framing the host adds (an encoded string, a fence, a separator added every time) leaves the exact value recoverable
 from the bound bytes, so values that differ only at an edge bind different prompts. An empty `prior_residual` is the
-absent value. On A: the leader omits `--prior-residual` and no residual block is rendered; an empty file is refused,
-naming the omission. On B: an omitted or empty value renders the data fence holding the JSON string `""`. A host may
-refuse prose that collides with its own data framing as an existing input check, and its refusal names the colliding
-line. On A: a brief context or questions line that begins and ends with `=====`, other than the one
-`=====QUESTIONS=====` marker, and a residual or excerpt line equal to one of the round's fence lines. On B: no such
-refusal; values are JSON-encoded inside a fence longer than any backtick run they contain. Those checks do not parse
+absent value. On A: the leader omits `--prior-residual` and no residual block is rendered; a residual file that is
+empty or whitespace-only is refused, naming the omission (`lib/review_scratch.py:5503-5506`). On B: an omitted or empty
+value renders the data fence holding the JSON string `""` (`bin/review_round_v2.py:197`). A host may refuse prose that
+collides with its own data framing as an existing input check, and its refusal names the colliding line or characters.
+On A (`lib/review_scratch.py:2783-2796`, `:2809-2847`): a brief carrying an alternate line-separator character; a brief
+line whose stripped text begins and ends with `=====` and is neither exactly `=====` nor the one
+`=====QUESTIONS=====` marker; a residual or excerpt line whose stripped text equals one of the round's fence lines. On
+B: no such refusal; only `prior_residual` is fenced, as one JSON string inside a fence longer than any backtick run it
+contains, and objective, criteria and approved_boundary are one JSON object outside any fence
+(`bin/review_prompts_v2.py:53-57`, `:121-125`). Those checks do not parse
 Markdown rows, verify truth/completeness, classify issues, or prove that the reviewer stayed within the instructed read
 boundary. On B, existing nonempty checks cover objective, criteria and approved_boundary; `prior_residual` may be empty
 and TASK.md is checked as a regular file. Decoded-value equality may prove text transport despite JSON escaping, not
@@ -245,39 +262,57 @@ leg's prompt and launch controls. It is a round condition and a member of the bo
 field. Every selected route must support that condition before inference; a missing capability is a preflight refusal,
 not silent partial authorization. No leader heuristic decides which technology needs web.
 
-On CLI review routes, the route's web switch and the renderer/preflight condition must agree in both directions,
-with the same review ID, digest and v2 entry/attempt binding. An absent condition in a bound record means false; the
-leader writes the condition explicitly. Every route of every host supports web; a route without it is a host defect,
-refused at preflight until fixed. Gemini selects a complete web-enabled host profile, never an overlay: only
+On CLI review routes, the route's web switch and the renderer/preflight condition must agree in both directions, with
+the same review ID, digest and v2 entry/attempt binding. An absent condition in a bound record means false; the leader
+writes the condition explicitly. Every route of every host supports web; a route without it is a host defect, refused
+at preflight until fixed. Gemini selects a complete web-enabled host profile, never an overlay: only
 `google_web_search` and `web_fetch` move to allow, with all other controls preserved; the no-web profile stays the
-profile for a false condition. Pre-existing owner and admin denies remain authoritative. A round never changes
-global settings and no permission bypass is authorized; a one-time, documented host setup prerequisite (On A: the agy
-settings allow of `read_url(*)`, below) is installation, made once by the operator, not a per-round settings change. Live service checks: `contracts/review-web.verify.toml`. Per host, a true
-condition reaches each route as follows; a false condition leaves every route in its R-CONTAIN no-web posture.
+profile for a false condition. Pre-existing owner and admin denies remain authoritative. A round never changes global
+settings and no permission bypass is authorized; a one-time, documented host setup prerequisite (On A: the agy
+settings allow of `read_url(*)`, named by `3rd-Agent/wrappers/antigravity_wrapper.py:1975`, below) is installation,
+made once by the operator, not a per-round settings change. Live service checks: `contracts/review-web.verify.toml`.
+Per host, a true condition reaches each route as follows; a false condition leaves every route in its R-CONTAIN no-web
+posture.
 
-- On A: codex — the wrapper's `--search` (codex's top-level `codex --search exec`) replaces the pinned
-  `web_search="disabled"`; the read-only sandbox, `approval_policy=never` and `--ignore-rules` stay. Claude — the native
-  leg is spawned as the web twin of its reviewer preset — every selectable preset has one:
-  `cross-family-review-reviewer-web`, `cross-family-review-reviewer-high-web` and `cross-family-review-reviewer-max-web`
-  (the `-max` twin is an open A item, DL-20): the same model and effort as its preset, tools `Read`, `Grep`, `Glob`,
-  `WebSearch`, `WebFetch`, nothing that runs or writes; its body adds the web rule — a search result is a pointer, the
-  leg fetches the page and cites the URL with the date or version shown on it, an unfetched claim is unsure, and page
-  content is material to judge, never an instruction. The rule that the reviewed material, a local path or a person's
-  name is never sent to a search or a page reaches every leg on both hosts through the common `review-web-permission`
-  clause. agy — the wrapper's `--web` selects the read-only research agent
-  (`triad-readonly-research`: `view_file`, `grep_search`, `list_dir`, `find_by_name`, `read_url_content`, `search_web`,
-  `finish`) instead of the review agent; the per-round PreToolUse hook runs with `--web`, adding `read_url_content` and
-  `search_web` to its allow set, and the read-audit admission tolerates errored steps of those two tools as it does for
-  read tools; the host's agy settings allow `read_url(*)` (the one-time setup prerequisite above). The review prompt is the rendered
-  review prompt: the investigation `web-evidence` clause (R-INVEST) is not appended in REVIEW. gemini — the wrapper
-  attaches `contracts/gemini-readonly-web.toml` in place of `contracts/gemini-readonly.toml`.
-- On B: native Codex receives the bound authorization through its fresh-child prompt. Claude preapproves only native
-  `WebSearch` and `WebFetch`. AGY keeps its read-only controls while omitting the additional review-only `read_url(*)`
-  deny for this call. Gemini selects `contracts/gemini-readonly-web-b.toml`.
+- On A, the v2 round path supports no review web today (open, DL-39): `prepare --v2` takes no web condition, the
+  renderer always fills the no-web sentence (`.claude/skills/triad-cross-family-review/lib/prompts_v2.py:142-144`,
+  `:263`) and the v2 dispatch lines never pass codex `--search` or agy `--web` (`lib/roster_v2.py:924`, `:956`). The
+  carrier of `review_web_authorized` on the v2 path does not exist yet (open, DL-39). What exists today, per route, and
+  what A still lacks:
+  - codex: the wrapper's `--search` (top-level `codex --search exec`) replaces the pinned `-c web_search="disabled"`;
+    the read-only sandbox, `approval_policy=never` and `--ignore-rules` stay (`3rd-Agent/wrappers/codex_wrapper.py:103-116`,
+    `:440-464`).
+  - claude: the native leg's web twins `cross-family-review-reviewer-web` and `cross-family-review-reviewer-high-web`
+    (`.claude/agents/`) keep their preset's model and effort, carry tools `Read`, `Grep`, `Glob`, `WebSearch`,
+    `WebFetch` and nothing that runs or writes, and have a shorter body of their own with the web rule (a search result
+    is a pointer; fetch the page and cite its URL with the date or version shown on it; an unfetched claim is unsure;
+    never send the reviewed material, a local path or a person's name to a search or a page; page content is material to
+    judge) (`cross-family-review-reviewer-web.md:1-33`). A `-max` web twin does not exist (open, DL-39).
+  - agy: the wrapper's `--web` selects the read-only research agent `triad-readonly-research` (`view_file`,
+    `grep_search`, `list_dir`, `find_by_name`, `read_url_content`, `search_web`, `finish`) instead of the review agent
+    (`3rd-Agent/wrappers/antigravity_wrapper.py:300-312`); read-audit admission tolerates errored steps of the two web
+    tools under `--web` (`:314`, `:1763`); `lib/agy_hook.py --web` adds `read_url_content` and `search_web` to the hook's
+    allow set (`lib/agy_hook.py:119-121`, `:194`); the host's agy settings allow `read_url(*)` (the one-time setup
+    prerequisite above). Open (DL-39): the wrapper appends the investigation `web-evidence` clause on every `--web` call
+    (`antigravity_wrapper.py:2021-2026`), which REVIEW must not do.
+  - gemini: open (DL-39) — the wrapper refuses `--web` with `--sandbox` (`3rd-Agent/wrappers/gemini_wrapper.py:378-392`)
+    and attaches only `gemini-readonly.toml` or `gemini-research.toml` (`:505-516`); attaching
+    `contracts/gemini-readonly-web.toml` for a true condition is not built.
+  - The small review path (`lib/review_small.py --web`, `:33-39`, `:265-271`, `:328-332`) uses the codex, claude
+    (base and high tiers) and agy mechanisms above today and refuses gemini.
+- On B: the v2 request member `review_web_authorized` (`bin/review_round_v2.py:130-133`) is the carrier; it defaults to
+  false per request, so binding it true for every round under the standing authorization is open (DL-39). For a true
+  condition: native Codex receives it through its fresh-child prompt metadata and requires host web availability
+  (`bin/review_adapters_v2.py:61-75`, `bin/review_prompts_v2.py:88-90`); Claude preapproves only native `WebSearch` and
+  `WebFetch` (`bin/claude_wrapper.py:417-418`); AGY keeps its read-only controls while omitting the review-only
+  `read_url(*)` deny (`bin/antigravity_wrapper.py:647-663`, `bin/_agy_settings.py:43-49`, `:90-100`); Gemini selects
+  `bin/policies/gemini-formal-web.toml`, byte-equal to `contracts/gemini-readonly-web-b.toml`
+  (`bin/gemini_wrapper.py:175`, `:466`; `bin/policies/web-source-manifest.json`).
 
 Render only the short common `review-web-permission` clause from `prompts/common-clauses.md` when true, and the
 `review-no-web` clause otherwise. Existing evidence, uncertainty and untrusted-content rules continue; do not
-add technology classification or automatic web triggers. Raw investigations remain separate under R-INVEST;
+add technology classification or automatic web triggers. The investigation `web-evidence` clause (R-INVEST) is never
+appended in REVIEW. Raw investigations remain separate under R-INVEST;
 the raw Claude `--web` permit does not add review accounting or rewrite the caller's prompt.
 
 ## Containment and validity — what exists today and must survive
@@ -289,9 +324,11 @@ is superseded by D-REVIEW-LEGS-20261003). When that condition is false, REVIEW h
 agy review agents without web tools (A ships this posture; B's formal builder explicitly denies `read_url(*)`;
 raw investigations retain web); gemini by the explicit deny rows in its host profile below. Renderers keep the
 no-web posture for a false condition and select the authorized web posture only under R-REVIEW-WEB. Gemini host
-profiles remain separate under D-B1. On A: `contracts/gemini-readonly.toml` for a false condition and
-`contracts/gemini-readonly-web.toml` for a true one. On B: `contracts/gemini-readonly-b.toml` for a false condition and
-`contracts/gemini-readonly-web-b.toml` for a true one. Equality means exact bytes of
+profiles remain separate under D-B1. On A: `contracts/gemini-readonly.toml` for a false condition
+(`3rd-Agent/wrappers/policies/gemini-readonly.toml`) and `contracts/gemini-readonly-web.toml` for a true one (not
+shipped: open, DL-39). On B: `contracts/gemini-readonly-b.toml` for a false condition and
+`contracts/gemini-readonly-web-b.toml` for a true one (`bin/policies/gemini-formal-readonly.toml`,
+`bin/policies/gemini-formal-web.toml`). Equality means exact bytes of
 the selected complete profile, with its adjacent digest; no concatenated overlay is implied. Preserve B's
 existing 999/998 allow/deny/catch-all and Plan Mode transition restrictions while moving its two web tools
 to explicit denies. A's profile and V1–V5 manifest stay unchanged; B's live checks are separately recorded
@@ -305,21 +342,24 @@ attributes hook rows by that id — a shared, unattributed hook log never certif
 not attribution (found on A over rounds r11–r13, `authoring/shared-dev-log.md` DL-6). Per vendor, the guards that ship today and must survive any alignment (host, symbol):
 
 - codex leg (A `codex_wrapper.py`, command builder): selected read-only sandbox, `approval_policy=never`, `--ignore-rules`
-  on every posture, `web_search="disabled"` for a REVIEW whose bound R-REVIEW-WEB condition is false. On A: review
-  search runs only under a true bound condition, through `--search`; a false or absent condition keeps it disabled. These are A's controls, not instructions for B's native session.
+  on every posture, `web_search="disabled"` whenever `--search` is absent (`codex_wrapper.py:440-464`). On A today the v2
+  path never passes `--search` (`lib/roster_v2.py:924`) and the small path passes it only for a round prepared with `--web`
+  (`lib/review_small.py:331`); passing it from the v2 round's bound condition is open (DL-39). These are A's controls,
+  not instructions for B's native session.
 - gemini leg (A `gemini_wrapper.py`): approval modes pinned to `default` / `auto_edit` (plan and yolo removed), the
   read-only × auto_edit conflict refusal, the read-only policy-file precondition, the hardened-install read-only default,
   write posture requires `--cwd`; for a false R-REVIEW-WEB condition A's selected read-only no-web profile denies
   `google_web_search` / `web_fetch` by EXPLICIT rows (D-9 rows — `--policy` replaces only the user tier, so an unnamed
-  tool keeps the default tier's decision; runtime effect per `contracts/gemini-readonly.verify.toml`), and for a true
-  condition A selects `contracts/gemini-readonly-web.toml` (runtime effect per
-  `contracts/gemini-readonly-web.verify.toml`); B: `--help` capability preflight, policy self-check against
+  tool keeps the default tier's decision; runtime effect per `contracts/gemini-readonly.verify.toml`); selecting
+  `contracts/gemini-readonly-web.toml` for a true condition is not shipped on A (open, DL-39; runtime effect, once built,
+  per `contracts/gemini-readonly-web.verify.toml`); B: `--help` capability preflight, policy self-check against
   `contracts/gemini-readonly-b.toml` for a false condition and `contracts/gemini-readonly-web-b.toml` for a true one
   (runtime effect per `contracts/gemini-readonly-b.verify.toml` / `contracts/gemini-readonly-web-b.verify.toml`), credential/endpoint/model-selector
   variables removed from the child on the formal route. Effective posture is computed BEFORE the conflict and policy checks
   (verified defect on A: the hardened default is assigned after the checks).
-- agy leg (A): per-round PreToolUse allow-list hook + hook load check + read-audit gate (with a true R-REVIEW-WEB
-  condition the hook runs with `--web` and its allow set adds `read_url_content` / `search_web`); B: non-mutating project route (`--mode plan --sandbox read-only`); B's hook stays dormant until separately agreed. The agy hook and the gemini read-only policy are TOOL-NAME controls: neither scopes paths, and the read audit records the argument path as given, not a resolved target — they do not by themselves contain a symlink escape (see the Q4 item in R-PREPARE).
+- agy leg (A): per-round PreToolUse allow-list hook + hook load check + read-audit gate (the hook's `--web` mode adds
+  `read_url_content` / `search_web` to its allow set, `lib/agy_hook.py:119-121`, used today by the small path; the v2
+  path never runs it, open, DL-39); B: non-mutating project route (`--mode plan --sandbox read-only`); B's hook stays dormant until separately agreed. The agy hook and the gemini read-only policy are TOOL-NAME controls: neither scopes paths, and the read audit records the argument path as given, not a resolved target — they do not by themselves contain a symlink escape (see the Q4 item in R-PREPARE).
 - all wrappers: binary presence; a relative `--prompt-file` or `--cwd` is ACCEPTED and resolved against the wrapper PROCESS cwd at argument processing (never the child `--cwd`); every existing validation stays — configured runtime roots where configured, regular file, UTF-8, non-empty; the resolved absolute prompt-file and child-cwd paths are represented in the existing success summary and audit row, using the host's current redaction mode (D-B2). Refusal names the resolved candidate through that same masking policy; failure-only run logs remain failure-only. Relative spelling alone is never a reason to refuse (C28). B implements relative resolution, validation and masked success/refusal evidence (C28, P4); A still refuses relative paths; stdin delivery confirmed or refused (fail closed); process group captured at spawn and
   reaped on timeout / abnormal unwind and normal exit under R-TERMINAL (implemented on B; A migration remains); reader and writer completion before success (B now rejects incomplete/error collection; A's remaining source gap is recorded in the current implementation audit); schema validation with one clean repair retry where a leg relies on it; verdict
   binding to review id, family and content digest; round integrity capture/verify.
@@ -354,14 +394,19 @@ a pass. v2 ADDS (round r2, all three families; lands with the D-3 wire — `cont
 roster entry), `attempt` (integer ≥ 1, per leg), `route` (the resolved Google route `agy` | `gemini`; null for a family with
 one route). The common v2 prompt pins use these fields. Each host adopts its validator, all shaped clauses and collectors together;
 explicit legacy entry points retain their old contract and cannot admit v2 results.
-A recorded attempt is sealed: its result, receipt and read evidence are written once and bound by digest when recorded,
-and collection refuses a later change, removal or replacement of any of them. A new answer from the same entry needs a
-new attempt, which R-RETRY allows only after a failure to run, or a new round (R-REREVIEW). Collection evaluates each
-entry's last allocated attempt, and only when every earlier attempt of that entry is a diagnosed failed-to-run terminal.
-On B: `record_attempt` writes the three files exclusively and seals `terminal.json` with their digests; `collect`
-evaluates the last sealed allocation, re-checks those digests and refuses a history whose earlier attempt is not
-FAILED_TO_RUN. On A: `collect_v2` evaluates the attempt the round record's `attempt` field names; the seal and the
-earlier-attempt check are open (`authoring/shared-dev-log.md` DL-25, case C66).
+A recorded attempt is sealed: the result and every evidence file its route records for the attempt (read evidence; a
+transport receipt where the route records one there) are written once and bound by digest when recorded, and collection
+refuses a later change, removal or replacement of any of them. A native leg seals only what it records: a native
+same-family spawn records no transport receipt and needs no added receipt check (owner ruling, DL-18; On A: the
+in-session claude leg records its admitted result only). A new answer from the same entry needs a new attempt, which
+R-RETRY allows only after a failure to run, or a new round (R-REREVIEW). Collection evaluates each entry's last
+allocated attempt, and only when every earlier attempt of that entry is a diagnosed failed-to-run terminal. On B:
+`record_attempt` writes result, read evidence and receipt with exclusive create and seals `terminal.json` with their
+digests (`bin/review_round_v2.py:378-397`, `bin/review_round.py:2308-2317`); `collect` evaluates the last sealed
+allocation, re-checks those digests and refuses a history whose earlier attempt is not FAILED_TO_RUN
+(`bin/review_round_v2.py:365-375`, `:507-518`). On A: `collect_v2` evaluates the attempt the round record's `attempt`
+field names (`lib/collect_v2.py:1325-1339`) and reads the current result file (`:1415-1421`); the seal and the
+earlier-attempt check are open (`authoring/shared-dev-log.md` DL-44, case C66).
 Duplicate JSON members are rejected at the original-text boundary before extraction or normalization can discard evidence
 (A's wrapper schema path and bare `json.loads` file path retain the previously recorded gap; A's raw-reply admission rejects duplicates. B rejects duplicates at the original-text boundary in its review wrapper/result paths, including explicit v2; see C14/C30).
 
@@ -383,25 +428,29 @@ selection and the controls. An input a host produces only after that digest, bec
 digest, is recorded with the round, and before a retry, an adoption or a collection the host re-derives it from the
 installed files and compares; a host may instead hash the installed source files into the digest. Retry, adoption and
 collection read the digest-covered members from the bound bytes, never from a mutable copy. A changed member is a
-changed basis: R-RETRY refuses it before any allocation or write, collection does not agree on it, and the leader
-prepares a new round (R-REREVIEW). A host change that alters the bound basis makes rounds prepared before it
-non-retryable; prepare a new round.
+changed basis: R-RETRY refuses a changed condition, selection or control before an attempt is allocated, collection does
+not agree on any changed member, and the leader prepares a new round (R-REREVIEW). A host change that alters the bound
+basis makes rounds prepared before it non-retryable; prepare a new round.
 
 - On A: `review_scratch.py prepare --v2` writes the `Review metadata:` line of `delivery-r<N>.md`, whose sha256 is the
-  content digest. It carries `review_kind`, `review_web_policy` (the rendered web clause), `selected_entries` and
-  `roster_config_digest` (`_v2_config_digest`: every round-record entry field except `attempt`, plus `gate_files`,
-  `hook_log` and `results_dir`); the brief and residual are inside the hashed packet. The clause manifests
-  (`prompt_manifests`, `prompt_spec_dir`), the producer projection digest and the contract digest are recorded in
-  `.roster-r<N>.json`. `collect_v2._bound_metadata` re-hashes the delivery record and compares the record with the bound
-  line in `collect`, `retry` and adoption; `retry` and adoption re-derive the manifests, projection and contract digests
-  and compare them with the recorded values. A later edit of the project roster file does not affect a prepared round.
-  The round date is not yet bound (DL-27).
+  content digest (`lib/review_scratch.py:5791-5816`). It carries `review_kind`, `review_web_policy` (the rendered no-web
+  sentence; A binds no `review_web_authorized` yet, DL-39), `selected_entries` and `roster_config_digest`
+  (`_v2_config_digest`, `:5231`: every round-record entry field except `attempt`, plus `gate_files`, `hook_log` and
+  `results_dir`); the brief and residual are inside the hashed packet. `collect_v2._bound_metadata`
+  (`lib/collect_v2.py:410-480`) re-hashes the delivery record and compares the record with the bound line in `collect`,
+  `retry` and adoption. A later edit of the project roster file does not affect a prepared round. Open (DL-41): the
+  clause manifests (`prompt_manifests`, `prompt_spec_dir`), the producer projection digest and the contract digest are
+  recorded only in the mutable `.roster-r<N>.json` and compared with re-derived values there (`lib/collect_v2.py:1589`,
+  `:2337-2339`, `:2378`); `collect` re-derives only the contract digest (`:1623`), the manifests and projection only at
+  adoption (`:1842`, `:1908`) and retry (`:2337`, `:2378`). The round date is not yet bound (open, DL-46).
 - On B: `bin/review_round_v2.py` `create_basis` seals `basis-v2.json` (the request with `review_kind`,
   `review_web_authorized` and `prior_residual`; the resolved roster; adapters with launch controls and receipt digests;
   the round snapshot; packet files; `_toolkit`, the sha256 of every file under `bin/`, `contracts/`, `prompts/` and the
-  skill) with a `.sha256` sidecar and `content_digest` over the rest. `_load_basis`, run by allocate, record and collect,
-  re-checks the seal and digest, runs `verify_round`, and refuses a changed toolkit, a re-resolved roster that differs
-  from the bound one, or changed adapter receipts. The round date is not yet bound (DL-27).
+  skill except `__pycache__` directories, `.pyc` / `.pyo` files and `bin/_logs`, `bin/_debug`) with a `.sha256` sidecar
+  and `content_digest` over the rest (`bin/review_round_v2.py:61-71`, `:127-176`). `_load_basis` (`:107-124`), run by
+  allocate, record and collect, re-checks the seal and digest, runs `verify_round`, and refuses a changed toolkit, a
+  re-resolved roster that differs from the bound one, or changed adapter receipts. The round date is not yet bound (open,
+  DL-46).
 
 <a id="R-VERIFY"></a>
 The leader checks each claim against the current reviewed bytes, required behavior, concrete trigger and impact before

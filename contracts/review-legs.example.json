@@ -12,7 +12,7 @@
         "effort": "xhigh"
       },
       "timeout_s": 900,
-      "note": "Recommended Claude model/effort: R-ROSTER. Explicit model overrides and null retain host selection semantics; agent applies on A only. B's runnable default timeout is 1200 s."
+      "note": "Recommended Claude model/effort: R-ROSTER. Explicit model overrides and null retain host selection semantics; agent names the native reviewer preset on A (required) and is passed as --agent on B when set. B's runnable default timeout is 1200 s."
     },
     {
       "name": "codex",
