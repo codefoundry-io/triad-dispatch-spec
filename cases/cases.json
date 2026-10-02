@@ -151,11 +151,11 @@
       "surface": "verdict-wire",
       "rule": "R-AGREE",
       "summary": "Agreement and release",
-      "input": "legs returning a verdict with no blocking finding, a non-affirmative verdict carrying only Minor findings on unchanged bytes, a blocking finding, an unresolved open question, and no result",
-      "expected": "A blocking finding or an unresolved open question from any leg blocks; a Minor-only non-affirmative verdict on the unchanged bytes counts as agreement and is recorded as a verdict-selection deviation; a leg that did not run is not agreement; probe-refuted / owner-decided releases are recorded",
+      "input": "a nonempty selected roster with every enabled entry, including informational entries; explicit SAFE TO MERGE results, a non-affirmative verdict carrying only Minor findings, a blocking finding, an unresolved open question, and a missing, invalid or failed result",
+      "expected": "PASS only when every selected leg explicitly returns SAFE TO MERGE on the same current bound basis, with no blocking finding or open_questions and with intact binding and transport. A Minor-only non-affirmative verdict remains schema-valid but is not agreement. Missing, invalid, failed or negative output blocks PASS; probe-refuted findings and owner decisions remain recorded evidence, not inferred approvals. No minimum leg or family count applies.",
       "tests": {
-        "A": "todo",
-        "B": "Implemented in the local B P3 candidate based on 3d62b7c. Canonical v2 verdict validation and all-entry agreement, including Minor-only negative and blockers/questions. Regression sources: tests/test_validate_v2.py, tests/test_v2_producer_adapter.py, tests/test_v2_rounds.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred."
+        "A": "New all-selected explicit-approval behavior: NOT RUN.",
+        "B": "New all-selected explicit-approval behavior: NOT RUN. Historical old-contract evidence: local B P3 candidate based on 3d62b7c validated canonical v2 verdicts and all-entry agreement including Minor-only negative, blockers and questions in tests/test_validate_v2.py, tests/test_v2_producer_adapter.py and tests/test_v2_rounds.py. That evidence does not establish the revised collection rule."
       }
     },
     {
@@ -235,11 +235,11 @@
       "surface": "review-lifecycle",
       "rule": "R-REREVIEW",
       "summary": "Reviewed bytes or review conditions changed after a round",
-      "input": "a fix wave applied after a round",
-      "expected": "New basis digest; every participating leg reviews the full agreed scope; prior findings delivered as fenced data; no approval carried forward; no focused re-confirm path exists",
+      "input": "a fix wave or changed review condition after a round; the leader supplies a condensed current residual with excerpts needed for the next judgment",
+      "expected": "Create a new bound basis and have every selected leg review the current full scope again. Render the leader's current residual once as fenced data, with required prior excerpts, counterevidence and verification results materialized now in the host's existing bound inputs: A's brief/evidence surfaces; B's prior_residual or EVIDENCE.md/source members. Old paths are provenance, not the only evidence; no transcript or prior residual is appended automatically, no earlier approval carries forward, and normal owned temporary-root cleanup may proceed.",
       "tests": {
-        "A": "todo (SKILL.md rule 5(b) deletion at two sites)",
-        "B": "Implemented in the local B P3 candidate based on 3d62b7c. Changed source/conditions require a new full review; prior residual inputs are fenced and bound. Runtime logs do not masquerade as implementation changes; policy bytes remain bound. Regression sources: tests/test_review_conditions.py, tests/test_v2_review_prompts.py, tests/test_v2_rounds.py, tests/test_v2_toolkit_inputs.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred."
+        "A": "New current-residual and no-automatic-append behavior: NOT RUN. Historical old-contract TODO: SKILL.md rule 5(b) deletion at two sites.",
+        "B": "New current-residual and no-automatic-append behavior: NOT RUN. Historical old-contract evidence: local B P3 candidate based on 3d62b7c required changed-source/condition full review and fenced, bound prior residual inputs; tests/test_review_conditions.py, tests/test_v2_review_prompts.py, tests/test_v2_rounds.py, tests/test_v2_toolkit_inputs.py. This does not establish the revised current-input contract."
       }
     },
     {
@@ -296,7 +296,7 @@
       "rule": "R-INVEST",
       "summary": "Selected investigation preserved",
       "input": "one chosen leg with a custom prompt, an authorized extra read root and web enabled",
-      "expected": "The chosen model/effort/perspective and the extra root/web reach the actual invocation; the result is free-form or custom-schema; no review verdict is demanded and no roster accounting occurs",
+      "expected": "The chosen model/effort/perspective and the extra root/web reach the actual invocation; the caller may customize the investigation prompt and free-form or custom-schema result; no review verdict is demanded and no roster accounting occurs",
       "tests": {
         "A": "tests/*/dispatch/* (existing --web/--cwd dispatch cases; ids to map)",
         "B": "P4 8f12bd5: tests/test_investigation_completion.py covers authorized raw extra roots, native argv, invalid-root and formal-expansion refusal, Gemini comma-path refusal and custom-schema preservation. Existing raw-route tests remain; both explicit Google web triggers are implemented under C29 without a mandatory investigation envelope."
@@ -392,12 +392,12 @@
       "id": "C33",
       "surface": "roster",
       "rule": "R-ROSTER, R-AGREE, R-BIND, R-RETRY, R-REREVIEW",
-      "summary": "One Codex and three named Google legs with shared-task emphases and owner decision",
-      "input": "Exactly four enabled entries: codex, google-contracts, google-failures and google-state; all review the full common scope, with a frozen leg-name-to-emphasis table in the shared task. Compare same-family result/receipt swaps, missing/invalid/blocking output, an enabled Google entry skipped before dispatch while its same-family siblings complete, failed-to-run unchanged-basis retry and a changed task table.",
-      "expected": "Four independent named attempts and exclusive evidence paths cover two families. Sibling result/receipt swaps cannot satisfy binding. Clean complete two-family output requires a recorded owner decision (B: OWNER_DECISION_REQUIRED), never inferred three-family agreement. Missing/invalid and blocking results remain distinguishable and cannot be silently counted as agreement. A skipped enabled entry remains named and missing even when a same-family sibling completes; family coverage cannot erase it (B: INCOMPLETE). Preparation refusal does not produce a completed round. The task mapping reaches each bound leg; emphasis coverage is a semantic check, not a new schema field. Retry only the diagnosed failed-to-run entry with unchanged conditions; changed task/roster/controls require every participating entry to review again. Preserve the machine result separately from any subsequent owner decision.",
+      "summary": "All selected named legs must approve, regardless of family count",
+      "input": "A configurable nonempty selected roster, for example codex, google-contracts, google-failures and google-state, including any informational entry; all receive the same phase goal, requirements, environment and full scope. Compare same-family result/receipt swaps, missing/invalid/negative/blocking output, an enabled entry skipped before dispatch, failed-to-run unchanged-basis retry and a changed phase goal.",
+      "expected": "Every selected entry gets an independent bound attempt and exclusive evidence path. PASS requires each one to explicitly return SAFE TO MERGE with no blocking finding or open_questions; a two-family or one-family roster has no special owner-decision or family-minimum gate. Sibling result/receipt swaps fail binding. Missing, invalid, failed, skipped or negative results cannot be counted as agreement, even if a same-family sibling approves. Preparation refusal cannot produce PASS. The common phase goal, requirements and environment reach every bound leg. Retry only a diagnosed failed-to-run entry on unchanged conditions; changed phase goal, requirements, environment, roster or controls require all selected entries to review the current full scope. Preserve machine outcome separately from any later owner decision.",
       "tests": {
-        "A": "IMPLEMENTED on host A (parity/host-a-v2): collect_v2 counts every enabled SKIPPED entry as `missing`, named with its skip reason, and the round is INCOMPLETE even when same-family siblings cover the family; sibling/attempt swaps and changed evidence are refused by the six-field binding + custody (`verdict_v2`, `collect_v2`); retry only for the diagnosed failed-to-run entry with unchanged conditions (`review_scratch retry`). Tests: tests/unit/skills/t15-collect-v2.sh axis 62 (skipped enabled entry → INCOMPLETE 5, family coverage cannot erase it), axes 66-71 (binding, retry refusals); live: gate-1 rounds r12–r23 on the six-entry / three-family profile (same-basis retries of failed-to-run entries in r18 and r20), ledger docs/reviews/2026-09-21-host-a-v2-gate1.md. Compatibility with the older gemini CLI exists (not a live leg on A).",
-        "B": "NOT RUN for this exact live profile. v0.2.556 source supports named entries, exclusive paths and two-family OWNER_DECISION_REQUIRED; generic-N/renamed-Google tests are supporting evidence only. Operating example and checks: decisions/codex-google-four-leg-operating-spec.md."
+        "A": "New all-selected explicit-approval behavior: NOT RUN. Historical old-contract evidence: host A parity/host-a-v2 collect_v2 counted enabled SKIPPED entries as missing and refused sibling/attempt swaps; tests/unit/skills/t15-collect-v2.sh axes 62 and 66-71, gate-1 rounds r12–r23 in docs/reviews/2026-09-21-host-a-v2-gate1.md. This does not prove revised PASS behavior.",
+        "B": "New all-selected explicit-approval behavior: NOT RUN. Historical old-contract evidence: v0.2.556 source supported named entries and exclusive paths but required OWNER_DECISION_REQUIRED for two-family output; generic-N/renamed-Google tests and decisions/codex-google-four-leg-operating-spec.md are supporting old-contract evidence only."
       }
     },
     {
@@ -459,6 +459,63 @@
         "A": "tests/unit/wrappers/t1-classify-timeout.sh (the codex sentence -> server-capacity on codex, unknown on gemini and on claude; the agy sentence in a failed codex run -> unknown; the plain sentence -> unknown) + tests/unit/wrappers/t14-agy-classify.sh (the agy sentence -> server-capacity on the agy path; the codex sentence on the agy path -> unknown) — triad parity/host-a-v2 44da3d1",
         "B": "NOT RUN — B maintainer to name its test"
       }
+    },
+    {
+      "id": "C60",
+      "surface": "review-lifecycle",
+      "rule": "R-PROMPT, R-REREVIEW",
+      "summary": "Review stage selects the shared plan or code purpose",
+      "input": "formal-plan, pre-merge, implementation-review, an omitted stage, null and an unknown stage",
+      "expected": "formal-plan uses the short plan purpose; pre-merge and implementation-review use the code purpose. The host applies pre-merge on omission. Null and unknown stages are refused before dispatch; the schema default annotates the omission rule but does not fill input data.",
+      "tests": {
+        "A": "Host behavior: NOT RUN. Shared schema boundary: tests/test_review_kind.py.",
+        "B": "Host behavior: NOT RUN. Shared schema boundary: tests/test_review_kind.py."
+      }
+    },
+    {
+      "id": "C61",
+      "surface": "prompts",
+      "rule": "R-CONTEXT, R-PROMPT",
+      "summary": "Leader context prose is transported exactly as decoded data",
+      "input": "TASK or brief names requirements, scope, supported versions, dependency and observed validation versions, unknowns and sources; a prose value contains escaped JSON characters",
+      "expected": "The bound prompt carries the exact decoded context value and fixed clauses. Escaping differences do not change the value. The host checks only fields already required by its input contract and their binding; prior_residual may be empty, and there is no generic nonempty-TASK guarantee. The host does not claim to validate the truth, completeness, semantic deduplication or actual reviewer use of leader-authored prose.",
+      "tests": {"A": "NOT RUN", "B": "NOT RUN"}
+    },
+    {
+      "id": "C62",
+      "surface": "prompts",
+      "rule": "R-REREVIEW, R-CONTEXT",
+      "summary": "Current residual appears once on a changed-basis review",
+      "input": "the leader supplies one current prior_residual string and the prior round had its own transcript and residual",
+      "expected": "Render the current bound prior_residual exactly once as data for every selected leg. Do not append the earlier transcript or residual automatically; changed basis triggers a full current-scope review.",
+      "tests": {"A": "NOT RUN", "B": "NOT RUN"}
+    },
+    {
+      "id": "C63",
+      "surface": "cleanup",
+      "rule": "R-CONTEXT, R-REREVIEW, R-CLEANUP",
+      "summary": "Prior evidence needed now survives normal temporary-root cleanup",
+      "input": "a current residual cites an older temporary review root whose owned cleanup is due, with excerpts needed for the new judgment",
+      "expected": "Put required excerpts, counterevidence and verification results into the current host-bound inputs before dispatch: A's existing brief/evidence surfaces; B's prior_residual or EVIDENCE.md/source members. Old paths are provenance alone; normal provenance-checked cleanup can remove the prior owned temporary root after its existing export checks. Preserve foreign, provider-owned and in-progress resources.",
+      "tests": {"A": "NOT RUN", "B": "NOT RUN"}
+    },
+    {
+      "id": "C64",
+      "surface": "review-lifecycle",
+      "rule": "R-STOP, R-AGREE",
+      "summary": "Stalled review exits without PASS",
+      "input": "all selected legs have unresolved negative verdicts and repetition yields no new counterexample, verifiable fix or material unknown resolved; or a quota/limit prevents completion",
+      "expected": "Record a nonapproval outcome with the unresolved evidence and reason for stopping. Semantic progress and exhausted avenues are leader judgments, not an automatic string classifier; repetition cannot turn negative, missing or failed results into PASS.",
+      "tests": {"A": "NOT RUN", "B": "NOT RUN"}
+    },
+    {
+      "id": "C65",
+      "surface": "engine-transport",
+      "rule": "R-CLI-VERSION",
+      "summary": "Observed CLI patch version is evidence, not an equality pin",
+      "input": "a CLI version newer than the previously observed patch with required invocation, authentication, isolation and output capabilities present; a version missing one required capability",
+      "expected": "Do not refuse solely because a new version differs from the old observed patch. Preserve each required capability check and any justified minimum or known-defect exclusion; refuse or stop when those conditions fail. Record the version actually observed without inferring runtime behavior from its number alone.",
+      "tests": {"A": "NOT RUN", "B": "NOT RUN"}
     }
   ]
 }

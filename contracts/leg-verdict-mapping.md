@@ -22,11 +22,11 @@ NOT-SAFE, 3 severities, `affected_surfaces_inspected`, `open_questions`; any ope
 | open_questions | — | required list, may be empty; any entry ⇒ non-affirmative | not constructible | unrepresentable (A rejects a finding-less non-SAFE) | required list; any unresolved entry blocks (R-AGREE) |
 | binding | review_id, family, content_digest | same | — | — | + `leg_name`, `attempt` (≥ 1, per leg), `route` (agy \| gemini, null for one-route families), `schema_version: 2` |
 
-## Release properties that must survive (all three legs)
+## Schema properties retained from the 2026-09-19 mapping
 
-1. A's Minor-only release on UNCHANGED bytes (owner Q-S / Q1): a non-affirmative verdict carrying only Minor findings and
-   no open question is VALID and recorded as a verdict-selection deviation — never a schema rejection (B's validator must
-   relax here).
+1. A's earlier Minor-only release rule on UNCHANGED bytes (owner Q-S / Q1) is historical, not the current agreement rule.
+   A non-affirmative verdict carrying only Minor findings and no open question remains schema-valid and is recorded as
+   a verdict-selection deviation, but it never produces `AGREED` under [R-AGREE](../reference/review-rules.md#R-AGREE).
 2. A's verdict-selection discipline survives as PROMPT guidance, not as a schema invariant.
 3. B's open-question rule survives: any unresolved open question makes the result non-affirmative; an uncertainty-only
    negative needs no invented finding. A's "non-SAFE requires a finding" relaxes to "a finding OR an open question".
@@ -35,7 +35,9 @@ NOT-SAFE, 3 severities, `affected_surfaces_inspected`, `open_questions`; any ope
 
 (i) SAFE TO MERGE ⇒ no Critical / must-fix finding AND `open_questions` empty. (ii) non-affirmative ⇒ at least one finding
 OR one open question. (iii) a non-affirmative object whose findings are all non-blocking and whose `open_questions` is
-empty is VALID (property 1). Unknown fields and duplicate members are rejected at the original-text boundary on both hosts.
+empty is VALID (property 1), but is not agreement. The collector requires every selected leg to explicitly return
+`SAFE TO MERGE` and applies the remaining blocker and integrity checks in R-AGREE. Unknown fields and duplicate members
+are rejected at the original-text boundary on both hosts.
 Legacy results are never converted into fabricated evidence, coverage or an empty uncertainty list — a missing v2 field
 stays absent/unknown, and a converted result is not admissible under v2 without a new review.
 

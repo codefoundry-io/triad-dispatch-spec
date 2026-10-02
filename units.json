@@ -1,6 +1,6 @@
 {
   "schema": "triad-units.v1-draft",
-  "note": "surface -> common shipped name -> contract -> preserved host exceptions -> host paths. A_source = ~/triad SoT path; A_shipped = flattened export path in triad-dispatch. Initial B audit at 520caa9 (0.2.554); completed/open source mapping at B 51f8bfe: decisions/host-b-finding-closure.md; original diagnostic basis: decisions/host-b-preimplementation-audit.md. Case ids live in cases/cases.json surface. Parity scope: reference/review-rules.md#R-PARITY. Current B P3 source mapping: published reviewed commit add5805d8dec70f5e133164c49bc0fe3bff75095; formal admission and clean archive verification are recorded separately from adoption and installation. See decisions/host-b-p3-verification.md.",
+  "note": "surface -> common shipped name -> contract -> preserved host exceptions -> host paths. A_source = ~/triad SoT path; A_shipped = flattened export path in triad-dispatch. Initial B audit at 520caa9 (0.2.554); completed/open source mapping at B 51f8bfe: decisions/host-b-finding-closure.md; original diagnostic basis: decisions/host-b-preimplementation-audit.md. Case ids live in cases/cases.json surface. Parity scope: reference/review-rules.md#R-PARITY. Current B P3 source mapping: published reviewed commit add5805d8dec70f5e133164c49bc0fe3bff75095; formal admission and clean archive verification are recorded separately from adoption and installation. See decisions/host-b-p3-verification.md. 2026-10-02 strategy amendment: current A source was not inspected by owner direction; A paths remain historical pointers. New behavior/adoption is NOT RUN on both hosts; see decisions/2026-10-02-review-strategy.md.",
   "units": {
     "engine-transport": {
       "common": "bin/_common.py",
@@ -45,7 +45,7 @@
     "review-lifecycle": {
       "common": "bin/review_round.py",
       "contract": "reference/process.md",
-      "exceptions": "A keeps open/touch/close and sibling-resolved helpers moving as one unit; B keeps fingerprint-worktree/render-worktree, guarded-worktree and prepared-directory modes; destructive behavior defined by fences, not a forced rename; no generic `legs` command",
+      "exceptions": "A keeps open/touch/close and sibling-resolved helpers moving as one unit; B keeps fingerprint-worktree/render-worktree, guarded-worktree and prepared-directory modes; destructive behavior defined by fences, not a forced rename; no generic `legs` command; candidate collection requires explicit approval of all selected entries without family minimum; adoption/tests pending",
       "A_source": ".claude/skills/triad-cross-family-review/lib/review_scratch.py (open, touch, close, capture, verify, prepare) + lib/collect_v2.py (all-entry collection, outcome ladder, retry) + lib/prompts_v2.py (bound prompts) + agy_hook.py, read_audit_gate.sh, validate_verdict.py as siblings",
       "A_shipped": "skills/triad-cross-family-review/lib/{review_scratch,agy_hook,validate_verdict}.py, read_audit_gate.sh",
       "B": "bin/review_round.py (prepare, capture, verify, manifest, cleanup, render, render-worktree, fingerprint-worktree, select-google-route); bin/review_round_v2.py (v2 basis, immutable entry/attempt allocation, native/CLI/start-failure record, all-N collection, same-basis retry and changed-basis full re-review)"
@@ -60,8 +60,8 @@
     },
     "prompts": {
       "common": "prompts/*.md (vendored into skills/triad-cross-family-review/)",
-      "contract": "prompts/*.md",
-      "exceptions": "host skills keep native calling syntax, agent registration, manifests, install scripts/hooks, permissions",
+      "contract": "prompts/*.md; contracts/review-kind.schema.json; reference/review-rules.md#R-PROMPT; reference/review-rules.md#R-CONTEXT",
+      "exceptions": "host skills keep native calling syntax, agent registration, manifests, install scripts/hooks, permissions; candidate stage selection extends existing renderer, environment/residual stay leader prose; no new environment schema or residual engine",
       "A_source": ".claude/skills/triad-cross-family-review/lib/review_scratch.py (_render_codex_body, _render_agy_prompt, _render_claude_prompt, clause constants)",
       "A_shipped": "skills/triad-cross-family-review/lib/review_scratch.py (render_*)",
       "B": "bin/review_round.py legacy renderers; bin/review_prompts_v2.py and prompts/review-v2/ with source-manifest.json (published common/family payloads); skills/triad-cross-family-review/references/public-v2-review.md"
@@ -77,7 +77,7 @@
     "cleanup": {
       "common": "bin/review_round.py (destructive subcommand by fences)",
       "contract": "reference/review-rules.md#R-CLEANUP",
-      "exceptions": "A `close` and B `cleanup` keep distinct names",
+      "exceptions": "A `close` and B `cleanup` keep distinct names; preserve host export/retention exceptions in decisions/claude-host-v2-implementation-prd.md#PRD-RETENTION for new brief/residual/evidence artifacts too",
       "A_source": ".claude/skills/triad-cross-family-review/lib/review_scratch.py (_prune_stale, cmd_close)",
       "A_shipped": "skills/triad-cross-family-review/lib/review_scratch.py",
       "B": "bin/review_round.py cleanup sweep"

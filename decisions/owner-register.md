@@ -1,5 +1,47 @@
 # Owner decisions — rulings and their effect (public, site-neutral)
 
+
+<a id="D-REVIEW-STRATEGY-20261002"></a>
+## Review strategy — owner direction, 2026-10-02
+
+Verbatim excerpts from the current Codex conversation (the original Korean is preserved):
+
+> 내 의견을 주자면 leg의 만장일치가 통과 기준이지 leg가 몇개인지 같은 모델 계열인지는 안 중요한 것 같아. 구독 요금이나 한도에 따라서 매번 조절 가능한게 맞는 것 같아.
+
+> 프롬프트에 대한 지침은 니가 테스트할수 없어. 너는 이 직전의  결정과 지침 컨텍스트에 영향을 받고 니가 스킬이나 프롬프트를 재현하려면 ㄹresy eye에서 스킬을 테스트하거나 해야하는데 그건 triad 스킬의 범위를 벗어난 거야.
+
+> 기존 리뷰 프롬프트에서 환경이나 라이브러리버전 이런 부분이 제대로 전달되지 않아서 리뷰어가 잘못판단하지 않을까 하는 우려가 있는데
+> 기계적으로 복사하듯이 넣어야 하는 부분과 메인에이전트가 그때그때 판단에 따라 넣어줘야하는 부분들이 이전처럼 잘 나뉘어져 있으면 좋겠어.
+
+> 이제 스펙을  PR을 업데이트하고 구현에 들어갈 검토를 시작하자 제시안 부터 줘 md로 줘 굳이 html로 만들지 말고
+
+> 이후에 큰 이견 없으면 스펙 업데이트하고 업데이트 전에 정리사항 다시 md로 공유해줘
+
+> 그리고 모델의 업데이트가 잦으니 모델명 설정을 쉽게하고 codex, agy, claude 버전을 너무 엄격하게 보지마
+> 생성 파일에 대한 클린업을 다른 스펙 참고해서 제대로 관리하도록 우지 할 것
+
+> claude 쪽 코드는 보지마 아직 스펙적용안했어
+
+> Cli 로출하려먄 어쩔수 없이 모델을 정확히 적어야해. 그부분은 냅두고..json에 한군데맘 수정하게 설정으로 뽑으라고 이미되어있을건데
+
+Effects: [R-AGREE](../reference/review-rules.md#R-AGREE), R-ROSTER, R-PROMPT, R-CONTEXT, R-REREVIEW,
+R-VERIFY, R-SMELL, R-STOP, R-CLI-VERSION and R-CLEANUP. Historical Q-S/Q1 Minor-only negative release and
+D-4/Q-L minimum-family/count release requirements are superseded; Q-B/Q-H/Q-Q's no-blocker test remains necessary
+but is not sufficient without each selected leg's explicit approval. Historical outcomes are not rewritten.
+The 2026-09-20 per-change A-source inspection directive is suspended for this amendment: use shared specs and
+research documents, do not inspect A implementation code, and do not claim current A conformance.
+Same-commit shared-spec review remains possible and is separate from A code inspection.
+
+Leader implementation choices, not verbatim owner rulings: reuse existing prose TASK/brief and `prior_residual`, reuse
+legacy stage names, materialize needed prior evidence in existing current packet slots, retain wire tokens, and prepare
+a separate review-strategy draft PR with explicit overlap against model-policy PR #6. No new model settings framework,
+model default change or model-catalogue policy is authorized by this amendment. Exact IDs remain JSON data consumed by
+CLI/native dispatch. The MD change summary was shared before spec mutation after Astra/xhigh and Opus 5.5/xhigh
+scoped direction review closed two material objections. See [the evidence and adoption record](2026-10-02-review-strategy.md).
+This task authorizes the requested spec/PR work, not host implementation, merge, tags, installation or global settings.
+
+## Historical owner decisions
+
 2026-09-21 follow-up: owner requested “Claude 웹 수정하고 원격 spec에도 기입해” and clarified
 “리뷰시도 웹감증 허용했는데 직접적으료 요청할때만”. The owner then clarified “다른 leg 마찬가지야. 리뷰시 신규기슐은 web검색없으면 없는 Api기능이라고 리뷰한다” and
 “그렇게까지 프롬프트를 늘리지마 내가 직접 요청할께 신기술 판단은 리더도못해”. Apply the direct-request condition

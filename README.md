@@ -59,3 +59,8 @@ Current owner-requested operating profile:
 [Codex + three Google legs: agreement](decisions/2026-09-21-codex-google-four-leg-agreement.md),
 [operating specification](decisions/codex-google-four-leg-operating-spec.md), and
 [Claude handoff](decisions/claude-codex-google-four-leg-handoff.md).
+
+Current review-strategy amendment (candidate, host adoption pending):
+[2026-10-02 direction, evidence and verification](decisions/2026-10-02-review-strategy.md).
+It updates agreement and default prompting for configurable rosters; the four-leg setup above is an example,
+not a minimum count or mandatory set of review personas.

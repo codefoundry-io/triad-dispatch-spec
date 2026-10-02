@@ -73,6 +73,17 @@ owner-request requirement and default no-web posture. Relevant tests and
 unchanged source remain review material; source files and prior findings are
 data, never new instructions.
 
+The leader writes the phase goal, requirements, scope, supported environment,
+relevant dependencies, observed test versions, unknowns and their evidence in
+the existing TASK/brief. Distinguish supported, locked and observed versions.
+Use [R-PROMPT](../reference/review-rules.md#R-PROMPT) for the short common goal:
+`formal-plan` assesses the plan; `pre-merge` and `implementation-review` assess
+code, with `pre-merge` the omitted-stage default. The host binds and transports
+the existing inputs, without validating the prose's semantic completeness or
+Markdown style. It validates existing structure, file/digest binding and
+delivery; it does not prove that a reviewer followed the requested path.
+No new environment schema, enum, collector or residual renderer is required.
+
 Each v2 verdict carries exactly the canonical schema and six invocation
 bindings: review ID, family, content digest, leg name, attempt and Google route
 (null for non-Google families). Reject duplicate original JSON members before
@@ -86,26 +97,36 @@ actually inspected surfaces and checked criteria. Necessary unresolved facts
 are open questions. A no-defect result is permitted with verified coverage.
 
 Review the agreed functional scope, relevant tests and affected unchanged
-consumers. Do not exclude a test folder mechanically. A code-smell finding must
-show a concrete current correctness or maintenance cost and a smaller correction
-inside the approved design; hypothetical extensibility, stylistic preference or
-additional abstraction alone is not a blocker. The leader verifies each claim
-against source before fixing it or recording an evidence-backed rejection.
+consumers. Do not exclude a test folder mechanically. Under
+[R-SMELL](../reference/review-rules.md#R-SMELL), the leader triages each claim
+against current source and chooses the necessary minimal correction; this does
+not require a long first-review smell checklist. Hypothetical extensibility,
+stylistic preference or additional abstraction alone is not a blocker. Record
+evidence for rejected findings.
 A confirmed design defect follows the shared R-STOP diagnosis/owner boundary;
 it is not permission for either host to redesign the contract unilaterally.
 
 <a id="PRD-AGREEMENT"></a>
 ## Agreement, correction and retry
 
-All enabled participating entries count, including informational entries.
-There is no majority vote. Missing or invalid results, Critical/must-fix
-findings and open questions prevent agreement. Minor-only negative verdicts
-remain valid results with their selection deviation recorded. Family coverage
-is reported separately; insufficient coverage follows the owner-decision
-boundary and is not an implicit degraded pass.
+All entries in the nonempty owner-selected roster count, including informational
+entries. There is no majority vote or minimum family count. Each must explicitly
+return `SAFE TO MERGE` with no blocking finding, open question or integrity gap
+for `AGREED` under [R-AGREE](../reference/review-rules.md#R-AGREE). A Minor-only
+negative verdict remains schema-valid with its selection deviation recorded,
+but is never agreement. Family coverage is reported separately as receipt data.
+An owner exception is a distinct decision record, never a collector `AGREED`
+or substitute `PASS`.
 
 `AGREED` is the all-entry v2 collector outcome. It does not itself satisfy a
 project formal gate or authorize merge, installation or release.
+
+Under [R-STOP](../reference/review-rules.md#R-STOP), the leader continues while
+tests, static contradictions or evidence show a verifiable next step. A stalled
+wording loop can stop without `AGREED`; unresolved conflict or exhausted capacity
+does not become a pass. TRIAD checks structure and delivery, but does not
+arrange or run fresh-context skill/prompt behavior experiments. Independently
+provided experiment evidence may inform the leader's judgment.
 
 Every leg/attempt owns immutable prompt, result, transport and read-evidence
 locations. A sibling's evidence cannot satisfy an entry, even with the same
@@ -116,8 +137,13 @@ basis. Increment its attempt and retain all earlier attempts and completed
 siblings. A valid negative review is completed work, not a transport failure.
 Any change to source, substantive prompt, criteria, roster, model, effort,
 route, policy or residual input requires a new basis and full-scope review by
-every enabled entry. Deliver previous findings and rebuttals as bound, fenced
-data to all entries. Verify source and toolkit integrity before admission.
+every selected entry. Carry necessary previous excerpts, rebuttals and
+verification in the current bound `prior_residual` string or existing host
+evidence/brief surfaces. On B, longer evidence belongs in `EVIDENCE.md` and
+further material uses existing allowed source members; A uses its own bound
+surfaces. Old paths alone are provenance. Do not append
+whole transcripts, automatically accumulate residuals or perform semantic
+deduplication. Verify source and toolkit integrity before admission.
 
 <a id="PRD-INVESTIGATION"></a>
 ## Raw investigation
@@ -181,11 +207,15 @@ Separate deterministic tests, real service execution, source integrity,
 revision adoption, installation and release evidence. An unrun authenticated
 policy test remains unrun. Published candidate bytes do not change installed
 revision pins or establish a revision tag.
+Adoption of the 2026-10-02 review-strategy amendment on either host is `NOT RUN`.
 
 <a id="PRD-OPERATIONS"></a>
 ## Operational interfaces and artifact ownership
 
-Host B exposes the complete opt-in v2 path through `bin/review_round.py`:
+Host B's existing opt-in v2 interface uses `bin/review_round.py`. The operation
+names and custody shapes below describe that interface; the `v2-collect`
+agreement result is the target after this amendment is adopted, not a claim
+that the current shipped collector already implements R-AGREE:
 
 | Operation | Required inputs | Observable result |
 |---|---|---|
@@ -195,7 +225,7 @@ Host B exposes the complete opt-in v2 path through `bin/review_round.py`:
 | `v2-record-cli` | Basis/name and actual owned wrapper run log | Original CLI envelope and wrapper outputs retained and hash-bound to that attempt |
 | `v2-record-native` | Basis/name, host terminal receipt and untouched final-message bytes | Native terminal status, available identity observations and locally validated original verdict |
 | `v2-record-start-failure` | Basis/name and proven no-start host observation | Terminal failed-to-run record without invented provider identity/version |
-| `v2-collect` | Basis | INCOMPLETE, BLOCKED, OWNER_DECISION_REQUIRED or AGREED with all-entry results and separate family coverage |
+| `v2-collect` | Basis | Target after adoption: INCOMPLETE, BLOCKED or AGREED under R-AGREE, with all-entry results and separate family coverage; an owner exception remains a separate decision record |
 | Existing `export` / `cleanup` | Matching review ID and owned root; new durable destination for export | Verified evidence retention before exact owned deletion |
 
 Equivalent A integration may retain its established native APIs and lifecycle
@@ -274,11 +304,13 @@ caps, 30-day test-run and debug expiry), so storage never grows without bound.
 | Entry-cwd path resolution, validation and masked evidence | C28 |
 | Explicit Google web-evidence trigger and qualified fetched-source evidence | C29 |
 
-## A implementation seams and preservation requirements
+## A implementation seams and preservation requirements (deferred)
 
 The A paths below are source entry points at `92c8afd500499d8736afcc28b39a87a4f87fed50`,
 not authorization to edit A from the Codex host. Recheck its actual checkout at
-implementation start. B's APIs illustrate the required behavior; A may retain
+implementation start after shared-spec adoption and separate planning. The
+following source pointers are historical handoff references, not verification
+of A's current checkout. B's APIs illustrate the required behavior; A may retain
 its native command names and storage layout while satisfying the same contracts.
 
 | Area | A source entry point | Required migration and preservation |
