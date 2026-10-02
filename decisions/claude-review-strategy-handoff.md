@@ -12,9 +12,12 @@ record its commit/dirty state, and preserve intentional local work.
 
 ## Authority and boundaries
 
-The owner authorized Codex-host implementation, testing and code review first, then
+The owner initially authorized Codex-host implementation, testing and code review first, then
 necessary same-commit shared-spec review/CI and shared-spec main landing to guide A.
-That sequence does not authorize product merge, installation or release on either host.
+That initial sequence did not authorize product merge, installation or release on either host.
+The owner subsequently explicitly authorized B product merge, `v0.2.558` publication
+and local skill/plugin update; the results below record that separate authority.
+This grants no A deployment authority.
 A adoption, implementation planning, verification and installation remain later steps.
 Read [current-source coordination][sync] before adoption and record the shared main SHA;
 shared-spec publication and a host's `SPEC_REVISION`/digest adoption are separate claims.
@@ -123,10 +126,15 @@ leads to recheck locally; these stages prescribe dependencies and behavior, not 
 
 ## Codex-host evidence and publication boundary
 
-- B product source: `f6651121bf775a40f8743c10cd6c3f3590fef88c`; [implementation and verification report](https://github.com/codefoundry-io/triad-codex-dispatch/blob/f6651121bf775a40f8743c10cd6c3f3590fef88c/docs/reviews/2026-10-02-review-strategy-implementation.md).
-- B provider-free verification: macOS 26.6.2 arm64 / Python 3.12.13 / pytest 9.0.3: 1818 passed; Ubuntu 24.04.4 arm64 / Python 3.12.3 / pytest 9.0.3 as uid 1000: 1816 passed, 2 filesystem-specific skips. Structural source checks, validator and provider-free lifecycle passed.
-- B code review `triad-strategy-impl-20261002-r1`: all four selected legs explicitly approved the bound current source; integrity passed. Requested Opus 5.5/xhigh, Google Pro/high, Flash/high and Astra/high; hidden runtime settings remain unexposed.
-- The exact shared-spec review SHA, reviewer results, CI and merge evidence are recorded on [PR #8](https://github.com/codefoundry-io/triad-dispatch-spec/pull/8); this guide does not self-certify its own future commit or host adoption.
+- Historical B implementation source: `f6651121bf775a40f8743c10cd6c3f3590fef88c`; [implementation and verification report](https://github.com/codefoundry-io/triad-codex-dispatch/blob/f6651121bf775a40f8743c10cd6c3f3590fef88c/docs/reviews/2026-10-02-review-strategy-implementation.md).
+- Historical B provider-free verification: macOS 26.6.2 arm64 / Python 3.12.13 / pytest 9.0.3: 1818 passed; Ubuntu 24.04.4 arm64 / Python 3.12.3 / pytest 9.0.3 as uid 1000 in a Docker container: 1816 passed, 2 filesystem-specific skips. The Ubuntu result is a historical container observation, not native Ubuntu proof. Structural source checks, validator and provider-free lifecycle passed on that earlier basis.
+- Historical B code review `triad-strategy-impl-20261002-r1`: all four selected legs explicitly approved that bound source; integrity passed. Requested Opus 5.5/xhigh, Google Pro/high, Flash/high and Astra/high; hidden runtime settings remain unexposed.
+- Final B candidate `632f42633d3a92d6cb27168cd15c4d4debd8558c` received all four selected explicit approvals with integrity in R4; [public review and verification evidence](https://github.com/codefoundry-io/triad-codex-dispatch/pull/39#issuecomment-5954919488). The tested archive from that candidate has SHA-256 `fa04b7b7a7eddec1d3afd2f4318ee193a3494e21fa6ccb01213a061d18c38bfe`: macOS 1828 passed, 2 skipped; 49 distribution hashes verified.
+- [Product PR #39](https://github.com/codefoundry-io/triad-codex-dispatch/pull/39) merged at `7f75863d9d4c8fe82464d90ddfd9eace9d4740bb` on 2026-10-02 UTC (the completion update is dated 2026-10-03 KST). Its parents are baseline `0dbd6c2` and reviewed candidate `632f426`; merge and candidate have identical tree `6161ed5b`. [Release v0.2.558](https://github.com/codefoundry-io/triad-codex-dispatch/releases/tag/v0.2.558) is published.
+- B local `0.2.558` is installed and enabled; all 254 archive file/symlink entries match. Settings semantics were preserved and other plugins were unchanged; global configuration bytes changed, so byte preservation is not claimed. Installed provider-free lifecycle completed successfully: 14 commands, zero failures, exact owned temporary paths cleaned. A fresh ephemeral Codex session exposed the `0.2.558` cache in its skill catalog, read the namespaced skill and returned exact marker `TRIAD_02558_NAMESPACED_AVAILABLE`; [public completion receipt](https://github.com/codefoundry-io/triad-codex-dispatch/pull/39#issuecomment-5955231957). Existing Desktop-session live reload is not established by this fresh-session proof.
+- B's vendored shared payload remains `04245c7`. Shared main `19f0cf1` publishes authoring guidance and is not a new payload adoption. Exact vendor IDs and shipped defaults remain unchanged. See B's [optional Gemini CLI 3.8 Flash / inherited HIGH setup](https://github.com/codefoundry-io/triad-codex-dispatch/blob/632f42633d3a92d6cb27168cd15c4d4debd8558c/docs/installation.md#gemini-cli-38-high): native `gemini-3.8-flash` requires stable 0.61.0 or later compatible versions in that verified setup scope; AGY's slug is separate. This is B setup evidence, not a new shared model pin or A configuration requirement.
+- Native Ubuntu verification of the final B release is **NOT RUN by this macOS host** and is handed to the Ubuntu owner or native CI. Each OS owner records its own checks; this handoff introduces no shared Docker ban or additional release gate.
+- The original strategy/spec amendment's exact shared-spec review SHA, reviewer results, CI and merge evidence are recorded on [PR #8](https://github.com/codefoundry-io/triad-dispatch-spec/pull/8). Review/CI for this subsequent release-handoff-only amendment is recorded on its owning pull request; this guide does not pre-certify that amendment or host adoption.
 - A revised-strategy host tests/service checks: **NOT RUN**; no B result establishes A conformance.
 
 [sources]: https://github.com/codefoundry-io/triad-dispatch-spec/blob/04245c740afc9be36ad7702a134f71aec8ff0b7f/reference/README.md
