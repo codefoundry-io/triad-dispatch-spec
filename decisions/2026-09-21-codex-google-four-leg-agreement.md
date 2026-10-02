@@ -1,5 +1,16 @@
 # Codex + three Google legs: operating agreement
 
+> **Historical agreement; approval and per-leg personas superseded on 2026-10-02.**
+> The fewer-than-three-family approval condition, distinct review emphases and owner-final
+> machine-review approval below describe the earlier contract. Current
+> [R-AGREE](../reference/review-rules.md#R-AGREE),
+> [R-ROSTER](../reference/review-rules.md#R-ROSTER) and
+> [R-PROMPT](../reference/review-rules.md#R-PROMPT) require explicit approval from every selected leg,
+> independent of family count, with one shared purpose and no default per-leg personas.
+> Use the [current Claude implementation handoff](claude-review-strategy-handoff.md).
+> The topology and dated evidence remain historical context; human integration, merge, installation
+> and release authority stays separate from machine agreement.
+
 Status: owner-requested operating profile under the existing shared rules;
 Claude maintainer acknowledgement is pending. This is not a new revision tag,
 host adoption, a completed review round, or approval of a future result.

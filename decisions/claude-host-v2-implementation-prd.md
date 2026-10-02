@@ -303,6 +303,7 @@ caps, 30-day test-run and debug expiry), so storage never grows without bound.
 | Link-text evidence and frozen route/binary/version observations | C26, C27 |
 | Entry-cwd path resolution, validation and masked evidence | C28 |
 | Explicit Google web-evidence trigger and qualified fetched-source evidence | C29 |
+| Phase/purpose, context transport, current residual, materialized evidence, stalled nonapproval and CLI-version evidence | C60, C61, C62, C63, C64, C65 |
 
 ## A implementation seams and preservation requirements (deferred)
 
@@ -357,6 +358,11 @@ A keeps its own native interfaces and enforcement mechanisms.
 | Operational procedure and host receipt shapes | [skills/triad-cross-family-review/references/public-v2-review.md:1](https://github.com/codefoundry-io/triad-codex-dispatch/blob/add5805d8dec70f5e133164c49bc0fe3bff75095/skills/triad-cross-family-review/references/public-v2-review.md#L1) |
 
 ## Shared references
+
+The commit-pinned prompt and contract links below are pre-amendment provenance,
+not the current review-strategy payload. Resolve current rules and payloads through
+the [current strategy handoff](claude-review-strategy-handoff.md) and record the
+adopted shared main SHA as described below.
 
 - [Integration contract](https://github.com/codefoundry-io/triad-dispatch-spec/blob/aef3adee863fd90fdfab60ae2253717cf1b4d303/decisions/rev-2-implementation-spec.md)
 - [Canonical contracts](https://github.com/codefoundry-io/triad-dispatch-spec/tree/055204c83e57bf87eeac5b2422f2b17340f7c53b/contracts)

@@ -248,10 +248,10 @@
       "rule": "R-AGREE",
       "summary": "Blocking finding from an informational leg",
       "input": "an informational leg returning a verified Critical",
-      "expected": "Blocks the round until released by an R-AGREE release path; the leg's acceptance label grants no exemption",
+      "expected": "Blocks agreement on that basis. Only a later current-basis round in which every selected leg, including this informational entry, explicitly returns SAFE TO MERGE reaches AGREED. A leader refutation or owner exception is recorded separately and never converts the negative result into approval; the acceptance label grants no exemption.",
       "tests": {
         "A": "todo",
-        "B": "Implemented in the local B P3 candidate based on 3d62b7c. Every enabled entry counts regardless of acceptance label, with missing/invalid/blocking states and independent family coverage. Regression sources: tests/test_v2_rounds.py, tests/test_v2_round_cli.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred."
+        "B": "Historical pre-amendment evidence: implemented in the local B P3 candidate based on 3d62b7c. Every enabled entry counted regardless of acceptance label, with missing/invalid/blocking states and independent family coverage. Regression sources: tests/test_v2_rounds.py, tests/test_v2_round_cli.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md. Current all-selected/no-family-veto fixture evidence is recorded under C13/C33; no authenticated service conformance is inferred."
       }
     },
     {

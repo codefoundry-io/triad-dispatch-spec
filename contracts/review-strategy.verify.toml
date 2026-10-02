@@ -5,7 +5,7 @@
 contract = "contracts/review-kind.schema.json"
 contract_sha256 = "855807a26cda96102858da345f4888ee8658ee2ecff7584aecf9cf31ba61f724"
 status = "B provider-free PASS; A NOT RUN"
-result_channel = "decisions/owner-register.md and cases/cases.json, per host"
+result_channel = "cases/cases.json and decisions/claude-review-strategy-handoff.md, per host; authority in decisions/owner-register.md"
 
 [[check]]
 id = "STRATEGY-AGREEMENT"

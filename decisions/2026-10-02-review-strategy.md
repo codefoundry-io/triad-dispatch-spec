@@ -50,6 +50,7 @@ The authoritative rules are [review-rules.md](../reference/review-rules.md); thi
 |---|---|---|
 | R-AGREE admits Minor-only negative; family coverage can require an owner release | Every selected enabled entry explicitly approves; no family minimum; exception remains non-agreement | review-lifecycle, verdict-wire, roster / C13, C33 |
 | v2 prompt says pre-merge; legacy has stage vocabulary | One shared plan or code purpose, selected using the existing vocabulary and omission default | prompts, review-lifecycle / C60 |
+| Claude intro also requests `ultrathink` | Remove the extra in-context intensity instruction with the persona/isolation wording; one shared purpose and existing configured effort remain | prompts / C60 |
 | Existing TASK/brief and residual strings | Leader writes environment and current issues; host transports without new semantic machinery | prompts / C61, C62 |
 | Prior findings can point to earlier records | Materialize evidence needed now in existing currently bound surfaces | cleanup, review-lifecycle / C20, C63 |
 | Conflicts/repetition go to the owner | Continue verifiable progress; stop exhausted wording loops without approval | review-lifecycle / C64 |
@@ -62,6 +63,12 @@ B source `f6651121bf775a40f8743c10cd6c3f3590fef88c` now selects/binds phase and 
 reusing roster, binding, retry and cleanup paths. [Verification and A handoff](claude-review-strategy-handoff.md)
 record actual evidence; this shared-spec PR itself contains no product code. The owner excluded A implementation
 inspection. A entries in `units.json` remain historical pointers; current A behavior is not asserted.
+
+The `ultrathink` removal is a prompt change, not a claim of equivalent model behavior.
+[Official Claude Code documentation](https://code.claude.com/docs/en/model-config)
+(checked 2026-10-02) describes it as an extra in-context reasoning instruction.
+This amendment avoids a second prompt-level intensity request; the configured model
+and effort remain unchanged. No quality effect is inferred.
 
 ## Preservation, overlap and adoption
 
@@ -107,5 +114,8 @@ not its default annotation, applies omission defaulting. Shared validation never
 | Revision tag, host adoption, product merge/install/release | Separate later authority and checks |
 
 `contracts/review-strategy.verify.toml` records per-host evidence and the existing
-check briefs. No new semantic spec defect was demonstrated during B implementation;
-normative clauses, expected cases and canonical payload bytes remain the candidate's.
+check briefs. B implementation did not require a normative rule or payload change.
+The later shared-spec review found stale C21 release-path language and older A
+handoffs still presented as current. Their corrections align derived acceptance
+text and navigation with the already chosen R-AGREE/R-PROMPT rules; canonical
+payload bytes and model configuration remain unchanged.

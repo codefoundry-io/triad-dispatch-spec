@@ -27,7 +27,12 @@ Verbatim excerpts from the current Codex conversation (the original Korean is pr
 Effects: [R-AGREE](../reference/review-rules.md#R-AGREE), R-ROSTER, R-PROMPT, R-CONTEXT, R-REREVIEW,
 R-VERIFY, R-SMELL, R-STOP, R-CLI-VERSION and R-CLEANUP. Historical Q-S/Q1 Minor-only negative release and
 D-4/Q-L minimum-family/count release requirements are superseded; Q-B/Q-H/Q-Q's no-blocker test remains necessary
-but is not sufficient without each selected leg's explicit approval. Historical outcomes are not rewritten.
+but is not sufficient without each selected leg's explicit approval. D-FOUR-LEG-20260921's per-leg review
+emphases/personas, family-count veto and owner-final approval as a machine-agreement condition are also superseded.
+Current [R-PROMPT](../reference/review-rules.md#R-PROMPT) supplies one shared purpose;
+[R-ROSTER](../reference/review-rules.md#R-ROSTER) and R-AGREE require every selected leg's explicit approval
+independent of family coverage. Human integration, merge, installation and release authority remains separate; an owner
+exception cannot turn a non-agreed round into machine agreement. Historical outcomes are not rewritten.
 The 2026-09-20 per-change A-source inspection directive is suspended for this amendment: use shared specs and
 research documents, do not inspect A implementation code, and do not claim current A conformance.
 Same-commit shared-spec review remains possible and is separate from A code inspection.
@@ -101,6 +106,10 @@ Withdrawn at the owner's word: a usage-measurement item (2026-09-19) is not reco
 
 <a id="d-four-leg-20260921"></a>
 ## D-FOUR-LEG-20260921: one Codex and three Google reviewers
+
+> **Historical record.** Its conflicting agreement and per-leg emphasis elements are superseded by
+> [D-REVIEW-STRATEGY-20261002](#D-REVIEW-STRATEGY-20261002); use the
+> [current Claude implementation handoff](claude-review-strategy-handoff.md) for current work.
 
 The owner requested one Codex subagent and three independently invoked Google
 legs with different review emphases, with final review approval decided by the
