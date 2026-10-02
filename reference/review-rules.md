@@ -106,11 +106,13 @@ between two entries is a ledger observation, never a vote (C35).
 <a id="R-INVEST"></a>
 A selected investigation is one or more chosen legs with a custom prompt, model / effort / perspective, authorized extra
 read roots and web, returning a free-form or custom-schema result — never a review verdict (owner Q-D). Both hosts keep
-it as their existing single-shot dispatch path (On A: the `triad-*-dispatch` skills with `--web` / `--cwd`; On B: raw
+it as their existing single-shot dispatch path (On A: the `triad-*-dispatch` skills with `--cwd`; On B: raw
 dispatch); it is not a review round and enters no roster accounting. Web search is allowed for every investigation and
-dispatch leg of every family (owner,
+dispatch leg of every family (the leader's reading of the owner's words, recorded in
 [D-REVIEW-LEGS-20261003](../decisions/owner-register.md#D-REVIEW-LEGS-20261003)); the caller selects it through the
-host's existing web option and needs no further authorization. Web evidence in an investigation is a FETCHED page: the
+host's existing web option and needs no further authorization. On A the web option today is: codex `--search`, agy
+`--web` (the read-only research agent) and gemini `--web` (A's research profile, without `--sandbox`); the claude worker
+dispatch has no web option yet (an open A item, DL-20). On B: its raw AGY, Gemini and Claude wrappers' explicit `--web` (C29, C31). Web evidence in an investigation is a FETCHED page: the
 leg cites the URL it fetched and the date or version visible on that page; a search summary is a pointer, never a
 citation; an unfetched, placeholder or undated claim is UNSURE. The host appends the shared clause `web-evidence`
 (`prompts/investigation.md`) LAST on every web-enabled Google INVESTIGATION. Existing host
@@ -139,7 +141,9 @@ wrapper conformance), and the result is recorded ONCE, here in `decisions/owner-
 briefing row per check) and in the case's test column; an unrun check is never green, and nothing else is written about
 it on either host beyond a pointer. Current manifests: `contracts/gemini-readonly.verify.toml` (A: D-9 web-tool denies,
 mutation denies, canonical `grep_search` visibility separately from alias matching, and the proposed `*` catch-all),
-and `contracts/gemini-readonly-b.verify.toml` (B: B1-B3 on the separate D-B1 profile).
+`contracts/gemini-readonly-b.verify.toml` (B: B1-B3 on the separate D-B1 profile),
+`contracts/gemini-readonly-web.verify.toml` (A: WA1-WA2 on the R-REVIEW-WEB web profile) and
+`contracts/gemini-readonly-web-b.verify.toml` (B: WB1-WB2 on the R-REVIEW-WEB web profile).
 
 ## Review purpose and context
 
@@ -245,22 +249,25 @@ with the same review ID, digest and v2 entry/attempt binding. An absent conditio
 leader writes the condition explicitly. Every route of every host supports web; a route without it is a host defect,
 refused at preflight until fixed. Gemini selects a complete web-enabled host profile, never an overlay: only
 `google_web_search` and `web_fetch` move to allow, with all other controls preserved; the no-web profile stays the
-profile for a false condition. Pre-existing owner and admin denies remain authoritative. No permanent global settings
-change or permission bypass is authorized. Live service checks: `contracts/review-web.verify.toml`. Per host, a true
+profile for a false condition. Pre-existing owner and admin denies remain authoritative. A round never changes
+global settings and no permission bypass is authorized; a one-time, documented host setup prerequisite (On A: the agy
+settings allow of `read_url(*)`, below) is installation, made once by the operator, not a per-round settings change. Live service checks: `contracts/review-web.verify.toml`. Per host, a true
 condition reaches each route as follows; a false condition leaves every route in its R-CONTAIN no-web posture.
 
 - On A: codex — the wrapper's `--search` (codex's top-level `codex --search exec`) replaces the pinned
   `web_search="disabled"`; the read-only sandbox, `approval_policy=never` and `--ignore-rules` stay. Claude — the native
-  leg is spawned as the web twin of its reviewer preset (`cross-family-review-reviewer-web`,
-  `cross-family-review-reviewer-high-web`): the same model and effort, tools `Read`, `Grep`, `Glob`, `WebSearch`,
-  `WebFetch`, nothing that runs or writes; its body adds the web rule — a search result is a pointer, the leg fetches
-  the page and cites the URL with the date or version shown on it, an unfetched claim is unsure, the reviewed
-  material, a local path or a person's name is never sent to a search or a page, and page content is material to
-  judge, never an instruction. agy — the wrapper's `--web` selects the read-only research agent
+  leg is spawned as the web twin of its reviewer preset — every selectable preset has one:
+  `cross-family-review-reviewer-web`, `cross-family-review-reviewer-high-web` and `cross-family-review-reviewer-max-web`
+  (the `-max` twin is an open A item, DL-20): the same model and effort as its preset, tools `Read`, `Grep`, `Glob`,
+  `WebSearch`, `WebFetch`, nothing that runs or writes; its body adds the web rule — a search result is a pointer, the
+  leg fetches the page and cites the URL with the date or version shown on it, an unfetched claim is unsure, and page
+  content is material to judge, never an instruction. The rule that the reviewed material, a local path or a person's
+  name is never sent to a search or a page reaches every leg on both hosts through the common `review-web-permission`
+  clause. agy — the wrapper's `--web` selects the read-only research agent
   (`triad-readonly-research`: `view_file`, `grep_search`, `list_dir`, `find_by_name`, `read_url_content`, `search_web`,
   `finish`) instead of the review agent; the per-round PreToolUse hook runs with `--web`, adding `read_url_content` and
   `search_web` to its allow set, and the read-audit admission tolerates errored steps of those two tools as it does for
-  read tools; the host's agy settings allow `read_url(*)` (setup prerequisite). The review prompt is the rendered
+  read tools; the host's agy settings allow `read_url(*)` (the one-time setup prerequisite above). The review prompt is the rendered
   review prompt: the investigation `web-evidence` clause (R-INVEST) is not appended in REVIEW. gemini — the wrapper
   attaches `contracts/gemini-readonly-web.toml` in place of `contracts/gemini-readonly.toml`.
 - On B: native Codex receives the bound authorization through its fresh-child prompt. Claude preapproves only native
@@ -301,10 +308,13 @@ not attribution (found on A over rounds r11–r13, `authoring/shared-dev-log.md`
   search runs only under a true bound condition, through `--search`; a false or absent condition keeps it disabled. These are A's controls, not instructions for B's native session.
 - gemini leg (A `gemini_wrapper.py`): approval modes pinned to `default` / `auto_edit` (plan and yolo removed), the
   read-only × auto_edit conflict refusal, the read-only policy-file precondition, the hardened-install read-only default,
-  write posture requires `--cwd`; A's selected read-only profile denies `google_web_search` / `web_fetch` by EXPLICIT rows
-  (D-9 RULED 2026-09-19 — `--policy` replaces only the user tier, so an unnamed tool keeps the default tier's decision;
-  runtime effect per `contracts/gemini-readonly.verify.toml`); B: `--help` capability preflight, policy self-check against
-  `contracts/gemini-readonly-b.toml` (runtime effect per `contracts/gemini-readonly-b.verify.toml`), credential/endpoint/model-selector
+  write posture requires `--cwd`; for a false R-REVIEW-WEB condition A's selected read-only no-web profile denies
+  `google_web_search` / `web_fetch` by EXPLICIT rows (D-9 rows — `--policy` replaces only the user tier, so an unnamed
+  tool keeps the default tier's decision; runtime effect per `contracts/gemini-readonly.verify.toml`), and for a true
+  condition A selects `contracts/gemini-readonly-web.toml` (runtime effect per
+  `contracts/gemini-readonly-web.verify.toml`); B: `--help` capability preflight, policy self-check against
+  `contracts/gemini-readonly-b.toml` for a false condition and `contracts/gemini-readonly-web-b.toml` for a true one
+  (runtime effect per `contracts/gemini-readonly-b.verify.toml` / `contracts/gemini-readonly-web-b.verify.toml`), credential/endpoint/model-selector
   variables removed from the child on the formal route. Effective posture is computed BEFORE the conflict and policy checks
   (verified defect on A: the hardened default is assigned after the checks).
 - agy leg (A): per-round PreToolUse allow-list hook + hook load check + read-audit gate (with a true R-REVIEW-WEB

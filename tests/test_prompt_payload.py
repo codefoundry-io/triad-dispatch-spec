@@ -86,3 +86,8 @@ def test_host_specific_clauses_carry_the_a_only_marker():
     marked = {clause for name in LEG_FILES + LIBRARIES
               for clause, note, _ in sections(name) if clause != "order" and "A-only" in note}
     assert marked == {"claude-output-shape-notice", "claude-output-integrity", "google-a-hook-audit"}
+
+
+def test_review_web_permission_carries_the_privacy_rule():
+    text = clauses("common-clauses.md")["review-web-permission"]
+    assert "never send the reviewed material, a local path or a person's name" in text

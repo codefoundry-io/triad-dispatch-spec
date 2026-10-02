@@ -66,7 +66,9 @@ Historical 2026-09-21 operating profile (topology and setup context):
 Its family-count approval condition and per-leg review emphases are superseded by the current strategy.
 
 Current review-strategy amendment (candidate, host adoption pending):
-[2026-10-02 direction, evidence and verification](decisions/2026-10-02-review-strategy.md).
+[2026-10-02 direction, evidence and verification](decisions/2026-10-02-review-strategy.md); its review-web and
+codex-default preservation sentences are superseded by the
+[2026-10-03 review-legs decision](decisions/owner-register.md#D-REVIEW-LEGS-20261003).
 It updates agreement and default prompting for configurable rosters; the four-leg setup above is an example,
 not a minimum count or mandatory set of review personas. Use the
 [current Claude implementation handoff](decisions/claude-review-strategy-handoff.md) and normative

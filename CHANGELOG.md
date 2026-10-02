@@ -49,6 +49,16 @@
   `google-a-hook-audit` (leg-google) names the two web tools the hook allows for an authorized round.
 - units.json, contracts/README.md, C15/C32/C35 wording, the operating spec and two historical handoffs (marked
   superseded for review web) aligned. No schema change; no-web profile bytes unchanged; no revision tag.
+- Fix round 2: NEW verification manifests `contracts/gemini-readonly-web.verify.toml` (A, WA1-WA2) and
+  `contracts/gemini-readonly-web-b.verify.toml` (B, WB1-WB2) per the R-GOOGLE convention, listed there and pointed at
+  by WEB-A-2 / WEB-B-1; authoring map REQ-REVIEW lists them. R-CONTAIN's gemini guard names each host's false/true
+  profile; R-REVIEW-WEB names the `-max` claude web twin (open A item), states a one-time host setup prerequisite is not
+  a per-round settings change; R-INVEST names A's per-route web options and the claude worker gap, and marks the
+  every-leg reading as the leader's. Prompt payload (re-vendor obligation for both hosts, `units.json` prompts):
+  `review-web-permission` now carries the rule never to send reviewed material, a local path or a person's name to a
+  search or a page. Superseded sentences marked in the 2026-10-02 review strategy, README, the 2026-09-21 amendment and
+  B's review-web verification record; PRD rows aligned; DL-20 restated (A's two codex entries, one-leg end state as the
+  leader's reading, B at v0.2.558, `-max` web twin, claude worker web option); dev-log footer corrected.
 
 ## Review strategy candidate — 2026-10-02 (not tagged)
 

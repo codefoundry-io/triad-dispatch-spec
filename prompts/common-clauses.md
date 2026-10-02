@@ -66,7 +66,7 @@ Check evidence-backed code smells and simplicity after the change: identify unne
 ## review-web-permission (R-REVIEW-WEB)
 
 ```text
-Web verification is authorized for this round. Use native web tools when an external fact needs checking and cite checked sources. Other review restrictions remain.
+Web verification is authorized for this round. Use native web tools when an external fact needs checking and cite checked sources; never send the reviewed material, a local path or a person's name to a search or a page. Other review restrictions remain.
 ```
 
 ## review-no-web (R-REVIEW-WEB, R-CONTAIN)

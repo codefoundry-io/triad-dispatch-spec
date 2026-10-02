@@ -221,7 +221,10 @@ allowed for every investigation/dispatch leg), `contracts/review-legs.example.js
 C32 and C35, dev-log row DL-20. It supersedes the codex baseline of the 2026-09-25 directive, D-9's REVIEW
 prohibition and the 2026-09-21 direct-request condition, including the review-web instructions of
 [the review-web handoff](claude-review-web-handoff.md) and
-[the Codex + three Google handoff](claude-codex-google-four-leg-handoff.md); read-only containment, R-AUTH, R-NOCOST, the
+[the Codex + three Google handoff](claude-codex-google-four-leg-handoff.md), the web condition of
+[the 2026-09-21 amendment and handoff](2026-09-21-owner-requested-claude-web.md) and
+[B's review-web verification record](host-b-review-web-verification.md), and the review-web and codex-default
+preservation sentences of [the 2026-10-02 review strategy](2026-10-02-review-strategy.md); read-only containment, R-AUTH, R-NOCOST, the
 web-evidence rule (C29), exact IDs as roster data and the requested-versus-runtime identity rules are unchanged.
 Host adoption, publication and revision tags remain separate.
 

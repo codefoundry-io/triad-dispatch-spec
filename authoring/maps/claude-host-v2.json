@@ -34,7 +34,7 @@
       "prd_ref": "decisions/claude-host-v2-implementation-prd.md#PRD-REVIEW",
       "spec_refs": ["decisions/rev-2-implementation-spec.md#SPEC-VERDICT"],
       "rule_refs": ["reference/review-rules.md#R-BIND","reference/review-rules.md#R-CONTAIN","reference/review-rules.md#R-REVIEW-WEB","reference/review-rules.md#R-SMELL","reference/review-rules.md#R-PROMPT","reference/review-rules.md#R-CONTEXT"],
-      "contract_refs": ["contracts/leg-verdict.schema.json","contracts/gemini-readonly.toml","contracts/gemini-readonly-b.toml","contracts/review-kind.schema.json","contracts/review-strategy.verify.toml"],
+      "contract_refs": ["contracts/leg-verdict.schema.json","contracts/gemini-readonly.toml","contracts/gemini-readonly-b.toml","contracts/gemini-readonly-web.toml","contracts/gemini-readonly-web-b.toml","contracts/gemini-readonly-web.verify.toml","contracts/gemini-readonly-web-b.verify.toml","contracts/review-web.verify.toml","contracts/review-kind.schema.json","contracts/review-strategy.verify.toml"],
       "case_ids": ["C13","C14","C15","C30","C32","C60","C61","C62","C67"],
       "unit_ids": ["verdict-wire","prompts","gemini-policy","agy-containment","review-web-authorization","review-lifecycle"]
     },

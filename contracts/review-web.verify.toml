@@ -7,8 +7,9 @@ case = "C32"
 id = "WEB-B-1"
 host = "B"
 policy = "contracts/gemini-readonly-web-b.toml"
+manifest = "contracts/gemini-readonly-web-b.verify.toml"
 status = "NOT RUN"
-procedure = "On a configured Gemini Enterprise host, compare a false (no-web profile) and a true (web profile) review condition in preflight/dispatch; verify the complete selected policy and actual web search/fetch while mutation, shell and mode-transition controls remain denied. Preserve native admin denies."
+procedure = "On a configured Gemini Enterprise host, compare a false (no-web profile) and a true (web profile) review condition in preflight/dispatch; verify the complete selected policy through the manifest checks WB1-WB2 (actual web search/fetch while mutation, shell and mode-transition controls remain denied). Preserve native admin denies."
 
 [[check]]
 id = "WEB-A-1"
@@ -20,5 +21,6 @@ procedure = "After A adoption, verify every participating native/CLI route recei
 id = "WEB-A-2"
 host = "A"
 policy = "contracts/gemini-readonly-web.toml"
+manifest = "contracts/gemini-readonly-web.verify.toml"
 status = "NOT RUN"
-procedure = "Where gemini is in service, run host A's gemini review leg with a true condition (this profile) and a false condition (contracts/gemini-readonly.toml); verify google_web_search and web_fetch execute only under this profile while write, replace, shell and MCP tools stay denied. Preserve native admin denies."
+procedure = "Run the profile checks WA1-WA2 in the manifest, then run host A's gemini review leg with a true and a false condition and verify the wrapper attaches this profile only for the true condition. Preserve native admin denies."

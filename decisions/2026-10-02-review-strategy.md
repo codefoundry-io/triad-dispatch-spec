@@ -81,7 +81,9 @@ and effort remain unchanged. No quality effect is inferred.
 
 - Keep canonical verdict tokens and fields, duplicate rejection, identity/digest/attempt binding, full-scope re-review
   on changed conditions, failed-to-run-only same-basis retry, containment and directly requested web authorization.
+  (Superseded on 2026-10-03 for review web: R-REVIEW-WEB's standing authorization, D-REVIEW-LEGS-20261003.)
 - Keep native host topology, exact model IDs, JSON override precedence, explicit null semantics and existing defaults.
+  (Superseded on 2026-10-03 for the codex default: R-ROSTER's `gpt-6-astra` / `high`, D-REVIEW-LEGS-20261003.)
   Do not introduce new model configuration, fallback, catalogue probes or wholesale catalogue-policy changes.
 - Preserve host-specific [retention and export](claude-host-v2-implementation-prd.md#PRD-RETENTION): generated brief,
   residual and evidence files follow their existing ownership/lifecycle. No common replacement age limit, scheduled

@@ -1,5 +1,10 @@
 # Host B owner-requested review web verification
 
+> **Historical record; its review-web condition is superseded on 2026-10-03.** The direct-owner-request,
+> default-false review web it records is replaced by the owner's standing authorization in current
+> [R-REVIEW-WEB](../reference/review-rules.md#R-REVIEW-WEB)
+> ([D-REVIEW-LEGS-20261003](owner-register.md#D-REVIEW-LEGS-20261003)).
+
 Status: source implementation verified; host A acknowledgement and adoption pending.
 This records the implementation of the owner amendment at
 `7f527ef1777336b93ca626744aedcd0c7d90aff9`; it does not change its prompt or policy bytes.

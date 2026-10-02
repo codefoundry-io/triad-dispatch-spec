@@ -72,3 +72,36 @@ def test_c32_review_web_manifest_names_both_host_web_profiles_unrun():
     assert profiles == {"A": "contracts/gemini-readonly-web.toml", "B": "contracts/gemini-readonly-web-b.toml"}
     assert all(row["status"] == "NOT RUN" for row in manifest["check"])
     assert all((ROOT / p).is_file() for p in profiles.values())
+
+
+import pytest
+
+
+@pytest.mark.parametrize("manifest_path, policy_path", [
+    ("contracts/gemini-readonly-web.verify.toml", "contracts/gemini-readonly-web.toml"),
+    ("contracts/gemini-readonly-web-b.verify.toml", "contracts/gemini-readonly-web-b.toml"),
+])
+def test_c32_web_profile_manifest_binds_exact_profile_and_leaves_checks_unrun(manifest_path, policy_path):
+    manifest = tomllib.loads((ROOT / manifest_path).read_text())
+    assert manifest["policy"] == policy_path
+    assert manifest["policy_sha256"] == hashlib.sha256((ROOT / policy_path).read_bytes()).hexdigest()
+    assert manifest["status"] == "NOT RUN"
+    assert manifest["check"]
+    for row in manifest["check"]:
+        assert row["status"] == "NOT RUN" and row["case"] == "C32"
+        assert all(row.get(key) for key in ("id", "what", "brief", "expect", "on_fail"))
+
+
+def test_c32_review_web_checks_point_at_their_manifests():
+    manifest = tomllib.loads((ROOT / "contracts/review-web.verify.toml").read_text())
+    pointers = {row["id"]: row.get("manifest") for row in manifest["check"]}
+    assert pointers["WEB-A-2"] == "contracts/gemini-readonly-web.verify.toml"
+    assert pointers["WEB-B-1"] == "contracts/gemini-readonly-web-b.verify.toml"
+
+
+def test_r_google_lists_every_verify_manifest():
+    rules = (ROOT / "reference/review-rules.md").read_text()
+    start = rules.index("Current manifests:")
+    listed = rules[start:rules.index("\n\n", start)]
+    for path in sorted((ROOT / "contracts").glob("gemini-*.verify.toml")):
+        assert f"contracts/{path.name}" in listed
