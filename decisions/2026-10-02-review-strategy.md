@@ -1,6 +1,6 @@
 # Review strategy amendment — 2026-10-02
 
-Status: shared candidate; host implementation, adoption and formal admission are pending.
+Status: shared candidate with verified B source implementation; A implementation and host adoption remain separate. Exact-head shared review/CI evidence is recorded on PR #8.
 Authoring basis: fetched `main` at `6f57ea499a28725da0dbc83bb673378e620c8bfa`.
 Owner authority and verbatim decisions: [D-REVIEW-STRATEGY-20261002](owner-register.md#D-REVIEW-STRATEGY-20261002).
 The owner received a Markdown change summary before this amendment was applied.
@@ -56,10 +56,12 @@ The authoritative rules are [review-rules.md](../reference/review-rules.md); thi
 | Model IDs and efforts are existing roster data | Reuse that single configuration seam and exact CLI IDs; no default/model policy change | roster / existing C12, C22 |
 | Observed CLI versions and capability controls | Observed patch is evidence, not an equality pin; retain justified capability/version guards | engine-transport / C65 |
 
-B source checked for the proposal was `8bc6b07684058eccc0ed6e7f632077ef4a207b8c`: stage selection and all-selected
-approval require later changes to `bin/review_prompts_v2.py` / `bin/review_round_v2.py`; the existing roster, binding,
-retry and cleanup paths are reused. This amendment changes no B product source. The owner explicitly excluded A host
-implementation inspection. A entries in `units.json` are earlier source pointers; current A behavior is not asserted.
+B proposal baseline was `8bc6b07684058eccc0ed6e7f632077ef4a207b8c`. The owner's later
+[implementation authority](owner-register.md#D-REVIEW-STRATEGY-IMPLEMENTATION-20261002) authorized B to implement first.
+B source `f6651121bf775a40f8743c10cd6c3f3590fef88c` now selects/binds phase and requires all-selected approval,
+reusing roster, binding, retry and cleanup paths. [Verification and A handoff](claude-review-strategy-handoff.md)
+record actual evidence; this shared-spec PR itself contains no product code. The owner excluded A implementation
+inspection. A entries in `units.json` remain historical pointers; current A behavior is not asserted.
 
 ## Preservation, overlap and adoption
 
@@ -82,19 +84,28 @@ implementation inspection. A entries in `units.json` are earlier source pointers
 
 ## Verification and remaining limits
 
-Shared authoring and schema validation ran on macOS with Python 3.12.13 and pytest 9.0.3 using the repository's existing tools. The phase schema validates a scalar;
-its default is an annotation, so the host must implement omission defaulting. Tests do not execute a provider or prove
-model review quality. C13/C20/C33 preserve historical results while revised behavior and C60–C65 are NOT RUN on both hosts.
+B source `f6651121bf775a40f8743c10cd6c3f3590fef88c`: macOS 26.6.2 arm64 / Python 3.12.13 / pytest 9.0.3: 1818 passed; Ubuntu 24.04.4 arm64 / Python 3.12.3 / pytest 9.0.3 as uid 1000: 1816 passed, 2 filesystem-specific skips. Structural source checks, validator and provider-free lifecycle passed.
+Its code review `triad-strategy-impl-20261002-r1` obtained all four selected explicit approvals on the same
+bound basis with final integrity. This is current implementation review, not carried
+direction/plan approval, fixed-profile admission, host adoption, installation or release.
+The [handoff](claude-review-strategy-handoff.md) maps cases and commands. Source-skill
+checks are bounded structural workflow checks, not prompt efficacy or defect-recall proof.
 
-| Check | Status |
+Shared authoring/schema checks and the exact shared-spec commit review/CI are required
+before main landing; their actual terminal evidence is recorded on
+[PR #8](https://github.com/codefoundry-io/triad-dispatch-spec/pull/8), without changing a
+reviewed commit merely to embed its own hash. The phase schema is scalar; the host,
+not its default annotation, applies omission defaulting. Shared validation never dispatches a provider.
+
+| Claim | Current evidence boundary |
 |---|---|
-| Shared authoring map / references | PASS: `python3 tools/check_authoring.py` — 1 valid map, 0 invalid |
-| Canonical schemas, phase boundaries and repository test suite | PASS: `PYTHONDONTWRITEBYTECODE=1 python3 -m pytest -q -p no:cacheprovider tests` — 114 passed |
-| Whitespace / diff integrity | PASS: `git diff --check` |
-| New host collection, rendering, retry and cleanup conformance | NOT RUN — implementation has not started |
-| New authenticated CLI compatibility / runtime policy | NOT RUN |
-| Independent model-quality/skill-behavior experiment | Not part of this amendment |
-| Same-commit shared-spec review; revision tag and host adoption | Pending; no prior direction verdict is carried forward |
+| B phase/collection/current-context/evidence/compatibility fixtures | PASS on the platforms above; cases C13/C20/C33/C60–C65 carry exact source/test mapping |
+| B source-skill workflow, validator and fixed provider-free lifecycle | PASS separately; no model-quality measurement |
+| A revised-strategy implementation and service checks | NOT RUN; A implementation code was not inspected |
+| New authenticated v2 CLI compatibility/effective policy | NOT RUN; fixture success and development review dispatch are not runtime conformance |
+| Same-commit shared-spec review and CI | Exact-head evidence on PR #8; independent of previous direction/plan verdicts |
+| Revision tag, host adoption, product merge/install/release | Separate later authority and checks |
 
-`contracts/review-strategy.verify.toml` records the deferred host checks using existing cases and operations.
-It is a handoff checklist, not authorization to dispatch vendors or an implementation plan.
+`contracts/review-strategy.verify.toml` records per-host evidence and the existing
+check briefs. No new semantic spec defect was demonstrated during B implementation;
+normative clauses, expected cases and canonical payload bytes remain the candidate's.

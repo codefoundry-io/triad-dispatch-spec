@@ -10,10 +10,10 @@
 - R-CLI-VERSION preserves required controls and justified floors without exact patch pins. Existing JSON roster and
   exact model IDs/defaults remain; R-CLEANUP extends existing host-specific custody to the new brief/evidence content.
 - Revised C13/C20/C33 and new C60–C65; phase schema and focused schema tests; prompt order, process, active derived
-  specs, owner register, authoring map and existing unit mappings aligned. New host behavior remains NOT RUN.
+  specs, owner register, authoring map and existing unit mappings aligned. B provider-free source verification is recorded; A remains NOT RUN.
 - Direction reviewed by Astra/xhigh and Opus 5.5/xhigh; two material input/evidence gaps closed before editing.
   [Evidence, scope and deferred verification](decisions/2026-10-02-review-strategy.md). A implementation code was excluded
-  by the owner; no host source, installed payload, revision tag or claimed conformance changes in this amendment.
+  by the owner. Later B source verification and the [Claude implementation guide](decisions/claude-review-strategy-handoff.md) are recorded here; installed payloads, revision tags and host adoption remain separate.
 
 
 ## R-CLASSIFY — a failed call is classified by the vendor's own sentence — 2026-09-28 (not tagged)

@@ -1,10 +1,10 @@
-# Deferred host conformance checks; no provider dispatch authorized by this record.
+# Per-host conformance evidence; no provider dispatch authorized by this record.
 # Follow each host's existing operations, ownership and verification lifecycle.
 # Record tested commit, actual platform/tool versions and result evidence per host.
-# No CLI version is pinned here; this candidate was not exercised on a provider.
+# No CLI version is pinned here; B evidence is provider-free and does not certify authenticated runtime behavior.
 contract = "contracts/review-kind.schema.json"
 contract_sha256 = "855807a26cda96102858da345f4888ee8658ee2ecff7584aecf9cf31ba61f724"
-status = "NOT RUN"
+status = "B provider-free PASS; A NOT RUN"
 result_channel = "decisions/owner-register.md and cases/cases.json, per host"
 
 [[check]]
@@ -14,7 +14,7 @@ what = "All selected entries explicitly approve, independent of family count."
 brief = "Using provider-free fixtures in the existing collector suite, compare one-leg and same-family rosters: all SAFE; one Minor-only negative; missing, failed or invalid entry; SAFE plus blocker or open question. Include an informational entry and sibling binding swap."
 expect = "Only all-selected valid explicit approval reaches AGREED. Negative remains schema-valid but non-approved; family count alone adds no veto; no sibling substitution or owner-exception rewrite."
 on_fail = "Retain fixture/result evidence, diagnose collection versus wire validity; do not weaken the case or roster."
-status = "NOT RUN"
+status = "B provider-free PASS; A NOT RUN"
 
 [[check]]
 id = "STRATEGY-PURPOSE"
@@ -23,7 +23,7 @@ what = "Stage selection and faithful current context transport."
 brief = "Render each stage, omitted stage, null and unknown values through the existing host entry point. Supply distinct supported, locked and observed versions, an unknown value, and non-ASCII evidence. Compare decoded context values and the chosen shared purpose for every selected leg."
 expect = "One plan purpose or one code purpose, correct omission/refusal behavior, bound identical context values. No automatic semantic-completeness or reviewer-compliance claim."
 on_fail = "Keep exact input, rendered text and binding evidence; fix transport/selection without introducing an environment parser."
-status = "NOT RUN"
+status = "B provider-free PASS; A NOT RUN"
 
 [[check]]
 id = "STRATEGY-CURRENT-EVIDENCE"
@@ -32,7 +32,7 @@ what = "Current residual and prior evidence survive existing eligible cleanup."
 brief = "In task-owned fixtures, provide one current residual and required excerpts through existing host-bound brief/evidence surfaces; B uses prior_residual, EVIDENCE.md or source members. Retain provenance, export and close the eligible previous temporary fixture with existing helpers, then inspect the new bound input. Include a foreign/in-progress negative cleanup control."
 expect = "Current residual appears once, required excerpts remain readable now, no transcript auto-append. Cleanup respects current ownership/export/terminal and host retention rules; foreign/in-progress resources remain."
 on_fail = "Preserve uncertain resources and evidence; repair the existing custody path rather than broadening deletion or adding packet slots."
-status = "NOT RUN"
+status = "B provider-free PASS; A NOT RUN"
 
 [[check]]
 id = "STRATEGY-STOP"
@@ -41,7 +41,7 @@ what = "A stopped or exception-released round remains non-approved."
 brief = "Supply existing non-affirmative or incomplete results with a leader-recorded stop reason. Verify the machine outcome remains non-approved after a separate owner exception record. Inspect guidance for verifiable progress and the skill/prompt experiment boundary."
 expect = "No PASS by repetition, quota or exception; automated checks verify outcome, while semantic progress is explicitly leader judgment."
 on_fail = "Separate the reported stop from admission; retain original results and unresolved evidence."
-status = "NOT RUN"
+status = "B provider-free PASS; A NOT RUN"
 
 [[check]]
 id = "STRATEGY-CLI"
@@ -50,4 +50,14 @@ what = "Observed patch version is not an equality requirement."
 brief = "Use provider-free adapter fixtures with a later CLI version and unchanged required controls, then a missing required control and a known-defect version. Keep current model IDs and authentication/policy checks."
 expect = "No refusal solely for a newer version number; missing controls or justified defect floors still refuse. Version remains an observation, not runtime proof."
 on_fail = "Diagnose the specific control or justified floor; do not bypass permissions or substitute a model."
+status = "B provider-free PASS; A NOT RUN"
+
+[host.B]
+status = "PASS (provider-free fixtures and structural guidance checks)"
+tested_commit = "f6651121bf775a40f8743c10cd6c3f3590fef88c"
+evidence = "decisions/claude-review-strategy-handoff.md"
+limits = "No authenticated v2 provider, prompt efficacy, adoption, installation or release proof."
+
+[host.A]
 status = "NOT RUN"
+limits = "Current implementation code was not inspected; implement and verify locally."

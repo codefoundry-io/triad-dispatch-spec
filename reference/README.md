@@ -40,3 +40,7 @@ reference anchors, never line numbers. Renaming an anchor is a revision.
 - `spec-authoring.md` — how a spec is written and changed in this lab (the method the owner asked to try).
 - `review-rules.md` — the rules both hosts implement.
 - `process.md` — the shared flow and the failure-diagnosis rules.
+
+## Review strategy implementation handoff
+
+[Claude-host guide](../decisions/claude-review-strategy-handoff.md) connects the normative anchors, acceptance cases and verified B evidence. A conformance and host adoption remain separately recorded.

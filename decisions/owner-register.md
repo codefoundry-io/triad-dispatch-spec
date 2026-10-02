@@ -168,3 +168,20 @@ development-log row. The owner also confirmed the narrow codex match phrase
 decides this item only; whether other parts of the specification are rewritten
 the same way is a later decision of the owner.
 
+
+<a id="D-REVIEW-STRATEGY-IMPLEMENTATION-20261002"></a>
+## D-REVIEW-STRATEGY-IMPLEMENTATION-20261002: Codex first, then shared main
+
+The owner's later implementation instruction supersedes the earlier planning-only
+boundary for this work: "승인된 구현 계획과 R3 리뷰 보고서를 읽고, 구현 메모 3건을 포함해
+구현·테스트·코드 리뷰를 진행해." After verification: "공유 스펙을 main에 반영해 Claude
+host가 구현할 수 있는 가이드로 정리해." The selected review roster is Opus 5.5/xhigh,
+Google Pro/high, Flash/high and Astra/high; AI-related review may use web evidence.
+Verified in-scope corrections and demonstrated spec errors may be addressed.
+Claude-host implementation inspection remains excluded. Existing dirty work, exact
+model IDs and existing JSON configuration are preserved. The owner requires macOS
+and Ubuntu support and their terminal environment outside the development sandbox.
+Shared-spec main landing is authorized after its required review and CI; product
+merge, installation and release remain separate. See the
+[implementation handoff](claude-review-strategy-handoff.md) for evidence and A's
+remaining work. Historical decisions above remain historical evidence.
