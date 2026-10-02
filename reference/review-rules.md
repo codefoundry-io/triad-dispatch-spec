@@ -169,7 +169,9 @@ host invocation boundary. Unknown or null values are refused before dispatch. Th
 the command or request that carries it is host-native calling syntax (`units.json` prompts exceptions), and a stage under
 any other name is an unknown input. On A: `review_scratch.py prepare --v2 --review-kind <value>`
 (`lib/review_scratch.py:3711-3778`). On B: the `review_kind` member of the `review_round.py v2-create --request-file`
-request (`bin/review_round.py:2325-2326`, `bin/review_round_v2.py:130-136`). The plan purpose REPLACES the code
+request (`bin/review_round.py:2325-2326`, `bin/review_round_v2.py:130-136`). Every leg prompt carries the shared
+`current-date` clause with `<review-date>` filled by the UTC date (`YYYY-MM-DD`) on which the round was prepared, a
+bound-basis member, so a retry renders the same date (C67; rendered on neither host yet, open, DL-46). The plan purpose REPLACES the code
 purpose, not a checklist appended to it. The resolved stage is a member of the bound basis (R-PREPARE); no verdict field
 is added.
 All selected legs receive the same semantic purpose, requirements, scope and evidence. Identity, output handling and
@@ -272,10 +274,12 @@ after the owner revokes the standing authorization. An absent condition in a bou
 every host supports web; a route without it is a host defect, refused at preflight until fixed. Gemini selects a
 complete web-enabled host profile, never an overlay: only `google_web_search` and `web_fetch` move to allow, with all
 other controls preserved; the no-web profile stays the profile for a false condition. Pre-existing owner and admin
-denies remain authoritative. A round never changes global settings and no permission bypass is authorized; a one-time,
-documented host setup prerequisite (On A: the agy settings allow of `read_url(*)`, named by
-`3rd-Agent/wrappers/antigravity_wrapper.py:1975`, below) is installation, made once by the operator, not a per-round
-settings change. Live service checks: `contracts/review-web.verify.toml`. Per host, a true condition reaches each
+denies remain authoritative. No permanent global settings change or permission bypass is authorized. On A: the
+operator's agy settings allow `read_url(*)`, an existing install-time setup the wrapper names
+(`3rd-Agent/wrappers/antigravity_wrapper.py:1975`). On B: the v2 agy adapter passes no `--project`
+(`bin/review_adapters_v2.py:167`), so the wrapper takes a temporary settings transaction that merges its deny rules into
+the agy settings for the call and restores them afterwards (`bin/antigravity_wrapper.py:655-664`,
+`bin/_agy_settings.py:380-395`). Live service checks: `contracts/review-web.verify.toml`. Per host, a true condition reaches each
 route as follows; a false condition leaves every route in its R-CONTAIN no-web posture.
 
 - On A, the v2 round path supports no review web today (open, DL-39): `prepare --v2` takes no web condition, the
@@ -302,8 +306,9 @@ route as follows; a false condition leaves every route in its R-CONTAIN no-web p
   - gemini: open (DL-39) — the wrapper refuses `--web` with `--sandbox` (`3rd-Agent/wrappers/gemini_wrapper.py:378-392`)
     and attaches only `gemini-readonly.toml` or `gemini-research.toml` (`:505-516`); attaching
     `contracts/gemini-readonly-web.toml` for a true condition is not built.
-  - The small review path (`lib/review_small.py --web`, `:33-39`, `:265-271`, `:328-332`) uses the codex, claude
-    (base and high tiers) and agy mechanisms above today and refuses gemini.
+  - A fact of a legacy entry point, not an obligation: the small review path (`lib/review_small.py`, declared legacy
+    in `units.json` review-lifecycle; it keeps its old contract) takes its own `--web` (`:33-39`, `:265-271`, `:328-332`),
+    using the codex, claude (base and high tiers) and agy mechanisms above, and refuses gemini.
 - On B: the v2 request member `review_web_authorized` (`bin/review_round_v2.py:130-133`) is the carrier; it defaults to
   false per request, so binding it true for every round under the standing authorization is open (DL-39). For a true
   condition: native Codex receives it through its fresh-child prompt metadata and requires host web availability
@@ -363,12 +368,12 @@ not attribution (found on A over rounds r11–r13, `authoring/shared-dev-log.md`
   (On A: the hardened read-only default is assigned before both checks, `3rd-Agent/wrappers/gemini_wrapper.py:421-437`).
 - agy leg (A): per-round PreToolUse allow-list hook + hook load check + read-audit gate (the hook's `--web` mode adds
   `read_url_content` / `search_web` to its allow set, `lib/agy_hook.py:119-121`, used today by the small path; the v2
-  path never runs it, open, DL-39); B: non-mutating project route (`--mode plan --sandbox read-only`); B's hook stays dormant until separately agreed. The agy hook and the gemini read-only policy are TOOL-NAME controls: neither scopes paths, and the read audit records the argument path as given, not a resolved target — they do not by themselves contain a symlink escape (see the Q4 item in R-PREPARE).
+  path never runs it, open, DL-39); B: non-mutating project route (`--mode plan --sandbox read-only`) with `--project`, and on the v2 path (no `--project`) the temporary settings transaction named under R-REVIEW-WEB; B's hook stays dormant until separately agreed. The agy hook and the gemini read-only policy are TOOL-NAME controls: neither scopes paths, and the read audit records the argument path as given, not a resolved target — they do not by themselves contain a symlink escape (see the Q4 item in R-PREPARE).
 - all wrappers: binary presence; a relative `--prompt-file` or `--cwd` is ACCEPTED and resolved against the wrapper PROCESS cwd at argument processing (never the child `--cwd`); every existing validation stays — configured runtime roots where configured, regular file, UTF-8, non-empty; the resolved absolute prompt-file and child-cwd paths are represented in the existing success summary and audit row, using the host's current redaction mode (D-B2). Refusal names the resolved candidate through that same masking policy; failure-only run logs remain failure-only. Relative spelling alone is never a reason to refuse (C28). On A: relative paths are rebased on the process-entry cwd and then validated (`3rd-Agent/wrappers/_common.py:1800-1844`, `:1865-1881`); On B: `bin/_common.py:502-537`; stdin delivery confirmed or refused (fail closed); process group captured at spawn and
   reaped on timeout / abnormal unwind and normal exit under R-TERMINAL (On A: `_common.py:3198-3205`, `:3333-3381`; On B: `bin/_common.py:1357-1386`); reader and writer completion before success (On A: incomplete readers fail closed, `_common.py:3433-3437`; On B: incomplete/error collection is rejected); schema validation with one clean repair retry where a leg relies on it; verdict
   binding to review id, family and content digest; round integrity capture/verify.
 - cleanup: refuses without deleting when a tree is not provably its own; ownership is proven by an allocation record or
-  marker, never by a name shape (On A: a `<name>.pruning` dir is reclaimed only with the `.claim` record written before its rename, `.claude/skills/triad-cross-family-review/lib/review_scratch.py:705-722`; On B: allocation provenance, verified export and root identity for stale and explicit cleanup, `bin/review_round.py:1017`, `:1060`, `:1232-1242`).
+  marker, never by a name shape (On A: a `<name>.pruning` dir is reclaimed with the `.claim` record written before its rename, `.claude/skills/triad-cross-family-review/lib/review_scratch.py:705-722`, and an EMPTY unclaimed `.pruning` residue older than the floor is removed by `rmdir`, `:865-876`, under the owner ruling of 2026-09-27 carried by the unpublished R-CLEANUP amendment on branch `claude/r-model` (PR #6), not yet on main — DL-54; On B: allocation provenance, verified export and root identity for stale and explicit cleanup, `bin/review_round.py:1017`, `:1060`, `:1232-1242`).
 
 <a id="R-TERMINAL"></a>
 Transport success requires: process exit collected, all reader threads joined without error, the owned process group
@@ -377,8 +382,8 @@ transcript is preserved. A display-mirror failure is distinct from a failure to 
 
 <a id="R-TOKENS"></a>
 Every classification token a host EMITS is a member of `contracts/exit-tokens.json` and maps to the same exit code there;
-wrapper-only tokens and compatibility aliases are listed explicitly as exceptions. A membership test replaces the vacuous
-`is not None` assert shipped on both hosts.
+wrapper-only tokens and compatibility aliases are listed explicitly as exceptions. A membership test, not an `is not None` assert, checks it (On A:
+`tests/unit/wrappers/t55-exit-token-membership-c8.sh`; On B: `tests/test_exit_token_contract.py`).
 
 <a id="R-CLASSIFY"></a>
 A failed vendor call is classified by the vendor's own error sentence, and a sentence applies to the CLI that emits it.

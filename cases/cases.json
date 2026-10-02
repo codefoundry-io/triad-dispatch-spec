@@ -46,7 +46,7 @@
       "input": "a review root holding (i) a foreign date-prefixed `*.pruning` dir not created by the helper, (ii) a dirty or untracked regular file that is part of the reviewed basis in the ORIGINAL guarded checkout, (iii) the helper's OWN temporary review copy after the agreed evidence-export checks passed",
       "expected": "(i) preserved and reported — cleanup refuses without deleting and states what it observes; (ii) original or foreign content is never disposed of by cleanup; (iii) a provably owned temporary copy may be disposed of, only after the evidence-export checks (R-CLEANUP). Symlinks: C26 (Q4 RULED)",
       "tests": {
-        "A": "tests/unit/skills/t16-close-ownership-c4c5c7.sh @ triad ebc4dc7 (a `.pruning` dir is reclaimed only with its `.claim` record, lib/review_scratch.py:705-722)",
+        "A": "tests/unit/skills/t16-close-ownership-c4c5c7.sh @ triad ebc4dc7: a `.pruning` dir is reclaimed with its `.claim` record (lib/review_scratch.py:705-722), and an EMPTY unclaimed `.pruning` residue older than the floor is removed by rmdir (:865-876; t16:51-55) under the owner ruling of 2026-09-27 recorded on the unpublished branch claude/r-model (PR #6); main's C4 (i) does not yet carry it (authoring/shared-dev-log.md DL-54).",
         "B": "Allocation/export portion implemented in B a85a800: tests/test_review_cleanup_custody.py covers refusal without provenance, foreign roots, verified export and disposal. Existing UID/type/age and internal-symlink checks retained; C26 separately tracks reviewer link visibility. triad-b-p2-r2 ADMITTED_SAFE."
       }
     },
@@ -70,7 +70,7 @@
       "input": "a completed transcript followed by a settings-guard restore error",
       "expected": "Still a failure; the transcript is preserved",
       "tests": {
-        "A": "tests/unit/skills/t21-small-fold.sh (C6 shape note) @ triad ebc4dc7",
+        "A": "todo — no A test names C6 at triad ebc4dc7 (the C6 label in tests/unit/skills/t21-small-fold.sh is the small path's own shape note, not this case)",
         "B": "Implemented in B e29d820: tests/test_antigravity_stream_json.py covers completed transcript followed by settings-guard release failure; terminal failure preserves captured evidence. triad-b-p1-r2 ADMITTED_SAFE."
       }
     },
@@ -92,9 +92,9 @@
       "rule": "R-TOKENS",
       "summary": "Exit-token membership",
       "input": "every token the host's classifier can emit",
-      "expected": "Every emitted token is in contracts/exit-tokens.json with the same code; exceptions listed explicitly (the shipped `is not None` assert is vacuous on both hosts)",
+      "expected": "Every emitted token is in contracts/exit-tokens.json with the same code; exceptions listed explicitly; a membership test, not an `is not None` assert, checks it",
       "tests": {
-        "A": "tests/unit/wrappers/t55-exit-token-membership-c8.sh @ triad ebc4dc7",
+        "A": "tests/unit/wrappers/t55-exit-token-membership-c8.sh @ triad ebc4dc7 (membership test against the vendored contract).",
         "B": "6653bdc: tests/test_exit_token_contract.py checks all 18 shared map rows, classifier/vendor-map membership, bounded producer-literal census and explicit direct/alias exceptions. Three missing map rows added; producer/stdin/repair behavior unchanged. triad-b-wrapper-contracts-r1 ADMITTED_SAFE; one non-blocking local-variable census suggestion retained after leader verified the current token is registered. See spikes/2026-09-20-b-wrapper-contracts.md."
       }
     },
@@ -128,9 +128,9 @@
       "rule": "R-NOCOST",
       "summary": "Child environment scrub set as data",
       "input": "a leader env carrying loader, credential, endpoint and model-selector variables",
-      "expected": "Loader/interpreter injection variables removed on every route; credential/endpoint/model-selector removal per the agreed set (A: no per-call seam today — verified)",
+      "expected": "Loader/interpreter injection variables removed on every route; credential/endpoint/model-selector removal per the agreed set",
       "tests": {
-        "A": "tests/unit/wrappers/t37-child-env-scrub.sh (C11/C17 layer) @ triad ebc4dc7",
+        "A": "tests/unit/wrappers/t37-child-env-scrub.sh (C11/C17 layer) @ triad ebc4dc7 — credential/endpoint/model-selector removal on every route (layer 3, `_CHILD_ENV_SCRUB_CREDENTIALS`).",
         "B": "Implemented in the local B P3 candidate based on 3d62b7c. Common injection scrub plus route-specific environment controls, preserving configured authentication continuity. Regression sources: tests/test_provider_wrappers.py, tests/test_google_diagnostics.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred."
       }
     },
@@ -142,7 +142,7 @@
       "input": "no file / a file overriding one default by name / a file with an unknown key / two Google CLIs present",
       "expected": "No file = three standing legs at recommended defaults, including Claude claude-opus-5-5 with xhigh; file entry overrides by name, including an explicit supported older Claude model; explicit null retains host selection semantics; unknown key refused; resolved roster printed before dispatch; unselected legs never start; runtime Google resolution recorded",
       "tests": {
-        "A": "tests/unit/skills/t7*, t8* (v1 config arms) — v2: todo",
+        "A": "tests/unit/skills/t12-roster-v2.sh (cases C12, C18, C22: v2 named roster, merge-by-name, per-entry Google chain) @ triad ebc4dc7",
         "B": "Implemented P3 candidate: Three defaults, B project discovery, merge-by-name, enabled display and consumption by capability-checked invocation allocation. Malformed review identifier/root path types receive controlled CLI refusal before adapter preparation. Evidence: tests/test_review_roster.py, tests/test_v2_adapters.py, tests/test_v2_rounds.py, tests/test_v2_review_findings.py, tests/test_v2_input_refusals.py. Current verification and publication: decisions/host-b-p3-verification.md."
       }
     },
@@ -164,9 +164,9 @@
       "rule": "R-BIND",
       "summary": "Verdict binding",
       "input": "a verdict with a wrong review_id / family / digest / attempt / route; a raw reply with a duplicate member",
-      "expected": "review_id + leg identity + attempt + family + resolved route + content digest must match; duplicate JSON members rejected at the original-text boundary (A: only the raw-reply admission rejects today — verified)",
+      "expected": "review_id + leg identity + attempt + family + resolved route + content digest must match; duplicate JSON members rejected at the original-text boundary",
       "tests": {
-        "A": "tests/unit/skills/* validate_verdict cases (partial)",
+        "A": "tests/unit/wrappers/t56-wrapper-dup-members-c14.sh (wrapper schema path) @ triad ebc4dc7; duplicate members are also rejected by the raw-reply admission (lib/validate_verdict.py:409-436) and the v2 admission of every route (lib/verdict_v2.py:346-409); six-field binding: lib/verdict_v2.py.",
         "B": "Implemented in the local B P3 candidate based on 3d62b7c. Opt-in producers/renderers/collector use all six bindings; explicit legacy wire remains separate. Regression sources: tests/test_validate_v2.py, tests/test_v2_review_prompts.py, tests/test_v2_round_cli.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred."
       }
     },
@@ -176,7 +176,7 @@
       "rule": "R-CONTAIN",
       "summary": "Gemini no-web host profiles (the profile for a false review-web condition) remain byte-identical to their selected contract and deny web tools explicitly (D-9, D-B1)",
       "input": "the shipped TOML vs the contract file; a dedicated fixture with read/search controls and attempted web/write calls; final-model prose without engine evidence; a candidate policy with a catch-all and a base-versus-candidate unlisted-tool control",
-      "expected": "Each shipped profile is BYTE-IDENTICAL to its selected complete contract: A contracts/gemini-readonly.toml (unchanged 100/200 profile), B contracts/gemini-readonly-b.toml (999 allow/deny plus existing 998 catch-all and Plan Mode transition denies). Both explicitly deny google_web_search and web_fetch. B moves only those tools out of its prior allow set; no overlay or loss of existing protection. Runtime effect requires attributable engine call/result or authoritative policy-exclusion evidence; model prose or missing files alone never prove enforcement. Unknown evidence is INCONCLUSIVE. Preserve local reads/search. A's V1-V5 remain NOT RUN and its proposed rows remain subject to contracts/gemini-readonly.verify.toml. B live checks are separate in contracts/gemini-readonly-b.verify.toml, also NOT RUN. Source/byte tests do not imply runtime conformance.",
+      "expected": "Each shipped profile is BYTE-IDENTICAL to its selected complete contract: A contracts/gemini-readonly.toml (unchanged 100/200 profile), B contracts/gemini-readonly-b.toml (999 allow/deny plus existing 998 catch-all and Plan Mode transition denies). Both explicitly deny google_web_search and web_fetch. B moves only those tools out of its prior allow set; no overlay or loss of existing protection. Runtime effect requires attributable engine call/result or authoritative policy-exclusion evidence; model prose or missing files alone never prove enforcement. Unknown evidence is INCONCLUSIVE. Preserve local reads/search. Runtime effects are checked through the verification manifests (contracts/gemini-readonly.verify.toml, contracts/gemini-readonly-b.verify.toml); A's proposed rows land only after those checks. Source/byte tests do not imply runtime conformance.",
       "tests": {
         "A": "tests/unit/wrappers/t50-gemini-policy-web-deny-c15.sh (file shape + byte identity with the contract, offline); runtime checks V1-V5: NOT RUN (owner runs where gemini is in service; V3/V5 use a candidate copy through the direct CLI invocation in the manifest)",
         "B": "P4 implemented at 8f12bd5: tests/test_investigation_completion.py verifies exact separate B candidate bytes, digest and explicit web denies while preserving 999/998 controls; existing test_review_no_web.py and provider tests retain AGY/render/raw boundaries. triad-b-p4-r1 ADMITTED_SAFE. B1-B3 and A V1-V5 remain NOT RUN; implementation/source equality is not effective-policy proof or revision adoption."
@@ -188,9 +188,9 @@
       "rule": "R-CONTAIN",
       "summary": "Gemini preflight",
       "input": "gemini 0.33 / a missing capability / an API-key auth path / hardened default with --sandbox omitted",
-      "expected": "Refuses below CLI 0.34.0, on a missing capability, when auth is not the approved subscription route; effective posture computed BEFORE the conflict/policy checks (A ordering defect — verified)",
+      "expected": "Refuses below CLI 0.34.0, on a missing capability, when auth is not the approved subscription route; effective posture computed BEFORE the conflict/policy checks",
       "tests": {
-        "A": "tests/unit/wrappers/t57-gemini-preflight-c16.sh @ triad ebc4dc7",
+        "A": "tests/unit/wrappers/t57-gemini-preflight-c16.sh @ triad ebc4dc7 — effective posture computed before the conflict and policy checks (3rd-Agent/wrappers/gemini_wrapper.py:421-437).",
         "B": "Implemented in the local B P3 candidate based on 3d62b7c. Version/help/model-policy interface validation before review inference; actual OAuth principal and account entitlement remain unexposed unless independently observed. Regression sources: tests/test_gemini_version_floor.py, tests/test_v2_adapters.py, tests/test_v2_adapter_wrapper_bridge.py, tests/test_v2_review_findings.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred."
       }
     },
@@ -227,7 +227,7 @@
       "expected": "Only the failed leg is re-dispatched on the same bound basis; other legs' results are retained; the receipt records attempt 2. Negative arm: the retry is refused before an attempt is allocated, naming the changed selection or control; collection does not agree on that round; every selected leg reviews again on a new basis (R-REREVIEW)",
       "tests": {
         "A": "tests/unit/skills/t15-collect-v2.sh axis 79 (unchanged-basis retry) and axes 77, 78 (a changed selection or configuration is refused in collect, retry and adoption) @ triad ebc4dc7. Open: a claude preset model/effort change is not refused (authoring/shared-dev-log.md DL-49)",
-        "B": "Implemented in the local B P3 candidate based on 3d62b7c. Diagnosed unchanged-basis failed-entry retry increments attempt and retains siblings/history; preparation failures are preserved without fabricating provider attempts. Regression sources: tests/test_v2_rounds.py, tests/test_v2_round_custody.py, tests/test_v2_runtime_boundaries.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred."
+        "B": "Implemented in the local B P3 candidate based on 3d62b7c. Diagnosed unchanged-basis failed-entry retry increments attempt and retains siblings/history; preparation failures are preserved without fabricating provider attempts. Regression sources: tests/test_v2_rounds.py, tests/test_v2_round_custody.py, tests/test_v2_runtime_boundaries.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred. Negative arm: a claude entry's `agent` definition is outside the sealed basis (bin/review_adapters_v2.py:107-108, bin/review_round_v2.py:222-223) — open (authoring/shared-dev-log.md DL-49)."
       }
     },
     {
@@ -396,8 +396,8 @@
       "input": "A configurable nonempty selected roster, for example codex, google-contracts, google-failures and google-state, including any informational entry; all receive the same phase goal, requirements, environment and full scope. Compare an all-disabled roster (every entry enabled: false), same-family result/receipt swaps, missing/invalid/negative/blocking output, an enabled entry skipped before dispatch, failed-to-run unchanged-basis retry and a changed phase goal.",
       "expected": "Every selected entry gets an independent bound attempt and exclusive evidence path. PASS requires each one to explicitly return SAFE TO MERGE with no blocking finding or open_questions; a two-family or one-family roster has no special owner-decision or family-minimum gate. Sibling result/receipt swaps fail binding. Missing, invalid, failed, skipped or negative results cannot be counted as agreement, even if a same-family sibling approves. Preparation refusal cannot produce PASS. An all-disabled roster is refused at preparation, naming the empty selection, before any adapter starts or any round record is written. The common phase goal, requirements and environment reach every bound leg. Retry only a diagnosed failed-to-run entry on unchanged conditions; changed phase goal, requirements, environment, roster or controls require all selected entries to review the current full scope, and a retry or collection against a changed recorded selection or control is refused. Preserve machine outcome separately from any later owner decision.",
       "tests": {
-        "A": "tests/unit/skills/t15-collect-v2.sh axis 75 (an all-disabled roster refused at prepare; a record emptied after prepare never AGREED), axes 77, 78 (changed selection or configuration refused) @ triad ebc4dc7. Open (minor): collect_v2._outcome returns AGREED for an empty entry list, reachable only through a forged bound delivery record. New all-selected explicit-approval behavior: NOT RUN. Historical old-contract evidence: host A parity/host-a-v2 collect_v2 counted enabled SKIPPED entries as missing and refused sibling/attempt swaps; tests/unit/skills/t15-collect-v2.sh axes 62 and 66-71, gate-1 rounds r12–r23 in docs/reviews/2026-09-21-host-a-v2-gate1.md. This does not prove revised PASS behavior.",
-        "B": "tests/test_v2_rounds.py:252 test_C33_zero_enabled_entries_refuse_before_adapters @ 0.2.558 7f75863. B provider-free evidence at f6651121bf775a40f8743c10cd6c3f3590fef88c: tests/test_v2_rounds.py C33 covers one/same-family/informational and empty rosters; existing sibling/attempt/route swaps and retry regressions remain. See decisions/claude-review-strategy-handoff.md for actual platform results and limits. Historical old-contract evidence: v0.2.556 source supported named entries and exclusive paths but required OWNER_DECISION_REQUIRED for two-family output; generic-N/renamed-Google tests and decisions/codex-google-four-leg-operating-spec.md are supporting old-contract evidence only."
+        "A": "tests/unit/skills/t15-collect-v2.sh axis 75 (an all-disabled roster refused at prepare; a record emptied after prepare never AGREED), axes 77, 78 (changed selection or configuration refused) @ triad ebc4dc7. At ebc4dc7 collect_v2._outcome returns AGREED for an empty entry list (lib/collect_v2.py:1511-1519), reachable only through a forged bound delivery record (minor; authoring/shared-dev-log.md DL-42); host A commit 4d3d667 refuses it, pending verification in host A's goal. New all-selected explicit-approval behavior: NOT RUN. Historical old-contract evidence: host A parity/host-a-v2 collect_v2 counted enabled SKIPPED entries as missing and refused sibling/attempt swaps; tests/unit/skills/t15-collect-v2.sh axes 62 and 66-71, gate-1 rounds r12–r23 in docs/reviews/2026-09-21-host-a-v2-gate1.md. This does not prove revised PASS behavior.",
+        "B": "The collector computes AGREED for an empty enabled list too (bin/review_round_v2.py:531), reachable only through a forged sealed basis (DL-42). tests/test_v2_rounds.py:252 test_C33_zero_enabled_entries_refuse_before_adapters @ 0.2.558 7f75863. B provider-free evidence at f6651121bf775a40f8743c10cd6c3f3590fef88c: tests/test_v2_rounds.py C33 covers one/same-family/informational and empty rosters; existing sibling/attempt/route swaps and retry regressions remain. See decisions/claude-review-strategy-handoff.md for actual platform results and limits. Historical old-contract evidence: v0.2.556 source supported named entries and exclusive paths but required OWNER_DECISION_REQUIRED for two-family output; generic-N/renamed-Google tests and decisions/codex-google-four-leg-operating-spec.md are supporting old-contract evidence only."
       }
     },
     {
@@ -540,7 +540,7 @@
       "input": "one selected entry's attempt 1 is recorded with a blocking result, so collection is BLOCKED; its result file is then (a) overwritten by re-running the dispatch or admission into the same attempt, or (b) removed and a SAFE TO MERGE result written or admitted into the same attempt; separately, a retry is requested for that completed negative attempt",
       "expected": "The re-run or re-admission into a recorded attempt is refused; collection refuses the changed, removed or replaced result as an integrity failure and never reports AGREED; the retry of a completed attempt is refused. The original blocking result stays preserved. Only a new round on a current basis in which the entry returns SAFE TO MERGE reaches AGREED (C21).",
       "tests": {
-        "A": "OPEN defect: no seal — verdict_v2.py refuses only a DIFFERENT existing admitted.json, the printed wrapper dispatch line redirects with a truncating `>`, collect_v2 reads the current result file; tests/unit/skills/t15-collect-v2.sh axes 74 and 76 remove and refill recorded attempts in place (axis 74 reaches AGREED) (authoring/shared-dev-log.md DL-44) @ triad ebc4dc7",
+        "A": "OPEN defect: no seal — verdict_v2.py refuses only a DIFFERENT existing admitted.json, the printed wrapper dispatch line redirects with a truncating `>`, collect_v2 reads the current result file; tests/unit/skills/t15-collect-v2.sh axes 74 and 76 remove and refill recorded attempts in place (axis 74 reaches AGREED) (authoring/shared-dev-log.md DL-44) @ triad ebc4dc7 Host A commit 4d3d667 adds the seal, pending verification in host A's goal.",
         "B": "tests/test_v2_rounds.py:319 test_no_attempt_or_terminal_result_can_be_overwritten and :304 test_final_integrity_refuses_every_changed_basis_or_evidence @ 0.2.558 7f75863"
       }
     },

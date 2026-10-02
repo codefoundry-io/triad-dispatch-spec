@@ -2,17 +2,24 @@
 
 ## Spec gaps exposed by host A's conformance work — 2026-10-03 (not tagged)
 
+- Branch fix round 3: host status removed from case texts into tests cells (C8, C11, C14, C15, C16) after checking it
+  against both hosts; C6 and C12 tests cells corrected; C19 B negative arm (DL-49); C33/DL-42 aligned (A fix 4d3d667
+  pending verification; B's identical collector shape). R-REVIEW-WEB restores "No permanent global settings change",
+  states A's `read_url(*)` agy setting as an install-time fact and B's v2 temporary settings transaction; R-TOKENS cites
+  both hosts' membership tests; R-PROMPT carries the round-date sentence (C67); the small path is described as a legacy
+  fact (DL-39 drops its new obligation); A's empty `.pruning` rmdir recorded against the unpublished R-CLEANUP amendment
+  (DL-54, pending PR #6); B's five manifest files over three commits; reference/README lists the web profiles.
 - Branch fix round 2: a sweep of every host statement in `reference/review-rules.md`, `units.json` and the cases'
   tests cells (main text included) against A @ `ebc4dc7` and B 0.2.558 @ `7f75863`. Statements describing defects since
   fixed now state today's code: A resolves relative paths (C28), assigns the gemini hardened default before its checks,
-  reaps the process group and fails closed on incomplete readers, reclaims `.pruning` only with its `.claim` record,
+  reaps the process group and fails closed on incomplete readers, reclaims `.pruning` with its `.claim` record (and rmdirs an empty unclaimed residue past the floor, DL-54),
   rejects duplicate members on every result path and pins its gemini model; A tests cells name the tests that carry
   C2-C11, C16-C18, C22, C23, C28, C62. Open items newly marked: the A symlink migration (DL-53), B's `agent` definition
   (DL-49), B's native codex investigation web (DL-39). Over-design corrected: R-AGREE's integrity location (DL-52) and
   R-BIND's collected attempt are FACTS, not new obligations; the sealed attempt stays a rule. R-REVIEW-WEB: the host
   binds `review_web_authorized` true for every review round under the standing authorization and records it. R-PREPARE:
-  post-digest inputs are recorded at prepare (a mutable record suffices) and re-derived and compared. README: B's three
-  per-payload manifests (DL-47). C29 REVIEW arm open; C66 names t15 axes 74 and 76.
+  post-digest inputs are recorded at prepare (a mutable record suffices) and re-derived and compared. README: B's five
+  manifest files over three spec commits (DL-47). C29 REVIEW arm open; C66 names t15 axes 74 and 76.
 - Branch fix round 1 (whole-branch verification): every "On A:" / "On B:" statement now cites today's host code
   (A: triad `goal/spec-main-conformance` @ `ebc4dc7`; B: 0.2.558 @ `7f75863`) or is marked "(open, DL-n)". R-REVIEW-WEB's
   On A bullet separates the mechanisms that exist (codex `--search`, the two claude web twins, agy `--web` + hook

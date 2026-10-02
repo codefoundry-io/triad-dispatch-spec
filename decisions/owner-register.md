@@ -228,7 +228,8 @@ preservation sentences of [the 2026-10-02 review strategy](2026-10-02-review-str
 web-evidence rule (C29), exact IDs as roster data and the requested-versus-runtime identity rules are unchanged.
 Host adoption, publication and revision tags remain separate.
 
-Follow-up rulings, owner, 2026-10-03, typed (verbatim):
+Follow-up rulings, owner, 2026-10-03, typed (verbatim; source: the owner list of host A's plan
+`docs/superpowers/plans/2026-10-03-spec-main-conformance-goal.md` in `codefoundry-io/triad`):
 
 > 웹 지원 가능하도록 하는거 쉬ㅣㅂ잖아 먼저 구현휴 진행
 
@@ -273,5 +274,7 @@ R-REREVIEW, R-PROMPT and R-REVIEW-WEB), [R-PROMPT](../reference/review-rules.md#
 [R-BIND](../reference/review-rules.md#R-BIND) (sealed attempt), [R-REREVIEW](../reference/review-rules.md#R-REREVIEW)
 (the leader's range), [R-AGREE](../reference/review-rules.md#R-AGREE) (where integrity is checked, a fact); prompt clauses
 `current-date` and `review-no-web` and `prompts/README.md` § Clause-file format; README § How a host uses a revision;
-`units.json`; cases C13, C19, C20, C32, C33, C60, C61, C64 amended, C66 and C67 added; dev-log rows DL-40–DL-52. Host
+`units.json`; cases C13, C19, C20, C32, C33, C60, C61, C64 amended, C66 and C67 added; every host statement in the rules,
+`units.json` and the cases (tests cells and case texts) checked against both hosts' code, host status moved out of case
+texts into tests cells; dev-log rows DL-40–DL-54. Host
 adoption, publication and revision tags remain separate.

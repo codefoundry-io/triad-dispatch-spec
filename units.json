@@ -72,7 +72,7 @@
       "exceptions": "A live per-round hook; B dormant — activation is a separate design change",
       "A_source": ".claude/skills/triad-cross-family-review/lib/agy_hook.py (live per-round hook; `check` = round-level LOAD check over every allocated attempt's read audit), lib/read_audit_gate.sh; lib/collect_v2.py consumes both before an agy verdict is weighed",
       "A_shipped": "skills/triad-cross-family-review/lib/agy_hook.py, read_audit_gate.sh",
-      "B": "bin/agy_hook.py (dormant), --project non-mutating route"
+      "B": "bin/agy_hook.py (dormant), --project non-mutating route; the v2 agy adapter passes no --project, so the wrapper takes a temporary settings transaction (bin/review_adapters_v2.py:167, bin/antigravity_wrapper.py:655-664, bin/_agy_settings.py:380-395)"
     },
     "cleanup": {
       "common": "bin/review_round.py (destructive subcommand by fences)",
