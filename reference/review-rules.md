@@ -416,12 +416,26 @@ its admitted result (`lib/review_scratch.py:5061-5071`). On B: the native leg's 
 route's (`bin/review_round_v2.py:474-486`, `:388-395`). A new answer from the same entry needs a new attempt, which
 R-RETRY allows only after a failure to run, or a new round (R-REREVIEW). On B: `record_attempt` writes result, read
 evidence and receipt with exclusive create and seals `terminal.json` with their digests (`bin/review_round_v2.py:378-397`,
-`bin/review_round.py:2308-2317`), and `collect` re-checks those digests (`bin/review_round_v2.py:365-375`). On A: the
-seal is open (`authoring/shared-dev-log.md` DL-44, case C66) — `collect_v2` reads the current result file
-(`lib/collect_v2.py:1415-1421`). Which attempt collection evaluates differs by host (a fact): On B the last sealed
-allocation, refusing a history whose earlier attempt is not FAILED_TO_RUN (`bin/review_round_v2.py:507-518`); On A the
-attempt the round record's `attempt` field names (`lib/collect_v2.py:1325-1339`), and `retry` refuses an entry whose
-recorded attempt holds a valid verdict (`lib/collect_v2.py:2226-2230`).
+`bin/review_round.py:2308-2317`), and `collect` re-checks those digests (`bin/review_round_v2.py:365-375`). On A (triad
+`goal/spec-main-conformance` @ `4af44cf`): the native admission writes `seal.json` at admission
+(`lib/verdict_v2.py:772`, `_write_admission_seal`); a wrapper attempt is sealed by the first collection that evaluates
+it; every attempt that recorded an answer, valid or invalid, is sealed with a state field (`lib/collect_v2.py:1322-1475`);
+`collect-r<N>.json` keeps each seal's digest and later collections re-check the result, receipt, read evidence and seal;
+the printed wrapper line runs a seal guard under `noclobber` and the native spawn gets a printed `guard:` line
+(`lib/review_scratch.py:5078-5103`); an integrity failure makes that entry INCOMPLETE, never AGREED. Known limits on A,
+recorded by owner decision as facts under the one-operator lens, with no defence against deliberate tampering
+([D-C66-LIMITS-20261003](../decisions/owner-register.md#D-C66-LIMITS-20261003)): (1) after an unusable attempt directory
+is collected, removing that directory and the original seal and replacing a blocking result can reach AGREED in the same
+round; (2) an earlier attempt sealed invalid is not re-checked for its contents, so changing it after a retry is not
+refused; (3) a seal-write failure leaves an evaluated answer without a seal digest, later treated as unrecorded; (4) a
+native seal's state field can be edited before the first collection; (5) a native reply that fails admission is not
+sealed. Which attempt collection evaluates (a fact): On B the last sealed allocation, refusing a history whose earlier
+attempt is not FAILED_TO_RUN (`bin/review_round_v2.py:507-518`); On A the attempt the round record's `attempt` field
+names, only behind earlier attempts that `retry` diagnosed and that are not sealed valid (`lib/collect_v2.py:1515-1545`),
+and `retry` refuses a valid-sealed attempt and a history that can never be collected before allocating
+(`lib/collect_v2.py:2526ff`). A retryable attempt differs by host (a fact, DL-55): On A an attempt sealed invalid (an
+answer that could not be admitted) is retryable; On B a completed invalid answer is INVALID, not failed-to-run, and is
+refused for retry (`bin/review_round_v2.py:345-349`, `:274-275`).
 Duplicate JSON members are rejected at the original-text boundary before extraction or normalization can discard evidence
 (On A: the wrapper schema path, `3rd-Agent/wrappers/_common.py:2474-2486`; the raw-reply admission,
 `lib/validate_verdict.py:409-436`; the v2 admission of every route's result, `lib/verdict_v2.py:346-409`. On B: its review

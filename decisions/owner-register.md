@@ -279,3 +279,18 @@ R-REREVIEW, R-PROMPT and R-REVIEW-WEB), [R-PROMPT](../reference/review-rules.md#
 `units.json` and the cases (tests cells and case texts) checked against both hosts' code, host status moved out of case
 texts into tests cells; dev-log rows DL-40–DL-54. Host
 adoption, publication and revision tags remain separate.
+
+<a id="D-C66-LIMITS-20261003"></a>
+## D-C66-LIMITS-20261003: host A's C66 seal closes with recorded limits
+
+Owner, 2026-10-03, answer to the controller's question about host A's C66 seal (an English option of the question
+widget; source: host A's goal ledger, `codefoundry-io/triad` branch `goal/spec-main-conformance`), verbatim:
+
+> Close; record limits (Recommended)
+
+Reading recorded with the decision (the leader's, not the owner's words): host A's sealed-attempt implementation
+(`4af44cf`) closes C66; its five known limits are recorded as FACTS under the one-operator lens, with no defence against
+deliberate tampering, not as rules or open work.
+
+Effect: [R-BIND](../reference/review-rules.md#R-BIND) (On A sentence and its five limits), case C66 tests.A, dev-log
+rows DL-44 and DL-55.

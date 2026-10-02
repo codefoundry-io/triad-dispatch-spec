@@ -2,6 +2,9 @@
 
 ## Spec gaps exposed by host A's conformance work — 2026-10-03 (not tagged)
 
+- C66 sync: host A seals recorded attempts at `4af44cf` (t15 axes 74, 81-89); owner decision `D-C66-LIMITS-20261003`
+  records its five known limits as facts in R-BIND's On A sentence; C21, C33, C66 tests cells and DL-42, DL-44 updated;
+  DL-55 records that A retries an attempt sealed invalid while B refuses a completed invalid answer (fact, no change).
 - Branch fix round 4: R-BIND states what holds on A's legacy small path (it never collects v2 results and keeps
   v2-shaped extra fields as shape notes; units.json and DL-50 agree); R-REVIEW-WEB scopes the settings prohibition to
   what the authorization grants a round, states each host's install-time prerequisite as a fact, and says hosts bind
