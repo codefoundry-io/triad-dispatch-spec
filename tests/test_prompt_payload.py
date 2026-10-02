@@ -96,6 +96,7 @@ def test_review_web_permission_carries_the_privacy_rule():
 def test_deployment_context_clause_is_short_and_names_the_threat_model():
     text = clauses("common-clauses.md")["deployment-context"]
     assert "one operator" in text and "HARDENING-SUGGESTION" in text
+    assert "R-THREAT" in text and "TRIAD dispatch host's own code" in text  # evidence pointer and scope
     assert text.endswith(".") and len(re.split(r"(?<=\.)\s+", text)) <= 3, text
 
 

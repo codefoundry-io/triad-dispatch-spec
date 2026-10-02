@@ -381,7 +381,7 @@
       "rule": "R-REVIEW-WEB, R-REREVIEW, R-CONTAIN",
       "summary": "The owner's standing authorization binds web across every review leg in every round",
       "input": "A review round under the owner's standing authorization (D-REVIEW-LEGS-20261003); compare a revoked authorization and absent/false/nonboolean/mismatched conditions, preflight, prompt and invocation.",
-      "expected": "Every round binds review_web_authorized true while the standing authorization holds, enabling all participating routes with a short common permission clause and preserved native/read-only controls; a revoked authorization binds false and renders the `review-no-web` clause. The same condition enters common digest, preflight and allocation; changed conditions require a new basis; retry preserves it. Missing/mismatched permission refuses before inference; unsupported capability refuses rather than silently running a partially authorized round. No technology-detection heuristic, roster field or changed verdict schema. The no-web Gemini profile bytes remain unchanged; each host's complete web profile (On A: contracts/gemini-readonly-web.toml; On B: contracts/gemini-readonly-web-b.toml) permits only its two web tools in addition to the existing read tools. Every route of every host supports the true condition.",
+      "expected": "Every round binds review_web_authorized true while the standing authorization holds — a caller's false is ignored and recorded as true, a nonboolean value is refused as an input — enabling all participating routes with a short common permission clause and preserved native/read-only controls; a revoked authorization binds false and renders the `review-no-web` clause. The same condition enters common digest, preflight and allocation; changed conditions require a new basis; retry preserves it. Missing/mismatched permission refuses before inference; unsupported capability refuses rather than silently running a partially authorized round. No technology-detection heuristic, roster field or changed verdict schema. The no-web Gemini profile bytes remain unchanged; each host's complete web profile (On A: contracts/gemini-readonly-web.toml; On B: contracts/gemini-readonly-web-b.toml) permits only its two web tools in addition to the existing read tools. Every route of every host supports the true condition.",
       "tests": {
         "A": "NOT RUN / adoption of the 2026-10-03 standing authorization pending; the A web-profile payload invariant is tests/test_policy_profiles.py::test_c32_a_web_profile_moves_only_the_two_web_tools_to_allow (spec repository, payload only)",
         "B": "tests/test_claude_owner_web.py C32 scenarios cover the earlier per-request condition; adoption of the 2026-10-03 standing authorization pending",
@@ -559,10 +559,10 @@
     {
       "id": "C68",
       "surface": "prompts",
-      "rule": "R-THREAT, R-VERIFY, R-AGREE",
-      "summary": "A finding outside the deployment context is a recorded fact, never a blocker",
-      "input": "every leg's rendered prompt; a leg reports a finding whose only trigger is deliberate tampering with the host's own files, a concurrent operation, a deliberately unusual layout or a crash at one exact instant; compare a finding triggered by an ordinary failure (a full disk, a crash mid-operation, a wrong argument, a bad vendor answer)",
-      "expected": "Every leg prompt carries the shared deployment-context clause. The out-of-context finding is labelled HARDENING-SUGGESTION and does not block agreement on its own; the leader records it as a SPECULATIVE fact with no code change. The ordinary-failure finding keeps its full severity.",
+      "rule": "R-THREAT, R-CONTEXT, R-PROMPT",
+      "summary": "Reviews of a TRIAD host's own code carry the host deployment context",
+      "input": "every leg's rendered prompt for a round, both when the reviewed code is a TRIAD host's own code and when it is another target",
+      "expected": "Every selected leg's prompt carries the shared deployment-context clause, placed immediately before severity-instruction, with its evidence pointer (R-THREAT, D-THREAT-MODEL-20261003) and its scope to a TRIAD host's own code; for another target the brief's deployment context governs (R-CONTEXT). How a leg labels a finding and how the leader records it are model and leader behaviour (R-THREAT, R-VERIFY), not asserted by the host.",
       "tests": {
         "A": "todo (re-vendor; authoring/shared-dev-log.md DL-56)",
         "B": "todo (re-vendor; authoring/shared-dev-log.md DL-56)"

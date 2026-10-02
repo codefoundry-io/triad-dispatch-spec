@@ -3,6 +3,10 @@
 These rules govern both hosts; current implementation and migration status are recorded separately. Each rule carries an anchor; `process.md`, `cases/cases.json`, `units.json` and the host
 skills reference the anchor. Owner rulings are quoted from `decisions/owner-register.md`.
 
+Host citations in this file: unless a citation names its own commit, an On A citation is at `codefoundry-io/triad`
+`goal/spec-main-conformance` @ `4af44cf`, with `lib/` meaning `.claude/skills/triad-cross-family-review/lib/` and
+`3rd-Agent/wrappers/` the wrappers; an On B citation is at `triad-codex-dispatch` 0.2.558 @ `7f75863`.
+
 ## Agreement
 
 <a id="R-AGREE"></a>
@@ -18,7 +22,7 @@ Where the round integrity check runs differs by host (a fact, DL-52). On B: `col
 digest, `verify_round` at `bin/review_round.py:1908-1931`) at its start and end (`bin/review_round_v2.py:508`,
 `:532`). On A: the leader runs `review_scratch.py verify` before `collect`
 (`.claude/skills/triad-cross-family-review/SKILL.md:499-502`; `lib/review_scratch.py:2445`), which writes
-`.verified-r<N>.json`; `collect_v2.collect` does not read that record (`lib/collect_v2.py:1613-1641`) and `close`
+`.verified-r<N>.json`; `collect_v2.collect` does not read that record (`lib/collect_v2.py:1934-1962`) and `close`
 warns when it is absent (`lib/review_scratch.py:18-23`).
 
 `open_questions` contains unresolved facts necessary to judge approval, not optional curiosities; every remaining entry
@@ -50,7 +54,7 @@ that leg on the same [bound basis](#R-PREPARE) (owner Q-C). A changed review con
 basis refuses the retry before an attempt is allocated or dispatched; prepare a new round. Changed reviewed bytes are
 caught by the round integrity verification before agreement (R-AGREE); a pre-retry rehash of the reviewed tree is not
 required (`decisions/host-b-preimplementation-audit.md`, "Every renderer must immediately rehash"). On A: `retry` runs
-`_check_contract_basis` and `_bound_metadata` before allocating (`lib/collect_v2.py:2187-2188`). On B: `allocate_attempt`
+`_check_contract_basis` and `_bound_metadata` before allocating (`lib/collect_v2.py:2539-2540`). On B: `allocate_attempt`
 loads the basis (which also re-verifies the reviewed tree), re-prepares the entry's adapter — writing its capability
 receipts into a new numbered preparation directory, kept as setup evidence — and then refuses changed launch controls
 before the attempt directory exists (`bin/review_round_v2.py:267`, `:276-284`). Before any dispatch exists, retry the
@@ -196,7 +200,7 @@ leading and trailing blank lines and the presence or absence of a final newline 
 any framing the host adds (an encoded string, a fence, a separator added every time) leaves the exact value recoverable
 from the bound bytes, so values that differ only at an edge bind different prompts. An empty `prior_residual` is the
 absent value. On A: the leader omits `--prior-residual` and no residual block is rendered; a residual file that is
-empty or whitespace-only is refused, naming the omission (`lib/review_scratch.py:5503-5506`). On B: an omitted or empty
+empty or whitespace-only is refused, naming the omission (`lib/review_scratch.py:5535-5538`). On B: an omitted or empty
 value renders the data fence holding the JSON string `""` (`bin/review_round_v2.py:197`). A host may refuse prose that
 collides with its own data framing as an existing input check, and its refusal names the colliding line or characters.
 On A (`lib/review_scratch.py:2783-2796`, `:2809-2847`): a brief carrying an alternate line-separator character; a brief
@@ -269,8 +273,9 @@ not silent partial authorization. No leader heuristic decides which technology n
 
 On CLI review routes, the route's web switch and the renderer/preflight condition must agree in both directions, with
 the same review ID, digest and v2 entry/attempt binding. Under the standing authorization the host binds
-`review_web_authorized` true for every review round, whatever a caller passes, and records it explicitly in the bound
-basis; it binds false only after the owner revokes the standing authorization, and a revocation takes effect as an
+`review_web_authorized` true for every review round and records it explicitly in the bound basis; a caller's `false`
+is ignored while the standing authorization holds, and a non-boolean value stays an input refusal (On B:
+`bin/review_round_v2.py:134-135`); it binds false only after the owner revokes the standing authorization, and a revocation takes effect as an
 entry in `decisions/owner-register.md`. An absent condition in a bound record means false. Every route of
 every host supports web; a route without it is a host defect, refused at preflight until fixed. Gemini selects a
 complete web-enabled host profile, never an overlay: only `google_web_search` and `web_fetch` move to allow, with all
@@ -412,12 +417,11 @@ A recorded attempt is sealed: the result and every evidence file its route recor
 transport receipt where the route records one there) are written once and bound by digest when recorded, and collection
 refuses a later change, removal or replacement of any of them. A native leg seals what it records; DL-18 adds no
 transport receipt or receipt check to A's native spawn. On A: the native claude leg records its verbatim raw reply and
-its admitted result (`lib/review_scratch.py:5061-5071`). On B: the native leg's host receipt is built and sealed like any
+its admitted result (`lib/review_scratch.py:5077-5093`). On B: the native leg's host receipt is built and sealed like any
 route's (`bin/review_round_v2.py:474-486`, `:388-395`). A new answer from the same entry needs a new attempt, which
 R-RETRY allows only after a failure to run, or a new round (R-REREVIEW). On B: `record_attempt` writes result, read
 evidence and receipt with exclusive create and seals `terminal.json` with their digests (`bin/review_round_v2.py:378-397`,
-`bin/review_round.py:2308-2317`), and `collect` re-checks those digests (`bin/review_round_v2.py:365-375`). On A (triad
-`goal/spec-main-conformance` @ `4af44cf`): the native admission writes `seal.json` at admission
+`bin/review_round.py:2308-2317`), and `collect` re-checks those digests (`bin/review_round_v2.py:365-375`). On A: the native admission writes `seal.json` at admission
 (`lib/verdict_v2.py:772`, `_write_admission_seal`); a wrapper attempt is sealed by the first collection that evaluates
 it; every attempt that recorded an answer, valid or invalid, is sealed with a state field (`lib/collect_v2.py:1322-1475`);
 `collect-r<N>.json` keeps each seal's digest and later collections re-check the result, receipt, read evidence and seal;
@@ -438,7 +442,7 @@ answer that could not be admitted) is retryable; On B a completed invalid answer
 refused for retry (`bin/review_round_v2.py:345-349`, `:274-275`).
 Duplicate JSON members are rejected at the original-text boundary before extraction or normalization can discard evidence
 (On A: the wrapper schema path, `3rd-Agent/wrappers/_common.py:2474-2486`; the raw-reply admission,
-`lib/validate_verdict.py:409-436`; the v2 admission of every route's result, `lib/verdict_v2.py:346-409`. On B: its review
+`lib/validate_verdict.py:409-436`; the v2 admission of every route's result, `lib/verdict_v2.py:356-419`. On B: its review
 wrapper/result paths including explicit v2, `bin/validate_v2.py:34`; see C14/C30).
 
 ## Preparation, verification, cleanup (lifecycle obligations)
@@ -465,16 +469,16 @@ not agree on any changed member, and the leader prepares a new round (R-REREVIEW
 basis makes rounds prepared before it non-retryable; prepare a new round.
 
 - On A: `review_scratch.py prepare --v2` writes the `Review metadata:` line of `delivery-r<N>.md`, whose sha256 is the
-  content digest (`lib/review_scratch.py:5791-5816`). It carries `review_kind`, `review_web_policy` (the rendered
+  content digest (`lib/review_scratch.py:5823-5848`). It carries `review_kind`, `review_web_policy` (the rendered
   no-web sentence; A binds no `review_web_authorized` yet, DL-39), `selected_entries` and `roster_config_digest`
-  (`_v2_config_digest`, `:5231`: every round-record entry field except `attempt`, plus `gate_files`, `hook_log` and
+  (`_v2_config_digest`, `:5263`: every round-record entry field except `attempt`, plus `gate_files`, `hook_log` and
   `results_dir`); the brief and residual are inside the hashed packet. `collect_v2._bound_metadata`
-  (`lib/collect_v2.py:410-480`) re-hashes the delivery record and compares the record with the bound line in
+  (`lib/collect_v2.py:442-512`) re-hashes the delivery record and compares the record with the bound line in
   `collect`, `retry` and adoption. A later edit of the project roster file does not affect a prepared round. The
   clause manifests (`prompt_manifests`, `prompt_spec_dir`), the producer projection digest and the contract digest are
-  recorded in `.roster-r<N>.json` and compared there with re-derived values (`lib/collect_v2.py:1589`, `:2337-2339`,
-  `:2378`): `collect` re-derives the contract digest (`:1623`), adoption and retry the manifests and projection
-  (`:1842`, `:1908`, `:2337`, `:2378`); re-deriving the manifests and projection at collection is open (DL-41). The
+  recorded in `.roster-r<N>.json` and compared there with re-derived values (`lib/collect_v2.py:1910`, `:2718-2720`,
+  `:2759`): `collect` re-derives the contract digest (`:1944`), adoption and retry the manifests and projection
+  (`:2194`, `:2260`, `:2718`, `:2759`); re-deriving the manifests and projection at collection is open (DL-41). The
   round date is not yet bound (open, DL-46).
 - On B: `bin/review_round_v2.py` `create_basis` seals `basis-v2.json` (the request with `review_kind`,
   `review_web_authorized` and `prior_residual`; the resolved roster; adapters with launch controls and receipt digests;
@@ -486,15 +490,18 @@ basis makes rounds prepared before it non-retryable; prepare a new round.
   DL-46).
 
 <a id="R-THREAT"></a>
-Both hosts serve one operator on a stable machine. There is no concurrent operation: no second install, update,
+This rule scopes reviews of a TRIAD dispatch host's own code (the review and dispatch toolkit itself); for any other
+reviewed target, the target's deployment context is what the leader states in the brief (R-CONTEXT). Both hosts serve
+one operator on a stable machine. There is no concurrent operation: no second install, update,
 uninstall or review session runs while an operation runs; concurrency INSIDE one operation, such as two legs of one
 round, is real and stays covered. There is no malicious actor (owner,
 [D-THREAT-MODEL-20261003](../decisions/owner-register.md#D-THREAT-MODEL-20261003)). Guards defend against ordinary
 failures: a full disk, a crash in the middle of an operation, a wrong argument, a bad vendor answer, a reviewer's or the
 leader's mistake. A finding whose trigger needs deliberate tampering with the host's own files, a concurrent operation,
 a deliberately unusual layout or a crash at one exact instant is recorded as a fact — no code and no blocking; the C66
-limits under R-BIND are the worked example. Every leg receives this context through the shared `deployment-context`
-clause, which has it label such a finding HARDENING-SUGGESTION (non-blocking under R-AGREE); the leader records it as a
+limits under R-BIND are the worked example. Every leg receives this context, with this rule and
+D-THREAT-MODEL-20261003 as its evidence pointer, through the shared `deployment-context` clause, which applies it only
+when the reviewed code is a TRIAD host's own and has the leg label such a finding HARDENING-SUGGESTION (non-blocking under R-AGREE); the leader records it as a
 SPECULATIVE fact (R-VERIFY).
 
 <a id="R-VERIFY"></a>

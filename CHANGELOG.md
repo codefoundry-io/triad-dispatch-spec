@@ -2,6 +2,12 @@
 
 ## Spec gaps exposed by host A's conformance work — 2026-10-03 (not tagged)
 
+- Branch fix round 5: R-THREAT and the `deployment-context` clause are scoped to reviews of a TRIAD host's own code
+  (other targets: the brief's context, R-CONTEXT); the clause carries its evidence pointer (R-THREAT /
+  D-THREAT-MODEL-20261003) so it agrees with `severity-instruction` (payload change, re-vendor); R-REVIEW-WEB and C32: a
+  caller's false is ignored under the standing authorization and a non-boolean stays a refusal; C68 states only the
+  host-testable part; host A citations re-checked at `4af44cf`, with one convention stated at the top of
+  `reference/review-rules.md`.
 - G11 threat model (owner `D-THREAT-MODEL-20261003`): NEW R-THREAT — one operator on a stable machine, no concurrent
   operation (concurrency inside one operation stays covered), no malicious actor; guards defend against ordinary
   failures; tampering, concurrent-operation, unusual-layout and exact-instant-crash findings are recorded facts. R-VERIFY
