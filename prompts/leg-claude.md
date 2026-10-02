@@ -60,9 +60,10 @@ OUTPUT INTEGRITY: before finishing, verify the object ends with its outermost cl
 5. common:current-basis
 6. common:current-date
 7. claude-tree-entry
-8. common:severity-instruction
-9. common:verdict-selection-rule
-10. claude-binding-line
-11. claude-verdict-shape
-12. common:repo-relative-pin
-13. claude-output-integrity
+8. common:deployment-context
+9. common:severity-instruction
+10. common:verdict-selection-rule
+11. claude-binding-line
+12. claude-verdict-shape
+13. common:repo-relative-pin
+14. claude-output-integrity

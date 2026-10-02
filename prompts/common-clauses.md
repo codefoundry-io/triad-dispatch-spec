@@ -33,6 +33,12 @@ Judge the complete current scope, including supplied environment evidence and un
 This review runs on <review-date> (UTC), and model names, CLI versions and products newer than your training data exist. Verify such a name on the web when web verification is authorized for this round, otherwise take it as given from the bound inputs; never declare it nonexistent from memory.
 ```
 
+## deployment-context (R-THREAT)
+
+```text
+Deployment context: both hosts serve one operator on a stable machine, with no concurrent operation (no second install, update, uninstall or review session while an operation runs; concurrency inside one operation, such as two legs of one round, is real) and no malicious actor. A finding whose trigger needs deliberate tampering with the host's own files, a concurrent operation, a deliberately unusual layout or a crash at one exact instant is outside this context: label it HARDENING-SUGGESTION, which does not block on its own. Ordinary failures (a full disk, a crash mid-operation, a wrong argument, a bad vendor answer, a reviewer's or leader's mistake) stay in scope at their full severity.
+```
+
 ## severity-instruction (R-AGREE)
 
 ```text

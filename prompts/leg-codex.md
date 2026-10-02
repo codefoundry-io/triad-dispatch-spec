@@ -42,7 +42,8 @@ Return exactly ONE LegVerdict JSON object matching your enforced output schema â
 6. codex-tree-entry
 7. codex-read-grant
 8. common:repo-relative-pin
-9. common:severity-instruction
-10. common:verdict-selection-rule
-11. codex-binding-line
-12. codex-closing
+9. common:deployment-context
+10. common:severity-instruction
+11. common:verdict-selection-rule
+12. codex-binding-line
+13. codex-closing

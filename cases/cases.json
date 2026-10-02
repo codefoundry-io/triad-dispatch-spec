@@ -555,6 +555,18 @@
         "A": "todo (re-vendor; authoring/shared-dev-log.md DL-46)",
         "B": "todo (re-vendor; authoring/shared-dev-log.md DL-46)"
       }
+    },
+    {
+      "id": "C68",
+      "surface": "prompts",
+      "rule": "R-THREAT, R-VERIFY, R-AGREE",
+      "summary": "A finding outside the deployment context is a recorded fact, never a blocker",
+      "input": "every leg's rendered prompt; a leg reports a finding whose only trigger is deliberate tampering with the host's own files, a concurrent operation, a deliberately unusual layout or a crash at one exact instant; compare a finding triggered by an ordinary failure (a full disk, a crash mid-operation, a wrong argument, a bad vendor answer)",
+      "expected": "Every leg prompt carries the shared deployment-context clause. The out-of-context finding is labelled HARDENING-SUGGESTION and does not block agreement on its own; the leader records it as a SPECULATIVE fact with no code change. The ordinary-failure finding keeps its full severity.",
+      "tests": {
+        "A": "todo (re-vendor; authoring/shared-dev-log.md DL-56)",
+        "B": "todo (re-vendor; authoring/shared-dev-log.md DL-56)"
+      }
     }
   ]
 }

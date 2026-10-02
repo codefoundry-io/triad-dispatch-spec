@@ -294,3 +294,27 @@ deliberate tampering, not as rules or open work.
 
 Effect: [R-BIND](../reference/review-rules.md#R-BIND) (On A sentence and its five limits), case C66 tests.A, dev-log
 rows DL-44 and DL-55.
+
+<a id="D-THREAT-MODEL-20261003"></a>
+## D-THREAT-MODEL-20261003: the deployment both hosts serve — no malicious actor, no concurrent operation
+
+Owner, 2026-10-03, typed (verbatim):
+
+> 이건 스펙에 나와있는 부분이야 없었어? 악위적인 공격 변조에 대응하먄 끝이없어
+
+Earlier owner rulings with the same content, recorded until now only in host A's records (verbatim, dates as given):
+
+> 2026-09-27: 너무 과한 설정을 걷어내 누가 진행중에 업데이트를 시도하겠어
+
+> 2026-09-28: ...발생하지 않을 악의적 공격에 대한 과장된 방어 이런거 ?
+
+> 2026-08-15: 이게 버그인지 너무 과도한 방어코드 아니야? 악의적인 공격은 없고
+
+Reading recorded with the decision (the leader's, not the owner's words): both hosts serve one operator on a stable
+machine with no concurrent operation and no malicious actor; guards defend against ordinary failures; a finding that
+needs deliberate tampering, a concurrent operation, a deliberately unusual layout or an exact-instant crash is recorded
+as a fact, never code or a blocker.
+
+Effect: [R-THREAT](../reference/review-rules.md#R-THREAT) (new), R-VERIFY's dispositions and the C66 limits under
+R-BIND point to it; the shared prompt clause `deployment-context` (`prompts/common-clauses.md`, in every leg order);
+case C68; dev-log row DL-56. Host adoption (re-vendor), publication and revision tags remain separate.

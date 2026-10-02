@@ -91,3 +91,17 @@ def test_host_specific_clauses_carry_the_a_only_marker():
 def test_review_web_permission_carries_the_privacy_rule():
     text = clauses("common-clauses.md")["review-web-permission"]
     assert "never send the reviewed material, a local path or a person's name" in text
+
+
+def test_deployment_context_clause_is_short_and_names_the_threat_model():
+    text = clauses("common-clauses.md")["deployment-context"]
+    assert "one operator" in text and "HARDENING-SUGGESTION" in text
+    assert text.endswith(".") and len(re.split(r"(?<=\.)\s+", text)) <= 3, text
+
+
+@pytest.mark.parametrize("name", LEG_FILES)
+def test_every_leg_renders_deployment_context_before_severity(name):
+    order = [ORDER_ITEM.match(line)[1]
+             for clause, _, lines in sections(name) if clause == "order"
+             for line in fenced(lines)[1]]
+    assert order[order.index("common:severity-instruction") - 1] == "common:deployment-context", order

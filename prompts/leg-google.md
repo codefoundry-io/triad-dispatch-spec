@@ -61,12 +61,13 @@ Return exactly ONE LegVerdict JSON object matching the provided schema — no pr
 5. common:current-date
 6. google-tree-entry
 7. common:data-fence-caveat
-8. common:severity-instruction
-9. common:verdict-selection-rule
-10. google-binding-line
-11. google-read-grant
-12. google-tool-conventions
-13. google-a-hook-audit (A-only: active-hook route)
-14. google-findings-shape-pin
-15. common:repo-relative-pin
-16. google-closing
+8. common:deployment-context
+9. common:severity-instruction
+10. common:verdict-selection-rule
+11. google-binding-line
+12. google-read-grant
+13. google-tool-conventions
+14. google-a-hook-audit (A-only: active-hook route)
+15. google-findings-shape-pin
+16. common:repo-relative-pin
+17. google-closing

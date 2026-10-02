@@ -29,3 +29,8 @@ def test_c66_sealed_attempt_case_is_owned_by_review_lifecycle():
     assert case["surface"] == "review-lifecycle"
     assert "R-BIND" in case["rule"]
     assert case["tests"].get("A", "").strip() and case["tests"].get("B", "").strip()
+
+
+def test_c68_threat_model_case_cites_its_rule():
+    case = cases()["C68"]
+    assert "R-THREAT" in case["rule"]

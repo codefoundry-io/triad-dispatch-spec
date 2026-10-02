@@ -423,8 +423,8 @@ it; every attempt that recorded an answer, valid or invalid, is sealed with a st
 `collect-r<N>.json` keeps each seal's digest and later collections re-check the result, receipt, read evidence and seal;
 the printed wrapper line runs a seal guard under `noclobber` and the native spawn gets a printed `guard:` line
 (`lib/review_scratch.py:5078-5103`); an integrity failure makes that entry INCOMPLETE, never AGREED. Known limits on A,
-recorded by owner decision as facts under the one-operator lens, with no defence against deliberate tampering
-([D-C66-LIMITS-20261003](../decisions/owner-register.md#D-C66-LIMITS-20261003)): (1) after an unusable attempt directory
+recorded as facts under [R-THREAT](#R-THREAT) (owner decision
+[D-C66-LIMITS-20261003](../decisions/owner-register.md#D-C66-LIMITS-20261003)): (1) after an unusable attempt directory
 is collected, removing that directory and the original seal and replacing a blocking result can reach AGREED in the same
 round; (2) an earlier attempt sealed invalid is not re-checked for its contents, so changing it after a retry is not
 refused; (3) a seal-write failure leaves an evaluated answer without a seal digest, later treated as unrecorded; (4) a
@@ -485,12 +485,24 @@ basis makes rounds prepared before it non-retryable; prepare a new round.
   re-resolved roster that differs from the bound one, or changed adapter receipts. The round date is not yet bound (open,
   DL-46).
 
+<a id="R-THREAT"></a>
+Both hosts serve one operator on a stable machine. There is no concurrent operation: no second install, update,
+uninstall or review session runs while an operation runs; concurrency INSIDE one operation, such as two legs of one
+round, is real and stays covered. There is no malicious actor (owner,
+[D-THREAT-MODEL-20261003](../decisions/owner-register.md#D-THREAT-MODEL-20261003)). Guards defend against ordinary
+failures: a full disk, a crash in the middle of an operation, a wrong argument, a bad vendor answer, a reviewer's or the
+leader's mistake. A finding whose trigger needs deliberate tampering with the host's own files, a concurrent operation,
+a deliberately unusual layout or a crash at one exact instant is recorded as a fact — no code and no blocking; the C66
+limits under R-BIND are the worked example. Every leg receives this context through the shared `deployment-context`
+clause, which has it label such a finding HARDENING-SUGGESTION (non-blocking under R-AGREE); the leader records it as a
+SPECULATIVE fact (R-VERIFY).
+
 <a id="R-VERIFY"></a>
 The leader checks each claim against the current reviewed bytes, required behavior, concrete trigger and impact before
 acting. Preserve the original finding and evidence for each disposition: verified blocking defect → smallest adequate
 fix and full re-review (R-REREVIEW); verified non-blocking issue → record, with correction at the maintainer's option;
-refuted claim → record the specific counterevidence and its limits; design/scope change → R-STOP; speculation → residual,
-not speculative code. A fix changes the basis. Verify the proposed repair too: a reviewer's label or suggested design is
+refuted claim → record the specific counterevidence and its limits; design/scope change → R-STOP; a finding outside the
+deployment context → a recorded fact under R-THREAT; speculation → residual, not speculative code. A fix changes the basis. Verify the proposed repair too: a reviewer's label or suggested design is
 a claim, not an instruction, and a vote is not evidence. Leader triage cannot rewrite approval under R-AGREE.
 
 <a id="R-CLEANUP"></a>

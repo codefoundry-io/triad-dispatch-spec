@@ -2,6 +2,12 @@
 
 ## Spec gaps exposed by host A's conformance work — 2026-10-03 (not tagged)
 
+- G11 threat model (owner `D-THREAT-MODEL-20261003`): NEW R-THREAT — one operator on a stable machine, no concurrent
+  operation (concurrency inside one operation stays covered), no malicious actor; guards defend against ordinary
+  failures; tampering, concurrent-operation, unusual-layout and exact-instant-crash findings are recorded facts. R-VERIFY
+  and the C66 limits point to it. Prompt payload (re-vendor obligation, `units.json` prompts): NEW shared clause
+  `deployment-context` before `common:severity-instruction` in all three leg orders (out-of-context findings are labelled
+  HARDENING-SUGGESTION). Case C68; dev-log DL-56; tests pin the clause and its order.
 - C66 sync: host A seals recorded attempts at `4af44cf` (t15 axes 74, 81-89); owner decision `D-C66-LIMITS-20261003`
   records its five known limits as facts in R-BIND's On A sentence; C21, C33, C66 tests cells and DL-42, DL-44 updated;
   DL-55 records that A retries an attempt sealed invalid while B refuses a completed invalid answer (fact, no change).
