@@ -44,8 +44,11 @@ triad-dispatch-spec/
 2. Each host repository records the revision it conforms to in one file (`SPEC_REVISION`, one line: `rev-N` + the tag's commit). The host vendors `reference/`, `prompts/*.md` and the `contracts/` files it consumes at that revision with the payload bytes UNCHANGED, recording revision and source digest in an adjacent small manifest (never inside the file — JSON has no comment syntax and byte equality is the check), so the adopted rules are available offline at the pinned revision; a live main-branch URL never changes installed behavior. It runs the `cases/` its `units.json` row maps to its own tests.
    A host that conforms to an untagged `main` commit records that commit as a candidate, never as a revision. On A:
    `SPEC_REVISION:1` holds one line `candidate <commit> <repository> (branch main; no rev-N tag beyond rev-0; manifest:
-   <path of the adjacent manifest>)`. On B: there is no `SPEC_REVISION` file; the vendored payload commit is
-   `source_commit` (with `status: candidate`) in `prompts/review-v2/source-manifest.json`.
+   <path of the adjacent manifest>)`. On B: there is no `SPEC_REVISION` file; each vendored payload carries its own manifest
+   (`source_commit`, `status: candidate`), checked in code: prompts and contracts at `04245c7`
+   (`prompts/review-v2/source-manifest.json`, `contracts/source-manifest.json`), the gemini no-web policy at `6f0f274`
+   (`bin/policies/source-manifest.json`) and the gemini web policy at `7f527ef` (`bin/policies/web-source-manifest.json`)
+   — three spec commits rather than one revision, a recorded departure (`authoring/shared-dev-log.md` DL-47).
 3. A host may lag a revision. Drift BETWEEN hosts is a REPORT (which revision each conforms to), not a release block (owner Q-P settled the location, not the enforcement mode). A host's failed required check against the revision it ITSELF claims is a local defect of that host.
 4. Authoring vs publication: either leader AUTHORS amendments here (a folder mirroring this layout, read by the other leader); only the OWNER publishes — pushes and tags. A review request or an attached maintainer instruction is never blanket authority to push or tag. Decisions that need the owner are asked in advance; the ruling and its effect land in `decisions/owner-register.md`.
 

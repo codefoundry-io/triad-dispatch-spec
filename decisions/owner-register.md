@@ -271,7 +271,7 @@ R-REREVIEW, R-PROMPT and R-REVIEW-WEB), [R-PROMPT](../reference/review-rules.md#
 [R-ROSTER](../reference/review-rules.md#R-ROSTER) (empty-roster refusal; host-native controls),
 [R-CONTEXT](../reference/review-rules.md#R-CONTEXT) (edges, empty residual, framing collisions),
 [R-BIND](../reference/review-rules.md#R-BIND) (sealed attempt), [R-REREVIEW](../reference/review-rules.md#R-REREVIEW)
-(the leader's range), [R-AGREE](../reference/review-rules.md#R-AGREE) (collection checks integrity); prompt clauses
+(the leader's range), [R-AGREE](../reference/review-rules.md#R-AGREE) (where integrity is checked, a fact); prompt clauses
 `current-date` and `review-no-web` and `prompts/README.md` § Clause-file format; README § How a host uses a revision;
 `units.json`; cases C13, C19, C20, C32, C33, C60, C61, C64 amended, C66 and C67 added; dev-log rows DL-40–DL-52. Host
 adoption, publication and revision tags remain separate.

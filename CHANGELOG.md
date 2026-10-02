@@ -2,6 +2,17 @@
 
 ## Spec gaps exposed by host A's conformance work — 2026-10-03 (not tagged)
 
+- Branch fix round 2: a sweep of every host statement in `reference/review-rules.md`, `units.json` and the cases'
+  tests cells (main text included) against A @ `ebc4dc7` and B 0.2.558 @ `7f75863`. Statements describing defects since
+  fixed now state today's code: A resolves relative paths (C28), assigns the gemini hardened default before its checks,
+  reaps the process group and fails closed on incomplete readers, reclaims `.pruning` only with its `.claim` record,
+  rejects duplicate members on every result path and pins its gemini model; A tests cells name the tests that carry
+  C2-C11, C16-C18, C22, C23, C28, C62. Open items newly marked: the A symlink migration (DL-53), B's `agent` definition
+  (DL-49), B's native codex investigation web (DL-39). Over-design corrected: R-AGREE's integrity location (DL-52) and
+  R-BIND's collected attempt are FACTS, not new obligations; the sealed attempt stays a rule. R-REVIEW-WEB: the host
+  binds `review_web_authorized` true for every review round under the standing authorization and records it. R-PREPARE:
+  post-digest inputs are recorded at prepare (a mutable record suffices) and re-derived and compared. README: B's three
+  per-payload manifests (DL-47). C29 REVIEW arm open; C66 names t15 axes 74 and 76.
 - Branch fix round 1 (whole-branch verification): every "On A:" / "On B:" statement now cites today's host code
   (A: triad `goal/spec-main-conformance` @ `ebc4dc7`; B: 0.2.558 @ `7f75863`) or is marked "(open, DL-n)". R-REVIEW-WEB's
   On A bullet separates the mechanisms that exist (codex `--search`, the two claude web twins, agy `--web` + hook
@@ -20,15 +31,15 @@
 - R-PREPARE defines the bound basis once (reviewed bytes, review conditions including the round date, selection,
   every resolved control from whatever source, installed clauses/schema/contract), what the content digest covers, what
   is recorded and re-derived, and each host's mechanism (On A / On B); a host change altering it makes earlier rounds
-  non-retryable. R-RETRY, R-REREVIEW, R-PROMPT and R-REVIEW-WEB point to it; R-RETRY refuses a changed member before any
-  allocation or write.
+  non-retryable. R-RETRY, R-REREVIEW, R-PROMPT and R-REVIEW-WEB point to it; R-RETRY refuses a changed condition, selection or
+  control before an attempt is allocated.
 - R-PROMPT: the stage value is `review_kind`; its carrier is host-native (On A `prepare --v2 --review-kind`; On B the
   `v2-create` request member). R-ROSTER: an all-disabled roster is a preparation refusal, never an outcome; a control
   from a host-native source outside the roster file is a basis member (On A: the claude preset frontmatter, open).
 - R-CONTEXT: a transported value includes its edges; framing keeps it recoverable; empty `prior_residual` is the absent
-  value; a named framing-collision refusal is an allowed input check (On A / On B). R-BIND: a recorded attempt is sealed;
-  collection evaluates the last allocated attempt with failed-to-run predecessors (On A: open). R-REREVIEW: the leader
-  chooses the reviewed range. R-AGREE: collection checks round integrity before AGREED (On A: open).
+  value; a named framing-collision refusal is an allowed input check (On A / On B). R-BIND: a recorded attempt is sealed
+  (On A: open); which attempt collection evaluates is recorded per host as a fact. R-REREVIEW: the leader chooses the
+  reviewed range. R-AGREE: where each host runs the integrity check is recorded as a fact.
 - Prompt payload (re-vendor obligation for both hosts, recorded in `units.json` prompts): NEW `current-date` clause with
   the `<review-date>` placeholder after `common:current-basis` in all three leg orders; NEW fenced `review-no-web`
   clause replacing the prose sentence; the three A-only clauses carry `A-only` in their header notes;
