@@ -34,7 +34,7 @@
       "input": "a run-log dir over its file cap containing a sibling file younger than the age floor",
       "expected": "A file younger than the age floor survives a cap prune; only the time-based sweep may delete by age",
       "tests": {
-        "A": "tests/unit/wrappers/t22-prune-stale-ipc.sh (cap candidates seeded past the age floor) @ triad ebc4dc7",
+        "A": "tests/unit/wrappers/t54-prune-floor-c3.sh (a file younger than the floor survives a cap prune) @ triad ebc4dc7",
         "B": "Existing coverage: tests/test_log_cleanup.py::test_run_log_count_cap_prunes_only_stale_files_and_allows_fresh_overflow and byte-cap counterpart; included in completed macOS/Ubuntu full-suite runs summarized at C24. No installed-provider conformance inferred."
       }
     },
@@ -371,7 +371,7 @@
       "input": "Caller explicitly requests raw Claude web via --web; compare an omitted flag.",
       "expected": "Only the selected invocation adds native --allowedTools WebSearch WebFetch. The caller prompt, custom schema, default controls and native deny precedence survive; no review accounting, global settings mutation or arbitrary argv interface is added.",
       "tests": {
-        "A": "Native route differs; maintainer mapping pending",
+        "A": "todo — A's claude worker dispatch is a CLI wrapper with no --web (3rd-Agent/wrappers/claude_wrapper.py @ triad ebc4dc7); adding the web option is open (authoring/shared-dev-log.md DL-39)",
         "B": "tests/test_claude_owner_web.py::test_C31_raw_fixed_web_permit; implementation verification pending"
       }
     },

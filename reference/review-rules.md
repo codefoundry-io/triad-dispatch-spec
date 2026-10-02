@@ -269,13 +269,15 @@ not silent partial authorization. No leader heuristic decides which technology n
 
 On CLI review routes, the route's web switch and the renderer/preflight condition must agree in both directions, with
 the same review ID, digest and v2 entry/attempt binding. Under the standing authorization the host binds
-`review_web_authorized` true for every review round and records it explicitly in the bound basis; it binds false only
-after the owner revokes the standing authorization. An absent condition in a bound record means false. Every route of
+`review_web_authorized` true for every review round, whatever a caller passes, and records it explicitly in the bound
+basis; it binds false only after the owner revokes the standing authorization, and a revocation takes effect as an
+entry in `decisions/owner-register.md`. An absent condition in a bound record means false. Every route of
 every host supports web; a route without it is a host defect, refused at preflight until fixed. Gemini selects a
 complete web-enabled host profile, never an overlay: only `google_web_search` and `web_fetch` move to allow, with all
 other controls preserved; the no-web profile stays the profile for a false condition. Pre-existing owner and admin
-denies remain authoritative. No permanent global settings change or permission bypass is authorized. On A: the
-operator's agy settings allow `read_url(*)`, an existing install-time setup the wrapper names
+denies remain authoritative. The review-web authorization lets no round make a permanent global settings change or
+bypass a permission. Each host's install-time prerequisite is a separate fact: On A: a user-level agy settings allow of
+`read_url(*)`, made once by the operator at installation and named by the wrapper
 (`3rd-Agent/wrappers/antigravity_wrapper.py:1975`). On B: the v2 agy adapter passes no `--project`
 (`bin/review_adapters_v2.py:167`), so the wrapper takes a temporary settings transaction that merges its deny rules into
 the agy settings for the call and restores them afterwards (`bin/antigravity_wrapper.py:655-664`,
@@ -300,8 +302,8 @@ route as follows; a false condition leaves every route in its R-CONTAIN no-web p
     `grep_search`, `list_dir`, `find_by_name`, `read_url_content`, `search_web`, `finish`) instead of the review agent
     (`3rd-Agent/wrappers/antigravity_wrapper.py:300-312`); read-audit admission tolerates errored steps of the two web
     tools under `--web` (`:314`, `:1763`); `lib/agy_hook.py --web` adds `read_url_content` and `search_web` to the hook's
-    allow set (`lib/agy_hook.py:119-121`, `:194`); the host's agy settings allow `read_url(*)` (the one-time setup
-    prerequisite above). Open (DL-39): the wrapper appends the investigation `web-evidence` clause on every `--web` call
+    allow set (`lib/agy_hook.py:119-121`, `:194`); the operator's user-level agy settings allow `read_url(*)` (the
+    install-time prerequisite above). Open (DL-39): the wrapper appends the investigation `web-evidence` clause on every `--web` call
     (`antigravity_wrapper.py:2021-2026`), which REVIEW must not do.
   - gemini: open (DL-39) — the wrapper refuses `--web` with `--sandbox` (`3rd-Agent/wrappers/gemini_wrapper.py:378-392`)
     and attaches only `gemini-readonly.toml` or `gemini-research.toml` (`:505-516`); attaching
@@ -342,7 +344,8 @@ the selected complete profile, with its adjacent digest; no concatenated overlay
 existing 999/998 allow/deny/catch-all and Plan Mode transition restrictions while moving its two web tools
 to explicit denies. A's profile and V1–V5 manifest stay unchanged; B's live checks are separately recorded
 in `contracts/gemini-readonly-b.verify.toml`. The web-enabled profiles are selected under R-REVIEW-WEB; the no-web
-profile bytes stay unchanged, and their header comments ("review legs have no web tools") describe the no-web profile.
+profile bytes stay unchanged, and their header comments (A: "review legs have no web tools"; B: "D-9: web evidence
+belongs to a separately authorized investigation, never REVIEW") describe the no-web profile.
 Web-enabled investigations (R-INVEST) keep web. No alignment may introduce a dangerous /
 yolo permission bypass on any leg (each host discloses its existing permissive-route flags in `units.json` exceptions; none is on a review route). A leg a host runs natively stays native; no leader-model CLI subprocess is
 added for symmetry. Containment EVIDENCE is attributed to the leg attempt that produced it (C23): on a host with a LIVE
@@ -402,7 +405,9 @@ Every leg's result binds `review_id`, `family` and `content_digest` today on bot
 a pass. v2 ADDS (round r2, all three families; lands with the D-3 wire — `contracts/leg-verdict-mapping.md`): `leg_name` (the
 roster entry), `attempt` (integer ≥ 1, per leg), `route` (the resolved Google route `agy` | `gemini`; null for a family with
 one route). The common v2 prompt pins use these fields. Each host adopts its validator, all shaped clauses and collectors together;
-explicit legacy entry points retain their old contract and cannot admit v2 results.
+explicit legacy entry points retain their old contract and cannot admit v2 results. On A: the legacy small path
+(`lib/review_small.py`) never collects a v2 round's results; it reads its own round's answers and treats v2-shaped extra
+fields (binding or schema members) as shape notes, keeping the answer (`:631`, `:654`, `:745`).
 A recorded attempt is sealed: the result and every evidence file its route records for the attempt (read evidence; a
 transport receipt where the route records one there) are written once and bound by digest when recorded, and collection
 refuses a later change, removal or replacement of any of them. A native leg seals what it records; DL-18 adds no

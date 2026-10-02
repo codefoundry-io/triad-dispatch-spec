@@ -217,8 +217,9 @@ Effect: [R-ROSTER](../reference/review-rules.md#R-ROSTER) (codex default),
 [R-REVIEW-WEB](../reference/review-rules.md#R-REVIEW-WEB) (standing authorization; `review_web_authorized`
 true for every round unless the owner revokes it), [R-CONTAIN](../reference/review-rules.md#R-CONTAIN) (the
 no-web posture applies to a false condition only), [R-INVEST](../reference/review-rules.md#R-INVEST) (web
-allowed for every investigation/dispatch leg), `contracts/review-legs.example.json` (codex entry), cases C29,
-C32 and C35, dev-log row DL-39. It supersedes the codex baseline of the 2026-09-25 directive, D-9's REVIEW
+allowed for every investigation/dispatch leg), `contracts/review-legs.example.json` (codex entry), the prompt clauses
+`review-web-permission` (`prompts/common-clauses.md`) and `google-a-hook-audit` (`prompts/leg-google.md`), cases C15,
+C29, C32 and C35, dev-log row DL-39. It supersedes the codex baseline of the 2026-09-25 directive, D-9's REVIEW
 prohibition and the 2026-09-21 direct-request condition, including the review-web instructions of
 [the review-web handoff](claude-review-web-handoff.md) and
 [the Codex + three Google handoff](claude-codex-google-four-leg-handoff.md), the web condition of

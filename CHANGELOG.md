@@ -2,6 +2,11 @@
 
 ## Spec gaps exposed by host A's conformance work — 2026-10-03 (not tagged)
 
+- Branch fix round 4: R-BIND states what holds on A's legacy small path (it never collects v2 results and keeps
+  v2-shaped extra fields as shape notes; units.json and DL-50 agree); R-REVIEW-WEB scopes the settings prohibition to
+  what the authorization grants a round, states each host's install-time prerequisite as a fact, and says hosts bind
+  true whatever a caller passes until a revocation entry in the owner register; R-CONTAIN quotes B's no-web header
+  comment too; C3 and C31 A tests cells corrected; DL-39 line cite; D-REVIEW-LEGS effect names C15 and its clauses.
 - Branch fix round 3: host status removed from case texts into tests cells (C8, C11, C14, C15, C16) after checking it
   against both hosts; C6 and C12 tests cells corrected; C19 B negative arm (DL-49); C33/DL-42 aligned (A fix 4d3d667
   pending verification; B's identical collector shape). R-REVIEW-WEB restores "No permanent global settings change",
