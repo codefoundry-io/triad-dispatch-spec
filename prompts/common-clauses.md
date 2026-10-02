@@ -27,6 +27,12 @@ Review this change's correctness and completeness under the stated requirements 
 Judge the complete current scope, including supplied environment evidence and uncertainties. Previous approval does not carry forward. Check current fixes, refutations and their evidence as claims, and look for regressions. To reopen a closed claim, identify a new counterexample, relevant change or error in its refutation. Use only currently authorized, bound evidence; a historical path alone grants neither access nor proof. Put unresolved facts necessary for approval in open_questions. Do not put optional curiosities in that blocking list or invent a finding merely to carry them.
 ```
 
+## current-date (R-PROMPT)
+
+```text
+This review runs on <review-date> (UTC), and model names, CLI versions and products newer than your training data exist. Verify such a name on the web when web verification is authorized for this round, otherwise take it as given from the bound inputs; never declare it nonexistent from memory.
+```
+
 ## severity-instruction (R-AGREE)
 
 ```text
@@ -63,6 +69,12 @@ Check evidence-backed code smells and simplicity after the change: identify unne
 Web verification is authorized for this round. Use native web tools when an external fact needs checking and cite checked sources. Other review restrictions remain.
 ```
 
-Replace `<review-web-policy>` in every participating leg with this clause only when the frozen
-`review_web_authorized` condition is true; otherwise use `Do not use web search, URL fetching, or other network research in REVIEW.`
+## review-no-web (R-REVIEW-WEB, R-CONTAIN)
+
+```text
+Do not use web search, URL fetching, or other network research in REVIEW.
+```
+
+Replace `<review-web-policy>` in every participating leg with `review-web-permission` when the bound
+`review_web_authorized` condition is true and with `review-no-web` when it is false.
 Hosts preserve their native tool mapping and existing evidence rules. This is an invocation condition, not a verdict field.

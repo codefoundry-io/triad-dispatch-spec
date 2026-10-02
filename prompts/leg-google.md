@@ -34,7 +34,7 @@ Read <brief-file> FIRST and ONCE with your file-read tool (agy: view_file; gemin
 Use the native search tool (agy: grep_search; gemini: search_file_content) with a specific relevant subdirectory before expanding a search. Open files with their current native arguments and absolute path (agy: view_file; gemini: read_file). Paging bounds must stay within the file size reported by the tool. Open only paths that exist now: a planned file named by design prose is reviewed from that prose, not falsely claimed inspected. Failed reads are not evidence; correct a bad path or paging request without disguising missing coverage. Do not use a shell to work around a denied tool.
 ```
 
-## google-a-hook-audit (R-CONTAIN; A live-hook route only)
+## google-a-hook-audit (R-CONTAIN; A-only: active-hook route)
 
 ```text
 On this host's active agy review route, a PreToolUse hook blocks tools outside the allowlist: the five review tools, plus read_url_content and search_web when web verification is authorized for this round. A blocked call is logged and costs a step; any forbidden call that EXECUTES invalidates the review. You cannot prove hook loading from inside the model. The caller verifies loading and independently audits tool steps. Its read audit requires opening <gated-patch-file>; omitting that read loses the review even when the verdict is complete. A failed read is tolerated only when the required successful read evidence still exists.
@@ -58,14 +58,15 @@ Return exactly ONE LegVerdict JSON object matching the provided schema — no pr
 2. common:adversarial-framing
 3. common:<review-purpose> (plan-purpose or code-purpose, selected by review_kind)
 4. common:current-basis
-5. google-tree-entry
-6. common:data-fence-caveat
-7. common:severity-instruction
-8. common:verdict-selection-rule
-9. google-binding-line
-10. google-read-grant
-11. google-tool-conventions
-12. google-a-hook-audit (A active-hook route only)
-13. google-findings-shape-pin
-14. common:repo-relative-pin
-15. google-closing
+5. common:current-date
+6. google-tree-entry
+7. common:data-fence-caveat
+8. common:severity-instruction
+9. common:verdict-selection-rule
+10. google-binding-line
+11. google-read-grant
+12. google-tool-conventions
+13. google-a-hook-audit (A-only: active-hook route)
+14. google-findings-shape-pin
+15. common:repo-relative-pin
+16. google-closing

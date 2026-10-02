@@ -152,9 +152,9 @@
       "rule": "R-AGREE",
       "summary": "Agreement and release",
       "input": "a nonempty selected roster with every enabled entry, including informational entries; explicit SAFE TO MERGE results, a non-affirmative verdict carrying only Minor findings, a blocking finding, an unresolved open question, and a missing, invalid or failed result",
-      "expected": "PASS only when every selected leg explicitly returns SAFE TO MERGE on the same current bound basis, with no blocking finding or open_questions and with intact binding and transport. A Minor-only non-affirmative verdict remains schema-valid but is not agreement. Missing, invalid, failed or negative output blocks PASS; probe-refuted findings and owner decisions remain recorded evidence, not inferred approvals. No minimum leg or family count applies.",
+      "expected": "PASS only when every selected leg explicitly returns SAFE TO MERGE on the same current bound basis, with no blocking finding or open_questions and with intact binding and transport. A Minor-only non-affirmative verdict remains schema-valid but is not agreement. Missing, invalid, failed or negative output blocks PASS; probe-refuted findings and owner decisions remain recorded evidence, not inferred approvals. No minimum leg or family count applies. Collection reports AGREED only after a passed integrity verification of the current bound basis (R-AGREE).",
       "tests": {
-        "A": "New all-selected explicit-approval behavior: NOT RUN.",
+        "A": "New all-selected explicit-approval behavior: NOT RUN. Collector-enforced integrity (R-AGREE): open — collect_v2.collect does not read .verified-r<N>.json (authoring/shared-dev-log.md DL-33).",
         "B": "B provider-free evidence at f6651121bf775a40f8743c10cd6c3f3590fef88c: tests/test_v2_rounds.py C13 and tests/test_v2_round_custody.py cover both Minor-only negative tokens, all-selected approval, invalid SAFE evidence and INCOMPLETE precedence. See decisions/claude-review-strategy-handoff.md for actual platform results and limits. Historical old-contract evidence: local B P3 candidate based on 3d62b7c validated canonical v2 verdicts and all-entry agreement including Minor-only negative, blockers and questions in tests/test_validate_v2.py, tests/test_v2_producer_adapter.py and tests/test_v2_rounds.py. That evidence does not establish the revised collection rule."
       }
     },
@@ -221,12 +221,12 @@
     {
       "id": "C19",
       "surface": "review-lifecycle",
-      "rule": "R-RETRY",
+      "rule": "R-RETRY, R-PREPARE",
       "summary": "Failed leg, nothing changed",
-      "input": "one leg failed to run; source, prompts, roster, model, route unchanged",
-      "expected": "Only the failed leg is re-dispatched on the same bound basis; other legs' results are retained; the receipt records attempt 2",
+      "input": "one leg failed to run; source, prompts, roster, model, route unchanged. Negative arm: after prepare, one selected entry's enabled flag or one resolved control (model, effort, route, timeout) in the host's round custody differs from the bound basis, and the failed leg is retried",
+      "expected": "Only the failed leg is re-dispatched on the same bound basis; other legs' results are retained; the receipt records attempt 2. Negative arm: the retry is refused before any allocation or write, naming the changed selection or control; collection does not agree on that round; every selected leg reviews again on a new basis (R-REREVIEW)",
       "tests": {
-        "A": "todo",
+        "A": "tests/unit/skills/t15-collect-v2.sh axis 79 (unchanged-basis retry) and axes 77, 78 (a changed selection or configuration is refused in collect, retry and adoption) @ triad 6f72573",
         "B": "Implemented in the local B P3 candidate based on 3d62b7c. Diagnosed unchanged-basis failed-entry retry increments attempt and retains siblings/history; preparation failures are preserved without fabricating provider attempts. Regression sources: tests/test_v2_rounds.py, tests/test_v2_round_custody.py, tests/test_v2_runtime_boundaries.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred."
       }
     },
@@ -236,7 +236,7 @@
       "rule": "R-REREVIEW",
       "summary": "Reviewed bytes or review conditions changed after a round",
       "input": "a fix wave or changed review condition after a round; the leader supplies a condensed current residual with excerpts needed for the next judgment",
-      "expected": "Create a new bound basis and have every selected leg review the current full scope again. Render the leader's current residual once as fenced data, with required prior excerpts, counterevidence and verification results materialized now in the host's existing bound inputs: A's brief/evidence surfaces; B's prior_residual or EVIDENCE.md/source members. Old paths are provenance, not the only evidence; no transcript or prior residual is appended automatically, no earlier approval carries forward, and normal owned temporary-root cleanup may proceed.",
+      "expected": "Create a new bound basis and have every selected leg review the current full scope again. Render the leader's current residual once as fenced data, with required prior excerpts, counterevidence and verification results materialized now in the host's existing bound inputs: A's brief/evidence surfaces; B's prior_residual or EVIDENCE.md/source members. Old paths are provenance, not the only evidence; no transcript or prior residual is appended automatically, no earlier approval carries forward, and normal owned temporary-root cleanup may proceed. The leader chooses the reviewed range; the host does not check it against earlier rounds.",
       "tests": {
         "A": "New current-residual and no-automatic-append behavior: NOT RUN. Historical old-contract TODO: SKILL.md rule 5(b) deletion at two sites.",
         "B": "B provider-free evidence at f6651121bf775a40f8743c10cd6c3f3590fef88c: tests/test_review_cleanup_custody.py C20_C63 binds current materialized evidence before eligible previous cleanup; tests/test_v2_rounds.py and existing toolkit/custody tests preserve changed-basis refusal and full re-review. See decisions/claude-review-strategy-handoff.md for actual platform results and limits. Historical old-contract evidence: local B P3 candidate based on 3d62b7c required changed-source/condition full review and fenced, bound prior residual inputs; tests/test_review_conditions.py, tests/test_v2_review_prompts.py, tests/test_v2_rounds.py, tests/test_v2_toolkit_inputs.py. This does not establish the revised current-input contract."
@@ -381,7 +381,7 @@
       "rule": "R-REVIEW-WEB, R-REREVIEW, R-CONTAIN",
       "summary": "The owner's standing authorization binds web across every review leg in every round",
       "input": "A review round under the owner's standing authorization (D-REVIEW-LEGS-20261003); compare a revoked authorization and absent/false/nonboolean/mismatched conditions, preflight, prompt and invocation.",
-      "expected": "Every round binds review_web_authorized true while the standing authorization holds, enabling all participating routes with a short common permission clause and preserved native/read-only controls; a revoked authorization binds false and renders the no-web clause. The same condition enters common digest, preflight and allocation; changed conditions require a new basis; retry preserves it. Missing/mismatched permission refuses before inference; unsupported capability refuses rather than silently running a partially authorized round. No technology-detection heuristic, roster field or changed verdict schema. The no-web Gemini profile bytes remain unchanged; each host's complete web profile (On A: contracts/gemini-readonly-web.toml; On B: contracts/gemini-readonly-web-b.toml) permits only its two web tools in addition to the existing read tools. Every route of every host supports the true condition.",
+      "expected": "Every round binds review_web_authorized true while the standing authorization holds, enabling all participating routes with a short common permission clause and preserved native/read-only controls; a revoked authorization binds false and renders the `review-no-web` clause. The same condition enters common digest, preflight and allocation; changed conditions require a new basis; retry preserves it. Missing/mismatched permission refuses before inference; unsupported capability refuses rather than silently running a partially authorized round. No technology-detection heuristic, roster field or changed verdict schema. The no-web Gemini profile bytes remain unchanged; each host's complete web profile (On A: contracts/gemini-readonly-web.toml; On B: contracts/gemini-readonly-web-b.toml) permits only its two web tools in addition to the existing read tools. Every route of every host supports the true condition.",
       "tests": {
         "A": "NOT RUN / adoption of the 2026-10-03 standing authorization pending; the A web-profile payload invariant is tests/test_policy_profiles.py::test_c32_a_web_profile_moves_only_the_two_web_tools_to_allow (spec repository, payload only)",
         "B": "tests/test_claude_owner_web.py C32 scenarios cover the earlier per-request condition; adoption of the 2026-10-03 standing authorization pending",
@@ -393,11 +393,11 @@
       "surface": "roster",
       "rule": "R-ROSTER, R-AGREE, R-BIND, R-RETRY, R-REREVIEW",
       "summary": "All selected named legs must approve, regardless of family count",
-      "input": "A configurable nonempty selected roster, for example codex, google-contracts, google-failures and google-state, including any informational entry; all receive the same phase goal, requirements, environment and full scope. Compare same-family result/receipt swaps, missing/invalid/negative/blocking output, an enabled entry skipped before dispatch, failed-to-run unchanged-basis retry and a changed phase goal.",
-      "expected": "Every selected entry gets an independent bound attempt and exclusive evidence path. PASS requires each one to explicitly return SAFE TO MERGE with no blocking finding or open_questions; a two-family or one-family roster has no special owner-decision or family-minimum gate. Sibling result/receipt swaps fail binding. Missing, invalid, failed, skipped or negative results cannot be counted as agreement, even if a same-family sibling approves. Preparation refusal cannot produce PASS. The common phase goal, requirements and environment reach every bound leg. Retry only a diagnosed failed-to-run entry on unchanged conditions; changed phase goal, requirements, environment, roster or controls require all selected entries to review the current full scope. Preserve machine outcome separately from any later owner decision.",
+      "input": "A configurable nonempty selected roster, for example codex, google-contracts, google-failures and google-state, including any informational entry; all receive the same phase goal, requirements, environment and full scope. Compare an all-disabled roster (every entry enabled: false), same-family result/receipt swaps, missing/invalid/negative/blocking output, an enabled entry skipped before dispatch, failed-to-run unchanged-basis retry and a changed phase goal.",
+      "expected": "Every selected entry gets an independent bound attempt and exclusive evidence path. PASS requires each one to explicitly return SAFE TO MERGE with no blocking finding or open_questions; a two-family or one-family roster has no special owner-decision or family-minimum gate. Sibling result/receipt swaps fail binding. Missing, invalid, failed, skipped or negative results cannot be counted as agreement, even if a same-family sibling approves. Preparation refusal cannot produce PASS. An all-disabled roster is refused at preparation, naming the empty selection, before any adapter starts or any round record is written. The common phase goal, requirements and environment reach every bound leg. Retry only a diagnosed failed-to-run entry on unchanged conditions; changed phase goal, requirements, environment, roster or controls require all selected entries to review the current full scope, and a retry or collection against a changed recorded selection or control is refused. Preserve machine outcome separately from any later owner decision.",
       "tests": {
-        "A": "New all-selected explicit-approval behavior: NOT RUN. Historical old-contract evidence: host A parity/host-a-v2 collect_v2 counted enabled SKIPPED entries as missing and refused sibling/attempt swaps; tests/unit/skills/t15-collect-v2.sh axes 62 and 66-71, gate-1 rounds r12–r23 in docs/reviews/2026-09-21-host-a-v2-gate1.md. This does not prove revised PASS behavior.",
-        "B": "B provider-free evidence at f6651121bf775a40f8743c10cd6c3f3590fef88c: tests/test_v2_rounds.py C33 covers one/same-family/informational and empty rosters; existing sibling/attempt/route swaps and retry regressions remain. See decisions/claude-review-strategy-handoff.md for actual platform results and limits. Historical old-contract evidence: v0.2.556 source supported named entries and exclusive paths but required OWNER_DECISION_REQUIRED for two-family output; generic-N/renamed-Google tests and decisions/codex-google-four-leg-operating-spec.md are supporting old-contract evidence only."
+        "A": "tests/unit/skills/t15-collect-v2.sh axis 75 (an all-disabled roster refused at prepare; a record emptied after prepare never AGREED), axes 77, 78 (changed selection or configuration refused) @ triad 6f72573. Open (minor): collect_v2._outcome returns AGREED for an empty entry list, reachable only through a forged bound delivery record. New all-selected explicit-approval behavior: NOT RUN. Historical old-contract evidence: host A parity/host-a-v2 collect_v2 counted enabled SKIPPED entries as missing and refused sibling/attempt swaps; tests/unit/skills/t15-collect-v2.sh axes 62 and 66-71, gate-1 rounds r12–r23 in docs/reviews/2026-09-21-host-a-v2-gate1.md. This does not prove revised PASS behavior.",
+        "B": "tests/test_v2_rounds.py:252 test_C33_zero_enabled_entries_refuse_before_adapters @ 0.2.558 7f75863. B provider-free evidence at f6651121bf775a40f8743c10cd6c3f3590fef88c: tests/test_v2_rounds.py C33 covers one/same-family/informational and empty rosters; existing sibling/attempt/route swaps and retry regressions remain. See decisions/claude-review-strategy-handoff.md for actual platform results and limits. Historical old-contract evidence: v0.2.556 source supported named entries and exclusive paths but required OWNER_DECISION_REQUIRED for two-family output; generic-N/renamed-Google tests and decisions/codex-google-four-leg-operating-spec.md are supporting old-contract evidence only."
       }
     },
     {
@@ -463,12 +463,12 @@
     {
       "id": "C60",
       "surface": "review-lifecycle",
-      "rule": "R-PROMPT, R-REREVIEW",
+      "rule": "R-PROMPT, R-REREVIEW, R-PREPARE",
       "summary": "Review stage selects the shared plan or code purpose",
-      "input": "formal-plan, pre-merge, implementation-review, an omitted stage, null and an unknown stage",
-      "expected": "formal-plan uses the short plan purpose; pre-merge and implementation-review use the code purpose. The host applies pre-merge on omission. Null and unknown stages are refused before dispatch; the schema default annotates the omission rule but does not fill input data.",
+      "input": "formal-plan, pre-merge, implementation-review, an omitted stage, null and an unknown stage, each given at the host's v2 preparation entry (On A: `review_scratch.py prepare --v2 --review-kind <value>`; On B: the `review_kind` member of the `v2-create` request); the stage under another name; identical bytes prepared once as formal-plan and once as pre-merge",
+      "expected": "formal-plan uses the short plan purpose; pre-merge and implementation-review use the code purpose. The host applies pre-merge on omission. Null and unknown stages are refused before dispatch; the schema default annotates the omission rule but does not fill input data. A stage under another name is an unknown input. The resolved stage is a member of the bound basis: the two prepares bind different content digests, and a retry renders the bound stage.",
       "tests": {
-        "A": "Host behavior: NOT RUN. Shared schema boundary: tests/test_review_kind.py.",
+        "A": "tests/unit/skills/t14-prepare-v2.sh axes 31 (stage selects the purpose) and 32 (stage bound into the content digest) @ triad 6f72573. Shared schema boundary: tests/test_review_kind.py.",
         "B": "B provider-free evidence at f6651121bf775a40f8743c10cd6c3f3590fef88c: tests/test_v2_review_prompts.py, test_v2_rounds.py, test_v2_round_cli.py and test_v2_google_wrappers.py cover every phase, omission/default, early null/unknown refusal and actual mocked wrapper/collector integration; shared schema tests remain tests/test_review_kind.py. See decisions/claude-review-strategy-handoff.md for actual platform results and limits."
       }
     },
@@ -477,10 +477,10 @@
       "surface": "prompts",
       "rule": "R-CONTEXT, R-PROMPT",
       "summary": "Leader context prose is transported exactly as decoded data",
-      "input": "TASK or brief names requirements, scope, supported versions, dependency and observed validation versions, unknowns and sources; a prose value contains escaped JSON characters",
-      "expected": "The bound prompt carries the exact decoded context value and fixed clauses. Escaping differences do not change the value. The host checks only fields already required by its input contract and their binding; prior_residual may be empty, and there is no generic nonempty-TASK guarantee. The host does not claim to validate the truth, completeness, semantic deduplication or actual reviewer use of leader-authored prose.",
+      "input": "TASK or brief names requirements, scope, supported versions, dependency and observed validation versions, unknowns and sources; a prose value contains escaped JSON characters; a value begins or ends with blank lines, and two residuals differ only in a final newline; an empty or omitted prior_residual; a prose line that collides with the host's data framing",
+      "expected": "The bound prompt carries the exact decoded context value and fixed clauses. Escaping differences do not change the value. Edge blank lines and the final-newline state are part of the value: the exact value is recoverable from the bound prompt, and values that differ only at an edge bind different prompts. An empty prior_residual is the absent value, rendered as R-CONTEXT states for each host. A host that refuses a framing collision names the colliding line. The host checks only fields already required by its input contract and their binding; prior_residual may be empty, and there is no generic nonempty-TASK guarantee. The host does not claim to validate the truth, completeness, semantic deduplication or actual reviewer use of leader-authored prose.",
       "tests": {
-        "A": "NOT RUN",
+        "A": "tests/unit/skills/t14-prepare-v2.sh axes 33 (context prose byte-for-byte) and 35 (edge newlines of context, questions and residual) @ triad 6f72573",
         "B": "B provider-free evidence at f6651121bf775a40f8743c10cd6c3f3590fef88c: tests/test_v2_review_prompts.py C61 verifies decoded non-ASCII/escaped context equality, distinct version/unknown prose, empty residual/TASK boundaries and unchanged TASK bytes for every family. See decisions/claude-review-strategy-handoff.md for actual platform results and limits."
       }
     },
@@ -514,7 +514,7 @@
       "rule": "R-STOP, R-AGREE",
       "summary": "Stalled review exits without PASS",
       "input": "all selected legs have unresolved negative verdicts and repetition yields no new counterexample, verifiable fix or material unknown resolved; or a quota/limit prevents completion",
-      "expected": "Record a nonapproval outcome with the unresolved evidence and reason for stopping. Semantic progress and exhausted avenues are leader judgments, not an automatic string classifier; repetition cannot turn negative, missing or failed results into PASS.",
+      "expected": "Record a nonapproval outcome with the unresolved evidence and reason for stopping. The stop reason is leader prose kept with the round's evidence, not a collector input or outcome (On A: the round's committed ledger under `docs/reviews/`; On B: the stop/exception prose kept beside the collected round). Semantic progress and exhausted avenues are leader judgments, not an automatic string classifier; repetition cannot turn negative, missing or failed results into PASS.",
       "tests": {
         "A": "NOT RUN",
         "B": "B provider-free evidence at f6651121bf775a40f8743c10cd6c3f3590fef88c: tests/test_v2_round_custody.py C64 preserves negative/incomplete collection after separate stop/exception prose and invalidates bound mutation. Source guidance structural checks cover progress/reopening boundaries; no semantic classifier or prompt efficacy measurement. See decisions/claude-review-strategy-handoff.md for actual platform results and limits."
@@ -530,6 +530,30 @@
       "tests": {
         "A": "NOT RUN",
         "B": "B provider-free evidence at f6651121bf775a40f8743c10cd6c3f3590fef88c: tests/test_v2_adapters.py C65 and tests/test_gemini_version_floor.py cover later versions, missing controls and independent Claude 2.1.205, AGY 1.1.20, formal Gemini 0.34.0 and v2 Gemini 0.60.0 seams. New Opus 5.5 mocks use 2.1.280+; no authenticated runtime compatibility claim. See decisions/claude-review-strategy-handoff.md for actual platform results and limits."
+      }
+    },
+    {
+      "id": "C66",
+      "surface": "review-lifecycle",
+      "rule": "R-BIND, R-RETRY, R-AGREE",
+      "summary": "A recorded attempt is sealed; a new answer needs a new attempt or a new round",
+      "input": "one selected entry's attempt 1 is recorded with a blocking result, so collection is BLOCKED; its result file is then (a) overwritten by re-running the dispatch or admission into the same attempt, or (b) removed and a SAFE TO MERGE result written or admitted into the same attempt; separately, a retry is requested for that completed negative attempt",
+      "expected": "The re-run or re-admission into a recorded attempt is refused; collection refuses the changed, removed or replaced result as an integrity failure and never reports AGREED; the retry of a completed attempt is refused. The original blocking result stays preserved. Only a new round on a current basis in which the entry returns SAFE TO MERGE reaches AGREED (C21).",
+      "tests": {
+        "A": "OPEN defect: no seal — verdict_v2.py refuses only a DIFFERENT existing admitted.json, the printed wrapper dispatch line redirects with a truncating `>`, collect_v2 reads the current result file; tests/unit/skills/t15-collect-v2.sh axis 74 removes and refills attempt 1 and reaches AGREED (authoring/shared-dev-log.md DL-25) @ triad 6f72573",
+        "B": "tests/test_v2_rounds.py:319 test_no_attempt_or_terminal_result_can_be_overwritten and :304 test_final_integrity_refuses_every_changed_basis_or_evidence @ 0.2.558 7f75863"
+      }
+    },
+    {
+      "id": "C67",
+      "surface": "prompts",
+      "rule": "R-PROMPT, R-PREPARE",
+      "summary": "Every review leg receives the round's date and the newer-names instruction",
+      "input": "a round prepared on one UTC date whose bound inputs name a model, CLI version or product newer than a reviewer's training data; a failed leg retried on a later date",
+      "expected": "Every selected leg's prompt carries the shared current-date clause with <review-date> filled by the UTC date the round was prepared; the retry renders the same bound date. The leg verifies such a name on the web when review web is authorized, otherwise takes it as given from the bound inputs, and does not declare it nonexistent from memory (model behaviour is not asserted by the host).",
+      "tests": {
+        "A": "todo (re-vendor; authoring/shared-dev-log.md DL-27)",
+        "B": "todo (re-vendor; authoring/shared-dev-log.md DL-27)"
       }
     }
   ]

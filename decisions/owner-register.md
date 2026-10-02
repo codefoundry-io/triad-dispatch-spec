@@ -242,3 +242,33 @@ Reading: a behaviour that holds on one host only is written as "On A: …" or "O
 
 Reading: each host must be rebuildable from this specification alone; R-REVIEW-WEB states, per host, how each route
 receives web ([spec-authoring § 3](../reference/spec-authoring.md)).
+
+<a id="D-SPEC-GAPS-20261003"></a>
+## D-SPEC-GAPS-20261003: close every spec gap a host implementation exposed
+
+Owner, 2026-10-03, typed (verbatim):
+
+> 여태 찾은 수펙 미상세해서 codex코드 보고 구현한 부분 있어? 스펙도 업데이트 해야한다 ... 스펙이 자세하지 못해사 cpdex참조해야했으면 스펙이 미진한사항이니 스펙 업데이트 코덱스쪽 코드고 보고 코덱스쪽에도 버그가 있으면 스펙 업데이트 해야햠
+
+> 스펙은  코덱스와 claude가 공유하는 공통 사양이야 반드시 둘다 공유해야함
+
+> 지금 gemini는 옛모델이라 지금 모델로 구현하면 매번 태클걸껄 없는 모델이라고
+
+The rulings "A아만 적용되는 사항은 a에는 이렇다고 넣어야함" and "목적 자체가 원본이 분실되도 스펙으로부타 구현이 가능해야해"
+of the same day are recorded under [D-REVIEW-LEGS-20261003](#D-REVIEW-LEGS-20261003).
+
+Reading recorded with the decision (the leader's, not the owner's words): (a) where a host had to read the other host's
+code because the specification did not settle a behaviour, the specification is incomplete and is amended, and a defect
+found on either host is recorded; (b) every amendment is common to both hosts, with host-only mechanisms written
+"On A: …" / "On B: …"; (c) every review leg receives the round's date and the instruction that names newer than its
+training data exist and are verified on the web or taken from the bound inputs.
+
+Effect: [R-PREPARE](../reference/review-rules.md#R-PREPARE) (one bound-basis definition, pointed to by R-RETRY,
+R-REREVIEW, R-PROMPT and R-REVIEW-WEB), [R-PROMPT](../reference/review-rules.md#R-PROMPT) (the stage carrier),
+[R-ROSTER](../reference/review-rules.md#R-ROSTER) (empty-roster refusal; host-native controls),
+[R-CONTEXT](../reference/review-rules.md#R-CONTEXT) (edges, empty residual, framing collisions),
+[R-BIND](../reference/review-rules.md#R-BIND) (sealed attempt), [R-REREVIEW](../reference/review-rules.md#R-REREVIEW)
+(the leader's range), [R-AGREE](../reference/review-rules.md#R-AGREE) (collection checks integrity); prompt clauses
+`current-date` and `review-no-web` and `prompts/README.md` § Clause-file format; README § How a host uses a revision;
+`units.json`; cases C13, C19, C20, C32, C33, C60, C61, C64 amended, C66 and C67 added; dev-log rows DL-21–DL-33. Host
+adoption, publication and revision tags remain separate.

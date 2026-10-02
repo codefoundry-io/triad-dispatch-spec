@@ -1,5 +1,30 @@
 # Changelog
 
+## Spec gaps exposed by host A's conformance work — 2026-10-03 (not tagged)
+
+- Owner decision `D-SPEC-GAPS-20261003` (`decisions/owner-register.md`).
+- R-PREPARE defines the bound basis once (reviewed bytes, review conditions including the round date, selection,
+  every resolved control from whatever source, installed clauses/schema/contract), what the content digest covers, what
+  is recorded and re-derived, and each host's mechanism (On A / On B); a host change altering it makes earlier rounds
+  non-retryable. R-RETRY, R-REREVIEW, R-PROMPT and R-REVIEW-WEB point to it; R-RETRY refuses a changed member before any
+  allocation or write.
+- R-PROMPT: the stage value is `review_kind`; its carrier is host-native (On A `prepare --v2 --review-kind`; On B the
+  `v2-create` request member). R-ROSTER: an all-disabled roster is a preparation refusal, never an outcome; a control
+  from a host-native source outside the roster file is a basis member (On A: the claude preset frontmatter, open).
+- R-CONTEXT: a transported value includes its edges; framing keeps it recoverable; empty `prior_residual` is the absent
+  value; a named framing-collision refusal is an allowed input check (On A / On B). R-BIND: a recorded attempt is sealed;
+  collection evaluates the last allocated attempt with failed-to-run predecessors (On A: open). R-REREVIEW: the leader
+  chooses the reviewed range. R-AGREE: collection checks round integrity before AGREED (On A: open).
+- Prompt payload (re-vendor obligation for both hosts, recorded in `units.json` prompts): NEW `current-date` clause with
+  the `<review-date>` placeholder after `common:current-basis` in all three leg orders; NEW fenced `review-no-web`
+  clause replacing the prose sentence; the three A-only clauses carry `A-only` in their header notes;
+  `prompts/README.md` § Clause-file format.
+- README § How a host uses a revision: the candidate `SPEC_REVISION` line (On A) and B's `source-manifest.json` record.
+- `units.json`: host A's legacy entry points (v1 `prepare` without `--v2`, `review_small.py`); the stage carrier.
+- Cases C13, C19 (negative arm), C20, C32, C33 (all-disabled roster; negative arm), C60, C61, C64 amended; NEW C66 (sealed
+  attempt) and C67 (round date); authoring map lists both. Dev-log rows DL-21–DL-33. Payload and record tests
+  `tests/test_prompt_payload.py`, `tests/test_spec_records.py`. No schema change; no revision tag.
+
 ## Review legs: codex Astra/high default; web search for every AI leg — 2026-10-03 (not tagged)
 
 - Owner decision `D-REVIEW-LEGS-20261003` (`decisions/owner-register.md`).

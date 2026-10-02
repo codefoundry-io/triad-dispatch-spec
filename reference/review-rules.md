@@ -14,6 +14,11 @@ selected leg. A Minor-only negative is schema-valid but does NOT count as agreem
 selection deviation. Neither a leader's refutation nor an owner exception rewrites a leg's negative verdict into approval.
 An exception may authorize separate human action, but is recorded as an exception to a non-agreed round, never as machine
 agreement. A later agreed round must independently satisfy this rule on its current basis (R-REREVIEW).
+Collection itself checks round integrity: it reports AGREED only after a passed integrity verification (R-PREPARE capture,
+verify) of the current bound basis, and otherwise reports a non-agreed outcome naming the missing or failed check. On B:
+`collect` runs `_load_basis` (seal, digest, `verify_round`) at its start and end. On A: `verify` writes
+`.verified-r<N>.json` and `collect_v2.collect` does not read it; `close` only warns when it is absent (open,
+`authoring/shared-dev-log.md` DL-33).
 
 `open_questions` contains unresolved facts necessary to judge approval, not optional curiosities; every remaining entry
 blocks, without a collector importance heuristic. A `SAFE TO MERGE` with a blocker or open question is invalid under the
@@ -27,7 +32,9 @@ records of the contract under which they ran.
 
 <a id="R-REREVIEW"></a>
 Any correction to reviewed content or to the review conditions (prompts, criteria, roster, model, effort, route, policy)
-creates a new bound basis, and EVERY selected enabled leg reviews the complete agreed scope again. Rebuild the current
+creates a new [bound basis](#R-PREPARE), and EVERY selected enabled leg reviews the complete agreed scope again. The
+leader chooses the reviewed range that covers that scope; the host supplies every selected leg and the `current-basis`
+clause and does not check the range against earlier rounds. Rebuild the current
 brief and leader-authored `prior_residual` string: current findings, dispositions, necessary rebuttal evidence, changes
 and remaining uncertainties. Treat these as data and claims to check. Do not automatically append previous prompts,
 verbatim conversations or successive residuals. There is no new structured residual table, state enum or semantic deduper.
@@ -38,7 +45,9 @@ A narrow follow-up investigation can resolve a question but cannot substitute fo
 
 <a id="R-RETRY"></a>
 When a leg failed to RUN and nothing changed (source, prompts, criteria, roster, model, effort, route, policy), retry only
-that leg on the same bound basis (owner Q-C). Before any dispatch exists, retry the corrected preparation step.
+that leg on the same [bound basis](#R-PREPARE) (owner Q-C). A changed member of that basis, including a changed recorded
+selection or control, refuses the retry before any allocation or write; prepare a new round. Before any dispatch exists,
+retry the corrected preparation step.
 
 ## Roster
 
@@ -48,6 +57,13 @@ The owner may select any nonempty roster, including one leg or several entries f
 to subscription and capacity. Every enabled entry counts under R-AGREE, including one labelled `informational`; no leg
 has a special approval rule. Only the owner changes this selection. Changing it creates a new basis; do not drop a
 failed or dissenting leg to relabel an old round as agreed. Preserve unresolved findings when a later roster changes.
+Preparation refuses a roster with no enabled entry before any adapter, dispatch or round record exists; that refusal is a
+preparation failure, never a round outcome (On A: `lib/roster_v2.py` `resolve_roster` raises "the selected roster is
+empty"; On B: `bin/review_round_v2.py` `create_basis` raises "v2 review requires at least one enabled entry").
+A control a host resolves from a host-native source outside the roster file is a member of the bound basis like a roster
+value (R-PREPARE). On A: the claude entry's model and effort come from the agent preset frontmatter
+(`.claude/agents/cross-family-review-reviewer*.md`, `model:` / `effort:`), which the round does not yet bind (open,
+`authoring/shared-dev-log.md` DL-30). On B: every control comes from the resolved roster and its adapters.
 The receipt records entries actually run and family coverage; two legs of one family remain one family, without a veto
 on an otherwise agreed round. Selected investigations remain separate under R-INVEST.
 
@@ -130,8 +146,12 @@ and `contracts/gemini-readonly-b.verify.toml` (B: B1-B3 on the separate D-B1 pro
 <a id="R-PROMPT"></a>
 Select one short shared purpose using `review_kind` (`contracts/review-kind.schema.json`): `formal-plan` selects
 `plan-purpose`; `pre-merge` and `implementation-review` select `code-purpose`; omission defaults to `pre-merge` at the
-host invocation boundary. Unknown or null values are refused before dispatch. The plan purpose REPLACES the code purpose,
-not a checklist appended to it. Bind this condition with the existing review inputs; no verdict field is added.
+host invocation boundary. Unknown or null values are refused before dispatch. The stage input is the value `review_kind`;
+the command or request that carries it is host-native calling syntax (`units.json` prompts exceptions), and a stage under
+any other name is an unknown input. On A: `review_scratch.py prepare --v2 --review-kind <value>`. On B: the
+`review_kind` member of the `review_round.py v2-create --request-file` request. The plan purpose REPLACES the code
+purpose, not a checklist appended to it. The resolved stage is a member of the bound basis (R-PREPARE); no verdict field
+is added.
 All selected legs receive the same semantic purpose, requirements, scope and evidence. Identity, output handling and
 provider tools remain route-specific. The default first review uses no separate personas or predicted-defect checklist.
 A leader's hypotheses never limit findings elsewhere in scope. Targeted perspectives remain available through R-INVEST.
@@ -149,7 +169,16 @@ Keep requirements/owner decisions, observations, claims to verify and unknowns d
 that a scenario cannot occur is not an exclusion. Do not dump credentials or the entire environment.
 
 This is authoring guidance for leader prose, not a new environment schema. Hosts preserve existing input, regular-file,
-source/packet and digest checks and transport the supplied values faithfully. Those checks do not parse Markdown rows,
+source/packet and digest checks and transport the supplied values faithfully. A transported value includes its edges:
+leading and trailing blank lines and the presence or absence of a final newline reach the bound prompt unchanged, and any
+framing the host adds (an encoded string, a fence, a separator added every time) leaves the exact value recoverable from
+the bound bytes, so values that differ only at an edge bind different prompts. An empty `prior_residual` is the absent
+value. On A: the leader omits `--prior-residual` and no residual block is rendered; an empty file is refused, naming the
+omission. On B: an omitted or empty value renders the data fence holding the JSON string `""`. A host may refuse prose
+that collides with its own data framing as an existing input check, and its refusal names the colliding line. On A:
+a brief context or questions line that begins and ends with `=====`, other than the one `=====QUESTIONS=====` marker,
+and a residual or excerpt line equal to one of the round's fence lines. On B: no such refusal; values are JSON-encoded
+inside a fence longer than any backtick run they contain. Those checks do not parse Markdown rows,
 verify truth/completeness, classify issues, or prove that the reviewer stayed within the instructed read boundary.
 On B, existing nonempty checks cover objective, criteria and approved_boundary; `prior_residual` may be empty and TASK.md
 is checked as a regular file. Decoded-value equality may prove text transport despite JSON escaping, not semantic quality.
@@ -207,8 +236,8 @@ containment, entry accounting and integrity checks. Changing authorization chang
 
 The invocation condition is the strict boolean `review_web_authorized`; under the standing authorization it is
 true for every round unless the owner revokes that authorization. It enters
-the frozen common conditions and every participating leg's prompt and launch controls. It is a round condition,
-not a roster field. Every selected route must support that condition before inference; a missing capability is a
+the frozen common conditions and every participating leg's prompt and launch controls. It is a round condition and a
+member of the bound basis (R-PREPARE), not a roster field. Every selected route must support that condition before inference; a missing capability is a
 preflight refusal, not silent partial authorization. No leader heuristic decides which technology needs web.
 
 On CLI review routes, the route's web switch and the renderer/preflight condition must agree in both directions,
@@ -239,7 +268,7 @@ condition reaches each route as follows; a false condition leaves every route in
   deny for this call. Gemini selects `contracts/gemini-readonly-web-b.toml`.
 
 Render only the short common `review-web-permission` clause from `prompts/common-clauses.md` when true, and the
-normal no-web clause otherwise. Existing evidence, uncertainty and untrusted-content rules continue; do not
+`review-no-web` clause otherwise. Existing evidence, uncertainty and untrusted-content rules continue; do not
 add technology classification or automatic web triggers. Raw investigations remain separate under R-INVEST;
 the raw Claude `--web` permit does not add review accounting or rewrite the caller's prompt.
 
@@ -314,6 +343,14 @@ a pass. v2 ADDS (round r2, all three families; lands with the D-3 wire — `cont
 roster entry), `attempt` (integer ≥ 1, per leg), `route` (the resolved Google route `agy` | `gemini`; null for a family with
 one route). The common v2 prompt pins use these fields. Each host adopts its validator, all shaped clauses and collectors together;
 explicit legacy entry points retain their old contract and cannot admit v2 results.
+A recorded attempt is sealed: its result, receipt and read evidence are written once and bound by digest when recorded,
+and collection refuses a later change, removal or replacement of any of them. A new answer from the same entry needs a
+new attempt, which R-RETRY allows only after a failure to run, or a new round (R-REREVIEW). Collection evaluates each
+entry's last allocated attempt, and only when every earlier attempt of that entry is a diagnosed failed-to-run terminal.
+On B: `record_attempt` writes the three files exclusively and seals `terminal.json` with their digests; `collect`
+evaluates the last sealed allocation, re-checks those digests and refuses a history whose earlier attempt is not
+FAILED_TO_RUN. On A: `collect_v2` evaluates the attempt the round record's `attempt` field names; the seal and the
+earlier-attempt check are open (`authoring/shared-dev-log.md` DL-25, case C66).
 Duplicate JSON members are rejected at the original-text boundary before extraction or normalization can discard evidence
 (A's wrapper schema path and bare `json.loads` file path retain the previously recorded gap; A's raw-reply admission rejects duplicates. B rejects duplicates at the original-text boundary in its review wrapper/result paths, including explicit v2; see C14/C30).
 
@@ -325,6 +362,33 @@ the roster from the registry with the recommended defaults; prints one COMPLETE 
 round snapshot. It refuses on a malformed registry entry and never launches a provider itself. A change to a rule,
 schema, prompt clause or policy file is behavioral review scope even when the file contains only text; the docs-never-gate
 rule covers narrative documentation only. Symlinks (owner Q4, RULED 2026-09-19: "링크 자체는 검토하되, 대상을 자동으로 따라가지 않는 방식"): the LINK ITSELF is review material — its path, kind and exact link text are fingerprinted and available to reviewers; its TARGET is never followed automatically. Target content enters a review only as an independently authorized, bound input; a link the review cannot follow is disclosed as a coverage gap, never claimed inspected; cleanup never follows a link to delete its target. Each host implements "never followed" its own way and records the evidence (B: link-text fingerprint + symlink refusal in the prepared copy; A: replace its untracked-link refusal with link-text admission and either materialize the text in the round copy or prove no-follow through its read audit) — mechanism = host migration item, principle = shared rule.
+
+The **bound basis** of a round is every input its review depends on: the reviewed bytes and packet; the review conditions
+(`review_kind`, `review_web_authorized`, the round date `<review-date>`, and the leader's prompt inputs — objective,
+criteria, boundary, `prior_residual`); the selected entries and every entry's resolved controls, from whatever source the
+host resolves them (R-ROSTER); and the installed prompt clauses, producer schema and admission contract. The content
+digest every leg result carries (R-BIND) covers the reviewed bytes, the review conditions, the selection and the
+controls. An input a host produces only after that digest, because the rendered prompts embed the digest, is recorded
+with the round, and before a retry, an adoption or a collection the host re-derives it from the installed files and
+compares; a host may instead hash the installed source files into the digest. Retry, adoption and collection read the
+digest-covered members from the bound bytes, never from a mutable copy. A changed member is a changed basis: R-RETRY refuses it before any allocation or
+write, collection does not agree on it, and the leader prepares a new round (R-REREVIEW). A host change that alters the
+bound basis makes rounds prepared before it non-retryable; prepare a new round.
+
+- On A: `review_scratch.py prepare --v2` writes the `Review metadata:` line of `delivery-r<N>.md`, whose sha256 is the
+  content digest. It carries `review_kind`, `review_web_policy` (the rendered web clause), `selected_entries` and
+  `roster_config_digest` (`_v2_config_digest`: every round-record entry field except `attempt`, plus `gate_files`,
+  `hook_log` and `results_dir`); the brief and residual are inside the hashed packet. The clause manifests
+  (`prompt_manifests`, `prompt_spec_dir`), the producer projection digest and the contract digest are recorded in
+  `.roster-r<N>.json`. `collect_v2._bound_metadata` re-hashes the delivery record and compares the record with the bound
+  line in `collect`, `retry` and adoption; `retry` and adoption re-derive the manifests, projection and contract digests
+  and compare them with the recorded values. A later edit of the project roster file does not affect a prepared round.
+- On B: `bin/review_round_v2.py` `create_basis` seals `basis-v2.json` (the request with `review_kind`,
+  `review_web_authorized` and `prior_residual`; the resolved roster; adapters with launch controls and receipt digests;
+  the round snapshot; packet files; `_toolkit`, the sha256 of every file under `bin/`, `contracts/`, `prompts/` and the
+  skill) with a `.sha256` sidecar and `content_digest` over the rest. `_load_basis`, run by allocate, record and collect,
+  re-checks the seal and digest, runs `verify_round`, and refuses a changed toolkit, a re-resolved roster that differs
+  from the bound one, or changed adapter receipts.
 
 <a id="R-VERIFY"></a>
 The leader checks each claim against the current reviewed bytes, required behavior, concrete trigger and impact before

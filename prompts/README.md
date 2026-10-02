@@ -7,6 +7,20 @@ vendoring rule is `README.md` § How a host uses a revision. `investigation.md` 
 dispatch (`R-INVEST`, not a review): today one clause, `web-evidence`, appended LAST by the host on every web-enabled
 Google research prompt (case C29).
 
+## Clause-file format
+
+Text before the first `## ` header is a file preamble for maintainers and is never rendered. Each `## <name> (<note>)`
+section holds exactly ONE fenced block opened by a line ```` ```text ```` and closed by a line ```` ``` ````; the clause is
+the lines between those two fence lines, joined by LF, without a final LF. The note names the rule anchor; a clause rendered
+on one host only carries `A-only` (or `B-only`) in its note, and the other host's renderer skips it (today:
+`claude-output-shape-notice`, `claude-output-integrity`, `google-a-hook-audit`). A leg file's `## order` section holds no
+fence, only numbered items `N. <name>` with an optional parenthetical; `common:<name>` names a clause in
+`common-clauses.md`. In a leg file nothing else may stand outside a fence. In a clause library (`common-clauses.md`,
+`investigation.md`) prose after a clause's fence, and an `## order` section of prose, are renderer notes to the host and
+are never rendered. A renderer fills `<review-kind>`, `<review-date>` (the UTC date `YYYY-MM-DD` on which the round was
+prepared, a member of the bound basis) and the binding placeholders, and never sends a clause or note it did not take from
+a fenced block. Any change to these files is a payload change: each host re-vendors the bytes and re-renders.
+
 Seed state (rev-0 draft): host A's shipped text, dumped verbatim and split into clauses — no text appears twice. Host B's
 counterpart (codex `render_review_prompt` / `render_worktree_review_prompt`, `references/review-prompt-contract.md`) is
 merged by codex: same meaning in different words → one wording survives; different substance → a `decisions/` item.
@@ -20,8 +34,8 @@ Token vocabulary inside `severity-instruction`, `verdict-selection-rule` and the
 At invocation, omitted means `pre-merge`; schema defaults are annotations and do not populate it.
 `formal-plan` selects `plan-purpose`; `pre-merge` and `implementation-review` select `code-purpose`.
 Fill `<review-kind>` with the resolved value and `<review-purpose>` with exactly one selected clause.
-The plan clause replaces the code clause. Bind the resolved kind and rendered text to the existing round basis;
-unknown or null input refuses preparation. This is a small extension of the existing renderer/request, not a new engine.
+The plan clause replaces the code clause. The resolved kind and the rendered text are members of the round's
+[bound basis](../reference/review-rules.md#R-PREPARE); unknown or null input refuses preparation. This is a small extension of the existing renderer/request, not a new engine.
 
 Every leg receives the same semantic goal, common criteria and current evidence; identity, native tools and shape notices
 remain host-specific. First-review defaults contain no per-leg persona or long smell checklist. Selected investigations

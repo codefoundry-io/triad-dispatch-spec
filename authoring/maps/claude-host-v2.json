@@ -35,7 +35,7 @@
       "spec_refs": ["decisions/rev-2-implementation-spec.md#SPEC-VERDICT"],
       "rule_refs": ["reference/review-rules.md#R-BIND","reference/review-rules.md#R-CONTAIN","reference/review-rules.md#R-REVIEW-WEB","reference/review-rules.md#R-SMELL","reference/review-rules.md#R-PROMPT","reference/review-rules.md#R-CONTEXT"],
       "contract_refs": ["contracts/leg-verdict.schema.json","contracts/gemini-readonly.toml","contracts/gemini-readonly-b.toml","contracts/review-kind.schema.json","contracts/review-strategy.verify.toml"],
-      "case_ids": ["C13","C14","C15","C30","C32","C60","C61","C62"],
+      "case_ids": ["C13","C14","C15","C30","C32","C60","C61","C62","C67"],
       "unit_ids": ["verdict-wire","prompts","gemini-policy","agy-containment","review-web-authorization","review-lifecycle"]
     },
     {
@@ -44,7 +44,7 @@
       "spec_refs": ["decisions/rev-2-implementation-spec.md#SPEC-RETRY","decisions/codex-google-four-leg-operating-spec.md#SPEC-FOUR-LEG-COLLECTION"],
       "rule_refs": ["reference/review-rules.md#R-AGREE","reference/review-rules.md#R-RETRY","reference/review-rules.md#R-REREVIEW","reference/review-rules.md#R-STOP"],
       "contract_refs": ["contracts/leg-verdict.schema.json"],
-      "case_ids": ["C19","C20","C21","C23","C33","C64"],
+      "case_ids": ["C19","C20","C21","C23","C33","C64","C66"],
       "unit_ids": ["verdict-wire","review-lifecycle","agy-containment","roster"]
     },
     {

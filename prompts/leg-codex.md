@@ -38,10 +38,11 @@ Return exactly ONE LegVerdict JSON object matching your enforced output schema â
 2. common:adversarial-framing
 3. common:<review-purpose> (plan-purpose or code-purpose, selected by review_kind)
 4. common:current-basis
-5. codex-tree-entry
-6. codex-read-grant
-7. common:repo-relative-pin
-8. common:severity-instruction
-9. common:verdict-selection-rule
-10. codex-binding-line
-11. codex-closing
+5. common:current-date
+6. codex-tree-entry
+7. codex-read-grant
+8. common:repo-relative-pin
+9. common:severity-instruction
+10. common:verdict-selection-rule
+11. codex-binding-line
+12. codex-closing
