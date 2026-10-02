@@ -154,7 +154,7 @@ require a review verdict or round. Resolve prompt-file and child cwd separately
 against the wrapper process cwd captured at entry. Preserve containment, file
 type, existence and UTF-8 checks before inference.
 
-Only an explicitly web-authorized Google investigation appends the shared web
+Only a web-enabled Google investigation appends the shared web
 evidence clause last. A URL cited in prose is not proof that it was fetched.
 AGY can return an incomplete URL body without a corresponding failed exit;
 treat that known limitation as incomplete source evidence, not an automatic

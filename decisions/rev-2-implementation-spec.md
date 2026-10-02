@@ -173,7 +173,7 @@ surfaces under D-B2; no unmasked-path expansion or new logger is required.
 
 C25/C29 extend the existing raw invocation: caller prompt, optional arbitrary
 schema, selected model/effort/perspective and authorized read roots remain usable
-without a review verdict/round. Only an explicitly web-authorized Google
+without a review verdict/round. Only a web-enabled Google
 investigation appends the shared web-evidence clause last, with route-specific
 tool-name substitution. REVIEW never uses that trigger. Exact sent-prompt and
 fetched-page evidence custody follows the recorded D-B2 choice; do not infer a

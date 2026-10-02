@@ -86,7 +86,8 @@ owner's decision under [R-STOP][stop]. This guide prescribes no new configuratio
 mechanism or subprocess replacement. This remains an A implementation planning item;
 publication of this guide does not establish that A already satisfies the target.
 
-Preserve existing exact CLI model IDs, explicit null overrides and route-valid Google
+Keep exact CLI model IDs as roster data (the recommended defaults are in
+[R-ROSTER](../reference/review-rules.md#R-ROSTER)), explicit null overrides and route-valid Google
 Pro/HIGH selection. Validate adapter capabilities before inference and expose the resolved roster.
 Requested selection is not runtime identity; unexposed identity stays unknown/null.
 Observed patch versions are evidence, not equality pins or upper bounds. A later version

@@ -219,6 +219,26 @@ true for every round unless the owner revokes it), [R-CONTAIN](../reference/revi
 no-web posture applies to a false condition only), [R-INVEST](../reference/review-rules.md#R-INVEST) (web
 allowed for every investigation/dispatch leg), `contracts/review-legs.example.json` (codex entry), cases C29,
 C32 and C35, dev-log row DL-20. It supersedes the codex baseline of the 2026-09-25 directive, D-9's REVIEW
-prohibition and the 2026-09-21 direct-request condition; read-only containment, R-AUTH, R-NOCOST, the
+prohibition and the 2026-09-21 direct-request condition, including the review-web instructions of
+[the review-web handoff](claude-review-web-handoff.md) and
+[the Codex + three Google handoff](claude-codex-google-four-leg-handoff.md); read-only containment, R-AUTH, R-NOCOST, the
 web-evidence rule (C29), exact IDs as roster data and the requested-versus-runtime identity rules are unchanged.
 Host adoption, publication and revision tags remain separate.
+
+Follow-up rulings, owner, 2026-10-03, typed (verbatim):
+
+> 웹 지원 가능하도록 하는거 쉬ㅣㅂ잖아 먼저 구현휴 진행
+
+Reading: a route that cannot use web under the standing authorization is not exempted — R-REVIEW-WEB keeps "a missing
+capability is a preflight refusal", and every route of every host gets web support. The spec therefore defines host
+A's complete web-enabled Gemini profile (`contracts/gemini-readonly-web.toml`, check WEB-A-2) as it defines B's.
+
+> A아만 적용되는 사항은 a에는 이렇다고 넣어야함
+
+Reading: a behaviour that holds on one host only is written as "On A: …" or "On B: …", never left implicit
+([spec-authoring § 3](../reference/spec-authoring.md)).
+
+> 목적 자체가 원본이 분실되도 스펙으로부타 구현이 가능해야해
+
+Reading: each host must be rebuildable from this specification alone; R-REVIEW-WEB states, per host, how each route
+receives web ([spec-authoring § 3](../reference/spec-authoring.md)).

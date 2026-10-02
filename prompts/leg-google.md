@@ -37,7 +37,7 @@ Use the native search tool (agy: grep_search; gemini: search_file_content) with 
 ## google-a-hook-audit (R-CONTAIN; A live-hook route only)
 
 ```text
-On this host's active agy review route, a PreToolUse hook blocks tools outside the five-tool allowlist. A blocked call is logged and costs a step; any forbidden call that EXECUTES invalidates the review. You cannot prove hook loading from inside the model. The caller verifies loading and independently audits tool steps. Its read audit requires opening <gated-patch-file>; omitting that read loses the review even when the verdict is complete. A failed read is tolerated only when the required successful read evidence still exists.
+On this host's active agy review route, a PreToolUse hook blocks tools outside the allowlist: the five review tools, plus read_url_content and search_web when web verification is authorized for this round. A blocked call is logged and costs a step; any forbidden call that EXECUTES invalidates the review. You cannot prove hook loading from inside the model. The caller verifies loading and independently audits tool steps. Its read audit requires opening <gated-patch-file>; omitting that read loses the review even when the verdict is complete. A failed read is tolerated only when the required successful read evidence still exists.
 ```
 
 ## google-findings-shape-pin (R-BIND)

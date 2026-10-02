@@ -14,7 +14,16 @@
   investigation/dispatch leg; the web-evidence rule (C29) is unchanged.
 - Cases C29 (input wording), C32 and C35 aligned; host test cells say adoption is pending. PRD-REVIEW and
   SPEC-INVESTIGATION sentences aligned. Dev-log row DL-20 (OPEN for A and B). Schema test asserts the codex example
-  entry. No schema, prompt payload or revision tag change.
+  entry.
+- Follow-up owner rulings (same day): every route of every host supports review web (a missing capability stays a
+  preflight refusal); host-only behaviour is written "On A: …" / "On B: …"; each host is rebuildable from the spec.
+  NEW `contracts/gemini-readonly-web.toml` (A's complete web profile: only the two web tools move to allow) with check
+  WEB-A-2 in `contracts/review-web.verify.toml`; R-REVIEW-WEB states each host's per-route web mechanism; R-CONTAIN
+  names each host's false/true Gemini profile; `reference/spec-authoring.md` § 3 gains the host-statement rule.
+- Prompt payload: `review-web-permission` (common-clauses) no longer refers to a per-round request;
+  `google-a-hook-audit` (leg-google) names the two web tools the hook allows for an authorized round.
+- units.json, contracts/README.md, C15/C32/C35 wording, the operating spec and two historical handoffs (marked
+  superseded for review web) aligned. No schema change; no-web profile bytes unchanged; no revision tag.
 
 ## Review strategy candidate — 2026-10-02 (not tagged)
 

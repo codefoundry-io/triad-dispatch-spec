@@ -1,4 +1,4 @@
-# Owner-authorized REVIEW web; declaration of unrun authenticated host checks.
+# Owner-authorized REVIEW web (standing authorization, D-REVIEW-LEGS-20261003); declaration of unrun authenticated host checks.
 schema = "triad-review-web-verification.v1"
 rule = "R-REVIEW-WEB"
 case = "C32"
@@ -6,11 +6,19 @@ case = "C32"
 [[check]]
 id = "WEB-B-1"
 host = "B"
+policy = "contracts/gemini-readonly-web-b.toml"
 status = "NOT RUN"
-procedure = "On a configured Gemini Enterprise host, compare default and explicitly authorized review preflight/dispatch; verify the complete selected policy and actual web search/fetch while mutation, shell and mode-transition controls remain denied. Preserve native admin denies."
+procedure = "On a configured Gemini Enterprise host, compare a false (no-web profile) and a true (web profile) review condition in preflight/dispatch; verify the complete selected policy and actual web search/fetch while mutation, shell and mode-transition controls remain denied. Preserve native admin denies."
 
 [[check]]
 id = "WEB-A-1"
 host = "A"
 status = "NOT RUN"
 procedure = "After A adoption, verify every participating native/CLI route receives only current bound authorization; absent/false/mismatched permission refuses web, and all existing read-only and admission controls remain."
+
+[[check]]
+id = "WEB-A-2"
+host = "A"
+policy = "contracts/gemini-readonly-web.toml"
+status = "NOT RUN"
+procedure = "Where gemini is in service, run host A's gemini review leg with a true condition (this profile) and a false condition (contracts/gemini-readonly.toml); verify google_web_search and web_fetch execute only under this profile while write, replace, shell and MCP tools stay denied. Preserve native admin denies."

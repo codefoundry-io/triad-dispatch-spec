@@ -60,7 +60,7 @@ Check evidence-backed code smells and simplicity after the change: identify unne
 ## review-web-permission (R-REVIEW-WEB)
 
 ```text
-Web verification is explicitly authorized for this round. Use native web tools for that request and cite checked sources. Other review restrictions remain.
+Web verification is authorized for this round. Use native web tools when an external fact needs checking and cite checked sources. Other review restrictions remain.
 ```
 
 Replace `<review-web-policy>` in every participating leg with this clause only when the frozen
