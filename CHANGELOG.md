@@ -47,10 +47,11 @@
   matches the measured vendor wording (DL-74, CONFORMS-B); agy's unrecorded version on one argument refusal (L5); DL-70
   and DL-72 name B's change; DL-5: A sets 3600 s (922d019, not merged); register and WEB-A-2 wording corrected.
 - Absolute law (owner 2026-10-04, D-AUTH-ABSOLUTE-20261004): R-AUTH outranks every other rule (no host, case or owner
-  exception); enforcement (i) the child-environment scrub, (ii) a pre-call auth-mode stop judged from the CLI's own report
-  or enforcement setting, never a key value, (iii) the auth STOP before any other classification — A in progress, B to
-  check (DL-76); R-DECISION-ORDER: an absolute law is never a design choice or a shared limit; DL-16 decided (no longer
-  owner-gated); DL-75 re-triaged from a limit to a defect both hosts fix; C16 / C37 expected and tests; units.json.
+  exception); enforcement (i) the child-environment scrub and (iii) an observed authentication failure (missing or
+  expired login, API-key-shaped credential) STOPs the attempt before any other classification, with no retry or other
+  attempt — A in progress, B to check (DL-76); no pre-call login check (owner correction of the same day,
+  D-AUTH-JUDGE-STOP-20261004; DL-16's preflight WITHDRAWN); R-DECISION-ORDER: an absolute law is never a design choice or
+  a shared limit; DL-75 re-triaged from a limit to a defect both hosts fix; C37 expected and tests; units.json.
 
 ## Spec gaps exposed by host A's conformance work — 2026-10-03 (not tagged)
 

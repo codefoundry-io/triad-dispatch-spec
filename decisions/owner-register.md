@@ -568,8 +568,26 @@ rule, with no host or case exception and no owner question that relaxes it. It r
 [D-AUTH-BROWSER-LOGIN-20260926](#d-auth-browser-login-20260926), the ruling behind R-AUTH. Reading recorded with the
 decision (the leader's, not the owner's words): the law requires a stop before every vendor call whose authentication
 mode is not the subscription login, judged from the CLI's own report or its own enforcement setting and never from a key
-value or the credential store, on every CLI and route.
+value or the credential store, on every CLI and route. **That reading is withdrawn by the owner's correction of the same
+day, [D-AUTH-JUDGE-STOP-20261004](#D-AUTH-JUDGE-STOP-20261004): there is no pre-call check.**
 
 Effect: [R-AUTH](../reference/review-rules.md#R-AUTH) (absolute law; enforcement (i)-(iii)),
 [R-DECISION-ORDER](../reference/spec-authoring.md#R-DECISION-ORDER), R-CLASSIFY (DL-75), cases C16 and C37,
 `units.json`, `authoring/shared-dev-log.md` DL-16, DL-62, DL-75, DL-76.
+
+<a id="D-AUTH-JUDGE-STOP-20261004"></a>
+## D-AUTH-JUDGE-STOP-20261004: no pre-call login check — judge the outcome, stop, try nothing else
+
+Owner, 2026-10-04, typed (verbatim; source: host A's leader session record (unpublished), the transcript of 2026-10-03,
+21:07Z), correcting the leader's reading of [D-AUTH-ABSOLUTE-20261004](#D-AUTH-ABSOLUTE-20261004):
+
+> 매번 확인하지마 로그인은 사용자에게 맡기고 로그인 됐는지 안됐는지만 판단하고 먼추고 다른 시도 안하면 되잖아
+
+Recorded effect: there is NO pre-call authentication-mode check. Login is the user's own act through the CLI. The host
+only judges, from the CLI's own outcome, whether a call failed because the login is missing or expired or a credential is
+API-key-shaped; it then stops that attempt and tries nothing else — no retry, no other method, no fallback. The silent use
+of a valid key stored in a CLI's own configuration is the user's responsibility under this decision. The law stays
+absolute (D-AUTH-ABSOLUTE-20261004); the gemini review preflight (C16) is an earlier rule and is unchanged.
+
+Effect: [R-AUTH](../reference/review-rules.md#R-AUTH) (enforcement (i) and (iii) only), cases C37 and C16 (cells
+restored), `units.json`, `authoring/shared-dev-log.md` DL-16 (withdrawn), DL-75, DL-76.

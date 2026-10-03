@@ -758,14 +758,15 @@ R-AUTH is an ABSOLUTE law (owner, 2026-10-04,
 [D-AUTH-ABSOLUTE-20261004](../decisions/owner-register.md#D-AUTH-ABSOLUTE-20261004)): every vendor CLI is used only
 through the user's own OAuth (browser) login in that CLI; an API key bills unintended charges and is forbidden. It
 outranks every other rule of this specification; no host exception, no case exception and no owner question relaxes it.
-Where another rule conflicts — the shared classification order (R-CLASSIFY), R-CLASSIFY's plain-fragment rule,
-R-CLI-VERSION's no-new-probe clause, R-RETRY — R-AUTH decides. Enforcement, mechanism left to each host's data:
-(i) the child-environment scrub of credential, endpoint and model-selector variables (R-NOCOST; exists on both hosts);
-(ii) BEFORE every vendor call the host confirms, from the CLI's own report or the CLI's own enforcement setting — never
-by reading a key value or the credential store — that the call will authenticate through the subscription login, and
-stops otherwise: a VALID stored key would otherwise be used silently, with no error to observe; (iii) an observed
-API-key-shaped failure is a STOP before any other classification of that run (no retryable token outranks it). (ii) and
-(iii): A in progress (enforcement plan pending research); B to check (DL-76).
+Where another rule conflicts — the shared classification order (R-CLASSIFY), R-CLASSIFY's plain-fragment rule, R-RETRY —
+R-AUTH decides. Login is the user's own act through the CLI: no host checks or configures the login before a call
+([D-AUTH-JUDGE-STOP-20261004](../decisions/owner-register.md#D-AUTH-JUDGE-STOP-20261004)); a valid key stored in a CLI's
+own configuration and used silently is the user's responsibility under that decision. Enforcement: (i) the
+child-environment scrub of credential, endpoint and model-selector variables (R-NOCOST; hygiene; exists on both hosts);
+(iii) the host judges, from the CLI's own outcome, whether a call failed because the login is missing or expired or a
+credential is API-key-shaped, and that observed authentication failure STOPS the attempt before any other
+classification of the run — no retry, no other method, no fallback. (iii): A in progress; B to check (DL-76). The gemini
+review preflight (C16) is an earlier rule and stays as it is.
 
 ## CLI version evidence
 

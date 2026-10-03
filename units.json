@@ -5,7 +5,7 @@
     "engine-transport": {
       "common": "bin/_common.py",
       "contract": "contracts/exit-tokens.json, contracts/receipt-fields.json",
-      "exceptions": "A native claude leg + codex CLI wrapper; B native codex leg + claude CLI wrapper; vendor-specific argv/auth stay host-specific; relative --prompt-file/--cwd: both hosts resolve against the process-entry cwd and record (C28; A `3rd-Agent/wrappers/_common.py:1800-1844`, B `bin/_common.py:502-537`); R-AUTH is an absolute law (D-AUTH-ABSOLUTE-20261004): no host exception applies to it — the pre-call auth-mode stop and the auth STOP before any other classification are owed by both hosts (A in progress; B to check; authoring/shared-dev-log.md DL-76)",
+      "exceptions": "A native claude leg + codex CLI wrapper; B native codex leg + claude CLI wrapper; vendor-specific argv/auth stay host-specific; relative --prompt-file/--cwd: both hosts resolve against the process-entry cwd and record (C28; A `3rd-Agent/wrappers/_common.py:1800-1844`, B `bin/_common.py:502-537`); R-AUTH is an absolute law (D-AUTH-ABSOLUTE-20261004): no host exception applies to it — no host checks or configures the login before a call (D-AUTH-JUDGE-STOP-20261004), and an observed authentication failure stops the attempt before any other classification on both hosts (A in progress; B to check; authoring/shared-dev-log.md DL-76)",
       "A_source": "3rd-Agent/wrappers/_common.py (_run_once, _drain, scrubbed_child_env, _prune_dir_by_caps)",
       "A_shipped": "bin/_common.py",
       "B": "bin/_common.py"
