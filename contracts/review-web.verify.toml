@@ -14,8 +14,10 @@ procedure = "On a configured Gemini Enterprise host, compare a false (no-web pro
 [[check]]
 id = "WEB-A-1"
 host = "A"
-status = "NOT RUN"
+status = "RUN"
 procedure = "After A adoption, verify every participating native/CLI route receives only current bound authorization; absent/false/mismatched permission refuses web, and all existing read-only and admission controls remain."
+evidence = "RUN 2026-10-03 on host A goal/spec-main-conformance @ b53409b: v2 round live-web-c32-r1, every route with web — codex --search; agy triad-readonly-research with audit review_web true and the hook in --web mode; claude -web and -high-web twins that each fetched a web page; ROUND_INTEGRITY_OK, AGREED 4/4 over three families. Record: codefoundry-io/triad @ e192938 docs/reviews/2026-10-03-live-web-c32-residuals.md."
+not_covered = "The false condition (a revoked authorization), a mismatched launch switch and the gemini route are unit-tested only (tests/unit/skills/t23-review-web-c32.sh, tests/unit/wrappers/t62-review-web-option-c32.sh)."
 
 [[check]]
 id = "WEB-A-2"
@@ -23,4 +25,5 @@ host = "A"
 policy = "contracts/gemini-readonly-web.toml"
 manifest = "contracts/gemini-readonly-web.verify.toml"
 status = "NOT RUN"
+not_run_reason = "Host A's leader site runs agy only; the gemini route is the in-company Google route."
 procedure = "Run the profile checks WA1-WA2 in the manifest, then run host A's gemini review leg with a true and a false condition and verify the wrapper attaches this profile only for the true condition. Preserve native admin denies."

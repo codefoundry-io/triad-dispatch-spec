@@ -2,6 +2,11 @@
 
 ## Spec gaps exposed by host A's conformance work — 2026-10-03 (not tagged)
 
+- C32 sync: host A adopted the standing review web on every v2 route (triad `67b7524`, `de1a078`, `b53409b`;
+  t23, t62; live WEB-A-1 RUN 2026-10-03, record `e192938`; WEB-A-2 NOT RUN, gemini is the in-company route).
+  R-REVIEW-WEB / R-CONTAIN / R-PREPARE / R-PROMPT "On A" state the carrier, renderer, launch switches, twins, hook and
+  adoption check with file:line @ b53409b; C29 REVIEW arm closed on A (the legacy small path's --web stays a fact);
+  C32, C67, C68 cells; DL-39 web items, DL-45, DL-46, DL-56 FIXED-A; DL-57 records when a revocation applies (fact).
 - Branch fix round 9: DL-9 dated and B CONFORMS-B (it records and checks init.model); WB2 narrowed to its named denies
   (WA2 already claims only named denies); R-PREPARE names the round (verify, then collect); C66 limits (1)-(3) owner,
   (4)-(5) leader under R-THREAT; reading (b) of "Ai기능 관련은" is not a topic limit (leader's reading, owner to confirm);

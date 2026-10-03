@@ -70,8 +70,15 @@ def test_c32_review_web_manifest_names_both_host_web_profiles_unrun():
     manifest = tomllib.loads((ROOT / "contracts/review-web.verify.toml").read_text())
     profiles = {row["host"]: row.get("policy") for row in manifest["check"] if row.get("policy")}
     assert profiles == {"A": "contracts/gemini-readonly-web.toml", "B": "contracts/gemini-readonly-web-b.toml"}
-    assert all(row["status"] == "NOT RUN" for row in manifest["check"])
+    assert all(row["status"] == "NOT RUN" for row in manifest["check"] if row["id"] != "WEB-A-1")
     assert all((ROOT / p).is_file() for p in profiles.values())
+
+
+def test_c32_web_a_1_run_records_its_evidence():
+    manifest = tomllib.loads((ROOT / "contracts/review-web.verify.toml").read_text())
+    row = next(r for r in manifest["check"] if r["id"] == "WEB-A-1")
+    assert row["status"] == "RUN"
+    assert row.get("evidence") and row.get("not_covered")
 
 
 import pytest
