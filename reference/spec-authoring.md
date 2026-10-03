@@ -33,6 +33,9 @@ table says. A question the owner already answered is not asked again (`decisions
 - Owner decisions are quoted verbatim; a leader's option label is marked as such.
 - A "must survive" list cites the host file and symbol that ships the guard today.
 - No per-leg special rules, no ceremony fields: a leg is an entry with recommended defaults (owner Q-M).
+- A behaviour that holds on one host only is written as "On A: …" or "On B: …", never left implicit; each host must be
+  rebuildable from the specification alone, so a host-specific mechanism names its files, tools and switches
+  (owner, [D-REVIEW-LEGS-20261003](../decisions/owner-register.md#D-REVIEW-LEGS-20261003)).
 - Prompts are files, one clause per rule, editable by the owner without touching code; hosts vendor them at the revision
   they adopt (owner Q-U; vendoring rule: `README.md` § How a host uses a revision). A host skill body carries invocation
   syntax and pointers, not the clauses.
@@ -62,8 +65,10 @@ defect or ambiguity found (any host, any round)
 A case that fails is a defect in the host or in the spec, never a reason to change the expected result without a
 recorded decision. An unrun case is listed NOT RUN, never green. A refuted finding is recorded in the round ledger, not as a
 case. A change whose effect cannot be exercised where it is written is applied anyway and ships with a verification
-manifest (`contracts/<file>.verify.toml`) that whoever has the capability runs — the convention and the result channel
-are in `review-rules.md#R-GOOGLE`; the result is written once, in `decisions/`, never re-narrated per host.
+manifest (`contracts/<file>.verify.toml`) that whoever has the capability runs. For a manifest that verifies a policy
+file (it carries `policy_sha256`) the convention is `review-rules.md#R-GOOGLE`: the result is written once, in
+`decisions/owner-register.md`, never re-narrated per host. A service or conformance manifest names its result channel in
+its own `result_channel` field.
 
 ## 5. Revisions
 

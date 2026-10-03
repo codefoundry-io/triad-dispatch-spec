@@ -1,5 +1,11 @@
 # Host profile and investigation evidence amendment
 
+> **Historical record; its REVIEW no-web statements are superseded on 2026-10-03.** REVIEW web now follows the owner's
+> standing authorization in current [R-REVIEW-WEB](../reference/review-rules.md#R-REVIEW-WEB)
+> ([D-REVIEW-LEGS-20261003](owner-register.md#D-REVIEW-LEGS-20261003)); the no-web posture applies only to a false
+> condition. Investigation web is allowed for every investigation and dispatch leg
+> ([R-INVEST](../reference/review-rules.md#R-INVEST)), not only on an explicit authorization.
+
 Implementation candidate, not a tag, installed adoption or live conformance.
 Latest remote main checked before authoring: `2eb883fee59e66556ee7c7f87189b38231136622`.
 Authority: the verbatim D-B1/D-B2 answers in

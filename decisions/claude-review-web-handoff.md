@@ -1,5 +1,10 @@
 # Claude implementation handoff
 
+> **Historical handoff; its review-web instructions are superseded on 2026-10-03.**
+> The direct-request-only review web below, including the copy-ready prompt, describes the earlier rule. Current
+> [R-REVIEW-WEB](../reference/review-rules.md#R-REVIEW-WEB) allows web for every selected review leg in every round by
+> the owner's standing authorization ([D-REVIEW-LEGS-20261003](owner-register.md#D-REVIEW-LEGS-20261003)).
+
 Complete the existing TRIAD skill infrastructure first. PRD/contract-anchor
 spec-to-code methodology remains a research proposal; no UI or general framework
 is part of this implementation.

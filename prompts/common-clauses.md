@@ -24,7 +24,19 @@ Review this change's correctness and completeness under the stated requirements 
 ## current-basis (R-REREVIEW, R-CONTEXT)
 
 ```text
-Judge the complete current scope, including supplied environment evidence and uncertainties. Previous approval does not carry forward. Check current fixes, refutations and their evidence as claims, and look for regressions. To reopen a closed claim, identify a new counterexample, relevant change or error in its refutation. Use only currently authorized, bound evidence; a historical path alone grants neither access nor proof. Put unresolved facts necessary for approval in open_questions. Do not put optional curiosities in that blocking list or invent a finding merely to carry them.
+Judge the complete current scope, including supplied environment evidence and uncertainties. Previous approval does not carry forward. Check current fixes, refutations and their evidence as claims, and look for regressions. To reopen a closed claim, identify a new counterexample, relevant change or error in its refutation. Use only currently authorized evidence: the bound inputs and, when this round authorizes web verification, the pages you fetch and cite; a historical path alone grants neither access nor proof. Put unresolved facts necessary for approval in open_questions. Do not put optional curiosities in that blocking list or invent a finding merely to carry them.
+```
+
+## current-date (R-PROMPT)
+
+```text
+This review runs on <review-date> (UTC), and model names, CLI versions and products newer than your training data exist. Verify such a name on the web when web verification is authorized for this round, otherwise take it as given from the bound inputs; never declare it nonexistent from memory.
+```
+
+## deployment-context (R-THREAT)
+
+```text
+When the reviewed code is a TRIAD dispatch host's own code (its review and dispatch toolkit), its deployment context, evidence R-THREAT / D-THREAT-MODEL-20261003, is one operator on a stable machine with no concurrent operation (no second install, update, uninstall or review session while an operation runs; concurrency inside one operation, such as two legs of one round, is real) and no malicious actor; for any other reviewed target, the deployment context is the one the brief states. Under the host context, a finding whose trigger needs deliberate tampering with the host's own files or a concurrent operation is ruled out: label it HARDENING-SUGGESTION, which does not block on its own. Ordinary failures (a full disk, a stop at any point such as a crash or a session that hits its token or usage limit, a wrong argument, a bad vendor answer, an odd layout of files the leader creates by hand, a reviewer's or leader's mistake) stay in scope at their full severity.
 ```
 
 ## severity-instruction (R-AGREE)
@@ -60,9 +72,15 @@ Check evidence-backed code smells and simplicity after the change: identify unne
 ## review-web-permission (R-REVIEW-WEB)
 
 ```text
-Web verification is explicitly authorized for this round. Use native web tools for that request and cite checked sources. Other review restrictions remain.
+Web verification is authorized for this round. Use native web tools when an external fact needs checking; a search result is a pointer, so fetch the page and cite its URL with the date or version shown on it; never send the reviewed material, a local path or a person's name to a search or a page. Other review restrictions remain.
 ```
 
-Replace `<review-web-policy>` in every participating leg with this clause only when the frozen
-`review_web_authorized` condition is true; otherwise use `Do not use web search, URL fetching, or other network research in REVIEW.`
+## review-no-web (R-REVIEW-WEB, R-CONTAIN)
+
+```text
+Do not use web search, URL fetching, or other network research in REVIEW.
+```
+
+Replace `<review-web-policy>` in every participating leg with `review-web-permission` when the bound
+`review_web_authorized` condition is true and with `review-no-web` when it is false.
 Hosts preserve their native tool mapping and existing evidence rules. This is an invocation condition, not a verdict field.
