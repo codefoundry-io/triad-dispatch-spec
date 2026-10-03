@@ -1,5 +1,10 @@
 # B contract implementation audit and remaining decisions
 
+> **Historical record; its REVIEW no-web statements are superseded on 2026-10-03.** REVIEW web now follows the owner's
+> standing authorization in current [R-REVIEW-WEB](../reference/review-rules.md#R-REVIEW-WEB)
+> ([D-REVIEW-LEGS-20261003](../decisions/owner-register.md#D-REVIEW-LEGS-20261003)); the no-web posture applies only to a false
+> condition.
+
 ## Evidence basis
 
 B source: [`56f0f665`](https://github.com/codefoundry-io/triad-codex-dispatch/tree/56f0f6657084f81516217ee51698f9b18cfc71dc).

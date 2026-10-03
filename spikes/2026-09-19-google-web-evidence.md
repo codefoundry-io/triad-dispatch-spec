@@ -1,5 +1,10 @@
 # Spike — the Google research leg never fetched its web evidence (2026-09-19)
 
+> **Historical record; its REVIEW no-web statements are superseded on 2026-10-03.** REVIEW web now follows the owner's
+> standing authorization in current [R-REVIEW-WEB](../reference/review-rules.md#R-REVIEW-WEB)
+> ([D-REVIEW-LEGS-20261003](../decisions/owner-register.md#D-REVIEW-LEGS-20261003)); the no-web posture applies only to a false
+> condition.
+
 Owner directive (2026-09-19, after the web-search complaint of the same day): fix the agy web search and test it;
 deliver the spike record — lines and cause — to the other leader too, so both hosts fix the same seam
 (`decisions/owner-register.md`). Produced: rule sentence under `R-INVEST`, clause `web-evidence`

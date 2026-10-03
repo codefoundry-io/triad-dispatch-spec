@@ -359,7 +359,7 @@
       "expected": "Minor-only negative and uncertainty-only DO NOT MERGE are valid; SAFE with blockers/questions, missing required v2 data, unknown fields, unsafe or newline-terminated paths/identifiers/digests are invalid. Named partial overrides validate before merge; complete resolved entries obey vendor blocks. Native receipts do not invent CLI identity. Schema success is not adapter/binding/admission/runtime proof. A pinned resolved Google route requires its own CLI block; absent/null route preserves host selection and adapter checks.",
       "tests": {
         "shared": "tests/test_schemas.py; original schema absence RED 65 failed; terminal-newline RED 6 failed / 65 passed; final local authoring verification recorded in decisions/rev-2-implementation-spec.md. No host conformance implied.",
-        "A": "NOT RUN / host integration pending",
+        "A": "todo — no A test names C30 @ triad d80dad0",
         "B": "Implemented in the local B P3 candidate based on 3d62b7c. Pinned canonical schema/prompts, thin generation projection, strict original local validation and legacy/v2 isolation. Regression sources: tests/test_validate_v2.py, tests/test_v2_producer_adapter.py, tests/test_v2_review_prompts.py, tests/test_v2_claude_wrapper.py, tests/test_v2_google_wrappers.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred."
       }
     },
@@ -383,7 +383,7 @@
       "input": "A review round under the owner's standing authorization (D-REVIEW-LEGS-20261003); compare a revoked authorization and absent/false/nonboolean/mismatched conditions, preflight, prompt and invocation.",
       "expected": "Every round binds review_web_authorized true while the standing authorization holds — a caller's false is ignored and recorded as true, a nonboolean value is refused as an input — enabling all participating routes with a short common permission clause and preserved native/read-only controls; a revoked authorization binds false and renders the `review-no-web` clause. The same condition enters common digest, preflight and allocation; changed conditions require a new basis; retry preserves it. A route that lacks the web capability, or a launch switch that disagrees with the bound condition, refuses before inference; unsupported capability refuses rather than silently running a partially authorized round. No technology-detection heuristic, roster field or changed verdict schema. The no-web Gemini profile bytes remain unchanged; each host's complete web profile (On A: contracts/gemini-readonly-web.toml; On B: contracts/gemini-readonly-web-b.toml) permits only its two web tools in addition to the existing read tools. Every route of every host supports the true condition.",
       "tests": {
-        "A": "NOT RUN / adoption of the 2026-10-03 standing authorization pending; the A web-profile payload invariant is tests/test_policy_profiles.py::test_c32_a_web_profile_moves_only_the_two_web_tools_to_allow (spec repository, payload only)",
+        "A": "todo — adoption of the 2026-10-03 standing authorization pending (authoring/shared-dev-log.md DL-39); the A web-profile payload invariant is tests/test_policy_profiles.py::test_c32_a_web_profile_moves_only_the_two_web_tools_to_allow (spec repository, payload only)",
         "B": "tests/test_claude_owner_web.py C32 scenarios cover the earlier per-request condition; adoption of the 2026-10-03 standing authorization pending",
         "service": "contracts/review-web.verify.toml (WEB-B-1, WEB-A-1, WEB-A-2) with contracts/gemini-readonly-web.verify.toml (WA1-WA2) and contracts/gemini-readonly-web-b.verify.toml (WB1-WB2); NOT RUN"
       }
@@ -396,7 +396,7 @@
       "input": "A configurable nonempty selected roster, for example codex, google-contracts, google-failures and google-state, including any informational entry; all receive the same phase goal, requirements, environment and full scope. Compare an all-disabled roster (every entry enabled: false), same-family result/receipt swaps, missing/invalid/negative/blocking output, an enabled entry skipped before dispatch, failed-to-run unchanged-basis retry and a changed phase goal.",
       "expected": "Every selected entry gets an independent bound attempt and exclusive evidence path. PASS requires each one to explicitly return SAFE TO MERGE with no blocking finding or open_questions; a two-family or one-family roster has no special owner-decision or family-minimum gate. Sibling result/receipt swaps fail binding. Missing, invalid, failed, skipped or negative results cannot be counted as agreement, even if a same-family sibling approves. Preparation refusal cannot produce PASS. An all-disabled roster is refused at preparation, naming the empty selection, before any adapter starts or any round record is written. The common phase goal, requirements and environment reach every bound leg. Retry only a diagnosed failed-to-run entry on unchanged conditions; changed phase goal, requirements, environment, roster or controls require all selected entries to review the current full scope, and a retry or collection against a changed recorded selection or control is refused. Preserve machine outcome separately from any later owner decision.",
       "tests": {
-        "A": "tests/unit/skills/t15-collect-v2.sh axis 75 (an all-disabled roster refused at prepare; a record emptied after prepare never AGREED), axes 77, 78 (changed selection or configuration refused) @ triad ebc4dc7. collect_v2._outcome folds an empty entry list to INCOMPLETE (lib/collect_v2.py:1830ff; t15 axis 83) @ triad 4af44cf. New all-selected explicit-approval behavior: NOT RUN. Historical old-contract evidence: host A parity/host-a-v2 collect_v2 counted enabled SKIPPED entries as missing and refused sibling/attempt swaps; tests/unit/skills/t15-collect-v2.sh axes 62 and 66-71, gate-1 rounds r12–r23 in docs/reviews/2026-09-21-host-a-v2-gate1.md. This does not prove revised PASS behavior.",
+        "A": "tests/unit/skills/t15-collect-v2.sh @ triad d80dad0 (lib identical to 4af44cf): axis 6b (:556, two families, every enabled entry approved -> AGREED), axis 72 (:4652, a one-leg roster, no family minimum), axis 73 (:4693, a same-family-only roster; :4702 both approving collect AGREED), axis 62 (:3354, a skipped enabled entry is INCOMPLETE, never AGREED), axis 75 (:4771, an all-disabled roster refused at prepare), axes 77-78 (:4846, :4901, changed selection or configuration refused), axis 83 (:5524; lib/collect_v2.py:1830 `_outcome` folds an empty entry list to INCOMPLETE). Fixture coverage only; no live service run is claimed.",
         "B": "The collector computes AGREED for an empty enabled list too (bin/review_round_v2.py:531), reachable only through a forged sealed basis (DL-42). tests/test_v2_rounds.py:252 test_C33_zero_enabled_entries_refuse_before_adapters @ 0.2.558 7f75863. B provider-free evidence at f6651121bf775a40f8743c10cd6c3f3590fef88c: tests/test_v2_rounds.py C33 covers one/same-family/informational and empty rosters; existing sibling/attempt/route swaps and retry regressions remain. See decisions/claude-review-strategy-handoff.md for actual platform results and limits. Historical old-contract evidence: v0.2.556 source supported named entries and exclusive paths but required OWNER_DECISION_REQUIRED for two-family output; generic-N/renamed-Google tests and decisions/codex-google-four-leg-operating-spec.md are supporting old-contract evidence only."
       }
     },
@@ -457,7 +457,7 @@
       "expected": "On the row's CLI the classification is the row's token. On another CLI the sentence does not produce that token. The plain sentence does not produce `server-capacity`.",
       "tests": {
         "A": "tests/unit/wrappers/t1-classify-timeout.sh (the codex sentence -> server-capacity on codex, unknown on gemini and on claude; the agy sentence in a failed codex run -> unknown; the plain sentence -> unknown) + tests/unit/wrappers/t14-agy-classify.sh (the agy sentence -> server-capacity on the agy path; the codex sentence on the agy path -> unknown) — triad parity/host-a-v2 44da3d1",
-        "B": "NOT RUN — B maintainer to name its test"
+        "B": "todo — B maintainer to name its test"
       }
     },
     {
@@ -504,7 +504,7 @@
       "input": "a current residual cites an older temporary review root whose owned cleanup is due, with excerpts needed for the new judgment",
       "expected": "Put required excerpts, counterevidence and verification results into the current host-bound inputs before dispatch: A's existing brief/evidence surfaces; B's prior_residual or EVIDENCE.md/source members. Old paths are provenance alone; normal provenance-checked cleanup can remove the prior owned temporary root after its existing export checks. Preserve foreign, provider-owned and in-progress resources.",
       "tests": {
-        "A": "NOT RUN",
+        "A": "todo — no A test names C63 @ triad d80dad0",
         "B": "B provider-free evidence at f6651121bf775a40f8743c10cd6c3f3590fef88c: tests/test_review_cleanup_custody.py C20_C63 checks current EVIDENCE bytes, SHA-256, manifest/snapshot and verify_round after export/cleanup; foreign and unexported current resources remain. Provider-terminal ownership is leader-managed, not helper liveness detection. See decisions/claude-review-strategy-handoff.md for actual platform results and limits."
       }
     },
@@ -528,7 +528,7 @@
       "input": "a CLI version newer than the previously observed patch with required invocation, authentication, isolation and output capabilities present; a version missing one required capability",
       "expected": "Do not refuse solely because a new version differs from the old observed patch. Preserve each required capability check and any justified minimum or known-defect exclusion; refuse or stop when those conditions fail. Record the version actually observed without inferring runtime behavior from its number alone.",
       "tests": {
-        "A": "NOT RUN",
+        "A": "todo — no A test names C65 @ triad d80dad0",
         "B": "B provider-free evidence at f6651121bf775a40f8743c10cd6c3f3590fef88c: tests/test_v2_adapters.py C65 and tests/test_gemini_version_floor.py cover later versions, missing controls and independent Claude 2.1.205, AGY 1.1.20, formal Gemini 0.34.0 and v2 Gemini 0.60.0 seams. New Opus 5.5 mocks use 2.1.280+; no authenticated runtime compatibility claim. See decisions/claude-review-strategy-handoff.md for actual platform results and limits."
       }
     },

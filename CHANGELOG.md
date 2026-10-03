@@ -2,6 +2,13 @@
 
 ## Spec gaps exposed by host A's conformance work — 2026-10-03 (not tagged)
 
+- Branch fix round 8 (verify-before-claim): DL-19 states A's deliberate drop of root-level scratch expiry (R-CLEANUP)
+  and cites the fixed items' file:line; every units.json A_shipped cell checked against the export 0acfe7a (it carries
+  the v2 path; its default roster predates host A's 8cb890f); A cells say "todo" where no host test names the case and
+  NOT RUN only for live service runs; units.json states B's fencing and REVIEW web default as today's code; in-place
+  marks on decisions/host-b-evidence-custody-proposal.md and four spikes; owner-register :105 names the leader's
+  reading; D-C66-LIMITS cites the verbatim ledger record; DL-2 marked superseded by DL-39; rule 4 allows one term per
+  named item; DL-9, DL-42, DL-43 optional B parts are CHECK-B and the footer is re-derived.
 - Branch fix round 7 (class sweep): in-place supersession marks on every record whose REVIEW no-web or codex-baseline
   statement was replaced (owner-register rows D-9, D-9 r2, D-9 RULED, the 2026-09-25 directive; seven decision records),
   contracts/README current text; units.json declares the remaining refusal differences (R-PARITY) and corrects host-A
