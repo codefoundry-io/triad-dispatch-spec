@@ -2,6 +2,13 @@
 
 ## Spec gaps exposed by host A's conformance work — 2026-10-03 (not tagged)
 
+- Branch fix round 14: host A's legacy entry points recorded as a non-conformance fact (no exception) with the
+  keep-or-retire question as an owner item; reading (c) removed; the open owner items gathered in DL-59 (reading (b),
+  legacy keep-or-retire, R-THREAT's two added exclusions, now labelled the leader's reading); superseded A NOT RUN lines
+  in the strategy records marked in place; "adoption" defined in R-PREPARE and A's launch-switch check stated exactly
+  (orphan adoption only); C32 names DL-58 open; the register states its date convention (KST dates, UTC timestamps);
+  web twins described for a rebuild; B's legacy consumers' web status; C31 probes stated without a fetch claim;
+  citation fix.
 - Branch fix round 13: WEB-A-3's reason names the half that needs a revocation; reference/README points recommended
   defaults at R-ROSTER; D-REVIEW-LEGS reading (c) records the legacy paths' web exception for the owner to confirm; A's
   launch-switch check is stated exactly (dispatch record only, a hand-edited command is an R-THREAT fact); A's missing

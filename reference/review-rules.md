@@ -324,13 +324,14 @@ route as follows; a false condition leaves every route in its R-CONTAIN no-web p
   - claude: the native leg is spawned as its preset's web twin — `cross-family-review-reviewer` → `-web`, `-high` →
     `-high-web`, `-max` → `-max-web` (`lib/roster_v2.py:170-173`, `:956-968`); a web preset maps to itself under a true
     condition and to its base under a false one; a selected claude preset without a twin is refused at prepare
-    (`:548-557`). The twins (`.claude/agents/cross-family-review-reviewer-web.md`, `-high-web.md`, `-max-web.md`) keep
-    their preset's model and effort, carry tools `Read`, `Grep`, `Glob`, `WebSearch`, `WebFetch` and nothing that runs
-    or writes, and have a shorter body of their own with the web rule.
+    (`:548-557`). The twins (`.claude/agents/cross-family-review-reviewer-web.md`, `-high-web.md`, `-max-web.md`) are, for a rebuild:
+    the base preset's model and effort; tools `Read`, `Grep`, `Glob`, `WebSearch`, `WebFetch` and nothing that runs or
+    writes; and a body whose web rule is the content of the shared `review-web-permission` clause
+    (`prompts/common-clauses.md`).
   - agy: `--review-web` (`lib/roster_v2.py:1025`), a wrapper option that selects exactly what `--web` selects — the
     read-only research agent `triad-readonly-research` and the admission of errored steps of its two web tools — but
     never appends the investigation `web-evidence` clause, which `--web` keeps for investigations
-    (`3rd-Agent/wrappers/antigravity_wrapper.py:307-314`, `:1758-1766`, `:1915-1920`, `:2043-2047`); the round's hook runs
+    (`3rd-Agent/wrappers/antigravity_wrapper.py:307-314`, `:1758-1767`, `:1915-1920`, `:2043-2047`); the round's hook runs
     in its `--web` mode (`lib/review_scratch.py:4142-4152`, `:5841-5843`; `lib/agy_hook.py:123`, `:196`); the operator's
     user-level agy settings allow `read_url(*)` (the install-time prerequisite above). The wrapper prints that prerequisite
     at `--setup-agents` (`3rd-Agent/wrappers/antigravity_wrapper.py:1984-1991`), but no round checks it before inference,
@@ -338,18 +339,21 @@ route as follows; a false condition leaves every route in its R-CONTAIN no-web p
     refusal; a per-round preflight check is open (DL-58).
   - gemini: `--review-web` (`lib/roster_v2.py:1050`) attaches `3rd-Agent/wrappers/policies/gemini-readonly-web.toml`,
     byte-equal to `contracts/gemini-readonly-web.toml`, instead of the no-web profile (`gemini_wrapper.py:125`, `:465`).
-  - Adoption compares each attempt's recorded launch switch with the bound condition in both directions — a wrapper
-    argv carries its route's switch exactly when true and never the investigation `--web`; a native record names a web
-    twin exactly when true (`lib/collect_v2.py:154`, `:2084-2105`, `:2182-2205`); collection does not re-read the argv.
-    The dispatch record is rendered from the bound condition at prepare and retry, so the check is on that record: a
-    command line edited by hand before it runs is not checked (a fact under R-THREAT).
-  - A fact of a legacy entry point, not an obligation (the leader's reading (c) of D-REVIEW-LEGS-20261003, for the
-    owner to confirm): the small review path (`lib/review_small.py`, declared legacy
-    in `units.json` review-lifecycle; it keeps its old contract) takes its own `--web` (`:33-39`, `:265-271` @ `b53409b`)
-    with mechanisms of its own: codex `--search`, and agy the investigation flag `--web` (`:328-332`), which selects the
-    research agent and appends the investigation `web-evidence` clause (`3rd-Agent/wrappers/antigravity_wrapper.py:2043-2047`);
-    claude spawns `<agent>-web` only for a web round, so a directly named `-web` preset runs unchanged in a round
-    prepared without web (`:367-371`); it refuses gemini and a claude tier other than base and high (`:265-271`).
+  - Every attempt's dispatch record is rendered from the bound condition at prepare and retry. Only the adoption of an
+    orphan attempt (R-PREPARE) re-compares the record's launch switch with the bound condition in both directions — a
+    wrapper argv carries its route's switch exactly when true and never the investigation `--web`; a native record names
+    a web twin exactly when true (`lib/collect_v2.py:154`, `:2084-2105`, `:2182-2205`, called at `:2431` inside
+    `_adopt_orphan_attempt`, reached from `retry` at `:2751-2754` @ `faeb86b`). An ordinary attempt's record and a command
+    line edited by hand before it runs are not re-compared (a fact under R-THREAT).
+  - Non-conformance of host A's legacy entry points (a fact, not an exception; whether to keep or retire them is an
+    open owner item, `authoring/shared-dev-log.md` DL-59). They do not implement the standing authorization (cited @
+    `faeb86b`). The small review path (`lib/review_small.py`) gives web only under its own `--web`: codex `--search` and
+    agy the investigation flag `--web` (`:328-332`), which also appends the investigation `web-evidence` clause
+    (`3rd-Agent/wrappers/antigravity_wrapper.py:2043-2047`), and claude spawned as `<agent>-web` (`:367-371`); under its
+    `--web` it refuses gemini and a claude agent other than the base and high presets (`:101-102`, `:265-271`,
+    `:450-455`); without `--web`, a directly named `-web` preset is spawned unchanged and runs with its web tools. The v1
+    path (`prepare` without `--v2`) passes no web switch (`lib/review_scratch.py:3612-3620`) and refuses the review-web
+    condition (`:3815-3820`).
 - On B: the v2 request member `review_web_authorized` (`bin/review_round_v2.py:130-133`) is the carrier; it defaults to
   false per request, so binding it true for every round under the standing authorization is open (DL-39). For a true
   condition: native Codex receives it through its fresh-child prompt metadata and requires host web availability
@@ -357,7 +361,11 @@ route as follows; a false condition leaves every route in its R-CONTAIN no-web p
   `WebFetch` (`bin/claude_wrapper.py:417-418`); AGY keeps its read-only controls while omitting the review-only
   `read_url(*)` deny (`bin/antigravity_wrapper.py:647-663`, `bin/_agy_settings.py:43-49`, `:90-100`); Gemini selects
   `bin/policies/gemini-formal-web.toml`, byte-equal to `contracts/gemini-readonly-web-b.toml`
-  (`bin/gemini_wrapper.py:175`, `:466`; `bin/policies/web-source-manifest.json`).
+  (`bin/gemini_wrapper.py:175`, `:466`; `bin/policies/web-source-manifest.json`). B's legacy consumers (the workspace
+  four-leg gate and the fixed legacy formal route) render through `render_review_prompt` /
+  `render_worktree_review_prompt`, whose `review_web_authorized` is a per-request value, default false
+  (`bin/review_round.py:122`, `:141`, `:165`, `:2006-2043`, `:2128-2178` @ `7f75863`): the standing binding is not
+  implemented there either (open, DL-39).
 
 Render only the short common `review-web-permission` clause from `prompts/common-clauses.md` when true, and the
 `review-no-web` clause otherwise. Existing evidence, uncertainty and untrusted-content rules continue; do not
@@ -505,7 +513,10 @@ objective, criteria, boundary, `prior_residual`); the selected entries and every
 whatever source the host resolves them (R-ROSTER); and the installed prompt clauses, producer schema and admission
 contract. The content digest every leg result carries (R-BIND) covers the reviewed bytes, the review conditions, the
 selection and the controls. An input a host produces only after that digest, because the rendered prompts embed the
-digest, is recorded with the round at prepare (a mutable round record suffices), and before a retry, an adoption or a
+digest, is recorded with the round at prepare (a mutable round record suffices), and before a retry, an adoption (the re-entry
+into an attempt that exists on disk but that the round record does not yet name, left by an interrupted retry; On A:
+`_adopt_orphan_attempt`, `lib/collect_v2.py:2354` @ `faeb86b`; B refuses an attempt that already exists,
+`bin/review_round_v2.py:291-294`, and has no adoption) or a
 collection the host re-derives it from the installed files and compares it with the recorded value; a host may instead
 hash the installed source files into the digest. Retry, adoption and
 collection read the digest-covered members from the bound bytes, never from a mutable copy. A changed member is a
@@ -544,7 +555,8 @@ round, is real and stays covered. There is no malicious actor (owner,
 [D-THREAT-MODEL-20261003](../decisions/owner-register.md#D-THREAT-MODEL-20261003)). Guards defend against ordinary
 failures: a full disk, a crash in the middle of an operation, a wrong argument, a bad vendor answer, a reviewer's or the
 leader's mistake. A finding whose trigger needs deliberate tampering with the host's own files, a concurrent operation,
-a deliberately unusual layout or a crash at one exact instant is recorded as a fact — no code and no blocking; the C66
+a deliberately unusual layout or a crash at one exact instant (these last two are the leader's reading of the owner's
+lens, awaiting the owner's confirmation, D-THREAT-MODEL-20261003) is recorded as a fact — no code and no blocking; the C66
 limits under R-BIND are the worked example. Every leg receives this context, with this rule and
 D-THREAT-MODEL-20261003 as its evidence pointer, through the shared `deployment-context` clause, which applies it only
 when the reviewed code is a TRIAD host's own and has the leg label such a finding HARDENING-SUGGESTION (non-blocking under R-AGREE); the leader records it as a

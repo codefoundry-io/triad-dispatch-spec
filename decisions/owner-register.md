@@ -1,5 +1,7 @@
 # Owner decisions — rulings and their effect (public, site-neutral)
 
+Dates in decision headings and IDs are the owner's local date (KST, UTC+9); timestamps given with `Z` are UTC.
+
 
 <a id="D-REVIEW-STRATEGY-20261002"></a>
 ## Review strategy — owner direction, 2026-10-02
@@ -142,7 +144,8 @@ The result record, named by the `result_channel` of the service manifest `contra
 WEB-A-1 (the true condition on every participating route, live): RUN 2026-10-03 on host A
 (`codefoundry-io/triad` `goal/spec-main-conformance` @ `b53409b`). One v2 round, `live-web-c32-r1`, ran every route
 with web: codex `--search`; agy `triad-readonly-research` with audit `review_web: true` and the hook in `--web` mode;
-claude `-web` and `-high-web` twins, each of which fetched a web page. Result `ROUND_INTEGRITY_OK`, AGREED 4/4 over three
+claude `-web` and `-high-web` twins, each of which, per the host A record, fetched
+https://code.claude.com/docs/en/sub-agents. Result `ROUND_INTEGRITY_OK`, AGREED 4/4 over three
 families (host A record: triad `e192938`, `docs/reviews/2026-10-03-live-web-c32-residuals.md`). Not covered live, unit-tested
 only: the false condition and a mismatched launch switch (check WEB-A-3, NOT RUN live; host A tests t23, t62) and the
 gemini route. WEB-A-3, WEB-B-1 and WEB-A-2 remain NOT RUN (WEB-A-2: the gemini route is the in-company Google route).
@@ -234,11 +237,9 @@ recommended default becomes `gpt-6-astra` with reasoning `high` on both hosts, r
 leg, not as a limit by topic: every selected review leg in every review round, by the owner's standing authorization (no
 longer a per-round request; settled by "All review legs, always"), and every investigation/dispatch leg, with no
 technology heuristic (R-INVEST, R-REVIEW-WEB). This reading of "Ai기능 관련은" is the leader's, for the owner to confirm
-at publication. (c) Host A's legacy entry points — the small review path `lib/review_small.py` and the v1
-path (`prepare` without `--v2`) — keep their old contract: the small path has review web only when its own `--web` is passed,
-and the v1 path has none (`lib/review_scratch.py:3617`, `:3815-3820` @ triad `b53409b`) — an exception to "All review
-legs, always" for those paths. This reading is the leader's, for the owner to
-confirm; whether to keep or retire those legacy paths is an open owner item.
+at publication. Host A's legacy entry points (the small review path and the v1 path) do not implement the standing
+authorization — a recorded non-conformance fact (R-REVIEW-WEB On A), not an exception; whether to keep or retire them is
+an open owner item (`authoring/shared-dev-log.md` DL-59).
 
 Effect: [R-ROSTER](../reference/review-rules.md#R-ROSTER) (codex default),
 [R-REVIEW-WEB](../reference/review-rules.md#R-REVIEW-WEB) (standing authorization; `review_web_authorized`
@@ -356,7 +357,9 @@ whole); it is not itself a ruling about the dispatch hosts, for which the 2026-1
 Reading recorded with the decision (the leader's, not the owner's words): both hosts serve one operator on a stable
 machine with no concurrent operation and no malicious actor; guards defend against ordinary failures; a finding that
 needs deliberate tampering, a concurrent operation, a deliberately unusual layout or an exact-instant crash is recorded
-as a fact, never code or a blocker.
+as a fact, never code or a blocker. The last two exclusions (a deliberately unusual layout, an exact-instant crash) are
+not in the owner's words above; they are the leader's reading of the owner's lens, for the owner to confirm
+(`authoring/shared-dev-log.md` DL-59).
 
 Effect: [R-THREAT](../reference/review-rules.md#R-THREAT) (new), R-VERIFY's dispositions and the C66 limits under
 R-BIND point to it; the shared prompt clause `deployment-context` (`prompts/common-clauses.md`, in every leg order);
