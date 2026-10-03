@@ -23,6 +23,10 @@
 - R-NOCOST (C11 agreed set not yet data; GOOGLE_CLOUD_PROJECT on A's gemini route open), R-CLI-VERSION (null when not
   observed). Cases C11, C13, C26, C32, C43, C66 tests.A; `units.json` review-lifecycle, review-web-authorization.
 - Dev log: DL-60–DL-69; DL-19, DL-44, DL-52, DL-53, DL-55, DL-59 notes and statuses.
+- Round 2: cases C3, C4, C5, C7, C63 tests.A (host A stage 2, three legs) with C63's manifest and contracts README mirrors;
+  R-CLEANUP On A / On B activity refresh; R-TERMINAL and C1: a signalled wrapper mid-dispatch records `unknown` / exit 1
+  (host B's shape; A pending merge, DL-70); DL-71 CHECK-B for B's auth-class gate and formal-only credential removal
+  (C37); owner register D-REVIEW-TIMEOUTS-20261004 and DL-5 (A: 3600 s, in progress); DL-61 A operator rule fixed.
 
 ## Spec gaps exposed by host A's conformance work — 2026-10-03 (not tagged)
 

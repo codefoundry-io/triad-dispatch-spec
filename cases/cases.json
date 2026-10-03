@@ -8,9 +8,9 @@
       "rule": "R-TERMINAL",
       "summary": "Normal child exit with inherited stdout/stderr; incomplete stdin; timeout; catchable SIGTERM/SIGHUP",
       "input": "a vendor child that exits normally with inherited pipes / one whose stdin write fails / one that exceeds the timeout / one killed by SIGTERM",
-      "expected": "Success only after readers joined and the owned group is reaped; incomplete stdin = fail closed (A token input-delivery-failed / exit 65; B RunResult flag); timeout and signals leave a terminal record and no orphan",
+      "expected": "Success only after readers joined and the owned group is reaped; incomplete stdin = fail closed (A token input-delivery-failed / exit 65; B RunResult flag); timeout and signals leave a terminal record and no orphan; a dispatch whose wrapper is signalled (SIGTERM / SIGHUP) while it runs reaps the group and records `unknown` / exit 1 with the answer withheld and an extraction error naming the signal (`wrapper interrupted (<SIG>)`); a signal outside a dispatch leaves no record (R-TERMINAL)",
       "tests": {
-        "A": "tests/unit/wrappers/t48*, tests/integration/f12* (stdin); timeout/signal terminal record on the agy route: tests/unit/wrappers/t15-agy-driver-decision.sh axis 28/28b (a wrapper timeout on a newline-terminated stream stamps the census row `interrupted: \"timeout\"` and no `truncated_tail`; a signalled child stamps `\"signal\"`; a child's own exit stamps nothing), tests/unit/wrappers/t13-agy-stream-digest.sh axis 32 (merge carries it), tests/unit/wrappers/t40-agy-read-audit-file.sh axis 24 (the written read-audit file carries it); the reader side: tests/unit/skills/t9-agy-hook.sh axes 23/34 (an `interrupted` row is INCONCLUSIVE; a vendor-ended `result_events: 0` row with a complete transcript stays whole) — fix wave 17 (DL-11)",
+        "A": "tests/unit/wrappers/t48*, tests/integration/f12* (stdin); timeout/signal terminal record on the agy route: tests/unit/wrappers/t15-agy-driver-decision.sh axis 28/28b (a wrapper timeout on a newline-terminated stream stamps the census row `interrupted: \"timeout\"` and no `truncated_tail`; a signalled child stamps `\"signal\"`; a child's own exit stamps nothing), tests/unit/wrappers/t13-agy-stream-digest.sh axis 32 (merge carries it), tests/unit/wrappers/t40-agy-read-audit-file.sh axis 24 (the written read-audit file carries it); the reader side: tests/unit/skills/t9-agy-hook.sh axes 23/34 (an `interrupted` row is INCONCLUSIVE; a vendor-ended `result_events: 0` row with a complete transcript stays whole) — fix wave 17 (DL-11). Signalled wrapper mid-dispatch -> `unknown` / exit 1 with summary, audit row and run-log: pending merge, triad stage3/engine-transport @ 221d556 (tests/unit/wrappers/t53 axis 7, four wrappers; t27 (o); tests/system/wrappers/agy-proc/s1; authoring/shared-dev-log.md DL-70)",
         "B": "Implemented and regression-covered in B e29d820 (P1, triad-b-p1-r2 ADMITTED_SAFE): tests/test_terminal_transport.py and existing stdin/provider tests cover bounded readers/stdin reconciliation, owned-group cleanup, normal exit and timeout/error custody. This is source/test evidence, not shared receipt-schema or every provider/platform conformance."
       }
     },
@@ -34,7 +34,7 @@
       "input": "a run-log dir over its file cap containing a sibling file younger than the age floor",
       "expected": "A file younger than the age floor survives a cap prune; only the time-based sweep may delete by age",
       "tests": {
-        "A": "tests/unit/wrappers/t54-prune-floor-c3.sh (a file younger than the floor survives a cap prune) @ triad ebc4dc7",
+        "A": "tests/unit/wrappers/t54-prune-floor-c3.sh (a file younger than the floor survives a cap prune) @ triad d76ef23 — passing without a production change; verified by three legs, rounds r1 and r2 (host A goal plan, Evidence item 2.1)",
         "B": "Existing coverage: tests/test_log_cleanup.py::test_run_log_count_cap_prunes_only_stale_files_and_allows_fresh_overflow and byte-cap counterpart; included in completed macOS/Ubuntu full-suite runs summarized at C24. No installed-provider conformance inferred."
       }
     },
@@ -46,7 +46,7 @@
       "input": "a review root holding (i) a foreign date-prefixed `*.pruning` dir not created by the helper, (ii) a dirty or untracked regular file that is part of the reviewed basis in the ORIGINAL guarded checkout, (iii) the helper's OWN temporary review copy after the agreed evidence-export checks passed",
       "expected": "(i) preserved and reported — cleanup refuses without deleting and states what it observes; (ii) original or foreign content is never disposed of by cleanup; (iii) a provably owned temporary copy may be disposed of, only after the evidence-export checks (R-CLEANUP). Symlinks: C26 (Q4 RULED)",
       "tests": {
-        "A": "tests/unit/skills/t16-close-ownership-c4c5c7.sh @ triad ebc4dc7: a `.pruning` dir is reclaimed with its `.claim` record (lib/review_scratch.py:705-722), and an EMPTY unclaimed `.pruning` residue older than the floor is removed by rmdir (:865-876; t16:51-55) under the owner ruling of 2026-09-27 recorded on the unpublished branch claude/r-model (PR #6); main's C4 (i) does not yet carry it (authoring/shared-dev-log.md DL-54).",
+        "A": "tests/unit/skills/t16-close-ownership-c4c5c7.sh @ triad ebc4dc7: a `.pruning` dir is reclaimed with its `.claim` record (lib/review_scratch.py:705-722), and an EMPTY unclaimed `.pruning` residue older than the floor is removed by rmdir (:865-876; t16:51-55) under the owner ruling of 2026-09-27 recorded on the unpublished branch claude/r-model (PR #6); main's C4 (i) does not yet carry it (authoring/shared-dev-log.md DL-54). (ii): t16 axis 18 (dirty and untracked files of the original guarded checkout survive close) @ triad 8404021. t16 axes 1-4b, 14b and 18 verified by three legs, rounds r1 and r2, at triad d76ef23 (Evidence item 2.2; DL-54 untouched).",
         "B": "Allocation/export portion implemented in B a85a800: tests/test_review_cleanup_custody.py covers refusal without provenance, foreign roots, verified export and disposal. Existing UID/type/age and internal-symlink checks retained; C26 separately tracks reviewer link visibility. triad-b-p2-r2 ADMITTED_SAFE."
       }
     },
@@ -58,7 +58,7 @@
       "input": "an interrupted cleanup with a partially removed round tree",
       "expected": "Resume requires the allocation record or marker; otherwise refuse",
       "tests": {
-        "A": "tests/unit/skills/t16-close-ownership-c4c5c7.sh @ triad ebc4dc7",
+        "A": "tests/unit/skills/t16-close-ownership-c4c5c7.sh axes 2-5 @ triad d76ef23 — passing without a production change; verified by three legs, rounds r1 and r2 (Evidence item 2.3)",
         "B": "Implemented in B a85a800: tests/test_review_cleanup_custody.py partial-cleanup resume requires a validated allocation-bound claim. triad-b-p2-r2 ADMITTED_SAFE."
       }
     },
@@ -82,7 +82,7 @@
       "input": "a round whose evidence export has not been verified; a second cleanup call",
       "expected": "Second cleanup is a no-op; disposal never precedes export verification",
       "tests": {
-        "A": "tests/unit/skills/t16-close-ownership-c4c5c7.sh (second close is a no-op) @ triad ebc4dc7",
+        "A": "tests/unit/skills/t16-close-ownership-c4c5c7.sh axes 8 (a second close is a no-op), 10 and 11 (close runs a fresh round check before disposal and never refuses on it) @ triad d76ef23 — passing; verified by three legs, rounds r1 and r2 (Evidence item 2.4)",
         "B": "Implemented in B a85a800: tests/test_review_cleanup_custody.py requires/revalidates an external export before disposal; existing missing-root idempotence remains covered. triad-b-p2-r2 ADMITTED_SAFE."
       }
     },
@@ -504,7 +504,7 @@
       "input": "a current residual cites an older temporary review root whose owned cleanup is due, with excerpts needed for the new judgment",
       "expected": "Put required excerpts, counterevidence and verification results into the current host-bound inputs before dispatch: A's existing brief/evidence surfaces; B's prior_residual or EVIDENCE.md/source members. Old paths are provenance alone; normal provenance-checked cleanup can remove the prior owned temporary root after its existing export checks. Preserve foreign, provider-owned and in-progress resources.",
       "tests": {
-        "A": "todo — no A test names C63 @ triad d80dad0",
+        "A": "tests/unit/skills/t25-prior-evidence-c63.sh @ triad 8404021 (a mutation that drops --prior-residual fails) — passing without a production change; verified by three legs, rounds r1 and r2, at triad d76ef23 (Evidence item 2.6)",
         "B": "B provider-free evidence at f6651121bf775a40f8743c10cd6c3f3590fef88c: tests/test_review_cleanup_custody.py C20_C63 checks current EVIDENCE bytes, SHA-256, manifest/snapshot and verify_round after export/cleanup; foreign and unexported current resources remain. Provider-terminal ownership is leader-managed, not helper liveness detection. See decisions/claude-review-strategy-handoff.md for actual platform results and limits."
       }
     },

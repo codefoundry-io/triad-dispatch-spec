@@ -532,3 +532,20 @@ fact or limit both hosts lack. Same direction as [D-SPEC-GAPS-20261003](#D-SPEC-
 
 Effect: [R-DECISION-ORDER](../reference/spec-authoring.md#R-DECISION-ORDER) (new), `authoring/shared-dev-log.md`
 DL-69.
+
+<a id="D-REVIEW-TIMEOUTS-20261004"></a>
+## D-REVIEW-TIMEOUTS-20261004: generous review-leg timeouts — up to 30 minutes by reasoning
+
+Owner, 2026-10-04, typed (verbatim; source: host A's leader session record (unpublished), the transcript of 2026-10-03,
+19:01Z):
+
+> 시간 초과 넉넉히.잡아 claude 도 astra도 리즈닝에따라 30분 가능
+
+Reading recorded with the decision (the leader's, not the owner's words): a review leg's run may take up to about 30
+minutes by its reasoning, for the Claude leg and the codex `gpt-6-astra` leg alike, so the timeout is set generously
+above that. Host A sets every review roster entry's `timeout_s` to 3600 s in its roster data (shipped default, the
+four-leg example and its project file) — the leader's choice of value. A timeout is roster DATA: changing it is a new
+basis for rounds prepared after it (R-REREVIEW), and no rule text changes. Host B's maintainer may compare its own routes'
+requirements before touching its defaults (R-ROSTER notes B's legacy formal gemini route requires 600 s).
+
+Effect: `authoring/shared-dev-log.md` DL-5 (host A's data change pending on branch `t21/roster-timeouts`).

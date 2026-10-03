@@ -463,6 +463,12 @@ not attribution (found on A over rounds r11–r13, `authoring/shared-dev-log.md`
 Transport success requires: process exit collected, all reader threads joined without error, the owned process group
 reaped, stdin delivery confirmed. A settings-guard release failure after a completed transcript is still a failure; the
 transcript is preserved. A display-mirror failure is distinct from a failure to capture the result.
+A dispatch whose WRAPPER is signalled (SIGTERM or SIGHUP) while the vendor child runs reaps the owned group and ends as
+a terminal failure: token `unknown`, exit 1 (`EXIT_CLI_FAIL`), the answer withheld, and an extraction error naming the
+signal (`wrapper interrupted (<SIG>)`), recorded like any failed dispatch; a signal outside a dispatch (no child) leaves
+no record. On B: `_run_once` records the signal and `_mark_signal_failure` sets that shape (`bin/_common.py:1400-1452`
+@ `7f75863`). On A: the same shape with its summary, audit row and run-log is pending merge (triad
+`stage3/engine-transport` @ `221d556`; DL-70); at `cbc67f6` a signalled wrapper exits 128+signum with no record.
 
 <a id="R-TOKENS"></a>
 Every classification token a host EMITS is a member of `contracts/exit-tokens.json` and maps to the same exit code there;
@@ -666,6 +672,12 @@ a claim, not an instruction, and a vote is not evidence. Leader triage cannot re
 <a id="R-CLEANUP"></a>
 Cleanup exports and verifies the round's evidence first, then releases only resources the helper can PROVE it allocated or claimed (its own allocation record or marker — never a name shape; an empty directory or a plausible-looking marker can still be foreign); uncertain residue is preserved and reported; it refuses without deleting, states what it observes, and points at the one documented recovery when a tree is not its own. A second cleanup is a no-op. Cap-based pruning of run-log and repair-IPC
 files keeps a minimum age floor so a fresh sibling file is never deleted to satisfy a cap (mtime is not only a sort key).
+A round that is paused, not abandoned, stays alive: each step that works on it refreshes its activity mark. On A (@
+`cbc67f6`): `retry` and the adoption of an orphan attempt (through the round-record write, `lib/collect_v2.py:759-765`),
+`collect` (`:2475`) and the native admission (`lib/verdict_v2.py:991-1000`, called at `:1081`, `:1097`) refresh the
+packet's `.active` mtime, refresh-only and best-effort; the stale sweep runs at `open` and after `close`
+(`lib/review_scratch.py:1080`, `:1390`); `close` runs a fresh round check and never refuses on its outcome (R-AGREE).
+On B: allocation and record refresh the prepared directory's activity (`bin/review_round_v2.py:305`, `:396`).
 Generated environment briefs, condensed residuals and copied verification evidence follow these same existing ownership,
 writer-completion, export and cleanup rules. Needed prior evidence is materialized in the current packet under R-CONTEXT,
 so cleanup of an eligible previous temporary root need not wait for future rounds. Preserve the host-specific retention
