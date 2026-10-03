@@ -2,6 +2,10 @@
 
 ## Spec gaps exposed by host A's conformance work — 2026-10-03 (not tagged)
 
+- Branch fix round 15: both hosts' legacy entry points that do not bind the standing review-web authorization are
+  non-conformance facts with one keep-or-retire owner item (DL-59); DL-39's A action reworded; the v1 path's no-web
+  citations corrected; the small path's legacy agreement contract also counts a non-blocking MERGE WITH FIXES; R-AGREE
+  and DL-52 reconcile a skipped verify with R-THREAT (the leader's ruling).
 - Branch fix round 14: host A's legacy entry points recorded as a non-conformance fact (no exception) with the
   keep-or-retire question as an owner item; reading (c) removed; the open owner items gathered in DL-59 (reading (b),
   legacy keep-or-retire, R-THREAT's two added exclusions, now labelled the leader's reading); superseded A NOT RUN lines

@@ -23,7 +23,10 @@ digest, `verify_round` at `bin/review_round.py:1908-1931`) at its start and end 
 `:532`). On A: the leader runs `review_scratch.py verify` before `collect`
 (`.claude/skills/triad-cross-family-review/SKILL.md:499-502`; `lib/review_scratch.py:2445`), which writes
 `.verified-r<N>.json`; `collect_v2.collect` does not read that record (`lib/collect_v2.py:1934-1962`) and `close`
-warns when it is absent (`lib/review_scratch.py:18-23`).
+warns when it is absent (`lib/review_scratch.py:18-23`). A skipped `verify` is a leader's mistake within R-THREAT's
+scope; host A's guard is its flow (verify before collect) and the `close` warning when the highest captured round has no
+verify record (`lib/review_scratch.py:18-23` @ `faeb86b`); the spec does not require a collector refusal. That
+disposition is the leader's ruling (host A's leader ledger, unpublished), not the owner's.
 
 `open_questions` contains unresolved facts necessary to judge approval, not optional curiosities; every remaining entry
 blocks, without a collector importance heuristic. A `SAFE TO MERGE` with a blocker or open question is invalid under the
@@ -352,8 +355,10 @@ route as follows; a false condition leaves every route in its R-CONTAIN no-web p
     (`3rd-Agent/wrappers/antigravity_wrapper.py:2043-2047`), and claude spawned as `<agent>-web` (`:367-371`); under its
     `--web` it refuses gemini and a claude agent other than the base and high presets (`:101-102`, `:265-271`,
     `:450-455`); without `--web`, a directly named `-web` preset is spawned unchanged and runs with its web tools. The v1
-    path (`prepare` without `--v2`) passes no web switch (`lib/review_scratch.py:3612-3620`) and refuses the review-web
-    condition (`:3815-3820`).
+    path (`prepare` without `--v2`) passes no web switch — its X-leg codex line is printed without `--search`
+    (`lib/review_scratch.py:3624-3625`) and its standing codex and agy legs take their dispatch lines from
+    `references/leg-contracts.md:37`, `:44` (no `--search`, no `--web`) — and refuses the review-web condition
+    (`lib/review_scratch.py:3815-3820`).
 - On B: the v2 request member `review_web_authorized` (`bin/review_round_v2.py:130-133`) is the carrier; it defaults to
   false per request, so binding it true for every round under the standing authorization is open (DL-39). For a true
   condition: native Codex receives it through its fresh-child prompt metadata and requires host web availability
@@ -361,11 +366,11 @@ route as follows; a false condition leaves every route in its R-CONTAIN no-web p
   `WebFetch` (`bin/claude_wrapper.py:417-418`); AGY keeps its read-only controls while omitting the review-only
   `read_url(*)` deny (`bin/antigravity_wrapper.py:647-663`, `bin/_agy_settings.py:43-49`, `:90-100`); Gemini selects
   `bin/policies/gemini-formal-web.toml`, byte-equal to `contracts/gemini-readonly-web-b.toml`
-  (`bin/gemini_wrapper.py:175`, `:466`; `bin/policies/web-source-manifest.json`). B's legacy consumers (the workspace
-  four-leg gate and the fixed legacy formal route) render through `render_review_prompt` /
-  `render_worktree_review_prompt`, whose `review_web_authorized` is a per-request value, default false
-  (`bin/review_round.py:122`, `:141`, `:165`, `:2006-2043`, `:2128-2178` @ `7f75863`): the standing binding is not
-  implemented there either (open, DL-39).
+  (`bin/gemini_wrapper.py:175`, `:466`; `bin/policies/web-source-manifest.json`). Non-conformance of B's legacy entry points (a
+  fact, as for A's below; whether to keep or retire them is an open owner item, DL-59): the workspace four-leg gate and
+  the fixed legacy formal route render through `render_review_prompt` / `render_worktree_review_prompt`, whose
+  `review_web_authorized` is a per-request value, default false (`bin/review_round.py:122`, `:141`, `:165`, `:2006-2043`,
+  `:2128-2178` @ `7f75863`), so they do not bind the standing authorization.
 
 Render only the short common `review-web-permission` clause from `prompts/common-clauses.md` when true, and the
 `review-no-web` clause otherwise. Existing evidence, uncertainty and untrusted-content rules continue; do not
