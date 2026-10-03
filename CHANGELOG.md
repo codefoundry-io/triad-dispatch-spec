@@ -2,6 +2,9 @@
 
 ## Spec gaps exposed by host A's conformance work — 2026-10-03 (not tagged)
 
+- C35 sync: host A adopted the codex default `gpt-6-astra` / `high` with one codex leg (triad `8cb890f`) and records the
+  requested reasoning beside the model on the summary line and audit row (`725dfb7`); C35 tests.A and DL-39 updated
+  (DL-39 stays OPEN for A's web items and for B).
 - Branch fix round 5: R-THREAT and the `deployment-context` clause are scoped to reviews of a TRIAD host's own code
   (other targets: the brief's context, R-CONTEXT); the clause carries its evidence pointer (R-THREAT /
   D-THREAT-MODEL-20261003) so it agrees with `severity-instruction` (payload change, re-vendor); R-REVIEW-WEB and C32: a
