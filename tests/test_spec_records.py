@@ -76,3 +76,10 @@ def test_agy_print_timeout_row_is_a_timeout_on_agy():
     rows = [r for r in _vendor_lines() if "print timeout" in r["line"]]
     assert [(r["cli"], r["token"]) for r in rows] == [("agy", "timeout")]
     assert "[agy] " in rows[0]["carrier"] and "any vendor exit" in rows[0]["carrier"]
+
+
+def test_codex_incorrect_api_key_row_is_oauth_env():
+    # R-AUTH / C37: the measured codex 401 line (host A gate-1 r18, 2026-09-25); no credential text in the row.
+    rows = [r for r in _vendor_lines() if r["match"] == "incorrect api key"]
+    assert [(r["cli"], r["token"]) for r in rows] == [("codex", "oauth-env")]
+    assert "sk-" not in rows[0]["line"]

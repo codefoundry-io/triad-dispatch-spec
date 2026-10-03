@@ -60,6 +60,6 @@ limits = "No authenticated v2 provider, prompt efficacy, adoption, installation 
 
 [host.A]
 status = "Provider-free fixtures (bash suites) for STRATEGY-AGREEMENT, STRATEGY-PURPOSE, STRATEGY-CURRENT-EVIDENCE (C20, C62) and STRATEGY-STOP; C63 by tests/unit/skills/t25-prior-evidence-c63.sh @ triad 8404021 (three legs at d76ef23); NOT RUN for STRATEGY-CLI (no A test names C65 at the tested commit)"
-tested_commit = "faeb86b (triad goal/spec-main-conformance)"
+tested_commit = "faeb86b (triad goal/spec-main-conformance); C63: 8404021, verified at d76ef23"
 evidence = "tests/unit/skills/t15-collect-v2.sh axes 1 (:369), 4 (:520), 5 (:579), 6b (:556), 72 (:4663), 73 (:4704), 75 (:4782), 77 (:4857), 78 (:4912), 83 (:5535) for C13/C33; axis 76 (:4821) for C64; axis 80 (:5082) for C20; tests/unit/skills/t14-prepare-v2.sh axes 31-35 (:1256, :1338, :1437, :1530, :1610) for C60/C61 and C62/C20; per-case cells in cases/cases.json"
 limits = "No authenticated v2 provider, prompt efficacy or release proof; the cases' tests.A cells carry the per-case status."

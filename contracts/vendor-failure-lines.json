@@ -22,9 +22,17 @@
       "cli": "agy",
       "line": "[agy] print timeout after <duration> with turn in progress; returning partial output",
       "match": "with turn in progress; returning partial output",
-      "carrier": "the whole stderr line beginning `[agy] `, at any vendor exit, with a partial answer that is never returned",
+      "carrier": "the whole stderr line beginning `[agy] `, at any vendor exit, with or without a partial answer, which is never returned",
       "token": "timeout",
       "observed": "2026-10-03"
+    },
+    {
+      "cli": "codex",
+      "line": "unexpected status 401 Unauthorized: Incorrect API key provided",
+      "match": "incorrect api key",
+      "carrier": "a codex `error` event message of a failed run; the key prefix that follows the sentence is never recorded",
+      "token": "oauth-env",
+      "observed": "2026-09-25"
     }
   ]
 }

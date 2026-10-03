@@ -27,6 +27,17 @@
   R-CLEANUP On A / On B activity refresh; R-TERMINAL and C1: a signalled wrapper mid-dispatch records `unknown` / exit 1
   (host B's shape; A pending merge, DL-70); DL-71 CHECK-B for B's auth-class gate and formal-only credential removal
   (C37); owner register D-REVIEW-TIMEOUTS-20261004 and DL-5 (A: 3600 s, in progress); DL-61 A operator rule fixed.
+- Fix round 1 after verification SPEC-A1: C26 restored to the frozen decision (A's untracked nonignored link listing in
+  progress; the leader's earlier ruling withdrawn, DL-53); R-BIND On A re-cited at triad cbc67f6 with the saved-reply
+  guard stated exactly (retry's own removals; Z1 in progress), present-form known limits and two run-log facts; the
+  executed-command paragraph corrected for host B (B refuses before inference: bound_wrapper and validate_review_web;
+  DL-63 CONFORMS-B — the earlier "record time only" reading was wrong); R-CLASSIFY: the authentication STOP decides beside
+  another sentence (R-AUTH; A in progress, DL-62); R-TERMINAL covers the whole dispatch (A's windows in progress; CHECK-B,
+  DL-70); R-TOKENS: A's codex wrapper-direct exceptions and the provisional summary pair (DL-72); a codex
+  `incorrect api key` row (DL-74); R-PLATFORM: A's record place (DL-73); R-CLI-VERSION: B's claude preparation probe;
+  R-NOCOST: the geminicli.com page and A's wider gemini-route removals (DL-65); D-ONE-ENVIRONMENT scoped to host A;
+  C32's unrun line is MISSING; C66 axes regrouped; DL-39's "superseded" note (round 1) listed here; the agy print-timeout
+  carrier widened to an empty answer.
 
 ## Spec gaps exposed by host A's conformance work — 2026-10-03 (not tagged)
 

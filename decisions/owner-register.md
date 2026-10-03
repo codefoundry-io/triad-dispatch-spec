@@ -83,7 +83,7 @@ new rule; every row points at the normative location.
 | Q-D | A selected investigation returns a free-form report, never a review verdict | `R-ROSTER` last sentences |
 | Q-E / Q-M | No "degraded" label ceremony; no per-leg special rules; a leg has a recommended default model, changeable anytime; the count is variable | `R-ROSTER` |
 | Q-F / Q-K | No development before the design spec is agreed; approved defect fixes on host A continue | `README.md` (rev-0 is a draft, not implementation authorization) |
-| Q-G / Q-J / Q-N | agy and gemini are distinct CLIs of one family with opposite availability at the two sites; keep each host's SHIPPED fallback logic; the owner tests gemini where it is in service and briefs the leader **The two-site framing is superseded as current state on 2026-10-03 by [D-ONE-ENVIRONMENT-20261003](#D-ONE-ENVIRONMENT-20261003)** (one environment; agy is the default Google route, gemini the compatibility route; the fallback logic and the owner's gemini testing stand). | `R-GOOGLE` |
+| Q-G / Q-J / Q-N | agy and gemini are distinct CLIs of one family with opposite availability at the two sites; keep each host's SHIPPED fallback logic; the owner tests gemini where it is in service and briefs the leader **The two-site framing is superseded as current state on 2026-10-03 by [D-ONE-ENVIRONMENT-20261003](#D-ONE-ENVIRONMENT-20261003)** (host A describes one environment, agy its default Google route and gemini its compatibility route; each host's fallback logic and the owner's gemini testing stand). | `R-GOOGLE` |
 | Q-O | `acceptance` is a data field only; every rule derived from it is cut | `R-ROSTER`, `contracts/review-legs.example.json` |
 | Q-P | The shared package lives in this SEPARATE repository; enforcement mode is the leaders' call (recommendation: informational drift report first) | `README.md § How a host uses a revision` step 3 |
 | Q-S | selected option: a MERGE WITH FIXES with only Minor findings counts as agreement, no extra round | `R-AGREE` |
@@ -470,11 +470,14 @@ The leader's scope question, and the selected option's label and description (ve
 
 > 지침·문서에서 사외/사내 두 환경 구분을 지우고 한 환경으로 서술. Mac·Ubuntu 호환 의무는 '두 OS 지원'으로 유지, 플러그인 재배포 규칙도 유지. 구글 리뷰어는 agy 기본, gemini는 호환 경로.
 
-Recorded effect: the current state is described as one environment, with no off-site / in-company (leaders' site /
-company site) split. Kept: support of macOS and Ubuntu 24.04 ([R-PLATFORM](../reference/review-rules.md#R-PLATFORM)),
-each host's plugin re-deploy rule, each host's shipped Google fallback logic and the owner's gemini testing where gemini is
-in service (Q-N). The Google review route is agy by default and gemini the compatibility route. The two-site framing of
-Q-G / Q-J / Q-N is superseded as current state; that row and other history records are kept as written.
+Recorded effect: the option was scoped to host A's instructions and documents ("지침·문서"). Host A describes its current
+state as one environment, with no off-site / in-company (leaders' site / company site) split; it keeps support of macOS
+and Ubuntu 24.04 ([R-PLATFORM](../reference/review-rules.md#R-PLATFORM)) and its plugin re-deploy rule; its Google review
+route is agy by default and gemini the compatibility route. In this specification, the shared wording that carried the
+two-site framing as current state is reworded or annotated (the Q-G / Q-J / Q-N row, the WEB-A-1 record, WEB-A-2's
+reason); each host's shipped Google fallback logic and the owner's gemini testing where gemini is in service (Q-N) stand.
+Host B is not changed by this decision: it chooses its Google route from the declared authentication class
+(`bin/review_adapters_v2.py:142-147` @ `7f75863`). History records are kept as written.
 
 Effect: the Q-G / Q-J / Q-N row, the WEB-A-1 record and the question of D-REVIEW-LEGS-20261003 (annotated),
 `contracts/review-web.verify.toml` WEB-A-2 `not_run_reason`, `authoring/shared-dev-log.md` DL-68.
