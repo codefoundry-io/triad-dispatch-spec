@@ -281,12 +281,11 @@ every host supports web; a route without it is a host defect, refused at preflig
 complete web-enabled host profile, never an overlay: only `google_web_search` and `web_fetch` move to allow, with all
 other controls preserved; the no-web profile stays the profile for a false condition. Pre-existing owner and admin
 denies remain authoritative. The review-web authorization lets no round make a permanent global settings change or
-bypass a permission. Each host's install-time prerequisite is a separate fact: On A: a user-level agy settings allow of
-`read_url(*)`, made once by the operator at installation and named by the wrapper
-(`3rd-Agent/wrappers/antigravity_wrapper.py:1975`). On B: the v2 agy adapter passes no `--project`
-(`bin/review_adapters_v2.py:167`), so the wrapper takes a temporary settings transaction that merges its deny rules into
-the agy settings for the call and restores them afterwards (`bin/antigravity_wrapper.py:655-664`,
-`bin/_agy_settings.py:380-395`). Live service checks: `contracts/review-web.verify.toml`. Per host, a true condition reaches each
+bypass a permission. Each host's agy settings fact, per host: On A, an install-time allow — a user-level agy settings
+allow of `read_url(*)`, made once by the operator at installation and named by the wrapper
+(`3rd-Agent/wrappers/antigravity_wrapper.py:1975`); On B, a per-call temporary settings transaction — the v2 agy adapter
+passes no `--project` (`bin/review_adapters_v2.py:167`), so the wrapper merges its deny rules into the agy settings for
+the call and restores them afterwards (`bin/antigravity_wrapper.py:655-664`, `bin/_agy_settings.py:571-591`). Live service checks: `contracts/review-web.verify.toml`. Per host, a true condition reaches each
 route as follows; a false condition leaves every route in its R-CONTAIN no-web posture.
 
 - On A, the v2 round path supports no review web today (open, DL-39): `prepare --v2` takes no web condition, the
@@ -381,7 +380,10 @@ not attribution (found on A over rounds r11–r13, `authoring/shared-dev-log.md`
   reaped on timeout / abnormal unwind and normal exit under R-TERMINAL (On A: `_common.py:3198-3205`, `:3333-3381`; On B: `bin/_common.py:1357-1386`); reader and writer completion before success (On A: incomplete readers fail closed, `_common.py:3433-3437`; On B: incomplete/error collection is rejected); schema validation with one clean repair retry where a leg relies on it; verdict
   binding to review id, family and content digest; round integrity capture/verify.
 - cleanup: refuses without deleting when a tree is not provably its own; ownership is proven by an allocation record or
-  marker, never by a name shape (On A: a `<name>.pruning` dir is reclaimed with the `.claim` record written before its rename, `.claude/skills/triad-cross-family-review/lib/review_scratch.py:705-722`, and an EMPTY unclaimed `.pruning` residue older than the floor is removed by `rmdir`, `:865-876`, under the owner ruling of 2026-09-27 carried by the unpublished R-CLEANUP amendment on branch `claude/r-model` (PR #6), not yet on main — DL-54; On B: allocation provenance, verified export and root identity for stale and explicit cleanup, `bin/review_round.py:1017`, `:1060`, `:1232-1242`).
+  marker, never by a name shape (On A: a `<name>.pruning` dir is reclaimed with the `.claim` record written before its rename, `lib/review_scratch.py:705-722`; On B: allocation provenance, verified export and root identity for stale and explicit cleanup, `bin/review_round.py:1017`, `:1060`, `:1232-1242`). Open exception on A, pending DL-54: an EMPTY unclaimed `.pruning`
+  residue older than the floor is removed by `rmdir` (`lib/review_scratch.py:865-876`), a name-shape removal that main's
+  R-CLEANUP does not allow; it follows the owner ruling of 2026-09-27 carried by the unpublished R-CLEANUP amendment on
+  branch `claude/r-model` (PR #6).
 
 <a id="R-TERMINAL"></a>
 Transport success requires: process exit collected, all reader threads joined without error, the owned process group
@@ -426,7 +428,7 @@ evidence and receipt with exclusive create and seals `terminal.json` with their 
 it; every attempt that recorded an answer, valid or invalid, is sealed with a state field (`lib/collect_v2.py:1322-1475`);
 `collect-r<N>.json` keeps each seal's digest and later collections re-check the result, receipt, read evidence and seal;
 the printed wrapper line runs a seal guard under `noclobber` and the native spawn gets a printed `guard:` line
-(`lib/review_scratch.py:5078-5103`); an integrity failure makes that entry INCOMPLETE, never AGREED. Known limits on A,
+(native `guard:` line `lib/review_scratch.py:5078-5088`; wrapper line under `noclobber` `:5107-5111`); an integrity failure makes that entry INCOMPLETE, never AGREED. Known limits on A,
 recorded as facts under [R-THREAT](#R-THREAT) (owner decision
 [D-C66-LIMITS-20261003](../decisions/owner-register.md#D-C66-LIMITS-20261003)): (1) after an unusable attempt directory
 is collected, removing that directory and the original seal and replacing a blocking result can reach AGREED in the same
@@ -528,7 +530,7 @@ automatic expiry for durable exports/investigation records, or authority over pr
 Both hosts call vendor CLIs only — no vendor HTTP API, SDK or API key. Login is the user's own OAuth login in each CLI;
 wrappers check the binary and never enter or store credentials. Billing follows the AUTHENTICATION type, not the model
 flag (Gemini CLI v0.60.0 `contentGenerator.ts`: auth is selected before the model is resolved); environment scrubbing and
-the absence of `-m` are hygiene, not proof of the billing route. Default model for the Google review leg on BOTH CLIs: the Pro family with a verifiable HIGH thinking configuration (owner Q-W; owner via the codex session, Q2: "두 CLI 모두 Pro 계열 + 확인 가능한 high로 맞춤; 인증 경계 유지"). agy: today's Pro-high catalog slug, recorded in the roster; gemini CLI: a route-valid Pro model whose default thinking level is HIGH (v0.60.0 `defaultModelConfigs.ts` gives Gemini 3 Pro `ThinkingLevel.HIGH`; the agy slug is NOT a portable gemini CLI argument). Flash was retired as a reviewer (0 unique blocking defects over ten rounds, owner 2026-09-14). Slugs are dispatch-time values in the roster's `agy` / `gemini` block, never constants in code; the configured default is recorded separately from the exposed runtime identity; the model option stays selectable only so a future model can be evaluated. B's explicit legacy development path remains Auto-only. B's opt-in v2 adapter selects route-valid Pro defaults and checks supported controls before inference; preflight settings do not prove runtime identity. On A the v2 gemini route passes the roster's model (`lib/roster_v2.py:970-971`; shipped data `spec/review-legs.default.json:42`). Deterministic
+the absence of `-m` are hygiene, not proof of the billing route. Default model for the Google review leg on BOTH CLIs: the Pro family with a verifiable HIGH thinking configuration (owner Q-W; owner via the codex session, Q2: "두 CLI 모두 Pro 계열 + 확인 가능한 high로 맞춤; 인증 경계 유지"). agy: today's Pro-high catalog slug, recorded in the roster; gemini CLI: a route-valid Pro model whose default thinking level is HIGH (v0.60.0 `defaultModelConfigs.ts` gives Gemini 3 Pro `ThinkingLevel.HIGH`; the agy slug is NOT a portable gemini CLI argument). Flash was retired as a reviewer (0 unique blocking defects over ten rounds, owner 2026-09-14). Slugs are dispatch-time values in the roster's `agy` / `gemini` block, never constants in code; the configured default is recorded separately from the exposed runtime identity; the model option stays selectable only so a future model can be evaluated. B's explicit legacy development path remains Auto-only. B's opt-in v2 adapter selects route-valid Pro defaults and checks supported controls before inference; preflight settings do not prove runtime identity. On A the v2 gemini route passes the roster's model (`lib/roster_v2.py:971-972`; shipped data `spec/review-legs.default.json:42`). Deterministic
 provider-free checks (help, version, policy, argv, env, preflight) stay in each host's automated suite; only authenticated
 service checks go through the owner-briefing route (R-GOOGLE); an unrun authenticated check is unverified, never green. Gemini formal review requires CLI
 `>= 0.34.0` (PR #20639 lands the headless policy-allow fix) and tests the declared supported range. Gemini `--policy`

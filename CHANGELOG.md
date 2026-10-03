@@ -2,6 +2,12 @@
 
 ## Spec gaps exposed by host A's conformance work — 2026-10-03 (not tagged)
 
+- Branch fix round 6: the 2026-08-15 quote whole, labelled Argus precedent; the invalid-answer retry difference declared
+  as a `units.json` review-lifecycle exception (R-PARITY) and removed from D-C66-LIMITS's effects; C67 states the
+  host-testable part; A's empty `.pruning` rmdir moved out of R-CONTAIN's guard example into an open exception (DL-54);
+  the 2026-09-21 owner record marked superseded in place; R-REVIEW-WEB names each host's agy settings fact for what it
+  is; C32 says what refuses; citations corrected (roster 971-972, guard/noclobber lines, B test :305, B settings
+  guard :571-591); DL-39 status in the log's vocabulary.
 - C35 sync: host A adopted the codex default `gpt-6-astra` / `high` with one codex leg (triad `8cb890f`) and records the
   requested reasoning beside the model on the summary line and audit row (`725dfb7`); C35 tests.A and DL-39 updated
   (DL-39 stays OPEN for A's web items and for B).

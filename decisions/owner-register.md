@@ -47,6 +47,9 @@ This task authorizes the requested spec/PR work, not host implementation, merge,
 
 ## Historical owner decisions
 
+> **Historical record.** The 2026-09-21 direct-request condition below is superseded for review web by
+> [D-REVIEW-LEGS-20261003](#D-REVIEW-LEGS-20261003) (standing authorization; R-REVIEW-WEB now binds true for every round).
+
 2026-09-21 follow-up: owner requested “Claude 웹 수정하고 원격 spec에도 기입해” and clarified
 “리뷰시도 웹감증 허용했는데 직접적으료 요청할때만”. The owner then clarified “다른 leg 마찬가지야. 리뷰시 신규기슐은 web검색없으면 없는 Api기능이라고 리뷰한다” and
 “그렇게까지 프롬프트를 늘리지마 내가 직접 요청할께 신기술 판단은 리더도못해”. Apply the direct-request condition
@@ -293,7 +296,7 @@ Reading recorded with the decision (the leader's, not the owner's words): host A
 deliberate tampering, not as rules or open work.
 
 Effect: [R-BIND](../reference/review-rules.md#R-BIND) (On A sentence and its five limits), case C66 tests.A, dev-log
-rows DL-44 and DL-55.
+row DL-44.
 
 <a id="D-THREAT-MODEL-20261003"></a>
 ## D-THREAT-MODEL-20261003: the deployment both hosts serve — no malicious actor, no concurrent operation
@@ -308,7 +311,10 @@ Earlier owner rulings with the same content, recorded until now only in host A's
 
 > 2026-09-28: ...발생하지 않을 악의적 공격에 대한 과장된 방어 이런거 ?
 
-> 2026-08-15: 이게 버그인지 너무 과도한 방어코드 아니야? 악의적인 공격은 없고
+Supporting precedent from another project of the same owner (the Argus static analyzer, 2026-08-15, verbatim and
+whole); it is not itself a ruling about the dispatch hosts, for which the 2026-10-03 words above are the ruling:
+
+> 코드를 읽어서 정적분석하는데 왜 이게 버그인지 너무 과도한 방어코드 아니야? 악의적인 공격은 없고 안정된 환경이라고 가정하고 진행해.
 
 Reading recorded with the decision (the leader's, not the owner's words): both hosts serve one operator on a stable
 machine with no concurrent operation and no malicious actor; guards defend against ordinary failures; a finding that
