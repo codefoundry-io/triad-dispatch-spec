@@ -32,5 +32,6 @@ adapter capabilities are checked separately. No remote schema resolution or cust
 Remaining proposals for `gemini-readonly.toml` land only after the manifest checks pass: a canonical `grep_search` allow
 row for tool visibility (V3), and a `*` deny below the allows (V5). The exact adoption candidate must pass both read
 compatibility and a discriminating deny control; model prose never proves a policy outcome. Effective source-derived
-postures at v0.60.0: A has explicit web denies; B allows both web tools at user priority 999 with a `*` deny at 998 until
-it adopts D-9. These are source observations, not live conformance results.
+postures at v0.60.0: both hosts' no-web profiles (the profiles for a false R-REVIEW-WEB condition) deny both web tools by
+explicit rows — On B, `bin/policies/gemini-formal-readonly.toml` is byte-equal to `gemini-readonly-b.toml` — and each
+host's web profile allows them for a true condition. These are source observations, not live conformance results.

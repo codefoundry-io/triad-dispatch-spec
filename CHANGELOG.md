@@ -2,6 +2,13 @@
 
 ## Spec gaps exposed by host A's conformance work — 2026-10-03 (not tagged)
 
+- Branch fix round 7 (class sweep): in-place supersession marks on every record whose REVIEW no-web or codex-baseline
+  statement was replaced (owner-register rows D-9, D-9 r2, D-9 RULED, the 2026-09-25 directive; seven decision records),
+  contracts/README current text; units.json declares the remaining refusal differences (R-PARITY) and corrects host-A
+  entries (prompts_v2 renderer, review-web sources, investigation web options); dev-log rule 4 gains RULED, WITHDRAWN,
+  RECORDED-SPEC, CONFORMS-A/B, CHECK-A/B, IN-PROGRESS and every status cell uses the vocabulary; the footer is derived
+  from the status cells (tested); owner quotes carry elision marks or are whole; D-C66-LIMITS quotes the chosen option
+  and its description and names DL-55 again; D-REVIEW-LEGS reading (b) keeps "Ai기능 관련은".
 - Branch fix round 6: the 2026-08-15 quote whole, labelled Argus precedent; the invalid-answer retry difference declared
   as a `units.json` review-lifecycle exception (R-PARITY) and removed from D-C66-LIMITS's effects; C67 states the
   host-testable part; A's empty `.pruning` rmdir moved out of R-CONTAIN's guard example into an open exception (DL-54);

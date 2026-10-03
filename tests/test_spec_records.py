@@ -34,3 +34,25 @@ def test_c66_sealed_attempt_case_is_owned_by_review_lifecycle():
 def test_c68_threat_model_case_cites_its_rule():
     case = cases()["C68"]
     assert "R-THREAT" in case["rule"]
+
+
+def _footer_ids(label):
+    text = (ROOT / "authoring/shared-dev-log.md").read_text()
+    line = next(l for l in text.splitlines() if l.startswith(label))
+    return set(re.findall(r"DL-\d+", line))
+
+
+def _status_ids(pattern):
+    ids = set()
+    for line in (ROOT / "authoring/shared-dev-log.md").read_text().splitlines():
+        m = re.match(r"^\| (DL-\d+) \|", line)
+        if m and re.search(pattern, line.rstrip().rstrip("|").rsplit(" | ", 1)[1]):
+            ids.add(m[1])
+    return ids
+
+
+def test_dev_log_footer_matches_the_status_cells():
+    assert _footer_ids("Rows with B work open:") == _status_ids(r"OPEN \(B")
+    assert _footer_ids("Rows with A work open:") == _status_ids(r"OPEN \(A")
+    assert _footer_ids("Checks suggested for B:") == _status_ids(r"CHECK-B")
+    assert _footer_ids("Rows awaiting the owner:") == _status_ids(r"(?:^|; )OWNER")

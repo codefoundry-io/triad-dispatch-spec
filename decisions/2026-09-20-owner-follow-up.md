@@ -1,5 +1,10 @@
 # Owner follow-up: host policies, investigation logging and roster location
 
+> **Historical record; its REVIEW no-web statements are superseded on 2026-10-03.** REVIEW web now follows the owner's
+> standing authorization in current [R-REVIEW-WEB](../reference/review-rules.md#R-REVIEW-WEB)
+> ([D-REVIEW-LEGS-20261003](owner-register.md#D-REVIEW-LEGS-20261003)); the no-web posture applies only to a false
+> condition.
+
 Remote main re-fetched at `2eb883fee59e66556ee7c7f87189b38231136622`.
 These answers resolve the owner choices raised by the B contract audit. They do
 not claim implementation, runtime conformance, a revision tag or A acknowledgement.

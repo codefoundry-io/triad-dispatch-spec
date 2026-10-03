@@ -1,5 +1,10 @@
 # Host B original NOT-SAFE finding register
 
+> **Historical record; its REVIEW no-web statements are superseded on 2026-10-03.** REVIEW web now follows the owner's
+> standing authorization in current [R-REVIEW-WEB](../reference/review-rules.md#R-REVIEW-WEB)
+> ([D-REVIEW-LEGS-20261003](owner-register.md#D-REVIEW-LEGS-20261003)); the no-web posture applies only to a false
+> condition.
+
 Original round: `host-b-start-audit-r1`, 25 findings across Claude, Google and
 fresh Codex. IDs below are reviewer-local positions, not shared behavioral case
 IDs. The full diagnostic basis and source adjudication are in
