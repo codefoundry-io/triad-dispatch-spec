@@ -2,8 +2,14 @@
 
 ## Spec gaps exposed by host A's conformance work — 2026-10-03 (not tagged)
 
+- Branch fix round 10: WEB-A-1's RUN result recorded once in the owner register (R-GOOGLE convention) with pointers
+  from the manifest, contracts/README, C32 and DL-39; the C66 limit attribution mirrored everywhere ((1)-(3) owner,
+  (4)-(5) leader under R-THREAT); every 2026-10-02/03 owner quote byte-exact against host A's leader session record;
+  README states the candidate line for any branch; the legacy small path's own mechanisms stated as facts; a change of
+  the review-web authorization applies to rounds prepared after it (R-REVIEW-WEB, DL-57).
 - C32 sync: host A adopted the standing review web on every v2 route (triad `67b7524`, `de1a078`, `b53409b`;
-  t23, t62; live WEB-A-1 RUN 2026-10-03, record `e192938`; WEB-A-2 NOT RUN, gemini is the in-company route).
+  t23, t62; WEB-A-1 RUN 2026-10-03 (host A b53409b), result in
+  `decisions/owner-register.md#review-web-a1-20261003`; WEB-B-1 and WEB-A-2 NOT RUN).
   R-REVIEW-WEB / R-CONTAIN / R-PREPARE / R-PROMPT "On A" state the carrier, renderer, launch switches, twins, hook and
   adoption check with file:line @ b53409b; C29 REVIEW arm closed on A (the legacy small path's --web stays a fact);
   C32, C67, C68 cells; DL-39 web items, DL-45, DL-46, DL-56 FIXED-A; DL-57 records when a revocation applies (fact).
@@ -48,8 +54,9 @@
   and the C66 limits point to it. Prompt payload (re-vendor obligation, `units.json` prompts): NEW shared clause
   `deployment-context` before `common:severity-instruction` in all three leg orders (out-of-context findings are labelled
   HARDENING-SUGGESTION). Case C68; dev-log DL-56; tests pin the clause and its order.
-- C66 sync: host A seals recorded attempts at `4af44cf` (t15 axes 74, 81-89); owner decision `D-C66-LIMITS-20261003`
-  records its five known limits as facts in R-BIND's On A sentence; C21, C33, C66 tests cells and DL-42, DL-44 updated;
+- C66 sync: host A seals recorded attempts at `4af44cf` (t15 axes 74, 81-89); its five known limits are
+  facts in R-BIND's On A sentence — (1)-(3) by owner decision `D-C66-LIMITS-20261003`, (4)-(5) by the leader's ruling
+  under R-THREAT; C21, C33, C66 tests cells and DL-42, DL-44 updated;
   DL-55 records that A retries an attempt sealed invalid while B refuses a completed invalid answer (fact, no change).
 - Branch fix round 4: R-BIND states what holds on A's legacy small path (it never collects v2 results and keeps
   v2-shaped extra fields as shape notes; units.json and DL-50 agree); R-REVIEW-WEB scopes the settings prohibition to

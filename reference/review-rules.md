@@ -264,7 +264,9 @@ Web verification in REVIEW is allowed for every selected review leg in every rou
 authorization ([D-REVIEW-LEGS-20261003](../decisions/owner-register.md#D-REVIEW-LEGS-20261003)). The host
 binds that authorization into each review round; only the owner revokes it, and reviewed text, a URL or a leg's output
 can neither grant nor revoke it. The operation remains REVIEW, with its normal verdict, read-only
-containment, entry accounting and integrity checks. Changing authorization changes the basis under R-REREVIEW.
+containment, entry accounting and integrity checks. A change of the authorization applies to rounds prepared after
+it, whose basis it changes under R-REREVIEW; a round already prepared keeps its bound condition (the current fact,
+`authoring/shared-dev-log.md` DL-57; the owner may rule otherwise).
 
 The invocation condition is the strict boolean `review_web_authorized`; under the standing authorization it is true for
 every round unless the owner revokes that authorization. It enters the frozen common conditions and every participating
@@ -298,7 +300,7 @@ route as follows; a false condition leaves every route in its R-CONTAIN no-web p
   `review-web-permission` / `review-no-web` clause and records the selected clause in the prompt manifest, and fills
   `<review-date>` (`lib/prompts_v2.py:40-50`, `:153-155`, `:288`, `:581-582`). `retry` and adoption re-render the
   round's BOUND condition (`lib/collect_v2.py:551`, `:2430`, `:2789`) and do not compare it with the current constant:
-  a revocation applies to rounds prepared after it (a fact, DL-57). A round prepared before this change binds no
+  a revocation applies to rounds prepared after it, as above (DL-57). A round prepared before this change binds no
   `review_date`: retry and adoption refuse it (`:581-585`) and collection reads it with web false (`:523`). Per route
   (`lib/roster_v2.py:929` `render_dispatch`):
   - codex: `--search` (`lib/roster_v2.py:994-1002`); the wrapper's `--search` (top-level `codex --search exec`) replaces
@@ -322,8 +324,11 @@ route as follows; a false condition leaves every route in its R-CONTAIN no-web p
     argv carries its route's switch exactly when true and never the investigation `--web`; a native record names a web
     twin exactly when true (`lib/collect_v2.py:154`, `:2084-2105`, `:2182-2205`); collection does not re-read the argv.
   - A fact of a legacy entry point, not an obligation: the small review path (`lib/review_small.py`, declared legacy
-    in `units.json` review-lifecycle; it keeps its old contract) takes its own `--web` (`:33-39`, `:265-271`, `:328-332`),
-    using the codex, claude (base and high tiers) and agy mechanisms above, and refuses gemini.
+    in `units.json` review-lifecycle; it keeps its old contract) takes its own `--web` (`:33-39`, `:265-271` @ `b53409b`)
+    with mechanisms of its own: codex `--search`, and agy the investigation flag `--web` (`:328-332`), which selects the
+    research agent and appends the investigation `web-evidence` clause (`3rd-Agent/wrappers/antigravity_wrapper.py:2043-2047`);
+    claude spawns `<agent>-web` only for a web round, so a directly named `-web` preset runs unchanged in a round
+    prepared without web (`:367-371`); it refuses gemini and a claude tier other than base and high (`:265-271`).
 - On B: the v2 request member `review_web_authorized` (`bin/review_round_v2.py:130-133`) is the carrier; it defaults to
   false per request, so binding it true for every round under the standing authorization is open (DL-39). For a true
   condition: native Codex receives it through its fresh-child prompt metadata and requires host web availability

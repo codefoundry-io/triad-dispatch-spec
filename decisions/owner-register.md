@@ -102,7 +102,7 @@ new rule; every row points at the normative location.
 | D-9 RULED (2026-09-19) | Review legs have no web tools: DENY `google_web_search` / `web_fetch` by explicit rows in the shared gemini read-only policy; investigations (R-INVEST) keep web with the `web-evidence` clause. The rule is per OPERATION, not per CLI: codex `web_search` disabled, agy review agents without web tools (B's read-only builder drops `read_url` for review dispatch only), gemini deny rows, every review prompt renderer stops permitting web (codex F2). Applied first; the runtime effect is verified where gemini is in service (owner: apply now, leave the untested part as a separate config-like record) **Superseded for REVIEW web on 2026-10-03 by [D-REVIEW-LEGS-20261003](#D-REVIEW-LEGS-20261003)** (standing authorization; the no-web posture applies only to a false condition). | `contracts/gemini-readonly.toml` (rows at 200), `contracts/gemini-readonly.verify.toml` (V1-V5, NOT RUN), C15, `R-GOOGLE` convention sentence, `R-CONTAIN` gemini bullet; host A applied (t50); B: codex removes the two tools from its 999 allow list |
 | Codex rev-1 addendum review (2026-09-19) | Findings F1–F8 accepted and applied by the claude leader — status accuracy (C28 NOT applied on either host), D-9 as an operation-level rule, executable V3/V5 with an isolated control and an evidence rule, C28 wording, Google shape pin in the v2 migration list, byte-identical vendoring of the policy (one definition), C4 original-vs-owned-copy split; leader-level wire choices aligned (`path`, three canonical verdicts, optional `correction`, uncertainty-only negative = DO NOT MERGE + `open_questions`, `SAFE`/`Major` import aliases only) | `R-CONTAIN`, `contracts/gemini-readonly{,.verify}.toml`, C4/C15/C28/C29, `contracts/leg-verdict-mapping.md`, `prompts/leg-google.md`, `units.json`, `spikes/2026-09-19-google-web-evidence.md` |
 | Directive (2026-09-19, one place) | A large host restructuring is coming: rulings and conventions are written ONCE, in this shared repository; host documents carry pointers, never a second narration ("do not make the work happen three times") | `reference/spec-authoring.md § 3/§ 4`, `R-GOOGLE` convention; host plans quote verbatim only |
-| Directive (2026-09-25, codex baseline and comparison; shared development log) | Codex review BASELINE = `gpt-5.6-terra` / `xhigh` as shipped roster DATA on both hosts (a shipped `null` had left host A's baseline to the operator's personal CLI configuration). Host A additionally runs a COMPARISON entry `codex-astra` = `gpt-6-astra` / `high` in its next round; both entries count, and the terra/astra difference is a ledger observation, never a vote or a policy. The Claude review leg is `claude-opus-5-5` / `xhigh` (the 2026-09-25 default-model handoff). PRD and spec move together; what the other host must fix is written into a shared development log, not a session note **Codex baseline superseded on 2026-10-03 by [D-REVIEW-LEGS-20261003](#D-REVIEW-LEGS-20261003)** (`gpt-6-astra` / `high`); one codex leg with no comparison entry is the leader's reading of "Leg terra 없애고 astra high 로 교체" (`authoring/shared-dev-log.md` DL-39). | `R-ROSTER` codex paragraph, C35, `contracts/review-legs.example.json`; `authoring/shared-dev-log.md` (`R-DEV-LOG`) |
+| Directive (2026-09-25, codex baseline and comparison; shared development log) | Codex review BASELINE = `gpt-5.6-terra` / `xhigh` as shipped roster DATA on both hosts (a shipped `null` had left host A's baseline to the operator's personal CLI configuration). Host A additionally runs a COMPARISON entry `codex-astra` = `gpt-6-astra` / `high` in its next round; both entries count, and the terra/astra difference is a ledger observation, never a vote or a policy. The Claude review leg is `claude-opus-5-5` / `xhigh` (the 2026-09-25 default-model handoff). PRD and spec move together; what the other host must fix is written into a shared development log, not a session note **Codex baseline superseded on 2026-10-03 by [D-REVIEW-LEGS-20261003](#D-REVIEW-LEGS-20261003)** (`gpt-6-astra` / `high`); one codex leg with no comparison entry is the leader's reading of "Leg terra 없애고 astra high  로 교체 …" (`authoring/shared-dev-log.md` DL-39). | `R-ROSTER` codex paragraph, C35, `contracts/review-legs.example.json`; `authoring/shared-dev-log.md` (`R-DEV-LOG`) |
 | Codex verification amendment (2026-09-19; technical disposition) | Earlier F3/F4 verification changes required further corrections A1–A4; the owner authorized Codex to publish the bounded shared-spec amendment. Runtime checks remain NOT RUN, shipped policy bytes unchanged, and Claude acknowledgement on the amended basis is pending | `decisions/rev-1-codex-verification-amendment.md`; procedure only in `contracts/gemini-readonly.verify.toml`, C15, `R-GOOGLE` |
 
 Withdrawn at the owner's word: a usage-measurement item (2026-09-19) is not recorded anywhere.
@@ -134,6 +134,17 @@ The report did not supply an exact installed revision, CLI version, authenticati
 class or transcript. It confirms the reported invocation only; it does not mark
 B1-B3, WEB-B-1, three concurrent Google calls, lens coverage or host A adoption
 as passed. Preserve those separate verification statuses.
+
+<a id="review-web-a1-20261003"></a>
+## Review-web live check WEB-A-1 (C32): 2026-10-03
+
+The R-GOOGLE result record for `contracts/review-web.verify.toml` check WEB-A-1: RUN 2026-10-03 on host A
+(`codefoundry-io/triad` `goal/spec-main-conformance` @ `b53409b`). One v2 round, `live-web-c32-r1`, ran every route
+with web: codex `--search`; agy `triad-readonly-research` with audit `review_web: true` and the hook in `--web` mode;
+claude `-web` and `-high-web` twins, each of which fetched a web page. Result `ROUND_INTEGRITY_OK`, AGREED 4/4 over three
+families (host A record: triad `e192938`, `docs/reviews/2026-10-03-live-web-c32-residuals.md`). Not covered live, unit-tested
+only: the false condition, a mismatched launch switch and the gemini route. WEB-B-1 and WEB-A-2 remain NOT RUN (WEB-A-2:
+the gemini route is the in-company Google route).
 
 <a id="d-auth-browser-login-20260926"></a>
 ## D-AUTH-BROWSER-LOGIN-20260926: CLI authentication is the user's own browser login only
@@ -201,15 +212,15 @@ remaining work. Historical decisions above remain historical evidence.
 <a id="D-REVIEW-LEGS-20261003"></a>
 ## D-REVIEW-LEGS-20261003: codex review default Astra/high; web search for every AI leg
 
-Owner, 2026-10-03, typed (verbatim):
+Owner, 2026-10-03, typed (verbatim; source: host A's leader session record (unpublished), the transcript of 2026-10-02/03 (UTC)):
 
-> Leg terra 없애고 astra high 로 교체 웹검색 허용
+> Leg terra 없애고 astra high  로 교체 웹검색 허용
 
 To the question "Where should 'allow web search' apply?" (the leader's options), the owner selected:
 
 > All review legs, always
 
-> 모든leg Ai기능 관련은 웹검색 허용해
+> 모든leg Ai기능 관련은 웹건색 [sic] 허용해
 
 Reading recorded with the decision (the leader's, not the owner's words): (a) the codex review leg's
 recommended default becomes `gpt-6-astra` with reasoning `high` on both hosts, replacing `gpt-5.6-terra` /
@@ -235,8 +246,7 @@ preservation sentences of [the 2026-10-02 review strategy](2026-10-02-review-str
 web-evidence rule (C29), exact IDs as roster data and the requested-versus-runtime identity rules are unchanged.
 Host adoption, publication and revision tags remain separate.
 
-Follow-up rulings, owner, 2026-10-03, typed (verbatim; source: the owner list of host A's plan
-`docs/superpowers/plans/2026-10-03-spec-main-conformance-goal.md` in `codefoundry-io/triad`):
+Follow-up rulings, owner, 2026-10-03, typed or answered (verbatim; source: host A's leader session record (unpublished), the transcript of 2026-10-02/03 (UTC)):
 
 > 웹 지원 가능하도록 하는거 쉬ㅣㅂ잖아 먼저 구현휴 진행
 
@@ -244,7 +254,7 @@ Reading: a route that cannot use web under the standing authorization is not exe
 capability is a preflight refusal", and every route of every host gets web support. The spec therefore defines host
 A's complete web-enabled Gemini profile (`contracts/gemini-readonly-web.toml`, check WEB-A-2) as it defines B's.
 
-> A아만 적용되는 사항은 a에는 이렇다고 넣어야함
+> 1. A아만 적용되는 사항은 a에는 이렇다고 넣어야함
 
 Reading: a behaviour that holds on one host only is written as "On A: …" or "On B: …", never left implicit
 ([spec-authoring § 3](../reference/spec-authoring.md)).
@@ -257,15 +267,16 @@ receives web ([spec-authoring § 3](../reference/spec-authoring.md)).
 <a id="D-SPEC-GAPS-20261003"></a>
 ## D-SPEC-GAPS-20261003: close every spec gap a host implementation exposed
 
-Owner, 2026-10-03, typed (verbatim):
+Owner, 2026-10-03, typed (verbatim; source: host A's leader session record (unpublished), the transcript of 2026-10-02/03 (UTC)):
 
-> 여태 찾은 수펙 미상세해서 codex코드 보고 구현한 부분 있어? 스펙도 업데이트 해야한다 이건 지금 goal에 넣어 스펙이 자세하지 못해사 cpdex참조해야했으면 스펙이 미진한사항이니 스펙 업데이트 코덱스쪽 코드고 보고 코덱스쪽에도 버그가 있으면 스펙 업데이트 해야햠
+> 여태 찾은 수펙 미상세해서 codex코드 보고 구현한 부분 있어? 스펙도 업데이트 해야한다 이건 지금 goal에 넣어
+> 스펙이 자세하지 못해사 cpdex참조해야했으면 스펙이 미진한사항이니 스펙 업데이트 코덱스쪽 코드고 보고 코덱스쪽에도 버그가 있으면 스펙 업데이트 해야햠
 
 > 스펙은  코덱스와 claude가 공유하는 공통 사양이야 반드시 둘다 공유해야함
 
 > 지금 gemini는 옛모델이라 지금 모델로 구현하면 매번 태클걸껄 없는 모델이라고
 
-The rulings "A아만 적용되는 사항은 a에는 이렇다고 넣어야함" and "목적 자체가 원본이 분실되도 스펙으로부타 구현이 가능해야해"
+The rulings "1. A아만 적용되는 사항은 a에는 이렇다고 넣어야함" and "목적 자체가 원본이 분실되도 스펙으로부타 구현이 가능해야해"
 of the same day are recorded under [D-REVIEW-LEGS-20261003](#D-REVIEW-LEGS-20261003).
 
 Reading recorded with the decision (the leader's, not the owner's words): (a) where a host had to read the other host's
@@ -311,7 +322,7 @@ case C66 tests.A, dev-log rows DL-44 and DL-55; the `units.json` review-lifecycl
 <a id="D-THREAT-MODEL-20261003"></a>
 ## D-THREAT-MODEL-20261003: the deployment both hosts serve — no malicious actor, no concurrent operation
 
-Owner, 2026-10-03, typed (verbatim):
+Owner, 2026-10-03, typed (verbatim; source: host A's leader session record (unpublished), the transcript of 2026-10-02/03 (UTC)):
 
 > 이건 스펙에 나와있는 부분이야 없었어? 악위적인 공격 변조에 대응하먄 끝이없어
 
