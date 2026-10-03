@@ -502,9 +502,9 @@ carries the `OAuth2Client` stack trace (On A `3rd-Agent/wrappers/_common.py:2208
 sentence on the same failed agy run outranks agy's print-timeout rung. On A that rung sits after the engine-decided
 verdicts and the read-only allowlist census, above every answer, ok and retry branch
 (`3rd-Agent/wrappers/antigravity_wrapper.py:179-187`, `:1135-1150` @ `cbc67f6`), so an authentication sentence in the
-same run classifies `timeout` today — in progress (Task 19 fix round 2, L8; DL-62). Known limit, both hosts (recorded
-without an owner question, R-DECISION-ORDER): an API-key-shaped sentence on the same failed run as a server-capacity
-sentence classifies `server-capacity` and is retried, which R-AUTH's STOP does not allow (DL-75).
+same run classifies `timeout` today — in progress (Task 19 fix round 2, L8; DL-62). The shared order also lets an
+API-key-shaped sentence on the same failed run as a server-capacity sentence classify `server-capacity` and be retried;
+under the absolute law (R-AUTH (iii)) that is a defect both hosts fix, not a limit: A in progress, B to change (DL-75).
 
 <a id="R-RECEIPT"></a>
 The transport receipt and audit / run-log records carry the common transport object defined by
@@ -753,6 +753,19 @@ classification `oauth-env`, exit 65; B: its auth-class refusal or start-failure 
 itself, and never inspects, repairs or "fixes" the credential store. A same-basis retry (R-RETRY) runs only after the owner
 reports the re-login. The gemini review preflight's refusal of the api-key / Vertex / ADC classes (C16) is one instance of
 this rule; the rule holds for every CLI, every route and every credential shape.
+
+R-AUTH is an ABSOLUTE law (owner, 2026-10-04,
+[D-AUTH-ABSOLUTE-20261004](../decisions/owner-register.md#D-AUTH-ABSOLUTE-20261004)): every vendor CLI is used only
+through the user's own OAuth (browser) login in that CLI; an API key bills unintended charges and is forbidden. It
+outranks every other rule of this specification; no host exception, no case exception and no owner question relaxes it.
+Where another rule conflicts — the shared classification order (R-CLASSIFY), R-CLASSIFY's plain-fragment rule,
+R-CLI-VERSION's no-new-probe clause, R-RETRY — R-AUTH decides. Enforcement, mechanism left to each host's data:
+(i) the child-environment scrub of credential, endpoint and model-selector variables (R-NOCOST; exists on both hosts);
+(ii) BEFORE every vendor call the host confirms, from the CLI's own report or the CLI's own enforcement setting — never
+by reading a key value or the credential store — that the call will authenticate through the subscription login, and
+stops otherwise: a VALID stored key would otherwise be used silently, with no error to observe; (iii) an observed
+API-key-shaped failure is a STOP before any other classification of that run (no retryable token outranks it). (ii) and
+(iii): A in progress (enforcement plan pending research); B to check (DL-76).
 
 ## CLI version evidence
 

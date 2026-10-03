@@ -553,3 +553,23 @@ basis for rounds prepared after it (R-REREVIEW), and no rule text changes. Host 
 requirements before touching its defaults (R-ROSTER notes B's legacy formal gemini route requires 600 s).
 
 Effect: `authoring/shared-dev-log.md` DL-5 (host A's data change pending on branch `t21/roster-timeouts`).
+
+<a id="D-AUTH-ABSOLUTE-20261004"></a>
+## D-AUTH-ABSOLUTE-20261004: browser (OAuth) login only — an absolute law
+
+Owner, 2026-10-04, typed (verbatim; source: host A's leader session record (unpublished), the transcript of 2026-10-03,
+20:58Z):
+
+> API로그인은 하지마 직법 cli에서 사용자들이 oauth로그인 하는게 정책이다 api키는 의도하지 않은 금액이 발생해서 금지사항이야 스펙에 없으면 절대법칙으로 넣어
+
+Recorded effect: every vendor CLI is used only through the user's own OAuth (browser) login in that CLI; an API key bills
+unintended charges and is forbidden; this specification carries the rule as an ABSOLUTE law that outranks every other
+rule, with no host or case exception and no owner question that relaxes it. It restates and hardens
+[D-AUTH-BROWSER-LOGIN-20260926](#d-auth-browser-login-20260926), the ruling behind R-AUTH. Reading recorded with the
+decision (the leader's, not the owner's words): the law requires a stop before every vendor call whose authentication
+mode is not the subscription login, judged from the CLI's own report or its own enforcement setting and never from a key
+value or the credential store, on every CLI and route.
+
+Effect: [R-AUTH](../reference/review-rules.md#R-AUTH) (absolute law; enforcement (i)-(iii)),
+[R-DECISION-ORDER](../reference/spec-authoring.md#R-DECISION-ORDER), R-CLASSIFY (DL-75), cases C16 and C37,
+`units.json`, `authoring/shared-dev-log.md` DL-16, DL-62, DL-75, DL-76.
