@@ -29,7 +29,7 @@
     {
       "cli": "codex",
       "line": "unexpected status 401 Unauthorized: Incorrect API key provided",
-      "match": "incorrect api key",
+      "match": "unexpected status 401 unauthorized: incorrect api key",
       "carrier": "a codex `error` event message of a failed run; the key prefix that follows the sentence is never recorded",
       "token": "oauth-env",
       "observed": "2026-09-25"

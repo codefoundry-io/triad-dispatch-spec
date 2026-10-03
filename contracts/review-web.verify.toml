@@ -52,4 +52,4 @@ brief = "Run the profile checks WA1-WA2 in the manifest, then run host A's gemin
 expect = "The true condition attaches contracts/gemini-readonly-web.toml and WA1-WA2 hold; the false condition attaches the no-web profile."
 on_fail = "Preserve exact policy and engine evidence; distinguish policy precedence from auth/transport failures. Do not weaken settings."
 status = "NOT RUN"
-not_run_reason = "Host A runs agy, its default Google route; gemini is host A's compatibility route and is not in service where host A runs (one environment, decisions/owner-register.md#D-ONE-ENVIRONMENT-20261003)."
+not_run_reason = "Host A's Google review route is agy by default and gemini its compatibility route (owner 2026-10-03, decisions/owner-register.md#D-ONE-ENVIRONMENT-20261003); the gemini route has not been run on host A."

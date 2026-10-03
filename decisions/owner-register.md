@@ -148,8 +148,8 @@ claude `-web` and `-high-web` twins, each of which, per the host A record, fetch
 https://code.claude.com/docs/en/sub-agents. Result `ROUND_INTEGRITY_OK`, AGREED 4/4 over three
 families (host A record: triad `e192938`, `docs/reviews/2026-10-03-live-web-c32-residuals.md`). Not covered live, unit-tested
 only: the false condition and a mismatched launch switch (check WEB-A-3, NOT RUN live; host A tests t23, t62) and the
-gemini route. WEB-A-3, WEB-B-1 and WEB-A-2 remain NOT RUN (WEB-A-2: gemini is host A's compatibility route and is not in
-service where host A runs; [D-ONE-ENVIRONMENT-20261003](#D-ONE-ENVIRONMENT-20261003)).
+gemini route. WEB-A-3, WEB-B-1 and WEB-A-2 remain NOT RUN (WEB-A-2: gemini is host A's compatibility route and has not
+been run on host A; [D-ONE-ENVIRONMENT-20261003](#D-ONE-ENVIRONMENT-20261003)).
 
 <a id="d-auth-browser-login-20260926"></a>
 ## D-AUTH-BROWSER-LOGIN-20260926: CLI authentication is the user's own browser login only
@@ -476,8 +476,9 @@ and Ubuntu 24.04 ([R-PLATFORM](../reference/review-rules.md#R-PLATFORM)) and its
 route is agy by default and gemini the compatibility route. In this specification, the shared wording that carried the
 two-site framing as current state is reworded or annotated (the Q-G / Q-J / Q-N row, the WEB-A-1 record, WEB-A-2's
 reason); each host's shipped Google fallback logic and the owner's gemini testing where gemini is in service (Q-N) stand.
-Host B is not changed by this decision: it chooses its Google route from the declared authentication class
-(`bin/review_adapters_v2.py:142-147` @ `7f75863`). History records are kept as written.
+Host B is not changed by this decision: it takes its Google route from the roster pin, else agy when installed, else
+gemini; the declared authentication class only refuses gemini for a personal Google login
+(`bin/review_adapters_v2.py:142-148` @ `7f75863`). History records are kept as written.
 
 Effect: the Q-G / Q-J / Q-N row, the WEB-A-1 record and the question of D-REVIEW-LEGS-20261003 (annotated),
 `contracts/review-web.verify.toml` WEB-A-2 `not_run_reason`, `authoring/shared-dev-log.md` DL-68.

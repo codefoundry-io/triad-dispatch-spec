@@ -14,12 +14,13 @@
 - R-BIND: A's seal states (valid / invalid / failed-to-run), sealed refused replies, saved replies recorded before any
   retry or agreement, retry sealing the replaced attempt from the bytes it judged, re-derived admissions, the sealed
   run-log; C66 limits re-triaged ((2), (5) closed; (3) a fact); known limit for a reply replaced before any host write
-  (both hosts); the executed-command receipt as a common rule (A pre-spawn + collect; B record time) with the known limit
+  (both hosts); the executed-command receipt as a common rule (A pre-spawn + collect; B before inference and at record) with the known limit
   for a line with every review marker removed. R-REVIEW-WEB On A, R-THREAT re-triage sentence follow.
-- R-PREPARE: A's symlink mechanism stated (committed links listed in the bound brief; untracked links refused where
-  the worktree is captured; DL-53 closed for A).
-- R-CLASSIFY + `contracts/vendor-failure-lines.json`: agy's print-timeout row (token `timeout`), carrier and precedence
-  facts; new record tests in `tests/test_spec_records.py`.
+- R-PREPARE: A's symlink mechanism stated (committed links and, on a working-tree range, untracked nonignored links
+  disclosed in the bound brief with lexical gap marks; the round-copy guard is the one refusal that stays; DL-53, A fixed
+  at aec571f, verification pending).
+- R-CLASSIFY + `contracts/vendor-failure-lines.json`: agy's print-timeout row (token `timeout`), its carrier, the oauth-env-over-print-timeout
+  rule and the shared classifier order with its known limit; new record tests in `tests/test_spec_records.py`.
 - R-NOCOST (C11 agreed set not yet data; GOOGLE_CLOUD_PROJECT on A's gemini route open), R-CLI-VERSION (null when not
   observed). Cases C11, C13, C26, C32, C43, C66 tests.A; `units.json` review-lifecycle, review-web-authorization.
 - Dev log: DL-60–DL-69; DL-19, DL-44, DL-52, DL-53, DL-55, DL-59 notes and statuses.
@@ -31,13 +32,20 @@
   progress; the leader's earlier ruling withdrawn, DL-53); R-BIND On A re-cited at triad cbc67f6 with the saved-reply
   guard stated exactly (retry's own removals; Z1 in progress), present-form known limits and two run-log facts; the
   executed-command paragraph corrected for host B (B refuses before inference: bound_wrapper and validate_review_web;
-  DL-63 CONFORMS-B — the earlier "record time only" reading was wrong); R-CLASSIFY: the authentication STOP decides beside
-  another sentence (R-AUTH; A in progress, DL-62); R-TERMINAL covers the whole dispatch (A's windows in progress; CHECK-B,
+  DL-63 CONFORMS-B — the earlier "record time only" reading was wrong); R-CLASSIFY: an oauth-env sentence outranks agy's
+  print-timeout rung (R-AUTH; A in progress, DL-62); R-TERMINAL covers the whole dispatch (A's windows in progress; CHECK-B,
   DL-70); R-TOKENS: A's codex wrapper-direct exceptions and the provisional summary pair (DL-72); a codex
-  `incorrect api key` row (DL-74); R-PLATFORM: A's record place (DL-73); R-CLI-VERSION: B's claude preparation probe;
+  `unexpected status 401 unauthorized: incorrect api key` row (DL-74); R-PLATFORM: A's record place (DL-73); R-CLI-VERSION: B's claude preparation probe;
   R-NOCOST: the geminicli.com page and A's wider gemini-route removals (DL-65); D-ONE-ENVIRONMENT scoped to host A;
   C32's unrun line is MISSING; C66 axes regrouped; DL-39's "superseded" note (round 1) listed here; the agy print-timeout
   carrier widened to an empty answer.
+- Fix round 2 after verification SPEC-A2: R-PREPARE On A states the disclosure of untracked links on a working-tree
+  range (A FIXED aec571f, verification pending; the patch stays committed content; the round-copy guard is the one refusal
+  that stays; a case-insensitive-volume fact); R-BIND On A re-cited at triad ce30d82 (Z1-Z4 fixed, verification pending;
+  Z5 in progress); R-TERMINAL defines "inside a dispatch"; R-TOKENS names listed exceptions; R-CLASSIFY narrowed to
+  oauth-env over the print-timeout rung, with the shared classifier order and its known limit (DL-75); the codex 401 row
+  matches the measured vendor wording (DL-74, CONFORMS-B); agy's unrecorded version on one argument refusal (L5); DL-70
+  and DL-72 name B's change; DL-5: A sets 3600 s (922d019, not merged); register and WEB-A-2 wording corrected.
 
 ## Spec gaps exposed by host A's conformance work — 2026-10-03 (not tagged)
 

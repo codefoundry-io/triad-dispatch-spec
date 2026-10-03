@@ -20,10 +20,10 @@ An exception may authorize separate human action, but is recorded as an exceptio
 agreement. A later agreed round must independently satisfy this rule on its current basis (R-REREVIEW).
 Collection itself runs the round integrity check before it reports agreement, on both hosts (DL-52); a skipped or
 too-early separate check never yields AGREED. On B: `collect` runs `_load_basis` (seal, digest, `verify_round` at
-`bin/review_round.py:1908-1931`) at its start and end (`bin/review_round_v2.py:508`, `:532`). On A (cited @ `cbc67f6`):
+`bin/review_round.py:1908-1931`) at its start and end (`bin/review_round_v2.py:508`, `:532`). On A (cited @ triad `ce30d82`, verification pending):
 when every entry agrees, `collect` runs `review_scratch.py verify` itself before it writes an AGREED record
-(`lib/collect_v2.py:2414-2438`); a failed check refuses (exit 2) and leaves the previous collection record untouched,
-naming the remedy by cause (`_integrity_refusal`, `:2480-2511`): a round a later prepare superseded → collect the later
+(`lib/collect_v2.py:2422-2446`); a failed check refuses (exit 2) and leaves the previous collection record untouched,
+naming the remedy by cause (`_integrity_refusal`, `:2488-2519`): a round a later prepare superseded → collect the later
 round; a second round tree in the packet dir → remove the stray tree and collect again; this host's own staging leftover
 from a stopped write → remove it and collect again; any other failure → the round is INVALID, prepare a new round. A
 check that cannot be launched, does not finish, or fails for a host cause (the check could not run, its record could not
@@ -38,7 +38,7 @@ custody check of it and before the AGREED record is written; no construction sto
 file it already holds, so this collection reports AGREED and the next collection reports the change (an integrity
 failure, never agreement). Operator rule: when a retried leg may still be running, collect once more before using an
 AGREED. On A: `collect` re-checks every earlier attempt's custody right before it writes an AGREED record and refuses
-(exit 2) on a change, recording nothing (`lib/collect_v2.py:2439-2450`), so the window is the stretch between that
+(exit 2) on a change, recording nothing (`lib/collect_v2.py:2447-2458` @ `ce30d82`), so the window is the stretch between that
 re-check and the record write. On B: `collect` checks each attempt's sealed terminal once per run
 (`bin/review_round_v2.py:507-535`).
 
@@ -463,24 +463,25 @@ not attribution (found on A over rounds r11–r13, `authoring/shared-dev-log.md`
 Transport success requires: process exit collected, all reader threads joined without error, the owned process group
 reaped, stdin delivery confirmed. A settings-guard release failure after a completed transcript is still a failure; the
 transcript is preserved. A display-mirror failure is distinct from a failure to capture the result.
-A dispatch whose WRAPPER is signalled (SIGTERM or SIGHUP) while the vendor child runs reaps the owned group and ends as
-a terminal failure: token `unknown`, exit 1 (`EXIT_CLI_FAIL`), the answer withheld, and an extraction error naming the
-signal (`wrapper interrupted (<SIG>)`), recorded like any failed dispatch; a signal outside a dispatch (no child) leaves
-no record. On B: `_run_once` records the signal and `_mark_signal_failure` sets that shape (`bin/_common.py:1400-1452`
-@ `7f75863`). A dispatch lasts from before the vendor spawn until its terminal record is written, attempts and
-retries included (server-capacity backoff, schema-repair turns): a signal anywhere in it ends in that record.
-On B the record-only handler is installed inside `_run_once` (`bin/_common.py:1425-1441`), so a signal between
-attempts exits 143 with no record (DL-70). On A: the shape with its summary, audit row and run-log for a signal while
-the child runs is on triad `stage3/engine-transport` @ `221d556`, not merged; the windows after the spawn and before the
-protected setup, during the timeout arm's group kill, and between attempts are in progress (Task 19 fix round 2, L1);
-at `cbc67f6` a signalled wrapper exits 128+signum with no record.
+A dispatch lasts from the moment the wrapper starts it until its terminal record is written, every attempt and the gaps
+between them included (server-capacity backoff, schema-repair turns), whether or not a vendor child is running. A
+wrapper signalled (SIGTERM or SIGHUP) anywhere inside a dispatch reaps any owned group and ends as a terminal failure:
+token `unknown`, exit 1 (`EXIT_CLI_FAIL`), the answer withheld, and an extraction error naming the signal (`wrapper
+interrupted (<SIG>)`), recorded like any failed dispatch. A signal outside a dispatch — before the wrapper starts it
+(argument checks, preflight probes) or after its terminal record — leaves no record. On B: `_run_once` records the
+signal and `_mark_signal_failure` sets that shape (`bin/_common.py:1400-1452` @ `7f75863`); the record-only handler is
+installed inside `_run_once` only (`:1425-1441`), so a signal between attempts exits 143 with no record (DL-70). On A:
+the shape with its summary, audit row and run-log for a signal while the child runs is on triad
+`stage3/engine-transport` @ `221d556`, not merged; the windows after the spawn and before the protected setup, during
+the timeout arm's group kill, and between attempts are in progress (Task 19 fix round 2, L1); at `cbc67f6` a signalled
+wrapper exits 128+signum with no record.
 
 <a id="R-TOKENS"></a>
 Every classification token a host EMITS is a member of `contracts/exit-tokens.json` and maps to the same exit code there;
 wrapper-only tokens and compatibility aliases are listed explicitly as exceptions. A membership test, not an `is not None` assert, checks it (On A:
 `tests/unit/wrappers/t55-exit-token-membership-c8.sh`; On B: `tests/test_exit_token_contract.py`). Every emitted
-summary line carries a (token, exit) pair the contract holds; a provisional line whose exit a later step corrects is not
-allowed. Host A's codex wrapper-direct exceptions: `fanout-partial` at exit 68 (no table row) and `task-blocked` at
+summary line carries a (token, exit) pair the contract holds or its listed exceptions name; a provisional line whose
+exit a later step corrects is not allowed. Host A's codex wrapper-direct exceptions: `fanout-partial` at exit 68 (no table row) and `task-blocked` at
 exit 69 (the table pairs it with 65) (`3rd-Agent/wrappers/codex_wrapper.py:537-546`, `:557-566` @ triad `221d556`). Both
 hosts print a provisional `token-limit exit=1` summary before the driver corrects the exit to 65 (On A
 `3rd-Agent/wrappers/_common.py:3569-3574` @ `221d556`, in progress, Task 19 fix round 2, L2; On B `bin/_common.py:1685-1689`,
@@ -493,12 +494,17 @@ it a host matches (lowercase) and the token. Every host classifies a row's sente
 A plain fragment that an answer, a reviewed file or a tool's output can contain is never a match phrase: a host may
 search the whole output of a failed run, and such a fragment would hide the real cause behind a retry.
 A row's carrier also names where the sentence is matched; agy's print-timeout row is matched only as a whole stderr line
-beginning `[agy] `, at any vendor exit, and its answer, partial or empty, is never returned. When a failed run carries an
-authentication sentence (an `oauth-env` row or pattern) beside another known sentence, the authentication STOP decides
-(R-AUTH: an observed API-key-shaped failure is never retried). On A agy's print-timeout rung sits after the
-engine-decided verdicts and the read-only allowlist census, above every answer, ok and retry branch
+beginning `[agy] `, at any vendor exit, and its answer, partial or empty, is never returned. Both hosts classify a failed run's
+known sentences in one shared order (a fact): agy's auth banner first (agy route only), then cli-subscription-cap,
+server-capacity, token-limit and oauth-env — server-capacity before oauth-env because Gemini's capacity stderr always
+carries the `OAuth2Client` stack trace (On A `3rd-Agent/wrappers/_common.py:2208-2232` @ `cbc67f6`; On B
+`bin/_common.py:743-766` @ `7f75863`). A new rung must not let a retryable token outrank R-AUTH's STOP: an `oauth-env`
+sentence on the same failed agy run outranks agy's print-timeout rung. On A that rung sits after the engine-decided
+verdicts and the read-only allowlist census, above every answer, ok and retry branch
 (`3rd-Agent/wrappers/antigravity_wrapper.py:179-187`, `:1135-1150` @ `cbc67f6`), so an authentication sentence in the
-same run classifies `timeout` today — in progress (Task 19 fix round 2, L8; DL-62).
+same run classifies `timeout` today — in progress (Task 19 fix round 2, L8; DL-62). Known limit, both hosts (recorded
+without an owner question, R-DECISION-ORDER): an API-key-shaped sentence on the same failed run as a server-capacity
+sentence classifies `server-capacity` and is retried, which R-AUTH's STOP does not allow (DL-75).
 
 <a id="R-RECEIPT"></a>
 The transport receipt and audit / run-log records carry the common transport object defined by
@@ -525,7 +531,7 @@ On B: `record_attempt` writes result, read
 evidence and receipt with exclusive create and seals `terminal.json` with their digests (`bin/review_round_v2.py:378-397`,
 `bin/review_round.py:2308-2317`), and `collect` re-checks those digests (`bin/review_round_v2.py:365-375`).
 
-On A (cited @ `cbc67f6`): a seal (`seal.json` beside the attempt) records one state — `valid` (an admitted answer),
+On A (cited @ triad `ce30d82`, Task 18 fix round 2, verification pending): a seal (`seal.json` beside the attempt) records one state — `valid` (an admitted answer),
 `invalid` (an answer that could not be admitted) or `failed-to-run` (no answer; written by `retry`, below) — and the
 digests of the files the round's frozen entry derives for it: the result, the receipt (the native leg's raw reply; a
 wrapper leg's stderr), the read evidence (agy) and, on a wrapper route, the run-log directory that holds the
@@ -538,26 +544,21 @@ reply there"). The admission takes the six expected bindings from the attempt's 
 disagrees is an argument error (exit 64) and seals nothing (`_attempt_binding`, `:944`). A `raw.json` that is not a
 readable regular file is never judged: the admission refuses it as a reply, the entry is INVALID and its retry stays
 open. A wrapper attempt is sealed by the first collection that judges it, over the bytes it judged
-(`lib/collect_v2.py:2379-2410`). Before collection seals an `admitted.json` no admission sealed, it re-derives it from
+(`lib/collect_v2.py:2387-2418`). Before collection seals an `admitted.json` no admission sealed, it re-derives it from
 the `raw.json` beside it by the same admission; an admitted result that is not that reply's admission is an integrity
-failure (`_readmission_reason`, `:1830-1856`), and `retry` refuses that attempt as one holding a VALID verdict
-(`:3106-3112`). A refused reply's cut-short seal binds nothing: collection records no digest for it (`:2400-2408`), and
+failure (`_readmission_reason`, `:1837-1863`), and `retry` refuses that attempt as one holding a VALID verdict
+(`:3123-3129`). A refused reply's cut-short seal binds nothing: collection records no digest for it (`:2408-2416`), and
 `retry` completes it `invalid` over the reply as found; when the reply beside it is admissible, `retry` itself removes
 the cut-short seal and refuses, naming the `admit:` line (`_seal_replaced`, `:1496-1545`; the removal `:1522-1538`). A
 native reply saved and never admitted blocks agreement and retry until its printed `admit:` line runs, in ANY attempt of
 the entry: a regular, readable `raw.json` with no seal and either no `admitted.json` or a regular `admitted.json` that
 the admission refuses (empty included) while `raw.json` is admissible against its own `binding.json`
-(`_raw_admissible`, `:1613-1624`; `_saved_not_admitted`, `:1626-1650`; `_history_reason`, `:1782-1829`; `retry`,
-`:3132-3155`); `retry` itself removes such an `admitted.json` before it refuses (`:3136-3149`), so no printed remedy asks
-for a hand removal. An `admitted.json` that is a link, a directory, unreadable or over the size cap does not take that
-path and is in progress (Task 18 fix round 2, Z1: `retry` refuses and `collect` reports INVALID); a copied
-`binding.json` is a recorded fact (DL-60). `retry` RECORDS the attempt it replaces before it allocates the next: it
-takes that attempt's digests first, judges those same bytes, and seals it `invalid` (an answer was there) or
-`failed-to-run` (none) over exactly those digests; a write that lands while it judges refuses the retry and allocates
-nothing (`:3098-3104`, `:3346`; `_seal_replaced`). `collect-r<N>.json` keeps each seal's digest, and every collection
+(`_raw_admissible`, `:1613-1624`; `_saved_not_admitted`, `:1626-1659`; `_history_reason`, `:1789-1836`; `retry`,
+`:3149-3172`); `retry` itself removes such an `admitted.json` before it refuses (`:3154-3166`), and no printed remedy
+asks for a hand removal (Z2). An `admitted.json` that is a link, a directory, unreadable or over the size cap beside a saved `raw.json` with no seal makes the entry INVALID ("prepare a new round") and `retry` refuses it (Z1, `:1645-1650`). A copied or mismatched `binding.json` beside a never-admitted saved reply — a leader's hand-made layout, an ordinary failure under R-THREAT — is in progress (Task 18, Z5). `retry` RECORDS the attempt it replaces before it allocates the next: it takes that attempt's digests first, judges those same bytes, and seals it `invalid` when an answer is there — a result it judged inadmissible, or, on the native route, a saved `raw.json` (Z4) — and `failed-to-run` when none is; a write that lands while it judges refuses the retry and allocates nothing (`:3112-3121`, `:3363`; `_seal_replaced`). `collect-r<N>.json` keeps each seal's digest, and every collection
 re-checks every sealed attempt of the entry — the earlier ones included — so a later change, removal or replacement of
 a sealed file or seal is an integrity failure (INCOMPLETE, never AGREED). The printed wrapper line runs a seal guard
-under `noclobber`, and the native spawn gets a printed `guard:` line (`lib/review_scratch.py:5207-5217`, `:5233-5242`).
+under `noclobber`, and the native spawn gets a printed `guard:` line (`lib/review_scratch.py:5238-5248`, `:5261-5273`).
 
 Known limits, recorded as facts. Both hosts (owner, 2026-10-03,
 [D-PRE-RECORD-REPLY-20261003](../decisions/owner-register.md#D-PRE-RECORD-REPLY-20261003)): a saved reply replaced before
@@ -571,26 +572,25 @@ directory and the original seal and replacing a blocking result can reach AGREED
 state field can be edited before the first collection. On A, ordinary failures with a safe outcome: (3) a seal write
 that fails at collection records nothing — that entry is INCOMPLETE and the next collection judges and seals the same
 bytes; a run-log over the 64 MiB evidence cap cannot be read as a receipt, so that attempt is INVALID with its retry
-open, and a retry whose run is as verbose ends the same way (`_receipt_reason`, `:2057-2064`, through the capped reader
+open, and a retry whose run is as verbose ends the same way (`_receipt_reason`, `:2065-2072`, through the capped reader
 `:655-672`); a run-log that cannot be written (a full disk) raises before the wrapper emits its answer, so the paid
 answer is lost and the entry is MISSING, retry open (`emit_run_log`, `3rd-Agent/wrappers/_common.py:4590-4704`, called
 before `_emit_payload`, e.g. `codex_wrapper.py:609`, `:615`; the same order on `stage3/engine-transport` @ `221d556`).
-Earlier-wording limits (2) and (5) no longer hold (DL-60).
 
 Which attempt collection evaluates (a fact): On B the last sealed allocation, refusing a history whose earlier
 attempt is not FAILED_TO_RUN (`bin/review_round_v2.py:507-518`); On A the attempt the round record's `attempt` field
 names, only behind earlier attempts that `retry` sealed and diagnosed, whose sealed files are unchanged and that are not
-sealed valid (`_history_reason`, `lib/collect_v2.py:1782-1829` @ `cbc67f6`), and `retry` refuses a valid-sealed attempt,
-a saved reply never admitted and a history that can never be collected before allocating (`lib/collect_v2.py:3044-3214`).
+sealed valid (`_history_reason`, `lib/collect_v2.py:1789-1836` @ `ce30d82`), and `retry` refuses a valid-sealed attempt,
+a saved reply never admitted and a history that can never be collected before allocating (`lib/collect_v2.py:3052-3231`).
 A retryable attempt differs by host (a fact, DL-55): On A an attempt sealed invalid (an answer that could not be
 admitted) is retryable while its sealed files are unchanged, and one whose sealed files changed is an integrity failure
-(prepare a new round; `:3211-3214`); On B a completed invalid answer is INVALID, not failed-to-run, and is
+(prepare a new round; `:3228-3231`); On B a completed invalid answer is INVALID, not failed-to-run, and is
 refused for retry (`bin/review_round_v2.py:345-349`, `:274-275`).
 
 The executed command is checked against the recorded dispatch, on both hosts: the review markers of a wrapper line are
 checked before the vendor runs, and the wrapper records the command it actually executed (its argv, `wrapper_cmd`) in a
 run-log in the attempt's own log namespace, on success too; an answer with no such receipt, or whose executed command
-differs from the attempt's recorded dispatch, never counts. On A (@ `cbc67f6`): the dispatch env carries
+differs from the attempt's recorded dispatch, never counts. On A (@ `ce30d82`): the dispatch env carries
 `TRIAD_REVIEW_LOG_DIR=<attempt>/logs` and `TRIAD_REVIEW_ARGV_SHA256`, the sha256 of the recorded argv
 (`lib/roster_v2.py:1006-1008`); the codex, agy and gemini wrappers refuse before they spawn the vendor (exit 3, nothing
 run) when the argv does not hash to that value or when only one of the two values is present
@@ -598,9 +598,9 @@ run) when the argv does not hash to that value or when only one of the two value
 `antigravity_wrapper.py:2031`, `gemini_wrapper.py:367`); with the log dir set the wrapper writes its run-log there on
 success and failure alike (`emit_run_log`, `_common.py:4590-4621`); `collect` makes an unsealed or invalid-sealed
 wrapper attempt INVALID when no run-log is there or any run-log's `wrapper_cmd` differs from `dispatch.json`'s argv
-(`_receipt_reason`, `lib/collect_v2.py:2032-2071`, called at `:2193`), and the run-log directory is a sealed file
+(`_receipt_reason`, `lib/collect_v2.py:2040-2079`, called at `:2201`), and the run-log directory is a sealed file
 (above). An attempt whose line never ran, or was refused before the spawn, leaves no or an empty result file and is
-MISSING (`:2116-2126`). On B (@ `7f75863`): before the vendor runs, `bound_wrapper` refuses a v2 review without the
+MISSING (`:2124-2134`). On B (@ `7f75863`): before the vendor runs, `bound_wrapper` refuses a v2 review without the
 configured per-attempt log dir or any of the six expected bindings (`bin/verdict_v2.py:67-74`; called at argument
 parsing: agy `bin/antigravity_wrapper.py:495-502`, gemini `bin/gemini_wrapper.py:348-352`, claude
 `bin/claude_wrapper.py:340-344`), and `validate_review_web` refuses a `--web` that differs from the bound
@@ -627,7 +627,7 @@ the roster from the registry with the recommended defaults; prints one COMPLETE 
 printed (its executed command is checked against the recorded dispatch, R-BIND); captures the
 round snapshot. It refuses on a malformed registry entry and never launches a provider itself. A change to a rule,
 schema, prompt clause or policy file is behavioral review scope even when the file contains only text; the docs-never-gate
-rule covers narrative documentation only. Symlinks (owner Q4, RULED 2026-09-19: "링크 자체는 검토하되, 대상을 자동으로 따라가지 않는 방식"): the LINK ITSELF is review material — its path, kind and exact link text are fingerprinted and available to reviewers; its TARGET is never followed automatically. Target content enters a review only as an independently authorized, bound input; a link the review cannot follow is disclosed as a coverage gap, never claimed inspected; cleanup never follows a link to delete its target. Each host implements "never followed" its own way and records the evidence (B: link-text fingerprint + symlink refusal in the prepared copy; A: replace its untracked-link refusal with link-text admission and either materialize the text in the round copy or prove no-follow through its read audit). On A today: every committed link of the reviewed commit is admitted by its link text and materialized in the bound v2 `brief.md` — path, kind and exact link text read from the commit's tree and blob objects, never from the filesystem; a text that is absolute or climbs above the tree, or names no path of the commit, is marked a coverage gap; a text through another link is not resolved (`_tree_symlinks` / `_render_links`, `lib/review_scratch.py:4637-4692` @ triad `cbc67f6`; triad `8404021`, `d76ef23`). A working-tree basis that holds an untracked nonignored source link — C26's input — lists it in the bound brief the same way (path, kind, exact link text, coverage-gap marks): in progress (Task 11 fix round 2, K6; DL-53); at `cbc67f6` capture and verify still refuse it (`:2194-2196`, `:3971-3972`). The untracked-link refusal stays only as a mutation guard on the round copy, as B refuses links in its prepared copies. Mechanism per host, principle = shared rule.
+rule covers narrative documentation only. Symlinks (owner Q4, RULED 2026-09-19: "링크 자체는 검토하되, 대상을 자동으로 따라가지 않는 방식"): the LINK ITSELF is review material — its path, kind and exact link text are fingerprinted and available to reviewers; its TARGET is never followed automatically. Target content enters a review only as an independently authorized, bound input; a link the review cannot follow is disclosed as a coverage gap, never claimed inspected; cleanup never follows a link to delete its target. Each host implements "never followed" its own way and records the evidence (B: link-text fingerprint — its guarded worktree folds an untracked link by its text, `bin/review_round.py:1594-1597` — and a symlink refusal in the prepared copy, `:1441-1444` @ `7f75863`). On A: the reviewed patch is always committed content — a range without `..` still reviews `<commit>..HEAD` (`lib/review_scratch.py:4060-4066` @ `ce30d82`), and `_require_clean_scope` refuses in-scope modified tracked files (`:4112-4130`) — so the bound v2 `brief.md` DISCLOSES the basis's links rather than adding them to the patch: every committed link (kind `symlink`, path and exact link text from the commit's tree and blob objects) and, on a working-tree range, each untracked nonignored link of the source checkout (kind `untracked link`, text read with `readlink` of the link itself); no target is opened. A judges a coverage gap lexically, on the link text alone, component by component and before any collapse: an absolute text or one that climbs above the tree (outside), a text that walks through or names another link of the basis — a chain, a traversal through a link, a directory link, a self-link (not followed) — and an in-tree text naming no path of the commit (absent) are each marked a coverage gap (`_tree_symlinks` / `_render_links`, `:4636-4726`; the working-tree listing at `:5815`) — A FIXED triad `aec571f` (verification pending; at `cbc67f6` an untracked nonignored source link was neither listed nor marked, and a chain, a self-link or a text through another link got no gap mark, DL-53); the shapes with an absent intermediate component and a trailing slash are in progress (Task 11, fix round 3). The one refusal that stays on A is the round-copy guard: a link found where the round copy is captured or verified is refused (`:2194-2195`, `:3970-3971`), as B refuses links in its prepared copy. A fact, not built: the lexical walk compares components case-sensitively, so on a case-insensitive volume a deliberately odd text such as `OUT/../x` passes through a committed link `out` in the kernel without a gap mark. Mechanism per host, principle = shared rule.
 
 The **bound basis** of a round is every input its review depends on: the reviewed bytes and packet; the review
 conditions (`review_kind`, `review_web_authorized`, the round date `<review-date>`, and the leader's prompt inputs —
@@ -769,7 +769,10 @@ codex wrapper records null and probes no version (`build_transport`, `3rd-Agent/
 at preparation and records it in `claude-capability.json` and the sealed adapter (`bin/review_adapters_v2.py:96-97`,
 `:130-135`), kept apart from the run receipt, whose `cli_version` stays null when the run does not expose it
 (`bin/review_round_v2.py:326-329`); B's codex leg is native. The agy and gemini routes record the version they probe (On A
-the same function; On B `bin/antigravity_wrapper.py:766`, `bin/gemini_wrapper.py:519`). This rule does not loosen exact model selection or
+the same function; On B `bin/antigravity_wrapper.py:766`, `bin/gemini_wrapper.py:519`). On A an agy argument refusal
+after the probe returns before any record — a non-numeric `AGY_SETTINGS_LOCK_TIMEOUT` exits 3 with the probed version
+unrecorded (`3rd-Agent/wrappers/antigravity_wrapper.py:2160`, `:2194-2199` @ triad `221d556`): in progress (Task 19,
+L5). This rule does not loosen exact model selection or
 authorize new catalogue/probe policy, fallback, global settings or provider permission changes.
 
 ## Parity scope
