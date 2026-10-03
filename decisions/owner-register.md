@@ -613,8 +613,28 @@ Recorded effect: only host code deletes. Every folder a host's code may delete i
 file (role, root, ownership proof, age floor); the declaration adds to the ownership proof and never replaces it. An AI —
 the leader, a sub-agent, skill, agent or prompt text, a printed remedy — at most chooses a declared role and a folder and
 runs the host's deletion command; no such text carries its own removal command. A call that removes what it created
-itself needs no declaration. Two choices in the design stay open for the owner: what a host does when the configuration
-file is missing or invalid, and how a wrapper run-log is removed after a repair (DL-77).
+itself needs no declaration.
+
+Owner answer, 2026-10-04 (source as above, 22:37Z). The leader's question (verbatim) and the selected option (the label
+is the leader's, the choice the owner's):
+
+> 삭제 대상 설정 파일이 없거나 형식이 깨졌을 때 어떻게 할까요?
+
+> 지우지 않고 멈춤 (추천)
+
+Recorded effect: when the configuration file is missing or invalid, nothing is deleted — the host's deletion command
+refuses (a host fault) and the automatic prunes skip with a one-line note; a host ships a default configuration file so a
+fresh install still prunes.
+
+Owner answer, 2026-10-04 (source as above, 22:38Z). The leader's question (verbatim) and the selected option (the label
+is the leader's, the choice the owner's):
+
+> 리뷰어 오류 분석이 끝난 실행 로그는 어떻게 지울까요?
+
+> 자동 정리에 맡김 (추천)
+
+Recorded effect: a wrapper run-log is never removed by an AI after a repair analysis; the host's coded sweep (its age
+floor and caps) collects it; no prompt carries a run-log removal step. Both open choices of the design are decided.
 
 Effect: [R-CLEANUP](../reference/review-rules.md#R-CLEANUP) and its pointers (R-AGREE, R-BIND, R-CONTAIN),
 `contracts/cleanup-roots.schema.json` and `.example.json`, case C69, PRD-RETENTION, `rev-2-implementation-spec.md`,

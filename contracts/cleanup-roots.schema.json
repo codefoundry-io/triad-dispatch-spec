@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/codefoundry-io/triad-dispatch-spec/contracts/cleanup-roots.schema.json",
   "title": "TRIAD declared deletion roots",
-  "description": "The one configuration file that declares every folder a host's code may delete (R-CLEANUP). The declaration adds to the ownership proof and never replaces it; deletion code refuses a target outside a declared root. What a host does with a missing or invalid file is an open owner decision (DL-77).",
+  "description": "The one configuration file that declares every folder a host's code may delete (R-CLEANUP). The declaration adds to the ownership proof and never replaces it; deletion code refuses a target outside a declared root. A missing or invalid file deletes nothing: the deletion command refuses (host fault) and automatic prunes skip with a one-line note; a host ships a default file (owner, D-DELETION-BY-CODE-20261004).",
   "type": "object",
   "required": ["version", "roots"],
   "additionalProperties": false,

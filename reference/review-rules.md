@@ -707,8 +707,11 @@ at most chooses a declared role and a folder and runs the host's deletion comman
 remedy or operator procedure carries its own removal command (`rm`, `rmdir`, `git worktree remove`, an rmtree). A call
 that removes what it created itself needs no declaration: an atomic write's temporary file, a failed step's rollback, a
 test's own fixture. On A: in progress (Task 23). On B: deletion is coded and no prompt text deletes, but its roots and
-floors are not yet declared in the configuration file (DL-77). Owner decision pending: what a host does when the
-configuration file is missing or invalid, and how a wrapper run-log is removed after a repair (DL-77). Cap-based pruning of run-log and repair-IPC
+floors are not yet declared in the configuration file (DL-77). When the configuration file is missing or invalid, nothing
+is deleted: the host's deletion command refuses (a host fault) and the automatic prunes skip with a one-line note; each
+host ships a default configuration file so a fresh install still prunes (owner, 2026-10-04, D-DELETION-BY-CODE-20261004).
+A wrapper run-log is never removed by an AI after a repair analysis: the host's coded sweep (its age floor and caps)
+collects it, and no prompt carries a run-log removal step (owner, 2026-10-04, D-DELETION-BY-CODE-20261004). Cap-based pruning of run-log and repair-IPC
 files keeps a minimum age floor so a fresh sibling file is never deleted to satisfy a cap (mtime is not only a sort key).
 A round that is paused, not abandoned, stays alive: each step that works on it refreshes its activity mark. On A (@
 `cbc67f6`): `retry` and the adoption of an orphan attempt (through the round-record write, `lib/collect_v2.py:759-765`),

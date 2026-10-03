@@ -57,8 +57,9 @@
   folder; no prompt, skill, agent text, printed remedy or operator procedure carries its own removal command; self-created
   temporaries need no declaration. New `contracts/cleanup-roots.schema.json` / `.example.json` (tests), case C69, DL-77
   (A in progress, Task 23; B to adopt the file and fix two README passages); R-AGREE / R-BIND / R-CONTAIN pointers;
-  PRD-RETENTION; rev-2 spec; units.json; the policy `.verify.toml` `on_fail` texts. Owner decisions pending: a missing or
-  invalid configuration file; the run-log after a repair.
+  PRD-RETENTION; rev-2 spec; units.json; the policy `.verify.toml` `on_fail` texts. A missing or invalid configuration
+  file deletes nothing (owner 2026-10-04: the command refuses, prunes skip with a note, a default file ships); a wrapper
+  run-log after a repair is left to the coded sweep, never removed by an AI (owner 2026-10-04).
 
 ## Spec gaps exposed by host A's conformance work — 2026-10-03 (not tagged)
 
