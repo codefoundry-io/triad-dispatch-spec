@@ -128,7 +128,8 @@ read roots and web, returning a free-form or custom-schema result — never a re
 it as their existing single-shot dispatch path (On A: the `triad-*-dispatch` skills with `--cwd`; On B: raw
 dispatch); it is not a review round and enters no roster accounting. Web search is allowed for every investigation and
 dispatch leg of every family (the leader's reading (b) of the owner's words, recorded in
-[D-REVIEW-LEGS-20261003](../decisions/owner-register.md#D-REVIEW-LEGS-20261003) and awaiting the owner's confirmation); the caller selects it through the
+[D-REVIEW-LEGS-20261003](../decisions/owner-register.md#D-REVIEW-LEGS-20261003) and confirmed by the owner's answer there:
+model research and the review of prompt-engineering techniques); the caller selects it through the
 host's existing web option and needs no further authorization. On A the web option today is: codex `--search`
 (`3rd-Agent/wrappers/codex_wrapper.py:103-116`, `:161`), agy `--web` (the read-only research agent,
 `antigravity_wrapper.py:1907`) and gemini `--web` (A's research profile, without `--sandbox`, `gemini_wrapper.py:378-392`,
@@ -349,8 +350,8 @@ route as follows; a false condition leaves every route in its R-CONTAIN no-web p
     a web twin exactly when true (`lib/collect_v2.py:154`, `:2084-2105`, `:2182-2205`, called at `:2431` inside
     `_adopt_orphan_attempt`, reached from `retry` at `:2751-2754` @ `faeb86b`). An ordinary attempt's record and a command
     line edited by hand before it runs are not re-compared (a fact under R-THREAT).
-  - Non-conformance of host A's legacy entry points (a fact, not an exception; whether to keep or retire them is an
-    open owner item, `authoring/shared-dev-log.md` DL-59). They do not implement the standing authorization (cited @
+  - Non-conformance of host A's legacy entry points (a fact, not an exception, until they are retired: the owner's
+    answer of 2026-10-03 is to retire them later, D-REVIEW-LEGS-20261003, `authoring/shared-dev-log.md` DL-59). They do not implement the standing authorization (cited @
     `faeb86b`). The small review path (`lib/review_small.py`) gives web only under its own `--web`: codex `--search` and
     agy the investigation flag `--web` (`:328-332`), which also appends the investigation `web-evidence` clause
     (`3rd-Agent/wrappers/antigravity_wrapper.py:2043-2047`), and claude spawned as `<agent>-web` (`:367-371`); under its
@@ -369,7 +370,8 @@ route as follows; a false condition leaves every route in its R-CONTAIN no-web p
   `read_url(*)` deny (`bin/antigravity_wrapper.py:647-663`, `bin/_agy_settings.py:43-49`, `:90-100`); Gemini selects
   `bin/policies/gemini-formal-web.toml`, byte-equal to `contracts/gemini-readonly-web-b.toml`
   (`bin/gemini_wrapper.py:175`, `:466`; `bin/policies/web-source-manifest.json`). Non-conformance of B's legacy entry points (a
-  fact, as for A's above; whether to keep or retire them is an open owner item, DL-59): the workspace four-leg gate and
+  fact, as for A's above; keeping or retiring them is host B's own decision, the owner's answer making no ruling on B,
+  DL-59): the workspace four-leg gate and
   the fixed legacy formal route render through `render_review_prompt` / `render_worktree_review_prompt`, whose
   `review_web_authorized` is a per-request value, default false (`bin/review_round.py:122`, `:141`, `:165`, `:2006-2043`,
   `:2128-2178` @ `7f75863`), so they do not bind the standing authorization.
@@ -560,11 +562,12 @@ one operator on a stable machine. There is no concurrent operation: no second in
 uninstall or review session runs while an operation runs; concurrency INSIDE one operation, such as two legs of one
 round, is real and stays covered. There is no malicious actor (owner,
 [D-THREAT-MODEL-20261003](../decisions/owner-register.md#D-THREAT-MODEL-20261003)). Guards defend against ordinary
-failures: a full disk, a crash in the middle of an operation, a wrong argument, a bad vendor answer, a reviewer's or the
-leader's mistake. A finding whose trigger needs deliberate tampering with the host's own files, a concurrent operation,
-a deliberately unusual layout or a crash at one exact instant (these last two are the leader's reading of the owner's
-lens, awaiting the owner's confirmation, D-THREAT-MODEL-20261003) is recorded as a fact — no code and no blocking; the C66
-limits under R-BIND are the worked example. Every leg receives this context, with this rule and
+failures: a full disk, a stop at any point (a crash, or a session that hits its token or usage limit), a wrong argument,
+a bad vendor answer, an odd layout of files the leader creates by hand, a reviewer's or the leader's mistake (owner,
+2026-10-03, D-THREAT-MODEL-20261003). A finding whose trigger needs deliberate tampering with the host's own files or a
+concurrent operation is recorded as a fact — no code and no blocking; the C66 limits (1), (2) and (4) under R-BIND are
+worked examples (limits (3) and (5) and other facts recorded under the earlier wording are to be re-triaged,
+`authoring/shared-dev-log.md` DL-59). Every leg receives this context, with this rule and
 D-THREAT-MODEL-20261003 as its evidence pointer, through the shared `deployment-context` clause, which applies it only
 when the reviewed code is a TRIAD host's own and has the leg label such a finding HARDENING-SUGGESTION (non-blocking under R-AGREE); the leader records it as a
 SPECULATIVE fact (R-VERIFY).

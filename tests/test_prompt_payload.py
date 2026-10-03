@@ -106,3 +106,10 @@ def test_every_leg_renders_deployment_context_before_severity(name):
              for clause, _, lines in sections(name) if clause == "order"
              for line in fenced(lines)[1]]
     assert order[order.index("common:severity-instruction") - 1] == "common:deployment-context", order
+
+
+def test_deployment_context_keeps_stops_and_hand_made_layouts_in_scope():
+    # owner 2026-10-03: only deliberate tampering and a concurrent operation are out of scope
+    text = clauses("common-clauses.md")["deployment-context"]
+    assert "exact instant" not in text and "unusual layout" not in text
+    assert "token" in text and "by hand" in text

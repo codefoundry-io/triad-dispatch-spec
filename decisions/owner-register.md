@@ -239,8 +239,25 @@ longer a per-round request; settled by "All review legs, always"), and every inv
 technology heuristic (R-INVEST, R-REVIEW-WEB). This reading of "Ai기능 관련은" is the leader's, for the owner to confirm
 at publication. Both hosts' legacy entry points (on A the small review path and the v1 path; on B the workspace
 four-leg gate and the fixed legacy formal route) do not bind the standing authorization — recorded non-conformance facts
-(R-REVIEW-WEB On A and On B), not exceptions; whether to keep or retire them is an open owner item
-(`authoring/shared-dev-log.md` DL-59).
+(R-REVIEW-WEB On A and On B), not exceptions; whether to keep or retire them was an open owner item
+(`authoring/shared-dev-log.md` DL-59), answered below for host A.
+
+Owner answers, 2026-10-03, typed (verbatim; source: host A's leader session record (unpublished)):
+
+To the leader's reading (b) of "Ai기능 관련은":
+
+> AI는 모델 조사 프롬프트 엔지니어링 기법 검토에 필요
+
+Recorded effect: every AI leg may use web search; the purposes the owner names are model research and the review of
+prompt-engineering techniques. Reading (b) is confirmed in that sense (R-INVEST).
+
+To keeping or retiring the legacy entry points:
+
+> 레거시 경로 차후 폐기
+
+Recorded effect: host A's legacy entry points (the small review path and the v1 path) are to be retired later; their
+non-conformance stays a recorded fact until then. Host B's legacy renderers remain host B's own decision; this answer
+makes no ruling on B.
 
 Effect: [R-ROSTER](../reference/review-rules.md#R-ROSTER) (codex default),
 [R-REVIEW-WEB](../reference/review-rules.md#R-REVIEW-WEB) (standing authorization; `review_web_authorized`
@@ -359,7 +376,19 @@ Reading recorded with the decision (the leader's, not the owner's words): both h
 machine with no concurrent operation and no malicious actor; guards defend against ordinary failures; a finding that
 needs deliberate tampering, a concurrent operation, a deliberately unusual layout or an exact-instant crash is recorded
 as a fact, never code or a blocker. The last two exclusions (a deliberately unusual layout, an exact-instant crash) are
-not in the owner's words above; they are the leader's reading of the owner's lens, for the owner to confirm
+not in the owner's words above; they were the leader's reading of the owner's lens — superseded by the owner's answer
+below.
+
+<a id="D-THREAT-MODEL-20261003-answer"></a>
+Owner answer, 2026-10-03, typed (verbatim; source: host A's leader session record (unpublished)):
+
+> 이건 리더가 잘못만들수 있는거 아냐? 그리고 토큰이 한도에 달하거나 비정상 종료는 이론상 생기는 일이고 이상하게 만드는 파일 배치는 기계적 생성이 아니라 리더가 임시로 생성하는 파일에는 생길수 있을 것 같은데
+
+Recorded effect: the two leader-added exclusions are rejected. A stop at any point (a crash, or a session that hits its
+token or usage limit) and an odd layout of files the leader creates by hand (a leader's mistake) are ORDINARY failures,
+in scope at full severity. Out of scope stay only deliberate tampering with the host's own files and a concurrent
+operation. Effect: [R-THREAT](../reference/review-rules.md#R-THREAT) and the shared `deployment-context` clause (a
+payload change both hosts re-vendor); facts recorded under the earlier wording are to be re-triaged by the hosts
 (`authoring/shared-dev-log.md` DL-59).
 
 Effect: [R-THREAT](../reference/review-rules.md#R-THREAT) (new), R-VERIFY's dispositions and the C66 limits under

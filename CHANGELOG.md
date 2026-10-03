@@ -2,6 +2,13 @@
 
 ## Spec gaps exposed by host A's conformance work — 2026-10-03 (not tagged)
 
+- Owner answers 2026-10-03 (DL-59 RULED): reading (b) confirmed — every AI leg may use web search, for model
+  research and the review of prompt-engineering techniques (R-INVEST points at the answer); host A's legacy entry points
+  are to be retired later (non-conformance stays a fact until then; B's legacy renderers stay B's decision); R-THREAT's
+  two leader-added exclusions REJECTED — a stop at any point (a crash, a token or usage limit) and an odd layout of
+  files the leader creates by hand are ordinary failures; only deliberate tampering and a concurrent operation stay
+  out of scope. Prompt payload: the `deployment-context` clause revised (both hosts re-vendor; DL-56). Facts recorded
+  under the earlier wording are listed in DL-59 for the hosts to re-triage. Owner quotes verbatim in the register.
 - Branch fix round 16 (pointers and wording only): the v1 path's dispatch citations, DL-44's raw-reply range labelled
   @ 4af44cf, "above", both hosts' legacy entry points named in the register reading, the DL-52 / R-THREAT attribution
   split, and the v1 refusal range.
