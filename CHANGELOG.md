@@ -2,6 +2,12 @@
 
 ## Spec gaps exposed by host A's conformance work — 2026-10-03 (not tagged)
 
+- Branch fix round 9: DL-9 dated and B CONFORMS-B (it records and checks init.model); WB2 narrowed to its named denies
+  (WA2 already claims only named denies); R-PREPARE names the round (verify, then collect); C66 limits (1)-(3) owner,
+  (4)-(5) leader under R-THREAT; reading (b) of "Ai기능 관련은" is not a topic limit (leader's reading, owner to confirm);
+  D-C66-LIMITS source described without an unreachable path; R-CONTAIN annotates B's web-profile header; A_shipped line
+  citations labelled @ 0acfe7a; C29's small-path --web stated as a legacy fact; units.json discloses each host's
+  permissive-route flag (R-CONTAIN).
 - Branch fix round 8 (verify-before-claim): DL-19 states A's deliberate drop of root-level scratch expiry (R-CLEANUP)
   and cites the fixed items' file:line; every units.json A_shipped cell checked against the export 0acfe7a (it carries
   the v2 path; its default roster predates host A's 8cb890f); A cells say "todo" where no host test names the case and

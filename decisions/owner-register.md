@@ -213,9 +213,11 @@ To the question "Where should 'allow web search' apply?" (the leader's options),
 
 Reading recorded with the decision (the leader's, not the owner's words): (a) the codex review leg's
 recommended default becomes `gpt-6-astra` with reasoning `high` on both hosts, replacing `gpt-5.6-terra` /
-`xhigh`; (b) web search is allowed for every leg's AI-feature-related work ("Ai기능 관련은"), always: every selected review
-leg in every review round, by the owner's standing authorization (no longer a per-round request; settled by "All review
-legs, always"), and every investigation/dispatch leg.
+`xhigh`; (b) web search is allowed for every leg's AI-feature-related work ("Ai기능 관련은"), always — read as every AI-run
+leg, not as a limit by topic: every selected review leg in every review round, by the owner's standing authorization (no
+longer a per-round request; settled by "All review legs, always"), and every investigation/dispatch leg, with no
+technology heuristic (R-INVEST, R-REVIEW-WEB). This reading of "Ai기능 관련은" is the leader's, for the owner to confirm
+at publication.
 
 Effect: [R-ROSTER](../reference/review-rules.md#R-ROSTER) (codex default),
 [R-REVIEW-WEB](../reference/review-rules.md#R-REVIEW-WEB) (standing authorization; `review_web_authorized`
@@ -288,9 +290,8 @@ adoption, publication and revision tags remain separate.
 ## D-C66-LIMITS-20261003: host A's C66 seal closes with recorded limits
 
 Owner, 2026-10-03, answer to the controller's question about host A's C66 seal (an English option of the question
-widget; source: the verbatim source record in host A's goal ledger,
-`.superpowers/sdd/2026-10-03-spec-main-conformance-goal/progress.md:271`, taken from host A's leader session transcript of
-2026-10-03, the question tool call of the T4 close). The chosen option, label and description verbatim:
+widget; source: host A's unpublished leader session record, the transcript of 2026-10-03, at the question tool call of
+the T4 close). The chosen option, label and description verbatim:
 
 > Close; record limits (Recommended)
 >
@@ -299,10 +300,11 @@ widget; source: the verbatim source record in host A's goal ledger,
 > 'all three PASS' rule gets this owner exception.
 
 Reading recorded with the decision (the leader's, not the owner's words): host A's sealed-attempt implementation
-(`4af44cf`) closes C66; its five known limits are recorded as FACTS under [R-THREAT](../reference/review-rules.md#R-THREAT),
-not as rules or open work; the A-vs-B difference on retrying an answer that could not be admitted is a dev-log fact.
+(`4af44cf`) closes C66; its known limits (1)-(3) — codex's tampering chains, which the chosen option covers — are recorded
+as FACTS under [R-THREAT](../reference/review-rules.md#R-THREAT), not as rules or open work (limits (4) and (5) in R-BIND
+are the leader's ruling under R-THREAT, not this decision); the A-vs-B difference on retrying an answer that could not be admitted is a dev-log fact.
 
-Effect: [R-BIND](../reference/review-rules.md#R-BIND) (On A sentence and its five limits; the retry difference),
+Effect: [R-BIND](../reference/review-rules.md#R-BIND) (On A sentence, limits (1)-(3); the retry difference),
 case C66 tests.A, dev-log rows DL-44 and DL-55; the `units.json` review-lifecycle exception for the retry difference
 (R-PARITY).
 

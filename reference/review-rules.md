@@ -349,7 +349,10 @@ existing 999/998 allow/deny/catch-all and Plan Mode transition restrictions whil
 to explicit denies. A's profile and V1–V5 manifest stay unchanged; B's live checks are separately recorded
 in `contracts/gemini-readonly-b.verify.toml`. The web-enabled profiles are selected under R-REVIEW-WEB; the no-web
 profile bytes stay unchanged, and their header comments (A: "review legs have no web tools"; B: "D-9: web evidence
-belongs to a separately authorized investigation, never REVIEW") describe the no-web profile.
+belongs to a separately authorized investigation, never REVIEW") describe the no-web profile. B's web profile header
+(`contracts/gemini-readonly-web-b.toml:1`, `:3`: "explicitly authorized web verification", "selected only for an explicitly
+owner-authorized review") predates the standing authorization; under it every review round is owner-authorized, so the
+header reads as "selected for a true bound condition"; its bytes stay pinned by B's manifest digest.
 Web-enabled investigations (R-INVEST) keep web. No alignment may introduce a dangerous /
 yolo permission bypass on any leg (each host discloses its existing permissive-route flags in `units.json` exceptions; none is on a review route). A leg a host runs natively stays native; no leader-model CLI subprocess is
 added for symmetry. Containment EVIDENCE is attributed to the leg attempt that produced it (C23): on a host with a LIVE
@@ -429,8 +432,9 @@ it; every attempt that recorded an answer, valid or invalid, is sealed with a st
 `collect-r<N>.json` keeps each seal's digest and later collections re-check the result, receipt, read evidence and seal;
 the printed wrapper line runs a seal guard under `noclobber` and the native spawn gets a printed `guard:` line
 (native `guard:` line `lib/review_scratch.py:5078-5088`; wrapper line under `noclobber` `:5107-5111`); an integrity failure makes that entry INCOMPLETE, never AGREED. Known limits on A,
-recorded as facts under [R-THREAT](#R-THREAT) (owner decision
-[D-C66-LIMITS-20261003](../decisions/owner-register.md#D-C66-LIMITS-20261003)): (1) after an unusable attempt directory
+recorded as facts under [R-THREAT](#R-THREAT) — (1)-(3), codex's tampering chains, by owner decision
+[D-C66-LIMITS-20261003](../decisions/owner-register.md#D-C66-LIMITS-20261003); (4) and (5) by the leader's ruling under
+R-THREAT: (1) after an unusable attempt directory
 is collected, removing that directory and the original seal and replacing a blocking result can reach AGREED in the same
 round; (2) an earlier attempt sealed invalid is not re-checked for its contents, so changing it after a retry is not
 refused; (3) a seal-write failure leaves an evaluated answer without a seal digest, later treated as unrecorded; (4) a
@@ -466,8 +470,8 @@ digest, is recorded with the round at prepare (a mutable round record suffices),
 collection the host re-derives it from the installed files and compares it with the recorded value; a host may instead
 hash the installed source files into the digest. Retry, adoption and
 collection read the digest-covered members from the bound bytes, never from a mutable copy. A changed member is a
-changed basis: R-RETRY refuses a changed condition, selection or control before an attempt is allocated, collection does
-not agree on any changed member, and the leader prepares a new round (R-REREVIEW). A host change that alters the bound
+changed basis: R-RETRY refuses a changed condition, selection or control before an attempt is allocated, the round (verify, then
+collect) does not agree on any changed member, and the leader prepares a new round (R-REREVIEW). A host change that alters the bound
 basis makes rounds prepared before it non-retryable; prepare a new round.
 
 - On A: `review_scratch.py prepare --v2` writes the `Review metadata:` line of `delivery-r<N>.md`, whose sha256 is the
