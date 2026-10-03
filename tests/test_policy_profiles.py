@@ -78,7 +78,7 @@ def test_c32_web_a_1_run_records_its_evidence():
     manifest = tomllib.loads((ROOT / "contracts/review-web.verify.toml").read_text())
     row = next(r for r in manifest["check"] if r["id"] == "WEB-A-1")
     assert row["status"] == "RUN"
-    assert row["evidence"].startswith("decisions/owner-register.md#")  # one record (R-GOOGLE), a pointer here
+    assert row["evidence"].startswith("decisions/owner-register.md#")  # the manifest's result_channel: one record, a pointer here
     anchor = row["evidence"].split("#", 1)[1].split()[0]
     assert f'<a id="{anchor}"></a>' in (ROOT / "decisions/owner-register.md").read_text()
 

@@ -123,12 +123,12 @@ A selected investigation is one or more chosen legs with a custom prompt, model 
 read roots and web, returning a free-form or custom-schema result — never a review verdict (owner Q-D). Both hosts keep
 it as their existing single-shot dispatch path (On A: the `triad-*-dispatch` skills with `--cwd`; On B: raw
 dispatch); it is not a review round and enters no roster accounting. Web search is allowed for every investigation and
-dispatch leg of every family (the leader's reading of the owner's words, recorded in
-[D-REVIEW-LEGS-20261003](../decisions/owner-register.md#D-REVIEW-LEGS-20261003)); the caller selects it through the
+dispatch leg of every family (the leader's reading (b) of the owner's words, recorded in
+[D-REVIEW-LEGS-20261003](../decisions/owner-register.md#D-REVIEW-LEGS-20261003) and awaiting the owner's confirmation); the caller selects it through the
 host's existing web option and needs no further authorization. On A the web option today is: codex `--search`
 (`3rd-Agent/wrappers/codex_wrapper.py:103-116`, `:161`), agy `--web` (the read-only research agent,
 `antigravity_wrapper.py:1907`) and gemini `--web` (A's research profile, without `--sandbox`, `gemini_wrapper.py:378-392`,
-`:510-515`), and claude `--web` (`3rd-Agent/wrappers/claude_wrapper.py:144-152`, `:258-276` @ `38a036d`): it adds the native
+`:510-515`), and claude `--web` (`3rd-Agent/wrappers/claude_wrapper.py:145-152`, `:258-276` @ `38a036d`): it adds the native
 pre-approval `--allowedTools WebSearch WebFetch`, and under `--sandbox read-only` it widens the restricted `--tools` list
 to `Read,Glob,Grep,WebSearch,WebFetch`, because a pre-approval cannot add a tool `--tools` removed (an A-only mechanism;
 Claude Code CLI reference, https://code.claude.com/docs/en/cli-reference); `--strict-mcp-config`, `--setting-sources user`
@@ -332,13 +332,19 @@ route as follows; a false condition leaves every route in its R-CONTAIN no-web p
     never appends the investigation `web-evidence` clause, which `--web` keeps for investigations
     (`3rd-Agent/wrappers/antigravity_wrapper.py:307-314`, `:1758-1766`, `:1915-1920`, `:2043-2047`); the round's hook runs
     in its `--web` mode (`lib/review_scratch.py:4142-4152`, `:5841-5843`; `lib/agy_hook.py:123`, `:196`); the operator's
-    user-level agy settings allow `read_url(*)` (the install-time prerequisite above).
+    user-level agy settings allow `read_url(*)` (the install-time prerequisite above). The wrapper prints that prerequisite
+    at `--setup-agents` (`3rd-Agent/wrappers/antigravity_wrapper.py:1984-1991`), but no round checks it before inference,
+    and errored web-tool steps are admitted — a host without the allow runs its agy legs without web and without a
+    refusal; a per-round preflight check is open (DL-58).
   - gemini: `--review-web` (`lib/roster_v2.py:1050`) attaches `3rd-Agent/wrappers/policies/gemini-readonly-web.toml`,
     byte-equal to `contracts/gemini-readonly-web.toml`, instead of the no-web profile (`gemini_wrapper.py:125`, `:465`).
   - Adoption compares each attempt's recorded launch switch with the bound condition in both directions — a wrapper
     argv carries its route's switch exactly when true and never the investigation `--web`; a native record names a web
     twin exactly when true (`lib/collect_v2.py:154`, `:2084-2105`, `:2182-2205`); collection does not re-read the argv.
-  - A fact of a legacy entry point, not an obligation: the small review path (`lib/review_small.py`, declared legacy
+    The dispatch record is rendered from the bound condition at prepare and retry, so the check is on that record: a
+    command line edited by hand before it runs is not checked (a fact under R-THREAT).
+  - A fact of a legacy entry point, not an obligation (the leader's reading (c) of D-REVIEW-LEGS-20261003, for the
+    owner to confirm): the small review path (`lib/review_small.py`, declared legacy
     in `units.json` review-lifecycle; it keeps its old contract) takes its own `--web` (`:33-39`, `:265-271` @ `b53409b`)
     with mechanisms of its own: codex `--search`, and agy the investigation flag `--web` (`:328-332`), which selects the
     research agent and appends the investigation `web-evidence` clause (`3rd-Agent/wrappers/antigravity_wrapper.py:2043-2047`);
@@ -381,7 +387,10 @@ profile bytes stay unchanged, and their header comments (A: "review legs have no
 belongs to a separately authorized investigation, never REVIEW") describe the no-web profile. B's web profile header
 (`contracts/gemini-readonly-web-b.toml:1`, `:3`: "explicitly authorized web verification", "selected only for an explicitly
 owner-authorized review") predates the standing authorization; under it every review round is owner-authorized, so the
-header reads as "selected for a true bound condition"; its bytes stay pinned by B's manifest digest.
+header reads as "selected for a true bound condition"; its bytes stay pinned by B's manifest digest. A's web profile header
+(`contracts/gemini-readonly-web.toml:8-9`) points its runtime effect at `contracts/review-web.verify.toml`; that
+manifest's WEB-A-2 reaches the profile's policy checks WA1-WA2 through `contracts/gemini-readonly-web.verify.toml`
+(bytes pinned, unchanged).
 Web-enabled investigations (R-INVEST) keep web. No alignment may introduce a dangerous /
 yolo permission bypass on any leg (each host discloses its existing permissive-route flags in `units.json` exceptions; none is on a review route). A leg a host runs natively stays native; no leader-model CLI subprocess is
 added for symmetry. Containment EVIDENCE is attributed to the leg attempt that produced it (C23): on a host with a LIVE

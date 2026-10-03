@@ -234,7 +234,11 @@ recommended default becomes `gpt-6-astra` with reasoning `high` on both hosts, r
 leg, not as a limit by topic: every selected review leg in every review round, by the owner's standing authorization (no
 longer a per-round request; settled by "All review legs, always"), and every investigation/dispatch leg, with no
 technology heuristic (R-INVEST, R-REVIEW-WEB). This reading of "Ai기능 관련은" is the leader's, for the owner to confirm
-at publication.
+at publication. (c) Host A's legacy entry points — the small review path `lib/review_small.py` and the v1
+path (`prepare` without `--v2`) — keep their old contract: the small path has review web only when its own `--web` is passed,
+and the v1 path has none (`lib/review_scratch.py:3617`, `:3815-3820` @ triad `b53409b`) — an exception to "All review
+legs, always" for those paths. This reading is the leader's, for the owner to
+confirm; whether to keep or retire those legacy paths is an open owner item.
 
 Effect: [R-ROSTER](../reference/review-rules.md#R-ROSTER) (codex default),
 [R-REVIEW-WEB](../reference/review-rules.md#R-REVIEW-WEB) (standing authorization; `review_web_authorized`

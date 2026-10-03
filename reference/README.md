@@ -13,7 +13,7 @@ the sources below and update the three maps together when a destination changes.
 |---|---|---|
 | Result wire: `LegVerdict` fields, enums, finding fields | `contracts/leg-verdict.schema.json` (v2 candidate; host adoption is separate) | host adapters; shape pins inside `prompts/` |
 | Review phase values | `contracts/review-kind.schema.json` | invocation defaulting and shared purpose selection under R-PROMPT; host adoption pending |
-| Leg roster: fields, allowed values, recommended defaults | `contracts/review-legs.schema.json`; illustrative shape in `contracts/review-legs.example.json`; runnable defaults in each host's data file | host loaders; SKILL text points here |
+| Leg roster: fields, allowed values, recommended defaults | fields and allowed values: `contracts/review-legs.schema.json`; recommended defaults: `reference/review-rules.md#R-ROSTER`; illustrative shape in `contracts/review-legs.example.json`; runnable defaults in each host's data file | host loaders; SKILL text points here |
 | Exit tokens and receipt vocabulary | `contracts/exit-tokens.json`; `contracts/receipt-fields.json` | host `_common.py` tables and adapters, checked against these files |
 | Known vendor failure sentences: CLI, sentence, match phrase, token | `contracts/vendor-failure-lines.json` (rule `R-CLASSIFY`) | host classifier pattern lists, checked against this file |
 | Review rules: agreement, correction re-review, phase/context, roster semantics, Google leg, leader triage, convergence, containment, CLI compatibility, no-cost | `reference/review-rules.md` | SKILL.md rule text (pointers + host invocation syntax), prompt clauses |

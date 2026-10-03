@@ -5,7 +5,7 @@
 contract = "contracts/review-kind.schema.json"
 contract_sha256 = "855807a26cda96102858da345f4888ee8658ee2ecff7584aecf9cf31ba61f724"
 status = "B provider-free PASS; A provider-free fixtures for STRATEGY-AGREEMENT, -PURPOSE, -CURRENT-EVIDENCE (C20, C62) and -STOP; A NOT RUN for C63 and STRATEGY-CLI"
-result_channel = "cases/cases.json and decisions/claude-review-strategy-handoff.md, per host; authority in decisions/owner-register.md"
+result_channel = "cases/cases.json (per-case tests cells) and this manifest's [host.A] / [host.B] blocks, per host; B's platform evidence in decisions/claude-review-strategy-handoff.md; authority in decisions/owner-register.md"
 
 [[check]]
 id = "STRATEGY-AGREEMENT"

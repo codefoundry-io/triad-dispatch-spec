@@ -2,6 +2,12 @@
 
 ## Spec gaps exposed by host A's conformance work — 2026-10-03 (not tagged)
 
+- Branch fix round 13: WEB-A-3's reason names the half that needs a revocation; reference/README points recommended
+  defaults at R-ROSTER; D-REVIEW-LEGS reading (c) records the legacy paths' web exception for the owner to confirm; A's
+  launch-switch check is stated exactly (dispatch record only, a hand-edited command is an R-THREAT fact); A's missing
+  per-round agy web prerequisite check opened as DL-58; A's web-profile header pointer explained; spec-authoring and
+  review-strategy's result channel follow the round-12 scope; R-INVEST points at the reading awaiting confirmation;
+  citation and test-comment fixes.
 - Branch fix round 12: the R-GOOGLE convention covers the policy manifests (those carrying `policy_sha256`); the
   service and conformance manifests (`review-web.verify.toml`, `review-strategy.verify.toml`) name their own
   `result_channel`; every check carries the seven fields (tests pin the scope); review-strategy states host A's

@@ -38,7 +38,7 @@ brief = "In a round bound false (after a revocation), run every selected route a
 expect = "No route receives web under false; the disagreeing attempt is refused by name."
 on_fail = "Preserve the round packet and dispatch records; diagnose the route or the adoption check."
 status = "NOT RUN"
-not_run_reason = "The brief needs a round bound false, and only the owner revokes the standing authorization; until an owner revocation the false branch is unit-tested on host A (t23, t62)."
+not_run_reason = "Only the bound-false half needs an owner revocation (only the owner revokes the standing authorization); until then it is unit-tested on host A (t23, t62). The mismatched-launch-switch half can be run live in a round bound true; it has not been run."
 unit_evidence = "Host A unit tests only: tests/unit/skills/t23-review-web-c32.sh, tests/unit/wrappers/t62-review-web-option-c32.sh (triad b53409b)."
 
 [[check]]

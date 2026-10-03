@@ -65,8 +65,10 @@ defect or ambiguity found (any host, any round)
 A case that fails is a defect in the host or in the spec, never a reason to change the expected result without a
 recorded decision. An unrun case is listed NOT RUN, never green. A refuted finding is recorded in the round ledger, not as a
 case. A change whose effect cannot be exercised where it is written is applied anyway and ships with a verification
-manifest (`contracts/<file>.verify.toml`) that whoever has the capability runs — the convention and the result channel
-are in `review-rules.md#R-GOOGLE`; the result is written once, in `decisions/`, never re-narrated per host.
+manifest (`contracts/<file>.verify.toml`) that whoever has the capability runs. For a manifest that verifies a policy
+file (it carries `policy_sha256`) the convention is `review-rules.md#R-GOOGLE`: the result is written once, in
+`decisions/owner-register.md`, never re-narrated per host. A service or conformance manifest names its result channel in
+its own `result_channel` field.
 
 ## 5. Revisions
 
