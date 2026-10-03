@@ -111,9 +111,19 @@ def test_c32_review_web_checks_point_at_their_manifests():
 def test_r_google_lists_every_verify_manifest():
     rules = (ROOT / "reference/review-rules.md").read_text()
     start = rules.index("Current manifests:")
-    listed = rules[start:rules.index("\n\n", start)]
+    listed = rules[start:rules.index("This convention covers", start)]  # the policy-manifest list only
     for path in sorted((ROOT / "contracts").glob("*.verify.toml")):
-        assert f"contracts/{path.name}" in listed
+        manifest = tomllib.loads(path.read_text())
+        if "policy_sha256" in manifest:
+            assert f"contracts/{path.name}" in listed
+        else:
+            assert f"contracts/{path.name}" not in listed
+
+
+@pytest.mark.parametrize("path", sorted((ROOT / "contracts").glob("*.verify.toml")), ids=lambda p: p.name)
+def test_every_verify_manifest_is_a_policy_manifest_or_names_its_result_channel(path):
+    manifest = tomllib.loads(path.read_text())
+    assert manifest.get("policy_sha256") or str(manifest.get("result_channel", "")).strip()
 
 
 @pytest.mark.parametrize("path", sorted((ROOT / "contracts").glob("*.verify.toml")), ids=lambda p: p.name)

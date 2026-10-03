@@ -2,13 +2,18 @@
 
 ## Spec gaps exposed by host A's conformance work — 2026-10-03 (not tagged)
 
-- Branch fix round 11: the verification-manifest convention covers every `contracts/*.verify.toml` (R-GOOGLE lists all;
-  every check carries id/case/what/brief/expect/on_fail/status; tests widened); WEB-A-1 split — WEB-A-1 (true condition,
+- Branch fix round 12: the R-GOOGLE convention covers the policy manifests (those carrying `policy_sha256`); the
+  service and conformance manifests (`review-web.verify.toml`, `review-strategy.verify.toml`) name their own
+  `result_channel`; every check carries the seven fields (tests pin the scope); review-strategy states host A's
+  provider-free evidence at triad `faeb86b`; WEB-A-3 records why it needs an owner revocation; the 모든leg line has its
+  own lead-in; C31's live probes cite their two sources.
+- Branch fix round 11: every check of every `contracts/*.verify.toml` carries id/case/what/brief/expect/on_fail/status
+  (tests widened; round 12 narrows the R-GOOGLE convention back to the policy manifests); WEB-A-1 split — WEB-A-1 (true condition,
   live) RUN, new WEB-A-3 (absent/false/mismatched, live) NOT RUN; an editorial mark stays outside a quotation; the
   question behind the 웹 지원 answer recorded verbatim; README shows host A's SPEC_REVISION line verbatim; how a
   revocation reaches each host stated as a fact; C31 sync — host A's claude worker `--web` (triad `38a036d`, t63, live
   probe), DL-39 FIXED-A for every A item.
-- Branch fix round 10: WEB-A-1's RUN result recorded once in the owner register (R-GOOGLE convention) with pointers
+- Branch fix round 10: WEB-A-1's RUN result recorded once in the owner register (the manifest's result channel) with pointers
   from the manifest, contracts/README, C32 and DL-39; the C66 limit attribution mirrored everywhere ((1)-(3) owner,
   (4)-(5) leader under R-THREAT); every 2026-10-02/03 owner quote byte-exact against host A's leader session record (round 11: an editorial
   mark stays outside the quotation);

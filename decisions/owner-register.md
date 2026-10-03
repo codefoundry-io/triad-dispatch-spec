@@ -138,7 +138,7 @@ as passed. Preserve those separate verification statuses.
 <a id="review-web-a1-20261003"></a>
 ## Review-web live check WEB-A-1 (C32): 2026-10-03
 
-The result record, under the R-GOOGLE verification-manifest convention, for `contracts/review-web.verify.toml` check
+The result record, named by the `result_channel` of the service manifest `contracts/review-web.verify.toml`, for check
 WEB-A-1 (the true condition on every participating route, live): RUN 2026-10-03 on host A
 (`codefoundry-io/triad` `goal/spec-main-conformance` @ `b53409b`). One v2 round, `live-web-c32-r1`, ran every route
 with web: codex `--search`; agy `triad-readonly-research` with audit `review_web: true` and the hook in `--web` mode;
@@ -220,6 +220,9 @@ Owner, 2026-10-03, typed (verbatim; source: host A's leader session record (unpu
 To the question "Where should 'allow web search' apply?" (the leader's options), the owner selected:
 
 > All review legs, always
+
+Typed separately by the owner (2026-10-02 19:41:51Z UTC, before the selection above was made at 19:42:32Z), not part of
+the selected option:
 
 > 모든leg Ai기능 관련은 웹건색 허용해
 

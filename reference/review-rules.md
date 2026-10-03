@@ -168,10 +168,13 @@ it on either host beyond a pointer. Current manifests: `contracts/gemini-readonl
 mutation denies, canonical `grep_search` visibility separately from alias matching, and the proposed `*` catch-all),
 `contracts/gemini-readonly-b.verify.toml` (B: B1-B3 on the separate D-B1 profile),
 `contracts/gemini-readonly-web.verify.toml` (A: WA1-WA2 on the R-REVIEW-WEB web profile),
-`contracts/gemini-readonly-web-b.verify.toml` (B: WB1-WB2 on the R-REVIEW-WEB web profile),
-`contracts/review-web.verify.toml` (R-REVIEW-WEB live host checks: WEB-A-1, WEB-A-3, WEB-A-2, WEB-B-1) and
-`contracts/review-strategy.verify.toml` (the 2026-10-02 strategy cases C13/C20/C33/C60-C65, per-host provider-free
-evidence). The convention covers every `contracts/*.verify.toml`.
+`contracts/gemini-readonly-web-b.verify.toml` (B: WB1-WB2 on the R-REVIEW-WEB web profile). This convention covers
+the manifests that verify a policy file (those carrying `policy_sha256`). The service and conformance manifests —
+`contracts/review-web.verify.toml` (R-REVIEW-WEB live host checks WEB-A-1, WEB-A-3, WEB-A-2, WEB-B-1; WEB-A-2 runs
+through `contracts/gemini-readonly-web.verify.toml` WA1-WA2, the owner-briefing route above) and
+`contracts/review-strategy.verify.toml` (the 2026-10-02 strategy cases, per-host provider-free evidence) — name their
+result channel in their own `result_channel` field; every manifest's checks carry id, case, what, brief, expect,
+on_fail and status.
 
 ## Review purpose and context
 

@@ -18,7 +18,7 @@
 | `leg-verdict-mapping.md` | round r2 output: A↔B mapping table, losses per direction, the proposed v2 shape, the three release properties that must survive | both maintainers (D-3) |
 | `review-legs.schema.json` | Draft 2020-12 named overrides and `$defs.resolvedRoster`; actual route/model/effort capability checks remain host adapters | both loaders |
 | `review-kind.schema.json` | Draft 2020-12 scalar review stage: `formal-plan`, `pre-merge`, `implementation-review`; annotated omission default `pre-merge`; unknown/null refused. B omission/refusal fixtures passed; A implementation and host adoption remain separate | both review dispatchers after candidate adoption |
-| `review-strategy.verify.toml` | C13/C20/C33/C60–C65: B provider-free PASS at `f6651121`; A NOT RUN. Authenticated runtime and host adoption remain separate | host maintainers; no provider authorization |
+| `review-strategy.verify.toml` | C13/C20/C33/C60–C65: B provider-free PASS at `f6651121`; A provider-free fixtures at triad `faeb86b` for C13/C20/C33/C60-C62/C64, NOT RUN for C63/C65. Authenticated runtime and host adoption remain separate | host maintainers; no provider authorization |
 | `receipt-fields.json` | Draft 2020-12 common `transport` object for existing audit/run-log envelopes | both `_common.py` and native receipt producers |
 
 Integration and legacy compatibility: [rev-2 implementation specification](../decisions/rev-2-implementation-spec.md).

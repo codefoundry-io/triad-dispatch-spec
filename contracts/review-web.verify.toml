@@ -1,8 +1,10 @@
-# Owner-authorized REVIEW web (standing authorization, D-REVIEW-LEGS-20261003); live host checks under the R-GOOGLE
-# verification-manifest convention. Results are recorded once in decisions/owner-register.md; this file points there.
+# Owner-authorized REVIEW web (standing authorization, D-REVIEW-LEGS-20261003); live host service checks. A service
+# manifest (not a policy manifest): its result channel is its own field below. WEB-A-2 runs through the policy manifest
+# contracts/gemini-readonly-web.verify.toml (WA1-WA2), the R-GOOGLE owner-briefing route.
 schema = "triad-review-web-verification.v1"
 rule = "R-REVIEW-WEB"
 case = "C32"
+result_channel = "decisions/owner-register.md (one record per check) and the case column (cases/cases.json C32)"
 
 [[check]]
 id = "WEB-B-1"
@@ -36,6 +38,7 @@ brief = "In a round bound false (after a revocation), run every selected route a
 expect = "No route receives web under false; the disagreeing attempt is refused by name."
 on_fail = "Preserve the round packet and dispatch records; diagnose the route or the adoption check."
 status = "NOT RUN"
+not_run_reason = "The brief needs a round bound false, and only the owner revokes the standing authorization; until an owner revocation the false branch is unit-tested on host A (t23, t62)."
 unit_evidence = "Host A unit tests only: tests/unit/skills/t23-review-web-c32.sh, tests/unit/wrappers/t62-review-web-option-c32.sh (triad b53409b)."
 
 [[check]]
