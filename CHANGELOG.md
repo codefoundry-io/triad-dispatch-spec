@@ -2,6 +2,9 @@
 
 ## Spec gaps exposed by host A's conformance work — 2026-10-03 (not tagged)
 
+- Branch fix round 16 (pointers and wording only): the v1 path's dispatch citations, DL-44's raw-reply range labelled
+  @ 4af44cf, "above", both hosts' legacy entry points named in the register reading, the DL-52 / R-THREAT attribution
+  split, and the v1 refusal range.
 - Branch fix round 15: both hosts' legacy entry points that do not bind the standing review-web authorization are
   non-conformance facts with one keep-or-retire owner item (DL-59); DL-39's A action reworded; the v1 path's no-web
   citations corrected; the small path's legacy agreement contract also counts a non-blocking MERGE WITH FIXES; R-AGREE

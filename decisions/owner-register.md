@@ -237,9 +237,10 @@ recommended default becomes `gpt-6-astra` with reasoning `high` on both hosts, r
 leg, not as a limit by topic: every selected review leg in every review round, by the owner's standing authorization (no
 longer a per-round request; settled by "All review legs, always"), and every investigation/dispatch leg, with no
 technology heuristic (R-INVEST, R-REVIEW-WEB). This reading of "Ai기능 관련은" is the leader's, for the owner to confirm
-at publication. Host A's legacy entry points (the small review path and the v1 path) do not implement the standing
-authorization — a recorded non-conformance fact (R-REVIEW-WEB On A), not an exception; whether to keep or retire them is
-an open owner item (`authoring/shared-dev-log.md` DL-59).
+at publication. Both hosts' legacy entry points (on A the small review path and the v1 path; on B the workspace
+four-leg gate and the fixed legacy formal route) do not bind the standing authorization — recorded non-conformance facts
+(R-REVIEW-WEB On A and On B), not exceptions; whether to keep or retire them is an open owner item
+(`authoring/shared-dev-log.md` DL-59).
 
 Effect: [R-ROSTER](../reference/review-rules.md#R-ROSTER) (codex default),
 [R-REVIEW-WEB](../reference/review-rules.md#R-REVIEW-WEB) (standing authorization; `review_web_authorized`

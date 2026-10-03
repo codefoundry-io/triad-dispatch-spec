@@ -26,7 +26,8 @@ digest, `verify_round` at `bin/review_round.py:1908-1931`) at its start and end 
 warns when it is absent (`lib/review_scratch.py:18-23`). A skipped `verify` is a leader's mistake within R-THREAT's
 scope; host A's guard is its flow (verify before collect) and the `close` warning when the highest captured round has no
 verify record (`lib/review_scratch.py:18-23` @ `faeb86b`); the spec does not require a collector refusal. That
-disposition is the leader's ruling (host A's leader ledger, unpublished), not the owner's.
+DL-52 is a fact rather than a rule is the leader's ruling (host A's leader ledger, unpublished); this reconciliation with
+R-THREAT is the controller's ruling in the owner-directed fix round 15 ("Fix the 5 lows, then publish").
 
 `open_questions` contains unresolved facts necessary to judge approval, not optional curiosities; every remaining entry
 blocks, without a collector importance heuristic. A `SAFE TO MERGE` with a blocker or open question is invalid under the
@@ -356,9 +357,10 @@ route as follows; a false condition leaves every route in its R-CONTAIN no-web p
     `--web` it refuses gemini and a claude agent other than the base and high presets (`:101-102`, `:265-271`,
     `:450-455`); without `--web`, a directly named `-web` preset is spawned unchanged and runs with its web tools. The v1
     path (`prepare` without `--v2`) passes no web switch — its X-leg codex line is printed without `--search`
-    (`lib/review_scratch.py:3624-3625`) and its standing codex and agy legs take their dispatch lines from
-    `references/leg-contracts.md:37`, `:44` (no `--search`, no `--web`) — and refuses the review-web condition
-    (`lib/review_scratch.py:3815-3820`).
+    (`lib/review_scratch.py:3624-3625`); for its standing codex and agy legs `prepare` prints only the output
+    redirections (`:6081-6085`) and the dispatch is the v1 hand-built line of `references/leg-contracts.md:1397-1415`
+    (codex: `--sandbox read-only`, `--pydantic`, no `--search`) and the agy read-only review agent, which has no web tool
+    (`:435-439`), all @ `faeb86b` — and refuses the review-web condition (`lib/review_scratch.py:3817-3820`).
 - On B: the v2 request member `review_web_authorized` (`bin/review_round_v2.py:130-133`) is the carrier; it defaults to
   false per request, so binding it true for every round under the standing authorization is open (DL-39). For a true
   condition: native Codex receives it through its fresh-child prompt metadata and requires host web availability
@@ -367,7 +369,7 @@ route as follows; a false condition leaves every route in its R-CONTAIN no-web p
   `read_url(*)` deny (`bin/antigravity_wrapper.py:647-663`, `bin/_agy_settings.py:43-49`, `:90-100`); Gemini selects
   `bin/policies/gemini-formal-web.toml`, byte-equal to `contracts/gemini-readonly-web-b.toml`
   (`bin/gemini_wrapper.py:175`, `:466`; `bin/policies/web-source-manifest.json`). Non-conformance of B's legacy entry points (a
-  fact, as for A's below; whether to keep or retire them is an open owner item, DL-59): the workspace four-leg gate and
+  fact, as for A's above; whether to keep or retire them is an open owner item, DL-59): the workspace four-leg gate and
   the fixed legacy formal route render through `render_review_prompt` / `render_worktree_review_prompt`, whose
   `review_web_authorized` is a per-request value, default false (`bin/review_round.py:122`, `:141`, `:165`, `:2006-2043`,
   `:2128-2178` @ `7f75863`), so they do not bind the standing authorization.
