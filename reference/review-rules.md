@@ -128,9 +128,15 @@ dispatch leg of every family (the leader's reading of the owner's words, recorde
 host's existing web option and needs no further authorization. On A the web option today is: codex `--search`
 (`3rd-Agent/wrappers/codex_wrapper.py:103-116`, `:161`), agy `--web` (the read-only research agent,
 `antigravity_wrapper.py:1907`) and gemini `--web` (A's research profile, without `--sandbox`, `gemini_wrapper.py:378-392`,
-`:510-515`); the claude worker dispatch has no web option yet (`claude_wrapper.py`; open, DL-39). On B: the raw AGY,
+`:510-515`), and claude `--web` (`3rd-Agent/wrappers/claude_wrapper.py:144-152`, `:258-276` @ `38a036d`): it adds the native
+pre-approval `--allowedTools WebSearch WebFetch`, and under `--sandbox read-only` it widens the restricted `--tools` list
+to `Read,Glob,Grep,WebSearch,WebFetch`, because a pre-approval cannot add a tool `--tools` removed (an A-only mechanism;
+Claude Code CLI reference, https://code.claude.com/docs/en/cli-reference); `--strict-mcp-config`, `--setting-sources user`
+and `dontAsk` stay, and the audit row gains `web` only when true (`3rd-Agent/wrappers/_common.py:3988-3991` @ `38a036d`). On B: the raw AGY,
 Gemini and Claude wrappers' explicit `--web` (`bin/antigravity_wrapper.py:421`, `bin/gemini_wrapper.py:256`,
-`bin/claude_wrapper.py:286`; C29, C31); a native codex investigation runs in the host's own codex session, and no B
+`bin/claude_wrapper.py:286`; C29, C31) — B's claude `--web` adds the same pre-approval only
+(`bin/claude_wrapper.py:417-418`) and restricts no tool list, its formal review running `--permission-mode plan`
+(`:419-420`); a native codex investigation runs in the host's own codex session, and no B
 code selects its web (open, DL-39). Web evidence in an investigation is a FETCHED page: the
 leg cites the URL it fetched and the date or version visible on that page; a search summary is a pointer, never a
 citation; an unfetched, placeholder or undated claim is UNSURE. The host appends the shared clause `web-evidence`
@@ -161,8 +167,11 @@ briefing row per check) and in the case's test column; an unrun check is never g
 it on either host beyond a pointer. Current manifests: `contracts/gemini-readonly.verify.toml` (A: D-9 web-tool denies,
 mutation denies, canonical `grep_search` visibility separately from alias matching, and the proposed `*` catch-all),
 `contracts/gemini-readonly-b.verify.toml` (B: B1-B3 on the separate D-B1 profile),
-`contracts/gemini-readonly-web.verify.toml` (A: WA1-WA2 on the R-REVIEW-WEB web profile) and
-`contracts/gemini-readonly-web-b.verify.toml` (B: WB1-WB2 on the R-REVIEW-WEB web profile).
+`contracts/gemini-readonly-web.verify.toml` (A: WA1-WA2 on the R-REVIEW-WEB web profile),
+`contracts/gemini-readonly-web-b.verify.toml` (B: WB1-WB2 on the R-REVIEW-WEB web profile),
+`contracts/review-web.verify.toml` (R-REVIEW-WEB live host checks: WEB-A-1, WEB-A-3, WEB-A-2, WEB-B-1) and
+`contracts/review-strategy.verify.toml` (the 2026-10-02 strategy cases C13/C20/C33/C60-C65, per-host provider-free
+evidence). The convention covers every `contracts/*.verify.toml`.
 
 ## Review purpose and context
 
@@ -278,8 +287,11 @@ On CLI review routes, the route's web switch and the renderer/preflight conditio
 the same review ID, digest and v2 entry/attempt binding. Under the standing authorization the host binds
 `review_web_authorized` true for every review round and records it explicitly in the bound basis; a caller's `false`
 is ignored while the standing authorization holds, and a non-boolean value stays an input refusal (On B:
-`bin/review_round_v2.py:134-135`); it binds false only after the owner revokes the standing authorization, and a revocation takes effect as an
-entry in `decisions/owner-register.md`. An absent condition in a bound record means false. Every route of
+`bin/review_round_v2.py:134-135`); it binds false only after the owner revokes the standing authorization, by an entry in
+`decisions/owner-register.md`. How a revocation reaches each host (a fact, no new mechanism): On A, the operator then
+edits the one constant `REVIEW_WEB_STANDING_AUTHORIZATION` (`lib/review_scratch.py:3650-3658` @ `b53409b`); On B, the
+request's `review_web_authorized` is the caller's value, default false (`bin/review_round_v2.py:133`), so B has no
+standing switch yet (its standing binding is open, DL-39). An absent condition in a bound record means false. Every route of
 every host supports web; a route without it is a host defect, refused at preflight until fixed. Gemini selects a
 complete web-enabled host profile, never an overlay: only `google_web_search` and `web_fetch` move to allow, with all
 other controls preserved; the no-web profile stays the profile for a false condition. Pre-existing owner and admin

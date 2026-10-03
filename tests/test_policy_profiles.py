@@ -112,5 +112,20 @@ def test_r_google_lists_every_verify_manifest():
     rules = (ROOT / "reference/review-rules.md").read_text()
     start = rules.index("Current manifests:")
     listed = rules[start:rules.index("\n\n", start)]
-    for path in sorted((ROOT / "contracts").glob("gemini-*.verify.toml")):
+    for path in sorted((ROOT / "contracts").glob("*.verify.toml")):
         assert f"contracts/{path.name}" in listed
+
+
+@pytest.mark.parametrize("path", sorted((ROOT / "contracts").glob("*.verify.toml")), ids=lambda p: p.name)
+def test_every_verify_check_carries_the_convention_fields(path):
+    manifest = tomllib.loads(path.read_text())
+    assert manifest["check"]
+    for row in manifest["check"]:
+        missing = [k for k in ("id", "case", "what", "brief", "expect", "on_fail", "status") if not row.get(k)]
+        assert not missing, (row.get("id"), missing)
+
+
+def test_c32_web_a_3_false_condition_is_a_separate_unrun_live_check():
+    manifest = tomllib.loads((ROOT / "contracts/review-web.verify.toml").read_text())
+    row = next(r for r in manifest["check"] if r["id"] == "WEB-A-3")
+    assert row["status"] == "NOT RUN"

@@ -2,14 +2,21 @@
 
 ## Spec gaps exposed by host A's conformance work — 2026-10-03 (not tagged)
 
+- Branch fix round 11: the verification-manifest convention covers every `contracts/*.verify.toml` (R-GOOGLE lists all;
+  every check carries id/case/what/brief/expect/on_fail/status; tests widened); WEB-A-1 split — WEB-A-1 (true condition,
+  live) RUN, new WEB-A-3 (absent/false/mismatched, live) NOT RUN; an editorial mark stays outside a quotation; the
+  question behind the 웹 지원 answer recorded verbatim; README shows host A's SPEC_REVISION line verbatim; how a
+  revocation reaches each host stated as a fact; C31 sync — host A's claude worker `--web` (triad `38a036d`, t63, live
+  probe), DL-39 FIXED-A for every A item.
 - Branch fix round 10: WEB-A-1's RUN result recorded once in the owner register (R-GOOGLE convention) with pointers
   from the manifest, contracts/README, C32 and DL-39; the C66 limit attribution mirrored everywhere ((1)-(3) owner,
-  (4)-(5) leader under R-THREAT); every 2026-10-02/03 owner quote byte-exact against host A's leader session record;
+  (4)-(5) leader under R-THREAT); every 2026-10-02/03 owner quote byte-exact against host A's leader session record (round 11: an editorial
+  mark stays outside the quotation);
   README states the candidate line for any branch; the legacy small path's own mechanisms stated as facts; a change of
   the review-web authorization applies to rounds prepared after it (R-REVIEW-WEB, DL-57).
 - C32 sync: host A adopted the standing review web on every v2 route (triad `67b7524`, `de1a078`, `b53409b`;
   t23, t62; WEB-A-1 RUN 2026-10-03 (host A b53409b), result in
-  `decisions/owner-register.md#review-web-a1-20261003`; WEB-B-1 and WEB-A-2 NOT RUN).
+  `decisions/owner-register.md#review-web-a1-20261003`; WEB-A-3, WEB-B-1 and WEB-A-2 NOT RUN).
   R-REVIEW-WEB / R-CONTAIN / R-PREPARE / R-PROMPT "On A" state the carrier, renderer, launch switches, twins, hook and
   adoption check with file:line @ b53409b; C29 REVIEW arm closed on A (the legacy small path's --web stays a fact);
   C32, C67, C68 cells; DL-39 web items, DL-45, DL-46, DL-56 FIXED-A; DL-57 records when a revocation applies (fact).

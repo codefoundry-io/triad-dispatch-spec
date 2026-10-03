@@ -138,13 +138,14 @@ as passed. Preserve those separate verification statuses.
 <a id="review-web-a1-20261003"></a>
 ## Review-web live check WEB-A-1 (C32): 2026-10-03
 
-The R-GOOGLE result record for `contracts/review-web.verify.toml` check WEB-A-1: RUN 2026-10-03 on host A
+The result record, under the R-GOOGLE verification-manifest convention, for `contracts/review-web.verify.toml` check
+WEB-A-1 (the true condition on every participating route, live): RUN 2026-10-03 on host A
 (`codefoundry-io/triad` `goal/spec-main-conformance` @ `b53409b`). One v2 round, `live-web-c32-r1`, ran every route
 with web: codex `--search`; agy `triad-readonly-research` with audit `review_web: true` and the hook in `--web` mode;
 claude `-web` and `-high-web` twins, each of which fetched a web page. Result `ROUND_INTEGRITY_OK`, AGREED 4/4 over three
 families (host A record: triad `e192938`, `docs/reviews/2026-10-03-live-web-c32-residuals.md`). Not covered live, unit-tested
-only: the false condition, a mismatched launch switch and the gemini route. WEB-B-1 and WEB-A-2 remain NOT RUN (WEB-A-2:
-the gemini route is the in-company Google route).
+only: the false condition and a mismatched launch switch (check WEB-A-3, NOT RUN live; host A tests t23, t62) and the
+gemini route. WEB-A-3, WEB-B-1 and WEB-A-2 remain NOT RUN (WEB-A-2: the gemini route is the in-company Google route).
 
 <a id="d-auth-browser-login-20260926"></a>
 ## D-AUTH-BROWSER-LOGIN-20260926: CLI authentication is the user's own browser login only
@@ -220,7 +221,9 @@ To the question "Where should 'allow web search' apply?" (the leader's options),
 
 > All review legs, always
 
-> 모든leg Ai기능 관련은 웹건색 [sic] 허용해
+> 모든leg Ai기능 관련은 웹건색 허용해
+
+("웹건색" [sic], as typed: 웹검색, web search.)
 
 Reading recorded with the decision (the leader's, not the owner's words): (a) the codex review leg's
 recommended default becomes `gpt-6-astra` with reasoning `high` on both hosts, replacing `gpt-5.6-terra` /
@@ -247,6 +250,12 @@ web-evidence rule (C29), exact IDs as roster data and the requested-versus-runti
 Host adoption, publication and revision tags remain separate.
 
 Follow-up rulings, owner, 2026-10-03, typed or answered (verbatim; source: host A's leader session record (unpublished), the transcript of 2026-10-02/03 (UTC)):
+
+The leader's question (verbatim), to which the owner typed the answer below:
+
+> With web always on for review legs, what should happen when a leg's route cannot use web (e.g. host A's in-company gemini has no web-enabled policy profile yet)?
+
+The owner's answer:
 
 > 웹 지원 가능하도록 하는거 쉬ㅣㅂ잖아 먼저 구현휴 진행
 
