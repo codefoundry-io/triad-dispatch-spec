@@ -283,6 +283,11 @@ ledger is the export; the managed review root is deleted by an ownership-proven
 worktree the program creates expires after a period (audit rotation, failure-IPC
 caps, 30-day test-run and debug expiry), so storage never grows without bound.
 
+Every deletion above is done by host code, from roots declared in one configuration file
+([R-CLEANUP](../reference/review-rules.md#R-CLEANUP), `contracts/cleanup-roots.schema.json`, C69); no prompt, skill,
+agent text or printed remedy carries its own removal command (owner, D-DELETION-BY-CODE-20261004). Host A: in progress
+(Task 23); host B: DL-77.
+
 ## Functional coverage map
 
 | Capability | Shared acceptance cases |

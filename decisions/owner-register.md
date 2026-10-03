@@ -591,3 +591,31 @@ absolute (D-AUTH-ABSOLUTE-20261004); the gemini review preflight (C16) is an ear
 
 Effect: [R-AUTH](../reference/review-rules.md#R-AUTH) (enforcement (i) and (iii) only), cases C37 and C16 (cells
 restored), `units.json`, `authoring/shared-dev-log.md` DL-16 (withdrawn), DL-75, DL-76.
+
+<a id="D-DELETION-BY-CODE-20261004"></a>
+## D-DELETION-BY-CODE-20261004: only host code deletes; an AI at most names the folder
+
+Owner, 2026-10-04, typed (verbatim, line breaks kept; source: host A's leader session record (unpublished), the
+transcript of 2026-10-03, 22:22Z):
+
+> 지우는건 코드화된 결정적코드로 하는거 아니야?
+> 프롬프트로 지우는 작업은 폴더를 정하는 정도만해. 
+> Json같은 설정 파일에 지워야할 폴더릉 지정하는정도 이거 결정되면 스펙에도 추가해
+
+The leader's design question (verbatim, 22:34Z) and the selected option (the label is the leader's, the choice the
+owner's):
+
+> 삭제는 코드만 하고 AI는 폴더만 고르게 하는 설계로 진행할까요? (설정 파일 하나에 지워도 되는 폴더를 적고, 삭제 명령 하나로만 지우며, 손으로 지우라는 문구 약 40곳을 고칩니다)
+
+> 이 설계로 진행 (추천)
+
+Recorded effect: only host code deletes. Every folder a host's code may delete is declared in one JSON configuration
+file (role, root, ownership proof, age floor); the declaration adds to the ownership proof and never replaces it. An AI —
+the leader, a sub-agent, skill, agent or prompt text, a printed remedy — at most chooses a declared role and a folder and
+runs the host's deletion command; no such text carries its own removal command. A call that removes what it created
+itself needs no declaration. Two choices in the design stay open for the owner: what a host does when the configuration
+file is missing or invalid, and how a wrapper run-log is removed after a repair (DL-77).
+
+Effect: [R-CLEANUP](../reference/review-rules.md#R-CLEANUP) and its pointers (R-AGREE, R-BIND, R-CONTAIN),
+`contracts/cleanup-roots.schema.json` and `.example.json`, case C69, PRD-RETENTION, `rev-2-implementation-spec.md`,
+`units.json` cleanup, the four policy `.verify.toml` `on_fail` texts, `authoring/shared-dev-log.md` DL-77.

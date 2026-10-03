@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/codefoundry-io/triad-dispatch-spec/contracts/cleanup-roots.schema.json",
+  "title": "TRIAD declared deletion roots",
+  "description": "The one configuration file that declares every folder a host's code may delete (R-CLEANUP). The declaration adds to the ownership proof and never replaces it; deletion code refuses a target outside a declared root. What a host does with a missing or invalid file is an open owner decision (DL-77).",
+  "type": "object",
+  "required": ["version", "roots"],
+  "additionalProperties": false,
+  "properties": {
+    "version": {"const": 1},
+    "roots": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/root"}
+    }
+  },
+  "$defs": {
+    "root": {
+      "type": "object",
+      "required": ["role", "root", "proof", "min_age_s"],
+      "additionalProperties": false,
+      "properties": {
+        "role": {
+          "description": "The name an AI may choose; unique within the file.",
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$"
+        },
+        "root": {
+          "description": "The folder under which this role's deletions happen: repository-relative, or beginning with $TMPDIR or ~.",
+          "type": "string",
+          "minLength": 1
+        },
+        "proof": {
+          "description": "The ownership proof R-CLEANUP already requires, never a name shape: a marker file the host writes, an allocation record, membership in a packet the host owns, or a git-registered worktree inside the declared root.",
+          "type": "string",
+          "pattern": "^(marker:[^/\\s]+|alloc-record|inside-owned-packet|git-registered)$"
+        },
+        "min_age_s": {
+          "description": "The host's age floor for this role, in seconds; nothing younger is deleted.",
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    }
+  }
+}

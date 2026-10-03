@@ -24,8 +24,8 @@ too-early separate check never yields AGREED. On B: `collect` runs `_load_basis`
 when every entry agrees, `collect` runs `review_scratch.py verify` itself before it writes an AGREED record
 (`lib/collect_v2.py:2422-2446`); a failed check refuses (exit 2) and leaves the previous collection record untouched,
 naming the remedy by cause (`_integrity_refusal`, `:2488-2519`): a round a later prepare superseded → collect the later
-round; a second round tree in the packet dir → remove the stray tree and collect again; this host's own staging leftover
-from a stopped write → remove it and collect again; any other failure → the round is INVALID, prepare a new round. A
+round; a second round tree in the packet dir, or this host's own staging leftover from a stopped write → remove it with
+the host's deletion command (R-CLEANUP) and collect again; any other failure → the round is INVALID, prepare a new round. A
 check that cannot be launched, does not finish, or fails for a host cause (the check could not run, its record could not
 be written, the heartbeat could not be refreshed) is a host fault (exit 64): nothing about the round is known, repair the
 host and collect again. `close` runs a fresh check of the latest captured round and never refuses on its outcome, even
@@ -453,7 +453,7 @@ not attribution (found on A over rounds r11–r13, `authoring/shared-dev-log.md`
 - all wrappers: binary presence; a relative `--prompt-file` or `--cwd` is ACCEPTED and resolved against the wrapper PROCESS cwd at argument processing (never the child `--cwd`); every existing validation stays — configured runtime roots where configured, regular file, UTF-8, non-empty; the resolved absolute prompt-file and child-cwd paths are represented in the existing success summary and audit row, using the host's current redaction mode (D-B2). Refusal names the resolved candidate through that same masking policy; failure-only run logs remain failure-only. Relative spelling alone is never a reason to refuse (C28). On A: relative paths are rebased on the process-entry cwd and then validated (`3rd-Agent/wrappers/_common.py:1800-1844`, `:1865-1881`); On B: `bin/_common.py:502-537`; stdin delivery confirmed or refused (fail closed); process group captured at spawn and
   reaped on timeout / abnormal unwind and normal exit under R-TERMINAL (On A: `_common.py:3198-3205`, `:3333-3381`; On B: `bin/_common.py:1357-1386`); reader and writer completion before success (On A: incomplete readers fail closed, `_common.py:3433-3437`; On B: incomplete/error collection is rejected); schema validation with one clean repair retry where a leg relies on it; verdict
   binding to review id, family and content digest; round integrity capture/verify.
-- cleanup: refuses without deleting when a tree is not provably its own; ownership is proven by an allocation record or
+- cleanup (only host code deletes, from declared roots — R-CLEANUP): refuses without deleting when a tree is not provably its own; ownership is proven by an allocation record or
   marker, never by a name shape (On A: a `<name>.pruning` dir is reclaimed with the `.claim` record written before its rename, `lib/review_scratch.py:705-722`; On B: allocation provenance, verified export and root identity for stale and explicit cleanup, `bin/review_round.py:1017`, `:1060`, `:1232-1242`). Open exception on A, pending DL-54: an EMPTY unclaimed `.pruning`
   residue older than the floor is removed by `rmdir` (`lib/review_scratch.py:865-876`), a name-shape removal that main's
   R-CLEANUP does not allow; it follows the owner ruling of 2026-09-27 carried by the unpublished R-CLEANUP amendment on
@@ -555,7 +555,7 @@ the entry: a regular, readable `raw.json` with no seal and either no `admitted.j
 the admission refuses (empty included) while `raw.json` is admissible against its own `binding.json`
 (`_raw_admissible`, `:1613-1624`; `_saved_not_admitted`, `:1626-1659`; `_history_reason`, `:1789-1836`; `retry`,
 `:3149-3172`); `retry` itself removes such an `admitted.json` before it refuses (`:3154-3166`), and no printed remedy
-asks for a hand removal (Z2). An `admitted.json` that is a link, a directory, unreadable or over the size cap beside a saved `raw.json` with no seal makes the entry INVALID ("prepare a new round") and `retry` refuses it (Z1, `:1645-1650`). A copied or mismatched `binding.json` beside a never-admitted saved reply — a leader's hand-made layout, an ordinary failure under R-THREAT — is in progress (Task 18, Z5). `retry` RECORDS the attempt it replaces before it allocates the next: it takes that attempt's digests first, judges those same bytes, and seals it `invalid` when an answer is there — a result it judged inadmissible, or, on the native route, a saved `raw.json` (Z4) — and `failed-to-run` when none is; a write that lands while it judges refuses the retry and allocates nothing (`:3112-3121`, `:3363`; `_seal_replaced`). `collect-r<N>.json` keeps each seal's digest, and every collection
+asks for a hand removal (Z2; R-CLEANUP: only host code deletes). An `admitted.json` that is a link, a directory, unreadable or over the size cap beside a saved `raw.json` with no seal makes the entry INVALID ("prepare a new round") and `retry` refuses it (Z1, `:1645-1650`). A copied or mismatched `binding.json` beside a never-admitted saved reply — a leader's hand-made layout, an ordinary failure under R-THREAT — is in progress (Task 18, Z5). `retry` RECORDS the attempt it replaces before it allocates the next: it takes that attempt's digests first, judges those same bytes, and seals it `invalid` when an answer is there — a result it judged inadmissible, or, on the native route, a saved `raw.json` (Z4) — and `failed-to-run` when none is; a write that lands while it judges refuses the retry and allocates nothing (`:3112-3121`, `:3363`; `_seal_replaced`). `collect-r<N>.json` keeps each seal's digest, and every collection
 re-checks every sealed attempt of the entry — the earlier ones included — so a later change, removal or replacement of
 a sealed file or seal is an integrity failure (INCOMPLETE, never AGREED). The printed wrapper line runs a seal guard
 under `noclobber`, and the native spawn gets a printed `guard:` line (`lib/review_scratch.py:5238-5248`, `:5261-5273`).
@@ -696,7 +696,19 @@ deployment context → a recorded fact under R-THREAT; speculation → residual,
 a claim, not an instruction, and a vote is not evidence. Leader triage cannot rewrite approval under R-AGREE.
 
 <a id="R-CLEANUP"></a>
-Cleanup exports and verifies the round's evidence first, then releases only resources the helper can PROVE it allocated or claimed (its own allocation record or marker — never a name shape; an empty directory or a plausible-looking marker can still be foreign); uncertain residue is preserved and reported; it refuses without deleting, states what it observes, and points at the one documented recovery when a tree is not its own. A second cleanup is a no-op. Cap-based pruning of run-log and repair-IPC
+Cleanup exports and verifies the round's evidence first, then releases only resources the helper can PROVE it allocated or claimed (its own allocation record or marker — never a name shape; an empty directory or a plausible-looking marker can still be foreign); uncertain residue is preserved and reported; it refuses without deleting, states what it observes, and points at the host's deletion command when a tree is not its own. A second cleanup is a no-op.
+Only host code deletes ([D-DELETION-BY-CODE-20261004](../decisions/owner-register.md#D-DELETION-BY-CODE-20261004)).
+Every folder a host's code may delete is declared in one JSON configuration file (shape:
+`contracts/cleanup-roots.schema.json`; illustration: `contracts/cleanup-roots.example.json`); each entry carries a role,
+a root, the ownership proof this rule already requires and the host's age floor for that role. Deletion code refuses a
+target outside a declared root, and inside one it still refuses anything it cannot prove it allocated: the declaration
+adds to the proof and never replaces it. An AI — the leader, a sub-agent, skill, agent or prompt text, a printed remedy —
+at most chooses a declared role and a folder and runs the host's deletion command; no prompt, skill, agent text, printed
+remedy or operator procedure carries its own removal command (`rm`, `rmdir`, `git worktree remove`, an rmtree). A call
+that removes what it created itself needs no declaration: an atomic write's temporary file, a failed step's rollback, a
+test's own fixture. On A: in progress (Task 23). On B: deletion is coded and no prompt text deletes, but its roots and
+floors are not yet declared in the configuration file (DL-77). Owner decision pending: what a host does when the
+configuration file is missing or invalid, and how a wrapper run-log is removed after a repair (DL-77). Cap-based pruning of run-log and repair-IPC
 files keeps a minimum age floor so a fresh sibling file is never deleted to satisfy a cap (mtime is not only a sort key).
 A round that is paused, not abandoned, stays alive: each step that works on it refreshes its activity mark. On A (@
 `cbc67f6`): `retry` and the adoption of an orphan attempt (through the round-record write, `lib/collect_v2.py:759-765`),

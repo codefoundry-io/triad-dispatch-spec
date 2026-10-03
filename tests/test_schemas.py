@@ -208,3 +208,30 @@ def test_c9_c10_receipt_rejects_ambiguous_or_unknown_fields(mutation):
     data = receipt()
     data.update(mutation)
     assert not validator("receipt-fields.json").is_valid(data)
+
+
+def cleanup_roots_example():
+    return json.loads((ROOT / "contracts" / "cleanup-roots.example.json").read_text())
+
+
+def test_c69_cleanup_roots_example_is_valid():
+    validator("cleanup-roots.schema.json").validate(cleanup_roots_example())
+
+
+@pytest.mark.parametrize("field", ["role", "root", "proof", "min_age_s"])
+def test_c69_cleanup_root_entry_requires_each_field(field):
+    data = cleanup_roots_example()
+    del data["roots"][0][field]
+    assert not validator("cleanup-roots.schema.json").is_valid(data)
+
+
+def test_c69_cleanup_root_proof_is_never_a_bare_name_shape():
+    data = cleanup_roots_example()
+    data["roots"][0]["proof"] = "name-shape"
+    assert not validator("cleanup-roots.schema.json").is_valid(data)
+
+
+def test_c69_cleanup_role_is_named():
+    data = cleanup_roots_example()
+    data["roots"][0]["role"] = ""
+    assert not validator("cleanup-roots.schema.json").is_valid(data)

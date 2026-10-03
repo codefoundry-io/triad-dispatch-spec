@@ -160,7 +160,8 @@ needed by R-RETRY and R-BIND, not a second scheduler or provider engine.
   separately from leg count, without a minimum-family gate. Verify final
   source/toolkit integrity before admission.
 - Keep cleanup ownership/export/failure retention. No retry deletes prior
-  evidence or overwrites immutable result files.
+  evidence or overwrites immutable result files. Only host code deletes, from
+  roots declared in one configuration file (R-CLEANUP, C69).
 
 <a id="SPEC-INVESTIGATION"></a>
 ## Paths, investigations and unresolved decisions

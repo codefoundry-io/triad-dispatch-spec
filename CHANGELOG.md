@@ -52,6 +52,13 @@
   attempt — A in progress, B to check (DL-76); no pre-call login check (owner correction of the same day,
   D-AUTH-JUDGE-STOP-20261004; DL-16's preflight WITHDRAWN); R-DECISION-ORDER: an absolute law is never a design choice or
   a shared limit; DL-75 re-triaged from a limit to a defect both hosts fix; C37 expected and tests; units.json.
+- Deletion by code (owner 2026-10-04, D-DELETION-BY-CODE-20261004): R-CLEANUP — only host code deletes, from roots declared
+  in one JSON configuration file (role, root, ownership proof, age floor); an AI at most chooses a declared role and a
+  folder; no prompt, skill, agent text, printed remedy or operator procedure carries its own removal command; self-created
+  temporaries need no declaration. New `contracts/cleanup-roots.schema.json` / `.example.json` (tests), case C69, DL-77
+  (A in progress, Task 23; B to adopt the file and fix two README passages); R-AGREE / R-BIND / R-CONTAIN pointers;
+  PRD-RETENTION; rev-2 spec; units.json; the policy `.verify.toml` `on_fail` texts. Owner decisions pending: a missing or
+  invalid configuration file; the run-log after a repair.
 
 ## Spec gaps exposed by host A's conformance work — 2026-10-03 (not tagged)
 

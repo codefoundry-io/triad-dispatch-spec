@@ -567,6 +567,18 @@
         "A": "todo — no A test names C68 @ triad b53409b; the deployment-context clause is vendored (spec/prompts/common-clauses.md:36) and placed before severity-instruction in every leg order (spec/prompts/leg-claude.md:63, leg-codex.md:45, leg-google.md:64), candidate 1f907af",
         "B": "todo (re-vendor; authoring/shared-dev-log.md DL-56)"
       }
+    },
+    {
+      "id": "C69",
+      "surface": "cleanup",
+      "rule": "R-CLEANUP",
+      "summary": "Only host code deletes, from roots declared in one configuration file",
+      "input": "a host deletion request (an AI choosing a role and a folder, a printed remedy, an automatic prune) for (a) a folder inside a declared root that the host can prove it allocated, (b) a folder outside every declared root, (c) a folder inside a declared root without the ownership proof, (d) a folder younger than the role's age floor, (e) a symlink; and the host's prompt, skill, agent and remedy texts",
+      "expected": "(a) the host's deletion command removes it; (b)-(e) are refused without deleting anything, each refusal naming what it observed. No prompt, skill, agent text, printed remedy or operator procedure carries its own removal command (rm, rmdir, git worktree remove, an rmtree); an AI at most chooses a declared role and a folder and runs the host's deletion command. A call that removes what it created itself (an atomic write's temporary file, a failed step's rollback, a test's own fixture) needs no declaration. The configuration file validates against contracts/cleanup-roots.schema.json. Owner decision pending: the outcome for a missing or invalid configuration file.",
+      "tests": {
+        "A": "todo — in progress (Task 23); authoring/shared-dev-log.md DL-77",
+        "B": "todo — B to adopt the configuration file (roots and floors are hardcoded today) and to replace the two README passages that leave a deletion to a person; authoring/shared-dev-log.md DL-77"
+      }
     }
   ]
 }
