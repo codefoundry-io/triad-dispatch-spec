@@ -1,5 +1,29 @@
 # Changelog
 
+## Owed rows from host A's conformance work — 2026-10-04 (not tagged)
+
+- What the codex host must learn, written into the spec (owner 2026-10-04, D-DECISION-ORDER-20261004): new process
+  rule `R-DECISION-ORDER` (spec → the other host's code → a fact or limit both lack recorded without a question → the
+  owner only for a design choice; what the other host must learn goes here in the same turn).
+- Owner register: D-PRE-RECORD-REPLY-20261003, D-ENV-DROPPED-LINE-20261003, D-ONE-ENVIRONMENT-20261003,
+  D-LATE-ANSWER-20261004, D-DECISION-ORDER-20261004 (verbatim quotes); the two-site framing of Q-G / Q-J / Q-N
+  superseded as current state; WEB-A-2's reason and the WEB-A-1 record reworded.
+- R-AGREE: collection runs the round integrity check before agreement on both hosts (DL-52 superseded); A's
+  cause-named remedies, host faults (64) and `close`'s fresh, never-refusing check; known limit + operator rule for a
+  late answer after collection's last custody check (both hosts).
+- R-BIND: A's seal states (valid / invalid / failed-to-run), sealed refused replies, saved replies recorded before any
+  retry or agreement, retry sealing the replaced attempt from the bytes it judged, re-derived admissions, the sealed
+  run-log; C66 limits re-triaged ((2), (5) closed; (3) a fact); known limit for a reply replaced before any host write
+  (both hosts); the executed-command receipt as a common rule (A pre-spawn + collect; B record time) with the known limit
+  for a line with every review marker removed. R-REVIEW-WEB On A, R-THREAT re-triage sentence follow.
+- R-PREPARE: A's symlink mechanism stated (committed links listed in the bound brief; untracked links refused where
+  the worktree is captured; DL-53 closed for A).
+- R-CLASSIFY + `contracts/vendor-failure-lines.json`: agy's print-timeout row (token `timeout`), carrier and precedence
+  facts; new record tests in `tests/test_spec_records.py`.
+- R-NOCOST (C11 agreed set not yet data; GOOGLE_CLOUD_PROJECT on A's gemini route open), R-CLI-VERSION (null when not
+  observed). Cases C11, C13, C26, C32, C43, C66 tests.A; `units.json` review-lifecycle, review-web-authorization.
+- Dev log: DL-60–DL-69; DL-19, DL-44, DL-52, DL-53, DL-55, DL-59 notes and statuses.
+
 ## Spec gaps exposed by host A's conformance work — 2026-10-03 (not tagged)
 
 - Owner answers 2026-10-03 (DL-59 RULED): reading (b) confirmed — every AI leg may use web search, for model

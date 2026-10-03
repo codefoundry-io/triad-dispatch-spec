@@ -83,7 +83,7 @@ new rule; every row points at the normative location.
 | Q-D | A selected investigation returns a free-form report, never a review verdict | `R-ROSTER` last sentences |
 | Q-E / Q-M | No "degraded" label ceremony; no per-leg special rules; a leg has a recommended default model, changeable anytime; the count is variable | `R-ROSTER` |
 | Q-F / Q-K | No development before the design spec is agreed; approved defect fixes on host A continue | `README.md` (rev-0 is a draft, not implementation authorization) |
-| Q-G / Q-J / Q-N | agy and gemini are distinct CLIs of one family with opposite availability at the two sites; keep each host's SHIPPED fallback logic; the owner tests gemini where it is in service and briefs the leader | `R-GOOGLE` |
+| Q-G / Q-J / Q-N | agy and gemini are distinct CLIs of one family with opposite availability at the two sites; keep each host's SHIPPED fallback logic; the owner tests gemini where it is in service and briefs the leader **The two-site framing is superseded as current state on 2026-10-03 by [D-ONE-ENVIRONMENT-20261003](#D-ONE-ENVIRONMENT-20261003)** (one environment; agy is the default Google route, gemini the compatibility route; the fallback logic and the owner's gemini testing stand). | `R-GOOGLE` |
 | Q-O | `acceptance` is a data field only; every rule derived from it is cut | `R-ROSTER`, `contracts/review-legs.example.json` |
 | Q-P | The shared package lives in this SEPARATE repository; enforcement mode is the leaders' call (recommendation: informational drift report first) | `README.md § How a host uses a revision` step 3 |
 | Q-S | selected option: a MERGE WITH FIXES with only Minor findings counts as agreement, no extra round | `R-AGREE` |
@@ -148,7 +148,8 @@ claude `-web` and `-high-web` twins, each of which, per the host A record, fetch
 https://code.claude.com/docs/en/sub-agents. Result `ROUND_INTEGRITY_OK`, AGREED 4/4 over three
 families (host A record: triad `e192938`, `docs/reviews/2026-10-03-live-web-c32-residuals.md`). Not covered live, unit-tested
 only: the false condition and a mismatched launch switch (check WEB-A-3, NOT RUN live; host A tests t23, t62) and the
-gemini route. WEB-A-3, WEB-B-1 and WEB-A-2 remain NOT RUN (WEB-A-2: the gemini route is the in-company Google route).
+gemini route. WEB-A-3, WEB-B-1 and WEB-A-2 remain NOT RUN (WEB-A-2: gemini is host A's compatibility route and is not in
+service where host A runs; [D-ONE-ENVIRONMENT-20261003](#D-ONE-ENVIRONMENT-20261003)).
 
 <a id="d-auth-browser-login-20260926"></a>
 ## D-AUTH-BROWSER-LOGIN-20260926: CLI authentication is the user's own browser login only
@@ -281,6 +282,9 @@ The leader's question (verbatim), to which the owner typed the answer below:
 
 > With web always on for review legs, what should happen when a leg's route cannot use web (e.g. host A's in-company gemini has no web-enabled policy profile yet)?
 
+(The question's "in-company" framing is history; the current state is one environment,
+[D-ONE-ENVIRONMENT-20261003](#D-ONE-ENVIRONMENT-20261003).)
+
 The owner's answer:
 
 > 웹 지원 가능하도록 하는거 쉬ㅣㅂ잖아 먼저 구현휴 진행
@@ -394,3 +398,137 @@ payload change both hosts re-vendor); facts recorded under the earlier wording a
 Effect: [R-THREAT](../reference/review-rules.md#R-THREAT) (new), R-VERIFY's dispositions and the C66 limits under
 R-BIND point to it; the shared prompt clause `deployment-context` (`prompts/common-clauses.md`, in every leg order);
 case C68; dev-log row DL-56. Host adoption (re-vendor), publication and revision tags remain separate.
+
+<a id="D-PRE-RECORD-REPLY-20261003"></a>
+## D-PRE-RECORD-REPLY-20261003: a reply replaced before the host's first record is a known limit, both hosts
+
+Owner, 2026-10-03, typed answer (verbatim; source: host A's leader session record (unpublished), the transcript of
+2026-10-03, 11:00Z) to the leader's question (verbatim):
+
+> 호스트가 답을 기록하기 전에 저장된 답 파일이 바뀌는 경우(오류 + 실수 세 가지가 겹침)를 어떻게 처리할까요?
+
+Option 1 of that question, the leader's label and description (verbatim):
+
+> 알려진 한계로 기록 (추천)
+
+> 코드 변경 없음. 스펙의 '알려진 한계' 이유를 새 위협 모델 기준으로 고침: 기록 전 바뀐 파일은 원리상 알 수 없고, 실수 세 가지가 겹쳐야 생김. 두 호스트 공통.
+
+The owner's answer:
+
+> 기간으로 지우잖아 1
+
+The owner's follow-up, typed the same minute:
+
+> 기간으로 지우는 로직없어? 아님 내가 이해를 잘못했어?
+
+Reading recorded with the decision (the leader's, not the owner's words): option 1 — a known limit for both hosts, no
+code. The recorded reasons are the option's two: before any host write about a saved reply has landed, no record of its
+first bytes exists, so a replacement is undetectable by construction; and the chain needs a host fault or a stop plus
+three leader mistakes (ignore the fault, skip the printed guard, save over the existing file). The owner's remark that the
+files are deleted after a period is quoted, not used as the reason: retention deletion comes after the round and does not
+change an outcome during it. The limit covers every case in which no host write landed — a stop before the host's first
+write or that first write itself failing (on A the admission's seal create on a full disk; on B the exclusive create of
+`record_attempt`). A write that started and did not complete is not this limit: host A then fails closed.
+
+Effect: [R-BIND](../reference/review-rules.md#R-BIND) (known limits, both hosts), case C66 tests.A,
+`authoring/shared-dev-log.md` DL-64.
+
+<a id="D-ENV-DROPPED-LINE-20261003"></a>
+## D-ENV-DROPPED-LINE-20261003: a wrapper line with every review marker removed is a known limit, both hosts
+
+Owner, 2026-10-03, selected option (source: host A's leader session record (unpublished), the transcript of 2026-10-03,
+14:02Z). The leader's question, and the selected option's label and description (verbatim; the label and description
+are the leader's, the choice the owner's):
+
+> 리뷰 표시 두 개를 모두 지운 실행 명령(실행 전에 못 막고, 결과 수집에서 무효 처리됨)을 어떻게 처리할까요?
+
+> 알려진 한계로 기록 (추천)
+
+> 코드 변경 없음. 스펙 C32에 두 호스트 공통 예외로 기록: 표시가 모두 지워진 줄은 실행 후 결과 수집에서 무효 처리(합의 불가).
+
+Recorded effect: a printed wrapper line with every review marker removed (on A both review env values,
+`TRIAD_REVIEW_LOG_DIR` and `TRIAD_REVIEW_ARGV_SHA256`) runs as an ordinary call on both hosts — no construction can refuse
+before inference a command that carries no review marker — and is caught at collection (INVALID, never agreement). It is
+the one exception to C32's "a launch switch that disagrees with the bound condition refuses before inference".
+
+Effect: [R-BIND](../reference/review-rules.md#R-BIND) (the executed-command receipt and its known limit),
+[R-REVIEW-WEB](../reference/review-rules.md#R-REVIEW-WEB) On A, case C32 tests.A, `authoring/shared-dev-log.md` DL-63.
+
+<a id="D-ONE-ENVIRONMENT-20261003"></a>
+## D-ONE-ENVIRONMENT-20261003: one environment — no off-site / in-company split as current state
+
+Owner, 2026-10-03, typed (verbatim; source: host A's leader session record (unpublished), the transcript of 2026-10-03,
+11:37Z):
+
+> 이제 사내 구분안해 없애
+
+The leader's scope question, and the selected option's label and description (verbatim; 11:42Z):
+
+> '사내 구분'을 어디까지 없앨까요?
+
+> 두 환경 서술만 없앰 (추천)
+
+> 지침·문서에서 사외/사내 두 환경 구분을 지우고 한 환경으로 서술. Mac·Ubuntu 호환 의무는 '두 OS 지원'으로 유지, 플러그인 재배포 규칙도 유지. 구글 리뷰어는 agy 기본, gemini는 호환 경로.
+
+Recorded effect: the current state is described as one environment, with no off-site / in-company (leaders' site /
+company site) split. Kept: support of macOS and Ubuntu 24.04 ([R-PLATFORM](../reference/review-rules.md#R-PLATFORM)),
+each host's plugin re-deploy rule, each host's shipped Google fallback logic and the owner's gemini testing where gemini is
+in service (Q-N). The Google review route is agy by default and gemini the compatibility route. The two-site framing of
+Q-G / Q-J / Q-N is superseded as current state; that row and other history records are kept as written.
+
+Effect: the Q-G / Q-J / Q-N row, the WEB-A-1 record and the question of D-REVIEW-LEGS-20261003 (annotated),
+`contracts/review-web.verify.toml` WEB-A-2 `not_run_reason`, `authoring/shared-dev-log.md` DL-68.
+
+<a id="D-LATE-ANSWER-20261004"></a>
+## D-LATE-ANSWER-20261004: a late answer after collection's last custody check is a known limit, both hosts
+
+Owner, 2026-10-04, typed answer (verbatim; source: host A's leader session record (unpublished), the transcript of
+2026-10-03, 18:30Z) to the leader's question (verbatim):
+
+> 실행 중인 리뷰어를 재시도한 뒤, 마지막 검사와 합의 기록 사이 아주 짧은 순간에 늦은 답이 들어오는 경우(다음 수집에서 잡힘)를 어떻게 처리할까요?
+
+The question's recommended option, the leader's label and description (verbatim):
+
+> 알려진 한계 + 운영 규칙 (추천)
+
+> 코드 변경 없음. 두 호스트 공통 한계로 스펙에 기록하고, '재시도한 리뷰어가 아직 실행 중일 수 있으면 합의를 쓰기 전에 한 번 더 수집한다'는 규칙을 안내에 추가.
+
+The owner's answer:
+
+> 스펙에 적어.
+
+Reading recorded with the decision (the leader's, not the owner's words): the recommended option, written into the spec —
+a leg still running in an attempt a retry replaced can write its answer after collection's last custody check and before
+the AGREED record; no construction closes the window on either host; the next collection reports the change. Operator
+rule, carried by each host's guidance: when a retried leg may still be running, collect once more before using an AGREED.
+
+Effect: [R-AGREE](../reference/review-rules.md#R-AGREE) (known limit and operator rule), `authoring/shared-dev-log.md`
+DL-61.
+
+<a id="D-DECISION-ORDER-20261004"></a>
+## D-DECISION-ORDER-20261004: the order of deciding a gap, and what the other host must learn goes into the spec
+
+Owner, typed (verbatim; source: host A's leader session record (unpublished), the transcript of 2026-10-03 (UTC)). On
+2026-10-03, as answers to the leader's question about a hand-edited reviewer command line (10:12Z, 10:15Z):
+
+> 스펙이랑 코덱스쪽 코드 확인했니? 아님 그와 별개의 문제야?
+
+> 왜 지침을 안따라 스펙 확인 스펙에 없으면 코덱스 확인 그래도 듈다 문제면 나에게 요청 이후 스펙추가
+
+On 2026-10-04 (18:31Z and 18:51Z on 2026-10-03 UTC), after the leader asked about two known limits that needed no decision:
+
+> 왜 이걸 못해 수펙에 없으먄 코드 확인 커드에 없으면 수펫에 적는거잖으
+
+> 니가 커덱스 쪽에 알려할게 있으먄 꼭 스펙에넣어 스펙이 부족해서 니가 코덱스쪽글 봐야했ㅇ.ㄹ때도 둘다 문제일때도 플랜이나 스펙이 완전하다고 가정하지말고 좀 지침이나 어디 적어놔라
+
+Reading recorded with the decision (the leader's, not the owner's words): a gap found while implementing is decided in
+this order — what the specification already decides; else the other host's code (when it settles the behaviour, the
+specification gains the rule); else a fact or limit both hosts lack is recorded in the specification without an owner
+question; the owner is asked only for a design choice with a trade-off that neither settles. Whatever the other host must
+learn — a gap that made a leader read the other host's code, a defect both hosts share, a defect of the other host — goes
+into this specification in the same turn it is found, never only into a host's private record. Neither the plan nor the
+specification is assumed complete. The 2026-10-03 order ("나에게 요청 이후 스펙추가") is refined by the 2026-10-04 words for a
+fact or limit both hosts lack. Same direction as [D-SPEC-GAPS-20261003](#D-SPEC-GAPS-20261003).
+
+Effect: [R-DECISION-ORDER](../reference/spec-authoring.md#R-DECISION-ORDER) (new), `authoring/shared-dev-log.md`
+DL-69.

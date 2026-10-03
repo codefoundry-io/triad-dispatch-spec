@@ -17,6 +17,14 @@
       "carrier": "print mode result with status ERROR and an empty response, vendor exit 1",
       "token": "server-capacity",
       "observed": "2026-08-20"
+    },
+    {
+      "cli": "agy",
+      "line": "[agy] print timeout after <duration> with turn in progress; returning partial output",
+      "match": "with turn in progress; returning partial output",
+      "carrier": "the whole stderr line beginning `[agy] `, at any vendor exit, with a partial answer that is never returned",
+      "token": "timeout",
+      "observed": "2026-10-03"
     }
   ]
 }

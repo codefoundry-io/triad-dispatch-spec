@@ -56,3 +56,23 @@ def test_dev_log_footer_matches_the_status_cells():
     assert _footer_ids("Rows with A work open:") == _status_ids(r"OPEN \(A")
     assert _footer_ids("Checks suggested for B:") == _status_ids(r"CHECK-B")
     assert _footer_ids("Rows awaiting the owner:") == _status_ids(r"(?:^|; )OWNER")
+
+
+def _vendor_lines():
+    return json.loads((ROOT / "contracts/vendor-failure-lines.json").read_text())["lines"]
+
+
+def test_vendor_failure_rows_match_their_own_sentence_with_a_known_token():
+    # R-CLASSIFY: each row's lowercase match part is part of its sentence, and its token is a contract token.
+    tokens = {t["token"] for t in json.loads((ROOT / "contracts/exit-tokens.json").read_text())["tokens"]}
+    for row in _vendor_lines():
+        assert set(row) >= {"cli", "line", "match", "carrier", "token", "observed"}, row
+        assert row["match"] == row["match"].lower() and row["match"] in row["line"].lower(), row
+        assert row["token"] in tokens, row
+
+
+def test_agy_print_timeout_row_is_a_timeout_on_agy():
+    # Observed 2026-10-03 on host A: agy returned a partial answer at vendor exit 0 (authoring/shared-dev-log.md DL-62).
+    rows = [r for r in _vendor_lines() if "print timeout" in r["line"]]
+    assert [(r["cli"], r["token"]) for r in rows] == [("agy", "timeout")]
+    assert "[agy] " in rows[0]["carrier"] and "any vendor exit" in rows[0]["carrier"]
