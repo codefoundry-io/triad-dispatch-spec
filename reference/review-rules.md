@@ -479,7 +479,8 @@ not attribution (found on A over rounds r11–r13, `authoring/shared-dev-log.md`
   bound condition installs the hook in that mode, `lib/review_scratch.py:4142-4152`, `:5841-5843` @ `b53409b`, and the
   legacy small path uses it under its own `--web`); B: non-mutating project route (`--mode plan --sandbox read-only`) with `--project`, and on the v2 path (no `--project`) the temporary settings transaction named under R-REVIEW-WEB; B's hook stays dormant until separately agreed. The agy hook and the gemini read-only policy are TOOL-NAME controls: neither scopes paths, and the read audit records the argument path as given, not a resolved target — they do not by themselves contain a symlink escape (see the Q4 item in R-PREPARE).
 - all wrappers: binary presence; a relative `--prompt-file` or `--cwd` is ACCEPTED and resolved against the wrapper PROCESS cwd at argument processing (never the child `--cwd`); every existing validation stays — configured runtime roots where configured, regular file, UTF-8, non-empty; the resolved absolute prompt-file and child-cwd paths are represented in the existing success summary and audit row, using the host's current redaction mode (D-B2). Refusal names the resolved candidate through that same masking policy. An input with no resolvable candidate (`~<no-such-user>`, a relative path once the wrapper's entry cwd is gone) is refused masked under redaction on both hosts; without redaction A names the text given and B the exception class (a fact: A `_resolve_against_entry_cwd`, `3rd-Agent/wrappers/_common.py:1882-1905` @ triad `bf38f60`; B `input_path_error`, `bin/_common.py:537-548` @ `7f75863`). A configuration refusal (an allowed-roots entry that cannot be resolved, a hardened run without allowed roots) names the argument it stopped on, on both hosts (A `_ensure_within_runtime_roots`, `_common.py:1825-1833`; B `input_path_error`, whose label for the prompt file is `prompt load`). Failure-only run logs remain failure-only. Relative spelling alone is never a reason to refuse (C28). A host's other file options that name an existing input file (on A the schema-file options
-`--output-schema-file` / `--json-schema-file`) follow the same rule. On A: relative paths are rebased on the process-entry cwd and then validated (`3rd-Agent/wrappers/_common.py:1800-1844`, `:1865-1881`); On B: `bin/_common.py:502-537`; stdin delivery confirmed or refused (fail closed); process group captured at spawn and
+`--output-schema-file` / `--json-schema-file`) follow the same rule (on A the resolved schema-file path is recorded in the audit row's `cmd` / the run-log's
+`vendor_cmd`, the vendor argv; the summary tail carries `prompt_file=` only). On A: relative paths are rebased on the process-entry cwd and then validated (`3rd-Agent/wrappers/_common.py:1800-1844`, `:1865-1881`); On B: `bin/_common.py:502-537`; stdin delivery confirmed or refused (fail closed); process group captured at spawn and
   reaped on timeout / abnormal unwind and normal exit under R-TERMINAL (On A: `_common.py:3198-3205`, `:3333-3381`; On B: `bin/_common.py:1357-1386`); reader and writer completion before success (On A: incomplete readers fail closed, `_common.py:3433-3437`; On B: incomplete/error collection is rejected); schema validation with one clean repair retry where a leg relies on it; verdict
   binding to review id, family and content digest; round integrity capture/verify.
 - cleanup (only host code deletes, from declared roots — R-CLEANUP): refuses without deleting when a tree is not provably its own; ownership is proven by an allocation record or
@@ -502,7 +503,13 @@ signal and `_mark_signal_failure` sets that shape (`bin/_common.py:1400-1452` @ 
 installed inside `_run_once` only (`:1425-1441`), so a signal between attempts exits 143 with no record (DL-70). On A:
 every window of a dispatch ends in that shape with its summary, audit row and run-log — after the spawn, in the wait,
 inside the timeout arm's group kill (the SIGKILL escalation kept) and between attempts (`_terminal_signal_to_exit`,
-`3rd-Agent/wrappers/_common.py:3441-3448`; `_run_once`, `:3559-3585`, `:3924-3949` @ triad `bf38f60`). Verdict
+`3rd-Agent/wrappers/_common.py:3441-3448`; `_run_once`, `:3559-3585`, `:3924-3949` @ triad `bf38f60`), and after the engine's last check too: the record step turns
+a recorded signal into the signal record before the records are written, and the answer of any signal recorded inside a
+dispatch is withheld (exit 1); a signal that lands while the records are being written withholds the answer but leaves
+the records already written with the earlier verdict (a limit; triad `_dispatch_record`, `_emit_payload`, 6.0). A failed
+host record write (audit row, run-log, debug log) never changes the provider result or loses the answer, on both hosts (A
+one stderr line; B `audit()` returns False, `bin/_common.py:2139-2153` @ `7f75863`); on A a review attempt whose run-log
+was lost carries no receipt, so it is INVALID at collection and retried, never agreed. Verdict
 precedence, both hosts: a timeout verdict stands over a signal; a signal replaces a stdin-delivery or reader failure; a
 stdin-delivery or reader failure replaces a vendor exit code of 0 (A `:3924-3949`; B `bin/_common.py:1433-1437`,
 `:1663-1679` @ `7f75863`). A signal between attempts (a server-capacity backoff, a schema-repair turn) spawns nothing:
@@ -572,8 +579,8 @@ The transport receipt and audit / run-log records carry the common transport obj
 `contracts/receipt-fields.json`: stdin delivery class, execution route, binary, observed CLI version and attempt.
 Existing host envelopes remain. Schema validation alone does not prove host implementation or observed runtime identity.
 On A, when a later agy driver turn (a schema-repair or soft-deny re-run) fails to spawn, the audit `cmd` is the argv of
-the last turn that spawned, the receipt takes the unspawned turn's pre-spawn shape (`stdin_delivery` `not-started`,
-`binary` null), and that turn adds no attempt to the read audit (`3rd-Agent/wrappers/antigravity_wrapper.py:1052-1077`,
+the last turn that spawned, the receipt describes that same last spawned turn (its binary and its delivery; 6.0 —
+earlier the unspawned turn's pre-spawn shape), and the unspawned turn adds no attempt to the read audit (`3rd-Agent/wrappers/antigravity_wrapper.py:1052-1077`,
 `:2050-2056`; `build_transport`, `3rd-Agent/wrappers/_common.py:2066-2083` @ triad `bf38f60`). B has no driver re-run
 turn (a fact).
 
@@ -836,7 +843,8 @@ a committed `.GITIGNORE`, measured on A with APFS and git 2.50.1) last, the deep
 itself after its case variants (on a case-sensitive volume a variant is an ordinary file the real one may ignore), and
 a `.git` entry is any name that matches `.git` ignoring case (on a case-insensitive volume git honours a `.GIT` folder as a
 repository; measured on A, APFS, git 2.50.1 — on a case-sensitive volume it does not), the named folder's own proof entry is kept
-to the end whatever its case, and any OTHER entry so named, anywhere below, is refused on both volume kinds — never
+to the end whatever its case (own only when the listing holds no other name that case-folds to `.git` — a hand hard link
+`.GIT` → `.git` is one inode under two names, and the second is "other"), and any OTHER entry so named, anywhere below, is refused on both volume kinds — never
 skipped and never emptied, so a stop never shows a file they ignore as new and every resume finishes
 (on A both a stopped code-worktree removal and a stopped packet close). A rollback finds its own registration by identity (device
 and inode), because git records the real path. The age floor binds a SWEEP; an
