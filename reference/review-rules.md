@@ -512,6 +512,13 @@ verdicts and the read-only allowlist census, above every answer, ok and retry br
 same run classifies `timeout` today — in progress (Task 19 fix round 2, L8; DL-62). The shared order also lets an
 API-key-shaped sentence on the same failed run as a server-capacity sentence classify `server-capacity` and be retried;
 under the absolute law (R-AUTH (iii)) that is a defect both hosts fix, not a limit: A in progress, B to change (DL-75).
+On A the auth-carrier rung comes first (R-AUTH (iii)): after the ok and timeout returns and before every other rung, an
+authentication sentence or structured code in the vendor's OWN error carrier — the codex `error` / `turn.failed`
+message, the claude `is_error` envelope (`api_error_status` 401, or its result text), the gemini error object (code 41
+`FatalAuthenticationError` or 401, or its message; gemini CLI 0.60.0), agy's `result.error` and its whole-line auth
+banner — classifies `oauth-env`, and no answer, reviewed file or tool output is read for it; the shared order above
+then applies to the rest of the failed run (`3rd-Agent/wrappers/_common.py` `_auth_carrier_stop`, triad `71173cd`,
+in verification). A structured code is a carrier fact `contracts/vendor-failure-lines.json` has no column for.
 
 <a id="R-RECEIPT"></a>
 The transport receipt and audit / run-log records carry the common transport object defined by
