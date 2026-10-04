@@ -788,7 +788,11 @@ clears before writing again is removed only when its content shows the host wrot
 like any empty folder and leaves that repository a prunable registration (a recorded limit; B uses no linked worktrees).
 A link in any component of a deletion path below the project base — the declared root's own components included — is
 refused. A folder holding a worktree that git has LOCKED (git's documented guard against pruning), at any depth, is refused by
-every deletion — a sweep and the deletion command alike; unlocking it is the operator's own act. A folder holding a
+every deletion — a sweep and the deletion command alike; unlocking it is the operator's own act. When the named folder is itself a
+registered worktree (on A the code-worktrees role), a tree holding uncommitted or untracked changes is refused, as git's
+own `git worktree remove` without force refuses it: committing or discarding the work is the operator's act. A worktree
+nested inside a marker role's folder (a review packet's round tree, checked by its own close and partly emptied by a
+stopped one) is detached as above. A folder holding a
 moved or copied round tree, a clone, or a tree whose `.git` file names no registration is refused by the deletion command
 and skipped by the sweep, so it stays: no supported step removes it, and removing it is likewise the operator's own act (a
 recorded limit, measured on A with git 2.50.1). The floor also binds the deletion command, so a refused folder younger than
