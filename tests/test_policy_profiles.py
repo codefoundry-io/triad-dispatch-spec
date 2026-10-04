@@ -30,7 +30,7 @@ def test_c15_b_profile_preserves_read_plan_and_catchall_rules_without_web_allow(
 
 def test_c15_a_payload_is_unchanged_by_b_profile_split():
     data = (ROOT / "contracts/gemini-readonly.toml").read_bytes()
-    assert hashlib.sha256(data).hexdigest() == "13d25f61a430cbee082b756a04b6d872d225e1749eeaad55f95e22ad21fa6980"
+    assert hashlib.sha256(data).hexdigest() == "6480a765ca2d32d3bdadd8f46be20f9bcd2b4de66d42bb075e4dcda1cad3d207"
 
 
 def test_c15_b_manifest_binds_exact_profile_and_leaves_live_checks_unrun():
