@@ -754,8 +754,8 @@ holds nothing to lose; roles whose proof only the sweep can check, and roots sha
 with `$TMPDIR` or `~`; a repository-relative or `$HOST_DIR` root is the host's own), get no such
 removal (an empty folder a stopped git-registered deletion leaves is the sweep's: on A an EMPTY, unregistered folder directly
 under the code-worktrees root, never a registered one). A coded sweep may run in a folder that stands in for its role's
-root for test isolation (on A a log- or debug-directory variable, a review attempt's own log directory, the root a caller
-hands the review helper); the role must still be declared and its proof and floor apply, and the deletion command never
+root for test isolation (on A a log- or debug-directory variable, a review attempt's own log directory); a root a caller
+hands a review helper is not a stand-in — it must be the declared root; the role must still be declared and its proof and floor apply, and the deletion command never
 reads such a stand-in. A sweep checks one proof — a role that declares another is skipped with a note; a day-granular sweep
 rounds the declared seconds up to whole days; an operator setting may raise a floor, never lower it, and a host keeps its
 own minimum for a role whose files a live call or a paused round still uses (the cap prune's fresh-sibling floor above; a
