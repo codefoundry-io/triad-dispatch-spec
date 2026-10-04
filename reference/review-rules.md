@@ -146,7 +146,14 @@ returns no model to A's code and A has no probe, so the refusal of a reported co
 A (a fact); B probes its CLI route before inference (`bin/review_adapters_v2.py:106-127` @ `7f75863`). An explicit
 older Claude model exists on A only as an operator-authored preset named in `claude.agent` (A refuses `claude.model`
 in the roster), selectable on a web round with its `-web` twin beside it (R-REVIEW-WEB; C12); the claude entry's
-resolved model and effort are recorded and bound, not printed (above, DL-49). The frontmatter
+resolved model and effort are recorded and bound, not printed (above, DL-49). A bare id the host's own plugin defines
+is scoped to the plugin (so a same-named project agent cannot shadow the shipped reviewer); an id the plugin does not
+define is the operator's preset, found as Claude Code finds it (the session project's agents folder, searched by the
+`name` frontmatter, before the user's), bound, and spawned unscoped — as B passes `--agent` unscoped
+(`bin/review_adapters_v2.py:107-108` @ `7f75863`). The preset's frontmatter is bound as written (its bytes, so any
+change of model or effort in any YAML form is a changed control), and a spawned preset's `tools` are checked before a
+round: only read tools (Read, Grep, Glob), plus WebSearch and WebFetch exactly when the round is a web round — a
+preset with no `tools` line (it inherits every tool) or with a tool that runs or writes is refused (R-CONTAIN). The frontmatter
 outranks a session-wide subagent model setting only from Claude Code v2.1.251, and a forcing setting (v2.1.257+) makes Claude
 Code ignore it (same documentation): on A the pin is the selection only on such a version with no forcing setting — an operator
 configuration A does not observe (a fact).
