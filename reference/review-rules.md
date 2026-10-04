@@ -25,7 +25,9 @@ when every entry agrees, `collect` runs `review_scratch.py verify` itself before
 (`lib/collect_v2.py:2422-2446`); a failed check refuses (exit 2) and leaves the previous collection record untouched,
 naming the remedy by cause (`_integrity_refusal`, `:2488-2519`): a round a later prepare superseded → collect the later
 round; a second round tree in the packet dir, or this host's own staging leftover from a stopped write → remove it with
-the host's deletion command (R-CLEANUP) and collect again; any other failure → the round is INVALID, prepare a new round. A
+the host's deletion command (R-CLEANUP) and collect again (On A the deletion command removes only a whole folder of a
+declared role, never one entry inside a packet dir, so A's remedy is a new round: the staging leftover in the same packet
+dir, a second tree in a new packet dir); any other failure → the round is INVALID, prepare a new round. A
 check that cannot be launched, does not finish, or fails for a host cause (the check could not run, its record could not
 be written, the heartbeat could not be refreshed) is a host fault (exit 64): nothing about the round is known, repair the
 host and collect again. `close` runs a fresh check of the latest captured round and never refuses on its outcome, even
@@ -395,7 +397,8 @@ route as follows; a false condition leaves every route in its R-CONTAIN no-web p
     (`lib/review_scratch.py:3624-3625`); for its standing codex and agy legs `prepare` prints only the output
     redirections (`:6081-6085`) and the dispatch is the v1 hand-built line of `references/leg-contracts.md:1397-1415`
     (codex: `--sandbox read-only`, `--pydantic`, no `--search`) and the agy read-only review agent, which has no web tool
-    (`:435-439`), all @ `faeb86b` — and refuses the review-web condition (`lib/review_scratch.py:3817-3820`).
+    (`:435-439`), all @ `faeb86b`; on that path a re-dispatch of a leg is a new round (`capture` moves the earlier
+    read-audit file aside), and the leader never removes the read-audit file itself — and refuses the review-web condition (`lib/review_scratch.py:3817-3820`).
 - On B: the v2 request member `review_web_authorized` (`bin/review_round_v2.py:130-133`) is the carrier; it defaults to
   false per request, so binding it true for every round under the standing authorization is open (DL-39). For a true
   condition: native Codex receives it through its fresh-child prompt metadata and requires host web availability
@@ -785,7 +788,13 @@ clears before writing again is removed only when its content shows the host wrot
 like any empty folder and leaves that repository a prunable registration (a recorded limit; B uses no linked worktrees).
 A link in any component of a deletion path below the project base — the declared root's own components included — is
 refused. A folder holding a worktree that git has LOCKED (git's documented guard against pruning), at any depth, is refused by
-every deletion — a sweep and the deletion command alike; unlocking it is the operator's own act. git's own lock left by a stopped `git worktree add` (its reason "initializing") is refused
+every deletion — a sweep and the deletion command alike; unlocking it is the operator's own act. A folder holding a
+moved or copied round tree, a clone, or a tree whose `.git` file names no registration is refused by the deletion command
+and skipped by the sweep, so it stays: no supported step removes it, and removing it is likewise the operator's own act (a
+recorded limit, measured on A with git 2.50.1). The floor also binds the deletion command, so a refused folder younger than
+its role's floor is left behind: the work goes on in a new folder and the old one goes past the floor. On A the deletion
+command resolves its project from the current directory's repository, so a printed remedy names the repository to run it
+from; run elsewhere it refuses with nothing deleted. git's own lock left by a stopped `git worktree add` (its reason "initializing") is refused
 like any other; every lock refusal prints the lock's reason. On A the reason is read from the registration's `locked` file (its first
 512 bytes on one line), printed as `reason: "<text>"` or `no reason given`; a lock file that cannot be read still refuses.
 A nested worktree under a folder the repository ignores is invisible to `git status` and to `git worktree remove`'s clean
@@ -811,7 +820,10 @@ was removed makes the files it ignored read as new, so that resume is refused an
 the floor (a recorded limit). A rollback finds its own registration by identity (device
 and inode), because git records the real path. The age floor binds a SWEEP; an
 explicit close of one named round, or the resumption of a deletion the host already decided, is not held back by it — every
-other check still applies (On B `bin/review_round.py:1319` has no age check, its sweep `:1024` does @ `7f75863`). A helper
+other check still applies (On B `bin/review_round.py:1319` has no age check, its sweep `:1024` does @ `7f75863`). Removing the host itself is outside this rule: after an uninstall no host code is left, so what
+the uninstall does not remove (entries in a shared `$TMPDIR`, the plugin cache, a configuration folder named by a relative
+`XDG_CONFIG_HOME`; on A also an older install record that names no settings file, which no step can tell from another
+settings file's) stays and is the operator's; the procedure says so and never prints a removal command. A helper
 deleting inside a project reads that project's configuration (the root's project, not the working directory's). A
 wipe-style export
 empties an existing target only when it is that role's declared root. Every check runs before any action — containment first, also for a path that no longer exists — and a check that
