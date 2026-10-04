@@ -826,7 +826,8 @@ written start record reads as not started, so the next run checks the whole set 
 round check, which ran before its first deletion; an explicit close of an EMPTY folder directly under
 its declared root removes it whatever its age (its proof is gone, so an emptied folder cannot be told from another empty one,
 and it holds nothing to lose). On A the start is one line appended to the packet's `.active`; a resumed close judges the subset with `git status` and
-the round artifacts' hashes (an entry may be missing; anything new or modified is refused). A deletion that empties a folder removes its
+the round artifacts' hashes (an entry may be missing; anything new or modified is refused). A deletion removes a symbolic link inside the folder as a link —
+never following it, never removing it as a folder, a `.gitignore` that links to a folder included. A deletion that empties a folder removes its
 ignore files (`.gitignore` at any depth) last, the deepest first, so a stop never shows a file they ignore as new and every resume finishes
 (on A both a stopped code-worktree removal and a stopped packet close). A rollback finds its own registration by identity (device
 and inode), because git records the real path. The age floor binds a SWEEP; an
