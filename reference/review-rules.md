@@ -400,7 +400,8 @@ route as follows; a false condition leaves every route in its R-CONTAIN no-web p
     (`:435-439`), all @ `faeb86b`; on that path a leg is re-dispatched once inside its round, and before it the leader
     renames attempt K's read-audit file to `agy-r<N>-attempt<K>-read-audit.json` — the one move of that file by hand: it
     keeps the file and leaves its literal path absent; between rounds `prepare` and `capture` move it aside (a capture under any label, a round number or not; a move stopped between its link and its
-    unlink is finished by the next one); the leader
+    unlink is finished by the next `prepare` / `capture`; a second move into a history name that already holds a
+    different file refuses, and the round goes on in a new packet dir — nothing is lost); the leader
     never removes it — and refuses the review-web condition (`lib/review_scratch.py:3817-3820`).
 - On B: the v2 request member `review_web_authorized` (`bin/review_round_v2.py:130-133`) is the carrier; it defaults to
   false per request, so binding it true for every round under the standing authorization is open (DL-39). For a true
