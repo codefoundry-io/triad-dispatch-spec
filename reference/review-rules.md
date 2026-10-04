@@ -765,7 +765,16 @@ like any empty folder and leaves that repository a prunable registration (a reco
 A link in any component of a deletion path below the project base — the declared root's own components included — is
 refused. A folder holding a worktree that git has LOCKED (git's documented guard against pruning), at any depth, is refused by
 every deletion — a sweep and the deletion command alike; unlocking it is the operator's own act. git's own lock left by a stopped `git worktree add` (its reason "initializing") is refused
-like any other; every lock refusal prints the lock's reason. A failed step's rollback
+like any other; every lock refusal prints the lock's reason. On A the reason is read from the registration's `locked` file (its first
+512 bytes on one line), printed as `reason: "<text>"` or `no reason given`; a lock file that cannot be read still refuses.
+A nested worktree under a folder the repository ignores is invisible to `git status` and to `git worktree remove`'s clean
+check (git checks only the outer tree's lock), so a removal that runs its own `git worktree remove` first checks the whole
+tree below its own `.git` for any other `.git` entry and refuses on an unreadable folder (on A the prepare re-pin, the one
+removal outside the deletion command). `git worktree add` exits non-zero when a post-checkout hook fails yet leaves the
+worktree and its registration in place, so its exit code alone does not say whether it created one: on A a rollback
+claims a registration when its add succeeded or left its tree inside the folder the same call created; an add refused
+because the path was already registered created nothing to roll back. Both review paths' close (A: the scratch packet and
+the small round) finish an EMPTY folder directly under their declared root. A failed step's rollback
 that removes a worktree the same call created is the creating call's own removal: a lock set during that call (a
 checkout hook) does not stop it. A stopped deletion that resumes re-checks what remains as a SUBSET of what it
 checked before it started (nothing new, nothing foreign), never as the whole set (On B `bin/review_round.py:1342-1361` @
