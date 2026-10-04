@@ -830,7 +830,9 @@ the round artifacts' hashes (an entry may be missing; anything new or modified i
 never following it, never removing it as a folder, a `.gitignore` that links to a folder included. A deletion that empties a folder removes its
 ignore files (any name that case-folds to `.gitignore`, at any depth — on a case-insensitive volume git honours
 a committed `.GITIGNORE`, measured on A with APFS and git 2.50.1) last, the deepest first, and within one folder the name `.gitignore`
-itself after its case variants (on a case-sensitive volume a variant is an ordinary file the real one may ignore), so a stop never shows a file they ignore as new and every resume finishes
+itself after its case variants (on a case-sensitive volume a variant is an ordinary file the real one may ignore), and
+a `.git` entry is any name that matches `.git` ignoring case (on a case-insensitive volume git honours a `.GIT` folder as a
+repository; measured on A, APFS, git 2.50.1 — on a case-sensitive volume it does not), so a stop never shows a file they ignore as new and every resume finishes
 (on A both a stopped code-worktree removal and a stopped packet close). A rollback finds its own registration by identity (device
 and inode), because git records the real path. The age floor binds a SWEEP; an
 explicit close of one named round, or the resumption of a deletion the host already decided, is not held back by it — every
