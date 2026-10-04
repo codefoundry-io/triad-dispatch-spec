@@ -757,7 +757,10 @@ under the code-worktrees root, never a registered one). A coded sweep may run in
 root for test isolation (on A a log- or debug-directory variable, a review attempt's own log directory, the root a caller
 hands the review helper); the role must still be declared and its proof and floor apply, and the deletion command never
 reads such a stand-in. A sweep checks one proof — a role that declares another is skipped with a note; a day-granular sweep
-rounds the declared seconds up to whole days; an operator setting may raise a floor, never lower it. A wipe-style export
+rounds the declared seconds up to whole days; an operator setting may raise a floor, never lower it, and a host keeps its
+own minimum for a role whose files a live call or a paused round still uses (the cap prune's fresh-sibling floor above; a
+review packet's activity) — a declared floor below it is raised to it. A file a call writes at a caller-named path and
+clears before writing again is removed only when its content shows the host wrote it. A wipe-style export
 empties an existing target only when it is that role's declared root. Every check runs before any action — containment first, also for a path that no longer exists — and a check that
 cannot be made (an unreadable registration list, a git step that fails) refuses or reports the failure, never success (On A
 `lib/review_scratch.py:960-1035`, `lib/review_small.py:552-558`, `tests/lib/prune_runs.sh:18-22`; On B
