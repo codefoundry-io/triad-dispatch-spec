@@ -118,6 +118,13 @@ retain their existing semantics; older supported models remain selectable.
 The adapter checks the requested model and effort before review inference and
 refuses a reported selection that contradicts a catalogued explicit model ID. Selection
 evidence is not proof of the eventual runtime model. B's fixed legacy formal
+On A the Claude leg is native: the agent preset's `model` frontmatter is the selection, and it holds only
+when the spawn passes no per-invocation `model` parameter, which outranks the frontmatter (Claude Code sub-agents
+documentation, fetched 2026-10-04); A's printed spawn line is to pass none — in progress (DL-78). A native spawn
+returns no model to A's code and A has no probe, so the refusal of a reported contradicting selection has no input on
+A (a fact); B probes its CLI route before inference (`bin/review_adapters_v2.py:106-127` @ `7f75863`). An explicit
+older Claude model exists on A only as an operator-authored preset named in `claude.agent` (A refuses `claude.model`
+in the roster); the claude entry's resolved model and effort are neither printed nor recorded (DL-49).
 route uses this same model/effort pin; its raw wrapper keeps caller passthrough.
 
 The recommended codex review default is `gpt-6-astra` with `high` reasoning on both
