@@ -60,6 +60,13 @@
   PRD-RETENTION; rev-2 spec; units.json; the policy `.verify.toml` `on_fail` texts. A missing or invalid configuration
   file deletes nothing (owner 2026-10-04: the command refuses, prunes skip with a note, a default file ships); a wrapper
   run-log after a repair is left to the coded sweep, never removed by an AI (owner 2026-10-04).
+- Rows owed after host A's merges (docs audit 2026-10-04): R-TERMINAL On A for every window and the verdict precedence,
+  the between-attempts record and the bounded pipe close (both hosts); R-TOKENS On A emits the contract code; R-AGREE —
+  a host fault in `collect` / `retry` stops the step (A exit 64, B exit 2 as a fact); R-BIND — a `binding.json` that no
+  longer binds the entry is INVALID and `retry` refuses (A Z5 / Z6); R-CONTAIN — unresolvable inputs and configuration
+  refusals; R-RECEIPT — an unspawned agy re-run turn on A; R-CLEANUP — the run-log sweep floor as host data;
+  `contracts/gemini-readonly.toml` header without the two-site wording (new `policy_sha256`); C66 tests.A; DL-5, DL-15,
+  DL-60, DL-68, DL-70, DL-72, DL-74, DL-76, DL-78, DL-81 statuses and facts; new DL-85 (B's retention texts).
 
 ## Spec gaps exposed by host A's conformance work — 2026-10-03 (not tagged)
 

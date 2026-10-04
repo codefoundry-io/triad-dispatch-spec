@@ -31,6 +31,15 @@ be written, the heartbeat could not be refreshed) is a host fault (exit 64): not
 host and collect again. `close` runs a fresh check of the latest captured round and never refuses on its outcome, even
 when the check cannot run: it warns and closes (`_report_verification_state`, `lib/review_scratch.py:1173-1208`,
 called at `:1275`).
+A host fault met anywhere in `collect` or `retry` — this host cannot judge any reply or cannot run its own check (the
+admission library or contract cannot be loaded or read, the integrity check cannot be launched or finish) — stops the
+step: it is never recorded as one entry's state, a leg outcome or one entry's refusal with its remedy, and `collect`
+writes no collection record for it. A file of one entry that cannot be read stays that entry's INVALID, not a host
+fault. On A the host fault is exit 64 (`_HostFault`): it propagates out of the per-entry checks, the dry-run orphan
+adoption inside `_adoption_blocked` included (`lib/collect_v2.py:2212-2215`, `main`, `:3531-3536` @ triad `bf38f60`);
+a seal `collect` wrote for an entry before the step stopped stays. On B an `OSError`, `ValueError` or `TypeError` raised
+out of a v2 step ends as the round-integrity refusal, exit 2 (`bin/review_round.py:2451-2452`, `:2585-2587` @
+`7f75863`), so B's exit does not tell a host fault from a refusal (a fact).
 
 Known limit, both hosts (owner, 2026-10-04, [D-LATE-ANSWER-20261004](../decisions/owner-register.md#D-LATE-ANSWER-20261004)):
 a leg still running in an attempt that a retry replaced can write its answer into that attempt after collection's last
@@ -443,7 +452,7 @@ not attribution (found on A over rounds r11–r13, `authoring/shared-dev-log.md`
 - codex leg (A `codex_wrapper.py`, command builder): selected read-only sandbox, `approval_policy=never`, `--ignore-rules`
   on every posture, `web_search="disabled"` whenever `--search` is absent (`codex_wrapper.py:440-464`). On A the v2
   path passes `--search` exactly when the round's bound condition is true (`lib/roster_v2.py:994-1002` @ `b53409b`); the
-  legacy small path passes it for a round prepared with its own `--web` (`lib/review_small.py:331`). These are A's controls,
+  legacy small path passes it for a round prepared with its own `--web` (`lib/review_small.py:355` @ triad `bf38f60`). These are A's controls,
   not instructions for B's native session.
 - gemini leg (A `gemini_wrapper.py`): approval modes pinned to `default` / `auto_edit` (plan and yolo removed), the
   read-only × auto_edit conflict refusal, the read-only policy-file precondition, the hardened-install read-only default,
@@ -460,7 +469,7 @@ not attribution (found on A over rounds r11–r13, `authoring/shared-dev-log.md`
   `read_url_content` / `search_web` to its allow set, `lib/agy_hook.py:123`, `:196` @ `b53409b`; a v2 round with a true
   bound condition installs the hook in that mode, `lib/review_scratch.py:4142-4152`, `:5841-5843` @ `b53409b`, and the
   legacy small path uses it under its own `--web`); B: non-mutating project route (`--mode plan --sandbox read-only`) with `--project`, and on the v2 path (no `--project`) the temporary settings transaction named under R-REVIEW-WEB; B's hook stays dormant until separately agreed. The agy hook and the gemini read-only policy are TOOL-NAME controls: neither scopes paths, and the read audit records the argument path as given, not a resolved target — they do not by themselves contain a symlink escape (see the Q4 item in R-PREPARE).
-- all wrappers: binary presence; a relative `--prompt-file` or `--cwd` is ACCEPTED and resolved against the wrapper PROCESS cwd at argument processing (never the child `--cwd`); every existing validation stays — configured runtime roots where configured, regular file, UTF-8, non-empty; the resolved absolute prompt-file and child-cwd paths are represented in the existing success summary and audit row, using the host's current redaction mode (D-B2). Refusal names the resolved candidate through that same masking policy; failure-only run logs remain failure-only. Relative spelling alone is never a reason to refuse (C28). On A: relative paths are rebased on the process-entry cwd and then validated (`3rd-Agent/wrappers/_common.py:1800-1844`, `:1865-1881`); On B: `bin/_common.py:502-537`; stdin delivery confirmed or refused (fail closed); process group captured at spawn and
+- all wrappers: binary presence; a relative `--prompt-file` or `--cwd` is ACCEPTED and resolved against the wrapper PROCESS cwd at argument processing (never the child `--cwd`); every existing validation stays — configured runtime roots where configured, regular file, UTF-8, non-empty; the resolved absolute prompt-file and child-cwd paths are represented in the existing success summary and audit row, using the host's current redaction mode (D-B2). Refusal names the resolved candidate through that same masking policy. An input with no resolvable candidate (`~<no-such-user>`, a relative path once the wrapper's entry cwd is gone) is refused masked under redaction on both hosts; without redaction A names the text given and B the exception class (a fact: A `_resolve_against_entry_cwd`, `3rd-Agent/wrappers/_common.py:1882-1905` @ triad `bf38f60`; B `input_path_error`, `bin/_common.py:537-548` @ `7f75863`). A configuration refusal (an allowed-roots entry that cannot be resolved, a hardened run without allowed roots) names the argument it stopped on, on both hosts (A `_ensure_within_runtime_roots`, `_common.py:1825-1833`; B `input_path_error`, whose label for the prompt file is `prompt load`). Failure-only run logs remain failure-only. Relative spelling alone is never a reason to refuse (C28). On A: relative paths are rebased on the process-entry cwd and then validated (`3rd-Agent/wrappers/_common.py:1800-1844`, `:1865-1881`); On B: `bin/_common.py:502-537`; stdin delivery confirmed or refused (fail closed); process group captured at spawn and
   reaped on timeout / abnormal unwind and normal exit under R-TERMINAL (On A: `_common.py:3198-3205`, `:3333-3381`; On B: `bin/_common.py:1357-1386`); reader and writer completion before success (On A: incomplete readers fail closed, `_common.py:3433-3437`; On B: incomplete/error collection is rejected); schema validation with one clean repair retry where a leg relies on it; verdict
   binding to review id, family and content digest; round integrity capture/verify.
 - cleanup (only host code deletes, from declared roots — R-CLEANUP): refuses without deleting when a tree is not provably its own; ownership is proven by an allocation record or
@@ -481,10 +490,17 @@ interrupted (<SIG>)`), recorded like any failed dispatch. A signal outside a dis
 (argument checks, preflight probes) or after its terminal record — leaves no record. On B: `_run_once` records the
 signal and `_mark_signal_failure` sets that shape (`bin/_common.py:1400-1452` @ `7f75863`); the record-only handler is
 installed inside `_run_once` only (`:1425-1441`), so a signal between attempts exits 143 with no record (DL-70). On A:
-the shape with its summary, audit row and run-log for a signal while the child runs is on triad
-`stage3/engine-transport` @ `221d556`, not merged; the windows after the spawn and before the protected setup, during
-the timeout arm's group kill, and between attempts are in progress (Task 19 fix round 2, L1); at `cbc67f6` a signalled
-wrapper exits 128+signum with no record.
+every window of a dispatch ends in that shape with its summary, audit row and run-log — after the spawn, in the wait,
+inside the timeout arm's group kill (the SIGKILL escalation kept) and between attempts (`_terminal_signal_to_exit`,
+`3rd-Agent/wrappers/_common.py:3441-3448`; `_run_once`, `:3559-3585`, `:3924-3949` @ triad `bf38f60`). Verdict
+precedence, both hosts: a timeout verdict stands over a signal; a signal replaces a stdin-delivery or reader failure; a
+stdin-delivery or reader failure replaces a vendor exit code of 0 (A `:3924-3949`; B `bin/_common.py:1433-1437`,
+`:1663-1679` @ `7f75863`). A signal between attempts (a server-capacity backoff, a schema-repair turn) spawns nothing:
+the previous attempt's record, with its captured evidence, carries the signal failure, and the agy driver adds no
+attempt to the read audit for it (On A: `_common.py:3561-3585`, `3rd-Agent/wrappers/antigravity_wrapper.py:1061-1072`;
+B has no handler there, DL-70). A helper outside the owned process group that still holds the child's stdout keeps
+that pipe open; cleanup closes only the pipes no live reader still blocks on, so it stays bounded (A `_common.py:3749-3758`;
+B `bin/_common.py:1623-1630`).
 
 <a id="R-TOKENS"></a>
 Every classification token a host EMITS is a member of `contracts/exit-tokens.json` and maps to the same exit code there;
@@ -492,10 +508,10 @@ wrapper-only tokens and compatibility aliases are listed explicitly as exception
 `tests/unit/wrappers/t55-exit-token-membership-c8.sh`; On B: `tests/test_exit_token_contract.py`). Every emitted
 summary line carries a (token, exit) pair the contract holds or its listed exceptions name; a provisional line whose
 exit a later step corrects is not allowed. Host A's codex wrapper-direct exceptions: `fanout-partial` at exit 68 (no table row) and `task-blocked` at
-exit 69 (the table pairs it with 65) (`3rd-Agent/wrappers/codex_wrapper.py:537-546`, `:557-566` @ triad `221d556`). Both
-hosts print a provisional `token-limit exit=1` summary before the driver corrects the exit to 65 (On A
-`3rd-Agent/wrappers/_common.py:3569-3574` @ `221d556`, in progress, Task 19 fix round 2, L2; On B `bin/_common.py:1685-1689`,
-re-emitted at `:1884-1887` @ `7f75863`; DL-72).
+exit 69 (the table pairs it with 65) (`3rd-Agent/wrappers/codex_wrapper.py:548-553`, `:574-575` @ triad `bf38f60`). On A
+the summary line prints the contract's code for the token, never a provisional 1 a driver corrects later
+(`3rd-Agent/wrappers/_common.py:3974-3984` @ `bf38f60`). On B a provisional `token-limit exit=1` summary is printed before
+the driver corrects the exit to 65 (`bin/_common.py:1685-1689`, re-emitted at `:1884-1887` @ `7f75863`; DL-72).
 
 <a id="R-CLASSIFY"></a>
 A failed vendor call is classified by the vendor's own error sentence, and a sentence applies to the CLI that emits it.
@@ -545,6 +561,11 @@ validation report (not measured); such a report is model text, so only agy's own
 The transport receipt and audit / run-log records carry the common transport object defined by
 `contracts/receipt-fields.json`: stdin delivery class, execution route, binary, observed CLI version and attempt.
 Existing host envelopes remain. Schema validation alone does not prove host implementation or observed runtime identity.
+On A, when a later agy driver turn (a schema-repair or soft-deny re-run) fails to spawn, the audit `cmd` is the argv of
+the last turn that spawned, the receipt takes the unspawned turn's pre-spawn shape (`stdin_delivery` `not-started`,
+`binary` null), and that turn adds no attempt to the read audit (`3rd-Agent/wrappers/antigravity_wrapper.py:1052-1077`,
+`:2050-2056`; `build_transport`, `3rd-Agent/wrappers/_common.py:2066-2083` @ triad `bf38f60`). B has no driver re-run
+turn (a fact).
 
 <a id="R-BIND"></a>
 Every leg's result binds `review_id`, `family` and `content_digest` today on both hosts; a mismatch is an INVALID leg, never
@@ -590,7 +611,7 @@ the entry: a regular, readable `raw.json` with no seal and either no `admitted.j
 the admission refuses (empty included) while `raw.json` is admissible against its own `binding.json`
 (`_raw_admissible`, `:1613-1624`; `_saved_not_admitted`, `:1626-1659`; `_history_reason`, `:1789-1836`; `retry`,
 `:3149-3172`); `retry` itself removes such an `admitted.json` before it refuses (`:3154-3166`), and no printed remedy
-asks for a hand removal (Z2; R-CLEANUP: only host code deletes). An `admitted.json` that is a link, a directory, unreadable or over the size cap beside a saved `raw.json` with no seal makes the entry INVALID ("prepare a new round") and `retry` refuses it (Z1, `:1645-1650`). A copied or mismatched `binding.json` beside a never-admitted saved reply — a leader's hand-made layout, an ordinary failure under R-THREAT — is in progress (Task 18, Z5). `retry` RECORDS the attempt it replaces before it allocates the next: it takes that attempt's digests first, judges those same bytes, and seals it `invalid` when an answer is there — a result it judged inadmissible, or, on the native route, a saved `raw.json` (Z4) — and `failed-to-run` when none is; a write that lands while it judges refuses the retry and allocates nothing (`:3112-3121`, `:3363`; `_seal_replaced`). `collect-r<N>.json` keeps each seal's digest, and every collection
+asks for a hand removal (Z2; R-CLEANUP: only host code deletes). An `admitted.json` that is a link, a directory, unreadable or over the size cap beside a saved `raw.json` with no seal makes the entry INVALID ("prepare a new round") and `retry` refuses it (Z1, `:1645-1650`). A recorded attempt whose `binding.json` no longer binds the entry — edited, copied in, unreadable or removed, in that attempt or in attempt 1 (round evidence) — is INVALID at collection ("the binding no longer binds this entry — prepare a new round"), decided before the never-admitted, seal and empty-result reasons and not sealed there, and `retry` refuses it and allocates nothing: no attempt of that entry can reach AGREED in the round (`_unbound_reason`, `lib/collect_v2.py:1670-1713`, called at `:1989` and in `_adoption_blocked` at `:2117` @ triad `bf38f60`). On B an attempt's sealed `allocation.json` that does not match its basis is refused (`bin/review_round_v2.py:256-263` @ `7f75863`) and a retry is allowed only after a diagnosed failed-to-run attempt (`:274`). `retry` RECORDS the attempt it replaces before it allocates the next: it takes that attempt's digests first, judges those same bytes, and seals it `invalid` when an answer is there — a result it judged inadmissible, or, on the native route, a saved `raw.json` (Z4) — and `failed-to-run` when none is; a write that lands while it judges refuses the retry and allocates nothing (`:3112-3121`, `:3363`; `_seal_replaced`). `collect-r<N>.json` keeps each seal's digest, and every collection
 re-checks every sealed attempt of the entry — the earlier ones included — so a later change, removal or replacement of
 a sealed file or seal is an integrity failure (INCOMPLETE, never AGREED). The printed wrapper line runs a seal guard
 under `noclobber`, and the native spawn gets a printed `guard:` line (`lib/review_scratch.py:5238-5248`, `:5261-5273`).
@@ -808,7 +829,7 @@ is deleted: the host's deletion command refuses (a host fault) and the automatic
 host ships a default configuration file so a fresh install still prunes (owner, 2026-10-04, D-DELETION-BY-CODE-20261004).
 A wrapper run-log is never removed by an AI after a repair analysis: the host's coded sweep (its age floor and caps)
 collects it, and no prompt carries a run-log removal step (owner, 2026-10-04, D-DELETION-BY-CODE-20261004). Cap-based pruning of run-log and repair-IPC
-files keeps a minimum age floor so a fresh sibling file is never deleted to satisfy a cap (mtime is not only a sort key).
+files keeps a minimum age floor so a fresh sibling file is never deleted to satisfy a cap (mtime is not only a sort key). A folder may therefore stay above its cap until its files pass the floor. The stale sweep of the wrapper run-log folder removes a run-log once it is older than the floor, so a repair step that starts later than the floor finds no run-log to read; the floor is host data (a fact): A 86400 s, the `wrapper-run-logs` role's `min_age_s` and never below one day (`prune_stale_run_logs`, `3rd-Agent/wrappers/_common.py:5810-5839`; `3rd-Agent/wrappers/cleanup-roots.default.json:6` @ triad `bf38f60`); B 3600 s (`_STALE_IPC_AGE_FLOOR_S`, `bin/_common.py:3111` @ `7f75863`).
 A round that is paused, not abandoned, stays alive: each step that works on it refreshes its activity mark. On A (@
 `cbc67f6`): `retry` and the adoption of an orphan attempt (through the round-record write, `lib/collect_v2.py:759-765`),
 `collect` (`:2475`) and the native admission (`lib/verdict_v2.py:991-1000`, called at `:1081`, `:1097`) refresh the
