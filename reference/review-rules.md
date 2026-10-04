@@ -510,7 +510,8 @@ the records already written with the earlier verdict (a limit; triad `_dispatch_
 host record write (audit row, run-log, debug log) never changes the provider result or loses the answer, on both hosts (A
 one stderr line; B `audit()` returns False, `bin/_common.py:2139-2153` @ `7f75863`); on A a review attempt whose run-log
 was lost carries no receipt, so it is INVALID at collection and retried, never agreed. Verdict
-precedence, both hosts: a timeout verdict stands over a signal; a signal replaces a stdin-delivery or reader failure; a
+precedence, both hosts: a timeout verdict and an authentication STOP (R-AUTH, which outranks every rule) stand over a
+signal — a run already judged `oauth-env` keeps it and its re-login remedy when a signal lands before its records; a signal replaces a stdin-delivery or reader failure; a
 stdin-delivery or reader failure replaces a vendor exit code of 0 (A `:3924-3949`; B `bin/_common.py:1433-1437`,
 `:1663-1679` @ `7f75863`). A signal between attempts (a server-capacity backoff, a schema-repair turn) spawns nothing:
 the previous attempt's record, with its captured evidence, carries the signal failure, and the agy driver adds no
