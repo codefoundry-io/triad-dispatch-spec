@@ -712,7 +712,12 @@ covers its whole subtree (no glob): repository-relative (resolved against the gi
 or beginning with `$TMPDIR`, `~` or `$HOST_DIR` (the directory that holds the host's own deletion command, for folders a
 host keeps beside its installed code, such as its wrapper logs). A `marker:<name>` proof is a regular file of that name
 directly in the folder to delete; `alloc-record` and `inside-owned-packet` are proved only inside the host's own sweep,
-so the deletion command refuses them. The age floor binds the sweep and the deletion command alike. Deletion code refuses a
+so the deletion command refuses them. The age floor binds the sweep and the deletion command alike, and the age is read
+from the proof itself (a marker's own modification time), never from the folder a deletion is emptying. A deletion keeps its
+proof until last, so a deletion stopped part-way resumes from the same proof; a linked worktree inside the folder is first
+removed through the repository that owns it, and a folder holding one that cannot be detached is refused (On A
+`lib/review_scratch.py:960-1035`, `lib/review_small.py:552-558`, `tests/lib/prune_runs.sh:18-22`; On B
+`tests/test_review_cleanup_custody.py:201-217` @ `7f75863`). Deletion code refuses a
 target outside a declared root, and inside one it still refuses anything it cannot prove it allocated: the declaration
 adds to the proof and never replaces it. An AI — the leader, a sub-agent, skill, agent or prompt text, a printed remedy —
 at most chooses a declared role and a folder and runs the host's deletion command; no prompt, skill, agent text, printed
