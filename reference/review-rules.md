@@ -102,8 +102,18 @@ preparation failure, never a round outcome (On A: `resolve_roster` raises "the s
 `bin/review_round_v2.py:146-148`).
 A control a host resolves from a host-native source outside the roster file is a member of the bound basis like a roster
 value (R-PREPARE). On A: the claude entry's model and effort come from the agent preset frontmatter
-(`.claude/agents/cross-family-review-reviewer.md:5-6` and its siblings), which the round does not yet bind (open,
-`authoring/shared-dev-log.md` DL-49). On B: every control comes from the resolved roster and its adapters, sealed in
+(`.claude/agents/cross-family-review-reviewer.md:5-6` and its siblings). Prepare reads the preset the entry spawns
+(under a true review-web condition its `-web` twin) and records `{agent, model, effort}` as the entry's `preset` in the
+round record, which `roster_config_digest` covers; retry, adoption and collection re-derive it from the installed preset
+and refuse a change (`lib/review_scratch.py:5777-5855` `_v2_claude_preset`, `:5858-5884`;
+`lib/collect_v2.py:2530-2626` `_check_installed_basis`, `:2588-2606`, called at `:2660` and `:3388` @ triad `99aaebc`;
+DL-49). It is not printed on the dispatch line (a fact). A reads the preset from its own layout's agents folder (the dev
+tree's `.claude/agents/`, a plugin's `agents/`), then, for a bare id, from `~/.claude/agents/`; the file's `name`
+frontmatter must equal the id. Claude Code reads the session project's `.claude/agents/` first, and A equates that
+folder with its own layout's: a leader session whose project agents folder differs is not observed (a fact). An
+explicitly scoped `claude.agent` whose scope this install does not hold (another plugin's `<plugin>:<agent>`, or any
+scoped id in the dev tree) is refused at prepare, because its preset cannot be read to bind its model and effort —
+DL-49's own option, "refuse an agent whose definition is not bound"; such an id used to prepare and render verbatim. On B: every control comes from the resolved roster and its adapters, sealed in
 the basis (`bin/review_round_v2.py:146`, `:152-169`), except that a claude entry's `agent` is passed as `--agent`
 (`bin/review_adapters_v2.py:107-108`, `bin/review_round_v2.py:222-223`) and the named agent's definition, resolved by the
 Claude CLI, is outside the roster and outside `_toolkit` (open, DL-49).
@@ -135,7 +145,8 @@ documentation, fetched 2026-10-04); A's printed spawn line is to pass none — i
 returns no model to A's code and A has no probe, so the refusal of a reported contradicting selection has no input on
 A (a fact); B probes its CLI route before inference (`bin/review_adapters_v2.py:106-127` @ `7f75863`). An explicit
 older Claude model exists on A only as an operator-authored preset named in `claude.agent` (A refuses `claude.model`
-in the roster); the claude entry's resolved model and effort are neither printed nor recorded (DL-49). The frontmatter
+in the roster), selectable on a web round with its `-web` twin beside it (R-REVIEW-WEB; C12); the claude entry's
+resolved model and effort are recorded and bound, not printed (above, DL-49). The frontmatter
 outranks a session-wide subagent model setting only from Claude Code v2.1.251, and a forcing setting (v2.1.257+) makes Claude
 Code ignore it (same documentation): on A the pin is the selection only on such a version with no forcing setting — an operator
 configuration A does not observe (a fact).
@@ -355,15 +366,19 @@ route as follows; a false condition leaves every route in its R-CONTAIN no-web p
   `<review-date>` (`lib/prompts_v2.py:40-50`, `:153-155`, `:288`, `:581-582`). `retry` and adoption re-render the
   round's BOUND condition (`lib/collect_v2.py:551`, `:2430`, `:2789`) and do not compare it with the current constant:
   a revocation applies to rounds prepared after it, as above (DL-57). A round prepared before this change binds no
-  `review_date`: retry and adoption refuse it (`:581-585`) and collection reads it with web false (`:523`). Per route
+  `review_date`: retry, adoption and collection refuse it — collection now re-renders every dispatched entry's prompt,
+  which needs the date (`lib/collect_v2.py:600-604`, reached through `_check_installed_basis` at `:2660` and `:3388` @
+  triad `99aaebc`). Per route
   (`lib/roster_v2.py:929` `render_dispatch`):
   - codex: `--search` (`lib/roster_v2.py:994-1002`); the wrapper's `--search` (top-level `codex --search exec`) replaces
     the pinned `-c web_search="disabled"`; the read-only sandbox, `approval_policy=never` and `--ignore-rules` stay
     (`3rd-Agent/wrappers/codex_wrapper.py:103-116`, `:466`).
-  - claude: the native leg is spawned as its preset's web twin — `cross-family-review-reviewer` → `-web`, `-high` →
-    `-high-web`, `-max` → `-max-web` (`lib/roster_v2.py:170-173`, `:956-968`); a web preset maps to itself under a true
-    condition and to its base under a false one; a selected claude preset without a twin is refused at prepare
-    (`:548-557`). The twins (`.claude/agents/cross-family-review-reviewer-web.md`, `-high-web.md`, `-max-web.md`) are, for a rebuild:
+  - claude: the native leg is spawned as its preset's web twin, the same name with `-web` (a `<scope>:` prefix kept;
+    `lib/roster_v2.py:180` `CLAUDE_WEB_SUFFIX`, `:507-520` `_claude_spawn_agent`, `:956-975` @ triad `99aaebc`); a web
+    preset maps to itself under a true condition and to its base under a false one. A selected preset whose spawned
+    preset this install does not define is refused at prepare (`lib/review_scratch.py:5777-5855` `_v2_claude_preset`),
+    and the `roster_v2.py resolve` preview refuses it the same way (`lib/roster_v2.py:1131-1151`). An older model is
+    therefore selectable through an operator preset plus its `-web` twin (R-ROSTER, C12). The shipped twins (`.claude/agents/cross-family-review-reviewer-web.md`, `-high-web.md`, `-max-web.md`) are, for a rebuild:
     the base preset's model and effort; tools `Read`, `Grep`, `Glob`, `WebSearch`, `WebFetch` and nothing that runs or
     writes; and a body whose web rule is the content of the shared `review-web-permission` clause
     (`prompts/common-clauses.md`).
@@ -373,9 +388,12 @@ route as follows; a false condition leaves every route in its R-CONTAIN no-web p
     (`3rd-Agent/wrappers/antigravity_wrapper.py:307-314`, `:1758-1767`, `:1915-1920`, `:2043-2047`); the round's hook runs
     in its `--web` mode (`lib/review_scratch.py:4142-4152`, `:5841-5843`; `lib/agy_hook.py:123`, `:196`); the operator's
     user-level agy settings allow `read_url(*)` (the install-time prerequisite above). The wrapper prints that prerequisite
-    at `--setup-agents` (`3rd-Agent/wrappers/antigravity_wrapper.py:1984-1991`), but no round checks it before inference,
-    and errored web-tool steps are admitted — a host without the allow runs its agy legs without web and without a
-    refusal; a per-round preflight check is open (DL-58).
+    at `--setup-agents` (`3rd-Agent/wrappers/antigravity_wrapper.py:1984-1991`), and errored web-tool steps are still
+    admitted, so a per-round preflight checks it before inference: at prepare for the round's startable routes and at a
+    retry of an agy entry, a true round refuses unless the settings file named by the wrappers'
+    `_agy_settings._settings_path()` lists `read_url(*)` in `permissions.allow` and not in `permissions.deny`; a missing
+    or unreadable file refuses (`lib/review_scratch.py:5254-5302` `_v2_agy_web_refusal`, called at `:6122-6129`;
+    `lib/collect_v2.py:3413-3416` @ triad `99aaebc`; DL-58).
   - gemini: `--review-web` (`lib/roster_v2.py:1050`) attaches `3rd-Agent/wrappers/policies/gemini-readonly-web.toml`,
     byte-equal to `contracts/gemini-readonly-web.toml`, instead of the no-web profile (`gemini_wrapper.py:125`, `:465`).
   - Every attempt's dispatch record is rendered from the bound condition at prepare and retry. Only the adoption of an
@@ -701,7 +719,7 @@ the roster from the registry with the recommended defaults; prints one COMPLETE 
 printed (its executed command is checked against the recorded dispatch, R-BIND); captures the
 round snapshot. It refuses on a malformed registry entry and never launches a provider itself. A change to a rule,
 schema, prompt clause or policy file is behavioral review scope even when the file contains only text; the docs-never-gate
-rule covers narrative documentation only. Symlinks (owner Q4, RULED 2026-09-19: "링크 자체는 검토하되, 대상을 자동으로 따라가지 않는 방식"): the LINK ITSELF is review material — its path, kind and exact link text are fingerprinted and available to reviewers; its TARGET is never followed automatically. Target content enters a review only as an independently authorized, bound input; a link the review cannot follow is disclosed as a coverage gap, never claimed inspected; cleanup never follows a link to delete its target. Each host implements "never followed" its own way and records the evidence (B: link-text fingerprint — its guarded worktree folds an untracked link by its text, `bin/review_round.py:1594-1597` — and a symlink refusal in the prepared copy, `:1441-1444` @ `7f75863`). On A: the reviewed patch is always committed content — a range without `..` still reviews `<commit>..HEAD` (`lib/review_scratch.py:4060-4066` @ `ce30d82`), and `_require_clean_scope` refuses in-scope modified tracked files (`:4112-4130`) — so the bound v2 `brief.md` DISCLOSES the basis's links rather than adding them to the patch: every committed link (kind `symlink`, path and exact link text from the commit's tree and blob objects) and, on a working-tree range, each untracked nonignored link of the source checkout (kind `untracked link`, text read with `readlink` of the link itself); no target is opened. A judges a coverage gap lexically, on the link text alone, component by component and before any collapse: an absolute text or one that climbs above the tree (outside), a text that walks through or names another link of the basis — a chain, a traversal through a link, a directory link, a self-link (not followed) — and an in-tree text naming no path of the commit (absent) are each marked a coverage gap (`_tree_symlinks` / `_render_links`, `:4636-4726`; the working-tree listing at `:5815`); an untracked-file listing that warns it could not read a directory (git skips it with exit 0) is refused, never taken as complete (DL-84) — A FIXED triad `aec571f` (verification pending; at `cbc67f6` an untracked nonignored source link was neither listed nor marked, and a chain, a self-link or a text through another link got no gap mark, DL-53); the shapes with an absent intermediate component and a trailing slash are in progress (Task 11, fix round 3). The one refusal that stays on A is the round-copy guard: a link found where the round copy is captured or verified is refused (`:2194-2195`, `:3970-3971`), as B refuses links in its prepared copy. A fact, not built: the lexical walk compares components case-sensitively, so on a case-insensitive volume a deliberately odd text such as `OUT/../x` passes through a committed link `out` in the kernel without a gap mark. Mechanism per host, principle = shared rule.
+rule covers narrative documentation only. Symlinks (owner Q4, RULED 2026-09-19: "링크 자체는 검토하되, 대상을 자동으로 따라가지 않는 방식"): the LINK ITSELF is review material — its path, kind and exact link text are fingerprinted and available to reviewers; its TARGET is never followed automatically. Target content enters a review only as an independently authorized, bound input; a link the review cannot follow is disclosed as a coverage gap, never claimed inspected; cleanup never follows a link to delete its target. Each host implements "never followed" its own way and records the evidence (B: link-text fingerprint — its guarded worktree folds an untracked link by its text, `bin/review_round.py:1594-1597` — and a symlink refusal in the prepared copy, `:1441-1444` @ `7f75863`). On A: the reviewed patch is always committed content — a range without `..` still reviews `<commit>..HEAD` (`lib/review_scratch.py:4060-4066` @ `ce30d82`), and `_require_clean_scope` refuses in-scope modified tracked files (`:4112-4130`) — so the bound v2 `brief.md` DISCLOSES the basis's links rather than adding them to the patch: every committed link (kind `symlink`, path and exact link text from the commit's tree and blob objects) and, on a working-tree range, each untracked nonignored link of the source checkout (kind `untracked link`, text read with `readlink` of the link itself); no target is opened. A judges a coverage gap lexically, on the link text alone, component by component and before any collapse: an absolute text or one that climbs above the tree (outside), a text that walks through or names another link of the basis — a chain, a traversal through a link, a directory link, a self-link (not followed) — and an in-tree text naming no path of the commit (absent) are each marked a coverage gap (`_tree_symlinks` / `_render_links`, `:4636-4726`; the working-tree listing at `:5815`); an untracked-file listing that warns it could not read a directory (git skips it with exit 0) is refused, never taken as complete (DL-84; on A every untracked listing refuses git's "could not open directory" warning — the brief's links, the round fingerprint and the precheck — `lib/review_scratch.py:2232-2252` `_git_untracked`, called at `:2412`, `:4193`, `:4955` @ triad `99aaebc`); on A a link whose own directory is not in the reviewed commit carries its own coverage-gap note (K18; `:4992-4996`, `:5044` @ `99aaebc`). The link listing and gap marks: A FIXED triad `aec571f` (verification pending; at `cbc67f6` an untracked nonignored source link was neither listed nor marked, and a chain, a self-link or a text through another link got no gap mark, DL-53); the shapes with an absent intermediate component and a trailing slash are in progress (Task 11, fix round 3). The one refusal that stays on A is the round-copy guard: a link found where the round copy is captured or verified is refused (`:2194-2195`, `:3970-3971`), as B refuses links in its prepared copy. A fact, not built: the lexical walk compares components case-sensitively, so on a case-insensitive volume a deliberately odd text such as `OUT/../x` passes through a committed link `out` in the kernel without a gap mark. Mechanism per host, principle = shared rule.
 
 The **bound basis** of a round is every input its review depends on: the reviewed bytes and packet; the review
 conditions (`review_kind`, `review_web_authorized`, the round date `<review-date>`, and the leader's prompt inputs —
@@ -730,8 +748,14 @@ basis makes rounds prepared before it non-retryable; prepare a new round.
   `collect`, `retry` and adoption. A later edit of the project roster file does not affect a prepared round. The
   clause manifests (`prompt_manifests`, `prompt_spec_dir`), the producer projection digest and the contract digest are
   recorded in `.roster-r<N>.json` and compared there with re-derived values (`lib/collect_v2.py:1910`, `:2718-2720`,
-  `:2759`): `collect` re-derives the contract digest (`:1944`), adoption and retry the manifests and projection
-  (`:2194`, `:2260`, `:2718`, `:2759`); re-deriving the manifests and projection at collection is open (DL-41). The
+  `:2759`): `collect` re-derives the contract digest (`:1944`), and since triad `99aaebc` `collect` and `retry` (before
+  its orphan adoption) re-derive every dispatched entry's clause manifest and the clause directory, the producer
+  projection and a claude entry's `preset` (R-ROSTER) through `_check_installed_basis` (`lib/collect_v2.py:2530-2626`,
+  called at `:2660` and `:3388` @ `99aaebc`; DL-41). A retry checks the whole round's basis: a changed member of any
+  dispatched entry (the claude preset while codex is retried, say) refuses the retry, since that member could never
+  agree and a paid retry on it is refused rather than spent (R-RETRY). A round prepared before `99aaebc` whose roster
+  dispatched a claude entry carries no `preset` member and can no longer be retried or collected — prepare a new round
+  (a round without a claude entry compares equal, both sides absent). The
   round date is bound since `b53409b` (above).
 - On B: `bin/review_round_v2.py` `create_basis` seals `basis-v2.json` (the request with `review_kind`,
   `review_web_authorized` and `prior_residual`; the resolved roster; adapters with launch controls and receipt digests;
