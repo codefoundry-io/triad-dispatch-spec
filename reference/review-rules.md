@@ -785,7 +785,9 @@ A different Google model (C18) is validated against the route's catalog before r
 `agy models` list (`<slug>\t<label>` lines, agy 1.2.16), an unreadable list refusing (On B `bin/antigravity_wrapper.py:82-101`,
 `:635-643` @ `7f75863`; On A the review route, stage 5, an investigation `--web` call passing the model through); the gemini
 CLI exposes no model listing (`gemini --help`, 0.60.0), so its catalog is a versioned data list taken from the CLI's own model
-table (On B `bin/data/gemini-models.json`, `bin/google_preflight_v2.py:15-24`; On A in progress). The Google Cloud
+table (On B `bin/data/gemini-models.json`, `bin/google_preflight_v2.py:15-24`; On A `3rd-Agent/wrappers/gemini-models.json`,
+stage 5); the list travels with the wrapper that reads it, and since a roster-driven leg always passes its model, a gemini
+review leg needs a CLI the list covers (On A 0.60.0 or later, narrower than the 0.34.0 policy floor). The Google Cloud
 access-token variable the gemini CLI reads is an API-key-shaped credential under R-AUTH that neither host removed (DL-81).
 
 ## Authentication — the user's own browser login only
