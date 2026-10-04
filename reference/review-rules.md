@@ -513,9 +513,9 @@ sentence on the same failed agy run outranks agy's print-timeout rung. On A that
 verdicts and the read-only allowlist census, above every answer, ok and retry branch
 (`3rd-Agent/wrappers/antigravity_wrapper.py:179-187`, `:1135-1150` @ `cbc67f6`); on A the auth-carrier rung below now
 comes before it. The shared order also lets an API-key-shaped sentence on the same failed run as a server-capacity
-sentence classify `server-capacity` and be retried; under the absolute law (R-AUTH (iii)) that is a defect both hosts fix,
+sentence classify `server-capacity` and be retried; under the absolute law (R-AUTH (ii)) that is a defect both hosts fix,
 not a limit: A in verification (Task 22), B to change (DL-75).
-On A the auth-carrier rung comes first (R-AUTH (iii)): after the ok return and before every other rung — the timeout
+On A the auth-carrier rung comes first (R-AUTH (ii)): after the ok return and before every other rung — the timeout
 verdict included — an
 authentication sentence or structured code in the vendor's OWN error carrier — the codex `error` / `turn.failed`
 message, the claude `is_error` envelope (`api_error_status` 401, or its result text), the gemini error object (code 41
@@ -526,7 +526,7 @@ in verification). A structured code is a carrier fact `contracts/vendor-failure-
 Inside a vendor's OWN error carrier the text is the vendor's, never an answer, a reviewed file or tool output, so the
 whole authentication vocabulary there — an API key (an api-key helper included), unauthorized or 401, not logged in, sign in
 or log in (run /login), authentication or credentials, an auth / access / refresh / session / bearer token or its data, an
-expired or unrefreshable token or session, an API credit balance — is the R-AUTH (iii) STOP; a vendor row is evidence of a
+expired or unrefreshable token or session, an API credit balance — is the R-AUTH (ii) STOP; a vendor row is evidence of a
 sentence, not the only trigger; a vendor's own authentication exit code (gemini 41) is a carrier too, and a run that ended
 in a timeout is judged on what it printed before, like the catalog call. A sentence no carrier rule knows yet ends unknown
 and reaches the repair analysis, which grows the classifier; it is never retried. The STOP applies to a call that failed: a
@@ -834,7 +834,7 @@ stage 5); the list travels with the wrapper that reads it, and since a roster-dr
 review leg needs a CLI the list covers (On A 0.60.0 or later, narrower than the 0.34.0 policy floor); a pre-release of a
 floor version is below that floor (On B `bin/google_preflight_v2.py:22-23`, `bin/review_round.py:470`), and the observed
 version is recorded as the CLI printed it. The catalog call is an authenticated CLI call: its own failure output is judged
-for an authentication outcome first (R-AUTH (iii)) — the re-login STOP, never a configuration refusal — and an
+for an authentication outcome first (R-AUTH (ii)) — the re-login STOP, never a configuration refusal — and an
 undecodable listing is refused like an unreadable one, never a traceback. The Google Cloud
 access-token variable the gemini CLI reads is an API-key-shaped credential under R-AUTH that neither host removed (DL-81).
 
@@ -865,9 +865,9 @@ R-AUTH decides. Login is the user's own act through the CLI: no host checks or c
 ([D-AUTH-JUDGE-STOP-20261004](../decisions/owner-register.md#D-AUTH-JUDGE-STOP-20261004)); a valid key stored in a CLI's
 own configuration and used silently is the user's responsibility under that decision. Enforcement: (i) the
 child-environment scrub of credential, endpoint and model-selector variables (R-NOCOST; hygiene; exists on both hosts);
-(iii) the host judges, from the CLI's own outcome, whether a call failed because the login is missing or expired or a
+(ii) the host judges, from the CLI's own outcome, whether a call failed because the login is missing or expired or a
 credential is API-key-shaped, and that observed authentication failure STOPS the attempt before any other
-classification of the run — no retry, no other method, no fallback. (iii): A in progress; B to check (DL-76). The gemini
+classification of the run — no retry, no other method, no fallback. (ii): A done (triad `ca82837`); B to check (DL-76). The gemini
 review preflight (C16) is an earlier rule and stays as it is.
 
 ## CLI version evidence
