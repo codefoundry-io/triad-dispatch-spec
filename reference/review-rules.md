@@ -534,7 +534,11 @@ dispatch is withheld (exit 1); a signal that lands while the records are being w
 the records already written with the earlier verdict (a limit; triad `_dispatch_record`, `_emit_payload`, 6.0). On A the
 answer is withheld (exit 1) on any signal recorded during a dispatch, an empty payload included, unless the recorded
 verdict is a timeout or `oauth-env`; a signal-interrupted run gets the same authentication check a timed-out run gets
-(6.0 slice 26a fix 1). A failed
+(6.0 slice 26a fix 1). When publication withholds an answer for such a late signal it prints one more canonical summary
+line with the final token and exit (`unknown`, exit 1), so the last summary line always matches the exit (R-TOKENS: the
+last line is the one a caller reads). A failed stderr write drops that one line and never the answer or the exit; a
+later line is tried again (a caller missing a summary or read-audit custody line refuses to collect — fail closed); B
+does not settle stderr recovery (a fact). A failed
 host record write (audit row, run-log, debug log) never changes the provider result or loses the answer, on both hosts (A
 one stderr line; B `audit()` returns False, `bin/_common.py:2139-2153` @ `7f75863`); on A a review attempt whose run-log
 was lost carries no receipt, so it is INVALID at collection and retried, never agreed. Verdict
