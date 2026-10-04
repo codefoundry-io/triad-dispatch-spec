@@ -33,6 +33,22 @@
       "carrier": "a codex `error` event message of a failed run; the key prefix that follows the sentence is never recorded",
       "token": "oauth-env",
       "observed": "2026-09-25"
+    },
+    {
+      "cli": "claude",
+      "line": "Not logged in · Please run /login",
+      "match": "please run /login",
+      "carrier": "the `result` text of a print-mode JSON envelope with `is_error` true (api_error_status null)",
+      "token": "oauth-env",
+      "observed": "2026-08-21 (https://github.com/anthropics/claude-code/issues/88434, Claude Code 2.1.238)"
+    },
+    {
+      "cli": "codex",
+      "line": "Error loading configuration: Your access token could not be refreshed because your refresh token was already used. Please log out and sign in again.",
+      "match": "please log out and sign in again",
+      "carrier": "a whole stderr line beginning `Error loading configuration:`, printed before any JSONL event",
+      "token": "oauth-env",
+      "observed": "2026-03-25 (https://github.com/openai/codex/issues/15754, codex 0.116.0)"
     }
   ]
 }
