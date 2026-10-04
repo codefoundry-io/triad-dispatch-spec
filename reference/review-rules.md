@@ -787,7 +787,11 @@ A different Google model (C18) is validated against the route's catalog before r
 CLI exposes no model listing (`gemini --help`, 0.60.0), so its catalog is a versioned data list taken from the CLI's own model
 table (On B `bin/data/gemini-models.json`, `bin/google_preflight_v2.py:15-24`; On A `3rd-Agent/wrappers/gemini-models.json`,
 stage 5); the list travels with the wrapper that reads it, and since a roster-driven leg always passes its model, a gemini
-review leg needs a CLI the list covers (On A 0.60.0 or later, narrower than the 0.34.0 policy floor). The Google Cloud
+review leg needs a CLI the list covers (On A 0.60.0 or later, narrower than the 0.34.0 policy floor); a pre-release of a
+floor version is below that floor (On B `bin/google_preflight_v2.py:22-23`, `bin/review_round.py:470`), and the observed
+version is recorded as the CLI printed it. The catalog call is an authenticated CLI call: its own failure output is judged
+for an authentication outcome first (R-AUTH (iii)) — the re-login STOP, never a configuration refusal — and an
+undecodable listing is refused like an unreadable one, never a traceback. The Google Cloud
 access-token variable the gemini CLI reads is an API-key-shaped credential under R-AUTH that neither host removed (DL-81).
 
 ## Authentication — the user's own browser login only
