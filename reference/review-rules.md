@@ -707,7 +707,12 @@ Cleanup exports and verifies the round's evidence first, then releases only reso
 Only host code deletes ([D-DELETION-BY-CODE-20261004](../decisions/owner-register.md#D-DELETION-BY-CODE-20261004)).
 Every folder a host's code may delete is declared in one JSON configuration file (shape:
 `contracts/cleanup-roots.schema.json`; illustration: `contracts/cleanup-roots.example.json`); each entry carries a role,
-a root, the ownership proof this rule already requires and the host's age floor for that role. Deletion code refuses a
+a root, the ownership proof this rule already requires and the host's age floor for that role. A root is one folder and
+covers its whole subtree (no glob): repository-relative (resolved against the git top-level of the working directory),
+or beginning with `$TMPDIR`, `~` or `$HOST_DIR` (the directory that holds the host's own deletion command, for folders a
+host keeps beside its installed code, such as its wrapper logs). A `marker:<name>` proof is a regular file of that name
+directly in the folder to delete; `alloc-record` and `inside-owned-packet` are proved only inside the host's own sweep,
+so the deletion command refuses them. The age floor binds the sweep and the deletion command alike. Deletion code refuses a
 target outside a declared root, and inside one it still refuses anything it cannot prove it allocated: the declaration
 adds to the proof and never replaces it. An AI — the leader, a sub-agent, skill, agent or prompt text, a printed remedy —
 at most chooses a declared role and a folder and runs the host's deletion command; no prompt, skill, agent text, printed
