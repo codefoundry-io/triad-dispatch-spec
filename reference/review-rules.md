@@ -773,7 +773,8 @@ tree below its own `.git` for any other `.git` entry and refuses on an unreadabl
 removal outside the deletion command). `git worktree add` exits non-zero when a post-checkout hook fails yet leaves the
 worktree and its registration in place, so its exit code alone does not say whether it created one: on A a rollback
 claims a registration when its add succeeded or left its tree inside the folder the same call created; an add refused
-because the path was already registered created nothing to roll back. Both review paths' close (A: the scratch packet and
+because the path was already registered created nothing to roll back. An add stopped after it wrote the registration and
+before it created the tree leaves a registration no rollback claims (a recorded limit; git marks it prunable). Both review paths' close (A: the scratch packet and
 the small round) finish an EMPTY folder directly under their declared root. A failed step's rollback
 that removes a worktree the same call created is the creating call's own removal: a lock set during that call (a
 checkout hook) does not stop it. A stopped deletion that resumes re-checks what remains as a SUBSET of what it
