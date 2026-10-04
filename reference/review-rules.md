@@ -397,8 +397,10 @@ route as follows; a false condition leaves every route in its R-CONTAIN no-web p
     (`lib/review_scratch.py:3624-3625`); for its standing codex and agy legs `prepare` prints only the output
     redirections (`:6081-6085`) and the dispatch is the v1 hand-built line of `references/leg-contracts.md:1397-1415`
     (codex: `--sandbox read-only`, `--pydantic`, no `--search`) and the agy read-only review agent, which has no web tool
-    (`:435-439`), all @ `faeb86b`; on that path a re-dispatch of a leg is a new round (`capture` moves the earlier
-    read-audit file aside), and the leader never removes the read-audit file itself — and refuses the review-web condition (`lib/review_scratch.py:3817-3820`).
+    (`:435-439`), all @ `faeb86b`; on that path a leg is re-dispatched once inside its round, and before it the leader
+    renames attempt K's read-audit file to `agy-r<N>-attempt<K>-read-audit.json` — the one move of that file by hand: it
+    keeps the file and leaves its literal path absent; between rounds `prepare` and `capture` move it aside; the leader
+    never removes it — and refuses the review-web condition (`lib/review_scratch.py:3817-3820`).
 - On B: the v2 request member `review_web_authorized` (`bin/review_round_v2.py:130-133`) is the carrier; it defaults to
   false per request, so binding it true for every round under the standing authorization is open (DL-39). For a true
   condition: native Codex receives it through its fresh-child prompt metadata and requires host web availability
@@ -790,7 +792,8 @@ A link in any component of a deletion path below the project base — the declar
 refused. A folder holding a worktree that git has LOCKED (git's documented guard against pruning), at any depth, is refused by
 every deletion — a sweep and the deletion command alike; unlocking it is the operator's own act. When the named folder is itself a
 registered worktree (on A the code-worktrees role), a tree holding uncommitted or untracked changes is refused, as git's
-own `git worktree remove` without force refuses it: committing or discarding the work is the operator's act. A worktree
+own `git worktree remove` without force refuses it — a deleted tracked file (no content lost; what a stopped removal
+leaves, so running the command again finishes it) and an ignored entry (as in git's own guard) are not counted: committing or discarding the work is the operator's act. A worktree
 nested inside a marker role's folder (a review packet's round tree, checked by its own close and partly emptied by a
 stopped one) is detached as above. A folder holding a
 moved or copied round tree, a clone, or a tree whose `.git` file names no registration is refused by the deletion command
