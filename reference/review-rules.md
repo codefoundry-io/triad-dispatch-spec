@@ -718,7 +718,7 @@ Only host code deletes ([D-DELETION-BY-CODE-20261004](../decisions/owner-registe
 Every folder a host's code may delete is declared in one JSON configuration file (shape:
 `contracts/cleanup-roots.schema.json`; illustration: `contracts/cleanup-roots.example.json`); each entry carries a role,
 a root, the ownership proof this rule already requires and the host's age floor for that role. A root is one folder and
-covers its whole subtree (no glob): repository-relative (resolved against the git top-level of the working directory),
+covers its whole subtree (no glob, no `..` component): repository-relative (resolved against the git top-level of the working directory),
 or beginning with `$TMPDIR`, `~` or `$HOST_DIR` (the directory that holds the host's own deletion command, for folders a
 host keeps beside its installed code, such as its wrapper logs). A `marker:<name>` proof is a regular file of that name
 directly in the folder to delete; `alloc-record` and `inside-owned-packet` are proved only inside the host's own sweep,
@@ -728,8 +728,13 @@ proof until last, so a deletion stopped part-way resumes from the same proof; a 
 removed through the repository that owns it — a worktree is emptied (its `.git` entry kept) before it is detached, because git
 drops a worktree's registration even when removing its tree fails — and a folder holding one that cannot be detached, any
 other `.git` entry, or a path the root's repository still registers that no `.git` entry inside the folder names, is
-refused; a git-registered worktree's age is its registration's age. An EMPTY folder left inside a declared root, older
-than the floor, is removed with rmdir: it holds nothing to lose (On A
+refused — except git's own failed-remove states, which are completed: a folder holding only a `.git` file whose
+registration is gone or no longer valid, and a registered path that is missing or empty, whose ONE registration is then
+removed (never a repository-wide prune); a git-registered worktree's age is its registration's age. An EMPTY folder left
+inside a marker role's root, older than the floor and not inside a folder that carries the marker, is removed with rmdir: it
+holds nothing to lose; roles whose proof only the sweep can check, and roots shared with other programs, get no such
+removal. Every check runs before any action — containment first, also for a path that no longer exists — and a check that
+cannot be made (an unreadable registration list, a git step that fails) refuses or reports the failure, never success (On A
 `lib/review_scratch.py:960-1035`, `lib/review_small.py:552-558`, `tests/lib/prune_runs.sh:18-22`; On B
 `tests/test_review_cleanup_custody.py:201-217` @ `7f75863`). Deletion code refuses a
 target outside a declared root, and inside one it still refuses anything it cannot prove it allocated: the declaration
