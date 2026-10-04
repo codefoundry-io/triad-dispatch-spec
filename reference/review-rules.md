@@ -766,7 +766,12 @@ A link in any component of a deletion path below the project base — the declar
 refused. An automatic sweep leaves a worktree that git has LOCKED (git's documented guard against pruning); an explicit
 deletion of a named folder may remove it. A stopped deletion that resumes re-checks what remains as a SUBSET of what it
 checked before it started (nothing new, nothing foreign), never as the whole set (On B `bin/review_round.py:1342-1361` @
-`7f75863`); the host records that it started inside the proof it removes last. The age floor binds a SWEEP; an
+`7f75863`); the host records that it started inside the proof it removes last. On A the start is one line appended to the packet's `.active`; a resumed close judges the subset with `git status` and
+the round artifacts' hashes (an entry may be missing; anything new or modified is refused); a stop after a tracked ignore file
+was removed makes the files it ignored read as new, so that resume is refused and the stale sweep finishes the packet past
+the floor (a recorded limit). On A the review sweeps leave a locked worktree; the wrapper-tmp and test-run sweeps do not
+check for one (their folders hold no worktree; a recorded limit). A rollback finds its own registration by identity (device
+and inode), because git records the real path. The age floor binds a SWEEP; an
 explicit close of one named round, or the resumption of a deletion the host already decided, is not held back by it — every
 other check still applies (On B `bin/review_round.py:1319` has no age check, its sweep `:1024` does @ `7f75863`). A helper
 deleting inside a project reads that project's configuration (the root's project, not the working directory's). A
