@@ -530,7 +530,9 @@ sentence, not the only trigger; a vendor's own authentication exit code (gemini 
 in a timeout is judged on what it printed before, like the catalog call. A sentence no carrier rule knows yet ends unknown
 and reaches the repair analysis, which grows the classifier; it is never retried. The STOP applies to a call that failed: a
 run that completed with an answer is not stopped by a banner line. Outside a carrier the plain-fragment rule above stands.
-Facts: a carrier's lines are split on line feeds only (a bare CR or U+2028 inside a message is part of the line); gemini 0.60.0
+Facts: inside a JSON message a carrier's lines are split on line feeds only (a bare CR or U+2028 there is part of the line);
+on a CLI's own stderr a bare CR also starts a line (progress output rewrites the line, and the host's text-mode pipe turns it
+into a line feed) — stderr is the CLI's own channel, never tool output; gemini 0.60.0
 puts a fatal TOOL error into its error object as "Error executing tool <name>: …" — that message is tool output, so only the
 object's code (41 / 401) is read there; gemini's "Cached credentials are not valid:" log line appears only in debug mode; no
 stream-json capture yet shows where agy's banner sits on its stderr line (the line-start rule rests on the pty-era record). The
