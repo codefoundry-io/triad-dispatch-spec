@@ -530,6 +530,12 @@ sentence, not the only trigger; a vendor's own authentication exit code (gemini 
 in a timeout is judged on what it printed before, like the catalog call. A sentence no carrier rule knows yet ends unknown
 and reaches the repair analysis, which grows the classifier; it is never retried. The STOP applies to a call that failed: a
 run that completed with an answer is not stopped by a banner line. Outside a carrier the plain-fragment rule above stands.
+Facts: a carrier's lines are split on line feeds only (a bare CR or U+2028 inside a message is part of the line); gemini 0.60.0
+puts a fatal TOOL error into its error object as "Error executing tool <name>: …" — that message is tool output, so only the
+object's code (41 / 401) is read there; gemini's "Cached credentials are not valid:" log line appears only in debug mode; no
+stream-json capture yet shows where agy's banner sits on its stderr line (the line-start rule rests on the pty-era record). The
+shared raw-blob phrase `401 unauthorized` stops the codex 401 sentence on every CLI — an exception to C43's own-CLI rule that
+R-AUTH decides.
 
 <a id="R-RECEIPT"></a>
 The transport receipt and audit / run-log records carry the common transport object defined by
@@ -783,7 +789,8 @@ is its own: On A one list for every route (`_CHILD_ENV_SCRUB_CREDENTIALS`, `3rd-
 `cbc67f6`; `:2900-2936` on the unmerged branch `stage3/engine-transport` @ `221d556`, which adds `AGY_ADC_AUTH`,
 `GOOGLE_GENAI_USE_ENTERPRISE`, `GOOGLE_CLOUD_REGION` and `GOOGLE_CLOUD_QUOTA_PROJECT`, `:2917-2920`); On B per formal
 route (agy `bin/antigravity_wrapper.py:39-50`, gemini `bin/gemini_wrapper.py:43-53`), its common scrub holding the loader
-names only (`bin/_common.py:1307-1313`). On the gemini route the hosts differ: A removes `GOOGLE_CLOUD_PROJECT` and, on
+names only (`bin/_common.py:1307-1313`). On the gemini route both hosts now keep the project family (GOOGLE_CLOUD_PROJECT,
+_LOCATION, _REGION, _QUOTA_PROJECT; On A Task 22, `_GEMINI_ROUTE_KEEP`) and remove it on agy. Before that the hosts differed: A removed `GOOGLE_CLOUD_PROJECT` and, on
 that branch, `GOOGLE_GENAI_USE_ENTERPRISE`, `GOOGLE_CLOUD_REGION` and `GOOGLE_CLOUD_QUOTA_PROJECT` as well, while B removes
 those on agy only and keeps the project family on gemini; the gemini CLI documents that a Company, School or Google
 Workspace account signing in with Google may need a Google Cloud project set
