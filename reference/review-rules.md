@@ -725,7 +725,11 @@ directly in the folder to delete; `alloc-record` and `inside-owned-packet` are p
 so the deletion command refuses them. The age floor binds the sweep and the deletion command alike, and the age is read
 from the proof itself (a marker's own modification time), never from the folder a deletion is emptying. A deletion keeps its
 proof until last, so a deletion stopped part-way resumes from the same proof; a linked worktree inside the folder is first
-removed through the repository that owns it, and a folder holding one that cannot be detached is refused (On A
+removed through the repository that owns it — a worktree is emptied (its `.git` entry kept) before it is detached, because git
+drops a worktree's registration even when removing its tree fails — and a folder holding one that cannot be detached, any
+other `.git` entry, or a path the root's repository still registers that no `.git` entry inside the folder names, is
+refused; a git-registered worktree's age is its registration's age. An EMPTY folder left inside a declared root, older
+than the floor, is removed with rmdir: it holds nothing to lose (On A
 `lib/review_scratch.py:960-1035`, `lib/review_small.py:552-558`, `tests/lib/prune_runs.sh:18-22`; On B
 `tests/test_review_cleanup_custody.py:201-217` @ `7f75863`). Deletion code refuses a
 target outside a declared root, and inside one it still refuses anything it cannot prove it allocated: the declaration
