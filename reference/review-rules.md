@@ -399,7 +399,7 @@ route as follows; a false condition leaves every route in its R-CONTAIN no-web p
     (codex: `--sandbox read-only`, `--pydantic`, no `--search`) and the agy read-only review agent, which has no web tool
     (`:435-439`), all @ `faeb86b`; on that path a leg is re-dispatched once inside its round, and before it the leader
     renames attempt K's read-audit file to `agy-r<N>-attempt<K>-read-audit.json` — the one move of that file by hand: it
-    keeps the file and leaves its literal path absent; between rounds `prepare` and `capture` move it aside; the leader
+    keeps the file and leaves its literal path absent; between rounds `prepare` and `capture` move it aside (a capture under any label, a round number or not); the leader
     never removes it — and refuses the review-web condition (`lib/review_scratch.py:3817-3820`).
 - On B: the v2 request member `review_web_authorized` (`bin/review_round_v2.py:130-133`) is the carrier; it defaults to
   false per request, so binding it true for every round under the standing authorization is open (DL-39). For a true
@@ -793,7 +793,8 @@ refused. A folder holding a worktree that git has LOCKED (git's documented guard
 every deletion — a sweep and the deletion command alike; unlocking it is the operator's own act. When the named folder is itself a
 registered worktree (on A the code-worktrees role), a tree holding uncommitted or untracked changes is refused, as git's
 own `git worktree remove` without force refuses it — a deleted tracked file (no content lost; what a stopped removal
-leaves, so running the command again finishes it) and an ignored entry (as in git's own guard) are not counted: committing or discarding the work is the operator's act. A worktree
+leaves, so running the command again finishes it) and an ignored entry (as in git's own guard) are not counted, and every untracked file counts whatever the repository's
+`status.showUntrackedFiles` says: committing or discarding the work is the operator's act. A worktree
 nested inside a marker role's folder (a review packet's round tree, checked by its own close and partly emptied by a
 stopped one) is detached as above. A folder holding a
 moved or copied round tree, a clone, or a tree whose `.git` file names no registration is refused by the deletion command
@@ -822,9 +823,9 @@ written start record reads as not started, so the next run checks the whole set 
 round check, which ran before its first deletion; an explicit close of an EMPTY folder directly under
 its declared root removes it whatever its age (its proof is gone, so an emptied folder cannot be told from another empty one,
 and it holds nothing to lose). On A the start is one line appended to the packet's `.active`; a resumed close judges the subset with `git status` and
-the round artifacts' hashes (an entry may be missing; anything new or modified is refused); a stop after a tracked ignore file
-was removed makes the files it ignored read as new, so that resume is refused and the stale sweep finishes the packet past
-the floor (a recorded limit). A rollback finds its own registration by identity (device
+the round artifacts' hashes (an entry may be missing; anything new or modified is refused). A deletion that empties a folder removes its
+ignore files (`.gitignore` at any depth) last, so a stop never shows a file they ignore as new and every resume finishes
+(on A both a stopped code-worktree removal and a stopped packet close). A rollback finds its own registration by identity (device
 and inode), because git records the real path. The age floor binds a SWEEP; an
 explicit close of one named round, or the resumption of a deletion the host already decided, is not held back by it — every
 other check still applies (On B `bin/review_round.py:1319` has no age check, its sweep `:1024` does @ `7f75863`). Removing the host itself is outside this rule: after an uninstall no host code is left, so what
