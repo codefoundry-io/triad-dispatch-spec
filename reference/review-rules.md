@@ -511,11 +511,12 @@ carries the `OAuth2Client` stack trace (On A `3rd-Agent/wrappers/_common.py:2208
 `bin/_common.py:743-766` @ `7f75863`). A new rung must not let a retryable token outrank R-AUTH's STOP: an `oauth-env`
 sentence on the same failed agy run outranks agy's print-timeout rung. On A that rung sits after the engine-decided
 verdicts and the read-only allowlist census, above every answer, ok and retry branch
-(`3rd-Agent/wrappers/antigravity_wrapper.py:179-187`, `:1135-1150` @ `cbc67f6`), so an authentication sentence in the
-same run classifies `timeout` today — in progress (Task 19 fix round 2, L8; DL-62). The shared order also lets an
-API-key-shaped sentence on the same failed run as a server-capacity sentence classify `server-capacity` and be retried;
-under the absolute law (R-AUTH (iii)) that is a defect both hosts fix, not a limit: A in progress, B to change (DL-75).
-On A the auth-carrier rung comes first (R-AUTH (iii)): after the ok and timeout returns and before every other rung, an
+(`3rd-Agent/wrappers/antigravity_wrapper.py:179-187`, `:1135-1150` @ `cbc67f6`); on A the auth-carrier rung below now
+comes before it. The shared order also lets an API-key-shaped sentence on the same failed run as a server-capacity
+sentence classify `server-capacity` and be retried; under the absolute law (R-AUTH (iii)) that is a defect both hosts fix,
+not a limit: A in verification (Task 22), B to change (DL-75).
+On A the auth-carrier rung comes first (R-AUTH (iii)): after the ok return and before every other rung — the timeout
+verdict included — an
 authentication sentence or structured code in the vendor's OWN error carrier — the codex `error` / `turn.failed`
 message, the claude `is_error` envelope (`api_error_status` 401, or its result text), the gemini error object (code 41
 `FatalAuthenticationError` or 401, or its message; gemini CLI 0.60.0), agy's `result.error` and a stderr line beginning
@@ -537,7 +538,8 @@ puts a fatal TOOL error into its error object as "Error executing tool <name>: �
 object's code (41 / 401) is read there; gemini's "Cached credentials are not valid:" log line appears only in debug mode; no
 stream-json capture yet shows where agy's banner sits on its stderr line (the line-start rule rests on the pty-era record). The
 shared raw-blob phrase `401 unauthorized` stops the codex 401 sentence on every CLI — an exception to C43's own-CLI rule that
-R-AUTH decides.
+R-AUTH decides. Host A's own record says agy's `result.error` can echo the model's text through a finish-schema
+validation report (not measured); such a report is model text, so only agy's own sign-in banner is read there.
 
 <a id="R-RECEIPT"></a>
 The transport receipt and audit / run-log records carry the common transport object defined by
