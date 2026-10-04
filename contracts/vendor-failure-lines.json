@@ -69,7 +69,7 @@
     {
       "cli": "gemini",
       "line": "Manual authorization is required but the current session is non-interactive. … (FatalAuthenticationError)",
-      "match": "vendor exit 41",
+      "match": "manual authorization is required",
       "carrier": "the gemini CLI's own exit code 41 (FATAL_AUTHENTICATION_ERROR), with the message as plain stderr text and no error object",
       "token": "oauth-env",
       "observed": "gemini CLI v0.60.0 source (packages/cli/index.ts, packages/core/src/utils/exitCodes.ts, oauth2.ts)"
