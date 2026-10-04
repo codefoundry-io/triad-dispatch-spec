@@ -46,7 +46,7 @@
       "cli": "codex",
       "line": "Error loading configuration: Your access token could not be refreshed because your refresh token was already used. Please log out and sign in again.",
       "match": "please log out and sign in again",
-      "carrier": "a whole stderr line beginning `Error loading configuration:`, printed before any JSONL event",
+      "carrier": "a stderr line beginning `Error loading configuration:`, printed before any JSONL event, or a codex `error` / `turn.failed` message",
       "token": "oauth-env",
       "observed": "2026-03-25 (https://github.com/openai/codex/issues/15754, codex 0.116.0)"
     },
@@ -65,6 +65,14 @@
       "carrier": "the `result` text of a print-mode envelope with `is_error` true, no `api_error_status`",
       "token": "oauth-env",
       "observed": "Claude Code 2.1.39 (a captured CI run, https://github.com/aidenybai/react-grab/actions/runs/22843267285)"
+    },
+    {
+      "cli": "gemini",
+      "line": "Manual authorization is required but the current session is non-interactive. … (FatalAuthenticationError)",
+      "match": "vendor exit 41",
+      "carrier": "the gemini CLI's own exit code 41 (FATAL_AUTHENTICATION_ERROR), with the message as plain stderr text and no error object",
+      "token": "oauth-env",
+      "observed": "gemini CLI v0.60.0 source (packages/cli/index.ts, packages/core/src/utils/exitCodes.ts, oauth2.ts)"
     }
   ]
 }
