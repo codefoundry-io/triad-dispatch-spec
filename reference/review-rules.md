@@ -752,7 +752,13 @@ removed (never a repository-wide prune); a git-registered worktree's age is its 
 inside a marker role's root, older than the floor and not inside a folder that carries ANY declared role's marker, is removed with rmdir: it
 holds nothing to lose; roles whose proof only the sweep can check, and roots shared with other programs (a root beginning
 with `$TMPDIR` or `~`; a repository-relative or `$HOST_DIR` root is the host's own), get no such
-removal (an empty folder a stopped git-registered deletion leaves is the sweep's). Every check runs before any action — containment first, also for a path that no longer exists — and a check that
+removal (an empty folder a stopped git-registered deletion leaves is the sweep's: on A an EMPTY, unregistered folder directly
+under the code-worktrees root, never a registered one). A coded sweep may run in a folder that stands in for its role's
+root for test isolation (on A a log- or debug-directory variable, a review attempt's own log directory, the root a caller
+hands the review helper); the role must still be declared and its proof and floor apply, and the deletion command never
+reads such a stand-in. A sweep checks one proof — a role that declares another is skipped with a note; a day-granular sweep
+rounds the declared seconds up to whole days; an operator setting may raise a floor, never lower it. A wipe-style export
+empties an existing target only when it is that role's declared root. Every check runs before any action — containment first, also for a path that no longer exists — and a check that
 cannot be made (an unreadable registration list, a git step that fails) refuses or reports the failure, never success (On A
 `lib/review_scratch.py:960-1035`, `lib/review_small.py:552-558`, `tests/lib/prune_runs.sh:18-22`; On B
 `tests/test_review_cleanup_custody.py:201-217` @ `7f75863`). Deletion code refuses a
