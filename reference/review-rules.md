@@ -777,6 +777,12 @@ service checks go through the owner-briefing route (R-GOOGLE); an unrun authenti
 REPLACES the user-tier policy directory only; system/admin, workspace and built-in defaults still load (v0.46.0 and
 v0.60.0 `packages/core/src/policy/config.ts`), so an admin policy can outrank the wrapper's denies; the CLI help string
 "Additional policy files" is misleading and the wrapper's TOML header is right.
+A different Google model (C18) is validated against the route's catalog before review inference: on agy the installed CLI's
+`agy models` list (`<slug>\t<label>` lines, agy 1.2.16), an unreadable list refusing (On B `bin/antigravity_wrapper.py:82-101`,
+`:635-643` @ `7f75863`; On A the review route, stage 5, an investigation `--web` call passing the model through); the gemini
+CLI exposes no model listing (`gemini --help`, 0.60.0), so its catalog is a versioned data list taken from the CLI's own model
+table (On B `bin/data/gemini-models.json`, `bin/google_preflight_v2.py:15-24`; On A in progress). The Google Cloud
+access-token variable the gemini CLI reads is an API-key-shaped credential under R-AUTH that neither host removed (DL-81).
 
 ## Authentication — the user's own browser login only
 
