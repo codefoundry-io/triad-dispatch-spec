@@ -775,7 +775,8 @@ worktree and its registration in place, so its exit code alone does not say whet
 claims a registration when its add succeeded or left its tree inside the folder the same call created; an add refused
 because the path was already registered created nothing to roll back. An add stopped after it wrote the registration and
 before it created the tree leaves a registration no rollback claims (a recorded limit; git marks it prunable). Both review paths' close (A: the scratch packet and
-the small round) finish an EMPTY folder directly under their declared root. A failed step's rollback
+the small round) finish an EMPTY folder directly under their declared root. A sweep hands an EMPTY folder directly under its role's root, past the
+floor, to the empty-folder rule (A: the small path's expiry joins the scratch sweep in the final fix wave). A failed step's rollback
 that removes a worktree the same call created is the creating call's own removal: a lock set during that call (a
 checkout hook) does not stop it. A stopped deletion that resumes re-checks what remains as a SUBSET of what it
 checked before it started (nothing new, nothing foreign), never as the whole set (On B `bin/review_round.py:1342-1361` @
