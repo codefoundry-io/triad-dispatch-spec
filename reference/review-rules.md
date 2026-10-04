@@ -763,14 +763,14 @@ review packet's activity) — a declared floor below it is raised to it. A file 
 clears before writing again is removed only when its content shows the host wrote it. A deletion reads only the root's repository's registrations: an EMPTY folder that ANOTHER repository registers is removed
 like any empty folder and leaves that repository a prunable registration (a recorded limit; B uses no linked worktrees).
 A link in any component of a deletion path below the project base — the declared root's own components included — is
-refused. An automatic sweep leaves a worktree that git has LOCKED (git's documented guard against pruning); an explicit
-deletion of a named folder may remove it. A stopped deletion that resumes re-checks what remains as a SUBSET of what it
+refused. A folder holding a worktree that git has LOCKED (git's documented guard against pruning), at any depth, is refused by
+every deletion — a sweep and the deletion command alike; unlocking it is the operator's own act. A stopped deletion that resumes re-checks what remains as a SUBSET of what it
 checked before it started (nothing new, nothing foreign), never as the whole set (On B `bin/review_round.py:1342-1361` @
-`7f75863`); the host records that it started inside the proof it removes last. On A the start is one line appended to the packet's `.active`; a resumed close judges the subset with `git status` and
+`7f75863`); the host records that it started inside the proof it removes last. A new round is never prepared in a folder whose deletion has started; a partly
+written start record reads as not started, so the next run checks the whole set again. On A the start is one line appended to the packet's `.active`; a resumed close judges the subset with `git status` and
 the round artifacts' hashes (an entry may be missing; anything new or modified is refused); a stop after a tracked ignore file
 was removed makes the files it ignored read as new, so that resume is refused and the stale sweep finishes the packet past
-the floor (a recorded limit). On A the review sweeps leave a locked worktree; the wrapper-tmp and test-run sweeps do not
-check for one (their folders hold no worktree; a recorded limit). A rollback finds its own registration by identity (device
+the floor (a recorded limit). A rollback finds its own registration by identity (device
 and inode), because git records the real path. The age floor binds a SWEEP; an
 explicit close of one named round, or the resumption of a deletion the host already decided, is not held back by it — every
 other check still applies (On B `bin/review_round.py:1319` has no age check, its sweep `:1024` does @ `7f75863`). A helper
