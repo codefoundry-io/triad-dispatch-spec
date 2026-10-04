@@ -523,10 +523,13 @@ with its auth banner — classifies `oauth-env`, and no answer, reviewed file or
 then applies to the rest of the failed run (`3rd-Agent/wrappers/_common.py` `_auth_carrier_stop`, triad `71173cd`,
 in verification). A structured code is a carrier fact `contracts/vendor-failure-lines.json` has no column for.
 Inside a vendor's OWN error carrier the text is the vendor's, never an answer, a reviewed file or tool output, so the
-whole authentication vocabulary there — an API key, unauthorized or 401, not logged in, sign in or log in, authentication
-or credentials, an expired or unrefreshable token — is the R-AUTH (iii) STOP; a vendor row is evidence of a sentence, not
-the only trigger; a vendor's own authentication exit code (gemini 41) is a carrier too. The STOP applies to a call that
-failed: a run that completed with an answer is not stopped by a banner line. Outside a carrier the plain-fragment rule above stands.
+whole authentication vocabulary there — an API key (an api-key helper included), unauthorized or 401, not logged in, sign in
+or log in (run /login), authentication or credentials, an auth / access / refresh / session / bearer token or its data, an
+expired or unrefreshable token or session, an API credit balance — is the R-AUTH (iii) STOP; a vendor row is evidence of a
+sentence, not the only trigger; a vendor's own authentication exit code (gemini 41) is a carrier too, and a run that ended
+in a timeout is judged on what it printed before, like the catalog call. A sentence no carrier rule knows yet ends unknown
+and reaches the repair analysis, which grows the classifier; it is never retried. The STOP applies to a call that failed: a
+run that completed with an answer is not stopped by a banner line. Outside a carrier the plain-fragment rule above stands.
 
 <a id="R-RECEIPT"></a>
 The transport receipt and audit / run-log records carry the common transport object defined by
