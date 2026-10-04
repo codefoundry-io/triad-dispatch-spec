@@ -760,7 +760,11 @@ reads such a stand-in. A sweep checks one proof — a role that declares another
 rounds the declared seconds up to whole days; an operator setting may raise a floor, never lower it, and a host keeps its
 own minimum for a role whose files a live call or a paused round still uses (the cap prune's fresh-sibling floor above; a
 review packet's activity) — a declared floor below it is raised to it. A file a call writes at a caller-named path and
-clears before writing again is removed only when its content shows the host wrote it. A wipe-style export
+clears before writing again is removed only when its content shows the host wrote it. The age floor binds a SWEEP; an
+explicit close of one named round, or the resumption of a deletion the host already decided, is not held back by it — every
+other check still applies (On B `bin/review_round.py:1319` has no age check, its sweep `:1024` does @ `7f75863`). A helper
+deleting inside a project reads that project's configuration (the root's project, not the working directory's). A
+wipe-style export
 empties an existing target only when it is that role's declared root. Every check runs before any action — containment first, also for a path that no longer exists — and a check that
 cannot be made (an unreadable registration list, a git step that fails) refuses or reports the failure, never success (On A
 `lib/review_scratch.py:960-1035`, `lib/review_small.py:552-558`, `tests/lib/prune_runs.sh:18-22`; On B
