@@ -764,7 +764,9 @@ clears before writing again is removed only when its content shows the host wrot
 like any empty folder and leaves that repository a prunable registration (a recorded limit; B uses no linked worktrees).
 A link in any component of a deletion path below the project base — the declared root's own components included — is
 refused. A folder holding a worktree that git has LOCKED (git's documented guard against pruning), at any depth, is refused by
-every deletion — a sweep and the deletion command alike; unlocking it is the operator's own act. A stopped deletion that resumes re-checks what remains as a SUBSET of what it
+every deletion — a sweep and the deletion command alike; unlocking it is the operator's own act. A failed step's rollback
+that removes a worktree the same call created is the creating call's own removal: a lock set during that call (a
+checkout hook) does not stop it. A stopped deletion that resumes re-checks what remains as a SUBSET of what it
 checked before it started (nothing new, nothing foreign), never as the whole set (On B `bin/review_round.py:1342-1361` @
 `7f75863`); the host records that it started inside the proof it removes last. A new round is never prepared in a folder whose deletion has started; a partly
 written start record reads as not started, so the next run checks the whole set again. A resumed close does not repeat the fresh
