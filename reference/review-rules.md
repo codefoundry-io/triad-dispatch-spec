@@ -402,7 +402,9 @@ route as follows; a false condition leaves every route in its R-CONTAIN no-web p
     keeps the file and leaves its literal path absent; between rounds `prepare` and `capture` move it aside (a capture under any label, a round number or not; a move stopped between its link and its
     unlink is finished by the next `prepare` / `capture`; a second move into a history name that already holds a
     different file refuses, and the round goes on in a new packet dir — nothing is lost); the leader
-    never removes it — and refuses the review-web condition (`lib/review_scratch.py:3817-3820`).
+    never removes it — and refuses the review-web condition (`lib/review_scratch.py:3817-3820`). The same legacy paths render neither the shared current-date nor
+    the deployment-context clause (the small path uses its own template), so C67 and C68 hold on the v2 path only — the same
+    recorded fact until they are retired.
 - On B: the v2 request member `review_web_authorized` (`bin/review_round_v2.py:130-133`) is the carrier; it defaults to
   false per request, so binding it true for every round under the standing authorization is open (DL-39). For a true
   condition: native Codex receives it through its fresh-child prompt metadata and requires host web availability
