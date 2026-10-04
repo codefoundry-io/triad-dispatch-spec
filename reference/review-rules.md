@@ -736,9 +736,9 @@ other `.git` entry, or a path the root's repository still registers that no `.gi
 refused — except git's own failed-remove states, which are completed: a folder holding only a `.git` file whose
 registration is gone or no longer valid, and a registered path that is missing or empty, whose ONE registration is then
 removed (never a repository-wide prune); a git-registered worktree's age is its registration's age. An EMPTY folder left
-inside a marker role's root, older than the floor and not inside a folder that carries the marker, is removed with rmdir: it
+inside a marker role's root, older than the floor and not inside a folder that carries ANY declared role's marker, is removed with rmdir: it
 holds nothing to lose; roles whose proof only the sweep can check, and roots shared with other programs, get no such
-removal. Every check runs before any action — containment first, also for a path that no longer exists — and a check that
+removal (an empty folder a stopped git-registered deletion leaves is the sweep's). Every check runs before any action — containment first, also for a path that no longer exists — and a check that
 cannot be made (an unreadable registration list, a git step that fails) refuses or reports the failure, never success (On A
 `lib/review_scratch.py:960-1035`, `lib/review_small.py:552-558`, `tests/lib/prune_runs.sh:18-22`; On B
 `tests/test_review_cleanup_custody.py:201-217` @ `7f75863`). Deletion code refuses a
