@@ -531,7 +531,10 @@ inside the timeout arm's group kill (the SIGKILL escalation kept) and between at
 `3rd-Agent/wrappers/_common.py:3441-3448`; `_run_once`, `:3559-3585`, `:3924-3949` @ triad `bf38f60`), and after the engine's last check too: the record step turns
 a recorded signal into the signal record before the records are written, and the answer of any signal recorded inside a
 dispatch is withheld (exit 1); a signal that lands while the records are being written withholds the answer but leaves
-the records already written with the earlier verdict (a limit; triad `_dispatch_record`, `_emit_payload`, 6.0). A failed
+the records already written with the earlier verdict (a limit; triad `_dispatch_record`, `_emit_payload`, 6.0). On A the
+answer is withheld (exit 1) on any signal recorded during a dispatch, an empty payload included, unless the recorded
+verdict is a timeout or `oauth-env`; a signal-interrupted run gets the same authentication check a timed-out run gets
+(6.0 slice 26a fix 1). A failed
 host record write (audit row, run-log, debug log) never changes the provider result or loses the answer, on both hosts (A
 one stderr line; B `audit()` returns False, `bin/_common.py:2139-2153` @ `7f75863`); on A a review attempt whose run-log
 was lost carries no receipt, so it is INVALID at collection and retried, never agreed. Verdict
@@ -598,7 +601,11 @@ object's code (41 / 401) is read there; gemini's "Cached credentials are not val
 stream-json capture yet shows where agy's banner sits on its stderr line (the line-start rule rests on the pty-era record). The
 shared raw-blob phrase `401 unauthorized` stops the codex 401 sentence on every CLI — an exception to C43's own-CLI rule that
 R-AUTH decides. Host A's own record says agy's `result.error` can echo the model's text through a finish-schema
-validation report (not measured); such a report is model text, so only agy's own sign-in banner is read there.
+validation report (not measured); such a report is model text — its sibling fields (`detail` and the like) included — so
+only agy's own sign-in banner is read there. On agy the plain capacity sentences are read only in agy's own stderr and the
+terminal `result.error`, never in a tool or step signal (`tool_info.error`, `error_message` steps) — as B classifies agy
+from stderr and status only (`bin/antigravity_wrapper.py:286-296` @ `7f75863`); on gemini a stderr line beginning
+"Error executing tool" is tool output and is not read for them either (A 6.0 slice 26a fix 1).
 
 <a id="R-RECEIPT"></a>
 The transport receipt and audit / run-log records carry the common transport object defined by
