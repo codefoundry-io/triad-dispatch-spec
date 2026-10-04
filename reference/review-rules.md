@@ -522,6 +522,10 @@ message, the claude `is_error` envelope (`api_error_status` 401, or its result t
 banner — classifies `oauth-env`, and no answer, reviewed file or tool output is read for it; the shared order above
 then applies to the rest of the failed run (`3rd-Agent/wrappers/_common.py` `_auth_carrier_stop`, triad `71173cd`,
 in verification). A structured code is a carrier fact `contracts/vendor-failure-lines.json` has no column for.
+Inside a vendor's OWN error carrier the text is the vendor's, never an answer, a reviewed file or tool output, so the
+whole authentication vocabulary there — an API key, unauthorized or 401, not logged in, sign in or log in, authentication
+or credentials, an expired or unrefreshable token — is the R-AUTH (iii) STOP; a vendor row is evidence of a sentence, not
+the only trigger. Outside a carrier the plain-fragment rule above stands.
 
 <a id="R-RECEIPT"></a>
 The transport receipt and audit / run-log records carry the common transport object defined by

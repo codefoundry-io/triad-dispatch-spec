@@ -49,6 +49,22 @@
       "carrier": "a whole stderr line beginning `Error loading configuration:`, printed before any JSONL event",
       "token": "oauth-env",
       "observed": "2026-03-25 (https://github.com/openai/codex/issues/15754, codex 0.116.0)"
+    },
+    {
+      "cli": "gemini",
+      "line": "API key not valid. Please pass a valid API key.",
+      "match": "api key not valid",
+      "carrier": "the gemini error object (code 400) on stdout or the trailing stderr envelope",
+      "token": "oauth-env",
+      "observed": "2026 (https://github.com/google-gemini/gemini-cli/issues/20284)"
+    },
+    {
+      "cli": "claude",
+      "line": "Invalid API key · Fix external API key",
+      "match": "invalid api key",
+      "carrier": "the `result` text of a print-mode envelope with `is_error` true, no `api_error_status`",
+      "token": "oauth-env",
+      "observed": "Claude Code 2.1.39 (a captured CI run, https://github.com/aidenybai/react-grab/actions/runs/22843267285)"
     }
   ]
 }
