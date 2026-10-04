@@ -760,7 +760,9 @@ reads such a stand-in. A sweep checks one proof — a role that declares another
 rounds the declared seconds up to whole days; an operator setting may raise a floor, never lower it, and a host keeps its
 own minimum for a role whose files a live call or a paused round still uses (the cap prune's fresh-sibling floor above; a
 review packet's activity) — a declared floor below it is raised to it. A file a call writes at a caller-named path and
-clears before writing again is removed only when its content shows the host wrote it. A link in any component of a deletion path below the project base — the declared root's own components included — is
+clears before writing again is removed only when its content shows the host wrote it. A deletion reads only the root's repository's registrations: an EMPTY folder that ANOTHER repository registers is removed
+like any empty folder and leaves that repository a prunable registration (a recorded limit; B uses no linked worktrees).
+A link in any component of a deletion path below the project base — the declared root's own components included — is
 refused. An automatic sweep leaves a worktree that git has LOCKED (git's documented guard against pruning); an explicit
 deletion of a named folder may remove it. A stopped deletion that resumes re-checks what remains as a SUBSET of what it
 checked before it started (nothing new, nothing foreign), never as the whole set (On B `bin/review_round.py:1342-1361` @
