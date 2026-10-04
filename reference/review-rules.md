@@ -764,13 +764,16 @@ clears before writing again is removed only when its content shows the host wrot
 like any empty folder and leaves that repository a prunable registration (a recorded limit; B uses no linked worktrees).
 A link in any component of a deletion path below the project base — the declared root's own components included — is
 refused. A folder holding a worktree that git has LOCKED (git's documented guard against pruning), at any depth, is refused by
-every deletion — a sweep and the deletion command alike; unlocking it is the operator's own act. A failed step's rollback
+every deletion — a sweep and the deletion command alike; unlocking it is the operator's own act. git's own lock left by a stopped `git worktree add` (its reason "initializing") is refused
+like any other; every lock refusal prints the lock's reason. A failed step's rollback
 that removes a worktree the same call created is the creating call's own removal: a lock set during that call (a
 checkout hook) does not stop it. A stopped deletion that resumes re-checks what remains as a SUBSET of what it
 checked before it started (nothing new, nothing foreign), never as the whole set (On B `bin/review_round.py:1342-1361` @
 `7f75863`); the host records that it started inside the proof it removes last. A new round is never prepared in a folder whose deletion has started; a partly
 written start record reads as not started, so the next run checks the whole set again. A resumed close does not repeat the fresh
-round check, which ran before its first deletion; a close of a folder already emptied by a stopped close finishes it. On A the start is one line appended to the packet's `.active`; a resumed close judges the subset with `git status` and
+round check, which ran before its first deletion; an explicit close of an EMPTY folder directly under
+its declared root removes it whatever its age (its proof is gone, so an emptied folder cannot be told from another empty one,
+and it holds nothing to lose). On A the start is one line appended to the packet's `.active`; a resumed close judges the subset with `git status` and
 the round artifacts' hashes (an entry may be missing; anything new or modified is refused); a stop after a tracked ignore file
 was removed makes the files it ignored read as new, so that resume is refused and the stale sweep finishes the packet past
 the floor (a recorded limit). A rollback finds its own registration by identity (device
