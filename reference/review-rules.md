@@ -140,8 +140,12 @@ naming it (a fact; `~/.claude/agents/` is searched for an operator id not found 
 dev tree, for any id one possible session project lacks — so a broken or differing file there can stop a dev-tree
 round, the shipped reviewers included, until it is fixed; in a plugin's own `agents/` a file that does not parse is
 named after its file, so an unrelated one there never stops a round). PyYAML reads YAML 1.1
-and Bun YAML 1.2, so a scalar the two type differently (`1e3`, `0o17`, `yes`) can be read differently; beyond the
-string checks above that is a recorded limit. In a plugin's own `agents/`, a file without frontmatter, or whose
+and Bun YAML 1.2 (Claude Code 2.1.289 bundles Bun v1.4.3 — measured), so a scalar the two type differently (`1e3`,
+`0o17`, `yes`) can be read differently; beyond the string checks above that is a recorded limit. How Bun treats a
+duplicated key is not measured (the bundled binary does not run as Bun — `BUN_BE_BUN=1` is refused, measured
+2026-10-05 — and no standalone Bun is installed); PyYAML keeps the last value. A dev-tree session that also has an
+installed plugin defining the same bare name can resolve it to that plugin's agent (Claude Code loads plugin agents
+below project and user agents); A does not read which plugins a session has enabled — not observed, a fact. In a plugin's own `agents/`, a file without frontmatter, or whose
 frontmatter does not parse, still loads under its file name with every field ignored (plugin components documentation,
 fetched 2026-10-05): A takes it as defining its file stem with no fields, so the tools check refuses it if it is the
 preset sought; a file whose block loads but carries no `name` is likewise named after its file (the same
