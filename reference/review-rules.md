@@ -656,8 +656,10 @@ R-AUTH decides. Host A's own record says agy's `result.error` can echo the model
 validation report (not measured); such a report is model text — its sibling fields (`detail` and the like) included — so
 only agy's own sign-in banner is read there. Report-ness is decided per error OBJECT, for every CLI's error object (A applies the one decision to codex, gemini,
 claude and agy, made on the whole object before any field is extracted, and carried by every input a class reads — the
-extracted error text, EVERY stderr envelope, the stdout and the stderr text; a report's text is read only for a sign-in
-banner line (the STOP) and for the schema classes, since a report is itself a schema outcome — codex's own refusal
+extracted error text, EVERY stderr envelope, the stdout and the stderr text; a report's text is read only for the
+reporting CLI's OWN sign-in banner line (the STOP — agy's measured banner, claude's measured "Not logged in · Please run
+/login" result line; codex and gemini have no measured banner, so their report never STOPs, a fact) and for the schema
+classes, since a report is itself a schema outcome — codex's own refusal
 "schema validation failed" stays schema-rejected; no other class — authentication words, capacity, configuration,
 fan-out — reads it — in progress, 6.0 slice 26a fix 4): an error object any of whose text
 fields carries the report marker is a report (only a sign-in banner line in any of its fields is read — the STOP —
