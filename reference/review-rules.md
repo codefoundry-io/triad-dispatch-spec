@@ -113,25 +113,38 @@ the installed preset and refuse a change (`lib/collect_v2.py:2530` `_check_insta
 `90e45c6`; DL-49). It is not printed on the dispatch line (a fact). An id this install's own agents folder defines (the dev tree's
 `.claude/agents/`, a plugin's `agents/`; found by the `name` frontmatter in any file and subfolder) is the shipped
 preset — scoped in a plugin, bare in the dev tree. A bare id reaches the session project's file, and A cannot observe
-the session project (a Bash command carries no project-folder variable — measured 2026-10-05), so in the dev tree an id
-defined both there and in the reviewed repository with different bytes refuses (which file the session spawns depends
-on a folder A cannot see); the same bytes — a linked agent included — bind the dev tree's file (`lib/roster_v2.py:722-737` @
-triad `9bf068f`). Any other id is the operator's preset, found by `name` in the reviewed repository's `.claude/agents/`, then
+the session project (a Bash command carries no project-folder variable — measured 2026-10-05). In the dev tree the
+session project may be the dev tree or the reviewed repository, so for ANY id A takes the file each would spawn (that
+folder's `.claude/agents/` definition, else the user's `~/.claude/agents/` one): two such files with different bytes
+refuse the round (which one runs depends on a folder A cannot see); otherwise the one file is bound — a session that
+would find none fails visibly at the spawn (J5 @ triad `9bf068f` covered only a dev-tree id against the reviewed
+repository; the general rule is in progress, 6.0 slice 26b fix 4). Any other id is the operator's preset, found by `name` in the reviewed repository's `.claude/agents/`, then
 `~/.claude/agents/`, and spawned unscoped. How Claude Code reads an agent file (measured in its 2.1.289 build,
 2026-10-05): it strips a leading byte-order mark and decodes bad bytes with replacement; the frontmatter ends at the
 FIRST `---` after the opening line, anywhere, even inside a value (`/^---\s*\n([\s\S]*?)---\s*\n?/`); a block its YAML
 parser rejects is parsed again after double-quoting every `key: value` whose value holds one of ``{}[]*&#!|>%@` `` or
 `: ` and turning leading tabs into spaces; a file without a non-empty string `name` and `description`, or whose name
-contains `:`, is not loaded. A reads a file the same way where it can and refuses where it cannot be sure: a file it
-cannot read (a dangling link included), one with no frontmatter block, and one without a non-empty `name` and
-`description` are skipped, as Claude Code skips them; a block whose first `---` is not its own closing line, a block
-PyYAML does not load (any error), one that is not a mapping, and a `name` or `description` that is present, not null and not a
-string (YAML 1.1 and 1.2 read some scalars differently; a null one, or a block that loads to null, is read alike by
-both and skipped as missing) refuse the round naming the file — never a skip, which could pass over a
-file Claude Code repairs and loads (`lib/roster_v2.py:563`, `:626` @ triad `9bf068f`). The refusal covers every such file
-in a folder searched for the preset — its name cannot be known without Claude Code's own repair (a YAML escape or alias
-can spell a name no text search finds) — so an unrelated broken agent file there stops the round until it is fixed, the
-refusal naming it (a fact; `~/.claude/agents/` is searched only for an operator id not found before it). Two files of one name in one folder refuse. Claude Code registers a plugin agent kept in a subfolder of the plugin's
+contains `:`, is not loaded. Its parser is
+`Bun.YAML.parse` (YAML 1.2; `function eM(e){return Bun.YAML.parse(e)}`), and the repair is exactly: each line matching
+`^([a-zA-Z_-]+):\s+(\S.*)$` whose value is not already quoted (the same quote at both ends) and is not a `[...]` that
+parses as a list, but holds one of those characters, becomes `key: "value"` with `\` and `"` escaped; then each run of
+leading tabs becomes two spaces per tab. A reads a file the same way: PyYAML first, and on any failure that same repair
+and PyYAML again (in progress, 6.0 slice 26b fix 4 — @ triad `9bf068f` A refused on the first failure, which stopped
+every round on an ordinary unquoted `: ` in a description). A file it cannot read (a dangling link included), one with
+no frontmatter block, and one without a non-empty `name` and `description` are skipped, as Claude Code skips them; a
+block whose first `---` is not its own closing line, a block that does not load even after the repair, one that is not
+a mapping, and a `name`, `description` or `tools` entry that is present, not null and not a string refuse the round
+naming the file (`lib/roster_v2.py:563`, `:626` @ triad `9bf068f`); a null one, or a block that loads to null, is read
+alike by both readers and skipped as missing. The refusal covers every such file in a folder searched for the preset —
+its name cannot be known — so an unrelated broken agent file there stops the round until it is fixed, the refusal
+naming it (a fact; `~/.claude/agents/` is searched only for an operator id not found before it). PyYAML reads YAML 1.1
+and Bun YAML 1.2, so a scalar the two type differently (`1e3`, `0o17`, `yes`) can be read differently; beyond the
+string checks above that is a recorded limit. In a plugin's own `agents/`, a file without frontmatter, or whose
+frontmatter does not parse, still loads under its file name with every field ignored (plugin components documentation,
+fetched 2026-10-05): A takes it as defining its file stem with no fields, so the tools check refuses it if it is the
+preset sought (in progress, 6.0 slice 26b fix 4). A collection or retry refused because an agent file cannot be read
+(not because the bound preset changed) says to fix that file and run the same command again — "prepare a new round" is
+the remedy only for a changed bound control (in progress, 6.0 slice 26b fix 4). Two files of one name in one folder refuse. Claude Code registers a plugin agent kept in a subfolder of the plugin's
 `agents/` as `<plugin>:<subfolder>:<name>` (sub-agents documentation, fetched 2026-10-05), so the scoped spawn name of a
 plugin-defined preset is that identifier, and an explicit id of that form naming this install's plugin is accepted;
 two files count as duplicates only when they register the same identifier (two subfolders holding one name are two
