@@ -683,10 +683,9 @@ on a CLI's own stderr a bare CR also starts a line (progress output rewrites the
 into a line feed) — stderr is the CLI's own channel, never tool output; gemini 0.60.0
 puts a fatal TOOL error into its error object as "Error executing tool <name>: …" — that message is tool output, so only the
 object's code (41 / 401) is read there; gemini's "Cached credentials are not valid:" log line appears only in debug mode; no
-stream-json capture yet shows where agy's banner sits on its stderr line (the line-start rule rests on the pty-era record). The
-shared raw-blob phrase `401 unauthorized` stops the codex 401 sentence on every CLI — an exception to C43's own-CLI rule that
-R-AUTH decides.
-Recorded limits (a fact, owner 2026-10-05). Vendor error text belongs to the vendor and changes with each release, so a
+stream-json capture yet shows where agy's banner sits on its stderr line (the line-start rule rests on the pty-era record).
+Recorded limits (a fact, owner 2026-10-05,
+[D-MEASURED-SHAPES-20261005](../decisions/owner-register.md#D-MEASURED-SHAPES-20261005)). Vendor error text belongs to the vendor and changes with each release, so a
 host codes only a MEASURED shape — a capture, a row of `contracts/vendor-failure-lines.json`, or the vendor's own
 source — and ordinary operator actions; a shape a reviewer constructs and no run has shown is recorded here, never coded,
 and a new vendor message ends `unknown` and reaches the repair analysis. Recorded, not handled: an error object placed
@@ -731,8 +730,8 @@ ends `unknown` (or `extraction-error`), exit 1, with the summary, audit row and 
 classification guard, `_common.py` `_never_raises` @ triad `e40001d`, on `classify`, `_auth_carrier_stop`, the three
 extractors, `agy_classify_signals`, and `antigravity_wrapper.py` `_classify_no_answer` / `_catalog_auth_observed`;
 DL-90); the guard's `False` fallback on the auth-carrier rung continues down the
-rungs, so a measured capacity token in the same run retries (at most twice), and the raw-text oauth-env rung still STOPs a measured
-codex 401.
+rungs, so a measured capacity token in the same run retries (at most twice); no raw-text authentication rung follows, so a
+measured codex 401 the raising rung did not read ends `unknown`, exit 1, never retried (On A t74 G5 @ triad `7e9e1fb`).
 
 <a id="R-RECEIPT"></a>
 The transport receipt and audit / run-log records carry the common transport object defined by
@@ -915,7 +914,9 @@ uninstall or review session runs while an operation runs; concurrency INSIDE one
 round, is real and stays covered. There is no malicious actor (owner,
 [D-THREAT-MODEL-20261003](../decisions/owner-register.md#D-THREAT-MODEL-20261003)). Guards defend against ordinary
 failures: a full disk, a stop at any point (a crash, or a session that hits its token or usage limit), a wrong argument,
-a bad vendor answer, an odd layout of files the leader creates by hand, a reviewer's or the leader's mistake (owner,
+a bad vendor answer that a run has shown (a MEASURED shape: a capture, a row of `contracts/vendor-failure-lines.json`, the
+vendor's own source — a shape no run has shown is a recorded limit under R-CLASSIFY "Recorded limits", owner 2026-10-05,
+[D-MEASURED-SHAPES-20261005](../decisions/owner-register.md#D-MEASURED-SHAPES-20261005); DL-93), an odd layout of files the leader creates by hand, a reviewer's or the leader's mistake (owner,
 2026-10-03, D-THREAT-MODEL-20261003). A finding whose trigger needs deliberate tampering with the host's own files or a
 concurrent operation is recorded as a fact — no code and no blocking; the C66 limits (1) and (4) under R-BIND are
 worked examples. A limit an ordinary failure can reach that no construction closes on either host is recorded as a

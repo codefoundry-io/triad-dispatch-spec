@@ -639,3 +639,72 @@ floor and caps) collects it; no prompt carries a run-log removal step. Both open
 Effect: [R-CLEANUP](../reference/review-rules.md#R-CLEANUP) and its pointers (R-AGREE, R-BIND, R-CONTAIN),
 `contracts/cleanup-roots.schema.json` and `.example.json`, case C69, PRD-RETENTION, `rev-2-implementation-spec.md`,
 `units.json` cleanup, the four policy `.verify.toml` `on_fail` texts, `authoring/shared-dev-log.md` DL-77.
+
+<a id="D-MEASURED-SHAPES-20261005"></a>
+## D-MEASURED-SHAPES-20261005: code only MEASURED vendor shapes; a constructed shape is a recorded limit
+
+Owner, 2026-10-05, typed (verbatim; source: host A's leader session record (unpublished), the transcript of
+2026-10-05), on host A's slice of wrapper classification hardened over eight verification rounds:
+
+> 이게 왜이렇게 복잡해졌어? 과설계된 아니야? 에러메시지는 우리가 관리하는게 아니고 매번 버잔업때마다 새로운 유형이 생길건데 브리핑해봐
+
+The leader's question asked the direction; the selected option (the label is the leader's, the choice the owner's):
+
+> 지금 단순화
+
+Recorded effect: vendor error text belongs to the vendor and changes with each release. A host codes only a MEASURED
+vendor shape — a capture, a row of `contracts/vendor-failure-lines.json`, the vendor's own source — and ordinary operator
+actions; a shape a reviewer constructs and no run has shown is recorded as a limit, never coded, and a new vendor message
+ends `unknown` and reaches the repair analysis. Three guarantees stay whatever the input: a STOP on a measured
+authentication signal, a usable answer never discarded because of text inside it, and classification that never raises
+and always writes the terminal record. R-THREAT's "a bad vendor answer" is read as one a run has shown.
+
+Effect: [R-CLASSIFY](../reference/review-rules.md#R-CLASSIFY) "Recorded limits" and the plain-fragment rule on every
+raw-text list, [R-THREAT](../reference/review-rules.md#R-THREAT), `authoring/shared-dev-log.md` DL-86, DL-90, DL-92,
+DL-93.
+
+<a id="D-TASK-MODE-REMOVED-20261005"></a>
+## D-TASK-MODE-REMOVED-20261005: the codex wrapper's `--task` mode is removed; each host runs its own family natively
+
+Owner, 2026-10-05, typed (verbatim; source as above), on a fix-round brief line about guarding host A's codex `--task`
+fan-out path:
+
+> 아래 부분이 이상하다고
+
+The leader's question asked whether to keep the mode; the selected option (the label is the leader's, the choice the
+owner's):
+
+> 지금 제거
+
+Then, typed (verbatim):
+
+> 스펙에 업데이트 했으면 스펙에서도 제거해
+
+> codec hoost는 cluade --task가 있는거지? 네이티브는 그렇게 할 필요 없는데?
+
+Recorded effect: the codex wrapper's `--task` mode (the fan-out worker layer and `--task code`; no real run since
+2026-07-05 on host A) leaves host A and the contract: exits 68 / 69 and the tokens `fanout-spawn-error` and
+`fanout-partial`. `task-blocked` (65), the claude wrappers' permission-denial class on both hosts, stays. Each host runs
+its leader's own family natively and wraps only the other families; host B has no codex wrapper and removes only the
+engine's leftover `--task` pieces.
+
+Effect: [R-TOKENS](../reference/review-rules.md#R-TOKENS), `contracts/exit-tokens.json`, case C8,
+`authoring/shared-dev-log.md` DL-72 (superseded in part), DL-91.
+
+<a id="D-SHIPPED-PRESETS-20261005"></a>
+## D-SHIPPED-PRESETS-20261005: host A's claude leg names only shipped presets; skill users get a guide
+
+Owner, 2026-10-05, typed (verbatim; source as above), on host A's code that emulated Claude Code's agent-file reading:
+
+> 아래문제 claude host가 스폰하는 서브에이전트는 자체로깅이 잘되어있어 굳이 관리할 필요있어? 사전에 effort 산택용 모델 에포트 설정된 md만 몇개 만들면 되잖아
+
+> C12는 스킬받는 사람들에게 가이드라도 줘야해 EFFORT를 선택못하는 이슈 설명과 유리같은 프리셋을 주던가
+
+Recorded effect: On A the claude review leg names one of a closed list of SHIPPED reviewer presets (model × effort, each
+with a web twin, plus one older-model preset for C12); the shipped file's digest is the bound control (C19); there is no
+operator-authored preset lookup and no emulation of Claude Code's agent-file reader — Claude Code records its own
+subagent transcripts. Because Claude Code fixes a subagent's model and effort in its agent file, with no per-call effort
+override, host A gives skill users a guide that explains this and lists the shipped presets.
+
+Effect: [R-ROSTER](../reference/review-rules.md#R-ROSTER) (On A), R-REVIEW-WEB (On A), cases C12 and C19,
+`authoring/shared-dev-log.md` DL-49 — their host-A text is rewritten with host A's change (in progress).

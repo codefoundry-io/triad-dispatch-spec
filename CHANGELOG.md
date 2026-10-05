@@ -1,5 +1,23 @@
 # Changelog
 
+## Owed rows from host A's conformance work — 2026-10-05 (not tagged)
+
+- Owner register: D-MEASURED-SHAPES-20261005, D-TASK-MODE-REMOVED-20261005, D-SHIPPED-PRESETS-20261005 (verbatim
+  quotes).
+- R-CLASSIFY: the "Recorded limits" paragraph — a host codes only a MEASURED vendor shape (a capture, a contract row, the
+  vendor's own source) and ordinary operator actions; a constructed shape is recorded, never coded; three guarantees
+  replace per-shape code (a measured authentication STOP, no usable answer discarded, classification never raises and
+  always writes the record). The plain-fragment rule covers EVERY raw-text list; every phrase is per-CLI; no raw-text
+  authentication phrase is kept after a MEASURED false STOP; codex's own `exceeded retry limit, last status: 429`,
+  `invalid schema for response_format` and `you've hit your usage limit` sentences (DL-86, DL-90, DL-92).
+- R-THREAT: "a bad vendor answer" is one a run has shown (DL-93).
+- R-TOKENS / `contracts/exit-tokens.json`: the codex wrapper's `--task` mode is removed — exits 68 / 69 and the tokens
+  `fanout-spawn-error` / `fanout-partial` leave; `task-blocked` (65), the claude permission-denial class on both hosts,
+  stays (DL-91; DL-72 superseded in part).
+- Cases C37 / C43 tests.A and DL-74 follow the per-CLI, no-raw-text-authentication rule.
+- Pending: host A's R-ROSTER / R-REVIEW-WEB, C12 / C19 and DL-49 text for the closed list of shipped claude presets
+  (D-SHIPPED-PRESETS-20261005) lands with host A's change.
+
 ## Owed rows from host A's conformance work — 2026-10-04 (not tagged)
 
 - What the codex host must learn, written into the spec (owner 2026-10-04, D-DECISION-ORDER-20261004): new process
