@@ -580,9 +580,11 @@ wrapper handler's record-only mode from before its spawn, a recorded signal cuts
 exit is 128 + signum — `3rd-Agent/wrappers/antigravity_wrapper.py` `_model_catalog_refusal` @ triad `00504ef`). When publication withholds an answer for such a late signal it prints one more canonical summary
 line with the final token and exit (`unknown`, exit 1), so the last summary line always matches the exit (R-TOKENS: the
 last line is the one a caller reads). A failed stderr write drops that one line and never the answer or the exit (on A each line is written straight to
-the descriptor — no buffered stream holds a dropped line to replay at exit — and a line once started is completed,
-waiting up to 30 s for room in a full non-blocking pipe before the rest of that line is dropped — A's own bound, a fact,
-`_common.py` `_LOG_LINE_WAIT_S` @ triad `00504ef`); a
+the descriptor — no buffered stream holds a dropped line to replay at exit — and a line is completed: a line that meets a
+full non-blocking pipe, before its first byte or after, waits up to 30 s for room before it (or its rest) is dropped —
+A's own bound, a fact, `_common.py` `_LOG_LINE_WAIT_S` (the first-byte case in progress, 6.0 slice 26a fix 4); a
+BLOCKING stderr whose reader stays open but stops draining blocks the wrapper's write — a limit both hosts share,
+recorded, not bounded (B writes with a plain `print(..., file=sys.stderr)`, `bin/_common.py:322-324` @ `7f75863`)); a
 later line is tried again (a caller missing a summary or read-audit custody line refuses to collect — fail closed); B
 does not settle stderr recovery (a fact). A failed
 host record write (audit row, run-log, debug log) never changes the provider result or loses the answer, on both hosts (A
@@ -653,9 +655,11 @@ shared raw-blob phrase `401 unauthorized` stops the codex 401 sentence on every 
 R-AUTH decides. Host A's own record says agy's `result.error` can echo the model's text through a finish-schema
 validation report (not measured); such a report is model text — its sibling fields (`detail` and the like) included — so
 only agy's own sign-in banner is read there. Report-ness is decided per error OBJECT, for every CLI's error object (A applies the one decision to codex, gemini,
-claude and agy; a report object leaves the classify text whole, so no class — authentication, capacity, schema-rejected —
-reads it; with the one shared marker a codex `error` event whose text carries "schema" and "validat" is read as a report
-there, and a claude report result is not carried into the extraction error — facts, @ triad `00504ef`): an error object any of whose text
+claude and agy, made on the whole object before any field is extracted, and carried by every input a class reads — the
+extracted error text, EVERY stderr envelope, the stdout and the stderr text; a report's text is read only for a sign-in
+banner line (the STOP) and for the schema classes, since a report is itself a schema outcome — codex's own refusal
+"schema validation failed" stays schema-rejected; no other class — authentication words, capacity, configuration,
+fan-out — reads it — in progress, 6.0 slice 26a fix 4): an error object any of whose text
 fields carries the report marker is a report (only a sign-in banner line in any of its fields is read — the STOP —
 nothing else); an object without it is read in all its text fields (`message`, `text`, `detail`, `description`). On agy the plain capacity sentences are read only in agy's own stderr and the
 terminal `result.error`, never in a tool or step signal (`tool_info.error`, `error_message` steps) — as B classifies agy
