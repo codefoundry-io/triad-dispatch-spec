@@ -672,7 +672,9 @@ classification guard, `_common.py` `_never_raises` @ triad `e40001d`, on `classi
 extractors, `agy_classify_signals`, and `antigravity_wrapper.py` `_classify_no_answer` / `_catalog_auth_observed`,
 and one guard around each wrapper's whole `main` — probes, the run, extraction, payload building, classification —
 that ends a run `extraction-error` after a vendor exit 0, else `unknown`, exit 1, with the three records, letting
-SystemExit / KeyboardInterrupt pass, `_common.py` `_guarded_main` @ triad `fdd7029`; DL-90); the guard's `False` fallback on the auth-carrier rung continues down the
+SystemExit / KeyboardInterrupt pass, `_common.py` `_guarded_main` @ triad `fdd7029`; DL-90; recorded limits: an
+exception after a verdict is decided but before the records ends `extraction-error` / `unknown`, exit 1 — no measured
+shape raises there — and one after the records is one guard line and exit 1, the records keeping their verdict, DL-98); the guard's `False` fallback on the auth-carrier rung continues down the
 rungs, so a measured capacity token in the same run retries (at most twice); no raw-text authentication rung follows, so a
 measured codex 401 the raising rung did not read ends `unknown`, exit 1, never retried (On A t74 G5 @ triad `7e9e1fb`).
 
