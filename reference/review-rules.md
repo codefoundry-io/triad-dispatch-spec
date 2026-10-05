@@ -731,7 +731,10 @@ STOP, while `api_error_status` 401 or a non-report authentication result still i
 only (codex and gemini have no banner; agy's driver keeps its own completed-run exemption) — a fact; on claude's rc-0
 `is_error` path the rung reads stderr too, before the schema-fail / task-blocked / terminal promotions; the object scan
 is one pass, each decode inside a growing window (a failed decode otherwise costs its absolute position), and
-`_gemini_trailing_envelope` likewise (@ triad `9ee8a9f`)): an error object any of whose text
+`_gemini_trailing_envelope` likewise (@ triad `9ee8a9f`); a text that fails to decode for ANY reason (an integer past
+Python's digit limit, deep nesting) is simply not an object — classification always completes; the extractors read the
+decided text too; and an object removed from a text leaves its line breaks, so what follows it stays on its own line
+(in progress, 6.0 slice 26a tail 3)): an error object any of whose text
 fields carries the report marker is a report (read only as above: its CLI's own banner — the STOP — and the shared
 schema-rejected phrases); an object without it is read in all its text fields (`message`, `text`, `detail`, `description`). On agy the plain capacity sentences are read only in agy's own stderr and the
 terminal `result.error`, never in a tool or step signal (`tool_info.error`, `error_message` steps) — as B classifies agy
