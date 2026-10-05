@@ -614,7 +614,7 @@ inside the timeout arm's group kill (the SIGKILL escalation kept) and between at
 the engine's last check is only recorded, and the completed answer is published and recorded as such — both hosts agree
 (On A the handler only records once a dispatch began, `_terminal_signal_to_exit` @ triad `e40001d`; On B the handlers
 are restored when the run returns, `bin/_common.py:1418-1441` @ `7f75863`). A cut-short agy catalog call reaps its group
-before the pending exit (On A `3rd-Agent/wrappers/antigravity_wrapper; a signal during that pre-dispatch probe ends in the interrupted-run record (summary, audit row, run-log written), never a bare 128+signum exit, and the probe's group is reaped on a normal exit too (@ triad `3fde8d6`).py` `_model_catalog_refusal` @ triad `e40001d`).
+before the pending exit (On A `3rd-Agent/wrappers/antigravity_wrapper.py` `_model_catalog_refusal` @ triad `e40001d`); a signal during that pre-dispatch probe ends in the interrupted-run record (summary, audit row, run-log written), never a bare 128+signum exit, and the probe's group is reaped on a normal exit too (@ triad `3fde8d6`).
 A failed stderr write drops that one line, never the answer or the exit, and a dropped line is never written later; a
 stderr closed at start drops every line. A full non-blocking stderr drops the line at once, and a blocking stderr whose
 reader stops draining blocks the wrapper — both are recorded limits, not bounded (no run has shown either; On A `log` @
