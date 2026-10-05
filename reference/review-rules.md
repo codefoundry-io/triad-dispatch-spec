@@ -112,12 +112,22 @@ the installed preset and refuse a change (`lib/collect_v2.py:2530` `_check_insta
 `:3411`), and adoption requires the dispatch record to name the bound preset (`:2944` `_web_switch_mismatch`) @ triad
 `90e45c6`; DL-49). It is not printed on the dispatch line (a fact). An id this install's own agents folder defines (the dev tree's
 `.claude/agents/`, a plugin's `agents/`; found by the `name` frontmatter in any file and subfolder) is the shipped
-preset — scoped in a plugin, bare in the dev tree, where the helper's repository is the session project, so for an id
-defined both there and in the reviewed repository the helper's own wins (it is the dev layout's "plugin"). Any other id
-is the operator's preset, found by `name` in the reviewed repository's `.claude/agents/`, then `~/.claude/agents/`, and
-spawned unscoped. A file Claude Code would skip (no YAML frontmatter, no string `name` and `description`, unreadable, a
-dangling link) is skipped, never bound and never a refusal of the round (`lib/roster_v2.py:572` `_find_preset`); two
-files of one name in one folder refuse. Claude Code registers a plugin agent kept in a subfolder of the plugin's
+preset — scoped in a plugin, bare in the dev tree. A bare id reaches the session project's file, and A cannot observe
+the session project (a Bash command carries no project-folder variable — measured 2026-10-05), so in the dev tree an id
+defined both there and in the reviewed repository with different bytes refuses (which file the session spawns depends
+on a folder A cannot see); the same bytes — a linked agent included — bind the dev tree's file (in progress, 6.0 slice
+26b fix 3). Any other id is the operator's preset, found by `name` in the reviewed repository's `.claude/agents/`, then
+`~/.claude/agents/`, and spawned unscoped. How Claude Code reads an agent file (measured in its 2.1.289 build,
+2026-10-05): it strips a leading byte-order mark and decodes bad bytes with replacement; the frontmatter ends at the
+FIRST `---` after the opening line, anywhere, even inside a value (`/^---\s*\n([\s\S]*?)---\s*\n?/`); a block its YAML
+parser rejects is parsed again after double-quoting every `key: value` whose value holds one of ``{}[]*&#!|>%@` `` or
+`: ` and turning leading tabs into spaces; a file without a non-empty string `name` and `description`, or whose name
+contains `:`, is not loaded. A reads a file the same way where it can and refuses where it cannot be sure: a file it
+cannot read (a dangling link included), one with no frontmatter block, and one without a non-empty `name` and
+`description` are skipped, as Claude Code skips them; a block whose first `---` is not its own closing line, a block
+PyYAML does not load (any error), one that is not a mapping, and a `name` or `description` that is not a string (YAML
+1.1 and 1.2 read some scalars differently) refuse the round naming the file — never a skip, which could pass over a
+file Claude Code repairs and loads (in progress, 6.0 slice 26b fix 3). Two files of one name in one folder refuse. Claude Code registers a plugin agent kept in a subfolder of the plugin's
 `agents/` as `<plugin>:<subfolder>:<name>` (sub-agents documentation, fetched 2026-10-05), so the scoped spawn name of a
 plugin-defined preset is that identifier, and an explicit id of that form naming this install's plugin is accepted — in
 progress (6.0 slice 26b fix 3); B passes the supplied id through unchanged (`bin/review_adapters_v2.py:108` @
@@ -168,9 +178,14 @@ leader session whose project is another folder is not observed (a fact). The pre
 change — of model or effort in any YAML form, or of the body — is a changed control), and a spawned preset's `tools` are checked before a
 round: only read tools (Read, Grep, Glob), plus WebSearch and WebFetch exactly when the round is a web round — a
 preset with no `tools` line (it inherits every tool) or with a tool that runs or writes is refused (R-CONTAIN); the check
-reads the frontmatter as YAML (Claude Code does) and judges the EFFECTIVE set (`tools` minus `disallowedTools`); a preset
-carrying `memory` (it turns on Read / Write / Edit whatever `tools` says) or `hooks` (they run shell commands) is refused
-too. Claude Code also ranks managed-settings and `--agents` definitions above project agents and scans every
+reads the frontmatter as above and judges the EFFECTIVE set (`tools` minus `disallowedTools`, where an entry with a
+specifier such as `Bash(git push *)` removes the whole tool — sub-agents documentation, fetched 2026-10-05). The
+frontmatter fields are a closed list: `name`, `description`, `tools`, `disallowedTools`, `model`, `effort`, `color`,
+`maxTurns`, `background`, `omitClaudeMd` and `experimental` are admitted; any other field refuses the preset —
+`memory` (it turns on Read / Write / Edit whatever `tools` says), `hooks` (shell commands), `mcpServers` (an inline
+server starts a command and adds its tools), `isolation` (a worktree is created), `permissionMode`, `skills` (content
+injected from outside the bound file), `initialPrompt`, and a field Claude Code adds later (in progress, 6.0 slice 26b
+fix 3; B reads no preset — DL-49). Claude Code also ranks managed-settings and `--agents` definitions above project agents and scans every
 `.claude/agents/` from its working directory up to the repository root; a host that reads fewer places records that it
 does not observe the others (Claude Code sub-agents documentation, fetched 2026-10-05). The frontmatter
 outranks a session-wide subagent model setting only from Claude Code v2.1.251, and a forcing setting (v2.1.257+) makes Claude
