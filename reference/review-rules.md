@@ -710,7 +710,9 @@ banner line read from a report forwards only the banner itself, never the rest o
 not its labelled tool / step signals) and in the stdout text (not agy's raw stream) — in `_auth_carrier_stop` before every
 other rung; a mid-line gemini stderr error object is thereby read by the auth rung as an envelope and, holding a tool
 error or a report, dropped from the capacity carrier; a report object on claude's or agy's stderr is an unmeasured shape
-(@ triad `a6173ac`)): an error object any of whose text
+(@ triad `a6173ac`); a report is known from the vendor's own error object, never from a text label A writes into decided
+text (an answer can quote any label — a review of this code does), so a run whose answer is usable is never stopped
+by a report's banner, and the object scan stays linear in the text's length (in progress, 6.0 slice 26a tail 2)): an error object any of whose text
 fields carries the report marker is a report (read only as above: its CLI's own banner — the STOP — and the shared
 schema-rejected phrases); an object without it is read in all its text fields (`message`, `text`, `detail`, `description`). On agy the plain capacity sentences are read only in agy's own stderr and the
 terminal `result.error`, never in a tool or step signal (`tool_info.error`, `error_message` steps) — as B classifies agy
