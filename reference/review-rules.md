@@ -614,7 +614,7 @@ inside the timeout arm's group kill (the SIGKILL escalation kept) and between at
 the engine's last check is only recorded, and the completed answer is published and recorded as such — both hosts agree
 (On A the handler only records once a dispatch began, `_terminal_signal_to_exit` @ triad `e40001d`; On B the handlers
 are restored when the run returns, `bin/_common.py:1418-1441` @ `7f75863`). A cut-short agy catalog call reaps its group
-before the pending exit (On A `3rd-Agent/wrappers/antigravity_wrapper.py` `_model_catalog_refusal` @ triad `e40001d`).
+before the pending exit (On A `3rd-Agent/wrappers/antigravity_wrapper; a signal during that pre-dispatch probe ends in the interrupted-run record (summary, audit row, run-log written), never a bare 128+signum exit, and the probe's group is reaped on a normal exit too (@ triad `3fde8d6`).py` `_model_catalog_refusal` @ triad `e40001d`).
 A failed stderr write drops that one line, never the answer or the exit, and a dropped line is never written later; a
 stderr closed at start drops every line. A full non-blocking stderr drops the line at once, and a blocking stderr whose
 reader stops draining blocks the wrapper — both are recorded limits, not bounded (no run has shown either; On A `log` @
@@ -703,10 +703,17 @@ input (`agy_classify_signals` @ triad `e40001d`; worst case the bounded capacity
 quadratic on a stderr with many braces and no trailing object — reachable on measured gemini 429 dumps, with no hang
 recorded over 334 `server-capacity` rows. The plain-English `model overloaded`, `service unavailable` and `too many
 requests` are not match phrases (no capture where one is the only signal; a captured gemini 429 carries `Too Many
-Requests` beside `resource_exhausted` / `model_capacity_exhausted` / `ratelimitexceeded` — observed loss zero; DL-86). A
-known deviation from the plain-fragment rule: the terminal plain phrases `please log in`, `auth error`, `please
-authenticate`, `400 bad request`, `400 invalid` and `schema validation failed` stay match phrases on A — their classes
-are terminal and visible, and the plain-fragment rule's reason is a hidden retry. A residual: a `401` outside the carrier,
+Requests` beside `resource_exhausted` / `model_capacity_exhausted` / `ratelimitexceeded` — observed loss zero; DL-86). The
+plain-fragment rule applies to EVERY raw-text phrase list a host reads over a failed run's output — capacity,
+subscription cap, token limit, schema-rejected, fan-out, configuration and authentication words alike: a phrase stays
+only with measured evidence (a real vendor failure, a contract row, the vendor's own source), cited beside it; a review
+leg quoting a host's code never reaches a STOP or a retry through a generic phrase. On A (`3rd-Agent/wrappers/_common.py`
+@ triad `3fde8d6`) the kept phrases include codex's own `exceeded retry limit, last status: 429` (vendor source:
+`codex-rs/protocol/src/error.rs` RetryLimitReachedError, "exceeded retry limit, last status: {}{}", fetched 2026-10-05)
+and codex's `invalid schema for response_format` (two real failures, 2026-09-20); the token-limit, fan-out and
+configuration lists hold no measured sentence and are empty, so those failures end `unknown` and reach the repair
+analysis; `aborterror` is gone (its one capture is a user abort). An extension token outside the contract vocabulary is
+ignored with one log line, never emitted (R-TOKENS; `_load_classifier_extension` @ `3fde8d6`). A residual: a `401` outside the carrier,
 on a failed run that also carries a measured capacity token, classifies `server-capacity` and is retried, since capacity
 precedes oauth-env (not observed). Three guarantees replace per-shape code. A usable answer is never discarded because of
 text inside it: a non-null claude `structured_output` is the answer beside `is_error` — On A the STOP still stands beside
@@ -932,7 +939,7 @@ or beginning with `$TMPDIR`, `~` or `$HOST_DIR` (the directory that holds the ho
 host keeps beside its installed code, such as its wrapper logs). A `marker:<name>` proof is a regular file of that name
 directly in the folder to delete; `alloc-record` and `inside-owned-packet` are proved only inside the host's own sweep,
 so the deletion command refuses them. The age floor binds the sweep and the deletion command alike, and the age is read
-from the proof itself (a marker's own modification time), never from the folder a deletion is emptying. A deletion keeps its
+from the proof itself (a marker's own modification time), never from the folder a deletion is emptying. Removing an empty folder that carries no proof marker never completes or removes a git registration below it (On A restored @ triad `3fde8d6`; B requires its allocation and a verified export, `bin/review_round.py:1338-1341` @ `7f75863`). A deletion keeps its
 proof until last, so a deletion stopped part-way resumes from the same proof; a linked worktree inside the folder is first
 removed through the repository that owns it — a worktree is emptied (its `.git` entry kept) before it is detached, because git
 drops a worktree's registration even when removing its tree fails — and a folder holding one that cannot be detached, any
