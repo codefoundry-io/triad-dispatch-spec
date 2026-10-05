@@ -541,7 +541,8 @@ between them included (server-capacity backoff, schema-repair turns), whether or
 wrapper signalled (SIGTERM or SIGHUP) anywhere inside a dispatch reaps any owned group and ends as a terminal failure:
 token `unknown`, exit 1 (`EXIT_CLI_FAIL`), the answer withheld, and an extraction error naming the signal (`wrapper
 interrupted (<SIG>)`), recorded like any failed dispatch. A signal outside a dispatch — before the wrapper starts it
-(argument checks, preflight probes) or after its terminal record — leaves no record. On B: `_run_once` records the
+(argument checks; on B also its preflight probes) or after its terminal record — leaves no record; on A a pre-dispatch
+vendor probe runs in the record-only mode a dispatch uses (below). On B: `_run_once` records the
 signal and `_mark_signal_failure` sets that shape (`bin/_common.py:1400-1452` @ `7f75863`); the record-only handler is
 installed inside `_run_once` only (`:1425-1441`), so a signal between attempts exits 143 with no record (DL-70). On A:
 every window of a dispatch ends in that shape with its summary, audit row and run-log — after the spawn, in the wait,
