@@ -122,7 +122,7 @@ would find none fails visibly at the spawn (@ triad `fe0f48d`). Any other id is 
 2026-10-05): it strips a leading byte-order mark and decodes bad bytes with replacement; the frontmatter ends at the
 FIRST `---` after the opening line, anywhere, even inside a value (`/^---\s*\n([\s\S]*?)---\s*\n?/`, where `\s` is
 ECMAScript's whitespace set — U+0085 is not in it, while Python counts it as whitespace, so A matches the delimiters with
-ECMAScript's set; in progress, 6.0 slice 26b tail); a block its YAML
+ECMAScript's set — and U+FEFF, which ECMAScript counts and Python does not, opens a block on both — @ triad `83dd4fa`); a block its YAML
 parser rejects is parsed again after double-quoting every `key: value` whose value holds one of ``{}[]*&#!|>%@` `` or
 `: ` and turning leading tabs into spaces; a file without a non-empty string `name` and `description`, or whose name
 contains `:`, is not loaded. Its parser is
@@ -146,22 +146,25 @@ and Bun YAML 1.2 (Claude Code 2.1.289 bundles Bun v1.4.3 — measured), so a sca
 `0o17`, `yes`) can be read differently; beyond the string checks above that is a recorded limit. How Bun treats a
 duplicated key is not measured (the bundled binary does not run as Bun — `BUN_BE_BUN=1` is refused, measured
 2026-10-05 — and no standalone Bun is installed); PyYAML keeps the last value, so a block with a duplicated top-level
-key refuses the round naming the file — A cannot be sure which value Claude Code reads (in progress, 6.0 slice 26b tail). A dev-tree session that also has an
+key refuses the round naming the file — A cannot be sure which value Claude Code reads (top-level keys, compared by their text, in every searched folder
+including a plugin's own `agents/` — @ triad `83dd4fa`). A dev-tree session that also has an
 installed plugin defining the same bare name can resolve it to that plugin's agent (Claude Code loads plugin agents
 below project and user agents); A does not read which plugins a session has enabled — not observed, a fact. In a plugin's own `agents/`, a file without frontmatter, or whose
 frontmatter does not parse, still loads under its file name with every field ignored (plugin components documentation,
 fetched 2026-10-05): A takes it as defining its file stem with no fields, so the tools check refuses it if it is the
 preset sought; a file whose block loads but carries no `name` is likewise named after its file (the same
-documentation: the name "comes from the frontmatter, or from the file name when there is none") — A skips such a file
-today, in progress (6.0 slice 26b, the next round). A collection or retry refused because an agent file cannot be read
+documentation: the name "comes from the frontmatter, or from the file name when there is none") — A names it after
+its file and still reads its other fields (the documentation names only the name as coming from the file; whether
+Claude Code then requires a `description` is not measured — a fact; @ triad `83dd4fa`). A collection or retry refused because an agent file cannot be read
 (not because the bound preset changed) says to fix that file and run the same command again — "prepare a new round" is
 the remedy only for a changed bound control (@ triad `fe0f48d`); the bound file itself become unreadable is such
-a file too, never "no agent file defines it" (in progress, 6.0 slice 26b tail). Two files of one name in one folder refuse. Claude Code registers a plugin agent kept in a subfolder of the plugin's
+a file too, never "no agent file defines it"; a bound file that was DELETED is a changed control — a new round
+(@ triad `83dd4fa`). Two files of one name in one folder refuse. Claude Code registers a plugin agent kept in a subfolder of the plugin's
 `agents/` as `<plugin>:<subfolder>:<name>` (sub-agents documentation, fetched 2026-10-05), so the scoped spawn name of a
 plugin-defined preset is that identifier, and an explicit id of that form naming this install's plugin is accepted;
 two files count as duplicates only when they register the same identifier (two subfolders holding one name are two
 identifiers — an explicit id selects its own; a bare id naming both refuses; @ triad `fe0f48d`; a subfolder whose name holds `:` would render the same identifier
-as a nested path, so it refuses — in progress, 6.0 slice 26b tail)
+as a nested path, so any agent file in such a subfolder refuses the round, whatever its name — @ triad `83dd4fa`)
 (`lib/roster_v2.py:175`, `:664`, `lib/review_scratch.py:5327` @ triad `9bf068f`); B passes the supplied id through unchanged (`bin/review_adapters_v2.py:108` @
 `7f75863`). A dev leader session whose project is yet another folder is not observed (a
 fact). An
