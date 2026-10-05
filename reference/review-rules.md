@@ -614,7 +614,7 @@ inside the timeout arm's group kill (the SIGKILL escalation kept) and between at
 the engine's last check is only recorded, and the completed answer is published and recorded as such — both hosts agree
 (On A the handler only records once a dispatch began, `_terminal_signal_to_exit` @ triad `e40001d`; On B the handlers
 are restored when the run returns, `bin/_common.py:1418-1441` @ `7f75863`). A cut-short agy catalog call reaps its group
-before the pending exit (On A `3rd-Agent/wrappers/antigravity_wrapper.py` `_model_catalog_refusal` @ triad `e40001d`); a signal during that pre-dispatch probe ends in the interrupted-run record (summary, audit row, run-log written), never a bare 128+signum exit, and the probe's group is reaped on a normal exit too (@ triad `3fde8d6`).
+before the pending exit (On A `3rd-Agent/wrappers/antigravity_wrapper.py` `_model_catalog_refusal` @ triad `e40001d`); a signal during ANY pre-dispatch vendor probe (agy `--version`, agy's catalog call, gemini's review preflight) ends in the interrupted-run record (summary, audit row, run-log written) once the bounded probe returns, never a bare 128+signum exit, and a probe's group is reaped on a normal exit too (@ triad `3fde8d6`, `7e9e1fb`).
 A failed stderr write drops that one line, never the answer or the exit, and a dropped line is never written later; a
 stderr closed at start drops every line. A full non-blocking stderr drops the line at once, and a blocking stderr whose
 reader stops draining blocks the wrapper — both are recorded limits, not bounded (no run has shown either; On A `log` @
@@ -706,13 +706,20 @@ Requests` beside `resource_exhausted` / `model_capacity_exhausted` / `ratelimite
 plain-fragment rule applies to EVERY raw-text phrase list a host reads over a failed run's output — capacity,
 subscription cap, token limit, schema-rejected, configuration and authentication words alike: a phrase stays
 only with measured evidence (a real vendor failure, a contract row, the vendor's own source), cited beside it; a review
-leg quoting a host's code never reaches a STOP or a retry through a generic phrase. On A (`3rd-Agent/wrappers/_common.py`
+leg quoting a host's code never reaches a STOP or a retry through a generic phrase. Every phrase is per-CLI (a sentence
+applies only to the CLI that emits it); no shared list keeps a phrase unless it is measured on every CLI it applies to —
+none today. No raw-text authentication phrase is kept: one matched over a failed run's whole output produced a MEASURED
+false STOP (a codex run of 2026-07-16 that failed on "Selected model is at capacity" was recorded oauth-env because a
+fetched page in its transcript quoted "401 Unauthorized"); the authentication STOPs come from the structured carriers
+only, and an authentication failure printed outside every carrier ends `unknown` (never retried). codex's own
+`you've hit your usage limit` (codex-rs `UsageLimitReachedError`) is its subscription-cap sentence (On A
+`CLI_PATTERNS` @ triad `7e9e1fb`). On A (`3rd-Agent/wrappers/_common.py`
 @ triad `3fde8d6`) the kept phrases include codex's own `exceeded retry limit, last status: 429` (vendor source:
 `codex-rs/protocol/src/error.rs` RetryLimitReachedError, "exceeded retry limit, last status: {}{}", fetched 2026-10-05)
 and codex's `invalid schema for response_format` (two real failures, 2026-09-20); the token-limit and
 configuration lists hold no measured sentence and are empty, so those failures end `unknown` and reach the repair
 analysis; `aborterror` is gone (its one capture is a user abort). An extension token outside the contract vocabulary is
-ignored with one log line, never emitted (R-TOKENS; `_load_classifier_extension` @ `3fde8d6`). A residual: a `401` outside the carrier,
+ignored with one log line per process, never emitted (R-TOKENS; `_load_classifier_extension` @ `3fde8d6`). A residual: a `401` outside the carrier,
 on a failed run that also carries a measured capacity token, classifies `server-capacity` and is retried, since capacity
 precedes oauth-env (not observed). Three guarantees replace per-shape code. A usable answer is never discarded because of
 text inside it: a non-null claude `structured_output` is the answer beside `is_error` — On A the STOP still stands beside
