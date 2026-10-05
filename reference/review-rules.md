@@ -150,7 +150,9 @@ resolved model and effort are recorded and bound, not printed (above, DL-49). A 
 is scoped to the plugin (so a same-named project agent cannot shadow the shipped reviewer); an id the plugin does not
 define is the operator's preset, found as Claude Code finds it (the session project's agents folder, searched by the
 `name` frontmatter, before the user's), bound, and spawned unscoped — as B passes `--agent` unscoped
-(`bin/review_adapters_v2.py:107-108` @ `7f75863`). The preset's frontmatter is bound as written (its bytes, so any
+(`bin/review_adapters_v2.py:107-108` @ `7f75863`). On A "the session project" is the reviewed source repository (its `.claude/agents/`, where the
+project roster override is also read); the source path is recorded with the bound preset and reused at re-check — a
+leader session whose project is another folder is not observed (a fact). The preset's frontmatter is bound as written (its bytes, so any
 change of model or effort in any YAML form is a changed control), and a spawned preset's `tools` are checked before a
 round: only read tools (Read, Grep, Glob), plus WebSearch and WebFetch exactly when the round is a web round — a
 preset with no `tools` line (it inherits every tool) or with a tool that runs or writes is refused (R-CONTAIN). The frontmatter
@@ -382,7 +384,8 @@ route as follows; a false condition leaves every route in its R-CONTAIN no-web p
     (`3rd-Agent/wrappers/codex_wrapper.py:103-116`, `:466`).
   - claude: the native leg is spawned as its preset's web twin, the same name with `-web` (a `<scope>:` prefix kept;
     `lib/roster_v2.py:180` `CLAUDE_WEB_SUFFIX`, `:507-520` `_claude_spawn_agent`, `:956-975` @ triad `99aaebc`); a web
-    preset maps to itself under a true condition and to its base under a false one. A selected preset whose spawned
+    preset maps to itself under a true condition; under a false one a preset is spawned as named and the tools check
+    refuses a `-web` preset (its web tools) (6.0 slice 26b fix 1). A selected preset whose spawned
     preset this install does not define is refused at prepare (`lib/review_scratch.py:5777-5855` `_v2_claude_preset`),
     and the `roster_v2.py resolve` preview refuses it the same way (`lib/roster_v2.py:1131-1151`). An older model is
     therefore selectable through an operator preset plus its `-web` twin (R-ROSTER, C12). The shipped twins (`.claude/agents/cross-family-review-reviewer-web.md`, `-high-web.md`, `-max-web.md`) are, for a rebuild:
