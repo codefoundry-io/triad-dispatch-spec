@@ -25,6 +25,8 @@
 - Owner narrowing 2026-10-05 (register addendum to D-MEASURED-SHAPES-20261005): DL-98 a recorded fact (no change on
   either host); R-TERMINAL states A's signalled-run auth read and its agy / gemini-41 limits; host-A anchors at triad
   `d966ab0` (the codex text-type check and the extension parse cache removed).
+- R-TERMINAL: on A gemini's exit code 41 is read inside the auth-carrier rung, also on a signalled run (triad `8909103`);
+  a signalled agy run's carriers stay a recorded limit.
 
 ## Owed rows from host A's conformance work — 2026-10-04 (not tagged)
 
