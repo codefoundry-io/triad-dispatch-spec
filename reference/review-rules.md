@@ -617,7 +617,7 @@ the descriptor — no buffered stream holds a dropped line to replay at exit —
 full non-blocking pipe, before its first byte or after, waits up to 30 s for room before it (or its rest) is dropped —
 A's own bound, a fact, `_common.py` `_LOG_LINE_WAIT_S` @ triad `058b296`; once one line has waited the whole bound,
 later lines try once without waiting until a write succeeds again, so a reader that stops draining delays the wrapper
-by one bound, not one per line (in progress, 6.0 slice 26a tail); after a line whose rest was dropped the next line begins on a new line, and a
+by one bound, not one per line (`_LOG_STATE["stalled"]` @ triad `a6173ac`); after a line whose rest was dropped the next line begins on a new line, and a
 stderr closed at start — no stream — drops the line); a
 BLOCKING stderr whose reader stays open but stops draining blocks the wrapper's write — a limit both hosts share,
 recorded, not bounded (B writes with a plain `print(..., file=sys.stderr)`, `bin/_common.py:322-324` @ `7f75863`)); a
@@ -695,7 +695,7 @@ claude and agy, made on the whole object before any field is extracted, and carr
 extracted error text, EVERY stderr envelope, the stdout and the stderr text; a report's text is read only for the
 reporting CLI's OWN sign-in banner line (the STOP — agy's measured banner, claude's measured authentication result lines,
 "Not logged in · Please run /login" and "Invalid API key · Fix external API key" (`contracts/vendor-failure-lines.json`;
-the second in progress, 6.0 slice 26a tail); codex and gemini have no measured banner, so their report never STOPs, a fact) and for the shared
+`_CLAUDE_AUTH_BANNER_PATTERNS` @ triad `a6173ac`); codex and gemini have no measured banner, so their report never STOPs, a fact) and for the shared
 schema-rejected phrases, since a report is itself a schema outcome — a codex, gemini or claude report carrying "schema
 validation failed" ends schema-rejected (67) when the run yields no answer, a vendor-rc-0 run included (a claude
 envelope's non-null `structured_output` is the answer even beside `is_error`, as on B — `bin/_common.py:1257-1259` @
@@ -705,8 +705,12 @@ its admission and schema-fail (66), and B classifies agy from stderr and status 
 so on agy only the banner is read; no other class — authentication words, capacity, configuration, fan-out — reads a
 report. On A the decision is `_decided_object` / `_decided_text` (`3rd-Agent/wrappers/_common.py` @ triad `058b296`); every
 JSON object in a raw stderr / stdout TEXT is decided wherever it starts — a vendor can interleave one mid-line — and a
-banner line read from a report forwards only the banner itself, never the rest of its line (in progress, 6.0 slice 26a
-tail; @ `058b296` only an object a line began with was decided and the whole banner line was forwarded)): an error object any of whose text
+banner line read from a report forwards only the banner itself, never the rest of its line (`_line_json_objects`,
+`_report_reading` / `_own_banner_line`); the banner STOP reads every input — a report object in the stderr text (on agy
+not its labelled tool / step signals) and in the stdout text (not agy's raw stream) — in `_auth_carrier_stop` before every
+other rung; a mid-line gemini stderr error object is thereby read by the auth rung as an envelope and, holding a tool
+error or a report, dropped from the capacity carrier; a report object on claude's or agy's stderr is an unmeasured shape
+(@ triad `a6173ac`)): an error object any of whose text
 fields carries the report marker is a report (read only as above: its CLI's own banner — the STOP — and the shared
 schema-rejected phrases); an object without it is read in all its text fields (`message`, `text`, `detail`, `description`). On agy the plain capacity sentences are read only in agy's own stderr and the
 terminal `result.error`, never in a tool or step signal (`tool_info.error`, `error_message` steps) — as B classifies agy
