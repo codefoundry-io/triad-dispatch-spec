@@ -694,12 +694,12 @@ and a new vendor message ends `unknown` and reaches the repair analysis. Recorde
 mid-line, inside a tool-error line, or on a channel no capture shows; a finish-schema validation report from any CLI but
 agy (agy's own, measured — the report becomes `result.error` — is read there for agy's sign-in banner only); report or
 authentication text in a field other than the vendor's message; an authentication or capacity word in a tool's output on
-a FAILED run (worst case: an R-AUTH STOP the owner inspects, or one bounded capacity retry — never a lost answer). On A
+a FAILED run (worst case: an R-AUTH STOP the owner inspects, or the bounded capacity retries (at most two, three calls) — never a lost answer). On A
 only gemini's trailing stderr envelope is read (`_gemini_trailing_envelope` @ triad `e40001d`), so two fatal envelopes in
 one run — an authentication one, then a capacity one — retry as capacity (constructed shape); gemini 0.60.0 in JSON mode
 writes a fatal error to stderr as `[ERROR] {json}` or a pretty-printed object (gemini-cli v0.60.0
 `packages/cli/src/utils/errors.ts`, `nonInteractiveCli.ts`). On A an agy tool error's text reaches the no-answer classify
-input (`agy_classify_signals` @ triad `e40001d`; worst case one bounded capacity retry). On A the trailing-envelope scan is
+input (`agy_classify_signals` @ triad `e40001d`; worst case the bounded capacity retries (at most two, three calls)). On A the trailing-envelope scan is
 quadratic on a stderr with many braces and no trailing object — reachable on measured gemini 429 dumps, with no hang
 recorded over 334 `server-capacity` rows. The plain-English `model overloaded`, `service unavailable` and `too many
 requests` are not match phrases (no capture where one is the only signal; a captured gemini 429 carries `Too Many
@@ -718,7 +718,7 @@ ends `unknown` (or `extraction-error`), exit 1, with the summary, audit row and 
 classification guard, `_common.py` `_never_raises` @ triad `e40001d`, on `classify`, `_auth_carrier_stop`, the three
 extractors, `agy_classify_signals`, and `antigravity_wrapper.py` `_classify_no_answer` / `_catalog_auth_observed`;
 DL-90); the guard's `False` fallback on the auth-carrier rung continues down the
-rungs, so a measured capacity token in the same run retries once, and the raw-text oauth-env rung still STOPs a measured
+rungs, so a measured capacity token in the same run retries (at most twice), and the raw-text oauth-env rung still STOPs a measured
 codex 401.
 
 <a id="R-RECEIPT"></a>
