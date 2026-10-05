@@ -610,35 +610,22 @@ signal and `_mark_signal_failure` sets that shape (`bin/_common.py:1400-1452` @ 
 installed inside `_run_once` only (`:1425-1441`), so a signal between attempts exits 143 with no record (DL-70). On A:
 every window of a dispatch ends in that shape with its summary, audit row and run-log — after the spawn, in the wait,
 inside the timeout arm's group kill (the SIGKILL escalation kept) and between attempts (`_terminal_signal_to_exit`,
-`3rd-Agent/wrappers/_common.py:3441-3448`; `_run_once`, `:3559-3585`, `:3924-3949` @ triad `bf38f60`), and after the engine's last check too: the record step turns
-a recorded signal into the signal record before the records are written, and the answer of any signal recorded inside a
-dispatch is withheld (exit 1); a signal that lands while the records are being written withholds the answer but leaves
-the records already written with the earlier verdict (a limit; triad `_dispatch_record`, `_emit_payload`, 6.0). On A the
-answer is withheld (exit 1) on any signal recorded during a dispatch, an empty payload included, unless the recorded
-verdict is a timeout or `oauth-env`; a signal-interrupted run gets the same authentication check a timed-out run gets
-(6.0 slice 26a fix 1); for gemini that check includes its raw exit 41, and agy's driver judges its own interrupted runs
-(a completed run with a usable answer is not a STOP; an uncompleted one that printed an auth failure is). A cut-short
-agy catalog call completes its group cleanup (TERM, wait, KILL, wait) before the pending exit is raised, with SIGTERM
-and SIGHUP held back from the moment the call is cut short until the group is reaped (fix 3: on A the call runs in the
-wrapper handler's record-only mode from before its spawn, a recorded signal cuts it short, the cleanup completes and the
-exit is 128 + signum — `3rd-Agent/wrappers/antigravity_wrapper.py` `_model_catalog_refusal` @ triad `00504ef`). When publication withholds an answer for such a late signal it prints one more canonical summary
-line with the final token and exit (`unknown`, exit 1), so the last summary line always matches the exit (R-TOKENS: the
-last line is the one a caller reads). A failed stderr write drops that one line and never the answer or the exit (on A each line is written straight to
-the descriptor — no buffered stream holds a dropped line to replay at exit — and a line is completed: a line that meets a
-full non-blocking pipe, before its first byte or after, waits up to 30 s for room before it (or its rest) is dropped —
-A's own bound, a fact, `_common.py` `_LOG_LINE_WAIT_S` @ triad `058b296`; once one line has waited the whole bound,
-later lines try once without waiting until a write succeeds again, so a reader that stops draining delays the wrapper
-by one bound, not one per line (`_LOG_STATE["stalled"]` @ triad `a6173ac`); after a line whose rest was dropped the next line begins on a new line, and a
-stderr closed at start — no stream — drops the line); a
-BLOCKING stderr whose reader stays open but stops draining blocks the wrapper's write — a limit both hosts share,
-recorded, not bounded (B writes with a plain `print(..., file=sys.stderr)`, `bin/_common.py:322-324` @ `7f75863`)); a
-later line is tried again (a caller missing a summary or read-audit custody line refuses to collect — fail closed); B
-does not settle stderr recovery (a fact). A failed
+`3rd-Agent/wrappers/_common.py:3441-3448`; `_run_once`, `:3559-3585`, `:3924-3949` @ triad `bf38f60`). A signal after
+the engine's last check is only recorded, and the completed answer is published and recorded as such — both hosts agree
+(On A the handler only records once a dispatch began, `_terminal_signal_to_exit` @ triad `e40001d`; On B the handlers
+are restored when the run returns, `bin/_common.py:1418-1441` @ `7f75863`). A cut-short agy catalog call reaps its group
+before the pending exit (On A `3rd-Agent/wrappers/antigravity_wrapper.py` `_model_catalog_refusal` @ triad `e40001d`).
+A failed stderr write drops that one line, never the answer or the exit, and a dropped line is never written later; a
+stderr closed at start drops every line. A full non-blocking stderr drops the line at once, and a blocking stderr whose
+reader stops draining blocks the wrapper — both are recorded limits, not bounded (no run has shown either; On A `log` @
+triad `e40001d`; B writes with a plain `print`, `bin/_common.py:322-324` @ `7f75863`). A caller missing a summary or
+read-audit custody line refuses to collect — fail closed. A failed
 host record write (audit row, run-log, debug log) never changes the provider result or loses the answer, on both hosts (A
-one stderr line; B `audit()` returns False, `bin/_common.py:2139-2153` @ `7f75863`); on A a review attempt whose run-log
+one stderr line, and A's record seam catches any exception, not only an OSError — `_dispatch_record` @ triad `e40001d`;
+B `audit()` returns False, `bin/_common.py:2139-2153` @ `7f75863`); on A a review attempt whose run-log
 was lost carries no receipt, so it is INVALID at collection and retried, never agreed. Verdict
-precedence, both hosts: a timeout verdict and an authentication STOP (R-AUTH, which outranks every rule) stand over a
-signal — a run already judged `oauth-env` keeps it and its re-login remedy when a signal lands before its records; a signal replaces a stdin-delivery or reader failure; a
+precedence, both hosts: a timeout verdict stands over a signal (an interrupted run is `unknown` / 1 and never retried, so
+R-AUTH holds); a signal replaces a stdin-delivery or reader failure; a
 stdin-delivery or reader failure replaces a vendor exit code of 0 (A `:3924-3949`; B `bin/_common.py:1433-1437`,
 `:1663-1679` @ `7f75863`). A signal between attempts (a server-capacity backoff, a schema-repair turn) spawns nothing:
 the previous attempt's record, with its captured evidence, carries the signal failure, and the agy driver adds no
@@ -699,54 +686,40 @@ puts a fatal TOOL error into its error object as "Error executing tool <name>: �
 object's code (41 / 401) is read there; gemini's "Cached credentials are not valid:" log line appears only in debug mode; no
 stream-json capture yet shows where agy's banner sits on its stderr line (the line-start rule rests on the pty-era record). The
 shared raw-blob phrase `401 unauthorized` stops the codex 401 sentence on every CLI — an exception to C43's own-CLI rule that
-R-AUTH decides. Host A's own record says agy's `result.error` can echo the model's text through a finish-schema
-validation report (not measured); such a report is model text — its sibling fields (`detail` and the like) included — so
-only agy's own sign-in banner is read there. Report-ness is decided per error OBJECT, for every CLI's error object (A applies the one decision to codex, gemini,
-claude and agy, made on the whole object before any field is extracted, and carried by every input a class reads — the
-extracted error text, EVERY stderr envelope, the stdout and the stderr text; a report's text is read only for the
-reporting CLI's OWN sign-in banner line (the STOP — agy's measured banner, claude's measured authentication result lines,
-"Not logged in · Please run /login" and "Invalid API key · Fix external API key" (`contracts/vendor-failure-lines.json`;
-`_CLAUDE_AUTH_BANNER_PATTERNS` @ triad `a6173ac`); codex and gemini have no measured banner, so their report never STOPs, a fact) and for the shared
-schema-rejected phrases, since a report is itself a schema outcome — a codex, gemini or claude report carrying "schema
-validation failed" ends schema-rejected (67) when the run yields no answer, a vendor-rc-0 run included (a claude
-envelope's non-null `structured_output` is the answer even beside `is_error`, as on B — `bin/_common.py:1257-1259` @
-`7f75863` — and only an authentication STOP outranks it), as B's one shared classify reads that list for
-every CLI (`bin/_common.py:148-151`, `:767-771` @ `7f75863`); agy has no text-matched schema class — its schema outcome is
-its admission and schema-fail (66), and B classifies agy from stderr and status (`bin/antigravity_wrapper.py:286-296`) —
-so on agy only the banner is read; no other class — authentication words, capacity, configuration, fan-out — reads a
-report. On A the decision is `_decided_object` / `_decided_text` (`3rd-Agent/wrappers/_common.py` @ triad `058b296`); every
-JSON object in a raw stderr / stdout TEXT is decided wherever it starts — a vendor can interleave one mid-line — and a
-banner line read from a report forwards only the banner itself, never the rest of its line (`_line_json_objects`,
-`_report_reading` / `_own_banner_line`); the banner STOP reads every input — a report object in the stderr text (on agy
-not its labelled tool / step signals) and in the stdout text (not agy's raw stream) — in `_auth_carrier_stop` before every
-other rung; a mid-line gemini stderr error object is thereby read by the auth rung as an envelope and, holding a tool
-error or a report, dropped from the capacity carrier; a report object on claude's or agy's stderr is an unmeasured shape
-(@ triad `a6173ac`); a report is known from the vendor's own error object, never from a text label A writes into decided
-text (an answer can quote any label — a review of this code does), so a run whose answer is usable is never stopped
-by a report's banner, and the object scan stays linear in the text's length; a JSON object embedded in a gemini
-`Error executing tool <name>: …` stderr line is part of that tool output and is read by no class (removed at
-`_decided_text`; the rest of that line keeps its reading — a fact). On A: the report-banner STOP reads the raw stderr and
-stdout and knows a report from the error-object structure only; a usable claude answer (`extract_claude_answer`,
-`structured_output` included) is never stopped by a report banner — a report `result` beside a usable answer is not the
-STOP, while `api_error_status` 401 or a non-report authentication result still is; "usable" is defined on A for claude
-only (codex and gemini have no banner; agy's driver keeps its own completed-run exemption) — a fact; on claude's rc-0
-`is_error` path the rung reads stderr too, before the schema-fail / task-blocked / terminal promotions; the object scan
-is one pass, each decode inside a growing window (a failed decode otherwise costs its absolute position), and
-`_gemini_trailing_envelope` likewise (@ triad `9ee8a9f`); a text that fails to decode for ANY reason (an integer past
-Python's digit limit, deep nesting) is simply not an object — classification always completes; the extractors read the
-decided text too; and an object removed from a text leaves its line breaks, so what follows it stays on its own line
-(`_object_at`, `extract_gemini_answer`, `_decided_text` @ triad `8841c47`), and never joins the text on its two sides
-into one word (a removed object leaves its line breaks, or one blank) — `_drop_json_objects` included (in progress, 6.0
-slice 26a tail 4); a decoded value of an unexpected type — a non-string message, a non-object document such as `[]` —
-is read as absent, never raised: classification always completes and the terminal record is written (in progress, 6.0
-slice 26a tail 4; B lacks the same guards — DL-90)): an error object any of whose text
-fields carries the report marker is a report (read only as above: its CLI's own banner — the STOP — and the shared
-schema-rejected phrases); an object without it is read in all its text fields (`message`, `text`, `detail`, `description`). On agy the plain capacity sentences are read only in agy's own stderr and the
-terminal `result.error`, never in a tool or step signal (`tool_info.error`, `error_message` steps) — as B classifies agy
-from stderr and status only (`bin/antigravity_wrapper.py:286-296` @ `7f75863`); on gemini a stderr line beginning
-"Error executing tool" is tool output and is not read for them either, nor is that message inside a stderr error
-envelope (gemini 0.60.0 in JSON mode writes a fatal tool error to stderr as `[ERROR] {json}` or a pretty-printed
-object — gemini-cli v0.60.0 `packages/cli/src/utils/errors.ts`, `nonInteractiveCli.ts`) (A 6.0 slice 26a fixes 1-2).
+R-AUTH decides.
+Recorded limits (a fact, owner 2026-10-05). Vendor error text belongs to the vendor and changes with each release, so a
+host codes only a MEASURED shape — a capture, a row of `contracts/vendor-failure-lines.json`, or the vendor's own
+source — and ordinary operator actions; a shape a reviewer constructs and no run has shown is recorded here, never coded,
+and a new vendor message ends `unknown` and reaches the repair analysis. Recorded, not handled: an error object placed
+mid-line, inside a tool-error line, or on a channel no capture shows; a finish-schema validation report from any CLI but
+agy (agy's own, measured — the report becomes `result.error` — is read there for agy's sign-in banner only); report or
+authentication text in a field other than the vendor's message; an authentication or capacity word in a tool's output on
+a FAILED run (worst case: an R-AUTH STOP the owner inspects, or one bounded capacity retry — never a lost answer). On A
+only gemini's trailing stderr envelope is read (`_gemini_trailing_envelope` @ triad `e40001d`), so two fatal envelopes in
+one run — an authentication one, then a capacity one — retry as capacity (constructed shape); gemini 0.60.0 in JSON mode
+writes a fatal error to stderr as `[ERROR] {json}` or a pretty-printed object (gemini-cli v0.60.0
+`packages/cli/src/utils/errors.ts`, `nonInteractiveCli.ts`). On A an agy tool error's text reaches the no-answer classify
+input (`agy_classify_signals` @ triad `e40001d`; worst case one bounded capacity retry). On A the trailing-envelope scan is
+quadratic on a stderr with many braces and no trailing object — reachable on measured gemini 429 dumps, with no hang
+recorded over 334 `server-capacity` rows. The plain-English `model overloaded`, `service unavailable` and `too many
+requests` are not match phrases (no capture where one is the only signal; a captured gemini 429 carries `Too Many
+Requests` beside `resource_exhausted` / `model_capacity_exhausted` / `ratelimitexceeded` — observed loss zero; DL-86). A
+known deviation from the plain-fragment rule: the terminal plain phrases `please log in`, `auth error`, `please
+authenticate`, `400 bad request`, `400 invalid` and `schema validation failed` stay match phrases on A — their classes
+are terminal and visible, and the plain-fragment rule's reason is a hidden retry. A residual: a `401` outside the carrier,
+on a failed run that also carries a measured capacity token, classifies `server-capacity` and is retried, since capacity
+precedes oauth-env (not observed). Three guarantees replace per-shape code. A usable answer is never discarded because of
+text inside it: a non-null claude `structured_output` is the answer beside `is_error` — On A the STOP still stands beside
+it on `api_error_status` 401 or on claude's measured authentication result line ("Not logged in · Please run /login",
+"Invalid API key · Fix external API key"; `_CLAUDE_AUTH_BANNER_PATTERNS` @ triad `e40001d`), while B returns
+`structured_output` before reading `is_error` (`bin/_common.py:1256-1260` @ `7f75863`) — a host difference. The
+auth-carrier rung runs before every other rung. Classification never raises: an exception in a classifier or an extractor
+ends `unknown` (or `extraction-error`), exit 1, with the summary, audit row and run-log written (On A one general
+classification guard, `_common.py` `_never_raises` @ triad `e40001d`, on `classify`, `_auth_carrier_stop`, the three
+extractors, `agy_classify_signals`, and `antigravity_wrapper.py` `_classify_no_answer` / `_catalog_auth_observed`;
+DL-90); the guard's `False` fallback on the auth-carrier rung continues down the
+rungs, so a measured capacity token in the same run retries once, and the raw-text oauth-env rung still STOPs a measured
+codex 401.
 
 <a id="R-RECEIPT"></a>
 The transport receipt and audit / run-log records carry the common transport object defined by
