@@ -648,8 +648,8 @@ only, and an authentication failure printed outside every carrier ends `unknown`
 `codex-rs/protocol/src/error.rs` RetryLimitReachedError, "exceeded retry limit, last status: {}{}", fetched 2026-10-05)
 and codex's `invalid schema for response_format` (two real failures, 2026-09-20); the token-limit and
 configuration lists hold no measured sentence and are empty, so those failures end `unknown` and reach the repair
-analysis; `aborterror` is gone (its one capture is a user abort). An extension token outside the contract vocabulary is
-ignored with one log line per process, never emitted (R-TOKENS; `_load_classifier_extension` @ `3fde8d6`). A residual: a `401` outside the carrier,
+analysis; `aborterror` is gone (its one capture is a user abort). An extension token outside the contract vocabulary — and, for an exit-code entry, outside the classes an exit-code proposal may carry — is
+ignored with one log line per process, never emitted (the emitted pair always matches the contract's code) (R-TOKENS; `_load_classifier_extension` @ `3fde8d6`). A residual: a `401` outside the carrier,
 on a failed run that also carries a measured capacity token, classifies `server-capacity` and is retried, since capacity
 precedes oauth-env (not observed). Three guarantees replace per-shape code. A usable answer is never discarded because of
 text inside it: a non-null claude `structured_output` is the answer beside `is_error` — On A the STOP still stands beside
