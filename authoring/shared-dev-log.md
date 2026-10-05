@@ -141,6 +141,6 @@ Rows with B work open: DL-39, DL-45, DL-46, DL-49, DL-56, DL-61, DL-70, DL-72, D
 
 Checks suggested for B: DL-13, DL-14, DL-16, DL-42, DL-43, DL-58, DL-62, DL-67, DL-71, DL-76, DL-87, DL-88, DL-89, DL-90, DL-93, DL-100.
 
-Rows awaiting the owner: DL-54.
+Rows awaiting the owner: DL-54, DL-100.
 
 The reading of B continues at `triad-codex-dispatch` 0.2.558 @ `7f75863`; rows are added as it goes.
