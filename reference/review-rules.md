@@ -565,10 +565,10 @@ precedence, both hosts: a timeout verdict stands over a signal (an interrupted r
 frozen R-AUTH has no carve-out for a signalled attempt, so on A a signalled codex, gemini or claude run's captured output
 goes through the auth-carrier rung first and a carrier STOP ends `oauth-env` / 65 (`_common.py` `_run_once` @ triad
 `fdd7029`; gemini's exit code 41 is read inside that rung, @ triad `8909103`; B: DL-95); a recorded limit on A: a
-signalled agy run's carriers are not read (no measured agy carrier capture) — `unknown` / 1, never retried; and a
-second SIGTERM / SIGHUP arriving while a pre-dispatch probe's record is being written exits 128+signum and that record is
-lost (each probe restores exit-on-signal before the refusal is recorded — two signals in one record-write window; @ triad
-`0e1f550`); a signal replaces a stdin-delivery or reader failure; a
+signalled agy run's carriers are not read (no measured agy carrier capture) — `unknown` / 1, never retried. A probe
+that recorded a signal keeps the record-only mode until its refusal record is written, so a second SIGTERM / SIGHUP in
+that window is recorded too (frozen C1; `gemini_wrapper.py` preflight, `antigravity_wrapper.py` catalog and `--version`
+probes @ triad `0115727`); a signal replaces a stdin-delivery or reader failure; a
 stdin-delivery or reader failure replaces a vendor exit code of 0 (A `:3924-3949`; B `bin/_common.py:1433-1437`,
 `:1663-1679` @ `7f75863`). A signal between attempts (a server-capacity backoff, a schema-repair turn) spawns nothing:
 the previous attempt's record, with its captured evidence, carries the signal failure, and the agy driver adds no
