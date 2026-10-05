@@ -544,9 +544,11 @@ answer is withheld (exit 1) on any signal recorded during a dispatch, an empty p
 verdict is a timeout or `oauth-env`; a signal-interrupted run gets the same authentication check a timed-out run gets
 (6.0 slice 26a fix 1); for gemini that check includes its raw exit 41, and agy's driver judges its own interrupted runs
 (a completed run with a usable answer is not a STOP; an uncompleted one that printed an auth failure is). A cut-short
-agy catalog call completes its group cleanup (TERM, wait, KILL, wait) before the pending exit is raised (fix 2). When publication withholds an answer for such a late signal it prints one more canonical summary
+agy catalog call completes its group cleanup (TERM, wait, KILL, wait) before the pending exit is raised, with SIGTERM
+and SIGHUP held back from the moment the call is cut short until the group is reaped (fix 3). When publication withholds an answer for such a late signal it prints one more canonical summary
 line with the final token and exit (`unknown`, exit 1), so the last summary line always matches the exit (R-TOKENS: the
-last line is the one a caller reads). A failed stderr write drops that one line and never the answer or the exit; a
+last line is the one a caller reads). A failed stderr write drops that one line and never the answer or the exit (on A each line is written straight to
+the descriptor — no buffered stream holds a dropped line to replay at exit — and a line once started is completed); a
 later line is tried again (a caller missing a summary or read-audit custody line refuses to collect — fail closed); B
 does not settle stderr recovery (a fact). A failed
 host record write (audit row, run-log, debug log) never changes the provider result or loses the answer, on both hosts (A
@@ -616,7 +618,8 @@ stream-json capture yet shows where agy's banner sits on its stderr line (the li
 shared raw-blob phrase `401 unauthorized` stops the codex 401 sentence on every CLI — an exception to C43's own-CLI rule that
 R-AUTH decides. Host A's own record says agy's `result.error` can echo the model's text through a finish-schema
 validation report (not measured); such a report is model text — its sibling fields (`detail` and the like) included — so
-only agy's own sign-in banner is read there. Report-ness is decided per error OBJECT: an error object any of whose text
+only agy's own sign-in banner is read there. Report-ness is decided per error OBJECT, for every CLI's error object (A applies the one decision to codex, gemini,
+claude and agy): an error object any of whose text
 fields carries the report marker is a report (only a sign-in banner line in any of its fields is read — the STOP —
 nothing else); an object without it is read in all its text fields (`message`, `text`, `detail`, `description`). On agy the plain capacity sentences are read only in agy's own stderr and the
 terminal `result.error`, never in a tool or step signal (`tool_info.error`, `error_message` steps) — as B classifies agy
