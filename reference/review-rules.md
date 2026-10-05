@@ -144,7 +144,9 @@ dev tree, for any id one possible session project lacks — so a broken or diffe
 round, the shipped reviewers included, until it is fixed; in a plugin's own `agents/` a file that does not parse is
 named after its file, so an unrelated one there never stops a round). PyYAML (YAML 1.1) breaks a line at U+0085, U+2028
 and U+2029 where YAML 1.2 does not (YAML 1.2.2 § 5.4), so a block holding any of them refuses the round naming the file,
-in every searched folder and before a plugin file falls back to its file name (@ triad `f4552cf`). PyYAML reads YAML 1.1
+in every searched folder and before a plugin file falls back to its file name (@ triad `f4552cf`). An unquoted U+FEFF
+inside a value is scalar content to PyYAML while YAML 1.2 restricts where a byte-order mark may stand; Bun's reading is
+unmeasured — a recorded limit, not refused. PyYAML reads YAML 1.1
 and Bun YAML 1.2 (Claude Code 2.1.289 bundles Bun v1.4.3 — measured), so a scalar the two type differently (`1e3`,
 `0o17`, `yes`) can be read differently; beyond the string checks above that is a recorded limit. How Bun treats a
 duplicated key is not measured (the bundled binary does not run as Bun — `BUN_BE_BUN=1` is refused, measured
