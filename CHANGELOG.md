@@ -15,8 +15,8 @@
   `fanout-spawn-error` / `fanout-partial` leave; `task-blocked` (65), the claude permission-denial class on both hosts,
   stays (DL-91; DL-72 superseded in part).
 - Cases C37 / C43 tests.A and DL-74 follow the per-CLI, no-raw-text-authentication rule.
-- Pending: host A's R-ROSTER / R-REVIEW-WEB, C12 / C19 and DL-49 text for the closed list of shipped claude presets
-  (D-SHIPPED-PRESETS-20261005) lands with host A's change.
+- Host A's R-ROSTER / R-REVIEW-WEB, C12 / C19 / C32 / C34 and DL-49 text for the closed list of shipped claude presets
+  (D-SHIPPED-PRESETS-20261005; host A @ triad `3894879`; DL-94).
 
 ## Owed rows from host A's conformance work — 2026-10-04 (not tagged)
 

@@ -707,4 +707,4 @@ subagent transcripts. Because Claude Code fixes a subagent's model and effort in
 override, host A gives skill users a guide that explains this and lists the shipped presets.
 
 Effect: [R-ROSTER](../reference/review-rules.md#R-ROSTER) (On A), R-REVIEW-WEB (On A), cases C12 and C19,
-`authoring/shared-dev-log.md` DL-49 — their host-A text is rewritten with host A's change (in progress).
+`authoring/shared-dev-log.md` DL-49 — their host-A text is rewritten (host A @ triad `3894879`; DL-94).
