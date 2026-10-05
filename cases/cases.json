@@ -94,7 +94,7 @@
       "input": "every token the host's classifier can emit",
       "expected": "Every emitted token is in contracts/exit-tokens.json with the same code; exceptions listed explicitly; a membership test, not an `is not None` assert, checks it",
       "tests": {
-        "A": "tests/unit/wrappers/t55-exit-token-membership-c8.sh @ triad ebc4dc7 (membership test against the vendored contract). Open: t55 does not yet census the codex wrapper's direct exits (fanout-partial 68, task-blocked 69) or the provisional `token-limit exit=1` summary pair — A in progress (Task 19 fix round 2, L2; authoring/shared-dev-log.md DL-72).",
+        "A": "tests/unit/wrappers/t55-exit-token-membership-c8.sh @ triad ebc4dc7 (membership test against the vendored contract). Open: t55 does not yet census the provisional `token-limit exit=1` summary pair (the codex `--task` exits 68 / 69 are removed, DL-91) — A in progress (Task 19 fix round 2, L2; authoring/shared-dev-log.md DL-72).",
         "B": "6653bdc: tests/test_exit_token_contract.py checks all 18 shared map rows, classifier/vendor-map membership, bounded producer-literal census and explicit direct/alias exceptions. Three missing map rows added; producer/stdin/repair behavior unchanged. triad-b-wrapper-contracts-r1 ADMITTED_SAFE; one non-blocking local-variable census suggestion retained after leader verified the current token is registered. See spikes/2026-09-20-b-wrapper-contracts.md."
       }
     },

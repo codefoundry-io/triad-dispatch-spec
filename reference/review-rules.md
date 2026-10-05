@@ -639,8 +639,7 @@ Every classification token a host EMITS is a member of `contracts/exit-tokens.js
 wrapper-only tokens and compatibility aliases are listed explicitly as exceptions. A membership test, not an `is not None` assert, checks it (On A:
 `tests/unit/wrappers/t55-exit-token-membership-c8.sh`; On B: `tests/test_exit_token_contract.py`). Every emitted
 summary line carries a (token, exit) pair the contract holds or its listed exceptions name; a provisional line whose
-exit a later step corrects is not allowed. Host A's codex wrapper-direct exceptions: `fanout-partial` at exit 68 (no table row) and `task-blocked` at
-exit 69 (the table pairs it with 65) (`3rd-Agent/wrappers/codex_wrapper.py:548-553`, `:574-575` @ triad `bf38f60`). On A
+exit a later step corrects is not allowed. The codex wrapper's `--task` mode and its exits 68 / 69 are removed from the contract (owner 2026-10-05; DL-91). On A
 the summary line prints the contract's code for the token, never a provisional 1 a driver corrects later
 (`3rd-Agent/wrappers/_common.py:3974-3984` @ `bf38f60`). On B a provisional `token-limit exit=1` summary is printed before
 the driver corrects the exit to 65 (`bin/_common.py:1685-1689`, re-emitted at `:1884-1887` @ `7f75863`; DL-72).
@@ -705,12 +704,12 @@ recorded over 334 `server-capacity` rows. The plain-English `model overloaded`, 
 requests` are not match phrases (no capture where one is the only signal; a captured gemini 429 carries `Too Many
 Requests` beside `resource_exhausted` / `model_capacity_exhausted` / `ratelimitexceeded` — observed loss zero; DL-86). The
 plain-fragment rule applies to EVERY raw-text phrase list a host reads over a failed run's output — capacity,
-subscription cap, token limit, schema-rejected, fan-out, configuration and authentication words alike: a phrase stays
+subscription cap, token limit, schema-rejected, configuration and authentication words alike: a phrase stays
 only with measured evidence (a real vendor failure, a contract row, the vendor's own source), cited beside it; a review
 leg quoting a host's code never reaches a STOP or a retry through a generic phrase. On A (`3rd-Agent/wrappers/_common.py`
 @ triad `3fde8d6`) the kept phrases include codex's own `exceeded retry limit, last status: 429` (vendor source:
 `codex-rs/protocol/src/error.rs` RetryLimitReachedError, "exceeded retry limit, last status: {}{}", fetched 2026-10-05)
-and codex's `invalid schema for response_format` (two real failures, 2026-09-20); the token-limit, fan-out and
+and codex's `invalid schema for response_format` (two real failures, 2026-09-20); the token-limit and
 configuration lists hold no measured sentence and are empty, so those failures end `unknown` and reach the repair
 analysis; `aborterror` is gone (its one capture is a user abort). An extension token outside the contract vocabulary is
 ignored with one log line, never emitted (R-TOKENS; `_load_classifier_extension` @ `3fde8d6`). A residual: a `401` outside the carrier,
