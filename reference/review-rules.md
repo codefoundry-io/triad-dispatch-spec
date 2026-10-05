@@ -710,7 +710,7 @@ applies only to the CLI that emits it); no shared list keeps a phrase unless it 
 none today. No raw-text authentication phrase is kept: one matched over a failed run's whole output produced a MEASURED
 false STOP (a codex run of 2026-07-16 that failed on "Selected model is at capacity" was recorded oauth-env because a
 fetched page in its transcript quoted "401 Unauthorized"); the authentication STOPs come from the structured carriers
-only, and an authentication failure printed outside every carrier ends `unknown` (never retried). codex's own
+only, and an authentication failure printed outside every carrier ends `unknown` (never retried). A classifier extension cannot add a raw-text authentication phrase: such an entry is ignored with one log line per process (in progress, 6.0 Task 29). On A codex's write posture (`--sandbox workspace-write`) requires `--cwd`, as A's claude and gemini wrappers already require (in progress, Task 29); the codex `--task` mode and its exits 68 / 69 are gone from A (@ triad `11662b2`). codex's own
 `you've hit your usage limit` (codex-rs `UsageLimitReachedError`) is its subscription-cap sentence (On A
 `CLI_PATTERNS` @ triad `7e9e1fb`). On A (`3rd-Agent/wrappers/_common.py`
 @ triad `3fde8d6`) the kept phrases include codex's own `exceeded retry limit, last status: 429` (vendor source:
