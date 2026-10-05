@@ -720,8 +720,15 @@ error or a report, dropped from the capacity carrier; a report object on claude'
 (@ triad `a6173ac`); a report is known from the vendor's own error object, never from a text label A writes into decided
 text (an answer can quote any label — a review of this code does), so a run whose answer is usable is never stopped
 by a report's banner, and the object scan stays linear in the text's length; a JSON object embedded in a gemini
-`Error executing tool <name>: …` stderr line is part of that tool output and is read by no class (in progress, 6.0
-slice 26a tail 2)): an error object any of whose text
+`Error executing tool <name>: …` stderr line is part of that tool output and is read by no class (removed at
+`_decided_text`; the rest of that line keeps its reading — a fact). On A: the report-banner STOP reads the raw stderr and
+stdout and knows a report from the error-object structure only; a usable claude answer (`extract_claude_answer`,
+`structured_output` included) is never stopped by a report banner — a report `result` beside a usable answer is not the
+STOP, while `api_error_status` 401 or a non-report authentication result still is; "usable" is defined on A for claude
+only (codex and gemini have no banner; agy's driver keeps its own completed-run exemption) — a fact; on claude's rc-0
+`is_error` path the rung reads stderr too, before the schema-fail / task-blocked / terminal promotions; the object scan
+is one pass, each decode inside a growing window (a failed decode otherwise costs its absolute position), and
+`_gemini_trailing_envelope` likewise (@ triad `9ee8a9f`)): an error object any of whose text
 fields carries the report marker is a report (read only as above: its CLI's own banner — the STOP — and the shared
 schema-rejected phrases); an object without it is read in all its text fields (`message`, `text`, `detail`, `description`). On agy the plain capacity sentences are read only in agy's own stderr and the
 terminal `result.error`, never in a tool or step signal (`tool_info.error`, `error_message` steps) — as B classifies agy
