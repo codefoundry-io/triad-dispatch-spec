@@ -22,6 +22,9 @@
 - R-CLASSIFY host-A anchors after 26a final fix 1 (triad `fdd7029`): one guard per wrapper `main`; the codex `-o`
   file is the answer; a signalled run's output reaches the auth-carrier rung (DL-95, B change); extension exit-code
   tokens limited to the exit-code proposal classes (DL-97, B change).
+- Owner narrowing 2026-10-05 (register addendum to D-MEASURED-SHAPES-20261005): DL-98 a recorded fact (no change on
+  either host); R-TERMINAL states A's signalled-run auth read and its agy / gemini-41 limits; host-A anchors at triad
+  `d966ab0` (the codex text-type check and the extension parse cache removed).
 
 ## Owed rows from host A's conformance work — 2026-10-04 (not tagged)
 

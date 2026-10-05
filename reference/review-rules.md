@@ -657,12 +657,12 @@ only, and an authentication failure printed outside every carrier ends `unknown`
 and codex's `invalid schema for response_format` (two real failures, 2026-09-20); the token-limit and
 configuration lists hold no measured sentence and are empty, so those failures end `unknown` and reach the repair
 analysis; `aborterror` is gone (its one capture is a user abort). An extension token outside the contract vocabulary — and, for an exit-code entry, outside the classes an exit-code proposal may carry — is
-ignored with one log line, never emitted (the emitted pair always matches the contract's code) (R-TOKENS; On A `_load_classifier_extension` @ triad `fdd7029`; B returns any extension string, DL-97). A residual: a `401` outside the carrier,
+ignored with one log line, never emitted (the emitted pair always matches the contract's code) (R-TOKENS; On A `_load_classifier_extension` @ triad `d966ab0`, the file parsed on each load; B returns any extension string, DL-97). A residual: a `401` outside the carrier,
 on a failed run that also carries a measured capacity token, classifies `server-capacity` and is retried, since capacity
 precedes oauth-env (not observed). Three guarantees replace per-shape code. A usable answer is never discarded because of
-text inside it: on A the codex `-o` last-message file is the answer, read before the JSONL events, and an
-`agent_message` whose text is not a non-empty string is no answer (`codex_wrapper.py` @ triad `fdd7029`; B has no codex
-wrapper); a non-null claude `structured_output` is the answer beside `is_error` — On A the STOP still stands beside
+text inside it: on A the codex `-o` last-message file is the answer, read before the JSONL events (`_common.py`
+@ triad `d966ab0`; B has no codex wrapper; a constructed `agent_message` whose text is null or empty ends `ok` with an
+empty answer, and one of another type ends through the wrapper guard — recorded limits); a non-null claude `structured_output` is the answer beside `is_error` — On A the STOP still stands beside
 it on `api_error_status` 401 or on claude's measured authentication result line ("Not logged in · Please run /login",
 "Invalid API key · Fix external API key"; `_CLAUDE_AUTH_BANNER_PATTERNS` @ triad `e40001d`), while B returns
 `structured_output` before reading `is_error` (`bin/_common.py:1256-1260` @ `7f75863`) — a host difference. The
