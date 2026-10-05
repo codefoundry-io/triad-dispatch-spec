@@ -155,7 +155,12 @@ project roster override is also read); the source path is recorded with the boun
 leader session whose project is another folder is not observed (a fact). The preset's frontmatter is bound as written (its bytes, so any
 change of model or effort in any YAML form is a changed control), and a spawned preset's `tools` are checked before a
 round: only read tools (Read, Grep, Glob), plus WebSearch and WebFetch exactly when the round is a web round — a
-preset with no `tools` line (it inherits every tool) or with a tool that runs or writes is refused (R-CONTAIN). The frontmatter
+preset with no `tools` line (it inherits every tool) or with a tool that runs or writes is refused (R-CONTAIN); the check
+reads the frontmatter as YAML (Claude Code does) and judges the EFFECTIVE set (`tools` minus `disallowedTools`); a preset
+carrying `memory` (it turns on Read / Write / Edit whatever `tools` says) or `hooks` (they run shell commands) is refused
+too. Claude Code also ranks managed-settings and `--agents` definitions above project agents and scans every
+`.claude/agents/` from its working directory up to the repository root; a host that reads fewer places records that it
+does not observe the others (Claude Code sub-agents documentation, fetched 2026-10-05). The frontmatter
 outranks a session-wide subagent model setting only from Claude Code v2.1.251, and a forcing setting (v2.1.257+) makes Claude
 Code ignore it (same documentation): on A the pin is the selection only on such a version with no forcing setting — an operator
 configuration A does not observe (a fact).
