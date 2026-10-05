@@ -685,7 +685,9 @@ extracted error text, EVERY stderr envelope, the stdout and the stderr text; a r
 reporting CLI's OWN sign-in banner line (the STOP — agy's measured banner, claude's measured "Not logged in · Please run
 /login" result line; codex and gemini have no measured banner, so their report never STOPs, a fact) and for the shared
 schema-rejected phrases, since a report is itself a schema outcome — a codex, gemini or claude report carrying "schema
-validation failed" ends schema-rejected (67), a vendor-rc-0 run included, as B's one shared classify reads that list for
+validation failed" ends schema-rejected (67) when the run yields no answer, a vendor-rc-0 run included (a claude
+envelope's non-null `structured_output` is the answer even beside `is_error`, as on B — `bin/_common.py:1257-1259` @
+`7f75863` — and only an authentication STOP outranks it), as B's one shared classify reads that list for
 every CLI (`bin/_common.py:148-151`, `:767-771` @ `7f75863`); agy has no text-matched schema class — its schema outcome is
 its admission and schema-fail (66), and B classifies agy from stderr and status (`bin/antigravity_wrapper.py:286-296`) —
 so on agy only the banner is read; no other class — authentication words, capacity, configuration, fan-out — reads a
