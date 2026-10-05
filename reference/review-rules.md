@@ -602,7 +602,8 @@ line with the final token and exit (`unknown`, exit 1), so the last summary line
 last line is the one a caller reads). A failed stderr write drops that one line and never the answer or the exit (on A each line is written straight to
 the descriptor — no buffered stream holds a dropped line to replay at exit — and a line is completed: a line that meets a
 full non-blocking pipe, before its first byte or after, waits up to 30 s for room before it (or its rest) is dropped —
-A's own bound, a fact, `_common.py` `_LOG_LINE_WAIT_S` (the first-byte case in progress, 6.0 slice 26a fix 4); a
+A's own bound, a fact, `_common.py` `_LOG_LINE_WAIT_S` @ triad `058b296`; after a line whose rest was dropped the next line begins on a new line, and a
+stderr closed at start — no stream — drops the line); a
 BLOCKING stderr whose reader stays open but stops draining blocks the wrapper's write — a limit both hosts share,
 recorded, not bounded (B writes with a plain `print(..., file=sys.stderr)`, `bin/_common.py:322-324` @ `7f75863`)); a
 later line is tried again (a caller missing a summary or read-audit custody line refuses to collect — fail closed); B
@@ -678,10 +679,16 @@ only agy's own sign-in banner is read there. Report-ness is decided per error OB
 claude and agy, made on the whole object before any field is extracted, and carried by every input a class reads — the
 extracted error text, EVERY stderr envelope, the stdout and the stderr text; a report's text is read only for the
 reporting CLI's OWN sign-in banner line (the STOP — agy's measured banner, claude's measured "Not logged in · Please run
-/login" result line; codex and gemini have no measured banner, so their report never STOPs, a fact) and for the schema
-classes, since a report is itself a schema outcome — codex's own refusal
-"schema validation failed" stays schema-rejected; no other class — authentication words, capacity, configuration,
-fan-out — reads it — in progress, 6.0 slice 26a fix 4): an error object any of whose text
+/login" result line; codex and gemini have no measured banner, so their report never STOPs, a fact) and for the shared
+schema-rejected phrases, since a report is itself a schema outcome — a codex, gemini or claude report carrying "schema
+validation failed" ends schema-rejected (67), a vendor-rc-0 run included, as B's one shared classify reads that list for
+every CLI (`bin/_common.py:148-151`, `:767-771` @ `7f75863`); agy has no text-matched schema class — its schema outcome is
+its admission and schema-fail (66), and B classifies agy from stderr and status (`bin/antigravity_wrapper.py:286-296`) —
+so on agy only the banner is read; no other class — authentication words, capacity, configuration, fan-out — reads a
+report. On A the decision is `_decided_object` / `_decided_text` (`3rd-Agent/wrappers/_common.py` @ triad `058b296`); on a
+raw stderr / stdout TEXT only a JSON object a line begins with (or one after an `[ERROR]` tag) is decided — an object
+inside a prose line is plain text, a fact (the extractors decide every object they parse, the trailing gemini envelope
+included)): an error object any of whose text
 fields carries the report marker is a report (only a sign-in banner line in any of its fields is read — the STOP —
 nothing else); an object without it is read in all its text fields (`message`, `text`, `detail`, `description`). On agy the plain capacity sentences are read only in agy's own stderr and the
 terminal `result.error`, never in a tool or step signal (`tool_info.error`, `error_message` steps) — as B classifies agy
