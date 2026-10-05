@@ -145,7 +145,8 @@ named after its file, so an unrelated one there never stops a round). PyYAML rea
 and Bun YAML 1.2 (Claude Code 2.1.289 bundles Bun v1.4.3 — measured), so a scalar the two type differently (`1e3`,
 `0o17`, `yes`) can be read differently; beyond the string checks above that is a recorded limit. How Bun treats a
 duplicated key is not measured (the bundled binary does not run as Bun — `BUN_BE_BUN=1` is refused, measured
-2026-10-05 — and no standalone Bun is installed); PyYAML keeps the last value. A dev-tree session that also has an
+2026-10-05 — and no standalone Bun is installed); PyYAML keeps the last value, so a block with a duplicated top-level
+key refuses the round naming the file — A cannot be sure which value Claude Code reads (in progress, 6.0 slice 26b tail). A dev-tree session that also has an
 installed plugin defining the same bare name can resolve it to that plugin's agent (Claude Code loads plugin agents
 below project and user agents); A does not read which plugins a session has enabled — not observed, a fact. In a plugin's own `agents/`, a file without frontmatter, or whose
 frontmatter does not parse, still loads under its file name with every field ignored (plugin components documentation,
