@@ -102,83 +102,24 @@ preparation failure, never a round outcome (On A: `resolve_roster` raises "the s
 `bin/review_round_v2.py:146-148`).
 A control a host resolves from a host-native source outside the roster file is a member of the bound basis like a roster
 value (R-PREPARE). On A: the claude entry's model and effort come from the agent preset frontmatter
-(`.claude/agents/cross-family-review-reviewer.md:5-6` and its siblings). Prepare finds the preset the entry spawns
-(under a true review-web condition its `-web` twin) with `_claude_preset` (`lib/roster_v2.py:613`), reading each agent
-file's frontmatter as YAML (`:544` `_preset_frontmatter`; PyYAML, a host runtime dependency like jsonschema — Ubuntu
-24.04 `python3-yaml`; absent → exit 64, a host fault, `:314`), and records `{agent, path, project, file_sha256, model,
-effort}` as the entry's `preset` in the round record (`lib/review_scratch.py:5788` `_v2_record_entries`), which
-`roster_config_digest` covers; `file_sha256` is the WHOLE file's digest. Retry, adoption and collection re-derive it from
-the installed preset and refuse a change (`lib/collect_v2.py:2530` `_check_installed_basis`, called at `:2675` and
-`:3411`), and adoption requires the dispatch record to name the bound preset (`:2944` `_web_switch_mismatch`) @ triad
-`90e45c6`; DL-49). It is not printed on the dispatch line (a fact). An id this install's own agents folder defines (the dev tree's
-`.claude/agents/`, a plugin's `agents/`; found by the `name` frontmatter in any file and subfolder) is the shipped
-preset — scoped in a plugin, bare in the dev tree. A bare id reaches the session project's file, and A cannot observe
-the session project (a Bash command carries no project-folder variable — measured 2026-10-05). In the dev tree the
-session project may be the dev tree or the reviewed repository, so for ANY id A takes the file each would spawn (that
-folder's `.claude/agents/` definition, else the user's `~/.claude/agents/` one): two such files with different bytes
-refuse the round (which one runs depends on a folder A cannot see); otherwise the one file is bound — a session that
-would find none fails visibly at the spawn (@ triad `fe0f48d`). Any other id is the operator's preset, found by `name` in the reviewed repository's `.claude/agents/`, then
-`~/.claude/agents/`, and spawned unscoped. How Claude Code reads an agent file (measured in its 2.1.289 build,
-2026-10-05): it strips a leading byte-order mark and decodes bad bytes with replacement; the frontmatter ends at the
-FIRST `---` after the opening line, anywhere, even inside a value (`/^---\s*\n([\s\S]*?)---\s*\n?/`, where `\s` is
-ECMAScript's whitespace set — U+0085 is not in it, while Python counts it as whitespace, so A matches the delimiters with
-ECMAScript's set — and U+FEFF, which ECMAScript counts and Python does not, opens a block on both — @ triad `83dd4fa`;
-the closing line too — @ triad `f4552cf`); a block its YAML
-parser rejects is parsed again after double-quoting every `key: value` whose value holds one of ``{}[]*&#!|>%@` `` or
-`: ` and turning leading tabs into spaces; a file without a non-empty string `name` and `description`, or whose name
-contains `:`, is not loaded. Its parser is
-`Bun.YAML.parse` (YAML 1.2; `function eM(e){return Bun.YAML.parse(e)}`), and the repair is exactly: each line matching
-`^([a-zA-Z_-]+):\s+(\S.*)$` whose value is not already quoted (the same quote at both ends) and is not a `[...]` that
-parses as a list, but holds one of those characters, becomes `key: "value"` with `\` and `"` escaped; then each run of
-leading tabs becomes two spaces per tab. A reads a file the same way: PyYAML first, and on any failure that same repair
-and PyYAML again (@ triad `fe0f48d`; A applies the no-name and type checks to `tools`, `disallowedTools` and each item of
-a tool list too). A file it cannot read (a dangling link included), one with
-no frontmatter block, and one without a non-empty `name` and `description` are skipped, as Claude Code skips them; a
-block whose first `---` is not its own closing line, a block that does not load even after the repair, one that is not
-a mapping, and a `name`, `description` or `tools` entry that is present, not null and not a string refuse the round
-naming the file (`lib/roster_v2.py:563`, `:626` @ triad `9bf068f`); a null one, or a block that loads to null, is read
-alike by both readers and skipped as missing. The refusal covers every such file in a folder searched for the preset —
-its name cannot be known — so an unrelated broken agent file there stops the round until it is fixed, the refusal
-naming it (a fact; `~/.claude/agents/` is searched for an operator id not found before it and, in the
-dev tree, for any id one possible session project lacks — so a broken or differing file there can stop a dev-tree
-round, the shipped reviewers included, until it is fixed; in a plugin's own `agents/` a file that does not parse is
-named after its file, so an unrelated one there does not stop a round — except a block holding U+0085 / U+2028 / U+2029
-or a file-name stem holding ":", below). PyYAML (YAML 1.1) breaks a line at U+0085, U+2028
-and U+2029 where YAML 1.2 does not (YAML 1.2.2 § 5.4), so a block holding any of them refuses the round naming the file,
-in every searched folder and before a plugin file falls back to its file name (@ triad `f4552cf`). An unquoted U+FEFF
-inside a value is scalar content to PyYAML while YAML 1.2 restricts where a byte-order mark may stand; Bun's reading is
-unmeasured — a recorded limit, not refused. PyYAML reads YAML 1.1
-and Bun YAML 1.2 (Claude Code 2.1.289 bundles Bun v1.4.3 — measured), so a scalar the two type differently (`1e3`,
-`0o17`, `yes`) can be read differently; beyond the string checks above that is a recorded limit. How Bun treats a
-duplicated key is not measured (the bundled binary does not run as Bun — `BUN_BE_BUN=1` is refused, measured
-2026-10-05 — and no standalone Bun is installed); PyYAML keeps the last value, so a block with a duplicated top-level
-key refuses the round naming the file — A cannot be sure which value Claude Code reads (top-level keys, compared by their text, in every searched folder
-including a plugin's own `agents/` — @ triad `83dd4fa`). A dev-tree session that also has an
-installed plugin defining the same bare name can resolve it to that plugin's agent (Claude Code loads plugin agents
-below project and user agents); A does not read which plugins a session has enabled — not observed, a fact. In a plugin's own `agents/`, a file without frontmatter, or whose
-frontmatter does not parse, still loads under its file name with every field ignored (plugin components documentation,
-fetched 2026-10-05): A takes it as defining its file stem with no fields, so the tools check refuses it if it is the
-preset sought; a file whose block loads but carries no `name` is likewise named after its file (the same
-documentation: the name "comes from the frontmatter, or from the file name when there is none") — A names it after
-its file and still reads its other fields (the documentation names only the name as coming from the file; whether
-Claude Code then requires a `description` is not measured — a fact; @ triad `83dd4fa`). A collection or retry refused because an agent file cannot be read
-(not because the bound preset changed) says to fix that file and run the same command again — "prepare a new round" is
-the remedy only for a changed bound control (@ triad `fe0f48d`); the bound file itself become unreadable is such
-a file too, never "no agent file defines it"; a bound file that was DELETED is a changed control — a new round
-(@ triad `83dd4fa`). Two files of one name in one folder refuse. Claude Code registers a plugin agent kept in a subfolder of the plugin's
-`agents/` as `<plugin>:<subfolder>:<name>` (sub-agents documentation, fetched 2026-10-05), so the scoped spawn name of a
-plugin-defined preset is that identifier, and an explicit id of that form naming this install's plugin is accepted;
-two files count as duplicates only when they register the same identifier (two subfolders holding one name are two
-identifiers — an explicit id selects its own; a bare id naming both refuses; @ triad `fe0f48d`; a subfolder whose name holds `:` would render the same identifier
-as a nested path, so any agent file in such a subfolder refuses the round, whatever its name — @ triad `83dd4fa`; a plugin file named
-after its file whose stem holds ":" collides the same way and refuses too, whatever preset is sought — @ triad
-`f4552cf`)
-(`lib/roster_v2.py:175`, `:664`, `lib/review_scratch.py:5327` @ triad `9bf068f`); B passes the supplied id through unchanged (`bin/review_adapters_v2.py:108` @
-`7f75863`). A dev leader session whose project is yet another folder is not observed (a
-fact). An
-explicitly scoped `claude.agent` whose scope this install does not hold (another plugin's `<plugin>:<agent>`, or any
-scoped id in the dev tree) is refused at prepare, because its preset cannot be read to bind its model and effort —
-DL-49's own option, "refuse an agent whose definition is not bound"; such an id used to prepare and render verbatim. On B: every control comes from the resolved roster and its adapters, sealed in
+(`.claude/agents/cross-family-review-reviewer.md:5-6` and its siblings), which the round binds as the shipped preset
+file's digest (`authoring/shared-dev-log.md` DL-49). `claude.agent` names one preset of the closed list A ships
+(`lib/roster_v2.py:162-167` `CLAUDE_WEB_TWINS`: four base presets and their `-web` twins) by its bare name; any other
+value, a `:`-scoped one included, is refused at resolve on every claude entry, enabled or not (`:543`
+`_check_capabilities`, through `:500` `_claude_web_twin`); `claude.model` and `claude.effort` are refused; the preset
+frontmatter is the only pin. Prepare binds, as the entry's `preset` in the round record that `roster_config_digest`
+covers, the spawned preset's layout-qualified id, the sha256 of A's own shipped file (`agents/<name>.md` under this
+install's layout root, the WHOLE file) and its `model` / `effort` lines (`:516` `_claude_preset`;
+`lib/review_scratch.py:5776` `_v2_record_entries`, `:3263` `_qualify_claude_agent_id`). Retry, adoption and collection
+re-derive the preset from the bare roster name and compare the digest only (`lib/collect_v2.py:2530`
+`_check_installed_basis`, called at `:2675` and `:3410`); a different or absent file refuses with "prepare a new
+round", naming the bound and the installed agent, model, effort and digest (or `missing`); adoption requires the
+dispatch record to name the bound preset (`:2944` `_web_switch_mismatch`) @ triad `3894879`. The `roster_v2.py
+resolve` preview prints each startable claude entry's model and effort read from that file (`lib/roster_v2.py:1133`
+`main`); the dispatch line does not print them (a fact). A residual fact, nothing built for it: in the dev tree a bare
+id spawns the session project's `.claude/agents/<name>.md`, else the user's `~/.claude/agents/<name>.md`, so a
+same-named file there with other bytes than A's shipped file would spawn content the round did not bind; projects
+linked to the dev tree (`tools/link_sot.py`) point at the same file. On B: every control comes from the resolved roster and its adapters, sealed in
 the basis (`bin/review_round_v2.py:146`, `:152-169`), except that a claude entry's `agent` is passed as `--agent`
 (`bin/review_adapters_v2.py:107-108`, `bin/review_round_v2.py:222-223`) and the named agent's definition, resolved by the
 Claude CLI, is outside the roster and outside `_toolkit` (open, DL-49).
@@ -204,38 +145,31 @@ retain their existing semantics; older supported models remain selectable.
 The adapter checks the requested model and effort before review inference and
 refuses a reported selection that contradicts a catalogued explicit model ID. Selection
 evidence is not proof of the eventual runtime model. B's fixed legacy formal
+route uses this same model/effort pin; its raw wrapper keeps caller passthrough.
 On A the Claude leg is native: the agent preset's `model` frontmatter is the selection, and it holds only
 when the spawn passes no per-invocation `model` parameter, which outranks the frontmatter (Claude Code sub-agents
 documentation, fetched 2026-10-04); A's printed spawn line is to pass none — in progress (DL-78). A native spawn
 returns no model to A's code and A has no probe, so the refusal of a reported contradicting selection has no input on
-A (a fact); B probes its CLI route before inference (`bin/review_adapters_v2.py:106-127` @ `7f75863`). An explicit
-older Claude model exists on A only as an operator-authored preset named in `claude.agent` (A refuses `claude.model`
-in the roster), selectable on a web round with its `-web` twin beside it (R-REVIEW-WEB; C12); the claude entry's
-resolved model and effort are recorded and bound, not printed (above, DL-49). A bare id the host's own plugin defines
-is scoped to the plugin (so a same-named project agent cannot shadow the shipped reviewer); an id the plugin does not
-define is the operator's preset, found as Claude Code finds it (the session project's agents folder, searched by the
-`name` frontmatter, before the user's), bound, and spawned unscoped — as B passes `--agent` unscoped
-(`bin/review_adapters_v2.py:107-108` @ `7f75863`). On A "the session project" is the reviewed source repository (its `.claude/agents/`, where the
-project roster override is also read); the source path is recorded with the bound preset and reused at re-check — a
-leader session whose project is another folder is not observed (a fact). The preset FILE is bound as written (the whole file's bytes, so any
-change — of model or effort in any YAML form, or of the body — is a changed control), and a spawned preset's `tools` are checked before a
-round: only read tools (Read, Grep, Glob), plus WebSearch and WebFetch exactly when the round is a web round — a
-preset with no `tools` line (it inherits every tool) or with a tool that runs or writes is refused (R-CONTAIN); the check
-reads the frontmatter as above and judges the EFFECTIVE set (`tools` minus `disallowedTools`, where an entry with a
-specifier such as `Bash(git push *)` removes the whole tool — sub-agents documentation, fetched 2026-10-05). The
-frontmatter fields are a closed list: `name`, `description`, `tools`, `disallowedTools`, `model`, `effort`, `color`,
-`maxTurns`, `background`, `omitClaudeMd` and `experimental` are admitted; any other field refuses the preset —
-`memory` (it turns on Read / Write / Edit whatever `tools` says), `hooks` (shell commands), `mcpServers` (an inline
-server starts a command and adds its tools), `isolation` (a worktree is created), `permissionMode`, `skills` (content
-injected from outside the bound file), `initialPrompt`, and a field Claude Code adds later (`lib/roster_v2.py:193`; the specifier rule `:782` @ triad
-`9bf068f`; B reads no preset — DL-49). On Ubuntu 24.04 the pydantic venv is created with `--system-site-packages` so
-apt's jsonschema and PyYAML stay visible beside the venv's pydantic 2 (a host install fact; NOT RUN on Ubuntu). Claude Code also ranks managed-settings and `--agents` definitions above project agents and scans every
-`.claude/agents/` from its working directory up to the repository root; a host that reads fewer places records that it
-does not observe the others (Claude Code sub-agents documentation, fetched 2026-10-05). The frontmatter
+A (a fact); B probes its CLI route before inference (`bin/review_adapters_v2.py:106-127` @ `7f75863`). The older
+supported Claude model is selectable on A as the shipped older-model pair, `cross-family-review-reviewer-older` and its
+`-older-web` twin, named in `claude.agent` (A refuses `claude.model` in the roster; C12); any other model or effort
+needs another shipped preset, that is, a host release (DL-94). A fact: the preset frontmatter carries the model ID as
+data (the older-model pair's `model: claude-opus-5`) and A's lib names no model; an older model is named by its full ID
+because every alias resolves to the newest model of its family (Claude Code 2.1.289). In a plugin install the host
+scopes the bare name to its own plugin (`_qualify_claude_agent_id`), so a same-named project agent cannot shadow the
+shipped reviewer. The preset FILE is bound as written (the whole file's bytes, so any change of model, effort, tools
+or body is a changed control). Each shipped preset's frontmatter is fixed by a build-time check, not a runtime read:
+exactly the keys `name`, `description`, `tools`, `model`, `effort`; base `tools: Read, Grep, Glob`, the twin adding
+`WebSearch, WebFetch` and nothing that runs or writes (R-CONTAIN); one `model:` and one `effort:` line, equal in base
+and twin (`tests/unit/skills/t23-review-web-c32.sh` axis 9 @ triad `3894879`; B reads no preset — DL-49). On Ubuntu
+24.04 the pydantic venv is created with `--system-site-packages` so apt's jsonschema stays visible beside the venv's
+pydantic 2 (a host install fact; NOT RUN on Ubuntu). Claude Code also ranks managed-settings and `--agents`
+definitions above project agents and scans every `.claude/agents/` from its working directory up to the repository
+root; a host that reads fewer places records that it does not observe the others (Claude Code sub-agents
+documentation, fetched 2026-10-05). The frontmatter
 outranks a session-wide subagent model setting only from Claude Code v2.1.251, and a forcing setting (v2.1.257+) makes Claude
 Code ignore it (same documentation): on A the pin is the selection only on such a version with no forcing setting — an operator
 configuration A does not observe (a fact).
-route uses this same model/effort pin; its raw wrapper keeps caller passthrough.
 
 The recommended codex review default is `gpt-6-astra` with `high` reasoning on both
 hosts (owner, 2026-10-03, [D-REVIEW-LEGS-20261003](../decisions/owner-register.md#D-REVIEW-LEGS-20261003)). A host's SHIPPED default roster
@@ -458,16 +392,13 @@ route as follows; a false condition leaves every route in its R-CONTAIN no-web p
   - codex: `--search` (`lib/roster_v2.py:994-1002`); the wrapper's `--search` (top-level `codex --search exec`) replaces
     the pinned `-c web_search="disabled"`; the read-only sandbox, `approval_policy=never` and `--ignore-rules` stay
     (`3rd-Agent/wrappers/codex_wrapper.py:103-116`, `:466`).
-  - claude: the native leg is spawned as its preset's web twin, the same name with `-web` (a `<scope>:` prefix kept;
-    `lib/roster_v2.py:184` `CLAUDE_WEB_SUFFIX`, `:531` `_claude_spawn_agent`, `:1136` `render_dispatch` @ triad `90e45c6`); a web
-    preset maps to itself under a true condition; under a false one a preset is spawned as named and the tools check
-    refuses a `-web` preset (its web tools) (6.0 slice 26b fix 1). A selected preset whose spawned
-    preset cannot be found, or whose effective tools are not Read / Grep / Glob plus WebSearch and WebFetch exactly on a
-    web round (a `memory` / `hooks` field refused), is refused at prepare (`lib/roster_v2.py:613` `_claude_preset`,
-    called from `lib/review_scratch.py:5788`), and the `roster_v2.py resolve` preview refuses it the same way
-    (`lib/roster_v2.py:1316` `main`) @ triad `90e45c6`. A `-web` twin is a twin by its tools, never by its name
-    (`:531` `_claude_spawn_agent` only names the spawn). An older model is
-    therefore selectable through an operator preset plus its `-web` twin (R-ROSTER, C12). The shipped twins (`.claude/agents/cross-family-review-reviewer-web.md`, `-high-web.md`, `-max-web.md`) are, for a rebuild:
+  - claude: the native leg is spawned as its preset's web twin by the closed table — `cross-family-review-reviewer` →
+    `-web`, `-high` → `-high-web`, `-max` → `-max-web`, `-older` → `-older-web` (`lib/roster_v2.py:162-167`
+    `CLAUDE_WEB_TWINS`, `:500` `_claude_web_twin`, called from `render_dispatch` at `:980` @ triad `3894879`); a web
+    preset maps to itself under a true condition and to its base under a false one; a name outside the table is refused
+    at resolve (R-ROSTER). Every listed preset has a twin, and the export ships all eight files
+    (`3rd-Agent/export_plugin.py` `VERBATIM_AGENT_FILES`). Twin content is fixed by a build-time check
+    (`tests/unit/skills/t23-review-web-c32.sh` axis 9), not a runtime read. The shipped twins (`.claude/agents/cross-family-review-reviewer-web.md`, `-high-web.md`, `-max-web.md`, `-older-web.md`) are, for a rebuild:
     the base preset's model and effort; tools `Read`, `Grep`, `Glob`, `WebSearch`, `WebFetch` and nothing that runs or
     writes; and a body whose web rule is the content of the shared `review-web-permission` clause
     (`prompts/common-clauses.md`).
@@ -890,12 +821,15 @@ basis makes rounds prepared before it non-retryable; prepare a new round.
   recorded in `.roster-r<N>.json` and compared there with re-derived values (`lib/collect_v2.py:1910`, `:2718-2720`,
   `:2759`): `collect` re-derives the contract digest (`:1944`), and since triad `99aaebc` `collect` and `retry` (before
   its orphan adoption) re-derive every dispatched entry's clause manifest and the clause directory, the producer
-  projection and a claude entry's `preset` (R-ROSTER) through `_check_installed_basis` (`lib/collect_v2.py:2530-2626`,
-  called at `:2660` and `:3388` @ `99aaebc`; DL-41). A retry checks the whole round's basis: a changed member of any
+  projection and a claude entry's bound `preset.file_sha256`, re-derived from the bare roster name (R-ROSTER), through
+  `_check_installed_basis` (`lib/collect_v2.py:2530`, called at `:2675` and `:3410` @ triad `3894879`; DL-41, DL-49). A retry checks the whole round's basis: a changed member of any
   dispatched entry (the claude preset while codex is retried, say) refuses the retry, since that member could never
   agree and a paid retry on it is refused rather than spent (R-RETRY). A round prepared before `99aaebc` whose roster
   dispatched a claude entry carries no `preset` member and can no longer be retried or collected — prepare a new round
-  (a round without a claude entry compares equal, both sides absent). The
+  (a round without a claude entry compares equal, both sides absent). A fact: a round record written before triad
+  `3894879` (its `preset` also carries `path` / `project`) still carries `file_sha256`, so with the shipped file
+  unchanged it collects and retries; one that bound an operator-authored preset refuses (`missing (… not a reviewer
+  preset this host ships …)`) — prepare a new round. The
   round date is bound since `b53409b` (above).
 - On B: `bin/review_round_v2.py` `create_basis` seals `basis-v2.json` (the request with `review_kind`,
   `review_web_authorized` and `prior_residual`; the resolved roster; adapters with launch controls and receipt digests;
