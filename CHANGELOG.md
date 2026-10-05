@@ -1,5 +1,10 @@
 # Changelog
 
+## Owed rows from host A's conformance work — 2026-10-06 (not tagged)
+
+- Owner register D-PRESET-ALIASES-20261006; R-ROSTER host-A text: presets name the model by the `opus` alias, the older-model
+  pair removed; DL-100 proposes the C12 / C34 / R-ROSTER change (DL-94 superseded).
+
 ## Owed rows from host A's conformance work — 2026-10-05 (not tagged)
 
 - Owner register: D-MEASURED-SHAPES-20261005, D-TASK-MODE-REMOVED-20261005, D-SHIPPED-PRESETS-20261005 (verbatim

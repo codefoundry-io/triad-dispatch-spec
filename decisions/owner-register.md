@@ -693,6 +693,13 @@ engine's leftover `--task` pieces.
 Effect: [R-TOKENS](../reference/review-rules.md#R-TOKENS), `contracts/exit-tokens.json`, case C8,
 `authoring/shared-dev-log.md` DL-72 (superseded in part), DL-91.
 
+<a id="D-PRESET-ALIASES-20261006"></a>
+## D-PRESET-ALIASES-20261006: host A's shipped claude presets name the model by alias; the older-model preset is removed
+
+Owner, 2026-10-06, typed answers to host A's leader (verbatim). On the model-tier lines: "추르셋은 opus sonnet 같이 적는데 범용성에 좋고 동작도해" (the presets should be written with aliases such as opus / sonnet — better for generality, and it works). Then, shown that an alias always resolves to the latest model (only a full model name pins a version) and that frozen C12 / C34 name `claude-opus-5-5` and require an explicit older model to be selectable: "전부 별칭, 이전 모델 프리셋 제거" (all aliases; remove the older-model preset).
+
+Recorded effect: every claude preset host A ships names `model: opus`; the `-older` / `-older-web` pair is removed; on host A the default is the latest Opus and no older Claude model is selectable. Proposed spec change (the owner's PR): C12's expected result ("including Claude claude-opus-5-5 with xhigh" and "an explicit supported older Claude model"), C34 (explicit Opus 5.5 selection) and R-ROSTER's "older supported models remain selectable" — `authoring/shared-dev-log.md` DL-100 (DL-94 superseded).
+
 <a id="D-SHIPPED-PRESETS-20261005"></a>
 ## D-SHIPPED-PRESETS-20261005: host A's claude leg names only shipped presets; skill users get a guide
 

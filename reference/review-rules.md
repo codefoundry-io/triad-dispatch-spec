@@ -104,7 +104,7 @@ A control a host resolves from a host-native source outside the roster file is a
 value (R-PREPARE). On A: the claude entry's model and effort come from the agent preset frontmatter
 (`.claude/agents/cross-family-review-reviewer.md:5-6` and its siblings), which the round binds as the shipped preset
 file's digest (`authoring/shared-dev-log.md` DL-49). `claude.agent` names one preset of the closed list A ships
-(`lib/roster_v2.py:162-167` `CLAUDE_WEB_TWINS`: four base presets and their `-web` twins) by its bare name; any other
+(`lib/roster_v2.py` `CLAUDE_WEB_TWINS`: three base presets — base, `-high`, `-max` — and their `-web` twins; the older-model pair removed by the owner 2026-10-06, Task 31 in progress) by its bare name; any other
 value, a `:`-scoped one included, is refused at resolve on every claude entry, enabled or not (`:543`
 `_check_capabilities`, through `:500` `_claude_web_twin`); `claude.model` and `claude.effort` are refused; the preset
 frontmatter is the only pin. Prepare binds, as the entry's `preset` in the round record that `roster_config_digest`
@@ -150,12 +150,14 @@ On A the Claude leg is native: the agent preset's `model` frontmatter is the sel
 when the spawn passes no per-invocation `model` parameter, which outranks the frontmatter (Claude Code sub-agents
 documentation, fetched 2026-10-04); A's printed spawn line is to pass none — in progress (DL-78). A native spawn
 returns no model to A's code and A has no probe, so the refusal of a reported contradicting selection has no input on
-A (a fact); B probes its CLI route before inference (`bin/review_adapters_v2.py:106-127` @ `7f75863`). The older
-supported Claude model is selectable on A as the shipped older-model pair, `cross-family-review-reviewer-older` and its
-`-older-web` twin, named in `claude.agent` (A refuses `claude.model` in the roster; C12); any other model or effort
-needs another shipped preset, that is, a host release (DL-94). A fact: the preset frontmatter carries the model ID as
-data (the older-model pair's `model: claude-opus-5`) and A's lib names no model; an older model is named by its full ID
-because every alias resolves to the newest model of its family (Claude Code 2.1.289). In a plugin install the host
+A (a fact); B probes its CLI route before inference (`bin/review_adapters_v2.py:106-127` @ `7f75863`). On A every
+shipped preset names its model by the `opus` alias, which Claude Code resolves to the latest Opus (code.claude.com/docs/en/model-config,
+fetched 2026-10-06: an alias points to the recommended version and updates over time; only a full model name pins a version), so
+an older Claude model is NOT selectable on A and the default is the latest Opus, not a fixed `claude-opus-5-5` (owner
+2026-10-06, [D-PRESET-ALIASES-20261006](../decisions/owner-register.md#D-PRESET-ALIASES-20261006) — a host-A deviation from
+C12's default and its "explicit supported older Claude model" and from C34's explicit Opus 5.5 selection, proposed as a
+spec change, DL-100; Task 31 in progress). A refuses `claude.model` in the roster; any other model or effort needs another
+shipped preset, that is, a host release. A's lib names no model. In a plugin install the host
 scopes the bare name to its own plugin (`_qualify_claude_agent_id`), so a same-named project agent cannot shadow the
 shipped reviewer. The preset FILE is bound as written (the whole file's bytes, so any change of model, effort, tools
 or body is a changed control). Each shipped preset's frontmatter is fixed by a build-time check, not a runtime read:
@@ -398,12 +400,12 @@ route as follows; a false condition leaves every route in its R-CONTAIN no-web p
     the pinned `-c web_search="disabled"`; the read-only sandbox, `approval_policy=never` and `--ignore-rules` stay
     (`3rd-Agent/wrappers/codex_wrapper.py:103-116`, `:466`).
   - claude: the native leg is spawned as its preset's web twin by the closed table — `cross-family-review-reviewer` →
-    `-web`, `-high` → `-high-web`, `-max` → `-max-web`, `-older` → `-older-web` (`lib/roster_v2.py:162-167`
+    `-web`, `-high` → `-high-web`, `-max` → `-max-web` (`lib/roster_v2.py`
     `CLAUDE_WEB_TWINS`, `:500` `_claude_web_twin`, called from `render_dispatch` at `:980` @ triad `3894879`); a web
     preset maps to itself under a true condition and to its base under a false one; a name outside the table is refused
-    at resolve (R-ROSTER). Every listed preset has a twin, and the export ships all eight files
+    at resolve (R-ROSTER). Every listed preset has a twin, and the export ships all six files
     (`3rd-Agent/export_plugin.py` `VERBATIM_AGENT_FILES`). Twin content is fixed by a build-time check
-    (`tests/unit/skills/t23-review-web-c32.sh` axis 9), not a runtime read. The shipped twins (`.claude/agents/cross-family-review-reviewer-web.md`, `-high-web.md`, `-max-web.md`, `-older-web.md`) are, for a rebuild:
+    (`tests/unit/skills/t23-review-web-c32.sh` axis 9), not a runtime read. The shipped twins (`.claude/agents/cross-family-review-reviewer-web.md`, `-high-web.md`, `-max-web.md`) are, for a rebuild:
     the base preset's model and effort; tools `Read`, `Grep`, `Glob`, `WebSearch`, `WebFetch` and nothing that runs or
     writes; and a body whose web rule is the content of the shared `review-web-permission` clause
     (`prompts/common-clauses.md`).
