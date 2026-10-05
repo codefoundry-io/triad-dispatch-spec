@@ -122,7 +122,8 @@ would find none fails visibly at the spawn (@ triad `fe0f48d`). Any other id is 
 2026-10-05): it strips a leading byte-order mark and decodes bad bytes with replacement; the frontmatter ends at the
 FIRST `---` after the opening line, anywhere, even inside a value (`/^---\s*\n([\s\S]*?)---\s*\n?/`, where `\s` is
 ECMAScript's whitespace set — U+0085 is not in it, while Python counts it as whitespace, so A matches the delimiters with
-ECMAScript's set — and U+FEFF, which ECMAScript counts and Python does not, opens a block on both — @ triad `83dd4fa`); a block its YAML
+ECMAScript's set — and U+FEFF, which ECMAScript counts and Python does not, opens a block on both — @ triad `83dd4fa`;
+the closing line too, in progress, 6.0 slice 26b tail 2); a block its YAML
 parser rejects is parsed again after double-quoting every `key: value` whose value holds one of ``{}[]*&#!|>%@` `` or
 `: ` and turning leading tabs into spaces; a file without a non-empty string `name` and `description`, or whose name
 contains `:`, is not loaded. Its parser is
@@ -141,7 +142,9 @@ its name cannot be known — so an unrelated broken agent file there stops the r
 naming it (a fact; `~/.claude/agents/` is searched for an operator id not found before it and, in the
 dev tree, for any id one possible session project lacks — so a broken or differing file there can stop a dev-tree
 round, the shipped reviewers included, until it is fixed; in a plugin's own `agents/` a file that does not parse is
-named after its file, so an unrelated one there never stops a round). PyYAML reads YAML 1.1
+named after its file, so an unrelated one there never stops a round). PyYAML (YAML 1.1) breaks a line at U+0085, U+2028
+and U+2029 where YAML 1.2 does not (YAML 1.2.2 § 5.4), so a block holding any of them refuses the round naming the file
+(in progress, 6.0 slice 26b tail 2). PyYAML reads YAML 1.1
 and Bun YAML 1.2 (Claude Code 2.1.289 bundles Bun v1.4.3 — measured), so a scalar the two type differently (`1e3`,
 `0o17`, `yes`) can be read differently; beyond the string checks above that is a recorded limit. How Bun treats a
 duplicated key is not measured (the bundled binary does not run as Bun — `BUN_BE_BUN=1` is refused, measured
@@ -164,7 +167,8 @@ a file too, never "no agent file defines it"; a bound file that was DELETED is a
 plugin-defined preset is that identifier, and an explicit id of that form naming this install's plugin is accepted;
 two files count as duplicates only when they register the same identifier (two subfolders holding one name are two
 identifiers — an explicit id selects its own; a bare id naming both refuses; @ triad `fe0f48d`; a subfolder whose name holds `:` would render the same identifier
-as a nested path, so any agent file in such a subfolder refuses the round, whatever its name — @ triad `83dd4fa`)
+as a nested path, so any agent file in such a subfolder refuses the round, whatever its name — @ triad `83dd4fa`; a plugin file named
+after its file whose stem holds ":" collides the same way and refuses too — in progress, 6.0 slice 26b tail 2)
 (`lib/roster_v2.py:175`, `:664`, `lib/review_scratch.py:5327` @ triad `9bf068f`); B passes the supplied id through unchanged (`bin/review_adapters_v2.py:108` @
 `7f75863`). A dev leader session whose project is yet another folder is not observed (a
 fact). An
