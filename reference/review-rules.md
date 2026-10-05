@@ -117,7 +117,11 @@ defined both there and in the reviewed repository the helper's own wins (it is t
 is the operator's preset, found by `name` in the reviewed repository's `.claude/agents/`, then `~/.claude/agents/`, and
 spawned unscoped. A file Claude Code would skip (no YAML frontmatter, no string `name` and `description`, unreadable, a
 dangling link) is skipped, never bound and never a refusal of the round (`lib/roster_v2.py:572` `_find_preset`); two
-files of one name in one folder refuse. A dev leader session whose project is yet another folder is not observed (a
+files of one name in one folder refuse. Claude Code registers a plugin agent kept in a subfolder of the plugin's
+`agents/` as `<plugin>:<subfolder>:<name>` (sub-agents documentation, fetched 2026-10-05), so the scoped spawn name of a
+plugin-defined preset is that identifier, and an explicit id of that form naming this install's plugin is accepted — in
+progress (6.0 slice 26b fix 3); B passes the supplied id through unchanged (`bin/review_adapters_v2.py:108` @
+`7f75863`). A dev leader session whose project is yet another folder is not observed (a
 fact). An
 explicitly scoped `claude.agent` whose scope this install does not hold (another plugin's `<plugin>:<agent>`, or any
 scoped id in the dev tree) is refused at prepare, because its preset cannot be read to bind its model and effort —
