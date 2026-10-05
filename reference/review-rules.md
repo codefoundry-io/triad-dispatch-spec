@@ -606,7 +606,9 @@ line with the final token and exit (`unknown`, exit 1), so the last summary line
 last line is the one a caller reads). A failed stderr write drops that one line and never the answer or the exit (on A each line is written straight to
 the descriptor — no buffered stream holds a dropped line to replay at exit — and a line is completed: a line that meets a
 full non-blocking pipe, before its first byte or after, waits up to 30 s for room before it (or its rest) is dropped —
-A's own bound, a fact, `_common.py` `_LOG_LINE_WAIT_S` @ triad `058b296`; after a line whose rest was dropped the next line begins on a new line, and a
+A's own bound, a fact, `_common.py` `_LOG_LINE_WAIT_S` @ triad `058b296`; once one line has waited the whole bound,
+later lines try once without waiting until a write succeeds again, so a reader that stops draining delays the wrapper
+by one bound, not one per line (in progress, 6.0 slice 26a tail); after a line whose rest was dropped the next line begins on a new line, and a
 stderr closed at start — no stream — drops the line); a
 BLOCKING stderr whose reader stays open but stops draining blocks the wrapper's write — a limit both hosts share,
 recorded, not bounded (B writes with a plain `print(..., file=sys.stderr)`, `bin/_common.py:322-324` @ `7f75863`)); a
@@ -682,8 +684,9 @@ validation report (not measured); such a report is model text — its sibling fi
 only agy's own sign-in banner is read there. Report-ness is decided per error OBJECT, for every CLI's error object (A applies the one decision to codex, gemini,
 claude and agy, made on the whole object before any field is extracted, and carried by every input a class reads — the
 extracted error text, EVERY stderr envelope, the stdout and the stderr text; a report's text is read only for the
-reporting CLI's OWN sign-in banner line (the STOP — agy's measured banner, claude's measured "Not logged in · Please run
-/login" result line; codex and gemini have no measured banner, so their report never STOPs, a fact) and for the shared
+reporting CLI's OWN sign-in banner line (the STOP — agy's measured banner, claude's measured authentication result lines,
+"Not logged in · Please run /login" and "Invalid API key · Fix external API key" (`contracts/vendor-failure-lines.json`;
+the second in progress, 6.0 slice 26a tail); codex and gemini have no measured banner, so their report never STOPs, a fact) and for the shared
 schema-rejected phrases, since a report is itself a schema outcome — a codex, gemini or claude report carrying "schema
 validation failed" ends schema-rejected (67) when the run yields no answer, a vendor-rc-0 run included (a claude
 envelope's non-null `structured_output` is the answer even beside `is_error`, as on B — `bin/_common.py:1257-1259` @
@@ -695,8 +698,8 @@ report. On A the decision is `_decided_object` / `_decided_text` (`3rd-Agent/wra
 JSON object in a raw stderr / stdout TEXT is decided wherever it starts — a vendor can interleave one mid-line — and a
 banner line read from a report forwards only the banner itself, never the rest of its line (in progress, 6.0 slice 26a
 tail; @ `058b296` only an object a line began with was decided and the whole banner line was forwarded)): an error object any of whose text
-fields carries the report marker is a report (only a sign-in banner line in any of its fields is read — the STOP —
-nothing else); an object without it is read in all its text fields (`message`, `text`, `detail`, `description`). On agy the plain capacity sentences are read only in agy's own stderr and the
+fields carries the report marker is a report (read only as above: its CLI's own banner — the STOP — and the shared
+schema-rejected phrases); an object without it is read in all its text fields (`message`, `text`, `detail`, `description`). On agy the plain capacity sentences are read only in agy's own stderr and the
 terminal `result.error`, never in a tool or step signal (`tool_info.error`, `error_message` steps) — as B classifies agy
 from stderr and status only (`bin/antigravity_wrapper.py:286-296` @ `7f75863`); on gemini a stderr line beginning
 "Error executing tool" is tool output and is not read for them either, nor is that message inside a stderr error
