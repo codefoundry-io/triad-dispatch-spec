@@ -735,8 +735,11 @@ is one pass, each decode inside a growing window (a failed decode otherwise cost
 `_gemini_trailing_envelope` likewise (@ triad `9ee8a9f`); a text that fails to decode for ANY reason (an integer past
 Python's digit limit, deep nesting) is simply not an object — classification always completes; the extractors read the
 decided text too; and an object removed from a text leaves its line breaks, so what follows it stays on its own line
-(`_object_at`, `extract_gemini_answer`, `_decided_text` @ triad `8841c47`; `_drop_json_objects` removes only an object
-that a line begins with after blanks or an `[ERROR]` tag, so no line break is lost there — a fact)): an error object any of whose text
+(`_object_at`, `extract_gemini_answer`, `_decided_text` @ triad `8841c47`), and never joins the text on its two sides
+into one word (a removed object leaves its line breaks, or one blank) — `_drop_json_objects` included (in progress, 6.0
+slice 26a tail 4); a decoded value of an unexpected type — a non-string message, a non-object document such as `[]` —
+is read as absent, never raised: classification always completes and the terminal record is written (in progress, 6.0
+slice 26a tail 4; B lacks the same guards — DL-90)): an error object any of whose text
 fields carries the report marker is a report (read only as above: its CLI's own banner — the STOP — and the shared
 schema-rejected phrases); an object without it is read in all its text fields (`message`, `text`, `detail`, `description`). On agy the plain capacity sentences are read only in agy's own stderr and the
 terminal `result.error`, never in a tool or step signal (`tool_info.error`, `error_message` steps) — as B classifies agy

@@ -118,6 +118,7 @@ fix is written into a shared development log rather than a session note.
 | DL-87 | C1, C2 | REQ-CUSTODY | spec (rule exists); A (fixed); B (check) | Host A's 26a verification r3 (2026-10-05, agy leg): A completes a child group's cleanup whatever signals arrive during it (6.0 slice 26a), while B's process-group cleanup gives up when a second signal arrives (`bin/_common.py:1613` @ `7f75863`), which can leave the group alive — R-TERMINAL requires the group reaped on timeout and on abnormal unwind. | spec: none. A: none. B: check that a second signal during cleanup cannot leave the group alive. | CHECK-B |
 | DL-88 | C1 | REQ-CUSTODY | spec (rule exists); A (fixed); B (check) | Host A's 26a verification r4 (2026-10-05, codex leg) led the leader to B's stderr writer: `log()` is a plain `print(f"[{ts}] {msg}", file=sys.stderr)` (`bin/_common.py:322-324` @ `7f75863`) — a failed write (a closed reader, a full disk under a redirected stderr) raises out of `log()`, while R-TERMINAL requires that a failed stderr write drops that one line and never the answer or the exit. | spec: none. A: none. B: check that every `log()` caller survives a failed stderr write (the answer published, the exit kept). | CHECK-B |
 | DL-89 | C1 | REQ-CUSTODY | spec (install fact); A (fixed); B (check) | Host A's 26a / 26b verification (2026-10-05): on Ubuntu 24.04 the venv a host's install hint creates for pydantic 2 (apt's python3-pydantic is 1.10) hides apt's python3-jsonschema / python3-yaml unless it is created with `--system-site-packages`; A's hints, plugin README (EN / KO) and setup doc now say `python3 -m venv --system-site-packages …` (6.0 slices 26a / 26b). | spec: none. A: none. B: check its own Ubuntu install hints for the same venv. | CHECK-B |
+| DL-90 | C1, C43 | REQ-CUSTODY | spec (rule added); A (in progress); B (check) | Host A's 26a tail-3 check (2026-10-05, codex leg): a vendor answer that decodes but has an unexpected shape — gemini stderr `{"error":{"message":7}}` at rc 0, codex stdout `[]` — raises (AttributeError and the like) before the audit row and run-log are written, on A (`3rd-Agent/wrappers/_common.py:3489`, `:3316` @ triad `8841c47`) and on B (`bin/_common.py:1021`, `:1205`, `:1799` @ `7f75863`, no shape guard) — R-THREAT counts a bad vendor answer as an ordinary failure and R-TERMINAL requires the terminal record. | spec: a decoded value of an unexpected type is read as absent; classification always completes. A: fix (6.0 slice 26a tail 4). B: check every decoded vendor field for its type before use. | CHECK-B |
 
 Ids DL-20–DL-38 are held by rows on other unpublished branches of this repository; a new row takes the next id
 after the highest on any branch.
@@ -128,7 +129,7 @@ Rows with A work open: DL-56, DL-65.
 
 Rows with B work open: DL-39, DL-45, DL-46, DL-49, DL-56, DL-61, DL-70, DL-72, DL-75, DL-77, DL-79, DL-80, DL-81, DL-82, DL-83, DL-84, DL-85, DL-86.
 
-Checks suggested for B: DL-13, DL-14, DL-16, DL-42, DL-43, DL-58, DL-62, DL-67, DL-71, DL-76, DL-87, DL-88, DL-89.
+Checks suggested for B: DL-13, DL-14, DL-16, DL-42, DL-43, DL-58, DL-62, DL-67, DL-71, DL-76, DL-87, DL-88, DL-89, DL-90.
 
 Rows awaiting the owner: DL-54.
 
