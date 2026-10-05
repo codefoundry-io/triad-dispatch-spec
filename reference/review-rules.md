@@ -691,10 +691,10 @@ envelope's non-null `structured_output` is the answer even beside `is_error`, as
 every CLI (`bin/_common.py:148-151`, `:767-771` @ `7f75863`); agy has no text-matched schema class — its schema outcome is
 its admission and schema-fail (66), and B classifies agy from stderr and status (`bin/antigravity_wrapper.py:286-296`) —
 so on agy only the banner is read; no other class — authentication words, capacity, configuration, fan-out — reads a
-report. On A the decision is `_decided_object` / `_decided_text` (`3rd-Agent/wrappers/_common.py` @ triad `058b296`); on a
-raw stderr / stdout TEXT only a JSON object a line begins with (or one after an `[ERROR]` tag) is decided — an object
-inside a prose line is plain text, a fact (the extractors decide every object they parse, the trailing gemini envelope
-included)): an error object any of whose text
+report. On A the decision is `_decided_object` / `_decided_text` (`3rd-Agent/wrappers/_common.py` @ triad `058b296`); every
+JSON object in a raw stderr / stdout TEXT is decided wherever it starts — a vendor can interleave one mid-line — and a
+banner line read from a report forwards only the banner itself, never the rest of its line (in progress, 6.0 slice 26a
+tail; @ `058b296` only an object a line began with was decided and the whole banner line was forwarded)): an error object any of whose text
 fields carries the report marker is a report (only a sign-in banner line in any of its fields is read — the STOP —
 nothing else); an object without it is read in all its text fields (`message`, `text`, `detail`, `description`). On agy the plain capacity sentences are read only in agy's own stderr and the
 terminal `result.error`, never in a tool or step signal (`tool_info.error`, `error_message` steps) — as B classifies agy
