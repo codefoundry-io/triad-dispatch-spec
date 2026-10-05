@@ -17,6 +17,8 @@
 - Cases C37 / C43 tests.A and DL-74 follow the per-CLI, no-raw-text-authentication rule.
 - Host A's R-ROSTER / R-REVIEW-WEB, C12 / C19 / C32 / C34 and DL-49 text for the closed list of shipped claude presets
   (D-SHIPPED-PRESETS-20261005; host A @ triad `3894879`; DL-94).
+- R-ROSTER: operator-level Claude Code settings (a forcing sub-agent model setting, the effort environment variable, an
+  effort cap) outrank a preset's pins; a host records the requested pins, not what ran (DL-96).
 
 ## Owed rows from host A's conformance work — 2026-10-04 (not tagged)
 

@@ -169,7 +169,12 @@ root; a host that reads fewer places records that it does not observe the others
 documentation, fetched 2026-10-05). The frontmatter
 outranks a session-wide subagent model setting only from Claude Code v2.1.251, and a forcing setting (v2.1.257+) makes Claude
 Code ignore it (same documentation): on A the pin is the selection only on such a version with no forcing setting — an operator
-configuration A does not observe (a fact).
+configuration A does not observe (a fact). Likewise for effort: a sub-agent's frontmatter `effort`
+outranks the session level but not the `CLAUDE_CODE_EFFORT_LEVEL` environment variable, and a `maxEffortLevel` setting
+or an organization effort cap still limits it (Claude Code model configuration documentation, fetched 2026-10-05). A
+binds and records the preset's pins, the selection it requested, not the model and effort the leg ran at; Claude Code's
+own sub-agent transcript records what ran, and A observes none of these operator settings (a fact; DL-96). A's guide
+for skill users says so (`.claude/skills/triad-cross-family-review/SKILL.md` rule 15 @ triad `ef11f5e`).
 
 The recommended codex review default is `gpt-6-astra` with `high` reasoning on both
 hosts (owner, 2026-10-03, [D-REVIEW-LEGS-20261003](../decisions/owner-register.md#D-REVIEW-LEGS-20261003)). A host's SHIPPED default roster
