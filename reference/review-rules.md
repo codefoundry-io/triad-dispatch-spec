@@ -120,7 +120,9 @@ refuse the round (which one runs depends on a folder A cannot see); otherwise th
 would find none fails visibly at the spawn (@ triad `fe0f48d`). Any other id is the operator's preset, found by `name` in the reviewed repository's `.claude/agents/`, then
 `~/.claude/agents/`, and spawned unscoped. How Claude Code reads an agent file (measured in its 2.1.289 build,
 2026-10-05): it strips a leading byte-order mark and decodes bad bytes with replacement; the frontmatter ends at the
-FIRST `---` after the opening line, anywhere, even inside a value (`/^---\s*\n([\s\S]*?)---\s*\n?/`); a block its YAML
+FIRST `---` after the opening line, anywhere, even inside a value (`/^---\s*\n([\s\S]*?)---\s*\n?/`, where `\s` is
+ECMAScript's whitespace set — U+0085 is not in it, while Python counts it as whitespace, so A matches the delimiters with
+ECMAScript's set; in progress, 6.0 slice 26b tail); a block its YAML
 parser rejects is parsed again after double-quoting every `key: value` whose value holds one of ``{}[]*&#!|>%@` `` or
 `: ` and turning leading tabs into spaces; a file without a non-empty string `name` and `description`, or whose name
 contains `:`, is not loaded. Its parser is
@@ -152,11 +154,13 @@ preset sought; a file whose block loads but carries no `name` is likewise named 
 documentation: the name "comes from the frontmatter, or from the file name when there is none") — A skips such a file
 today, in progress (6.0 slice 26b, the next round). A collection or retry refused because an agent file cannot be read
 (not because the bound preset changed) says to fix that file and run the same command again — "prepare a new round" is
-the remedy only for a changed bound control (@ triad `fe0f48d`). Two files of one name in one folder refuse. Claude Code registers a plugin agent kept in a subfolder of the plugin's
+the remedy only for a changed bound control (@ triad `fe0f48d`); the bound file itself become unreadable is such
+a file too, never "no agent file defines it" (in progress, 6.0 slice 26b tail). Two files of one name in one folder refuse. Claude Code registers a plugin agent kept in a subfolder of the plugin's
 `agents/` as `<plugin>:<subfolder>:<name>` (sub-agents documentation, fetched 2026-10-05), so the scoped spawn name of a
 plugin-defined preset is that identifier, and an explicit id of that form naming this install's plugin is accepted;
 two files count as duplicates only when they register the same identifier (two subfolders holding one name are two
-identifiers — an explicit id selects its own; a bare id naming both refuses; @ triad `fe0f48d`)
+identifiers — an explicit id selects its own; a bare id naming both refuses; @ triad `fe0f48d`; a subfolder whose name holds `:` would render the same identifier
+as a nested path, so it refuses — in progress, 6.0 slice 26b tail)
 (`lib/roster_v2.py:175`, `:664`, `lib/review_scratch.py:5327` @ triad `9bf068f`); B passes the supplied id through unchanged (`bin/review_adapters_v2.py:108` @
 `7f75863`). A dev leader session whose project is yet another folder is not observed (a
 fact). An
