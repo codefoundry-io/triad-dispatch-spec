@@ -663,6 +663,8 @@ Effect: [R-CLASSIFY](../reference/review-rules.md#R-CLASSIFY) "Recorded limits" 
 raw-text list, [R-THREAT](../reference/review-rules.md#R-THREAT), `authoring/shared-dev-log.md` DL-86, DL-90, DL-92,
 DL-93.
 
+Owner, 2026-10-05, later the same day (verbatim): "괴설계하지말고 스펙 규칙 지키도 네이티브는 굳이 다룬 cli처럼 감사할 필요없어 cli도 결괴만 중요하지" — no over-design; keep to the spec rules; the native family (the host's own leader family) is not audited the way the wrapped CLIs are; for a wrapped CLI only the result the caller acts on (the answer, the token and exit code) matters, not the perfection of its audit records beyond what the spec requires (DL-98).
+
 <a id="D-TASK-MODE-REMOVED-20261005"></a>
 ## D-TASK-MODE-REMOVED-20261005: the codex wrapper's `--task` mode is removed; each host runs its own family natively
 

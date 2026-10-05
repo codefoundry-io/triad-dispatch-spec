@@ -560,8 +560,11 @@ host record write (audit row, run-log, debug log) never changes the provider res
 one stderr line, and A's record seam catches any exception, not only an OSError — `_dispatch_record` @ triad `e40001d`;
 B `audit()` returns False, `bin/_common.py:2139-2153` @ `7f75863`); on A a review attempt whose run-log
 was lost carries no receipt, so it is INVALID at collection and retried, never agreed. Verdict
-precedence, both hosts: a timeout verdict stands over a signal (an interrupted run is `unknown` / 1 and never retried, so
-R-AUTH holds); a signal replaces a stdin-delivery or reader failure; a
+precedence, both hosts: a timeout verdict stands over a signal (an interrupted run is `unknown` / 1 and never retried);
+frozen R-AUTH has no carve-out for a signalled attempt, so on A a signalled codex, gemini or claude run's captured output
+goes through the auth-carrier rung first and a carrier STOP ends `oauth-env` / 65 (`_common.py` `_run_once` @ triad
+`fdd7029`; B: DL-95); recorded limits on A (a signal landing in the collection window after the CLI exited — a race):
+a signalled agy run's carriers and a signalled gemini run's exit code 41 are not read — `unknown` / 1, never retried; a signal replaces a stdin-delivery or reader failure; a
 stdin-delivery or reader failure replaces a vendor exit code of 0 (A `:3924-3949`; B `bin/_common.py:1433-1437`,
 `:1663-1679` @ `7f75863`). A signal between attempts (a server-capacity backoff, a schema-repair turn) spawns nothing:
 the previous attempt's record, with its captured evidence, carries the signal failure, and the agy driver adds no
@@ -646,7 +649,7 @@ applies only to the CLI that emits it); no shared list keeps a phrase unless it 
 none today. No raw-text authentication phrase is kept: one matched over a failed run's whole output produced a MEASURED
 false STOP (a codex run of 2026-07-16 that failed on "Selected model is at capacity" was recorded oauth-env because a
 fetched page in its transcript quoted "401 Unauthorized"); the authentication STOPs come from the structured carriers
-only, and an authentication failure printed outside every carrier ends `unknown` (never retried). A classifier extension cannot add a raw-text authentication phrase: such an entry is ignored with one log line per process, and A's patch applier refuses an authentication-phrase proposal (A has no raw-text authentication list at all — `OAUTH_ENV_PATTERNS` removed; @ triad `c048340`). On A codex's write posture (`--sandbox workspace-write`) requires `--cwd` — exit 3, nothing spawned — as A's claude and gemini wrappers already require (@ triad `c048340`); the codex `--task` mode and its exits 68 / 69 are gone from A (@ triad `11662b2`). codex's own
+only, and an authentication failure printed outside every carrier ends `unknown` (never retried). A classifier extension cannot add a raw-text authentication phrase: such an entry is ignored with one log line, and A's patch applier refuses an authentication-phrase proposal (A has no raw-text authentication list at all — `OAUTH_ENV_PATTERNS` removed; @ triad `c048340`). On A codex's write posture (`--sandbox workspace-write`) requires `--cwd` — exit 3, nothing spawned — as A's claude and gemini wrappers already require (@ triad `c048340`); the codex `--task` mode and its exits 68 / 69 are gone from A (@ triad `11662b2`). codex's own
 `you've hit your usage limit` (codex-rs `UsageLimitReachedError`) is its subscription-cap sentence (On A
 `CLI_PATTERNS` @ triad `7e9e1fb`). On A (`3rd-Agent/wrappers/_common.py`
 @ triad `3fde8d6`) the kept phrases include codex's own `exceeded retry limit, last status: 429` (vendor source:
