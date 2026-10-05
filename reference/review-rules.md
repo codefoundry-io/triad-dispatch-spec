@@ -115,8 +115,8 @@ the installed preset and refuse a change (`lib/collect_v2.py:2530` `_check_insta
 preset — scoped in a plugin, bare in the dev tree. A bare id reaches the session project's file, and A cannot observe
 the session project (a Bash command carries no project-folder variable — measured 2026-10-05), so in the dev tree an id
 defined both there and in the reviewed repository with different bytes refuses (which file the session spawns depends
-on a folder A cannot see); the same bytes — a linked agent included — bind the dev tree's file (in progress, 6.0 slice
-26b fix 3). Any other id is the operator's preset, found by `name` in the reviewed repository's `.claude/agents/`, then
+on a folder A cannot see); the same bytes — a linked agent included — bind the dev tree's file (`lib/roster_v2.py:722-737` @
+triad `9bf068f`). Any other id is the operator's preset, found by `name` in the reviewed repository's `.claude/agents/`, then
 `~/.claude/agents/`, and spawned unscoped. How Claude Code reads an agent file (measured in its 2.1.289 build,
 2026-10-05): it strips a leading byte-order mark and decodes bad bytes with replacement; the frontmatter ends at the
 FIRST `---` after the opening line, anywhere, even inside a value (`/^---\s*\n([\s\S]*?)---\s*\n?/`); a block its YAML
@@ -127,10 +127,13 @@ cannot read (a dangling link included), one with no frontmatter block, and one w
 `description` are skipped, as Claude Code skips them; a block whose first `---` is not its own closing line, a block
 PyYAML does not load (any error), one that is not a mapping, and a `name` or `description` that is not a string (YAML
 1.1 and 1.2 read some scalars differently) refuse the round naming the file — never a skip, which could pass over a
-file Claude Code repairs and loads (in progress, 6.0 slice 26b fix 3). Two files of one name in one folder refuse. Claude Code registers a plugin agent kept in a subfolder of the plugin's
+file Claude Code repairs and loads (`lib/roster_v2.py:563`, `:626` @ triad `9bf068f`). The refusal holds only where the
+file could be the preset sought: a file whose text does not contain the sought name anywhere cannot define it and is
+skipped, so an unrelated broken agent file in a searched folder (`~/.claude/agents/` included) does not stop every round
+(in progress, 6.0 slice 26b fix 4). Two files of one name in one folder refuse. Claude Code registers a plugin agent kept in a subfolder of the plugin's
 `agents/` as `<plugin>:<subfolder>:<name>` (sub-agents documentation, fetched 2026-10-05), so the scoped spawn name of a
-plugin-defined preset is that identifier, and an explicit id of that form naming this install's plugin is accepted — in
-progress (6.0 slice 26b fix 3); B passes the supplied id through unchanged (`bin/review_adapters_v2.py:108` @
+plugin-defined preset is that identifier, and an explicit id of that form naming this install's plugin is accepted
+(`lib/roster_v2.py:175`, `:664`, `lib/review_scratch.py:5327` @ triad `9bf068f`); B passes the supplied id through unchanged (`bin/review_adapters_v2.py:108` @
 `7f75863`). A dev leader session whose project is yet another folder is not observed (a
 fact). An
 explicitly scoped `claude.agent` whose scope this install does not hold (another plugin's `<plugin>:<agent>`, or any
@@ -184,8 +187,9 @@ frontmatter fields are a closed list: `name`, `description`, `tools`, `disallowe
 `maxTurns`, `background`, `omitClaudeMd` and `experimental` are admitted; any other field refuses the preset —
 `memory` (it turns on Read / Write / Edit whatever `tools` says), `hooks` (shell commands), `mcpServers` (an inline
 server starts a command and adds its tools), `isolation` (a worktree is created), `permissionMode`, `skills` (content
-injected from outside the bound file), `initialPrompt`, and a field Claude Code adds later (in progress, 6.0 slice 26b
-fix 3; B reads no preset — DL-49). Claude Code also ranks managed-settings and `--agents` definitions above project agents and scans every
+injected from outside the bound file), `initialPrompt`, and a field Claude Code adds later (`lib/roster_v2.py:193`; the specifier rule `:782` @ triad
+`9bf068f`; B reads no preset — DL-49). On Ubuntu 24.04 the pydantic venv is created with `--system-site-packages` so
+apt's jsonschema and PyYAML stay visible beside the venv's pydantic 2 (a host install fact; NOT RUN on Ubuntu). Claude Code also ranks managed-settings and `--agents` definitions above project agents and scans every
 `.claude/agents/` from its working directory up to the repository root; a host that reads fewer places records that it
 does not observe the others (Claude Code sub-agents documentation, fetched 2026-10-05). The frontmatter
 outranks a session-wide subagent model setting only from Claude Code v2.1.251, and a forcing setting (v2.1.257+) makes Claude
