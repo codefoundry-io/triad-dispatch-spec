@@ -654,18 +654,22 @@ only, and an authentication failure printed outside every carrier ends `unknown`
 and codex's `invalid schema for response_format` (two real failures, 2026-09-20); the token-limit and
 configuration lists hold no measured sentence and are empty, so those failures end `unknown` and reach the repair
 analysis; `aborterror` is gone (its one capture is a user abort). An extension token outside the contract vocabulary — and, for an exit-code entry, outside the classes an exit-code proposal may carry — is
-ignored with one log line per process, never emitted (the emitted pair always matches the contract's code) (R-TOKENS; `_load_classifier_extension` @ `3fde8d6`). A residual: a `401` outside the carrier,
+ignored with one log line, never emitted (the emitted pair always matches the contract's code) (R-TOKENS; On A `_load_classifier_extension` @ triad `fdd7029`; B returns any extension string, DL-97). A residual: a `401` outside the carrier,
 on a failed run that also carries a measured capacity token, classifies `server-capacity` and is retried, since capacity
 precedes oauth-env (not observed). Three guarantees replace per-shape code. A usable answer is never discarded because of
-text inside it: a non-null claude `structured_output` is the answer beside `is_error` — On A the STOP still stands beside
+text inside it: on A the codex `-o` last-message file is the answer, read before the JSONL events, and an
+`agent_message` whose text is not a non-empty string is no answer (`codex_wrapper.py` @ triad `fdd7029`; B has no codex
+wrapper); a non-null claude `structured_output` is the answer beside `is_error` — On A the STOP still stands beside
 it on `api_error_status` 401 or on claude's measured authentication result line ("Not logged in · Please run /login",
 "Invalid API key · Fix external API key"; `_CLAUDE_AUTH_BANNER_PATTERNS` @ triad `e40001d`), while B returns
 `structured_output` before reading `is_error` (`bin/_common.py:1256-1260` @ `7f75863`) — a host difference. The
 auth-carrier rung runs before every other rung. Classification never raises: an exception in a classifier or an extractor
 ends `unknown` (or `extraction-error`), exit 1, with the summary, audit row and run-log written (On A one general
 classification guard, `_common.py` `_never_raises` @ triad `e40001d`, on `classify`, `_auth_carrier_stop`, the three
-extractors, `agy_classify_signals`, and `antigravity_wrapper.py` `_classify_no_answer` / `_catalog_auth_observed`;
-DL-90); the guard's `False` fallback on the auth-carrier rung continues down the
+extractors, `agy_classify_signals`, and `antigravity_wrapper.py` `_classify_no_answer` / `_catalog_auth_observed`,
+and one guard around each wrapper's whole `main` — probes, the run, extraction, payload building, classification —
+that ends a run `extraction-error` after a vendor exit 0, else `unknown`, exit 1, with the three records, letting
+SystemExit / KeyboardInterrupt pass, `_common.py` `_guarded_main` @ triad `fdd7029`; DL-90); the guard's `False` fallback on the auth-carrier rung continues down the
 rungs, so a measured capacity token in the same run retries (at most twice); no raw-text authentication rung follows, so a
 measured codex 401 the raising rung did not read ends `unknown`, exit 1, never retried (On A t74 G5 @ triad `7e9e1fb`).
 

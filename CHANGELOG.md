@@ -19,6 +19,9 @@
   (D-SHIPPED-PRESETS-20261005; host A @ triad `3894879`; DL-94).
 - R-ROSTER: operator-level Claude Code settings (a forcing sub-agent model setting, the effort environment variable, an
   effort cap) outrank a preset's pins; a host records the requested pins, not what ran (DL-96).
+- R-CLASSIFY host-A anchors after 26a final fix 1 (triad `fdd7029`): one guard per wrapper `main`; the codex `-o`
+  file is the answer; a signalled run's output reaches the auth-carrier rung (DL-95, B change); extension exit-code
+  tokens limited to the exit-code proposal classes (DL-97, B change).
 
 ## Owed rows from host A's conformance work — 2026-10-04 (not tagged)
 
