@@ -700,6 +700,8 @@ Owner, 2026-10-06, typed answers to host A's leader (verbatim). On the model-tie
 
 Recorded effect: every claude preset host A ships names `model: opus`; the `-older` / `-older-web` pair is removed; on host A the default is the latest Opus and no older Claude model is selectable. Proposed spec change (the owner's PR): C12's expected result ("including Claude claude-opus-5-5 with xhigh" and "an explicit supported older Claude model"), C34 (explicit Opus 5.5 selection) and R-ROSTER's "older supported models remain selectable" — `authoring/shared-dev-log.md` DL-100 (DL-94 superseded).
 
+This supersedes, for host A's native route, the owner's 2026-09-25 default sentence in R-ROSTER ("Ship the explicit model ID rather than the moving `opus` alias") and the handoff's "exact model/effort pins in preset frontmatter" (the model pin becomes the alias; the effort pin stays exact).
+
 <a id="D-SHIPPED-PRESETS-20261005"></a>
 ## D-SHIPPED-PRESETS-20261005: host A's claude leg names only shipped presets; skill users get a guide
 
