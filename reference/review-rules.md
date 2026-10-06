@@ -156,7 +156,10 @@ fetched 2026-10-06: an alias points to the recommended version and updates over 
 an older Claude model is NOT selectable on A and the default is the latest Opus, not a fixed `claude-opus-5-5` (owner
 2026-10-06, [D-PRESET-ALIASES-20261006](../decisions/owner-register.md#D-PRESET-ALIASES-20261006) — a host-A deviation from
 C12's default and its "explicit supported older Claude model" and from C34's explicit Opus 5.5 selection, proposed as a
-spec change, DL-100; done @ triad `526aa0d`, Task 31). A refuses `claude.model` in the roster; any other model or effort needs another
+spec change, DL-100; done @ triad `526aa0d`, Task 31). A fact (same documentation): the alias resolves per route — the latest
+Opus on the subscription login route, which R-AUTH makes the only route; an `ANTHROPIC_DEFAULT_OPUS_MODEL` setting remaps it — and
+the round records `opus`, not the runtime model (selection evidence is not the runtime model), so an alias re-pointed between
+prepare and retry leaves the bound file digest unchanged. A refuses `claude.model` in the roster; any other model or effort needs another
 shipped preset, that is, a host release. A's lib names no model. In a plugin install the host
 scopes the bare name to its own plugin (`_qualify_claude_agent_id`), so a same-named project agent cannot shadow the
 shipped reviewer. The preset FILE is bound as written (the whole file's bytes, so any change of model, effort, tools
