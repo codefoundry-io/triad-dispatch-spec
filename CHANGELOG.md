@@ -4,6 +4,9 @@
 
 - Owner register D-PRESET-ALIASES-20261006; R-ROSTER host-A text: presets name the model by the `opus` alias, the older-model
   pair removed; DL-100 proposes the C12 / C34 / R-ROSTER change (DL-94 superseded).
+- R-REVIEW-WEB per-host agy settings fact: both hosts share one settings file, `.agybak` sentinel and lock / lease files
+  on one machine; A heals a stale sentinel only at `--setup-agents` or a non-hardened permissive call, never at a review
+  leg; the sentinel is healed, never deleted; a failed `--setup-agents` heal still exits 0 (recorded limit).
 
 ## Owed rows from host A's conformance work — 2026-10-05 (not tagged)
 
