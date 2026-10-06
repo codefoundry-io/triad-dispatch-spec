@@ -541,8 +541,8 @@ not attribution (found on A over rounds r11–r13, `authoring/shared-dev-log.md`
 Transport success requires: process exit collected, all reader threads joined without error, the owned process group
 reaped, stdin delivery confirmed. A settings-guard release failure after a completed transcript is still a failure; the
 transcript is preserved. A display-mirror failure is distinct from a failure to capture the result.
-A dispatch lasts from the moment the wrapper starts it until its terminal record is written, every attempt and the gaps
-between them included (server-capacity backoff, schema-repair turns), whether or not a vendor child is running. A
+A dispatch lasts from the moment the wrapper starts it until the engine's last signal check (the end of its last vendor
+run), every attempt and the gaps between them included (server-capacity backoff, schema-repair turns), whether or not a vendor child is running. A
 wrapper signalled (SIGTERM or SIGHUP) anywhere inside a dispatch reaps any owned group and ends as a terminal failure:
 token `unknown`, exit 1 (`EXIT_CLI_FAIL`), the answer withheld, and an extraction error naming the signal (`wrapper
 interrupted (<SIG>)`), recorded like any failed dispatch. A signal outside a dispatch — before the wrapper starts it
@@ -553,10 +553,13 @@ installed inside `_run_once` only (`:1425-1441`), so a signal between attempts e
 every window of a dispatch ends in that shape with its summary, audit row and run-log — after the spawn, in the wait,
 inside the timeout arm's group kill (the SIGKILL escalation kept) and between attempts (`_terminal_signal_to_exit`,
 `3rd-Agent/wrappers/_common.py:3441-3448`; `_run_once`, `:3559-3585`, `:3924-3949` @ triad `bf38f60`). A signal after
-the engine's last check is only recorded, and the completed answer is published and recorded as such — both hosts agree
-(On A the handler only records once a dispatch began, `_terminal_signal_to_exit` @ triad `e40001d`; On B the handlers
-are restored when the run returns, `bin/_common.py:1418-1441` @ `7f75863`). A cut-short agy catalog call reaps its group
-before the pending exit (On A `3rd-Agent/wrappers/antigravity_wrapper.py` `_model_catalog_refusal` @ triad `e40001d`); a signal during ANY pre-dispatch vendor probe (agy `--version`, agy's catalog call, gemini's review preflight) ends in the interrupted-run record (summary, audit row, run-log written) once the bounded probe returns, never a bare 128+signum exit, and a probe's group is reaped on a normal exit too (@ triad `3fde8d6`, `7e9e1fb`).
+the engine's last check is not consumed, and the hosts differ: on A the handler only records once a dispatch began, so the
+completed answer is published and recorded `ok` (`_terminal_signal_to_exit` @ triad `e40001d`); on B the default handlers
+are restored when the run returns, so a later signal ends the process at 128+signum with no record (`bin/_common.py:1418-1441`
+@ `7f75863`). A cut-short agy catalog call reaps its group
+before the pending exit (On A `3rd-Agent/wrappers/antigravity_wrapper.py` `_model_catalog_refusal` @ triad `e40001d`); a signal during ANY pre-dispatch vendor probe (agy `--version`, agy's catalog call, gemini's review preflight) ends in the interrupted-run record (summary, audit row, run-log written) once the bounded probe returns, never a bare 128+signum exit, and the agy catalog call's own group is reaped on a normal exit too (@ triad `3fde8d6`, `7e9e1fb`); the gemini preflight and
+`agy --version` are plain `subprocess.run` calls with no group of their own, so a helper they might fork is not reaped (a
+recorded limit — no run has shown one; `3rd-Agent/wrappers/gemini_wrapper.py` `_probe`, `antigravity_wrapper.py` `_probe_agy_version`).
 A failed stderr write drops that one line, never the answer or the exit, and a dropped line is never written later; a
 stderr closed at start drops every line. A full non-blocking stderr drops the line at once, and a blocking stderr whose
 reader stops draining blocks the wrapper — both are recorded limits, not bounded (no run has shown either; On A `log` @
