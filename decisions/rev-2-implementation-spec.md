@@ -43,6 +43,22 @@ review rules instead of replacing them.
   it is a generation aid, never the admission validator. Locally reject output
   that violates the unchanged full contract. Do not add a vendor SDK dependency
   or hand-build a general schema-to-schema translation engine.
+  Measured producer refusals of the full contract (A's live probes, 2026-09-21;
+  the vendor messages are quoted at lib/roster_v2.py:88-122 @ triad e0b15f1).
+  Codex `--output-schema` refuses `not` ("In context=('not',), schema must have
+  a 'type' key"). It also requires every property in `required` ("... Missing
+  'correction'"). agy `--json-schema` refuses a `null` member inside `enum`
+  ("INVALID_ARGUMENT (code 400): ...properties[route].enum[2]: cannot be
+  empty"). On A the producer projection for the codex and agy wrapper routes
+  drops `$schema`, `$id` and the top-level `allOf`. It drops `not` and
+  `uniqueItems` at any depth and the optional `finding.correction`. It rewrites
+  `route` as `anyOf [{type string, enum [agy, gemini]}, {type null}]`
+  (lib/roster_v2.py:97-122, :903-949 @ triad e0b15f1). Admission still
+  validates every reply against the full contract. On B the agy v2 route sends
+  the full contract, binding consts included, as `--json-schema`
+  (bin/verdict_v2.py:39-45, bin/antigravity_wrapper.py:499, :697-723, :148-149
+  @ 7f75863). Its `route` enum carries `null`
+  (contracts/leg-verdict.schema.json:59-65). Case C30; authoring/shared-dev-log.md DL-103.
 - Keep native host agents native. Do not add Codex subprocess on B or Claude
   subprocess on A for symmetry. Preserve authentication selection and refuse
   unsupported model/effort settings before inference, without provider fallback.

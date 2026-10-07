@@ -1,5 +1,42 @@
 # Changelog
 
+## Owed rows from host A's conformance work — 2026-10-07 (not tagged)
+
+- `contracts/vendor-failure-lines.json`: the measured rows host A keeps — gemini `model_capacity_exhausted` /
+  `resource_exhausted` / `ratelimitexceeded` (server-capacity), `your quota will reset after` and the IneligibleTier
+  pair (cli-subscription-cap); claude `overloaded_error`; agy `unavailable (code 503)`; codex `exceeded retry limit,
+  last status: 429`, `you've hit your usage limit`, `invalid schema for response_format`; agy `timeout waiting for
+  response` (vendor-timeout). R-CLASSIFY: the rows hold every phrase a host keeps today (DL-86 spec item closed).
+- R-CLASSIFY: a run the wrapper ended at its timeout is `timeout` (exit 2) before the vendor exit map and every phrase
+  list, on both hosts; agy's own-line `<truncated N>` fold is `truncated-answer` / 65, agy's turn timeout is
+  `vendor-timeout` / 65 and a nonzero vendor exit with an answer is `vendor-error` / 65 on A (with the read-only route's
+  admission exception), with B's current behaviour stated.
+- R-TERMINAL: a run whose output readers did not all finish fails closed at a vendor exit 0 on both hosts — A
+  `truncated-answer` / 65, B `unknown` / 1 (a fact).
+- R-NOCOST: C11's agreed child-environment set as data — the loader / interpreter names and the credential / endpoint /
+  model-selector names, the gemini-route project keep-set, the names not removed, and each host's list (DL-65 spec item
+  FIXED-SPEC).
+- R-TOKENS: a dispatch may print more than one summary line; the last one is its verdict, with the recorded limits where
+  the process exit differs; the forbidden line is one whose pair the contract does not hold.
+- R-CONTAIN (agy leg): A's setup-once read-only agents (`triad-readonly-review` / `triad-readonly-research`),
+  `--add-dir <--cwd>`, the byte-identical agent-file check, the `--cwd` refusal and the measured `--agent` facts (a name
+  agy cannot resolve runs the write-capable default agent; the tool registry is not narrowed by `tools:`); A's
+  allow-list census and `admission-refused` / 65 (a fact, not an obligation for B).
+- R-CONTAIN (all wrappers): path text on a wrapper's stderr lines — A percent-escapes it with one formatter, B prints the
+  resolved paths raw on their own line (a fact).
+- R-BIND known limits: a run-log that cannot be written is one stderr line; the answer is published and the attempt is
+  INVALID at collection with its retry open (replaces the stale "paid answer is lost" clause).
+- R-CLEANUP: A's deletion command, its exits and its configuration lookup (replaces "in progress (Task 23)"); C69
+  tests.A names t72 / t73 / harness t3.
+- R-CLI-VERSION: the agy minimum versions per host — A's three floors (1.1.8, 1.1.10, 1.1.18), B's one floor (1.1.20).
+- `units.json` review-lifecycle exceptions (d): how collection reports its outcome on each host (a fact).
+- `decisions/rev-2-implementation-spec.md` projection bullet: the measured producer refusals and each host's producer
+  projection; C30 points to it.
+- Cases C12 / C34 tests.A: the shipped alias presets and t28 axis 4 as it tests today (C12 / C34 expected stay with
+  DL-100).
+- Dev-log: DL-101 (B: read agy's network-issue row on its carrier), DL-102 (B: agy turn timeout and truncation marker),
+  DL-103 (B check: agy v2 `--json-schema` with the full contract); DL-65 and DL-86 spec status cells updated.
+
 ## Owed rows from host A's conformance work — 2026-10-06 (not tagged)
 
 - Owner register D-PRESET-ALIASES-20261006; R-ROSTER host-A text: presets name the model by the `opus` alias, the older-model

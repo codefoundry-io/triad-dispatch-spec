@@ -73,6 +73,102 @@
       "carrier": "the gemini CLI's own exit code 41 (FATAL_AUTHENTICATION_ERROR), with the message as plain stderr text and no error object",
       "token": "oauth-env",
       "observed": "gemini CLI v0.60.0 source (packages/cli/index.ts, packages/core/src/utils/exitCodes.ts, oauth2.ts)"
+    },
+    {
+      "cli": "gemini",
+      "line": "429 stderr with status RESOURCE_EXHAUSTED, reason rateLimitExceeded, MODEL_CAPACITY_EXHAUSTED",
+      "match": "model_capacity_exhausted",
+      "carrier": "the CLI's stderr of a failed run",
+      "token": "server-capacity",
+      "observed": "2026-05 (host A gemini audit, 10 failed runs)"
+    },
+    {
+      "cli": "gemini",
+      "line": "429 stderr with status RESOURCE_EXHAUSTED, reason rateLimitExceeded, MODEL_CAPACITY_EXHAUSTED",
+      "match": "resource_exhausted",
+      "carrier": "the CLI's stderr of a failed run",
+      "token": "server-capacity",
+      "observed": "2026-05 (host A gemini audit, 10 failed runs)"
+    },
+    {
+      "cli": "gemini",
+      "line": "429 stderr with status RESOURCE_EXHAUSTED, reason rateLimitExceeded, MODEL_CAPACITY_EXHAUSTED",
+      "match": "ratelimitexceeded",
+      "carrier": "the CLI's stderr of a failed run",
+      "token": "server-capacity",
+      "observed": "2026-05 (host A gemini audit, 10 failed runs)"
+    },
+    {
+      "cli": "gemini",
+      "line": "…exhausted your capacity on this model. Your quota will reset after <t>.",
+      "match": "your quota will reset after",
+      "carrier": "stderr of a failed run",
+      "token": "cli-subscription-cap",
+      "observed": "2026-05..07 (37 classified rows)"
+    },
+    {
+      "cli": "gemini",
+      "line": "Error authenticating: IneligibleTierError: This client is no longer supported for Gemini Code Assist for individuals.",
+      "match": "no longer supported for gemini code assist for individuals",
+      "carrier": "plain stderr text, not the gemini error object",
+      "token": "cli-subscription-cap",
+      "observed": "2026-06/07 (43 rows)"
+    },
+    {
+      "cli": "gemini",
+      "line": "Error authenticating: IneligibleTierError: This client is no longer supported for Gemini Code Assist for individuals.",
+      "match": "ineligibletiererror",
+      "carrier": "plain stderr text, not the gemini error object",
+      "token": "cli-subscription-cap",
+      "observed": "2026-06/07 (43 rows)"
+    },
+    {
+      "cli": "claude",
+      "line": "an API error envelope of type overloaded_error (HTTP 529)",
+      "match": "overloaded_error",
+      "carrier": "a print-mode envelope with is_error true: its api_error_status or result text",
+      "token": "server-capacity",
+      "observed": "2026-07-05 (a real overload on host A; the error type is Anthropic's own 529 type)"
+    },
+    {
+      "cli": "agy",
+      "line": "error: UNAVAILABLE (code 503): Deadline expired before operation could complete.",
+      "match": "unavailable (code 503)",
+      "carrier": "stderr, vendor exit 3",
+      "token": "server-capacity",
+      "observed": "2026-09-26 (agy 1.2.11, DL-14)"
+    },
+    {
+      "cli": "codex",
+      "line": "exceeded retry limit, last status: 429",
+      "match": "exceeded retry limit, last status: 429",
+      "carrier": "codex error / turn.failed message",
+      "token": "server-capacity",
+      "observed": "vendor source codex-rs protocol/src/error.rs RetryLimitReachedError (read 2026-10-05)"
+    },
+    {
+      "cli": "codex",
+      "line": "You've hit your usage limit…",
+      "match": "you've hit your usage limit",
+      "carrier": "codex error / turn.failed message",
+      "token": "cli-subscription-cap",
+      "observed": "vendor source codex-rs protocol/src/error.rs UsageLimitReachedError (read 2026-10-05)"
+    },
+    {
+      "cli": "codex",
+      "line": "Invalid schema for response_format '<name>': …",
+      "match": "invalid schema for response_format",
+      "carrier": "codex error event, code invalid_json_schema",
+      "token": "schema-rejected",
+      "observed": "2026-09-20 (2 runs)"
+    },
+    {
+      "cli": "agy",
+      "line": "timeout waiting for response",
+      "match": "timeout waiting for response",
+      "carrier": "the typed `result.error` of the terminal result event (status ERROR, empty response, vendor exit 1), matched only at the start of that field",
+      "token": "vendor-timeout",
+      "observed": "2026-09-04 (agy 1.1.26)"
     }
   ]
 }

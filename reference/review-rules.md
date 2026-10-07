@@ -525,10 +525,34 @@ not attribution (found on A over rounds r11–r13, `authoring/shared-dev-log.md`
 - agy leg (A): per-round PreToolUse allow-list hook + hook load check + read-audit gate (the hook's `--web` mode adds
   `read_url_content` / `search_web` to its allow set, `lib/agy_hook.py:123`, `:196` @ `b53409b`; a v2 round with a true
   bound condition installs the hook in that mode, `lib/review_scratch.py:4142-4152`, `:5841-5843` @ `b53409b`, and the
-  legacy small path uses it under its own `--web`); B: non-mutating project route (`--mode plan --sandbox read-only`) with `--project`, and on the v2 path (no `--project`) the temporary settings transaction named under R-REVIEW-WEB; B's hook stays dormant until separately agreed. The agy hook and the gemini read-only policy are TOOL-NAME controls: neither scopes paths, and the read audit records the argument path as given, not a resolved target — they do not by themselves contain a symlink escape (see the Q4 item in R-PREPARE).
+  legacy small path uses it under its own `--web`). On A, every read-only agy call (every agy review leg) runs a
+  setup-once agent named with `--agent`. Without web it runs `triad-readonly-review` (allowlist `view_file`,
+  `grep_search`, `list_dir`, `find_by_name`, `finish`). Under `--web` or `--review-web` it runs
+  `triad-readonly-research`, which adds `read_url_content` and `search_web`. The call carries `--add-dir <--cwd>`, the
+  leg's only repository read grant, with no danger flag and no settings transaction, and needs agy >= 1.1.18
+  (`3rd-Agent/wrappers/antigravity_wrapper.py:356-361`, `:2087-2113`, `:2502-2507` @ triad `e0b15f1`). Measured agy
+  facts: in print mode, `--agent` resolves only from `~/.gemini/config/agents` (measured 2026-08-22). A name agy cannot
+  resolve does not fail: agy runs its default agent, which can write files (measured on agy 1.2.3, 2026-09-16). The
+  `init` event echoes the name that was passed, so the stream cannot prove which agent loaded. agy shows a custom agent
+  its full tool registry whatever the agent's `tools:` list says, so the allowlist binds only through the agent body's
+  rule and the wrapper's admission census, which quarantines an answer whose stream shows an off-list tool ran
+  (`:401-421`, `:695-711`). `--setup-agents` writes both bodies into that directory (`:462-485`, `:736-745`). Before
+  each read-only call the wrapper refuses (`config-conflict`, 65, nothing spawned) unless the installed file is
+  byte-identical to the shipped body (`:488-499`, `:2100-2110`). A read-only call without `--web` and without `--cwd` is
+  refused with exit 3 before any vendor work (`:2391-2403`). On B the formal route passes no `--agent`
+  (`bin/antigravity_wrapper.py:151` @ `7f75863`). B: non-mutating project route (`--mode plan --sandbox read-only`) with `--project`, and on the v2 path (no `--project`) the temporary settings transaction named under R-REVIEW-WEB; B's hook stays dormant until separately agreed. On A the read-only agy route runs an allow-list census over every attempt's tool steps, retries included (`3rd-Agent/wrappers/antigravity_wrapper.py:517-611`, `:1164-1169` @ triad `e0b15f1`): a tool outside the agent's allow-list that EXECUTED withholds the answer as `admission-refused` / 65 with the tool named, and the wrapper never retries it (`:698-711`, `:1678-1704`); this is the measured shape (a model that burned its turns on `manage_task`, 33 lost verdicts). An off-list call that was denied before it ran does not void the answer (`:1705-1714`). This is the wrapper side of the shared leg prompt's sentence that a forbidden call that executes invalidates the review (`prompts/leg-google.md:40`). On B the read-only route relies on `--mode plan --sandbox` and reads executed tool steps only as diagnostics (`bin/antigravity_wrapper.py:150-151`, `:178-211` @ `7f75863`); B emits no `admission-refused` (`bin/_common.py:85`). A fact, not an obligation. The agy hook and the gemini read-only policy are TOOL-NAME controls: neither scopes paths, and the read audit records the argument path as given, not a resolved target — they do not by themselves contain a symlink escape (see the Q4 item in R-PREPARE).
 - all wrappers: binary presence; a relative `--prompt-file` or `--cwd` is ACCEPTED and resolved against the wrapper PROCESS cwd at argument processing (never the child `--cwd`); every existing validation stays — configured runtime roots where configured, regular file, UTF-8, non-empty; the resolved absolute prompt-file and child-cwd paths are represented in the existing success summary and audit row, using the host's current redaction mode (D-B2). Refusal names the resolved candidate through that same masking policy. An input with no resolvable candidate (`~<no-such-user>`, a relative path once the wrapper's entry cwd is gone) is refused masked under redaction on both hosts; without redaction A names the text given and B the exception class (a fact: A `_resolve_against_entry_cwd`, `3rd-Agent/wrappers/_common.py:1882-1905` @ triad `bf38f60`; B `input_path_error`, `bin/_common.py:537-548` @ `7f75863`). A configuration refusal (an allowed-roots entry that cannot be resolved, a hardened run without allowed roots) names the argument it stopped on, on both hosts (A `_ensure_within_runtime_roots`, `_common.py:1825-1833`; B `input_path_error`, whose label for the prompt file is `prompt load`). Failure-only run logs remain failure-only. Relative spelling alone is never a reason to refuse (C28). A host's other file options that name an existing input file (on A the schema-file options
 `--output-schema-file` / `--json-schema-file`) follow the same rule (on A the resolved schema-file path is recorded in the audit row's `cmd` / the run-log's
-`vendor_cmd`, the vendor argv; the summary tail carries `prompt_file=` only). On A: relative paths are rebased on the process-entry cwd and then validated (`3rd-Agent/wrappers/_common.py:1800-1844`, `:1865-1881`); On B: `bin/_common.py:502-537`; stdin delivery confirmed or refused (fail closed); process group captured at spawn and
+`vendor_cmd`, the vendor argv; the summary tail carries `prompt_file=` only). Path text on a wrapper's stderr lines (a
+fact; the only rule is C36's for custody lines): On A every path or free-text value on the summary tail (`prompt_file=`,
+`model=`, `reasoning=`) and on the custody lines (`read-audit-file:`, `read-audit-copy:`) is percent-escaped over its
+filesystem bytes by one formatter (`_summary_field`, safe set `/._-~+=@,:`). Space, `[` / `]` and every non-ASCII or
+control byte are escaped, so the value stays on its line and cannot carry a second `[wrapper] <cli> <token> ` sequence
+into the summary line a caller parses. An ordinary POSIX path prints byte-identical, and the audit row and run-log keep
+the raw value (`3rd-Agent/wrappers/_common.py:2110-2178`, `:5696`; `3rd-Agent/wrappers/antigravity_wrapper.py:2631` @
+triad `e0b15f1`). On B the summary line carries no path (`bin/_common.py:1685-1689` @ `7f75863`). The resolved paths
+print raw on their own `resolved_prompt_file=… effective_cwd=…` line (`bin/_common.py:574`, through the plain `print` of
+`log`, `:322-324`), so a path that holds a line break splits that line (no run has shown one). On A: relative paths are rebased on the process-entry cwd and then validated (`3rd-Agent/wrappers/_common.py:1800-1844`, `:1865-1881`); On B: `bin/_common.py:502-537`; stdin delivery confirmed or refused (fail closed); process group captured at spawn and
   reaped on timeout / abnormal unwind and normal exit under R-TERMINAL (On A: `_common.py:3198-3205`, `:3333-3381`; On B: `bin/_common.py:1357-1386`); reader and writer completion before success (On A: incomplete readers fail closed, `_common.py:3433-3437`; On B: incomplete/error collection is rejected); schema validation with one clean repair retry where a leg relies on it; verdict
   binding to review id, family and content digest; round integrity capture/verify.
 - cleanup (only host code deletes, from declared roots — R-CLEANUP): refuses without deleting when a tree is not provably its own; ownership is proven by an allocation record or
@@ -578,7 +602,12 @@ that recorded a signal keeps the record-only mode until its refusal record is wr
 that window is recorded too (frozen C1; `gemini_wrapper.py` preflight, `antigravity_wrapper.py` catalog and `--version`
 probes @ triad `0115727`); a signal replaces a stdin-delivery or reader failure; a
 stdin-delivery or reader failure replaces a vendor exit code of 0 (A `:3924-3949`; B `bin/_common.py:1433-1437`,
-`:1663-1679` @ `7f75863`). A signal between attempts (a server-capacity backoff, a schema-repair turn) spawns nothing:
+`:1663-1679` @ `7f75863`). A run whose output readers did not all finish without error fails closed at a vendor exit 0
+on both hosts, with different tokens (a fact): On A `truncated-answer` / 65, the captured prefix kept for the run-log and
+never returned (`3rd-Agent/wrappers/_common.py:3886-3889`, `:3916-3920` @ triad e0b15f1), and A's agy driver applies the
+same at any vendor exit (`antigravity_wrapper.py:1424-1455`); On B `unknown` / 1 with the transport failure recorded and
+classification skipped (`bin/_common.py:1641-1674`, `:1680-1684` @ `7f75863`), applied also to a transport setup failure
+at any exit. At a nonzero vendor exit, A's codex / gemini / claude runs and B's runs keep the vendor's own diagnosis. A signal between attempts (a server-capacity backoff, a schema-repair turn) spawns nothing:
 the previous attempt's record, with its captured evidence, carries the signal failure, and the agy driver adds no
 attempt to the read audit for it (On A: `_common.py:3561-3585`, `3rd-Agent/wrappers/antigravity_wrapper.py:1061-1072`;
 B has no handler there, DL-70). A helper outside the owned process group that still holds the child's stdout keeps
@@ -589,24 +618,49 @@ B `bin/_common.py:1623-1630`).
 Every classification token a host EMITS is a member of `contracts/exit-tokens.json` and maps to the same exit code there;
 wrapper-only tokens and compatibility aliases are listed explicitly as exceptions. A membership test, not an `is not None` assert, checks it (On A:
 `tests/unit/wrappers/t55-exit-token-membership-c8.sh`; On B: `tests/test_exit_token_contract.py`). Every emitted
-summary line carries a (token, exit) pair the contract holds or its listed exceptions name; a provisional line whose
-exit a later step corrects is not allowed. The codex wrapper's `--task` mode and its exits 68 / 69 are removed from the contract (owner 2026-10-05; DL-91). On A
+summary line carries a (token, exit) pair the contract holds or its listed exceptions name; a line whose pair the
+contract does not hold, with an exit a later step corrects, is not allowed. The codex wrapper's `--task` mode and its exits 68 / 69 are removed from the contract (owner 2026-10-05; DL-91). On A
 the summary line prints the contract's code for the token, never a provisional 1 a driver corrects later
 (`3rd-Agent/wrappers/_common.py:3974-3984` @ `bf38f60`). On B a provisional `token-limit exit=1` summary is printed before
 the driver corrects the exit to 65 (`bin/_common.py:1685-1689`, re-emitted at `:1884-1887` @ `7f75863`; DL-72).
+A dispatch may print more than one summary line: when a later step changes the verdict (for example a driver promotion
+or a server-capacity retry), the wrapper prints the summary again in the same format from the final state. The last
+summary line of a dispatch is its verdict. The process exit equals that line's exit except in these recorded limits: on
+A, an exception raised after the records are written (DL-98); on B, a signal that arrives after the run returned
+(R-TERMINAL). On A: `_emit_canonical_summary` (`3rd-Agent/wrappers/_common.py:2182-2212` @ triad `e0b15f1`), called on
+every promotion in `run_cli_with_retry` (`:4017`, `:4032`, `:4088`, `:4215`, `:4233`, `:4275`) and by the wrapper guard
+(`:2249`). On B: `promote_terminal` (`bin/_common.py:1883-1888`) and the schema-rejected line (`:1889-1896`) @
+`7f75863`; B's README tells the caller to use the final `[wrapper]` line (`README.md:646`).
 
 <a id="R-CLASSIFY"></a>
 A failed vendor call is classified by the vendor's own error sentence, and a sentence applies to the CLI that emits it.
 The known sentences are data in `contracts/vendor-failure-lines.json`: each row names the CLI, the sentence, the part of
 it a host matches (lowercase) and the token. Every host classifies a row's sentence as the row's token on the row's CLI.
+The rows hold every phrase a host keeps today (On A `CLI_PATTERNS`, `3rd-Agent/wrappers/_common.py:266-302` @ triad
+`e0b15f1`); a phrase measured later is a classifier-extension entry or a new row, its evidence cited beside it.
 A plain fragment that an answer, a reviewed file or a tool's output can contain is never a match phrase: a host may
 search the whole output of a failed run, and such a fragment would hide the real cause behind a retry.
 A row's carrier also names where the sentence is matched; agy's print-timeout row is matched only as a whole stderr line
-beginning `[agy] `, at any vendor exit, and its answer, partial or empty, is never returned. Both hosts classify a failed run's
+beginning `[agy] `, at any vendor exit, and its answer, partial or empty, is never returned.
+agy folds the middle of a long answer at about 4 KB on the CLI side. It puts an own-line `<truncated N bytes>` /
+`<truncated N lines>` marker in its place and keeps no full copy (observed 2026-07-22, also under stream-json). An
+answer carrying that marker on its own line is `truncated-answer` / 65 and is withheld; a quoted marker inside a sentence
+does not count. On A: `3rd-Agent/wrappers/antigravity_wrapper.py:267-279`, `:1747-1755` @ triad `e0b15f1`. On B the
+folded text is returned as the answer today (`bin/antigravity_wrapper.py:390-399` @ `7f75863`). agy's own turn timeout
+(the `timeout waiting for response` row) is `vendor-timeout` / 65 on A (`:162-174`, `:2006-2020`). On B that run goes
+through `classify()` and ends `unknown` / 1 today (`bin/antigravity_wrapper.py:286-303`, `bin/_common.py:690-778`). A
+host fact: a nonzero vendor exit with an answer is `vendor-error` / 65 on A (`:1721-1746`). On A's read-only review
+route the answer is instead admitted when every errored step is an allowed read and the run read something
+(`:654-733`, `:1664-1677`). On B a nonzero vendor exit goes through `classify()` before the answer is read
+(`:286-303`). Both hosts classify a failed run's
 known sentences in one shared order (a fact): agy's auth banner first (agy route only), then cli-subscription-cap,
 server-capacity, token-limit and oauth-env — server-capacity before oauth-env because Gemini's capacity stderr always
 carries the `OAuth2Client` stack trace (On A `3rd-Agent/wrappers/_common.py:2208-2232` @ `cbc67f6`; On B
-`bin/_common.py:743-766` @ `7f75863`). A new rung must not let a retryable token outrank R-AUTH's STOP: an `oauth-env`
+`bin/_common.py:743-766` @ `7f75863`). A run the wrapper ended at its timeout is classified `timeout` (exit 2), never
+retried, before the vendor exit map and every phrase list, so the partial output of a hung run never classifies as
+server-capacity (a fact on both hosts: On A `classify`, `3rd-Agent/wrappers/_common.py:2555-2556` @ triad e0b15f1, where
+only R-AUTH's carrier STOP, judged on what the run printed before, precedes it, `:2551-2554`; On B `classify`,
+`bin/_common.py:700-701` @ `7f75863`, with no carrier rung before it, DL-75). A new rung must not let a retryable token outrank R-AUTH's STOP: an `oauth-env`
 sentence on the same failed agy run outranks agy's print-timeout rung. On A that rung sits after the engine-decided
 verdicts and the read-only allowlist census, above every answer, ok and retry branch
 (`3rd-Agent/wrappers/antigravity_wrapper.py:179-187`, `:1135-1150` @ `cbc67f6`); on A the auth-carrier rung below now
@@ -762,9 +816,10 @@ state field can be edited before the first collection. On A, ordinary failures w
 that fails at collection records nothing — that entry is INCOMPLETE and the next collection judges and seals the same
 bytes; a run-log over the 64 MiB evidence cap cannot be read as a receipt, so that attempt is INVALID with its retry
 open, and a retry whose run is as verbose ends the same way (`_receipt_reason`, `:2065-2072`, through the capped reader
-`:655-672`); a run-log that cannot be written (a full disk) raises before the wrapper emits its answer, so the paid
-answer is lost and the entry is MISSING, retry open (`emit_run_log`, `3rd-Agent/wrappers/_common.py:4590-4704`, called
-before `_emit_payload`, e.g. `codex_wrapper.py:609`, `:615`; the same order on `stage3/engine-transport` @ `221d556`).
+`:655-672`); a run-log that cannot be written (a full disk) is one stderr line: the answer is still published with its
+exit code unchanged, and the attempt carries no receipt, so it is INVALID at collection with its retry open (R-TERMINAL;
+`_dispatch_record`, `3rd-Agent/wrappers/_common.py:4441-4457` @ triad e0b15f1;
+tests/unit/wrappers/t74-record-seam-a4-c1.sh A4).
 
 Which attempt collection evaluates (a fact): On B the last sealed allocation, refusing a history whose earlier
 attempt is not FAILED_TO_RUN (`bin/review_round_v2.py:507-518`); On A the attempt the round record's `attempt` field
@@ -991,7 +1046,12 @@ adds to the proof and never replaces it. An AI — the leader, a sub-agent, skil
 at most chooses a declared role and a folder and runs the host's deletion command; no prompt, skill, agent text, printed
 remedy or operator procedure carries its own removal command (`rm`, `rmdir`, `git worktree remove`, an rmtree). A call
 that removes what it created itself needs no declaration: an atomic write's temporary file, a failed step's rollback, a
-test's own fixture. On A: in progress (Task 23). On B: deletion is coded and no prompt text deletes, but its roots and
+test's own fixture. On A: the deletion command is `3rd-Agent/wrappers/cleanup.py remove <role> <path>`: a refusal
+exits 64 with one stderr line and nothing deleted; an action that fails exits 1 with its proof kept. The configuration is
+the first configuration file present in its lookup order, ending at the shipped
+`3rd-Agent/wrappers/cleanup-roots.default.json`; a present file that is invalid, a link or cannot be probed refuses and
+never falls through to a later one (`load_roots` / `_present`, `3rd-Agent/wrappers/cleanup.py:200-250` @ triad
+e0b15f1). On B: deletion is coded and no prompt text deletes, but its roots and
 floors are not yet declared in the configuration file (DL-77). When the configuration file is missing or invalid, nothing
 is deleted: the host's deletion command refuses (a host fault) and the automatic prunes skip with a one-line note; each
 host ships a default configuration file so a fresh install still prunes (owner, 2026-10-04, D-DELETION-BY-CODE-20261004).
@@ -1017,19 +1077,34 @@ automatic expiry for durable exports/investigation records, or authority over pr
 Both hosts call vendor CLIs only — no vendor HTTP API, SDK or API key. Login is the user's own OAuth login in each CLI;
 wrappers check the binary and never enter or store credentials. Billing follows the AUTHENTICATION type, not the model
 flag (Gemini CLI v0.60.0 `contentGenerator.ts`: auth is selected before the model is resolved); environment scrubbing and
-the absence of `-m` are hygiene, not proof of the billing route. The credential / endpoint / model-selector names a host
-removes from the vendor child (C11's "agreed set") are not yet data in this specification (open, DL-65); each host's list
-is its own: On A one list for every route (`_CHILD_ENV_SCRUB_CREDENTIALS`, `3rd-Agent/wrappers/_common.py:2876-2906` @
-`cbc67f6`; `:2900-2936` on the unmerged branch `stage3/engine-transport` @ `221d556`, which adds `AGY_ADC_AUTH`,
-`GOOGLE_GENAI_USE_ENTERPRISE`, `GOOGLE_CLOUD_REGION` and `GOOGLE_CLOUD_QUOTA_PROJECT`, `:2917-2920`); On B per formal
-route (agy `bin/antigravity_wrapper.py:39-50`, gemini `bin/gemini_wrapper.py:43-53`), its common scrub holding the loader
-names only (`bin/_common.py:1307-1313`). On the gemini route both hosts now keep the project family (GOOGLE_CLOUD_PROJECT,
+the absence of `-m` are hygiene, not proof of the billing route. The names a host removes from every vendor child (C11's
+agreed set) are the union of both hosts' lists, read from the installed CLIs. Every name B removes is in it. Loader /
+interpreter names, identical on both hosts: LD_PRELOAD, LD_LIBRARY_PATH, LD_AUDIT, LD_DEBUG, DYLD_INSERT_LIBRARIES,
+DYLD_LIBRARY_PATH, DYLD_FRAMEWORK_PATH, NODE_OPTIONS, NODE_PATH, PYTHONPATH, PYTHONHOME, PYTHONSTARTUP, BASH_ENV, ENV,
+PERL5LIB, RUBYOPT, RUBYLIB. Credential / endpoint / model-selector names: Google — GOOGLE_API_KEY, GEMINI_API_KEY,
+GOOGLE_APPLICATION_CREDENTIALS, GOOGLE_GENAI_USE_VERTEXAI, GEMINI_CLI_USE_COMPUTE_ADC, CLOUD_SHELL,
+GOOGLE_GEMINI_BASE_URL, GOOGLE_VERTEX_BASE_URL, GEMINI_MODEL, GEMINI_DEFAULT_AUTH_TYPE, GOOGLE_CLOUD_ACCESS_TOKEN,
+AGY_ADC_AUTH, GOOGLE_GENAI_USE_ENTERPRISE; codex — OPENAI_API_KEY, CODEX_API_KEY, CODEX_ACCESS_TOKEN, OPENAI_BASE_URL,
+OPENAI_ORGANIZATION, OPENAI_PROJECT; claude — ANTHROPIC_API_KEY, ANTHROPIC_AUTH_TOKEN, ANTHROPIC_BASE_URL,
+ANTHROPIC_MODEL, ANTHROPIC_SMALL_FAST_MODEL, CLAUDE_CODE_USE_{BEDROCK, VERTEX, FOUNDRY, ANTHROPIC_AWS,
+ANTHROPIC_GOOGLE_CLOUD, GATEWAY, MANTLE}, CLAUDE_CODE_API_BASE_URL, CLAUDE_CODE_API_KEY_FILE_DESCRIPTOR,
+CLAUDE_CODE_OAUTH_TOKEN, CLAUDE_CODE_OAUTH_TOKEN_FILE_DESCRIPTOR, CLAUDE_CODE_OAUTH_REFRESH_TOKEN,
+CLAUDE_CODE_GATEWAY_TOKEN, CLAUDE_CODE_GATEWAY_TOKEN_FILE_DESCRIPTOR, ANTHROPIC_FOUNDRY_API_KEY,
+ANTHROPIC_FOUNDRY_AUTH_TOKEN, ANTHROPIC_AWS_API_KEY, AWS_BEARER_TOKEN_BEDROCK, ANTHROPIC_IDENTITY_TOKEN,
+ANTHROPIC_IDENTITY_TOKEN_FILE, ANTHROPIC_FEDERATION_RULE_ID, ANTHROPIC_SERVICE_ACCOUNT_ID, ANTHROPIC_PROFILE,
+ANTHROPIC_ORGANIZATION_ID, ANTHROPIC_WORKSPACE_ID. A name of one family is inert in another family's child. The project
+family GOOGLE_CLOUD_PROJECT, GOOGLE_CLOUD_LOCATION, GOOGLE_CLOUD_REGION and GOOGLE_CLOUD_QUOTA_PROJECT reaches a gemini
+child and is removed on every other route. Not removed: PATH, the CLIs' config-dir pointers, and GOOGLE_GENAI_USE_GCA
+(it selects the login route). On A: one list for every route (`_CHILD_ENV_SCRUB`, `_CHILD_ENV_SCRUB_CREDENTIALS`,
+`_GEMINI_ROUTE_KEEP`, `3rd-Agent/wrappers/_common.py:3124-3253` @ triad e0b15f1). On B: the loader names on every route
+(`bin/_common.py:1307-1313`), and a per-route subset on the formal routes only (agy `bin/antigravity_wrapper.py:39-50`,
+gemini `bin/gemini_wrapper.py:43-53` @ `7f75863`; DL-71, DL-80, DL-81). On the gemini route both hosts now keep the project family (GOOGLE_CLOUD_PROJECT,
 _LOCATION, _REGION, _QUOTA_PROJECT; On A Task 22, `_GEMINI_ROUTE_KEEP`) and remove it on agy. Before that the hosts differed: A removed `GOOGLE_CLOUD_PROJECT` and, on
 that branch, `GOOGLE_GENAI_USE_ENTERPRISE`, `GOOGLE_CLOUD_REGION` and `GOOGLE_CLOUD_QUOTA_PROJECT` as well, while B removes
 those on agy only and keeps the project family on gemini; the gemini CLI documents that a Company, School or Google
 Workspace account signing in with Google may need a Google Cloud project set
 (https://geminicli.com/docs/get-started/authentication/ § Set your Google Cloud project, "Last updated: Sep 18, 2026",
-read 2026-10-04) — open for host A (stage 5, C17; DL-65). Default model for the Google review leg on BOTH CLIs: the Pro family with a verifiable HIGH thinking configuration (owner Q-W; owner via the codex session, Q2: "두 CLI 모두 Pro 계열 + 확인 가능한 high로 맞춤; 인증 경계 유지"). agy: today's Pro-high catalog slug, recorded in the roster; gemini CLI: a route-valid Pro model whose default thinking level is HIGH (v0.60.0 `defaultModelConfigs.ts` gives Gemini 3 Pro `ThinkingLevel.HIGH`; the agy slug is NOT a portable gemini CLI argument). Flash was retired as a reviewer (0 unique blocking defects over ten rounds, owner 2026-09-14). Slugs are dispatch-time values in the roster's `agy` / `gemini` block, never constants in code; the configured default is recorded separately from the exposed runtime identity; the model option stays selectable only so a future model can be evaluated. B's explicit legacy development path remains Auto-only. B's opt-in v2 adapter selects route-valid Pro defaults and checks supported controls before inference; preflight settings do not prove runtime identity. On A the v2 gemini route passes the roster's model (`lib/roster_v2.py:971-972`; shipped data `spec/review-legs.default.json:42`). Deterministic
+read 2026-10-04). Default model for the Google review leg on BOTH CLIs: the Pro family with a verifiable HIGH thinking configuration (owner Q-W; owner via the codex session, Q2: "두 CLI 모두 Pro 계열 + 확인 가능한 high로 맞춤; 인증 경계 유지"). agy: today's Pro-high catalog slug, recorded in the roster; gemini CLI: a route-valid Pro model whose default thinking level is HIGH (v0.60.0 `defaultModelConfigs.ts` gives Gemini 3 Pro `ThinkingLevel.HIGH`; the agy slug is NOT a portable gemini CLI argument). Flash was retired as a reviewer (0 unique blocking defects over ten rounds, owner 2026-09-14). Slugs are dispatch-time values in the roster's `agy` / `gemini` block, never constants in code; the configured default is recorded separately from the exposed runtime identity; the model option stays selectable only so a future model can be evaluated. B's explicit legacy development path remains Auto-only. B's opt-in v2 adapter selects route-valid Pro defaults and checks supported controls before inference; preflight settings do not prove runtime identity. On A the v2 gemini route passes the roster's model (`lib/roster_v2.py:971-972`; shipped data `spec/review-legs.default.json:42`). Deterministic
 provider-free checks (help, version, policy, argv, env, preflight) stay in each host's automated suite; only authenticated
 service checks go through the owner-briefing route (R-GOOGLE); an unrun authenticated check is unverified, never green. Gemini formal review requires CLI
 `>= 0.34.0` (PR #20639 lands the headless policy-allow fix) and tests the declared supported range. Gemini `--policy`
@@ -1086,7 +1161,17 @@ review preflight (C16) is an earlier rule and stays as it is.
 <a id="R-CLI-VERSION"></a>
 For Codex, AGY, Claude and other CLI adapters, record the observed version and test the controls the route actually needs.
 Preserve capability, authentication, containment, transport and output checks, and minimum-version restrictions justified
-by a specific known defect (including R-NOCOST's Gemini policy floor). An observed/tested patch version is evidence, not
+by a specific known defect (including R-NOCOST's Gemini policy floor). The agy minimum versions differ by host (a
+fact). On A there are three floors, checked in this order after the `agy --version` probe, and each refuses
+`config-conflict` 65 before any dispatch. (1) The stream-json transport needs agy >= 1.1.8 (`_STREAM_JSON_FLOOR`). (2) A
+call that passes `--model` or `--effort` needs >= 1.1.10, because older agy applied both flags after model configuration
+had initialised and ran the default model without an error (agy changelog 1.1.10, `_MODEL_FLAG_FLOOR`); a call without
+them still runs below 1.1.10. (3) The read-only route needs >= 1.1.18, the first version measured to auto-allow
+`--add-dir` reads (`AGY_V2_FLOOR`). Sources: `3rd-Agent/wrappers/antigravity_wrapper.py:336`, `:347`, `:356`, checked at
+`:2483-2510` @ triad `e0b15f1`. On B one floor, agy >= 1.1.20, covers every call. Its basis is B's headless plan-mode
+contract with native `--json-schema` (`bin/antigravity_wrapper.py:2`, `:31`). Below it B exits 65 with one log line
+(`:630-633` @ `7f75863`). B's floor is above all of A's. An unprobeable version is refused on both hosts (A as below the
+1.1.8 floor, B as below 1.1.20). An observed/tested patch version is evidence, not
 an exact supported-version lock or an upper bound. A different or newer version alone is neither refusal nor conformance;
 missing or changed required controls still fail preflight. Do not demand the globally latest CLI or equate version output
 with effective policy enforcement. Native routes have no CLI version. A route that observes no version records null (not
