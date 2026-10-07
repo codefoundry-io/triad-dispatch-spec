@@ -2,6 +2,8 @@
 
 ## Owed rows from host A's conformance work — 2026-10-07 (not tagged)
 
+- Dev log DL-104 (both hosts route a timeout to the repair analyzer and cap the applier against a malicious analyzer; owner decision D2 pending), DL-105 (both hosts' vendor-binary pin and hardened pydantic import gate; owner decision D6 pending), DL-106 (dead classifier code both hosts inherited) — from the 2026-10-07 over-design audit.
+
 - `contracts/vendor-failure-lines.json`: the measured rows host A keeps — gemini `model_capacity_exhausted` /
   `resource_exhausted` / `ratelimitexceeded` (server-capacity), `your quota will reset after` and the IneligibleTier
   pair (cli-subscription-cap); claude `overloaded_error`; agy `unavailable (code 503)`; codex `exceeded retry limit,
