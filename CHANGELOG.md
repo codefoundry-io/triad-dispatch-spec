@@ -2,6 +2,7 @@
 
 ## Owed rows from host A's conformance work — 2026-10-08 (not tagged)
 
+- Dev log DL-107 (B's per-call global agy deny transaction meets host A's concurrent web legs and interactive agy; lock waits), DL-108 (same-named wrapper launchers on PATH; A invokes by plugin path), DL-109 (A's uninstall must not remove the shared agy lock; B's config.toml publish window) — from the owner's concurrency fact.
 - Owner register D-CONCURRENCY-FACT-20261008 (verbatim): different folders and the two hosts run concurrently on one machine; one folder does not — corrects D-THREAT-MODEL-20261003's no-concurrency for machine-level shared state (R-THREAT and the deployment-context clause to be rewritten).
 - `contracts/vendor-failure-lines.json`: the measured signed-out agy print-mode run (agy 1.3.1) — the stderr banner line and the stream-json `result.error` `authentication failed or timed out` → `oauth-env`; vendor exit 1, no auth-specific code; R-CLASSIFY's "no stream-json capture yet" fact replaced by the capture.
 - Owner register D-OWNER-ANSWERS-20261008 (verbatim answers; removals on host A; alias over exact model ID wherever the alias works; spec first, tests after).
