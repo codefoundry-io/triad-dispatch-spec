@@ -81,7 +81,9 @@ and effort remain unchanged. No quality effect is inferred.
 
 - Keep canonical verdict tokens and fields, duplicate rejection, identity/digest/attempt binding, full-scope re-review
   on changed conditions, failed-to-run-only same-basis retry, containment and directly requested web authorization.
+  (Superseded on 2026-10-03 for review web: R-REVIEW-WEB's standing authorization, D-REVIEW-LEGS-20261003.)
 - Keep native host topology, exact model IDs, JSON override precedence, explicit null semantics and existing defaults.
+  (Superseded on 2026-10-03 for the codex default: R-ROSTER's `gpt-6-astra` / `high`, D-REVIEW-LEGS-20261003.)
   Do not introduce new model configuration, fallback, catalogue probes or wholesale catalogue-policy changes.
 - Preserve host-specific [retention and export](claude-host-v2-implementation-prd.md#PRD-RETENTION): generated brief,
   residual and evidence files follow their existing ownership/lifecycle. No common replacement age limit, scheduled
@@ -136,7 +138,7 @@ pull request; the original PR #8 evidence does not pre-certify it.
 | B phase/collection/current-context/evidence/compatibility fixtures | Historical results above; final candidate archive: macOS 1828 passed, 2 skipped; cases C13/C20/C33/C60–C65 carry source/test mapping |
 | B source-skill workflow, validator and fixed provider-free lifecycle | Historical source checks PASS separately; installed lifecycle 14 commands/zero failures and fresh namespaced skill exposure PASS; no model-quality measurement or existing Desktop live-reload claim |
 | Native Ubuntu checks of final B release | NOT RUN by the macOS host; handoff to Ubuntu owner/native CI; historical Docker results are not native proof |
-| A revised-strategy implementation and service checks | NOT RUN; A implementation code was not inspected |
+| A revised-strategy implementation and service checks | NOT RUN; A implementation code was not inspected (superseded in place on 2026-10-03: host A's provider-free fixture evidence at triad `faeb86b` is recorded in `contracts/review-strategy.verify.toml` `[host.A]` and the cases' tests.A cells) |
 | New authenticated v2 CLI compatibility/effective policy | NOT RUN; fixture success and development review dispatch are not runtime conformance |
 | Same-commit shared-spec review and CI | Original strategy/spec amendment: exact-head evidence on PR #8; subsequent release-handoff-only amendment: its own owning pull request, not pre-certified here |
 | B product merge/install/release | PR #39 merged; v0.2.558 published and locally installed; evidence and remaining checks in the handoff |

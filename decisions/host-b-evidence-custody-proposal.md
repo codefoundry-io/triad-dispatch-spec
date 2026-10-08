@@ -1,5 +1,10 @@
 # D-B2: bounded evidence custody proposal
 
+> **Historical record; its REVIEW no-web statements are superseded on 2026-10-03.** REVIEW web now follows the owner's
+> standing authorization in current [R-REVIEW-WEB](../reference/review-rules.md#R-REVIEW-WEB)
+> ([D-REVIEW-LEGS-20261003](owner-register.md#D-REVIEW-LEGS-20261003)); the no-web posture applies only to a false
+> condition.
+
 Status: the private-store proposal below was superseded by the
 [owner's no-new-permanent-store decision](2026-09-20-owner-follow-up.md#d-b2-no-new-permanent-web-investigation-evidence-store).
 Do not implement the historical recommendation. Common wording alignment remains

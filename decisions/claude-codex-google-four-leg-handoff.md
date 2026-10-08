@@ -10,6 +10,9 @@
 > Use the [current Claude implementation handoff](claude-review-strategy-handoff.md).
 > Historical source evidence remains a record; human integration, merge, installation and release
 > authority stays separate from machine agreement.
+> Its review-web instruction (input 4 and the paragraph after the inputs: web only on the owner's direct request) is
+> superseded on 2026-10-03 by [D-REVIEW-LEGS-20261003](owner-register.md#D-REVIEW-LEGS-20261003): current
+> [R-REVIEW-WEB](../reference/review-rules.md#R-REVIEW-WEB) allows web for every selected review leg in every round.
 
 Finish the existing TRIAD skill infrastructure. This is a concrete operating
 profile under existing contracts, not a UI project or PRD/spec-to-code research

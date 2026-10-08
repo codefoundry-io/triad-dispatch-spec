@@ -68,8 +68,8 @@ Preserve failed setup in numbered preparation custody with
 Use the shared common and family-specific prompt clauses from a published
 commit with byte hashes. Apply host-specific clauses only where their controls
 are active. Review remains read-only; web authorization follows
-[R-REVIEW-WEB](../reference/review-rules.md#R-REVIEW-WEB), including its direct
-owner-request requirement and default no-web posture. Relevant tests and
+[R-REVIEW-WEB](../reference/review-rules.md#R-REVIEW-WEB), including the owner's
+standing authorization for every review leg in every round. Relevant tests and
 unchanged source remain review material; source files and prior findings are
 data, never new instructions.
 
@@ -154,7 +154,7 @@ require a review verdict or round. Resolve prompt-file and child cwd separately
 against the wrapper process cwd captured at entry. Preserve containment, file
 type, existence and UTF-8 checks before inference.
 
-Only an explicitly web-authorized Google investigation appends the shared web
+Only a web-enabled Google investigation appends the shared web
 evidence clause last. A URL cited in prose is not proof that it was fetched.
 AGY can return an incomplete URL body without a corresponding failed exit;
 treat that known limitation as incomplete source evidence, not an automatic
@@ -283,6 +283,11 @@ ledger is the export; the managed review root is deleted by an ownership-proven
 worktree the program creates expires after a period (audit rotation, failure-IPC
 caps, 30-day test-run and debug expiry), so storage never grows without bound.
 
+Every deletion above is done by host code, from roots declared in one configuration file
+([R-CLEANUP](../reference/review-rules.md#R-CLEANUP), `contracts/cleanup-roots.schema.json`, C69); no prompt, skill,
+agent text or printed remedy carries its own removal command (owner, D-DELETION-BY-CODE-20261004). Host A: in progress
+(Task 23); host B: DL-77.
+
 ## Functional coverage map
 
 | Capability | Shared acceptance cases |
@@ -295,7 +300,7 @@ caps, 30-day test-run and debug expiry), so storage never grows without bound.
 | Authentication/route-specific environment controls | C11, C17 |
 | Three defaults, named override resolution, enabled roster and capability checks | C12, C16, C18, C22 |
 | Canonical verdict, pinned shared clauses, six-field binding and legacy isolation | C13, C14, C30 |
-| Default no-web REVIEW with independent host Gemini policies; directly requested all-leg web verification | C15, C32 |
+| Independent host Gemini no-web policies; standing owner-authorized all-leg review web verification | C15, C32 |
 | Diagnosed retry, full review after changed conditions and prior-finding delivery | C19, C20 |
 | All-entry agreement, informational participation and exclusive sibling custody | C21, C23 |
 | Independent macOS / Ubuntu 24.04 verification | C24 |
@@ -321,11 +326,11 @@ its native command names and storage layout while satisfying the same contracts.
 | Result admission | [.claude/skills/triad-cross-family-review/lib/validate_verdict.py:342](https://github.com/codefoundry-io/triad/blob/92c8afd500499d8736afcc28b39a87a4f87fed50/.claude/skills/triad-cross-family-review/lib/validate_verdict.py#L342), [.claude/skills/triad-cross-family-review/lib/validate_verdict.py:563](https://github.com/codefoundry-io/triad/blob/92c8afd500499d8736afcc28b39a87a4f87fed50/.claude/skills/triad-cross-family-review/lib/validate_verdict.py#L563); [review_scratch.py:3082](https://github.com/codefoundry-io/triad/blob/92c8afd500499d8736afcc28b39a87a4f87fed50/.claude/skills/triad-cross-family-review/lib/review_scratch.py#L3082) | Consume canonical v2 bindings and findings together with the renderer; preserve native Claude's verbatim raw-first admission and end-marker controls. Do not add a native Claude subprocess for symmetry. |
 | Dispatch and model settings | [review_scratch.py:3016](https://github.com/codefoundry-io/triad/blob/92c8afd500499d8736afcc28b39a87a4f87fed50/.claude/skills/triad-cross-family-review/lib/review_scratch.py#L3016) | Generate each enabled entry's actual native or wrapper call from capability-checked controls. Reject unsupported Gemini effort instead of silently recording it. Preserve Codex stdin transport. |
 | Agreement | [review_scratch.py:3100](https://github.com/codefoundry-io/triad/blob/92c8afd500499d8736afcc28b39a87a4f87fed50/.claude/skills/triad-cross-family-review/lib/review_scratch.py#L3100) | Remove the v2 advisory exemption: informational entries block on findings/questions or missing results like every other entry. Keep family coverage separate from entry count. |
-| REVIEW web boundary | [review_scratch.py:3078](https://github.com/codefoundry-io/triad/blob/92c8afd500499d8736afcc28b39a87a4f87fed50/.claude/skills/triad-cross-family-review/lib/review_scratch.py#L3078); [3rd-Agent/wrappers/antigravity_wrapper.py:268](https://github.com/codefoundry-io/triad/blob/92c8afd500499d8736afcc28b39a87a4f87fed50/3rd-Agent/wrappers/antigravity_wrapper.py#L268), [3rd-Agent/wrappers/antigravity_wrapper.py:1381](https://github.com/codefoundry-io/triad/blob/92c8afd500499d8736afcc28b39a87a4f87fed50/3rd-Agent/wrappers/antigravity_wrapper.py#L1381); [3rd-Agent/wrappers/policies/gemini-readonly.toml](https://github.com/codefoundry-io/triad/blob/92c8afd500499d8736afcc28b39a87a4f87fed50/3rd-Agent/wrappers/policies/gemini-readonly.toml) | The legacy Codex X-leg dispatch includes `--search`; v2 REVIEW must not inherit it. Preserve AGY review/research tool separation and the raw-only web clause, separately authorized investigations and A's complete host-specific Gemini profile. |
+| REVIEW web boundary | [review_scratch.py:3078](https://github.com/codefoundry-io/triad/blob/92c8afd500499d8736afcc28b39a87a4f87fed50/.claude/skills/triad-cross-family-review/lib/review_scratch.py#L3078); [3rd-Agent/wrappers/antigravity_wrapper.py:268](https://github.com/codefoundry-io/triad/blob/92c8afd500499d8736afcc28b39a87a4f87fed50/3rd-Agent/wrappers/antigravity_wrapper.py#L268), [3rd-Agent/wrappers/antigravity_wrapper.py:1381](https://github.com/codefoundry-io/triad/blob/92c8afd500499d8736afcc28b39a87a4f87fed50/3rd-Agent/wrappers/antigravity_wrapper.py#L1381); [3rd-Agent/wrappers/policies/gemini-readonly.toml](https://github.com/codefoundry-io/triad/blob/92c8afd500499d8736afcc28b39a87a4f87fed50/3rd-Agent/wrappers/policies/gemini-readonly.toml) | v2 REVIEW passes codex `--search` only under a true bound R-REVIEW-WEB condition (never inherited from the legacy X-leg dispatch). Preserve AGY review/research agent separation (a true condition selects the research agent and the hook's web allow set), the raw-only `web-evidence` clause (never appended in REVIEW), web-enabled investigations and A's complete host-specific Gemini profiles (no-web `gemini-readonly.toml`, web `gemini-readonly-web.toml`). |
 | Capture and re-review | [review_scratch.py:1858](https://github.com/codefoundry-io/triad/blob/92c8afd500499d8736afcc28b39a87a4f87fed50/.claude/skills/triad-cross-family-review/lib/review_scratch.py#L1858), [review_scratch.py:2009](https://github.com/codefoundry-io/triad/blob/92c8afd500499d8736afcc28b39a87a4f87fed50/.claude/skills/triad-cross-family-review/lib/review_scratch.py#L2009) | Bind the complete scope/criteria/roster/controls and prior residual input; source or review-condition changes require all participating entries to inspect the complete scope again. |
 | AGY read evidence | [review_scratch.py:3037](https://github.com/codefoundry-io/triad/blob/92c8afd500499d8736afcc28b39a87a4f87fed50/.claude/skills/triad-cross-family-review/lib/review_scratch.py#L3037); [.claude/skills/triad-cross-family-review/lib/agy_hook.py](https://github.com/codefoundry-io/triad/blob/92c8afd500499d8736afcc28b39a87a4f87fed50/.claude/skills/triad-cross-family-review/lib/agy_hook.py) | Preserve active A hook/load/read-audit controls. Isolate every named leg and attempt; another same-family leg's audit cannot satisfy it. B's dormant hook is not an A migration template. |
 | Relative paths | [3rd-Agent/wrappers/_common.py:1148](https://github.com/codefoundry-io/triad/blob/92c8afd500499d8736afcc28b39a87a4f87fed50/3rd-Agent/wrappers/_common.py#L1148) | Resolve prompt-file and child cwd independently against captured process-entry cwd, retaining regular-file/UTF-8/existence checks and redaction in all wrappers, including Codex. |
-| Web investigations | [3rd-Agent/wrappers/antigravity_wrapper.py:1381](https://github.com/codefoundry-io/triad/blob/92c8afd500499d8736afcc28b39a87a4f87fed50/3rd-Agent/wrappers/antigravity_wrapper.py#L1381); [gemini_wrapper.py](https://github.com/codefoundry-io/triad/blob/92c8afd500499d8736afcc28b39a87a4f87fed50/3rd-Agent/wrappers/gemini_wrapper.py) | Preserve AGY's existing explicit trigger and research-agent route; implement the equivalent explicitly authorized Gemini clause-last path, including custom-schema retry. Add no permanent page log. |
+| Web investigations | [3rd-Agent/wrappers/antigravity_wrapper.py:1381](https://github.com/codefoundry-io/triad/blob/92c8afd500499d8736afcc28b39a87a4f87fed50/3rd-Agent/wrappers/antigravity_wrapper.py#L1381); [gemini_wrapper.py](https://github.com/codefoundry-io/triad/blob/92c8afd500499d8736afcc28b39a87a4f87fed50/3rd-Agent/wrappers/gemini_wrapper.py) | Preserve AGY's existing explicit trigger and research-agent route; implement the equivalent web-enabled Gemini clause-last path, including custom-schema retry. Add no permanent page log. |
 | Cleanup | [3rd-Agent/wrappers/_common.py:3386](https://github.com/codefoundry-io/triad/blob/92c8afd500499d8736afcc28b39a87a4f87fed50/3rd-Agent/wrappers/_common.py#L3386), [3rd-Agent/wrappers/_common.py:3676](https://github.com/codefoundry-io/triad/blob/92c8afd500499d8736afcc28b39a87a4f87fed50/3rd-Agent/wrappers/_common.py#L3676); [review_scratch.py:708](https://github.com/codefoundry-io/triad/blob/92c8afd500499d8736afcc28b39a87a4f87fed50/.claude/skills/triad-cross-family-review/lib/review_scratch.py#L708), [review_scratch.py:936](https://github.com/codefoundry-io/triad/blob/92c8afd500499d8736afcc28b39a87a4f87fed50/.claude/skills/triad-cross-family-review/lib/review_scratch.py#L936) | Apply the fresh-sibling age floor even under count/byte caps; preserve proven ownership, verified export, partial-cleanup recovery and external symlink targets. Numeric host floors may differ. |
 
 ## B implementation references

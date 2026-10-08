@@ -1,5 +1,10 @@
 # B: restore the authorized AGY investigation evidence procedure
 
+> **Historical record; its REVIEW no-web statements are superseded on 2026-10-03.** REVIEW web now follows the owner's
+> standing authorization in current [R-REVIEW-WEB](../reference/review-rules.md#R-REVIEW-WEB)
+> ([D-REVIEW-LEGS-20261003](../decisions/owner-register.md#D-REVIEW-LEGS-20261003)); the no-web posture applies only to a false
+> condition.
+
 ## Basis and ownership
 
 Remote `main` fetched on 2026-09-20: `2eb883fee59e66556ee7c7f87189b38231136622`.

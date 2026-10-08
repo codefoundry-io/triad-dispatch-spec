@@ -133,7 +133,8 @@ only the owner can change the roster for a new basis.
 
 A failed-to-run entry may retry only after diagnosis with unchanged conditions.
 A completed negative review is not a transport retry. Evidence export, cleanup,
-read-only containment and direct-owner-request-only web policy remain unchanged.
+read-only containment remains unchanged; review web follows
+[R-REVIEW-WEB](../reference/review-rules.md#R-REVIEW-WEB) (the owner's standing authorization).
 
 ## Deferred host verification
 

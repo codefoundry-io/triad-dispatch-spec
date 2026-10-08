@@ -1,5 +1,10 @@
 # rev-1 agreement — TRIAD host parity, shared specification
 
+> **Historical record; its REVIEW no-web statements are superseded on 2026-10-03.** REVIEW web now follows the owner's
+> standing authorization in current [R-REVIEW-WEB](../reference/review-rules.md#R-REVIEW-WEB)
+> ([D-REVIEW-LEGS-20261003](owner-register.md#D-REVIEW-LEGS-20261003)); the no-web posture applies only to a false
+> condition.
+
 **Status (2026-09-19, final):** BOTH leaders acknowledge the SAME basis `bd506054e62b9b1ba5ef5e156ae8928ac414e4bf` (codex's
 verification amendment on top of `b8b127b`) and have declared "no further items" — codex at `ccd3d10`, claude at `30b8360`
 (signature rows in § 5). Commits after `bd506054` are acknowledgements and runner notes only; no normative file, contract,

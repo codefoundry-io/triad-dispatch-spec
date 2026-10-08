@@ -1,5 +1,10 @@
 # Owner-requested all-leg review web — verification and host handoff
 
+> **Historical record; its review-web condition is superseded on 2026-10-03.** The direct-owner-request,
+> default-false review web it records is replaced by the owner's standing authorization in current
+> [R-REVIEW-WEB](../reference/review-rules.md#R-REVIEW-WEB)
+> ([D-REVIEW-LEGS-20261003](owner-register.md#D-REVIEW-LEGS-20261003)).
+
 Status: owner-authorized amendment; B source implementation verified in
 [the current verification record](host-b-review-web-verification.md). Host A acknowledgement
 and adoption remain pending; no revision tag or release is claimed.

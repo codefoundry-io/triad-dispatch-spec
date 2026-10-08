@@ -1,5 +1,10 @@
 # B REVIEW web separation and preserved AGY concurrency
 
+> **Historical record; its REVIEW no-web statements are superseded on 2026-10-03.** REVIEW web now follows the owner's
+> standing authorization in current [R-REVIEW-WEB](../reference/review-rules.md#R-REVIEW-WEB)
+> ([D-REVIEW-LEGS-20261003](../decisions/owner-register.md#D-REVIEW-LEGS-20261003)); the no-web posture applies only to a false
+> condition.
+
 Status: source `900ddc5` passed complete corrected round `triad-b-p5-web-r2`;
 all four SAFE, matched integrity and ADMITTED_SAFE. [B PR 32](https://github.com/codefoundry-io/triad-codex-dispatch/pull/32).
 No installation, shared revision adoption or deployment claim.

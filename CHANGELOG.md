@@ -1,5 +1,378 @@
 # Changelog
 
+## Owed rows from host A's conformance work — 2026-10-08 (not tagged)
+
+- Reconciliation after the R-MODEL merge (owner rulings 2026-09-27 and 2026-10-08):
+  - R-NOCOST: a different Google model (C18) is the user's pin, passed as written — no `agy models` call and no packaged list as a gate (a packaged list is display data); a refused model is R-MODEL's one terminal record; the Pro-high default and the recorded model stay; host A's agy catalog call and gemini list gate and host B's `agy models` preflight and gemini list gate are written as code that goes. C18 expected (rule R-MODEL added), R-TERMINAL and R-CLASSIFY (A's catalog call no longer described as present behaviour), `contracts/review-legs.example.json` notes, `contracts/README.md` and the `agy models` row's carrier agree. DL-116 (OPEN A, OPEN B); DL-21 status brought to the present state and pointed at DL-116; DL-81 / DL-83 catalog parts withdrawn.
+  - DL-20 (CONFORMS-A: host A's review SKILL carries the subscription-cap clause) and DL-22 (readings 1-2 superseded by D-DELETION-BY-CODE-20261004; CHECK-B) status cells in the current grammar.
+  - DL-117: the vendor-failure rows no host list fully carries — codex's usage-limit sentence (B change), agy's AI-credits sentence (A and B change), agy's `result.error` sign-in carrier (CHECK-B); the signed-out `agy models` sentence is a fact only.
+  - DL-115: R-AGREE's On-A remedy text and R-REVIEW-WEB's v1-path layout text change with host A's move to a fresh review root.
+  - C12 and C34 by alias (D-OWNER-ANSWERS-20261008 item 17): the Claude default is Opus at `xhigh` named by `opus`; an older model only where a route takes a full model name; C34 restated for alias selection (rule R-MODEL added; `tests.B` unchanged). R-ROSTER's deviation note and its refusal sentence aligned. DL-100 FIXED-SPEC (leaves the owner list); DL-114 notes B's C34 test pins Opus 5.5 by full ID.
+  - Dev-log footer lists regenerated; the id-hold note reads DL-23–DL-38.
+- Owner answer 2026-10-08 "읽기 확인만 남김 (권장)" (D-AGY-SETTINGS-UNTOUCHED-20261008): host A keeps a read-only agy web prerequisite check — before a review-web round with an agy leg (prepare, and retry of such a leg) it reads `settings.json` and refuses before inference when `read_url(*)` is not allowed or is denied; it writes no agy settings file, takes no lock and reads nothing else. R-REVIEW-WEB restores the check as a present rule (`_v2_agy_web_refusal`) and drops the recorded limit the previous pass wrote; the target computes the settings path without the `_agy_settings` import (DL-112). DL-58 FIXED-A (the preflight stays); DL-107 CHECK-B (B needs the same read-only check once it drops its settings transaction); C6 and C32 `tests.A` aligned.
+
+- Merged the R-MODEL branch (PR #6, owner rulings 2026-09-27): R-MODEL (models are user-pinned data; no model-list or
+  model-availability probe on the review or dispatch path; a refused model is one terminal record), R-ROSTER's adapter
+  validation against the supported option vocabulary, owner register D-RULINGS-20260927B / C, dev-log DL-20 to DL-22.
+  R-CLEANUP keeps this branch's declared-root text (D-DELETION-BY-CODE-20261004 supersedes the name-shaped `rmdir`).
+- Spec-completion pass for the owner's 2026-10-08 decisions (spec first; implementation and tests follow):
+  - R-THREAT: two concurrency levels — none inside one working folder; different folders and the two hosts run at the same time and meet at machine-level state, where a guard is in scope (D-CONCURRENCY-FACT-20261008); case C68 names the new evidence pointer.
+  - `prompts/common-clauses.md`: `deployment-context` takes the owner-approved wording verbatim; `severity-instruction` gains one clause (vendor output means a shape a run has shown; a shape no run has shown is a recorded limit, HARDENING-SUGGESTION). No schema change. DL-93: spec fixed for the prompt half; A and B re-vendor (B's copy lacks `deployment-context`). The prompt-payload test now pins the approved text (its "at most three sentences" shape is gone with the owner's wording).
+  - R-CONTAIN: the agy `finish` resubmission rule for both hosts (an errored `finish` followed by a successful one in the same run is admitted; structured fields only); R-CLASSIFY On A aligned; DL-113 (B change). No case id minted.
+  - Host A has no claude CLI route: R-INVEST, R-TERMINAL, R-CLASSIFY, C31 `tests.A` (n/a), `units.json` selected-investigations; DL-110 (A removes the wrapper bundle).
+  - R-BIND: the executed-command receipt at collection is the common check; a pre-spawn marker check is a host's own addition (B keeps its own); host A's review-argv digest goes. R-REVIEW-WEB On A, C32 expected and `tests.A`, `units.json` review-web-authorization; DL-111.
+  - R-REVIEW-WEB: host A never touches the machine-wide agy settings (no heal, guard, lock, lease or settings preflight); the `read_url(*)` allow is the operator's own setting, unchecked on A (a recorded limit); B's stale `.agybak` is B's to heal. R-CLI-VERSION's lock-timeout example goes; C6 `tests.A` n/a; DL-112; DL-58 (A's preflight withdrawn), DL-107 and DL-109 (A moot) updated.
+  - R-ROSTER: alias over exact model ID wherever a CLI accepts one (measured: claude `opus` / `sonnet`; codex and agy not measured, their defaults stay); the Claude default is named by `opus`; `contracts/review-legs.example.json` claude `opus` with its test; DL-114 (B change).
+  - R-PREPARE: the layout per host — a fresh review root per round on B and, as the target, on A (no per-gate packet dir, no re-pin); R-CLEANUP's re-pin note; DL-115.
+  - DL-105: host A's decision made (off) — OPEN (A).
+  - `contracts/vendor-failure-lines.json`: agy "Your AI credits balance is too low to continue." → `cli-subscription-cap` (agy changelog 1.2.15, the vendor's own source, read 2026-10-08; stream position not captured).
+  - Host-A-only removals (daily drift checks, migration starter, codex-host assembler, gemini leader skills, post-edit hook): no spec sentence cited them as host A's present behaviour; nothing written.
+- Owner register D-OWNER-ANSWERS-20261008B (verbatim): auth STOP unchanged (measured), C40 admitted on both hosts, fresh review root per round on A, the two prompt clauses reworded.
+- Owner register D-AGY-SETTINGS-UNTOUCHED-20261008 (verbatim): host A removes all agy settings handling; its read-only leg is an allowlisted agent with `--add-dir`.
+- Dev log DL-107 (B's per-call global agy deny transaction meets host A's concurrent web legs and interactive agy; lock waits), DL-108 (same-named wrapper launchers on PATH; A invokes by plugin path), DL-109 (A's uninstall must not remove the shared agy lock; B's config.toml publish window) — from the owner's concurrency fact.
+- Owner register D-CONCURRENCY-FACT-20261008 (verbatim): different folders and the two hosts run concurrently on one machine; one folder does not — corrects D-THREAT-MODEL-20261003's no-concurrency for machine-level shared state (R-THREAT and the deployment-context clause to be rewritten).
+- `contracts/vendor-failure-lines.json`: the measured signed-out agy print-mode run (agy 1.3.1) — the stderr banner line and the stream-json `result.error` `authentication failed or timed out` → `oauth-env`; vendor exit 1, no auth-specific code; R-CLASSIFY's "no stream-json capture yet" fact replaced by the capture.
+- Owner register D-OWNER-ANSWERS-20261008 (verbatim answers; removals on host A; alias over exact model ID wherever the alias works; spec first, tests after).
+- `contracts/vendor-failure-lines.json`: the measured signed-out `agy models` sentence ("Please sign in to view available models") → `oauth-env` (owner capture 2026-10-08; exit code not captured).
+- Owner register D-REPAIR-LOOP-KEEP-20261008 (verbatim): the self-improving classifier repair loop stays on both hosts; its extras go.
+- R-CLASSIFY: a phrase a host learns through its repair loop is promoted to a `contracts/vendor-failure-lines.json` row with the run record as evidence.
+- DL-104 decided: both hosts drop the timeout routing and the malicious-analyzer caps (lock kept), verify a proposal on the stored record, promote learned phrases (OPEN A, OPEN B).
+
+## Owed rows from host A's conformance work — 2026-10-07 (not tagged)
+
+- Dev log DL-104 (both hosts route a timeout to the repair analyzer and cap the applier against a malicious analyzer; owner decision D2 pending), DL-105 (both hosts' vendor-binary pin and hardened pydantic import gate; owner decision D6 pending), DL-106 (dead classifier code both hosts inherited) — from the 2026-10-07 over-design audit.
+
+- `contracts/vendor-failure-lines.json`: the measured rows host A keeps — gemini `model_capacity_exhausted` /
+  `resource_exhausted` / `ratelimitexceeded` (server-capacity), `your quota will reset after` and the IneligibleTier
+  pair (cli-subscription-cap); claude `overloaded_error`; agy `unavailable (code 503)`; codex `exceeded retry limit,
+  last status: 429`, `you've hit your usage limit`, `invalid schema for response_format`; agy `timeout waiting for
+  response` (vendor-timeout). R-CLASSIFY: the rows hold every phrase a host keeps today (DL-86 spec item closed).
+- R-CLASSIFY: a run the wrapper ended at its timeout is `timeout` (exit 2) before the vendor exit map and every phrase
+  list, on both hosts; agy's own-line `<truncated N>` fold is `truncated-answer` / 65, agy's turn timeout is
+  `vendor-timeout` / 65 and a nonzero vendor exit with an answer is `vendor-error` / 65 on A (with the read-only route's
+  admission exception), with B's current behaviour stated.
+- R-TERMINAL: a run whose output readers did not all finish fails closed at a vendor exit 0 on both hosts — A
+  `truncated-answer` / 65, B `unknown` / 1 (a fact).
+- R-NOCOST: C11's agreed child-environment set as data — the loader / interpreter names and the credential / endpoint /
+  model-selector names, the gemini-route project keep-set, the names not removed, and each host's list (DL-65 spec item
+  FIXED-SPEC).
+- R-TOKENS: a dispatch may print more than one summary line; the last one is its verdict, with the recorded limits where
+  the process exit differs; the forbidden line is one whose pair the contract does not hold.
+- R-CONTAIN (agy leg): A's setup-once read-only agents (`triad-readonly-review` / `triad-readonly-research`),
+  `--add-dir <--cwd>`, the byte-identical agent-file check, the `--cwd` refusal and the measured `--agent` facts (a name
+  agy cannot resolve runs the write-capable default agent; the tool registry is not narrowed by `tools:`); A's
+  allow-list census and `admission-refused` / 65 (a fact, not an obligation for B).
+- R-CONTAIN (all wrappers): path text on a wrapper's stderr lines — A percent-escapes it with one formatter, B prints the
+  resolved paths raw on their own line (a fact).
+- R-BIND known limits: a run-log that cannot be written is one stderr line; the answer is published and the attempt is
+  INVALID at collection with its retry open (replaces the stale "paid answer is lost" clause).
+- R-CLEANUP: A's deletion command, its exits and its configuration lookup (replaces "in progress (Task 23)"); C69
+  tests.A names t72 / t73 / harness t3.
+- R-CLI-VERSION: the agy minimum versions per host — A's three floors (1.1.8, 1.1.10, 1.1.18), B's one floor (1.1.20).
+- `units.json` review-lifecycle exceptions (d): how collection reports its outcome on each host (a fact).
+- `decisions/rev-2-implementation-spec.md` projection bullet: the measured producer refusals and each host's producer
+  projection; C30 points to it.
+- Cases C12 / C34 tests.A: the shipped alias presets and t28 axis 4 as it tests today (C12 / C34 expected stay with
+  DL-100).
+- Dev-log: DL-101 (B: read agy's network-issue row on its carrier), DL-102 (B: agy turn timeout and truncation marker),
+  DL-103 (B check: agy v2 `--json-schema` with the full contract); DL-65 and DL-86 spec status cells updated.
+
+## Owed rows from host A's conformance work — 2026-10-06 (not tagged)
+
+- Owner register D-PRESET-ALIASES-20261006; R-ROSTER host-A text: presets name the model by the `opus` alias, the older-model
+  pair removed; DL-100 proposes the C12 / C34 / R-ROSTER change (DL-94 superseded).
+- R-REVIEW-WEB per-host agy settings fact: both hosts share one settings file, `.agybak` sentinel and lock / lease files
+  on one machine; A heals a stale sentinel only at `--setup-agents` or a non-hardened permissive call, never at a review
+  leg; the sentinel is healed, never deleted; a failed `--setup-agents` heal still exits 0 (recorded limit).
+
+## Owed rows from host A's conformance work — 2026-10-05 (not tagged)
+
+- Owner register: D-MEASURED-SHAPES-20261005, D-TASK-MODE-REMOVED-20261005, D-SHIPPED-PRESETS-20261005 (verbatim
+  quotes).
+- R-CLASSIFY: the "Recorded limits" paragraph — a host codes only a MEASURED vendor shape (a capture, a contract row, the
+  vendor's own source) and ordinary operator actions; a constructed shape is recorded, never coded; three guarantees
+  replace per-shape code (a measured authentication STOP, no usable answer discarded, classification never raises and
+  always writes the record). The plain-fragment rule covers EVERY raw-text list; every phrase is per-CLI; no raw-text
+  authentication phrase is kept after a MEASURED false STOP; codex's own `exceeded retry limit, last status: 429`,
+  `invalid schema for response_format` and `you've hit your usage limit` sentences (DL-86, DL-90, DL-92).
+- R-THREAT: "a bad vendor answer" is one a run has shown (DL-93).
+- R-TOKENS / `contracts/exit-tokens.json`: the codex wrapper's `--task` mode is removed — exits 68 / 69 and the tokens
+  `fanout-spawn-error` / `fanout-partial` leave; `task-blocked` (65), the claude permission-denial class on both hosts,
+  stays (DL-91; DL-72 superseded in part).
+- Cases C37 / C43 tests.A and DL-74 follow the per-CLI, no-raw-text-authentication rule.
+- Host A's R-ROSTER / R-REVIEW-WEB, C12 / C19 / C32 / C34 and DL-49 text for the closed list of shipped claude presets
+  (D-SHIPPED-PRESETS-20261005; host A @ triad `3894879`; DL-94).
+- R-ROSTER: operator-level Claude Code settings (a forcing sub-agent model setting, the effort environment variable, an
+  effort cap) outrank a preset's pins; a host records the requested pins, not what ran (DL-96).
+- R-CLASSIFY host-A anchors after 26a final fix 1 (triad `fdd7029`): one guard per wrapper `main`; the codex `-o`
+  file is the answer; a signalled run's output reaches the auth-carrier rung (DL-95, B change); extension exit-code
+  tokens limited to the exit-code proposal classes (DL-97, B change).
+- Owner narrowing 2026-10-05 (register addendum to D-MEASURED-SHAPES-20261005): DL-98 a recorded fact (no change on
+  either host); R-TERMINAL states A's signalled-run auth read and its agy / gemini-41 limits; host-A anchors at triad
+  `d966ab0` (the codex text-type check and the extension parse cache removed).
+- R-TERMINAL: on A gemini's exit code 41 is read inside the auth-carrier rung, also on a signalled run (triad `8909103`);
+  a signalled agy run's carriers stay a recorded limit.
+
+## Owed rows from host A's conformance work — 2026-10-04 (not tagged)
+
+- What the codex host must learn, written into the spec (owner 2026-10-04, D-DECISION-ORDER-20261004): new process
+  rule `R-DECISION-ORDER` (spec → the other host's code → a fact or limit both lack recorded without a question → the
+  owner only for a design choice; what the other host must learn goes here in the same turn).
+- Owner register: D-PRE-RECORD-REPLY-20261003, D-ENV-DROPPED-LINE-20261003, D-ONE-ENVIRONMENT-20261003,
+  D-LATE-ANSWER-20261004, D-DECISION-ORDER-20261004 (verbatim quotes); the two-site framing of Q-G / Q-J / Q-N
+  superseded as current state; WEB-A-2's reason and the WEB-A-1 record reworded.
+- R-AGREE: collection runs the round integrity check before agreement on both hosts (DL-52 superseded); A's
+  cause-named remedies, host faults (64) and `close`'s fresh, never-refusing check; known limit + operator rule for a
+  late answer after collection's last custody check (both hosts).
+- R-BIND: A's seal states (valid / invalid / failed-to-run), sealed refused replies, saved replies recorded before any
+  retry or agreement, retry sealing the replaced attempt from the bytes it judged, re-derived admissions, the sealed
+  run-log; C66 limits re-triaged ((2), (5) closed; (3) a fact); known limit for a reply replaced before any host write
+  (both hosts); the executed-command receipt as a common rule (A pre-spawn + collect; B before inference and at record) with the known limit
+  for a line with every review marker removed. R-REVIEW-WEB On A, R-THREAT re-triage sentence follow.
+- R-PREPARE: A's symlink mechanism stated (committed links and, on a working-tree range, untracked nonignored links
+  disclosed in the bound brief with lexical gap marks; the round-copy guard is the one refusal that stays; DL-53, A fixed
+  at aec571f, verification pending).
+- R-CLASSIFY + `contracts/vendor-failure-lines.json`: agy's print-timeout row (token `timeout`), its carrier, the oauth-env-over-print-timeout
+  rule and the shared classifier order with its known limit; new record tests in `tests/test_spec_records.py`.
+- R-NOCOST (C11 agreed set not yet data; GOOGLE_CLOUD_PROJECT on A's gemini route open), R-CLI-VERSION (null when not
+  observed). Cases C11, C13, C26, C32, C43, C66 tests.A; `units.json` review-lifecycle, review-web-authorization.
+- Dev log: DL-60–DL-69; DL-19, DL-44, DL-52, DL-53, DL-55, DL-59 notes and statuses.
+- Round 2: cases C3, C4, C5, C7, C63 tests.A (host A stage 2, three legs) with C63's manifest and contracts README mirrors;
+  R-CLEANUP On A / On B activity refresh; R-TERMINAL and C1: a signalled wrapper mid-dispatch records `unknown` / exit 1
+  (host B's shape; A pending merge, DL-70); DL-71 CHECK-B for B's auth-class gate and formal-only credential removal
+  (C37); owner register D-REVIEW-TIMEOUTS-20261004 and DL-5 (A: 3600 s, in progress); DL-61 A operator rule fixed.
+- Fix round 1 after verification SPEC-A1: C26 restored to the frozen decision (A's untracked nonignored link listing in
+  progress; the leader's earlier ruling withdrawn, DL-53); R-BIND On A re-cited at triad cbc67f6 with the saved-reply
+  guard stated exactly (retry's own removals; Z1 in progress), present-form known limits and two run-log facts; the
+  executed-command paragraph corrected for host B (B refuses before inference: bound_wrapper and validate_review_web;
+  DL-63 CONFORMS-B — the earlier "record time only" reading was wrong); R-CLASSIFY: an oauth-env sentence outranks agy's
+  print-timeout rung (R-AUTH; A in progress, DL-62); R-TERMINAL covers the whole dispatch (A's windows in progress; CHECK-B,
+  DL-70); R-TOKENS: A's codex wrapper-direct exceptions and the provisional summary pair (DL-72); a codex
+  `unexpected status 401 unauthorized: incorrect api key` row (DL-74); R-PLATFORM: A's record place (DL-73); R-CLI-VERSION: B's claude preparation probe;
+  R-NOCOST: the geminicli.com page and A's wider gemini-route removals (DL-65); D-ONE-ENVIRONMENT scoped to host A;
+  C32's unrun line is MISSING; C66 axes regrouped; DL-39's "superseded" note (round 1) listed here; the agy print-timeout
+  carrier widened to an empty answer.
+- Fix round 2 after verification SPEC-A2: R-PREPARE On A states the disclosure of untracked links on a working-tree
+  range (A FIXED aec571f, verification pending; the patch stays committed content; the round-copy guard is the one refusal
+  that stays; a case-insensitive-volume fact); R-BIND On A re-cited at triad ce30d82 (Z1-Z4 fixed, verification pending;
+  Z5 in progress); R-TERMINAL defines "inside a dispatch"; R-TOKENS names listed exceptions; R-CLASSIFY narrowed to
+  oauth-env over the print-timeout rung, with the shared classifier order and its known limit (DL-75); the codex 401 row
+  matches the measured vendor wording (DL-74, CONFORMS-B); agy's unrecorded version on one argument refusal (L5); DL-70
+  and DL-72 name B's change; DL-5: A sets 3600 s (922d019, not merged); register and WEB-A-2 wording corrected.
+- Absolute law (owner 2026-10-04, D-AUTH-ABSOLUTE-20261004): R-AUTH outranks every other rule (no host, case or owner
+  exception); enforcement (i) the child-environment scrub and (iii) an observed authentication failure (missing or
+  expired login, API-key-shaped credential) STOPs the attempt before any other classification, with no retry or other
+  attempt — A in progress, B to check (DL-76); no pre-call login check (owner correction of the same day,
+  D-AUTH-JUDGE-STOP-20261004; DL-16's preflight WITHDRAWN); R-DECISION-ORDER: an absolute law is never a design choice or
+  a shared limit; DL-75 re-triaged from a limit to a defect both hosts fix; C37 expected and tests; units.json.
+- Deletion by code (owner 2026-10-04, D-DELETION-BY-CODE-20261004): R-CLEANUP — only host code deletes, from roots declared
+  in one JSON configuration file (role, root, ownership proof, age floor); an AI at most chooses a declared role and a
+  folder; no prompt, skill, agent text, printed remedy or operator procedure carries its own removal command; self-created
+  temporaries need no declaration. New `contracts/cleanup-roots.schema.json` / `.example.json` (tests), case C69, DL-77
+  (A in progress, Task 23; B to adopt the file and fix two README passages); R-AGREE / R-BIND / R-CONTAIN pointers;
+  PRD-RETENTION; rev-2 spec; units.json; the policy `.verify.toml` `on_fail` texts. A missing or invalid configuration
+  file deletes nothing (owner 2026-10-04: the command refuses, prunes skip with a note, a default file ships); a wrapper
+  run-log after a repair is left to the coded sweep, never removed by an AI (owner 2026-10-04).
+- Rows owed after host A's merges (docs audit 2026-10-04): R-TERMINAL On A for every window and the verdict precedence,
+  the between-attempts record and the bounded pipe close (both hosts); R-TOKENS On A emits the contract code; R-AGREE —
+  a host fault in `collect` / `retry` stops the step (A exit 64, B exit 2 as a fact); R-BIND — a `binding.json` that no
+  longer binds the entry is INVALID and `retry` refuses (A Z5 / Z6); R-CONTAIN — unresolvable inputs and configuration
+  refusals; R-RECEIPT — an unspawned agy re-run turn on A; R-CLEANUP — the run-log sweep floor as host data;
+  `contracts/gemini-readonly.toml` header without the two-site wording (new `policy_sha256`); C66 tests.A; DL-5, DL-15,
+  DL-60, DL-68, DL-70, DL-72, DL-74, DL-76, DL-78, DL-81 statuses and facts; new DL-85 (B's retention texts).
+
+## Spec gaps exposed by host A's conformance work — 2026-10-03 (not tagged)
+
+- Owner answers 2026-10-03 (DL-59 RULED): reading (b) confirmed — every AI leg may use web search, for model
+  research and the review of prompt-engineering techniques (R-INVEST points at the answer); host A's legacy entry points
+  are to be retired later (non-conformance stays a fact until then; B's legacy renderers stay B's decision); R-THREAT's
+  two leader-added exclusions REJECTED — a stop at any point (a crash, a token or usage limit) and an odd layout of
+  files the leader creates by hand are ordinary failures; only deliberate tampering and a concurrent operation stay
+  out of scope. Prompt payload: the `deployment-context` clause revised (both hosts re-vendor; DL-56). Facts recorded
+  under the earlier wording are listed in DL-59 for the hosts to re-triage. Owner quotes verbatim in the register.
+- Branch fix round 16 (pointers and wording only): the v1 path's dispatch citations, DL-44's raw-reply range labelled
+  @ 4af44cf, "above", both hosts' legacy entry points named in the register reading, the DL-52 / R-THREAT attribution
+  split, and the v1 refusal range.
+- Branch fix round 15: both hosts' legacy entry points that do not bind the standing review-web authorization are
+  non-conformance facts with one keep-or-retire owner item (DL-59); DL-39's A action reworded; the v1 path's no-web
+  citations corrected; the small path's legacy agreement contract also counts a non-blocking MERGE WITH FIXES; R-AGREE
+  and DL-52 reconcile a skipped verify with R-THREAT (the leader's ruling).
+- Branch fix round 14: host A's legacy entry points recorded as a non-conformance fact (no exception) with the
+  keep-or-retire question as an owner item; reading (c) removed; the open owner items gathered in DL-59 (reading (b),
+  legacy keep-or-retire, R-THREAT's two added exclusions, now labelled the leader's reading); superseded A NOT RUN lines
+  in the strategy records marked in place; "adoption" defined in R-PREPARE and A's launch-switch check stated exactly
+  (orphan adoption only); C32 names DL-58 open; the register states its date convention (KST dates, UTC timestamps);
+  web twins described for a rebuild; B's legacy consumers' web status; C31 probes stated without a fetch claim;
+  citation fix.
+- Branch fix round 13: WEB-A-3's reason names the half that needs a revocation; reference/README points recommended
+  defaults at R-ROSTER; D-REVIEW-LEGS reading (c) records the legacy paths' web exception for the owner to confirm; A's
+  launch-switch check is stated exactly (dispatch record only, a hand-edited command is an R-THREAT fact); A's missing
+  per-round agy web prerequisite check opened as DL-58; A's web-profile header pointer explained; spec-authoring and
+  review-strategy's result channel follow the round-12 scope; R-INVEST points at the reading awaiting confirmation;
+  citation and test-comment fixes.
+- Branch fix round 12: the R-GOOGLE convention covers the policy manifests (those carrying `policy_sha256`); the
+  service and conformance manifests (`review-web.verify.toml`, `review-strategy.verify.toml`) name their own
+  `result_channel`; every check carries the seven fields (tests pin the scope); review-strategy states host A's
+  provider-free evidence at triad `faeb86b`; WEB-A-3 records why it needs an owner revocation; the 모든leg line has its
+  own lead-in; C31's live probes cite their two sources.
+- Branch fix round 11: every check of every `contracts/*.verify.toml` carries id/case/what/brief/expect/on_fail/status
+  (tests widened; round 12 narrows the R-GOOGLE convention back to the policy manifests); WEB-A-1 split — WEB-A-1 (true condition,
+  live) RUN, new WEB-A-3 (absent/false/mismatched, live) NOT RUN; an editorial mark stays outside a quotation; the
+  question behind the 웹 지원 answer recorded verbatim; README shows host A's SPEC_REVISION line verbatim; how a
+  revocation reaches each host stated as a fact; C31 sync — host A's claude worker `--web` (triad `38a036d`, t63, live
+  probe), DL-39 FIXED-A for every A item.
+- Branch fix round 10: WEB-A-1's RUN result recorded once in the owner register (the manifest's result channel) with pointers
+  from the manifest, contracts/README, C32 and DL-39; the C66 limit attribution mirrored everywhere ((1)-(3) owner,
+  (4)-(5) leader under R-THREAT); every 2026-10-02/03 owner quote byte-exact against host A's leader session record (round 11: an editorial
+  mark stays outside the quotation);
+  README states the candidate line for any branch; the legacy small path's own mechanisms stated as facts; a change of
+  the review-web authorization applies to rounds prepared after it (R-REVIEW-WEB, DL-57).
+- C32 sync: host A adopted the standing review web on every v2 route (triad `67b7524`, `de1a078`, `b53409b`;
+  t23, t62; WEB-A-1 RUN 2026-10-03 (host A b53409b), result in
+  `decisions/owner-register.md#review-web-a1-20261003`; WEB-A-3, WEB-B-1 and WEB-A-2 NOT RUN).
+  R-REVIEW-WEB / R-CONTAIN / R-PREPARE / R-PROMPT "On A" state the carrier, renderer, launch switches, twins, hook and
+  adoption check with file:line @ b53409b; C29 REVIEW arm closed on A (the legacy small path's --web stays a fact);
+  C32, C67, C68 cells; DL-39 web items, DL-45, DL-46, DL-56 FIXED-A; DL-57 records when a revocation applies (fact).
+- Branch fix round 9: DL-9 dated and B CONFORMS-B (it records and checks init.model); WB2 narrowed to its named denies
+  (WA2 already claims only named denies); R-PREPARE names the round (verify, then collect); C66 limits (1)-(3) owner,
+  (4)-(5) leader under R-THREAT; reading (b) of "Ai기능 관련은" is not a topic limit (leader's reading, owner to confirm);
+  D-C66-LIMITS source described without an unreachable path; R-CONTAIN annotates B's web-profile header; A_shipped line
+  citations labelled @ 0acfe7a; C29's small-path --web stated as a legacy fact; units.json discloses each host's
+  permissive-route flag (R-CONTAIN).
+- Branch fix round 8 (verify-before-claim): DL-19 states A's deliberate drop of root-level scratch expiry (R-CLEANUP)
+  and cites the fixed items' file:line; every units.json A_shipped cell checked against the export 0acfe7a (it carries
+  the v2 path; its default roster predates host A's 8cb890f); A cells say "todo" where no host test names the case and
+  NOT RUN only for live service runs; units.json states B's fencing and REVIEW web default as today's code; in-place
+  marks on decisions/host-b-evidence-custody-proposal.md and four spikes; owner-register :105 names the leader's
+  reading; D-C66-LIMITS cites the verbatim ledger record; DL-2 marked superseded by DL-39; rule 4 allows one term per
+  named item; DL-9, DL-42, DL-43 optional B parts are CHECK-B and the footer is re-derived.
+- Branch fix round 7 (class sweep): in-place supersession marks on every record whose REVIEW no-web or codex-baseline
+  statement was replaced (owner-register rows D-9, D-9 r2, D-9 RULED, the 2026-09-25 directive; seven decision records),
+  contracts/README current text; units.json declares the remaining refusal differences (R-PARITY) and corrects host-A
+  entries (prompts_v2 renderer, review-web sources, investigation web options); dev-log rule 4 gains RULED, WITHDRAWN,
+  RECORDED-SPEC, CONFORMS-A/B, CHECK-A/B, IN-PROGRESS and every status cell uses the vocabulary; the footer is derived
+  from the status cells (tested); owner quotes carry elision marks or are whole; D-C66-LIMITS quotes the chosen option
+  and its description and names DL-55 again; D-REVIEW-LEGS reading (b) keeps "Ai기능 관련은".
+- Branch fix round 6: the 2026-08-15 quote whole, labelled Argus precedent; the invalid-answer retry difference declared
+  as a `units.json` review-lifecycle exception (R-PARITY) and removed from D-C66-LIMITS's effects; C67 states the
+  host-testable part; A's empty `.pruning` rmdir moved out of R-CONTAIN's guard example into an open exception (DL-54);
+  the 2026-09-21 owner record marked superseded in place; R-REVIEW-WEB names each host's agy settings fact for what it
+  is; C32 says what refuses; citations corrected (roster 971-972, guard/noclobber lines, B test :305, B settings
+  guard :571-591); DL-39 status in the log's vocabulary.
+- C35 sync: host A adopted the codex default `gpt-6-astra` / `high` with one codex leg (triad `8cb890f`) and records the
+  requested reasoning beside the model on the summary line and audit row (`725dfb7`); C35 tests.A and DL-39 updated
+  (DL-39 stays OPEN for A's web items and for B).
+- Branch fix round 5: R-THREAT and the `deployment-context` clause are scoped to reviews of a TRIAD host's own code
+  (other targets: the brief's context, R-CONTEXT); the clause carries its evidence pointer (R-THREAT /
+  D-THREAT-MODEL-20261003) so it agrees with `severity-instruction` (payload change, re-vendor); R-REVIEW-WEB and C32: a
+  caller's false is ignored under the standing authorization and a non-boolean stays a refusal; C68 states only the
+  host-testable part; host A citations re-checked at `4af44cf`, with one convention stated at the top of
+  `reference/review-rules.md`.
+- G11 threat model (owner `D-THREAT-MODEL-20261003`): NEW R-THREAT — one operator on a stable machine, no concurrent
+  operation (concurrency inside one operation stays covered), no malicious actor; guards defend against ordinary
+  failures; tampering, concurrent-operation, unusual-layout and exact-instant-crash findings are recorded facts. R-VERIFY
+  and the C66 limits point to it. Prompt payload (re-vendor obligation, `units.json` prompts): NEW shared clause
+  `deployment-context` before `common:severity-instruction` in all three leg orders (out-of-context findings are labelled
+  HARDENING-SUGGESTION). Case C68; dev-log DL-56; tests pin the clause and its order.
+- C66 sync: host A seals recorded attempts at `4af44cf` (t15 axes 74, 81-89); its five known limits are
+  facts in R-BIND's On A sentence — (1)-(3) by owner decision `D-C66-LIMITS-20261003`, (4)-(5) by the leader's ruling
+  under R-THREAT; C21, C33, C66 tests cells and DL-42, DL-44 updated;
+  DL-55 records that A retries an attempt sealed invalid while B refuses a completed invalid answer (fact, no change).
+- Branch fix round 4: R-BIND states what holds on A's legacy small path (it never collects v2 results and keeps
+  v2-shaped extra fields as shape notes; units.json and DL-50 agree); R-REVIEW-WEB scopes the settings prohibition to
+  what the authorization grants a round, states each host's install-time prerequisite as a fact, and says hosts bind
+  true whatever a caller passes until a revocation entry in the owner register; R-CONTAIN quotes B's no-web header
+  comment too; C3 and C31 A tests cells corrected; DL-39 line cite; D-REVIEW-LEGS effect names C15 and its clauses.
+- Branch fix round 3: host status removed from case texts into tests cells (C8, C11, C14, C15, C16) after checking it
+  against both hosts; C6 and C12 tests cells corrected; C19 B negative arm (DL-49); C33/DL-42 aligned (A fix 4d3d667
+  pending verification; B's identical collector shape). R-REVIEW-WEB restores "No permanent global settings change",
+  states A's `read_url(*)` agy setting as an install-time fact and B's v2 temporary settings transaction; R-TOKENS cites
+  both hosts' membership tests; R-PROMPT carries the round-date sentence (C67); the small path is described as a legacy
+  fact (DL-39 drops its new obligation); A's empty `.pruning` rmdir recorded against the unpublished R-CLEANUP amendment
+  (DL-54, pending PR #6); B's five manifest files over three commits; reference/README lists the web profiles.
+- Branch fix round 2: a sweep of every host statement in `reference/review-rules.md`, `units.json` and the cases'
+  tests cells (main text included) against A @ `ebc4dc7` and B 0.2.558 @ `7f75863`. Statements describing defects since
+  fixed now state today's code: A resolves relative paths (C28), assigns the gemini hardened default before its checks,
+  reaps the process group and fails closed on incomplete readers, reclaims `.pruning` with its `.claim` record (and rmdirs an empty unclaimed residue past the floor, DL-54),
+  rejects duplicate members on every result path and pins its gemini model; A tests cells name the tests that carry
+  C2-C11, C16-C18, C22, C23, C28, C62. Open items newly marked: the A symlink migration (DL-53), B's `agent` definition
+  (DL-49), B's native codex investigation web (DL-39). Over-design corrected: R-AGREE's integrity location (DL-52) and
+  R-BIND's collected attempt are FACTS, not new obligations; the sealed attempt stays a rule. R-REVIEW-WEB: the host
+  binds `review_web_authorized` true for every review round under the standing authorization and records it. R-PREPARE:
+  post-digest inputs are recorded at prepare (a mutable record suffices) and re-derived and compared. README: B's five
+  manifest files over three spec commits (DL-47). C29 REVIEW arm open; C66 names t15 axes 74 and 76.
+- Branch fix round 1 (whole-branch verification): every "On A:" / "On B:" statement now cites today's host code
+  (A: triad `goal/spec-main-conformance` @ `ebc4dc7`; B: 0.2.558 @ `7f75863`) or is marked "(open, DL-n)". R-REVIEW-WEB's
+  On A bullet separates the mechanisms that exist (codex `--search`, the two claude web twins, agy `--web` + hook
+  `--web`, the small path) from the open v2 carrier, `-max` twin, gemini web profile and the web-evidence append;
+  R-CONTAIN lists only shipped guards. R-RETRY refuses a changed condition, selection or control before an attempt is
+  allocated (B's preparation receipts are setup evidence) and leaves changed reviewed bytes to the final integrity
+  verification. R-BIND seals what each route records (native exemption, DL-18). R-CONTEXT and R-PREPARE state the exact
+  A refusals, A's open collection re-derivation (DL-41) and B's toolkit exclusions. C13, C19 (preset arm), C20, C21, C35,
+  C64 tests cells; `units.json` note; `reference/README.md` revision record; example roster `agent` note.
+- Prompt payload (re-vendor obligation, `units.json` prompts): `current-basis`, `review-web-permission` and
+  `codex-read-grant` allow fetched, cited web pages as evidence under the round's web authorization; the `leg-claude.md`
+  preamble names the web twin.
+- Dev-log rows renumbered DL-39–DL-52 (DL-20–DL-38 are held by other unpublished branches); rule 1 states that a row
+  about the adoption record names no case.
+- Owner decision `D-SPEC-GAPS-20261003` (`decisions/owner-register.md`).
+- R-PREPARE defines the bound basis once (reviewed bytes, review conditions including the round date, selection,
+  every resolved control from whatever source, installed clauses/schema/contract), what the content digest covers, what
+  is recorded and re-derived, and each host's mechanism (On A / On B); a host change altering it makes earlier rounds
+  non-retryable. R-RETRY, R-REREVIEW, R-PROMPT and R-REVIEW-WEB point to it; R-RETRY refuses a changed condition, selection or
+  control before an attempt is allocated.
+- R-PROMPT: the stage value is `review_kind`; its carrier is host-native (On A `prepare --v2 --review-kind`; On B the
+  `v2-create` request member). R-ROSTER: an all-disabled roster is a preparation refusal, never an outcome; a control
+  from a host-native source outside the roster file is a basis member (On A: the claude preset frontmatter, open).
+- R-CONTEXT: a transported value includes its edges; framing keeps it recoverable; empty `prior_residual` is the absent
+  value; a named framing-collision refusal is an allowed input check (On A / On B). R-BIND: a recorded attempt is sealed
+  (On A: open); which attempt collection evaluates is recorded per host as a fact. R-REREVIEW: the leader chooses the
+  reviewed range. R-AGREE: where each host runs the integrity check is recorded as a fact.
+- Prompt payload (re-vendor obligation for both hosts, recorded in `units.json` prompts): NEW `current-date` clause with
+  the `<review-date>` placeholder after `common:current-basis` in all three leg orders; NEW fenced `review-no-web`
+  clause replacing the prose sentence; the three A-only clauses carry `A-only` in their header notes;
+  `prompts/README.md` § Clause-file format.
+- README § How a host uses a revision: the candidate `SPEC_REVISION` line (On A) and B's `source-manifest.json` record.
+- `units.json`: host A's legacy entry points (v1 `prepare` without `--v2`, `review_small.py`); the stage carrier.
+- Cases C13, C19 (negative arm), C20, C32, C33 (all-disabled roster; negative arm), C60, C61, C64 amended; NEW C66 (sealed
+  attempt) and C67 (round date); authoring map lists both. Dev-log rows DL-40–DL-52. Payload and record tests
+  `tests/test_prompt_payload.py`, `tests/test_spec_records.py`. No schema change; no revision tag.
+
+## Review legs: codex Astra/high default; web search for every AI leg — 2026-10-03 (not tagged)
+
+- Owner decision `D-REVIEW-LEGS-20261003` (`decisions/owner-register.md`).
+- R-ROSTER: the recommended codex review default is `gpt-6-astra` / `high` on both hosts;
+  `contracts/review-legs.example.json` codex entry follows. Exact IDs stay roster data; explicit-null and
+  requested-versus-runtime identity rules are unchanged.
+- R-REVIEW-WEB: review web is allowed for every selected review leg in every round by the owner's standing
+  authorization; `review_web_authorized` is true for every round unless the owner revokes it. Binding, preflight,
+  rendering, read-only containment, verdict, accounting and integrity mechanisms are unchanged.
+- R-CONTAIN: the no-web posture (codex `web_search="disabled"`, agy without web tools, gemini deny rows) applies to
+  a false condition; the gemini profile bytes are unchanged. R-INVEST: web search is allowed for every
+  investigation/dispatch leg; the web-evidence rule (C29) is unchanged.
+- Cases C29 (input wording), C32 and C35 aligned; host test cells say adoption is pending. PRD-REVIEW and
+  SPEC-INVESTIGATION sentences aligned. Dev-log row DL-39 (OPEN for A and B). Schema test asserts the codex example
+  entry.
+- Follow-up owner rulings (same day): every route of every host supports review web (a missing capability stays a
+  preflight refusal); host-only behaviour is written "On A: …" / "On B: …"; each host is rebuildable from the spec.
+  NEW `contracts/gemini-readonly-web.toml` (A's complete web profile: only the two web tools move to allow) with check
+  WEB-A-2 in `contracts/review-web.verify.toml`; R-REVIEW-WEB states each host's per-route web mechanism; R-CONTAIN
+  names each host's false/true Gemini profile; `reference/spec-authoring.md` § 3 gains the host-statement rule.
+- Prompt payload: `review-web-permission` (common-clauses) no longer refers to a per-round request;
+  `google-a-hook-audit` (leg-google) names the two web tools the hook allows for an authorized round.
+- units.json, contracts/README.md, C15/C32/C35 wording, the operating spec and two historical handoffs (marked
+  superseded for review web) aligned. No schema change; no-web profile bytes unchanged; no revision tag.
+- Fix round 2: NEW verification manifests `contracts/gemini-readonly-web.verify.toml` (A, WA1-WA2) and
+  `contracts/gemini-readonly-web-b.verify.toml` (B, WB1-WB2) per the R-GOOGLE convention, listed there and pointed at
+  by WEB-A-2 / WEB-B-1; authoring map REQ-REVIEW lists them. R-CONTAIN's gemini guard names each host's false/true
+  profile; R-REVIEW-WEB names the `-max` claude web twin (open A item), states a one-time host setup prerequisite is not
+  a per-round settings change; R-INVEST names A's per-route web options and the claude worker gap, and marks the
+  every-leg reading as the leader's. Prompt payload (re-vendor obligation for both hosts, `units.json` prompts):
+  `review-web-permission` now carries the rule never to send reviewed material, a local path or a person's name to a
+  search or a page. Superseded sentences marked in the 2026-10-02 review strategy, README, the 2026-09-21 amendment and
+  B's review-web verification record; PRD rows aligned; DL-39 restated (A's two codex entries, one-leg end state as the
+  leader's reading, B at v0.2.558, `-max` web twin, claude worker web option); dev-log footer corrected.
+
 ## Review strategy candidate — 2026-10-02 (not tagged)
 
 - R-AGREE/R-ROSTER now require explicit approval from every selected enabled leg on the current basis, without a
@@ -27,6 +400,45 @@
 - Written in the present form only (`decisions/owner-register.md`
   D-RULINGS-20260928B): the rule, the data and the case, no development-log row.
 - No schema, prompt payload or revision tag change.
+
+## R-CLEANUP amended — an empty candidate may be removed by rmdir (owner ruling 2026-09-27) — 2026-09-27 (not tagged)
+
+- `reference/review-rules.md` R-CLEANUP: one sentence added — an EMPTY
+  name-shaped candidate past the age floor may be removed with `rmdir` alone
+  (it removes no data); a directory holding any entry without its record stays
+  preserved and reported. `authoring/shared-dev-log.md` DL-22 status;
+  `decisions/owner-register.md` D-RULINGS-20260927C.
+- Normative sentence ADDED (a permission, not an obligation); no schema,
+  prompt payload, contract or revision tag change.
+
+## Shared development log DL-22 — three R-CLEANUP readings from host A's retention slice — 2026-09-27 (not tagged)
+
+- `authoring/shared-dev-log.md` DL-22 (C3, C4, C5): the owner's option-A
+  decision on name-bound allocation records (root + name shape + the
+  program-written record are the proof in a no-malicious-actor deployment);
+  an EMPTY name-shaped residue past the floor is removed by `rmdir` only (no
+  data is ever removed without a record); a failed removal restores the
+  directory's mtime so the next sweep retries it. Record only; no rule text
+  change. One check suggested for host B's cleanup.
+
+## R-MODEL — models are user-pinned data; no catalog probe (owner ruling 2026-09-27) — 2026-09-27 (not tagged)
+
+- `reference/review-rules.md` R-MODEL (NEW rule, after "Selected investigations"):
+  a leg's model and effort are data the user pins and changes; a host never
+  chooses, infers, substitutes or falls back, and runs no model-list or
+  availability probe on the review or dispatch path; a packaged list is
+  display data, never a gate; a refused pinned model ends as ONE terminal
+  record naming the leg and the model (a roster change is a new basis); an
+  exposed runtime identity that contradicts the request stays refused.
+  R-ROSTER amended in two places ("supported option vocabulary" instead of
+  "actual capabilities"; "requested" instead of "catalogued" explicit model ID).
+- `authoring/shared-dev-log.md` DL-20 (quota-cap default = the answering
+  families + the owner's decision; substitution is the user's explicit
+  request; FACT: neither host has runtime compensation) and DL-21 (the R-MODEL
+  ruling, A clean-ups, B's gates to decide). `decisions/owner-register.md`
+  D-RULINGS-20260927B.
+- Normative rule text ADDED (binds both hosts); no schema, prompt payload,
+  contract or revision tag change.
 
 ## Owner rulings 2026-09-27 recorded — DL-17 / DL-18 / DL-19 (facts, no rule change) — 2026-09-27 (not tagged)
 

@@ -4,7 +4,7 @@ This guide for host A (Claude) follows the normative strategy introduced at shar
 Use the [single-source map][sources] to resolve any disagreement; change a rule at its
 normative location, not by editing this guide into a competing requirement.
 
-Host A implementation and verification of this amendment: **NOT RUN**.
+Host A implementation and verification of this amendment: **NOT RUN** (superseded in place on 2026-10-03: host A's provider-free fixture evidence at triad `faeb86b` is recorded in `contracts/review-strategy.verify.toml` `[host.A]` and the cases' tests.A cells).
 No current A implementation code was inspected for this handoff. Native topology and
 historical A source pointers establish neither current behavior nor conformance.
 At A implementation start, inspect its actual checkout and applicable instructions,
@@ -86,7 +86,8 @@ owner's decision under [R-STOP][stop]. This guide prescribes no new configuratio
 mechanism or subprocess replacement. This remains an A implementation planning item;
 publication of this guide does not establish that A already satisfies the target.
 
-Preserve existing exact CLI model IDs, explicit null overrides and route-valid Google
+Keep exact CLI model IDs as roster data (the recommended defaults are in
+[R-ROSTER](../reference/review-rules.md#R-ROSTER)), explicit null overrides and route-valid Google
 Pro/HIGH selection. Validate adapter capabilities before inference and expose the resolved roster.
 Requested selection is not runtime identity; unexposed identity stays unknown/null.
 Observed patch versions are evidence, not equality pins or upper bounds. A later version
@@ -135,7 +136,7 @@ leads to recheck locally; these stages prescribe dependencies and behavior, not 
 - B's vendored shared payload remains `04245c7`. Shared main `19f0cf1` publishes authoring guidance and is not a new payload adoption. Exact vendor IDs and shipped defaults remain unchanged. See B's [optional Gemini CLI 3.8 Flash / inherited HIGH setup](https://github.com/codefoundry-io/triad-codex-dispatch/blob/632f42633d3a92d6cb27168cd15c4d4debd8558c/docs/installation.md#gemini-cli-38-high): native `gemini-3.8-flash` requires stable 0.61.0 or later compatible versions in that verified setup scope; AGY's slug is separate. This is B setup evidence, not a new shared model pin or A configuration requirement.
 - Native Ubuntu verification of the final B release is **NOT RUN by this macOS host** and is handed to the Ubuntu owner or native CI. Each OS owner records its own checks; this handoff introduces no shared Docker ban or additional release gate.
 - The original strategy/spec amendment's exact shared-spec review SHA, reviewer results, CI and merge evidence are recorded on [PR #8](https://github.com/codefoundry-io/triad-dispatch-spec/pull/8). Review/CI for this subsequent release-handoff-only amendment is recorded on its owning pull request; this guide does not pre-certify that amendment or host adoption.
-- A revised-strategy host tests/service checks: **NOT RUN**; no B result establishes A conformance.
+- A revised-strategy host tests/service checks: **NOT RUN**; no B result establishes A conformance (superseded in place on 2026-10-03: host A's provider-free fixture evidence at triad `faeb86b` is recorded in `contracts/review-strategy.verify.toml` `[host.A]` and the cases' tests.A cells).
 
 [sources]: https://github.com/codefoundry-io/triad-dispatch-spec/blob/04245c740afc9be36ad7702a134f71aec8ff0b7f/reference/README.md
 [sync]: https://github.com/codefoundry-io/triad-dispatch-spec/blob/04245c740afc9be36ad7702a134f71aec8ff0b7f/reference/spec-authoring.md#R-AUTHORING-SYNC
