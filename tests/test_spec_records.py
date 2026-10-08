@@ -163,7 +163,7 @@ def test_unmatched_vendor_failure_rows_have_a_row():
     row = _row("DL-117")
     assert row[1] == "C43" and row[2] == "REQ-CUSTODY"
     assert "you've hit your usage limit" in row[5] and "your ai credits balance is too low to continue" in row[5]
-    assert "OPEN (A" in row[6] and "OPEN (B" in row[6] and "CHECK-B" in row[6]
+    assert "FIXED-A" in row[6] and "OPEN (B" in row[6] and "CHECK-B" in row[6]
 
 
 def test_merged_rows_use_the_current_status_grammar():
