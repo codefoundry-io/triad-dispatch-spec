@@ -174,7 +174,7 @@
       "cli": "agy",
       "line": "Error: Please sign in to view available models. Launch the CLI without arguments to sign in.",
       "match": "please sign in to view available models",
-      "carrier": "the output of a failed `agy models` call (the model catalog a host reads before a review dispatch); the exit code was not captured",
+      "carrier": "the output of a failed `agy models` call (an operator's own model listing; under R-MODEL no host runs it on the review or dispatch path); the exit code was not captured",
       "token": "oauth-env",
       "observed": "2026-10-08 (the lab owner, signed out, on the host A machine; agy 1.3.1 installed there)"
     },

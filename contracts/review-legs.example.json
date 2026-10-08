@@ -40,7 +40,7 @@
         "effort": null
       },
       "timeout_s": 600,
-      "note": "Google route pin: google.route = agy or gemini; otherwise preserve the host's selection chain. Default Pro family with verifiable HIGH; model placeholders must be replaced from the route catalog. Adapter-specific timeout and effort support remain mandatory."
+      "note": "Google route pin: google.route = agy or gemini; otherwise preserve the host's selection chain. Default Pro family with verifiable HIGH; model placeholders are replaced by the user's pin (a host's shipped default or the user's override), passed as written and never checked against a model list (R-MODEL). Adapter-specific timeout and effort support remain mandatory."
     },
     {
       "name": "x-claude-high",
@@ -68,5 +68,5 @@
       "timeout_s": 900
     }
   ],
-  "_comment": "ILLUSTRATIVE TEMPLATE, not a runnable default: the three enabled legs are the default roster shape; placeholder model values must be replaced from each host's recorded catalog before dispatch. Fields and resolution rules: reference/review-rules.md#R-ROSTER; keys deliberately absent: CHANGELOG.md rev-0"
+  "_comment": "ILLUSTRATIVE TEMPLATE, not a runnable default: the three enabled legs are the default roster shape; placeholder model values are replaced by the user's pin (each host's shipped default roster data or the user's override) before dispatch; no model list is consulted (R-MODEL). Fields and resolution rules: reference/review-rules.md#R-ROSTER; keys deliberately absent: CHANGELOG.md rev-0"
 }

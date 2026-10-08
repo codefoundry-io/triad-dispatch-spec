@@ -139,7 +139,7 @@ where it does not. Which aliases a CLI accepts is a measured fact. Measured: cla
 `--model` option and in an agent's `model` frontmatter (Claude Code model configuration documentation,
 code.claude.com/docs/en/model-config, fetched 2026-10-06, the source cited below). Not measured: codex and agy aliases —
 no run or vendor source read for this specification shows that either CLI accepts a versionless alias, so the current
-codex and agy roster defaults (exact IDs and catalog slugs, below and R-NOCOST) stay until an alias is measured (DL-114). This creates
+codex and agy roster defaults (exact IDs and slugs, below and R-NOCOST) stay until an alias is measured (DL-114). This creates
 no new settings layer; the recommended defaults are the ones stated below. Existing override precedence and explicit `model: null` semantics
 remain. `vendor` is a FAMILY value (`claude` | `codex` | `google`); `agy` / `gemini` blocks hold route-specific settings.
 Model and effort remain expressible for every vendor and are validated by the host adapter against its supported option
@@ -156,7 +156,8 @@ The recommended Claude review default is Opus with `xhigh` effort (owner, 2026-0
 selection retain their existing semantics; an older model remains selectable where a host's route takes a full model
 name as an override (B's claude CLI route), and on A no older Claude model is selectable (below).
 The adapter checks the requested model and effort before review inference and
-refuses a reported selection that contradicts the requested explicit model ID. Selection
+refuses a reported selection that contradicts the request — for a full model ID any other model, for an alias a model
+outside the family and tier it names (C34). Selection
 evidence is not proof of the eventual runtime model. B's fixed legacy formal
 route pins `claude-opus-5-5` / `xhigh` (`FORMAL_CLAUDE_MODEL`, `bin/claude_wrapper.py:38`, `:378` @ `7f75863`; the alias
 rule asks for `opus`, DL-114); its raw wrapper keeps caller passthrough.
@@ -168,9 +169,8 @@ A (a fact); B probes its CLI route before inference (`bin/review_adapters_v2.py:
 shipped preset names its model by the `opus` alias, which Claude Code resolves to the latest Opus (code.claude.com/docs/en/model-config,
 fetched 2026-10-06: an alias points to the recommended version and updates over time; only a full model name pins a version), so
 an older Claude model is NOT selectable on A and the default is the latest Opus, not a fixed `claude-opus-5-5` (owner
-2026-10-06, [D-PRESET-ALIASES-20261006](../decisions/owner-register.md#D-PRESET-ALIASES-20261006) — a host-A deviation from
-C12's default and its "explicit supported older Claude model" and from C34's explicit Opus 5.5 selection, proposed as a
-spec change, DL-100; done @ triad `526aa0d`, Task 31). A fact (same documentation): the alias resolves per route — the latest
+2026-10-06, [D-PRESET-ALIASES-20261006](../decisions/owner-register.md#D-PRESET-ALIASES-20261006); C12 and C34 state
+it, DL-100; @ triad `526aa0d`). A fact (same documentation): the alias resolves per route — the latest
 Opus on the subscription login route, which R-AUTH makes the only route; an `ANTHROPIC_DEFAULT_OPUS_MODEL` setting remaps it — and
 the round records `opus`, not the runtime model (selection evidence is not the runtime model), so an alias re-pointed between
 prepare and retry leaves the bound file digest unchanged. A refuses `claude.model` in the roster; any other model or effort needs another
@@ -198,7 +198,7 @@ for skill users says so (`.claude/skills/triad-cross-family-review/SKILL.md` rul
 The recommended codex review default is `gpt-6-astra` with `high` reasoning on both
 hosts (owner, 2026-10-03, [D-REVIEW-LEGS-20261003](../decisions/owner-register.md#D-REVIEW-LEGS-20261003)); it stays an
 exact model ID until a codex alias is measured (the alias rule above). A host's SHIPPED default roster
-carries an explicit model selection for every leg — the measured alias where its CLI accepts one, else the catalogued
+carries an explicit model selection for every leg — the measured alias where its CLI accepts one, else the exact
 model ID: a shipped `null` resolves to the operator's personal CLI configuration and makes the
 review baseline differ per machine (found on host A, `authoring/shared-dev-log.md`
 DL-2). `model: null` remains an operator OVERRIDE meaning the host's default and is
@@ -606,8 +606,7 @@ inside the timeout arm's group kill (the SIGKILL escalation kept) and between at
 the engine's last check is not consumed, and the hosts differ: on A the handler only records once a dispatch began, so the
 completed answer is published and recorded `ok` (`_terminal_signal_to_exit` @ triad `e40001d`); on B the default handlers
 are restored when the run returns, so a later signal ends the process at 128+signum with no record (`bin/_common.py:1418-1441`
-@ `7f75863`). A cut-short agy catalog call reaps its group
-before the pending exit (On A `3rd-Agent/wrappers/antigravity_wrapper.py` `_model_catalog_refusal` @ triad `e40001d`); a signal during ANY pre-dispatch vendor probe (agy `--version`, agy's catalog call, gemini's review preflight) ends in the interrupted-run record (summary, audit row, run-log written) once the bounded probe returns, never a bare 128+signum exit, and the agy catalog call's own group is reaped on a normal exit too (@ triad `3fde8d6`, `7e9e1fb`); the gemini preflight and
+@ `7f75863`). On A a signal during ANY pre-dispatch vendor probe (agy `--version`, gemini's review preflight) ends in the interrupted-run record (summary, audit row, run-log written) once the bounded probe returns, never a bare 128+signum exit (@ triad `3fde8d6`, `7e9e1fb`); at triad `e0b15f1` A also runs an agy model-catalog call before a pinned review dispatch, which reaps its own group on a cut-short or a normal exit (`3rd-Agent/wrappers/antigravity_wrapper.py` `_model_catalog_refusal`) — code that goes under R-MODEL (DL-116); the gemini preflight and
 `agy --version` are plain `subprocess.run` calls with no group of their own, so a helper they might fork is not reaped (a
 recorded limit — no run has shown one; `3rd-Agent/wrappers/gemini_wrapper.py` `_probe`, `antigravity_wrapper.py` `_probe_agy_version`).
 A failed stderr write drops that one line, never the answer or the exit, and a dropped line is never written later; a
@@ -625,8 +624,8 @@ goes through the auth-carrier rung first and a carrier STOP ends `oauth-env` / 6
 `fdd7029`; gemini's exit code 41 is read inside that rung, @ triad `8909103`; B: DL-95); a recorded limit on A: a
 signalled agy run's carriers are not read (no measured agy carrier capture) — `unknown` / 1, never retried. A probe
 that recorded a signal keeps the record-only mode until its refusal record is written, so a second SIGTERM / SIGHUP in
-that window is recorded too (frozen C1; `gemini_wrapper.py` preflight, `antigravity_wrapper.py` catalog and `--version`
-probes @ triad `0115727`); a signal replaces a stdin-delivery or reader failure; a
+that window is recorded too (frozen C1; `gemini_wrapper.py` preflight, `antigravity_wrapper.py` `--version` probe, and
+its catalog call until that goes, DL-116, @ triad `0115727`); a signal replaces a stdin-delivery or reader failure; a
 stdin-delivery or reader failure replaces a vendor exit code of 0 (A `:3924-3949`; B `bin/_common.py:1433-1437`,
 `:1663-1679` @ `7f75863`). A run whose output readers did not all finish without error fails closed at a vendor exit 0
 on both hosts, with different tokens (a fact): On A `truncated-answer` / 65, the captured prefix kept for the run-log and
@@ -710,7 +709,7 @@ whole authentication vocabulary there — an API key (an api-key helper included
 or log in (run /login), authentication or credentials, an auth / access / refresh / session / bearer token or its data, an
 expired or unrefreshable token or session, an API credit balance — is the R-AUTH (ii) STOP; a vendor row is evidence of a
 sentence, not the only trigger; a vendor's own authentication exit code (gemini 41) is a carrier too, and a run that ended
-in a timeout is judged on what it printed before, like the catalog call. A sentence no carrier rule knows yet ends unknown
+in a timeout is judged on what it printed before. A sentence no carrier rule knows yet ends unknown
 and reaches the repair analysis, which grows the classifier; it is never retried. The STOP applies to a call that failed: a
 run that completed with an answer is not stopped by a banner line. Outside a carrier the plain-fragment rule above stands.
 Facts: inside a JSON message a carrier's lines are split on line feeds only (a bare CR or U+2028 there is part of the line);
@@ -769,8 +768,8 @@ result lines ("Not logged in · Please run /login", "Invalid API key · Fix exte
 auth-carrier rung runs before every other rung. Classification never raises: an exception in a classifier or an extractor
 ends `unknown` (or `extraction-error`), exit 1, with the summary, audit row and run-log written (On A one general
 classification guard, `_common.py` `_never_raises` @ triad `e40001d`, on `classify`, `_auth_carrier_stop`, the three
-extractors, `agy_classify_signals`, and `antigravity_wrapper.py` `_classify_no_answer` / `_catalog_auth_observed`,
-and one guard around each wrapper's whole `main` — probes, the run, extraction, payload building, classification —
+extractors, `agy_classify_signals`, and `antigravity_wrapper.py` `_classify_no_answer` (and `_catalog_auth_observed`,
+which goes with A's agy catalog call, DL-116), and one guard around each wrapper's whole `main` — probes, the run, extraction, payload building, classification —
 that ends a run `extraction-error` after a vendor exit 0, else `unknown`, exit 1, with the three records, letting
 SystemExit / KeyboardInterrupt pass, `_common.py` `_guarded_main` @ triad `fdd7029`; DL-90; recorded limits: an
 exception after a verdict is decided but before the records ends `extraction-error` / `unknown`, exit 1 — no measured
@@ -1163,17 +1162,23 @@ service checks go through the owner-briefing route (R-GOOGLE); an unrun authenti
 REPLACES the user-tier policy directory only; system/admin, workspace and built-in defaults still load (v0.46.0 and
 v0.60.0 `packages/core/src/policy/config.ts`), so an admin policy can outrank the wrapper's denies; the CLI help string
 "Additional policy files" is misleading and the wrapper's TOML header is right.
-A different Google model (C18) is validated against the route's catalog before review inference: on agy the installed CLI's
-`agy models` list (`<slug>\t<label>` lines, agy 1.2.16), an unreadable list refusing (On B `bin/antigravity_wrapper.py:82-101`,
-`:635-643` @ `7f75863`; On A the review route, stage 5, an investigation `--web` call passing the model through); the gemini
-CLI exposes no model listing (`gemini --help`, 0.60.0), so its catalog is a versioned data list taken from the CLI's own model
-table (On B `bin/data/gemini-models.json`, `bin/google_preflight_v2.py:15-24`; On A `3rd-Agent/wrappers/gemini-models.json`,
-stage 5); the list travels with the wrapper that reads it, and since a roster-driven leg always passes its model, a gemini
-review leg needs a CLI the list covers (On A 0.60.0 or later, narrower than the 0.34.0 policy floor); a pre-release of a
-floor version is below that floor (On B `bin/google_preflight_v2.py:22-23`, `bin/review_round.py:470`), and the observed
-version is recorded as the CLI printed it. The catalog call is an authenticated CLI call: its own failure output is judged
-for an authentication outcome first (R-AUTH (ii)) — the re-login STOP, never a configuration refusal — and an
-undecodable listing is refused like an unreadable one, never a traceback. The Google Cloud
+A different Google model (C18) is the user's pin and is passed to the CLI as written (R-MODEL): no host checks it against
+a model list before review inference — no `agy models` call, and no packaged list as a gate (the gemini CLI exposes no
+model listing, `gemini --help`, 0.60.0; a host-packaged gemini list is display data only). A model the CLI refuses ends
+as R-MODEL's one terminal failed-to-run record naming the leg and the model and telling the user to change the roster
+entry; `contracts/vendor-failure-lines.json` holds no measured agy or gemini model-refusal sentence yet, so a new one
+ends `unknown` and reaches the repair analysis (R-CLASSIFY). The Pro-high default above stays, and the resolved model is
+recorded (R-ROSTER). Code that goes (DL-116): On A the agy review route runs `agy models` before a pinned dispatch and
+refuses a model the listing does not name, judging the call's own failure output for an authentication outcome first
+(`3rd-Agent/wrappers/antigravity_wrapper.py:775-923` `_catalog_auth_observed` / `_model_catalog_refusal`, called at
+`:2511-2519` @ triad `e0b15f1`), and the gemini review preflight refuses a model its packaged list
+(`3rd-Agent/wrappers/gemini-models.json`, minimum CLI 0.60.0) does not name (`3rd-Agent/wrappers/gemini_wrapper.py:273-296`,
+called at `:329-330`); On B the agy preflight runs `agy models` and refuses an unprobeable listing or a model it does not
+advertise (`bin/antigravity_wrapper.py:82-101`, `:635-643` @ `7f75863`) and the gemini route refuses a model its packaged
+list does not name (`bin/data/gemini-models.json`, `bin/google_preflight_v2.py:15-24`, called at
+`bin/gemini_wrapper.py:192-194`). A gemini review leg needs only the 0.34.0 policy floor; a pre-release of a floor
+version is below that floor (On B `bin/review_round.py:470`), and the observed version is recorded as the CLI printed
+it. The Google Cloud
 access-token variable the gemini CLI reads is an API-key-shaped credential under R-AUTH that neither host removed (DL-81).
 
 ## Authentication — the user's own browser login only

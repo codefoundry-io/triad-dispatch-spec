@@ -2,6 +2,14 @@
 
 ## Owed rows from host A's conformance work — 2026-10-08 (not tagged)
 
+- Reconciliation after the R-MODEL merge (owner rulings 2026-09-27 and 2026-10-08):
+  - R-NOCOST: a different Google model (C18) is the user's pin, passed as written — no `agy models` call and no packaged list as a gate (a packaged list is display data); a refused model is R-MODEL's one terminal record; the Pro-high default and the recorded model stay; host A's agy catalog call and gemini list gate and host B's `agy models` preflight and gemini list gate are written as code that goes. C18 expected (rule R-MODEL added), R-TERMINAL and R-CLASSIFY (A's catalog call no longer described as present behaviour), `contracts/review-legs.example.json` notes, `contracts/README.md` and the `agy models` row's carrier agree. DL-116 (OPEN A, OPEN B); DL-21 status brought to the present state and pointed at DL-116; DL-81 / DL-83 catalog parts withdrawn.
+  - DL-20 (CONFORMS-A: host A's review SKILL carries the subscription-cap clause) and DL-22 (readings 1-2 superseded by D-DELETION-BY-CODE-20261004; CHECK-B) status cells in the current grammar.
+  - DL-117: the vendor-failure rows no host list fully carries — codex's usage-limit sentence (B change), agy's AI-credits sentence (A and B change), agy's `result.error` sign-in carrier (CHECK-B); the signed-out `agy models` sentence is a fact only.
+  - DL-115: R-AGREE's On-A remedy text and R-REVIEW-WEB's v1-path layout text change with host A's move to a fresh review root.
+  - C12 and C34 by alias (D-OWNER-ANSWERS-20261008 item 17): the Claude default is Opus at `xhigh` named by `opus`; an older model only where a route takes a full model name; C34 restated for alias selection (rule R-MODEL added; `tests.B` unchanged). R-ROSTER's deviation note and its refusal sentence aligned. DL-100 FIXED-SPEC (leaves the owner list); DL-114 notes B's C34 test pins Opus 5.5 by full ID.
+  - Dev-log footer lists regenerated; the id-hold note reads DL-23–DL-38.
+
 - Merged the R-MODEL branch (PR #6, owner rulings 2026-09-27): R-MODEL (models are user-pinned data; no model-list or
   model-availability probe on the review or dispatch path; a refused model is one terminal record), R-ROSTER's adapter
   validation against the supported option vocabulary, owner register D-RULINGS-20260927B / C, dev-log DL-20 to DL-22.

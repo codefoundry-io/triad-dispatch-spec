@@ -121,3 +121,64 @@ def test_agy_finish_resubmission_is_a_shared_admission_rule():
     # owner 2026-10-08 (D-OWNER-ANSWERS-20261008B item 7): kept on both hosts, written beside the agy admission
     rule = _rule("R-CONTAIN")
     assert "D-OWNER-ANSWERS-20261008B" in rule and "a LATER `finish`" in rule
+
+
+def _row(dl_id):
+    for line in (ROOT / "authoring/shared-dev-log.md").read_text().splitlines():
+        if line.startswith(f"| {dl_id} |"):
+            return [c.strip() for c in line.strip().strip("|").split(" | ")]
+    raise AssertionError(dl_id)
+
+
+def test_c18_passes_the_google_pin_as_written_with_no_catalog_gate():
+    # R-MODEL (owner 2026-09-27, D-RULINGS-20260927B Q10-1): no model-list probe; a refused model is one terminal record
+    case = cases()["C18"]
+    assert "R-MODEL" in case["rule"]
+    assert "catalog" not in case["expected"]
+    assert "as written" in case["expected"] and "one terminal" in case["expected"]
+
+
+def test_no_spec_text_gates_a_model_on_a_catalog():
+    # R-MODEL wins over every sentence written before the merge (PR #6)
+    rules = (ROOT / "reference/review-rules.md").read_text()
+    for stale in ("is validated against the route's catalog", "The catalog call is an authenticated CLI call",
+                  "like the catalog call", "A cut-short agy catalog call"):
+        assert stale not in rules, stale
+    example = (ROOT / "contracts/review-legs.example.json").read_text()
+    assert "route catalog" not in example and "recorded catalog" not in example
+    assert "adapter catalog resolution" not in (ROOT / "contracts/README.md").read_text()
+    models_row = next(r for r in _vendor_lines() if r["match"] == "please sign in to view available models")
+    assert "a host reads before a review dispatch" not in models_row["carrier"]
+    assert "R-MODEL" in _rule("R-NOCOST")
+
+
+def test_catalog_gates_on_both_hosts_have_a_row():
+    row = _row("DL-116")
+    assert "R-MODEL" in row[4] and "_model_catalog_refusal" in row[4] and "_probe_agy_models" in row[4]
+    assert "OPEN (A" in row[6] and "OPEN (B" in row[6]
+    assert "DL-116" in _row("DL-21")[6]
+
+
+def test_unmatched_vendor_failure_rows_have_a_row():
+    row = _row("DL-117")
+    assert row[1] == "C43" and row[2] == "REQ-CUSTODY"
+    assert "you've hit your usage limit" in row[5] and "your ai credits balance is too low to continue" in row[5]
+    assert "OPEN (A" in row[6] and "OPEN (B" in row[6] and "CHECK-B" in row[6]
+
+
+def test_merged_rows_use_the_current_status_grammar():
+    assert "CONFORMS-A" in _row("DL-20")[6] and "pending" not in _row("DL-20")[6]
+    assert "D-DELETION-BY-CODE-20261004" in _row("DL-22")[6] and "CHECK-B" in _row("DL-22")[6]
+    assert "pending" not in _row("DL-21")[6] and "to decide" not in _row("DL-21")[6]
+
+
+def test_c12_and_c34_select_claude_by_alias():
+    # owner 2026-10-08 (D-OWNER-ANSWERS-20261008 item 17): alias over exact model ID wherever a CLI accepts one
+    c12, c34 = cases()["C12"], cases()["C34"]
+    assert "claude-opus-5-5" not in c12["expected"] and "`opus` alias" in c12["expected"]
+    assert "only where a route takes a full model name" in c12["expected"]
+    assert "claude-opus-5-5" not in c34["summary"] + c34["expected"]
+    assert "alias" in c34["expected"] and "R-MODEL" in c34["rule"]
+    assert "test_C34_opus_55_pin_rejects_provider_selection_of_opus_5" in c34["tests"]["B"]
+    assert _row("DL-100")[6].startswith("FIXED-SPEC") and not re.search(r"(?:^|; )OWNER", _row("DL-100")[6])
+    assert "C34 test" in _row("DL-114")[5]

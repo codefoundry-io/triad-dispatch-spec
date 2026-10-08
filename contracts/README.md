@@ -13,7 +13,7 @@
 | `gemini-readonly-b.verify.toml` | B1–B3 live effects NOT RUN; independent exact policy digest and verification-only Plan Mode command. A V1–V5 remain unchanged | B owner where Gemini is in service; results → C15 B column and owner register |
 | `exit-tokens.json` | seed = host A's 18-token map as data; B delta noted inside | both hosts' `_common.py` tables, membership-tested (D-11) |
 | `vendor-failure-lines.json` | the vendor failure sentences known today: CLI, sentence, match phrase, token (R-CLASSIFY, C43) | both hosts' classifiers carry the same rows |
-| `review-legs.example.json` | v2 illustrative roster template; placeholders make it non-runnable until adapter catalog resolution | both loaders; validates against `review-legs.schema.json` |
+| `review-legs.example.json` | v2 illustrative roster template; placeholders make it non-runnable until the user's pin or a host's shipped default replaces them (R-MODEL: no model list is consulted) | both loaders; validates against `review-legs.schema.json` |
 | `leg-verdict.schema.json` | Draft 2020-12 v2 canonical admission schema; materializes the aligned `leg-verdict-mapping.md` choices; candidate, not tagged/adopted | both validators; v2 prompt shape pins |
 | `leg-verdict-mapping.md` | round r2 output: A↔B mapping table, losses per direction, the proposed v2 shape, the three release properties that must survive | both maintainers (D-3) |
 | `review-legs.schema.json` | Draft 2020-12 named overrides and `$defs.resolvedRoster`; actual route/model/effort capability checks remain host adapters | both loaders |
