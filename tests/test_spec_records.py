@@ -155,7 +155,7 @@ def test_no_spec_text_gates_a_model_on_a_catalog():
 def test_catalog_gates_on_both_hosts_have_a_row():
     row = _row("DL-116")
     assert "R-MODEL" in row[4] and "_model_catalog_refusal" in row[4] and "_probe_agy_models" in row[4]
-    assert "OPEN (A" in row[6] and "OPEN (B" in row[6]
+    assert "FIXED-A" in row[6] and "OPEN (B" in row[6]
     assert "DL-116" in _row("DL-21")[6]
 
 
