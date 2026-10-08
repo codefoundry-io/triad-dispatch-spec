@@ -2,6 +2,7 @@
 
 ## Owed rows from host A's conformance work — 2026-10-08 (not tagged)
 
+- `contracts/vendor-failure-lines.json`: the measured signed-out `agy models` sentence ("Please sign in to view available models") → `oauth-env` (owner capture 2026-10-08; exit code not captured).
 - Owner register D-REPAIR-LOOP-KEEP-20261008 (verbatim): the self-improving classifier repair loop stays on both hosts; its extras go.
 - R-CLASSIFY: a phrase a host learns through its repair loop is promoted to a `contracts/vendor-failure-lines.json` row with the run record as evidence.
 - DL-104 decided: both hosts drop the timeout routing and the malicious-analyzer caps (lock kept), verify a proposal on the stored record, promote learned phrases (OPEN A, OPEN B).
