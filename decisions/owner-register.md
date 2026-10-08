@@ -693,6 +693,13 @@ engine's leftover `--task` pieces.
 Effect: [R-TOKENS](../reference/review-rules.md#R-TOKENS), `contracts/exit-tokens.json`, case C8,
 `authoring/shared-dev-log.md` DL-72 (superseded in part), DL-91.
 
+<a id="D-AGY-SETTINGS-UNTOUCHED-20261008"></a>
+## D-AGY-SETTINGS-UNTOUCHED-20261008: host A never touches the machine-wide agy settings file
+
+Owner, 2026-10-08, typed (verbatim), after asking why the agy settings transaction exists ("agy 이 설정 병렬 버그 때문에 넣은거 맞지? 개선안됐고 계속 이 방법으로 써야해?") and hearing that agy 1.3.1 still offers no per-call permission option while host A's reviews already run an allowlisted agent: "이 스펙 적고 구현을 시작할건데 지금다 삭제해 그럼 명령어가 어떻게 되는거야 agt -p --agent? agent는 우리가 정의해놨어?".
+
+Recorded effect: host A removes all of its agy settings handling — the guard around its permissive call and that guard's lock, the heal of a stale `.agybak` at `--setup-agents`, the shared-lease / holder / crash-recovery module and its lock-timeout setting. Host A reads and writes none of `~/.gemini/antigravity-cli/settings.json`, `.agybak`, `.agy_settings.lock`, `.agy_settings.shared.json` or `.agy_settings.holders/`; the install-time `read_url(*)` allow stays the operator's own setting (R-REVIEW-WEB). Host A's read-only agy leg is `agy -p <prompt> --output-format stream-json --agent triad-readonly-review --add-dir <worktree>` (`triad-readonly-research` when the round has web), the two agents being host A's own definitions that `antigravity_wrapper.py --setup-agents` writes to `~/.gemini/config/agents/`. It supersedes the 2026-10-07 host-A fact that A heals B's stale sentinel (R-REVIEW-WEB) and the owner's 2026-10-08 answer 15 ("잠금만 빼"). A stale `.agybak` the codex host leaves is the codex host's to heal; DL-107 asks it to move to an allowlisted agent so no host changes that file per call.
+
 <a id="D-CONCURRENCY-FACT-20261008"></a>
 ## D-CONCURRENCY-FACT-20261008: different working folders and the two hosts run at the same time; one folder does not
 
