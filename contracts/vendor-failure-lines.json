@@ -193,6 +193,14 @@
       "carrier": "the `result.error` of the terminal stream-json result event (status ERROR, empty response, num_turns 0, empty conversation_id); vendor exit 1",
       "token": "oauth-env",
       "observed": "2026-10-08 (agy 1.3.1, signed out, host A; `agy -p \"hi\" --output-format stream-json`)"
+    },
+    {
+      "cli": "agy",
+      "line": "Your AI credits balance is too low to continue.",
+      "match": "your ai credits balance is too low to continue",
+      "carrier": "the agy CLI's own message for an exhausted plan quota with no AI credits (per agy changelog 1.2.15); the stream position is not captured",
+      "token": "cli-subscription-cap",
+      "observed": "agy changelog 1.2.15 (the vendor's own source, read 2026-10-08)"
     }
   ]
 }

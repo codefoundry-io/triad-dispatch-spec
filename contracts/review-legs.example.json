@@ -8,11 +8,11 @@
       "acceptance": "required",
       "claude": {
         "agent": "cross-family-review-reviewer",
-        "model": "claude-opus-5-5",
+        "model": "opus",
         "effort": "xhigh"
       },
       "timeout_s": 900,
-      "note": "Recommended Claude model/effort: R-ROSTER. Explicit model overrides and null retain host selection semantics; agent names the native reviewer preset on A (required) and is passed as --agent on B when set. B's runnable default timeout is 1200 s."
+      "note": "Recommended Claude model/effort: R-ROSTER (the versionless `opus` alias, which the claude CLI and the native agent preset both accept). Explicit model overrides and null retain host selection semantics; agent names the native reviewer preset on A (required) and is passed as --agent on B when set. B's runnable default timeout is 1200 s."
     },
     {
       "name": "codex",
@@ -24,7 +24,7 @@
         "reasoning": "high"
       },
       "timeout_s": 900,
-      "note": "Recommended codex model/reasoning: R-ROSTER (shipped defaults carry the explicit ID). An explicit null override retains host-default semantics and is frozen as null."
+      "note": "Recommended codex model/reasoning: R-ROSTER (shipped defaults carry the explicit ID until a codex alias is measured). An explicit null override retains host-default semantics and is frozen as null."
     },
     {
       "name": "google",

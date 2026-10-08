@@ -117,7 +117,8 @@ def test_c12_shipped_template_has_valid_structure_but_is_not_a_catalog():
     data = json.loads((ROOT / "contracts/review-legs.example.json").read_text())
     validator("review-legs.schema.json", "resolvedRoster").validate(data)
     claude = next(leg["claude"] for leg in data["legs"] if leg["name"] == "claude")
-    assert (claude["model"], claude["effort"]) == ("claude-opus-5-5", "xhigh")
+    # R-ROSTER (owner 2026-10-08, D-OWNER-ANSWERS-20261008 item 17): the measured claude alias, not the exact ID
+    assert (claude["model"], claude["effort"]) == ("opus", "xhigh")
     codex = next(leg["codex"] for leg in data["legs"] if leg["name"] == "codex")
     assert (codex["model"], codex["reasoning"]) == ("gpt-6-astra", "high")
     assert any("<" in leg.get("agy", {}).get("model", "") for leg in data["legs"])

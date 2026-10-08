@@ -2,6 +2,18 @@
 
 ## Owed rows from host A's conformance work — 2026-10-08 (not tagged)
 
+- Spec-completion pass for the owner's 2026-10-08 decisions (spec first; implementation and tests follow):
+  - R-THREAT: two concurrency levels — none inside one working folder; different folders and the two hosts run at the same time and meet at machine-level state, where a guard is in scope (D-CONCURRENCY-FACT-20261008); case C68 names the new evidence pointer.
+  - `prompts/common-clauses.md`: `deployment-context` takes the owner-approved wording verbatim; `severity-instruction` gains one clause (vendor output means a shape a run has shown; a shape no run has shown is a recorded limit, HARDENING-SUGGESTION). No schema change. DL-93: spec fixed for the prompt half; A and B re-vendor (B's copy lacks `deployment-context`). The prompt-payload test now pins the approved text (its "at most three sentences" shape is gone with the owner's wording).
+  - R-CONTAIN: the agy `finish` resubmission rule for both hosts (an errored `finish` followed by a successful one in the same run is admitted; structured fields only); R-CLASSIFY On A aligned; DL-113 (B change). No case id minted.
+  - Host A has no claude CLI route: R-INVEST, R-TERMINAL, R-CLASSIFY, C31 `tests.A` (n/a), `units.json` selected-investigations; DL-110 (A removes the wrapper bundle).
+  - R-BIND: the executed-command receipt at collection is the common check; a pre-spawn marker check is a host's own addition (B keeps its own); host A's review-argv digest goes. R-REVIEW-WEB On A, C32 expected and `tests.A`, `units.json` review-web-authorization; DL-111.
+  - R-REVIEW-WEB: host A never touches the machine-wide agy settings (no heal, guard, lock, lease or settings preflight); the `read_url(*)` allow is the operator's own setting, unchecked on A (a recorded limit); B's stale `.agybak` is B's to heal. R-CLI-VERSION's lock-timeout example goes; C6 `tests.A` n/a; DL-112; DL-58 (A's preflight withdrawn), DL-107 and DL-109 (A moot) updated.
+  - R-ROSTER: alias over exact model ID wherever a CLI accepts one (measured: claude `opus` / `sonnet`; codex and agy not measured, their defaults stay); the Claude default is named by `opus`; `contracts/review-legs.example.json` claude `opus` with its test; DL-114 (B change).
+  - R-PREPARE: the layout per host — a fresh review root per round on B and, as the target, on A (no per-gate packet dir, no re-pin); R-CLEANUP's re-pin note; DL-115.
+  - DL-105: host A's decision made (off) — OPEN (A).
+  - `contracts/vendor-failure-lines.json`: agy "Your AI credits balance is too low to continue." → `cli-subscription-cap` (agy changelog 1.2.15, the vendor's own source, read 2026-10-08; stream position not captured).
+  - Host-A-only removals (daily drift checks, migration starter, codex-host assembler, gemini leader skills, post-edit hook): no spec sentence cited them as host A's present behaviour; nothing written.
 - Owner register D-OWNER-ANSWERS-20261008B (verbatim): auth STOP unchanged (measured), C40 admitted on both hosts, fresh review root per round on A, the two prompt clauses reworded.
 - Owner register D-AGY-SETTINGS-UNTOUCHED-20261008 (verbatim): host A removes all agy settings handling; its read-only leg is an allowlisted agent with `--add-dir`.
 - Dev log DL-107 (B's per-call global agy deny transaction meets host A's concurrent web legs and interactive agy; lock waits), DL-108 (same-named wrapper launchers on PATH; A invokes by plugin path), DL-109 (A's uninstall must not remove the shared agy lock; B's config.toml publish window) — from the owner's concurrency fact.

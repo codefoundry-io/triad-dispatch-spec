@@ -85,3 +85,39 @@ def test_codex_incorrect_api_key_row_is_oauth_env():
     assert "sk-" not in rows[0]["line"]
     # R-CLASSIFY: the measured vendor wording, never the bare phrase the spec and instructions quote.
     assert rows[0]["match"] == "unexpected status 401 unauthorized: incorrect api key"
+
+
+def test_agy_ai_credits_row_is_a_subscription_cap_from_the_vendor_source():
+    # R-CLASSIFY: agy changelog 1.2.15 quotes the sentence for an exhausted plan quota with no AI credits.
+    rows = [r for r in _vendor_lines() if r["match"] == "your ai credits balance is too low to continue"]
+    assert [(r["cli"], r["token"], r["line"]) for r in rows] == [
+        ("agy", "cli-subscription-cap", "Your AI credits balance is too low to continue.")]
+    assert "changelog 1.2.15" in rows[0]["observed"] and "not captured" in rows[0]["carrier"]
+
+
+def test_c31_names_no_claude_cli_route_on_host_a():
+    # owner 2026-10-08 (D-OWNER-ANSWERS-20261008 item 2): the claude family runs natively on host A
+    assert cases()["C31"]["tests"]["A"].startswith(
+        "n/a — host A runs the claude family natively and has no claude CLI route (D-OWNER-ANSWERS-20261008)")
+
+
+def _rule(anchor):
+    text = (ROOT / "reference/review-rules.md").read_text()
+    start = text.index(f'<a id="{anchor}"></a>')
+    end = text.find('<a id="R-', start + 1)
+    return text[start:end]
+
+
+def test_r_threat_splits_per_folder_from_machine_level_concurrency():
+    # owner fact 2026-10-08 (D-CONCURRENCY-FACT-20261008): one folder runs one operation at a time; folders and hosts do not
+    rule = _rule("R-THREAT")
+    assert "D-CONCURRENCY-FACT-20261008" in rule
+    assert "There is no concurrent operation" not in rule
+    assert "machine-level" in rule
+    assert "D-CONCURRENCY-FACT-20261008" in cases()["C68"]["expected"]
+
+
+def test_agy_finish_resubmission_is_a_shared_admission_rule():
+    # owner 2026-10-08 (D-OWNER-ANSWERS-20261008B item 7): kept on both hosts, written beside the agy admission
+    rule = _rule("R-CONTAIN")
+    assert "D-OWNER-ANSWERS-20261008B" in rule and "a LATER `finish`" in rule
