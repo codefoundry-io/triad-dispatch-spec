@@ -177,6 +177,22 @@
       "carrier": "the output of a failed `agy models` call (the model catalog a host reads before a review dispatch); the exit code was not captured",
       "token": "oauth-env",
       "observed": "2026-10-08 (the lab owner, signed out, on the host A machine; agy 1.3.1 installed there)"
+    },
+    {
+      "cli": "agy",
+      "line": "Authentication required. Please visit the URL to log in:",
+      "match": "authentication required. please visit the url",
+      "carrier": "the first stderr line of a signed-out print-mode run, plain or stream-json, at the start of the line; the sign-in URL, a 60 s wait and `error: authentication failed or timed out` follow; vendor exit 1",
+      "token": "oauth-env",
+      "observed": "2026-10-08 (agy 1.3.1, signed out, host A; `agy -p \"hi\"` with stdin closed)"
+    },
+    {
+      "cli": "agy",
+      "line": "authentication failed or timed out",
+      "match": "authentication failed or timed out",
+      "carrier": "the `result.error` of the terminal stream-json result event (status ERROR, empty response, num_turns 0, empty conversation_id); vendor exit 1",
+      "token": "oauth-env",
+      "observed": "2026-10-08 (agy 1.3.1, signed out, host A; `agy -p \"hi\" --output-format stream-json`)"
     }
   ]
 }

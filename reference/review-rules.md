@@ -690,8 +690,12 @@ Facts: inside a JSON message a carrier's lines are split on line feeds only (a b
 on a CLI's own stderr a bare CR also starts a line (progress output rewrites the line, and the host's text-mode pipe turns it
 into a line feed) — stderr is the CLI's own channel, never tool output; gemini 0.60.0
 puts a fatal TOOL error into its error object as "Error executing tool <name>: …" — that message is tool output, so only the
-object's code (41 / 401) is read there; gemini's "Cached credentials are not valid:" log line appears only in debug mode; no
-stream-json capture yet shows where agy's banner sits on its stderr line (the line-start rule rests on the pty-era record).
+object's code (41 / 401) is read there; gemini's "Cached credentials are not valid:" log line appears only in debug mode; a
+signed-out agy print-mode run (agy 1.3.1, captured 2026-10-08, plain and stream-json) prints its banner as the FIRST stderr
+line, at the line start, waits 60 s for a sign-in, ends with `error: authentication failed or timed out` and exits 1 — no
+authentication-specific exit code — and in stream-json also puts `authentication failed or timed out` into the terminal
+`result.error` (status ERROR, num_turns 0); both are `contracts/vendor-failure-lines.json` rows (host A's wrapper ends that run
+`oauth-env` / 65 with no retry, verified the same day).
 Recorded limits (a fact, owner 2026-10-05,
 [D-MEASURED-SHAPES-20261005](../decisions/owner-register.md#D-MEASURED-SHAPES-20261005)). Vendor error text belongs to the vendor and changes with each release, so a
 host codes only a MEASURED shape — a capture, a row of `contracts/vendor-failure-lines.json`, or the vendor's own

@@ -2,6 +2,7 @@
 
 ## Owed rows from host A's conformance work — 2026-10-08 (not tagged)
 
+- `contracts/vendor-failure-lines.json`: the measured signed-out agy print-mode run (agy 1.3.1) — the stderr banner line and the stream-json `result.error` `authentication failed or timed out` → `oauth-env`; vendor exit 1, no auth-specific code; R-CLASSIFY's "no stream-json capture yet" fact replaced by the capture.
 - Owner register D-OWNER-ANSWERS-20261008 (verbatim answers; removals on host A; alias over exact model ID wherever the alias works; spec first, tests after).
 - `contracts/vendor-failure-lines.json`: the measured signed-out `agy models` sentence ("Please sign in to view available models") → `oauth-env` (owner capture 2026-10-08; exit code not captured).
 - Owner register D-REPAIR-LOOP-KEEP-20261008 (verbatim): the self-improving classifier repair loop stays on both hosts; its extras go.
