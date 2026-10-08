@@ -2,6 +2,7 @@
 
 ## Owed rows from host A's conformance work — 2026-10-08 (not tagged)
 
+- Owner register D-OWNER-ANSWERS-20261008 (verbatim answers; removals on host A; alias over exact model ID wherever the alias works; spec first, tests after).
 - `contracts/vendor-failure-lines.json`: the measured signed-out `agy models` sentence ("Please sign in to view available models") → `oauth-env` (owner capture 2026-10-08; exit code not captured).
 - Owner register D-REPAIR-LOOP-KEEP-20261008 (verbatim): the self-improving classifier repair loop stays on both hosts; its extras go.
 - R-CLASSIFY: a phrase a host learns through its repair loop is promoted to a `contracts/vendor-failure-lines.json` row with the run record as evidence.

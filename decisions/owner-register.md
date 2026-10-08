@@ -693,6 +693,13 @@ engine's leftover `--task` pieces.
 Effect: [R-TOKENS](../reference/review-rules.md#R-TOKENS), `contracts/exit-tokens.json`, case C8,
 `authoring/shared-dev-log.md` DL-72 (superseded in part), DL-91.
 
+<a id="D-OWNER-ANSWERS-20261008"></a>
+## D-OWNER-ANSWERS-20261008: the owner's answers to host A's decision list after the over-design audit
+
+Owner, 2026-10-08, typed answers to host A's leader, item by item (verbatim; the numbers are the leader's list "owner-decisions-2026-10-08"): "1. 삭제 / 2. 삭제 / 3. 끌것 / 4. 뺄것 / … / 6. \"빼 / … / 9. 제거 gemini 는 계속 업데이트 중이니 상관없음 / … / 11. 삭제 / 12. 유지 / 13. 유지 / … / 15. 잠금만 빼 / 16. 다 결정된 후 병합 지금도 수정중이잖아 / 17. 모델명이 계속 변경되고 있어 대표 모델명을 버전없이 적어도 적용되면 정확한 모델 ID대신 별칭을 사용할 것 / 18. 나중에 / … / 20. 시험은 폐기한다 일단 스펙 부터 완성해야 시험을하지 지금은 스펙도 구현도 마무리 안된 상태 / 21. 삭제 / 22. 삭제 / 23. 마무리 하고 다음 작업" (items 5, 7, 8, 10, 14 and 19 were questions back to the leader; item 24 was a capture, now a `contracts/vendor-failure-lines.json` row).
+
+Recorded effect, host A: (1) the shipped migration starter `CLAUDE.recommended.md` is removed from the distribution; (2) host A's claude CLI wrapper bundle is removed — the claude family runs natively on host A, so C31 / R-INVEST / units.json name no claude CLI route for A; (3) the claude-host installer no longer requires pinned vendor binaries, no longer pins a resolved versioned path and no longer gates an operator's `--pydantic` import (DL-105); (4) host A's codex-host product assembler and its tests are removed (install layers are per host, R-PARITY); (6) host A's pre-spawn review-argv digest refusal is removed — an edited dispatch line is caught at collection by the executed-command receipt, as on B; (9) the agy and gemini daily drift checks are removed; (11) host A's 2026-07 codex-host handoff documents are deleted; (12) the non-review agy read-audit file and (13) the effective child cwd record stay; (15) the agy settings heal stays and its lock goes (no concurrent operation, R-THREAT). Standing: (16) the open spec PRs merge only after every decision is settled; (17) where a versionless representative model name (an alias) works on a CLI, rosters and presets name the alias instead of the exact model ID (it extends D-PRESET-ALIASES-20261006 beyond the claude presets; each CLI's accepted aliases are a measured fact); (20) no test campaign runs until the specification and its implementation are complete; (23) host A's conformance goal closes on its 47 cases.
+
 <a id="D-REPAIR-LOOP-KEEP-20261008"></a>
 ## D-REPAIR-LOOP-KEEP-20261008: the self-improving classifier repair loop stays; its extras go
 
