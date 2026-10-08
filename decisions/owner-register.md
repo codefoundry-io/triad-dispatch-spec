@@ -693,6 +693,13 @@ engine's leftover `--task` pieces.
 Effect: [R-TOKENS](../reference/review-rules.md#R-TOKENS), `contracts/exit-tokens.json`, case C8,
 `authoring/shared-dev-log.md` DL-72 (superseded in part), DL-91.
 
+<a id="D-OWNER-ANSWERS-20261008B"></a>
+## D-OWNER-ANSWERS-20261008B: the owner's second answers (auth signals, C40, packet layout, prompt clauses)
+
+Owner, 2026-10-08, typed (verbatim): "5 지금 로그아웃 되어있으니 직접 리턴값이랑 실측해봐 agy -p \"hi\" / 7이해가 안가는데 모델이 왜 스스로 다시한번  답을 내 자세히 설명 / 8 codex 방식으로 / 10번 둘다 삭제 / 14 다 지워 / 19 번 이 md 파일 용도가 뭐여? 어디서써? 그리고 claude host, codex host 그리고 또 같은 hos라도 다른 폴더에서 작업을 할수도 있어"; then, to two questions: "수정안대로 (권장)" (the prompt clauses) and "유지 + spec 기록 (권장)" (C40).
+
+Recorded effect: (5) the authentication STOP stays as it is — the vendor's codes first (gemini exit 41, claude `api_error_status` 401), then the authentication vocabulary inside the vendor's own error carrier only; the signed-out agy run was measured the same day (`contracts/vendor-failure-lines.json`: exit 1, no authentication code, the stderr banner and the stream-json `result.error`). (7) An agy run whose only errored step is a `finish` submission followed by a successful `finish` in the same run is admitted on both hosts (R-CONTAIN). (8) Host A moves to the codex host's review layout: a fresh review root per round, no re-pinned worktree. (19) The shared prompt clauses `deployment-context` and `severity-instruction` take the owner-approved wording (per-folder versus machine-level concurrency, [D-CONCURRENCY-FACT-20261008](#D-CONCURRENCY-FACT-20261008); a vendor shape no run has shown is a recorded limit labelled HARDENING-SUGGESTION; no schema change). Host-only: (10) host A's two gemini leader skills and (14) its post-edit reminder hook are deleted.
+
 <a id="D-AGY-SETTINGS-UNTOUCHED-20261008"></a>
 ## D-AGY-SETTINGS-UNTOUCHED-20261008: host A never touches the machine-wide agy settings file
 

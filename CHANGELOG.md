@@ -2,6 +2,7 @@
 
 ## Owed rows from host A's conformance work — 2026-10-08 (not tagged)
 
+- Owner register D-OWNER-ANSWERS-20261008B (verbatim): auth STOP unchanged (measured), C40 admitted on both hosts, fresh review root per round on A, the two prompt clauses reworded.
 - Owner register D-AGY-SETTINGS-UNTOUCHED-20261008 (verbatim): host A removes all agy settings handling; its read-only leg is an allowlisted agent with `--add-dir`.
 - Dev log DL-107 (B's per-call global agy deny transaction meets host A's concurrent web legs and interactive agy; lock waits), DL-108 (same-named wrapper launchers on PATH; A invokes by plugin path), DL-109 (A's uninstall must not remove the shared agy lock; B's config.toml publish window) — from the owner's concurrency fact.
 - Owner register D-CONCURRENCY-FACT-20261008 (verbatim): different folders and the two hosts run concurrently on one machine; one folder does not — corrects D-THREAT-MODEL-20261003's no-concurrency for machine-level shared state (R-THREAT and the deployment-context clause to be rewritten).
