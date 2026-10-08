@@ -164,3 +164,11 @@ Checks suggested for B: DL-13, DL-14, DL-16, DL-22, DL-42, DL-43, DL-58, DL-62, 
 Rows awaiting the owner: DL-54.
 
 The reading of B continues at `triad-codex-dispatch` 0.2.558 @ `7f75863`; rows are added as it goes.
+
+## Codex follow-up, 2026-10-08
+
+[The current conformance audit and Claude request](../decisions/2026-10-08-codex-conformance-audit.md)
+records B's reproduced DL-117 quota gap and bounded correction, the still-open
+DL-116 gates on both inspected hosts, and the owner's explicit native-leg
+ownership boundary. The focused correction is not full C43 conformance; row
+statuses above remain open until their remaining work and review are complete.
