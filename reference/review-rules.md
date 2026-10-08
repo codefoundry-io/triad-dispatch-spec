@@ -142,11 +142,12 @@ no run or vendor source read for this specification shows that either CLI accept
 codex and agy roster defaults (exact IDs and catalog slugs, below and R-NOCOST) stay until an alias is measured (DL-114). This creates
 no new settings layer; the recommended defaults are the ones stated below. Existing override precedence and explicit `model: null` semantics
 remain. `vendor` is a FAMILY value (`claude` | `codex` | `google`); `agy` / `gemini` blocks hold route-specific settings.
-Model and effort remain expressible for every vendor and adapter-validated against actual capabilities before inference.
+Model and effort remain expressible for every vendor and are validated by the host adapter against its supported option
+vocabulary before inference, never against a vendor catalog (R-MODEL).
 When both Google CLIs are present, an explicit `google.route` pin selects one; otherwise keep R-GOOGLE's existing chain.
 Timeouts remain adapter-validated (B legacy formal Gemini requires 600 s and Claude 1200 s; illustrative shared 900 s
 Claude entries are not B runnable defaults). No configuration is a shared user-global dependency. Show the resolved
-roster before inference, and never start unselected entries. Model catalogue/probe policy changes are a separate scope;
+roster before inference, and never start unselected entries. Model lists and probes follow R-MODEL;
 exact CLI model selection is not relaxed by the version rule R-CLI-VERSION.
 
 The recommended Claude review default is Opus with `xhigh` effort (owner, 2026-09-25, then Opus 5.5), named by the
@@ -155,7 +156,7 @@ The recommended Claude review default is Opus with `xhigh` effort (owner, 2026-0
 selection retain their existing semantics; an older model remains selectable where a host's route takes a full model
 name as an override (B's claude CLI route), and on A no older Claude model is selectable (below).
 The adapter checks the requested model and effort before review inference and
-refuses a reported selection that contradicts a catalogued explicit model ID. Selection
+refuses a reported selection that contradicts the requested explicit model ID. Selection
 evidence is not proof of the eventual runtime model. B's fixed legacy formal
 route pins `claude-opus-5-5` / `xhigh` (`FORMAL_CLAUDE_MODEL`, `bin/claude_wrapper.py:38`, `:378` @ `7f75863`; the alias
 rule asks for `opus`, DL-114); its raw wrapper keeps caller passthrough.
@@ -207,6 +208,21 @@ expose stays null, never inferred from the request, and an exposed identity that
 contradicts the request is refused. A comparison or trial model on any family is an
 ordinary opt-in entry; its findings count under R-AGREE like any leg's, and the difference
 between two entries is a ledger observation, never a vote (C35).
+
+## Models are user-pinned data
+
+<a id="R-MODEL"></a>
+A leg's model and effort are data the user pins in the roster entry — on a host whose native leg cannot carry a model,
+in the agent definition the entry names — and the user changes them (owner, 2026-09-27: "모델 변경은 사용자가 직접하고
+니가 추론하지마 … 니가 프로브로 검사하는 라운드 자체가 비용에 영향을 줌 그 모델이 없어지면 사용자에게 알리는 정도로"). A
+host never chooses, infers, substitutes or falls back to another model, and runs no model-list or model-availability
+probe on the review or dispatch path: a probe is a paid call, and model names change faster than any packaged list. A
+host-packaged model list is data a host may display, never a gate on the user's pin. A capability check that a rule
+requires — a CLI version floor that names the capability it guards, the R-REVIEW-WEB route preflight — is not a model
+probe. When the vendor CLI refuses a pinned model (withdrawn, renamed, or unsupported by the installed CLI version), the
+attempt ends as ONE terminal failed-to-run record that names the leg and the model and tells the user to change the roster
+entry; the change is a new basis (R-REREVIEW). An exposed runtime identity that contradicts the request is still refused
+(R-ROSTER) — that is an observation of the answer already paid for, not a probe.
 
 ## Selected investigations
 
@@ -1220,7 +1236,7 @@ at preparation and records it in `claude-capability.json` and the sealed adapter
 the same function; On B `bin/antigravity_wrapper.py:766`, `bin/gemini_wrapper.py:519`). On A the agy argument refusal that returned after the probe before any record — a non-numeric
 `AGY_SETTINGS_LOCK_TIMEOUT` (exit 3, the probed version unrecorded; `3rd-Agent/wrappers/antigravity_wrapper.py:2456-2460`
 @ triad `e0b15f1`) — goes with that setting (DL-112). This rule does not loosen exact model selection or
-authorize new catalogue/probe policy, fallback, global settings or provider permission changes.
+authorize a model probe (R-MODEL), fallback, global settings or provider permission changes.
 
 ## Parity scope
 

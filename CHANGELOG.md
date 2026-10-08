@@ -2,6 +2,10 @@
 
 ## Owed rows from host A's conformance work — 2026-10-08 (not tagged)
 
+- Merged the R-MODEL branch (PR #6, owner rulings 2026-09-27): R-MODEL (models are user-pinned data; no model-list or
+  model-availability probe on the review or dispatch path; a refused model is one terminal record), R-ROSTER's adapter
+  validation against the supported option vocabulary, owner register D-RULINGS-20260927B / C, dev-log DL-20 to DL-22.
+  R-CLEANUP keeps this branch's declared-root text (D-DELETION-BY-CODE-20261004 supersedes the name-shaped `rmdir`).
 - Spec-completion pass for the owner's 2026-10-08 decisions (spec first; implementation and tests follow):
   - R-THREAT: two concurrency levels — none inside one working folder; different folders and the two hosts run at the same time and meet at machine-level state, where a guard is in scope (D-CONCURRENCY-FACT-20261008); case C68 names the new evidence pointer.
   - `prompts/common-clauses.md`: `deployment-context` takes the owner-approved wording verbatim; `severity-instruction` gains one clause (vendor output means a shape a run has shown; a shape no run has shown is a recorded limit, HARDENING-SUGGESTION). No schema change. DL-93: spec fixed for the prompt half; A and B re-vendor (B's copy lacks `deployment-context`). The prompt-payload test now pins the approved text (its "at most three sentences" shape is gone with the owner's wording).
@@ -387,6 +391,45 @@
 - Written in the present form only (`decisions/owner-register.md`
   D-RULINGS-20260928B): the rule, the data and the case, no development-log row.
 - No schema, prompt payload or revision tag change.
+
+## R-CLEANUP amended — an empty candidate may be removed by rmdir (owner ruling 2026-09-27) — 2026-09-27 (not tagged)
+
+- `reference/review-rules.md` R-CLEANUP: one sentence added — an EMPTY
+  name-shaped candidate past the age floor may be removed with `rmdir` alone
+  (it removes no data); a directory holding any entry without its record stays
+  preserved and reported. `authoring/shared-dev-log.md` DL-22 status;
+  `decisions/owner-register.md` D-RULINGS-20260927C.
+- Normative sentence ADDED (a permission, not an obligation); no schema,
+  prompt payload, contract or revision tag change.
+
+## Shared development log DL-22 — three R-CLEANUP readings from host A's retention slice — 2026-09-27 (not tagged)
+
+- `authoring/shared-dev-log.md` DL-22 (C3, C4, C5): the owner's option-A
+  decision on name-bound allocation records (root + name shape + the
+  program-written record are the proof in a no-malicious-actor deployment);
+  an EMPTY name-shaped residue past the floor is removed by `rmdir` only (no
+  data is ever removed without a record); a failed removal restores the
+  directory's mtime so the next sweep retries it. Record only; no rule text
+  change. One check suggested for host B's cleanup.
+
+## R-MODEL — models are user-pinned data; no catalog probe (owner ruling 2026-09-27) — 2026-09-27 (not tagged)
+
+- `reference/review-rules.md` R-MODEL (NEW rule, after "Selected investigations"):
+  a leg's model and effort are data the user pins and changes; a host never
+  chooses, infers, substitutes or falls back, and runs no model-list or
+  availability probe on the review or dispatch path; a packaged list is
+  display data, never a gate; a refused pinned model ends as ONE terminal
+  record naming the leg and the model (a roster change is a new basis); an
+  exposed runtime identity that contradicts the request stays refused.
+  R-ROSTER amended in two places ("supported option vocabulary" instead of
+  "actual capabilities"; "requested" instead of "catalogued" explicit model ID).
+- `authoring/shared-dev-log.md` DL-20 (quota-cap default = the answering
+  families + the owner's decision; substitution is the user's explicit
+  request; FACT: neither host has runtime compensation) and DL-21 (the R-MODEL
+  ruling, A clean-ups, B's gates to decide). `decisions/owner-register.md`
+  D-RULINGS-20260927B.
+- Normative rule text ADDED (binds both hosts); no schema, prompt payload,
+  contract or revision tag change.
 
 ## Owner rulings 2026-09-27 recorded — DL-17 / DL-18 / DL-19 (facts, no rule change) — 2026-09-27 (not tagged)
 
