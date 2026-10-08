@@ -182,3 +182,18 @@ def test_c12_and_c34_select_claude_by_alias():
     assert "test_C34_opus_55_pin_rejects_provider_selection_of_opus_5" in c34["tests"]["B"]
     assert _row("DL-100")[6].startswith("FIXED-SPEC") and not re.search(r"(?:^|; )OWNER", _row("DL-100")[6])
     assert "C34 test" in _row("DL-114")[5]
+
+
+def test_host_a_keeps_a_read_only_agy_web_prerequisite_check():
+    # owner 2026-10-08 ("읽기 확인만 남김 (권장)"): host A reads the agy settings file only to check the read_url(*) allow
+    register = (ROOT / "decisions/owner-register.md").read_text()
+    entry = register[register.index('<a id="D-AGY-SETTINGS-UNTOUCHED-20261008">'):]
+    entry = entry[:entry.index("<a id=", 10)]
+    assert "읽기 확인만 남김 (권장)" in entry and "reads and writes none of" not in entry
+    rule = _rule("R-REVIEW-WEB")
+    assert "_v2_agy_web_refusal" in rule and "Host A does not check it before a round" not in rule
+    assert "reads and writes none of" not in rule and "A recorded limit on A: on a machine without that allow" not in rule
+    assert "WITHDRAWN (A" not in _row("DL-58")[6]
+    assert "per-round preflight" not in _row("DL-112")[5].split("B:")[0].split("keep")[0]
+    assert "no `_agy_settings` import" in _row("DL-112")[5]
+    assert "CHECK-B" in _row("DL-107")[6]
