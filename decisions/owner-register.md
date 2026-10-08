@@ -693,6 +693,13 @@ engine's leftover `--task` pieces.
 Effect: [R-TOKENS](../reference/review-rules.md#R-TOKENS), `contracts/exit-tokens.json`, case C8,
 `authoring/shared-dev-log.md` DL-72 (superseded in part), DL-91.
 
+<a id="D-CONCURRENCY-FACT-20261008"></a>
+## D-CONCURRENCY-FACT-20261008: different working folders and the two hosts run at the same time; one folder does not
+
+Owner, 2026-10-08, typed fact to host A's leader (verbatim): "같은 폴더에서 작업을하지는 않는데 다른 폴더에서 작업을 하지 claude, codex 호스트도 동시에 돌릴 경우 많은데" (no work happens concurrently inside one folder, but work in different folders does, and the claude and codex hosts are often run at the same time).
+
+Recorded effect: this corrects the "no concurrent operation" part of [D-THREAT-MODEL-20261003](#D-THREAT-MODEL-20261003) and R-THREAT. Inside one working folder there is still no second operation while one runs, so a guard against concurrency inside a folder (its packet directories, worktrees, round records) stays out of scope. Operations started from different folders, and operations of the claude-host and codex-host toolkits on one machine, DO run at the same time and meet at machine-level shared state (for example the agy settings file with its `.agybak`, lock and lease files, the agy agents directory, a classifier extension file, the logs inside one installed toolkit used by several projects, the CLIs' own configuration), so a guard on such state is in scope. R-THREAT and the shared prompt's deployment-context clause are rewritten to this fact in the same specification pass; every earlier judgement that rested on "no concurrent operation" for machine-level state is re-checked.
+
 <a id="D-OWNER-ANSWERS-20261008"></a>
 ## D-OWNER-ANSWERS-20261008: the owner's answers to host A's decision list after the over-design audit
 
