@@ -1,5 +1,11 @@
 # Changelog
 
+## Owed rows from host A's conformance work — 2026-10-08 (not tagged)
+
+- Owner register D-REPAIR-LOOP-KEEP-20261008 (verbatim): the self-improving classifier repair loop stays on both hosts; its extras go.
+- R-CLASSIFY: a phrase a host learns through its repair loop is promoted to a `contracts/vendor-failure-lines.json` row with the run record as evidence.
+- DL-104 decided: both hosts drop the timeout routing and the malicious-analyzer caps (lock kept), verify a proposal on the stored record, promote learned phrases (OPEN A, OPEN B).
+
 ## Owed rows from host A's conformance work — 2026-10-07 (not tagged)
 
 - Dev log DL-104 (both hosts route a timeout to the repair analyzer and cap the applier against a malicious analyzer; owner decision D2 pending), DL-105 (both hosts' vendor-binary pin and hardened pydantic import gate; owner decision D6 pending), DL-106 (dead classifier code both hosts inherited) — from the 2026-10-07 over-design audit.

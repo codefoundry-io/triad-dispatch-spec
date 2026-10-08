@@ -693,6 +693,13 @@ engine's leftover `--task` pieces.
 Effect: [R-TOKENS](../reference/review-rules.md#R-TOKENS), `contracts/exit-tokens.json`, case C8,
 `authoring/shared-dev-log.md` DL-72 (superseded in part), DL-91.
 
+<a id="D-REPAIR-LOOP-KEEP-20261008"></a>
+## D-REPAIR-LOOP-KEEP-20261008: the self-improving classifier repair loop stays; its extras go
+
+Owner, 2026-10-08, typed question to host A's leader after the leader's over-design list put the loop under "discard" (verbatim): "이건 왜 폐기 대상이야? 자기개선 기능을 없앨거야?"; after the leader withdrew the discard recommendation with evidence, the owner's answer to one question (verbatim): "유지 + 군살 정리 (권장)".
+
+Recorded effect: the repair loop stays on both hosts — a failed run that ends `unknown` or `extraction-error` goes to a read-only analyzer that proposes one phrase or exit-code entry from that run's own record (a measured shape, R-CLASSIFY), and deterministic code applies it to the user classifier extension. Its extras go: a wrapper `timeout` is not routed to the analyzer (no proposal can change a timeout classification); the applier keeps its lock and drops the caps written against a malicious analyzer (R-THREAT); a proposal is verified by classifying the stored run record again, not by calling the vendor again; a phrase learned this way is promoted to `contracts/vendor-failure-lines.json` (R-CLASSIFY). Basis: frozen C43's "no user classifier extension present" is that case's input precondition, not a prohibition; the real vendor sentences now in the contract were largely found by this loop (agy `unavailable (code 503)` and `network issue connecting to the server`, codex `selected model is at capacity`, gemini capacity / quota sentences). DL-104.
+
 <a id="D-PRESET-ALIASES-20261006"></a>
 ## D-PRESET-ALIASES-20261006: host A's shipped claude presets name the model by alias; the older-model preset is removed
 

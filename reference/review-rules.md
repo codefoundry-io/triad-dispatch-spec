@@ -637,7 +637,10 @@ A failed vendor call is classified by the vendor's own error sentence, and a sen
 The known sentences are data in `contracts/vendor-failure-lines.json`: each row names the CLI, the sentence, the part of
 it a host matches (lowercase) and the token. Every host classifies a row's sentence as the row's token on the row's CLI.
 The rows hold every phrase a host keeps today (On A `CLI_PATTERNS`, `3rd-Agent/wrappers/_common.py:266-302` @ triad
-`e0b15f1`); a phrase measured later is a classifier-extension entry or a new row, its evidence cited beside it.
+`e0b15f1`); a phrase measured later is a classifier-extension entry or a new row, its evidence cited beside it. A phrase a
+host learns through its classifier repair loop (a proposal from a failed run's own record, applied by deterministic code) is
+promoted to a row of this contract with that record as its evidence, so every host classifies it
+([D-REPAIR-LOOP-KEEP-20261008](../decisions/owner-register.md#D-REPAIR-LOOP-KEEP-20261008); DL-104).
 A plain fragment that an answer, a reviewed file or a tool's output can contain is never a match phrase: a host may
 search the whole output of a failed run, and such a fragment would hide the real cause behind a retry.
 A row's carrier also names where the sentence is matched; agy's print-timeout row is matched only as a whole stderr line
