@@ -128,7 +128,7 @@
       "rule": "R-NOCOST",
       "summary": "Child environment scrub set as data",
       "input": "a leader env carrying loader, credential, endpoint and model-selector variables",
-      "expected": "Loader/interpreter injection variables removed on every route; credential/endpoint removal per the agreed set Model/effort user settings pass through unchanged; the three former model-selector names are excluded from the removed set under D-SELECTOR-PROPOSAL-WITHDRAWN-20261009. No new selector warning or attestation is required.",
+      "expected": "Loader/interpreter injection variables removed on every route; credential/endpoint removal per the agreed set. Model/effort user settings pass through unchanged; the three former model-selector names are excluded from the removed set under D-SELECTOR-PROPOSAL-WITHDRAWN-20261009. No new selector warning or attestation is required.",
       "tests": {
         "A": "NOT RUN for the selector-preservation amendment. Source5531a663 still removes the three model-selector names. Earlier removal tests are historical, not current-conformance evidence.",
         "B": "NOT RUN for the selector-preservation amendment. Fresh RED/GREEN required on the narrowed U2c candidate; no provider inference needed."
@@ -200,7 +200,7 @@
       "rule": "R-NOCOST",
       "summary": "Credential scrub on the gemini route",
       "input": "a leader env carrying Google credential variables on the gemini route",
-      "expected": "Google credential / ADC / Vertex / endpoint variables absent from the child env Model/effort user settings pass through unchanged; the three former model-selector names are excluded from the removed set under D-SELECTOR-PROPOSAL-WITHDRAWN-20261009. No new selector warning or attestation is required.",
+      "expected": "Google credential / ADC / Vertex / endpoint variables absent from the child env. Model/effort user settings pass through unchanged; the three former model-selector names are excluded from the removed set under D-SELECTOR-PROPOSAL-WITHDRAWN-20261009. No new selector warning or attestation is required.",
       "tests": {
         "A": "tests/unit/wrappers/t37-child-env-scrub.sh (C11/C17 layer) @ triad ebc4dc7",
         "B": "Implemented in the local B P3 candidate based on 3d62b7c. Google route-specific environment and authentication guards remain in selected v2 and explicit legacy paths. Regression sources: tests/test_provider_wrappers.py, tests/test_google_diagnostics.py, tests/test_v2_google_wrappers.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred."
@@ -645,11 +645,11 @@
       "surface": "engine-transport",
       "rule": "R-NOCOST, R-AUTH",
       "summary": "Omitted child-environment values are not retrieved",
-      "input": "A synthetic Mapping carries every agreed omitted name and raises on value retrieval for those names; kept PATH/configuration/login selectors and the Gemini project exception have ordinary synthetic values.",
+      "input": "A synthetic Mapping carries every agreed omitted name and raises on value retrieval for those names; kept PATH/configuration/login selectors and the Gemini project exception have ordinary synthetic values. Include the adapter -> wrapper -> vendor version/help chain: an outer generic preflight label must not lose the Gemini project exception.",
       "expected": "Filter names before value retrieval, leave the parent unchanged and return a fresh child mapping. Every vendor spawn and standalone probe removes the agreed names; only Gemini keeps its four project names. No actual credentials or authentication probe is needed to verify this boundary.",
       "tests": {
-        "A": "NOT RUN. Source af54fb82: all70 names match the shared list and the Gemini exception exists; items() retrieves values before filtering. Maintainer verification requested.",
-        "B": "Pre-implementation synthetic spike: current helper retrieves omitted PYTHONPATH; ordinary routes retain53 non-loader names, formal Gemini40 forbidden names, formal AGY43. Product RED/GREEN pending. See decisions/2026-10-09-child-env-name-filter.md."
+        "A": "NOT RUN. Source c57d6b60: items() retrieves values before filtering and the three withdrawn model names remain omitted. Verify the shared filtering/preservation contract and any intermediate external-wrapper preflight boundary; no native-leg change requested.",
+        "B": "U2c focused335/full2027 passed with4skips and both validators, but review triad-child-env-20261009-r1 is NOT_APPROVED with matching integrity: Claude and native independently found that review_adapters_v2.probe labels the outer Gemini-wrapper process preflight, losing project variables before vendor probes. Fresh full-chain regression and bounded route propagation pending. See decisions/2026-10-09-child-env-name-filter.md."
       }
     }
   ]

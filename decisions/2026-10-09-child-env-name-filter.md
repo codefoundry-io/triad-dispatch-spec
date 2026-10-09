@@ -6,6 +6,15 @@ hold/review requests are historical, not pending implementation requirements.
 See [the cancellation record](2026-10-09-selector-proposal-withdrawn.md).
 Independent credential/loader hygiene and C75 are outside that cancellation.
 
+Current rule reconciliation at PR13 `74d259c`: R-NOCOST/C11/C17/C37 preserve
+GEMINI_MODEL, ANTHROPIC_MODEL and ANTHROPIC_SMALL_FAST_MODEL, together with user
+effort settings. The current omission set is17 loader +46 credential/endpoint
+names, plus four project names except on Gemini. Counts and A's matching-list
+claim below describe the pre-withdrawal snapshot. At A `5531a663`, those three
+obsolete model omissions and value-before-name filtering remain visible in
+source; A runtime NOT RUN. PR13 comment6079317869 requests the equivalent
+correction and C75 evidence. No native-leg or additional selector work is asked.
+
 Basis: remote main3afc4d7, PR13 b8512b6; B632f426 plus preserved dirty candidate;
 A af54fb82 (comment basis bb933c6b). This implements the existing R-NOCOST/C11/
 C17/C37 agreement, not a new authentication design or native-leg mechanism.
@@ -104,3 +113,26 @@ already win, including omitted-option paths. Native legs stay host-owned;
 no Claude agent definition is implied. This is evidence and a review request,
 not a normative amendment or permission to change auth routing. Required design
 diagnosis and owner decisions precede dependent implementation.
+
+
+## U2c R1 — intermediate preflight boundary
+
+B's narrowed candidate passed focused335/full2027 with4skips and both validators,
+but triad-child-env-20261009-r1 is NOT_APPROVED with matching integrity. Claude
+and native independently found that review_adapters_v2.probe starts the selected
+Gemini wrapper through _run_once("preflight", ...). The new shared name filter
+drops the project group at that outer boundary; the wrapper's later Gemini-aware
+version/help calls cannot restore it. Source confirms the path at
+bin/review_adapters_v2.py37-41,211-225 and bin/_common.py1451-1462,1641.
+
+C75's existing every-probe/Gemini exception also applies through intermediate
+adapter processes. Its input now names that chain explicitly; this is coverage
+of the existing contract, not a new selector rule. Add a full adapter -> wrapper
+-> synthetic vendor version/help regression, then carry the selected Google route
+through the outer probe. Default/unknown/non-Gemini paths still omit project
+names. No new environment name, runtime inspection or native-leg change.
+
+A c57d6b60 still has the previously reported items() and three obsolete model
+omissions. A runtime NOT RUN. Please verify the same preservation/filtering
+contract and intermediate external-wrapper probe path if present; B's internal
+adapter mechanism is not an instruction to copy host-specific code.
