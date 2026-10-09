@@ -1,5 +1,11 @@
 # Changelog
 
+## B authentication-carrier evidence — 2026-10-09 (not tagged)
+
+- Record bounded C37/C74 implementation and verification on B, including the
+  reflected-input correction; DL-75/95 candidate complete, DL-92 partial.
+  Full C37/C43 and A verification remain open. No revision adoption or release.
+
 ## Reflected denied-command text — 2026-10-09 (not tagged)
 
 - R-CLASSIFY/C74 makes the existing reflected-tool-text exclusion explicit for
