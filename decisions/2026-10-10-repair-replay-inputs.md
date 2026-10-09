@@ -42,7 +42,7 @@ incident, production classifier defect, or authorization for adding a phrase.
 Neither original streams nor the diagnostic may automatically be treated as the
 original classifier inputs. Verification must respect the route's actual path.
 
-## Design choice before dependent code
+## Historical alternatives, superseded by owner simplification
 
 Two approaches can preserve the existing no-vendor-call contract:
 
@@ -55,8 +55,24 @@ Two approaches can preserve the existing no-vendor-call contract:
    full terminal-admission verification.
 
 The common result remains DL-104; native spawning, new error classes and provider
-re-execution are excluded. The owner requested a stop for substantial design
-changes. B recommends shared pure runtime/replay interpretation to preserve
-existing log format and avoid a second approximation of vendor behavior; the
-route-refactoring choice is pending before implementation. A may provide its
-F3-c design or counterevidence; neither host silently standardizes new log fields.
+re-execution are excluded. These alternatives are historical investigation,
+not two active implementation projects or an unanswered owner gate.
+
+## Owner follow-up: minimal implementation
+
+Owner direction, paraphrased: the skill's core is simple; security and separate
+execution cwd machinery have increased code. Preserve review points and diff
+review, and handle the remaining work simply.
+
+B's planning interpretation: keep review points, diff/worktree and independent
+related-code discovery. For U4b2, reuse the existing failed record and actual
+classification path; extract only a small reusable function if necessary.
+Do not introduce a general replay engine, new log schema, broad wrapper refactor,
+additional cwd layers or routine security/read-log audits for this task. Existing
+controls are not blindly deleted: any simplification must preserve the applicable
+common result contract. An unsupported record is a disclosed verification limit,
+not justification to guess a pass or manufacture another subsystem.
+
+The previous architecture-choice question is superseded; B proceeds under this
+bounded direction. A's F3-c evidence is still useful but is not a waiting gate.
+Neither host's native leg changes. Shared main rechecked at3afc4d7.

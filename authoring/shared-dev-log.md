@@ -5,8 +5,10 @@
 [PR13 agreement and provider-free spike](../decisions/2026-10-10-repair-replay-inputs.md)
 record A's scheduled F3 work and B's false-positive naive replay control.
 Stored-stream concatenation is not equivalent to every runtime route's classifier
-inputs. Pure runtime/replay interpretation versus an added log surface is the
-pending design choice before B implementation; no new error entry or A port.
+inputs. Owner follow-up chooses simplicity: reuse the existing record and actual
+classification path, with only a minimal helper when needed. The broad-refactor/
+new-log-surface question is superseded; no general replay engine, new error entry
+or A port is planned. Review points, diff and related-code discovery remain.
 
 Owner follow-up D-NO-CLAUDE-AGENT-BACKLOG-20261009 removes B's unused named-agent
 resolver project entirely from active/deferred planning. Direct model/effort
