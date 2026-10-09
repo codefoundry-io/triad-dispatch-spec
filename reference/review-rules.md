@@ -933,9 +933,9 @@ prepared in a fresh review root: its own managed review workspace `triad-review-
 (`prepare_review_workspace`, `bin/review_round.py:1034`, `:1063`; `create_basis` requires it,
 `bin/review_round_v2.py:139-141` @ `7f75863`). On A the target is the same (owner,
 [D-OWNER-ANSWERS-20261008B](../decisions/owner-register.md#D-OWNER-ANSWERS-20261008B) item 8): each round in a fresh
-review root, no packet dir shared by the rounds of a gate and no worktree re-pinned from round to round; at triad
-`e0b15f1` A keeps one packet dir per gate whose one detached worktree `prepare` re-pins each round
-(`lib/review_scratch.py:6156-6160`; the removal of the outgoing round tree, `:6574-6600`) — DL-115.
+review root, no packet dir shared by the rounds of a gate and no worktree re-pinned from round to round. On A (triad
+`6878cc4a`): `prepare` refuses a packet dir that already holds a round tree or a captured snapshot, before anything is
+created (`lib/review_scratch.py` `cmd_prepare`); the leader opens a new packet dir per round.
 
 - On A: `review_scratch.py prepare --v2` writes the `Review metadata:` line of `delivery-r<N>.md`, whose sha256 is the
   content digest (`lib/review_scratch.py:5823-5848`). It carries `review_kind`, `review_web_policy` (the rendered
@@ -1059,9 +1059,9 @@ like any other; every lock refusal prints the lock's reason. On A the reason is 
 512 bytes on one line), printed as `reason: "<text>"` or `no reason given`; a lock file that cannot be read still refuses.
 A nested worktree under a folder the repository ignores is invisible to `git status` and to `git worktree remove`'s clean
 check (git checks only the outer tree's lock), so a removal that runs its own `git worktree remove` first checks the whole
-tree below its own `.git` for any other `.git` entry and refuses on an unreadable folder (on A at triad `e0b15f1` the
-prepare re-pin, the one removal outside the deletion command; it goes with the fresh review root per round, R-PREPARE,
-DL-115). `git worktree add` exits non-zero when a post-checkout hook fails yet leaves the
+tree below its own `.git` for any other `.git` entry and refuses on an unreadable folder (none on A since triad
+`6878cc4a`: a packet dir holds one round and only the deletion command removes it). `git worktree add` exits
+non-zero when a post-checkout hook fails yet leaves the
 worktree and its registration in place, so its exit code alone does not say whether it created one: on A a rollback
 claims a registration when its add succeeded or left its tree inside the folder the same call created; an add refused
 because the path was already registered created nothing to roll back. An add stopped after it wrote the registration and
