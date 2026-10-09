@@ -522,8 +522,10 @@ from its default agent. An explicit main-agent profile may supply native reads,
 content/name search and directory listing; model/effort stay separately selected.
 The selected definition is checked before dispatch and bound into the review's
 control evidence; a missing or changed definition refuses the attempt before
-inference, without silently falling back or reinstalling. Web tools are exposed
-only on the authorized web route. Provisioning paths and execution containment
+inference, without silently falling back or reinstalling. The no-web profile
+omits web tools; its authorized-web counterpart includes them. A vendor tool
+inventory is not a permission guarantee: existing web authorization and execution
+containment still apply. Provisioning paths and execution containment
 remain host-owned. A version-only preflight is not proof of native search: verify
 capability recovery with an actual successful search and read control (C72).
 On B, legacy/v2 formal AGY uses B-owned `triad-codex-readonly-review` and its
