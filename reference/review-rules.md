@@ -75,7 +75,7 @@ that leg on the same [bound basis](#R-PREPARE) (owner Q-C). A changed review con
 basis refuses the retry before an attempt is allocated or dispatched; prepare a new round. Changed reviewed bytes are
 caught by the round integrity verification before agreement (R-AGREE); a pre-retry rehash of the reviewed tree is not
 required (`decisions/host-b-preimplementation-audit.md`, "Every renderer must immediately rehash"). On A: `retry` runs
-`_check_contract_basis` and `_bound_metadata` before allocating (`lib/collect_v2.py:2539-2540`). On B: `allocate_attempt`
+`_check_toolkit` and `_bound_metadata` before allocating (`lib/collect_v2.py` `retry` @ triad `80b302e7`). On B: `allocate_attempt`
 loads the basis (which also re-verifies the reviewed tree), re-prepares the entry's adapter — writing its capability
 receipts into a new numbered preparation directory, kept as setup evidence — and then refuses changed launch controls
 before the attempt directory exists (`bin/review_round_v2.py:267`, `:276-284`). Before any dispatch exists, retry the
@@ -104,10 +104,10 @@ frontmatter is the only pin. Prepare binds, as the entry's `preset` in the round
 covers, the spawned preset's layout-qualified id, the sha256 of A's own shipped file (`agents/<name>.md` under this
 install's layout root, the WHOLE file) and its `model` / `effort` lines (`:516` `_claude_preset`;
 `lib/review_scratch.py:5776` `_v2_record_entries`, `:3263` `_qualify_claude_agent_id`). Retry and collection compare
-the round's toolkit map, which holds the six shipped preset files beside `lib/*.py` and the vendored `spec/**`
+the round's toolkit map, which holds the six shipped preset files beside every file under `lib/` and the vendored `spec/**`
 (`lib/collect_v2.py` `_check_toolkit` @ triad `80b302e7`); a changed or absent preset file refuses, naming the file, with
 "prepare a new round (R-REREVIEW)"; an attempt is admitted only from the dispatch record the host wrote for it (a
-retry refuses an interrupted retry's attempt and never adopts it — orphan adoption removed, discard-4). The `roster_v2.py
+retry refuses an attempt that already exists above the recorded one and never adopts it @ triad `207dd39f`). The `roster_v2.py
 resolve` preview prints each startable claude entry's model and effort read from that file (`lib/roster_v2.py:1133`
 `main`); the dispatch line does not print them (a fact). A residual fact, nothing built for it: in the dev tree a bare
 id spawns the session project's `.claude/agents/<name>.md`, else the user's `~/.claude/agents/<name>.md`, so a
@@ -414,8 +414,8 @@ route as follows; a false condition leaves every route in its R-CONTAIN no-web p
   `<review-date>` (`lib/prompts_v2.py:40-50`, `:153-155`, `:288`, `:581-582`). `retry` and adoption re-render the
   round's BOUND condition (`lib/collect_v2.py:551`, `:2430`, `:2789`) and do not compare it with the current constant:
   a revocation applies to rounds prepared after it, as above (DL-57). A round prepared before this change binds no
-  `review_date`: retry refuses it — re-rendering the prompt needs the date (`lib/collect_v2.py` `_bound_conditions`) —
-  and collection refuses it as a round with no toolkit map (`_check_toolkit` @
+  `review_date` and carries no toolkit map; `retry` and `collect` run `_check_toolkit` first, so it is refused with "this
+  round was prepared before the host recorded its toolkit map — prepare a new round" (`lib/collect_v2.py` @
   triad `80b302e7`). Per route
   (`lib/roster_v2.py:929` `render_dispatch`):
   - codex: `--search` (`lib/roster_v2.py:994-1002`); the wrapper's `--search` (top-level `codex --search exec`) replaces
@@ -937,8 +937,8 @@ created (`lib/review_scratch.py` `cmd_prepare`); the leader opens a new packet d
   (`_v2_config_digest`, `:5263`: every round-record entry field except `attempt`, plus `gate_files`, `hook_log` and
   `results_dir`); the brief and residual are inside the hashed packet. `collect_v2._bound_metadata`
   (`lib/collect_v2.py:442-512`) re-hashes the delivery record and compares the record with the bound line in
-  `collect`, `retry` and adoption. A later edit of the project roster file does not affect a prepared round. On A (triad `80b302e7`) `prepare` records a map of the installed toolkit files —
-  `lib/*.py`, the vendored `spec/` and the six shipped reviewer presets — with each file's sha256 in `.roster-r<N>.json`,
+  `collect`, `retry` and adoption. A later edit of the project roster file does not affect a prepared round. On A (triad `80b302e7`, `c50b1c8b`) `prepare` records a map of the installed toolkit files —
+  every file directly under `lib/`, the vendored `spec/` and the six shipped reviewer presets — with each file's sha256 in `.roster-r<N>.json`,
   and `collect` and `retry` compare it with the installed files before anything is judged or allocated, naming every
   changed file (the 'hash the installed source files' option above). A retry checks the whole round's basis: a changed member of any
   dispatched entry (the claude preset while codex is retried, say) refuses the retry, since that member could never
