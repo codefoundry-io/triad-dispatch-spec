@@ -106,8 +106,8 @@ install's layout root, the WHOLE file) and its `model` / `effort` lines (`:516` 
 `lib/review_scratch.py:5776` `_v2_record_entries`, `:3263` `_qualify_claude_agent_id`). Retry and collection compare
 the round's toolkit map, which holds the six shipped preset files beside `lib/*.py` and the vendored `spec/**`
 (`lib/collect_v2.py` `_check_toolkit` @ triad `80b302e7`); a changed or absent preset file refuses, naming the file, with
-"prepare a new round (R-REREVIEW)"; adoption requires the
-dispatch record to name the bound preset (`:2944` `_web_switch_mismatch`) @ triad `3894879`. The `roster_v2.py
+"prepare a new round (R-REREVIEW)"; an attempt is admitted only from the dispatch record the host wrote for it (a
+retry refuses an interrupted retry's attempt and never adopts it — orphan adoption removed, discard-4). The `roster_v2.py
 resolve` preview prints each startable claude entry's model and effort read from that file (`lib/roster_v2.py:1133`
 `main`); the dispatch line does not print them (a fact). A residual fact, nothing built for it: in the dev tree a bare
 id spawns the session project's `.claude/agents/<name>.md`, else the user's `~/.claude/agents/<name>.md`, so a
