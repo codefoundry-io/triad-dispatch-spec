@@ -86,6 +86,34 @@ until the shared disposition and applicable gates are satisfied.
 
 ## Documentation reconciliation requests
 
+### U1a selection-observation boundary (Codex implementation candidate)
+
+R-ROSTER requires refusal of a **reported contradiction**, while R-MODEL
+forbids catalog admission. For the bounded B correction, separate the requested
+pin, raw selection output, and identity components actually exposed by that
+output. A known display label may retain a display-only catalog alias in the
+receipt; catalog omission must neither refuse the request nor fabricate an ID.
+An unrecognized label is retained as an observation, not asserted to match the
+requested identity. Absence of a demonstrated contradiction is not identity
+attestation. A display label without a dated suffix cannot attest that suffix.
+Likewise, an explicit reported effort contradiction refuses; silence is not
+proof of per-model effort support. Keep the required CLI controls and vendor
+refusal boundary. This interpretation adds no model-name grammar or model list.
+
+B's U1a candidate compares exposed full IDs exactly and recognized family/version
+components independently of the packaged table. It retains raw output and the
+unchanged request; its receipt scope is `cli-selection`. Synthetic adapter tests
+exercise missing catalog rows, alias/full-ID contradictions, unknown labels and
+effort observations. These tests do not establish new vendor output formats.
+The candidate is not yet reviewed, adopted or released. Default alias migration
+and external-agent binding remain separate U1b work.
+
+Maintainer request: check this observation/attestation distinction against the
+common contract and flag contradictory evidence or a required fail-closed rule
+for unexposed identity before broader adoption. A's native Claude path exposes
+no selection to compare and is not asked to acquire a new probe or change its
+host leg. The candidate does not claim complete C34 or per-model support.
+
 - PR #12's body/title only names early phases while its files now record
   DL-118..126. Distinguish completed source work from pending rule/case edits.
 - PR #13's original body says no normative change and cites the first failed
