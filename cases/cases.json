@@ -627,6 +627,18 @@
         "A": "NOT RUN for C73. Source inspected at 0e04d2a: external Codex wrapper passes model/reasoning directly, native Claude uses its shipped preset mechanism. No A edit requested.",
         "B": "NOT RUN for C73. Source at 632f426 plus dirty candidate: shipped Claude default agent is null; adapter appends --agent only for non-null selection. C72 profile capability/review evidence remains separate. Non-null Claude definition binding remains unresolved, not waived. B-maintainer one-off diagnostic: Claude 2.1.289 opus/xhigh plan Bash rg then Read, Codex 0.160.0 gpt-6.1-sol/medium read-only rg then cat, no agent/tool override, both exit 0 and recovered an undisclosed random fixture marker. This is bounded CLI capability evidence only, not full C73 or A wrapper conformance; see decisions/2026-10-09-leg-agent-scope.md."
       }
+    },
+    {
+      "id": "C74",
+      "surface": "engine-transport",
+      "rule": "R-CLASSIFY, R-AUTH, R-CONTAIN",
+      "summary": "Reflected denied-command text is not vendor authentication or retry evidence",
+      "input": "The existing AGY permission check failed for command error embeds a model-authored command naming credentials-review.json or a login command; B plan mode also has an otherwise admissible structured verdict. A Claude is_error envelope has an ordinary API 500 result and permission_denials tool_input containing 400 Bad Request, too many requests or schema validation failed. Controls: a genuine own-line sign-in banner and the existing usable-answer path.",
+      "expected": "The reflected command or tool_input does not create an authentication STOP, capacity retry or another vendor classification. Genuine measured authentication carriers still STOP. Existing host admission/permission checks remain responsible for whether an answer is usable; this case grants no new permission. Classifier integration retains original streams for authentication carrier selection without widening other classifications to unrelated envelope fields.",
+      "tests": {
+        "A": "NOT RUN. Source 2f91e8c: _auth_carrier_stop reads result.error before AGY admission, with only the schema-report reflection exception; same helper risk needs maintainer verification. No A or native-leg edit requested.",
+        "B": "RED before correction: tests/test_auth_carriers.py C74 has 10 failures on the U2b R1 candidate at 632f426 + dirty. Existing B permission-denial admission test establishes the pre-existing supported shape; these are synthetic command-content controls, not new vendor captures. See decisions/2026-10-09-reflected-error-text.md."
+      }
     }
   ]
 }

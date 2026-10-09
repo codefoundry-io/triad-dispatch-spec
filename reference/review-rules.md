@@ -767,7 +767,7 @@ DL-110), the gemini error object (code 41
 with its auth banner — classifies `oauth-env`, and no answer, reviewed file or tool output is read for it; the shared order above
 then applies to the rest of the failed run (`3rd-Agent/wrappers/_common.py` `_auth_carrier_stop`, triad `71173cd`,
 in verification). A structured code is a carrier fact `contracts/vendor-failure-lines.json` has no column for.
-Inside a vendor's OWN error carrier the text is the vendor's, never an answer, a reviewed file or tool output, so the
+Except for the measured reflections below, a vendor's OWN error carrier is vendor text, so the
 whole authentication vocabulary there — an API key (an api-key helper included), unauthorized or 401, not logged in, sign in
 or log in (run /login), authentication or credentials, an auth / access / refresh / session / bearer token or its data, an
 expired or unrefreshable token or session, an API credit balance — is the R-AUTH (ii) STOP; a vendor row is evidence of a
@@ -785,6 +785,14 @@ line, at the line start, waits 60 s for a sign-in, ends with `error: authenticat
 authentication-specific exit code — and in stream-json also puts `authentication failed or timed out` into the terminal
 `result.error` (status ERROR, num_turns 0); both are `contracts/vendor-failure-lines.json` rows (host A's wrapper ends that run
 `oauth-env` / 65 with no retry, verified the same day).
+The existing AGY `permission check failed for command ` result error embeds the model's command,
+so that reflected command is not authentication evidence, just as reflected schema-report text is not.
+Keep the existing own-line authentication banner handling and host answer-admission checks; do not
+reclassify a denied command because a filename or command contains authentication words. Likewise,
+Claude `permission_denials` tool input is not the error result. Retaining original streams for the
+authentication predicate must not widen other classification input to those fields. C74 records the
+regression controls and [source evidence](../decisions/2026-10-09-reflected-error-text.md); these controls
+introduce no new vendor field, channel, permission or native-leg mechanism.
 Recorded limits (a fact, owner 2026-10-05,
 [D-MEASURED-SHAPES-20261005](../decisions/owner-register.md#D-MEASURED-SHAPES-20261005)). Vendor error text belongs to the vendor and changes with each release, so a
 host codes only a MEASURED shape — a capture, a row of `contracts/vendor-failure-lines.json`, or the vendor's own

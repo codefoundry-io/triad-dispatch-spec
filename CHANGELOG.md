@@ -1,5 +1,12 @@
 # Changelog
 
+## Reflected denied-command text — 2026-10-09 (not tagged)
+
+- R-CLASSIFY/C74 makes the existing reflected-tool-text exclusion explicit for
+  AGY permission-denial command text and Claude permission_denials. Preserve
+  admission and error-classification inputs; no new carrier or native mechanism.
+  Source evidence and the A verification request are recorded before B correction.
+
 ## Owner Gemini support boundary — 2026-10-09 (not tagged)
 
 - D-GEMINI-FLOOR-20261009: both hosts support Gemini CLI from 0.63.0 on raw,
