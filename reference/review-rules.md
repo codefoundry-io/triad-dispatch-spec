@@ -753,6 +753,13 @@ rule before dependent implementation. Preserve existing authentication STOP and
 timeout routing. This authorizes failure-driven research, not routine successful-run
 log audits or speculative error enumeration. Native spawn mechanisms stay host-owned.
 Owner basis: [D-REPAIR-WEB-20261009](../decisions/owner-register.md#D-REPAIR-WEB-20261009).
+Under R-AUTH, both hosts refuse every repair proposal whose classification is
+`oauth-env`, whether it targets a raw phrase, an AGY banner or a vendor exit code.
+Authentication recovery belongs to the user through the vendor's login. This
+proposal refusal does not remove existing curated extension entries or change
+their loading rules. A already implements this boundary; B's corresponding
+correction and verification are tracked in
+[U4b applier evidence](../decisions/2026-10-09-u4b-applier.md).
 A plain fragment that an answer, a reviewed file or a tool's output can contain is never a match phrase: a host may
 search the whole output of a failed run, and such a fragment would hide the real cause behind a retry.
 A row's carrier also names where the sentence is matched; agy's print-timeout row is matched only as a whole stderr line
