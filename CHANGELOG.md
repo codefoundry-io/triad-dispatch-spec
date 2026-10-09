@@ -1,5 +1,11 @@
 # Changelog
 
+## Child environment name filtering — 2026-10-09 (not tagged)
+
+- C75 makes existing R-AUTH/R-NOCOST name-before-value filtering explicit;
+  record B route-set gaps before implementation and request A verification.
+  No new authentication route, native mechanism or environment name.
+
 ## B authentication-carrier evidence — 2026-10-09 (not tagged)
 
 - Record bounded C37/C74 implementation and verification on B, including the

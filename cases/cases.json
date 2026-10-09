@@ -639,6 +639,18 @@
         "A": "NOT RUN. Source 2f91e8c: _auth_carrier_stop reads result.error before AGY admission, with only the schema-report reflection exception; same helper risk needs maintainer verification. No A or native-leg edit requested.",
         "B": "B 632f426 + dirty candidate: tests/test_auth_carriers.py C74 reflected-command and Claude tool_input controls; initial C74 RED10failures, subsequent multiline-command RED2failures/4controls, then dedicated focused437/full2005 passed with4skips and all-four SAFE review with matching integrity. Existing admission remains. Synthetic command-content controls are not new vendor captures. See decisions/2026-10-09-reflected-error-text.md and decisions/2026-10-09-b-auth-carriers.md."
       }
+    },
+    {
+      "id": "C75",
+      "surface": "engine-transport",
+      "rule": "R-NOCOST, R-AUTH",
+      "summary": "Omitted child-environment values are not retrieved",
+      "input": "A synthetic Mapping carries every agreed omitted name and raises on value retrieval for those names; kept PATH/configuration/login selectors and the Gemini project exception have ordinary synthetic values.",
+      "expected": "Filter names before value retrieval, leave the parent unchanged and return a fresh child mapping. Every vendor spawn and standalone probe removes the agreed names; only Gemini keeps its four project names. No actual credentials or authentication probe is needed to verify this boundary.",
+      "tests": {
+        "A": "NOT RUN. Source af54fb82: all70 names match the shared list and the Gemini exception exists; items() retrieves values before filtering. Maintainer verification requested.",
+        "B": "Pre-implementation synthetic spike: current helper retrieves omitted PYTHONPATH; ordinary routes retain53 non-loader names, formal Gemini40 forbidden names, formal AGY43. Product RED/GREEN pending. See decisions/2026-10-09-child-env-name-filter.md."
+      }
     }
   ]
 }
