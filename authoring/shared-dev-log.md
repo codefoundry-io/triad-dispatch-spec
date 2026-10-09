@@ -4,7 +4,7 @@
 
 | Case | Hosts | Evidence | Required follow-up | Status |
 |---|---|---|---|---|
-| C76 | A, B | A c50b1c8: three repair agents and the distributed template expose only Read/Grep/Glob and explicitly forbid network. B 632f426 + candidate: repair-protocol.md:51 forbids provider or network calls. Exact paths and research/verification boundaries: [evidence and handoff](../decisions/2026-10-09-repair-web-research.md). | Apply R-CLASSIFY repair research to each host's analyzer and distributed surface, preserving the stored-run repair loop. | RULED (D-REPAIR-WEB-20261009); OPEN A/B; runtime NOT RUN |
+| C76 | A, B | A a6f3c175 rechecked: three repair agents and distributed template still expose only Read/Grep/Glob and forbid web. B632f426 + U4a candidate allows research; dedicated RED/GREEN actual search/fetch, local control, focused106/full2029 passed with4skips. Exact evidence and limits: [handoff](../decisions/2026-10-09-repair-web-research.md). | A: align source/distributed analyzer capability. B: retain U4b timeout routing and stored-record verification; no speculative error entries or native-mechanism changes. | RULED (D-REPAIR-WEB-20261009); A OPEN/runtime NOT RUN; B PARTIAL capability evidence; full C76 OPEN |
 
 <a id="R-DEV-LOG"></a>
 One log for both hosts and for this specification. While a host implements the

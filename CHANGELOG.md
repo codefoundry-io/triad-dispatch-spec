@@ -5,7 +5,8 @@
 - R-CLASSIFY/C76 permits failure-driven web search/fetch by read-only repair
   analyzers on both hosts; observed run evidence remains the proposal basis.
   Engine-transport ownership includes source/distributed repair instructions.
-  Record D-REPAIR-WEB-20261009; both host implementations remain pending.
+  Record D-REPAIR-WEB-20261009. B U4a has bounded source capability and behavior
+  evidence; A remains pending. Full C76 stored-record conformance stays open.
 
 ## Child environment name filtering — 2026-10-09 (not tagged)
 
