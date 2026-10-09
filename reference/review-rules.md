@@ -608,7 +608,7 @@ not attribution (found on A over rounds r11–r13, `authoring/shared-dev-log.md`
   condition A's `--review-web` selects `contracts/gemini-readonly-web.toml` (`gemini_wrapper.py:125`, `:465` @ `b53409b`;
   runtime effect per `contracts/gemini-readonly-web.verify.toml`, NOT RUN); B: `--help` capability preflight, policy self-check against
   `contracts/gemini-readonly-b.toml` for a false condition and `contracts/gemini-readonly-web-b.toml` for a true one
-  (runtime effect per `contracts/gemini-readonly-b.verify.toml` / `contracts/gemini-readonly-web-b.verify.toml`), credential/endpoint/model-selector
+  (runtime effect per `contracts/gemini-readonly-b.verify.toml` / `contracts/gemini-readonly-web-b.verify.toml`), credential/endpoint
   variables removed from the child on the formal route. Effective posture is computed BEFORE the conflict and policy checks
   (On A: the hardened read-only default is assigned before both checks, `3rd-Agent/wrappers/gemini_wrapper.py:421-437`).
 - agy leg (A): per-round PreToolUse allow-list hook + hook load check + read-audit gate (the hook's `--web` mode adds
@@ -1208,12 +1208,12 @@ the absence of `-m` are hygiene, not proof of the billing route. The names a hos
 agreed set) are the union of both hosts' lists, read from the installed CLIs. Every name B removes is in it. Loader /
 interpreter names, identical on both hosts: LD_PRELOAD, LD_LIBRARY_PATH, LD_AUDIT, LD_DEBUG, DYLD_INSERT_LIBRARIES,
 DYLD_LIBRARY_PATH, DYLD_FRAMEWORK_PATH, NODE_OPTIONS, NODE_PATH, PYTHONPATH, PYTHONHOME, PYTHONSTARTUP, BASH_ENV, ENV,
-PERL5LIB, RUBYOPT, RUBYLIB. Credential / endpoint / model-selector names: Google — GOOGLE_API_KEY, GEMINI_API_KEY,
+PERL5LIB, RUBYOPT, RUBYLIB. Credential / endpoint names: Google — GOOGLE_API_KEY, GEMINI_API_KEY,
 GOOGLE_APPLICATION_CREDENTIALS, GOOGLE_GENAI_USE_VERTEXAI, GEMINI_CLI_USE_COMPUTE_ADC, CLOUD_SHELL,
-GOOGLE_GEMINI_BASE_URL, GOOGLE_VERTEX_BASE_URL, GEMINI_MODEL, GEMINI_DEFAULT_AUTH_TYPE, GOOGLE_CLOUD_ACCESS_TOKEN,
+GOOGLE_GEMINI_BASE_URL, GOOGLE_VERTEX_BASE_URL, GEMINI_DEFAULT_AUTH_TYPE, GOOGLE_CLOUD_ACCESS_TOKEN,
 AGY_ADC_AUTH, GOOGLE_GENAI_USE_ENTERPRISE; codex — OPENAI_API_KEY, CODEX_API_KEY, CODEX_ACCESS_TOKEN, OPENAI_BASE_URL,
 OPENAI_ORGANIZATION, OPENAI_PROJECT; claude — ANTHROPIC_API_KEY, ANTHROPIC_AUTH_TOKEN, ANTHROPIC_BASE_URL,
-ANTHROPIC_MODEL, ANTHROPIC_SMALL_FAST_MODEL, CLAUDE_CODE_USE_{BEDROCK, VERTEX, FOUNDRY, ANTHROPIC_AWS,
+CLAUDE_CODE_USE_{BEDROCK, VERTEX, FOUNDRY, ANTHROPIC_AWS,
 ANTHROPIC_GOOGLE_CLOUD, GATEWAY, MANTLE}, CLAUDE_CODE_API_BASE_URL, CLAUDE_CODE_API_KEY_FILE_DESCRIPTOR,
 CLAUDE_CODE_OAUTH_TOKEN, CLAUDE_CODE_OAUTH_TOKEN_FILE_DESCRIPTOR, CLAUDE_CODE_OAUTH_REFRESH_TOKEN,
 CLAUDE_CODE_GATEWAY_TOKEN, CLAUDE_CODE_GATEWAY_TOKEN_FILE_DESCRIPTOR, ANTHROPIC_FOUNDRY_API_KEY,
@@ -1222,7 +1222,12 @@ ANTHROPIC_IDENTITY_TOKEN_FILE, ANTHROPIC_FEDERATION_RULE_ID, ANTHROPIC_SERVICE_A
 ANTHROPIC_ORGANIZATION_ID, ANTHROPIC_WORKSPACE_ID. A name of one family is inert in another family's child. Filtering checks each name before retrieving its value; an omitted variable is not read merely to discard it (C75). The project
 family GOOGLE_CLOUD_PROJECT, GOOGLE_CLOUD_LOCATION, GOOGLE_CLOUD_REGION and GOOGLE_CLOUD_QUOTA_PROJECT reaches a gemini
 child and is removed on every other route. Not removed: PATH, the CLIs' config-dir pointers, and GOOGLE_GENAI_USE_GCA
-(it selects the login route). On A: one list for every route (`_CHILD_ENV_SCRUB`, `_CHILD_ENV_SCRUB_CREDENTIALS`,
+(it selects the login route). Model/effort user settings are preserved, including
+GEMINI_MODEL, ANTHROPIC_MODEL and ANTHROPIC_SMALL_FAST_MODEL; they are not part
+of the removed-name set. No additional environment inspection, warning or
+effective-effort attestation is introduced (owner
+[D-SELECTOR-PROPOSAL-WITHDRAWN-20261009](../decisions/owner-register.md#D-SELECTOR-PROPOSAL-WITHDRAWN-20261009)).
+The following source snapshots predate that withdrawal. On A: one list for every route (`_CHILD_ENV_SCRUB`, `_CHILD_ENV_SCRUB_CREDENTIALS`,
 `_GEMINI_ROUTE_KEEP`, `3rd-Agent/wrappers/_common.py:3124-3253` @ triad e0b15f1). On B: the loader names on every route
 (`bin/_common.py:1307-1313`), and a per-route subset on the formal routes only (agy `bin/antigravity_wrapper.py:39-50`,
 gemini `bin/gemini_wrapper.py:43-53` @ `7f75863`; DL-71, DL-80, DL-81). The project family stays on the gemini route because the gemini CLI documents that a Company, School or Google
@@ -1282,7 +1287,7 @@ Where another rule conflicts — the shared classification order (R-CLASSIFY), R
 R-AUTH decides. Login is the user's own act through the CLI: no host checks or configures the login before a call
 ([D-AUTH-JUDGE-STOP-20261004](../decisions/owner-register.md#D-AUTH-JUDGE-STOP-20261004)); a valid key stored in a CLI's
 own configuration and used silently is the user's responsibility under that decision. Enforcement: (i) the
-child-environment scrub of credential, endpoint and model-selector variables (R-NOCOST; hygiene; exists on both hosts);
+child-environment scrub of credential and endpoint variables (R-NOCOST; hygiene; exists on both hosts);
 (ii) the host judges, from the CLI's own outcome, whether a call failed because the login is missing or expired or a
 credential is API-key-shaped, and that observed authentication failure STOPS the attempt before any other
 classification of the run — no retry, no other method, no fallback. (ii): A done (triad `ca82837`); B to check (DL-76). The gemini
