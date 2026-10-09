@@ -168,7 +168,9 @@ The reading of B continues at `triad-codex-dispatch` 0.2.558 @ `7f75863`; rows a
 ## Codex follow-up, 2026-10-08
 
 [The current conformance audit and Claude request](../decisions/2026-10-08-codex-conformance-audit.md)
-records B's reproduced DL-117 quota gap and bounded correction, the still-open
-DL-116 gates on both inspected hosts, and the owner's explicit native-leg
-ownership boundary. The focused correction is not full C43 conformance; row
-statuses above remain open until their remaining work and review are complete.
+records dated DL-117/DL-116 observations, newer source checks and bounded B
+corrections, and the owner's explicit native-leg ownership boundary. Its
+2026-10-09 entry records the shared Gemini CLI >=0.63.0 decision and A follow-up.
+Historical row observations are not current implementation claims. The focused
+corrections do not establish full C43/C18 conformance; rows retain their remaining
+work, including B's Claude catalog/identity handling and unmeasured AGY carriers.

@@ -2,11 +2,12 @@
 
 2026-10-09 follow-up: bounded C43 classifier correction received all four SAFE
 results with matching integrity in `triad-c43-quota-20261009-r2`; live AGY carrier
-conformance is still unmeasured. The next Google gate-removal unit reached RED
-but uncovered a common version-policy conflict. See the pending
-[model-pin decision](2026-10-09-model-pin-version-conflict.md), including the
-exact vendor source and request for Claude-side evidence. No pending decision
-in that proposal is an adopted shared rule.
+conformance is still unmeasured. The Google gate-removal unit uncovered a common
+version-policy conflict. The owner resolved it as Gemini CLI >=0.63.0 in
+[D-GEMINI-FLOOR-20261009](2026-10-09-model-pin-version-conflict.md), recorded
+in this draft at `2918ed5`. B implementation and verification are recorded below.
+Historical observations in this audit retain their original evidence basis;
+they are not current conformance claims. This draft is not merged/adopted.
 
 Status: implementation in progress; no adoption, release or full conformance claim.
 Authoring basis: fetched main `3afc4d7` on 2026-10-08.
@@ -155,3 +156,59 @@ Current A source inspected at `e275ee8638c1b3edf8936aef3fbd8e1504abad33`:
 `_GEMINI_VERSION_FLOOR = (0, 34, 0)` and its refusal at lines 258-260 names that
 floor. This is an actionable A follow-up under the new owner decision; no A
 source change or test execution was performed by B.
+
+## B Google model-pin and version-floor verification — 2026-10-09
+
+On B's existing dirty checkout at baseline `632f426`, the Google catalog probes
+and packaged-model gate were removed. Gemini raw, legacy and v2 paths use the
+same SemVer >=0.63.0 rule, including receipt consumption; 0.63.0 prereleases are
+below the floor, and build metadata does not change precedence. Required
+interface, authentication, containment, binding and runtime mismatch checks
+remain. No host native leg or model default changed. The shipped diagnostic
+model data is marked historical and has no support-gate role.
+
+RED: new version/pin tests failed 9 cases with 3 passes before implementation.
+Focused GREEN: 46 passed. Dedicated fresh Sol/high source-skill GREEN selected
+version/containment preflight without catalog refusal or replacement. Full B
+suite: 1,856 passed, 4 skipped in 391.28s on macOS 26.6.2 arm64, Python 3.12.13,
+pytest 9.0.3. After explanatory corrections, another fresh source executor's
+affected complete modules passed 152 with 4 skips; validator passed and source
+fingerprint stayed unchanged. Later documentation/test corrections passed 146
+affected tests. Further controls cover stale legacy/v2 version receipts, project
+roster-to-adapter unknown pins on both Google routes and exact raw probe-failure
+exit 3 with zero inference. Latest complete affected modules: 185 passed,
+4 skipped in 6.64s. No executable logic changed after the full suite.
+
+Round `triad-google-pins-20261009-r1` is NOT_APPROVED: Claude identified stale
+prerequisite wording, also reported as Minor by Flash and Astra. Integrity was
+valid. All findings were reproduced; documentation, comments and malformed
+version fixtures were corrected. Round 2 requested missing roster/schema evidence;
+the schema has no Google model enum, and its resolver plus new boundary tests
+were added to the packet. Round 3 found no Critical/Major code defect but its
+Claude reviewer disclosed an out-of-boundary directory search. Both rounds
+remain NOT_APPROVED with matching source integrity; a read-boundary failure is
+not excused by unchanged bytes. Exact temporary stage/cwd cleanup completed for
+all three; durable evidence remains. Round 4 uses the expanded evidence and
+requires explicit allowlisted file arguments for every read/search, excluding
+directories, wildcards and repository-wide searches. No prior SAFE result
+carries approval into the new candidate.
+
+Final round `triad-google-pins-20261009-r4` returned all four SAFE, with canonical
+validation, matching prompt re-renders and unchanged source fingerprint:
+**ALL_SELECTED_APPROVED / ROUND_INTEGRITY_OK**. The owner-selected roster retains
+fresh Astra/high; this is not the fixed Terra-ledger token. Digest:
+`a5b3a6ae8ead7a7eab68f192d41835fbc8f6e536f102c8a8c922b37708ddb686`.
+All exact temporary stage/cwd handles were removed after custody export;
+durable results and prior failed rounds remain. Product changes are uncommitted.
+
+Nonblocking follow-ups are explicit: vendor interpretation of option-shaped
+model strings is unmeasured, so any new shared syntax restriction needs evidence
+before implementation; the raw environment test's absence assertion is not an
+independent scrub proof; and the roster-to-adapter test uses a synthetic receipt,
+with unknown-pin behavior covered separately through actual wrappers. These
+notes do not establish a current product defect or authorize speculative guards.
+
+This is bounded Google pin/floor evidence, not full C18 or C65 conformance.
+Remaining Claude catalog/identity and vendor-rejection diagnostics are separate
+work. It does not establish live service entitlement, unexposed runtime identity,
+A implementation, installation, adoption or release.
