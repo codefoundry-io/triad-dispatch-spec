@@ -29,4 +29,35 @@ the settled common behavior; no A internal code is requested as a port.
 Verification: local temporary extension fixtures exercise unsupported tokens,
 wrapper-only classes, zero spellings, supported siblings/curated authentication,
 ordinary classification, and file immutability. No vendor incident is inferred
-from these operator-edit fixtures. B RED/GREEN and review evidence pending.
+from these operator-edit fixtures.
+
+## B bounded completion, 2026-10-10
+
+B632f426 plus the local candidate now applies the existing restriction at load.
+Production delta+15/-3(net12), new tests59lines, guidance+14/-1. Fresh dedicated
+RED36failed/25passed; final child-isolated GREEN403focused/2143full passed,
+4skipped, four source skill validators passed. Seven hashes, HEAD/fullstatus and
+ten existing run-log records stayed unchanged; exact temporary root removed.
+No vendor call was made by these tests.
+
+Fresh round triad-classifier-loader-20261010-r1 returned all-four SAFE and
+ROUND_INTEGRITY_OK under B's owner-selected composition. Digest
+5242550c0942c0bc56dd445c4c4c25597d69fea406dd2ad7c5e1bc32b1eae669;
+fingerprint309287f1b985e3ec6cddd4a751c06037166be2d98ae1d7d3c9cc618fbbd82cda.
+All producers terminated; custody exported and exact temporary stage/cwd removed.
+The only Minor distinguishes the passing success short-circuit control from
+the loader-output zero-key regression assertion. Both are retained with that
+evidence distinction; no functional correction or extra wording round is needed.
+
+Verification limits are retained: an initial command-manifest typo ran no tests;
+a subsequent2143-test pass failed the runner's log-equality assertion. That run
+saved no pre-run inventory, so exact historical record changes cannot be
+attributed or recovered. A neutral canary demonstrated that an existing AGY
+preflight test invokes stale cleanup. The execution harness now sets child-only
+log/TMPDIR roots before imports and retains both inventories; parent settings
+and product code were unchanged. The final pass does not erase that uncertainty.
+
+C77/DL-97 and the DL-106 zero-key portion are complete in B's local candidate.
+Other DL-106 removals, full C43/C76 runtime certification, shared adoption,
+installation, merge and release remain separate. A's current test evidence is
+still maintainer-owned; neither absence nor concurrent work is a defect claim.

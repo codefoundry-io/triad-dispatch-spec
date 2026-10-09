@@ -673,7 +673,7 @@
       "expected": "Ignore unsupported class entries with one log line and drop exit-zero entries at load (DL-97/DL-106). Retain valid siblings and existing curated authentication behavior; R-CLASSIFY independently refuses every new authentication proposal. Classification emits only the existing contract class/exit pair, and success remains success. Reading never rewrites the extension. No vendor invocation or new error vocabulary.",
       "tests": {
         "A": "NOT RUN by B. Read-only c890731 plus dirty _common.py: loader restricts to VENDOR_EXIT_PROPOSAL_CLASSES and drops nonpositive numeric keys. Maintainer should name its current C77 evidence.",
-        "B": "PENDING. Current632f426 plus candidate retains all string values; tests/test_classifier_extension_contract.py planned. See decisions/2026-10-10-b-typed-loader.md."
+        "B": "IMPLEMENTED-B-CANDIDATE at632f426 plus local changes. tests/test_classifier_extension_contract.py: RED36failed/25passed; final GREEN403focused/2143full passed,4skipped and four validators. All-four SAFE, matching integrity in triad-classifier-loader-20261010-r1. Loader-output assertions prove zero-key removal; success assertion is an unchanged-behavior control. Earlier verification limits and bounded completion: decisions/2026-10-10-b-typed-loader.md."
       }
     }
   ]
