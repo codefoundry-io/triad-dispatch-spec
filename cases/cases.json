@@ -188,7 +188,7 @@
       "rule": "R-CONTAIN",
       "summary": "Gemini preflight",
       "input": "gemini 0.33 / a missing capability / an API-key auth path / hardened default with --sandbox omitted",
-      "expected": "Refuses below CLI 0.34.0, on a missing capability, when auth is not the approved subscription route; effective posture computed BEFORE the conflict/policy checks",
+      "expected": "Refuses below CLI 0.63.0, on a missing capability, when auth is not the approved subscription route; effective posture computed BEFORE the conflict/policy checks",
       "tests": {
         "A": "tests/unit/wrappers/t57-gemini-preflight-c16.sh @ triad ebc4dc7 — effective posture computed before the conflict and policy checks (3rd-Agent/wrappers/gemini_wrapper.py:421-437).",
         "B": "Implemented in the local B P3 candidate based on 3d62b7c. Version/help/model-policy interface validation before review inference; actual OAuth principal and account entitlement remain unexposed unless independently observed. Regression sources: tests/test_gemini_version_floor.py, tests/test_v2_adapters.py, tests/test_v2_adapter_wrapper_bridge.py, tests/test_v2_review_findings.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred."
@@ -211,8 +211,8 @@
       "surface": "gemini-policy",
       "rule": "R-NOCOST, R-MODEL",
       "summary": "Google review leg default model",
-      "input": "a roster with no gemini model / the Pro-high default / an explicit other model",
-      "expected": "Default = the Pro-high tier on agy and on gemini (dispatch-time slug from the roster, never in code); a different model is accepted only as an explicit roster choice to evaluate a future model and is passed to the CLI as written, never checked against a model list (R-MODEL); a model the CLI refuses ends as one terminal failed-to-run record naming the leg and the model and telling the user to change the roster entry (R-MODEL); the resolved model is recorded in the receipt",
+      "input": "a roster with no gemini model / the Pro-high default / an explicit other model; Gemini CLI 0.62.9 / 0.63.0-preview.1 / 0.63.0 / later, with known and previously unlisted model pins",
+      "expected": "Default = the Pro-high tier on agy and on gemini (dispatch-time slug from the roster, never in code); a different model is accepted only as an explicit roster choice to evaluate a future model and is passed to the CLI as written, never checked against a model list (R-MODEL); a model the CLI refuses ends as one terminal failed-to-run record naming the leg and the model and telling the user to change the roster entry (R-MODEL); the resolved model is recorded in the receipt; all Gemini CLI routes refuse versions below 0.63.0 (including 0.63.0 prereleases) before inference, independently of model membership; 0.63.0 and later pass this version gate, subject to existing capability, authentication, containment and binding checks (D-GEMINI-FLOOR-20261009)",
       "tests": {
         "A": "tests/unit/skills/t12-roster-v2.sh (cases C12, C18, C22) @ triad ebc4dc7",
         "B": "Implemented in the local B P3 candidate based on 3d62b7c. Separate Google route blocks, explicit pin, Pro-high requested defaults; Gemini never receives a fabricated effort flag. Regression sources: tests/test_v2_adapters.py, tests/test_v2_google_wrappers.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred."
@@ -526,7 +526,7 @@
       "rule": "R-CLI-VERSION",
       "summary": "Observed CLI patch version is evidence, not an equality pin",
       "input": "a CLI version newer than the previously observed patch with required invocation, authentication, isolation and output capabilities present; a version missing one required capability",
-      "expected": "Do not refuse solely because a new version differs from the old observed patch. Preserve each required capability check and any justified minimum or known-defect exclusion; refuse or stop when those conditions fail. Record the version actually observed without inferring runtime behavior from its number alone.",
+      "expected": "Do not refuse solely because a new version differs from the old observed patch. Preserve each required capability check and any justified minimum or known-defect exclusion; refuse or stop when those conditions fail. Record the version actually observed without inferring runtime behavior from its number alone.; Gemini CLI now has one model-independent minimum of 0.63.0 for raw, legacy and v2 routes (D-GEMINI-FLOOR-20261009); later versions retain the same required controls",
       "tests": {
         "A": "todo — no A test names C65 @ triad d80dad0",
         "B": "B provider-free evidence at f6651121bf775a40f8743c10cd6c3f3590fef88c: tests/test_v2_adapters.py C65 and tests/test_gemini_version_floor.py cover later versions, missing controls and independent Claude 2.1.205, AGY 1.1.20, formal Gemini 0.34.0 and v2 Gemini 0.60.0 seams. New Opus 5.5 mocks use 2.1.280+; no authenticated runtime compatibility claim. See decisions/claude-review-strategy-handoff.md for actual platform results and limits."

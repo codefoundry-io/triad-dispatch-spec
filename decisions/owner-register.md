@@ -790,3 +790,26 @@ override, host A gives skill users a guide that explains this and lists the ship
 
 Effect: [R-ROSTER](../reference/review-rules.md#R-ROSTER) (On A), R-REVIEW-WEB (On A), cases C12 and C19,
 `authoring/shared-dev-log.md` DL-49 — their host-A text is rewritten (host A @ triad `3894879`; DL-94).
+
+
+<a id="D-GEMINI-FLOOR-20261009"></a>
+## D-GEMINI-FLOOR-20261009: Gemini CLI support begins at 0.63.0
+
+Owner, 2026-10-09, direct instruction to the Codex leader (verbatim):
+
+> Gemini믄 63부터 지원하는걸로해
+
+The owner selected a common Gemini CLI minimum of 0.63.0 after checking the
+latest stable GitHub release. This replaces the earlier 0.34.0 formal and
+0.60.0/0.61.0 model-specific support boundaries with one route floor. It applies
+to raw investigation and legacy/v2 review on both hosts; it does not change
+model defaults, authorize model-list probes, or alter either host's native leg.
+0.63.0 prereleases are below the floor; later versions still need the existing
+interface, authentication, containment and receipt controls. No effective
+runtime identity is inferred from passing a version gate.
+
+Effects: R-GOOGLE / R-NOCOST, R-CLI-VERSION; C16, C18 and C65. Both host
+maintainers update their Gemini checks and tests; the Codex leader changes B
+only and requests A's equivalent implementation through the shared handoff.
+The earlier alternatives in `2026-10-09-model-pin-version-conflict.md` are
+superseded by this explicit owner choice. No release/adoption is implied.

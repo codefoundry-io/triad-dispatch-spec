@@ -1162,7 +1162,7 @@ Workspace account signing in with Google may need a Google Cloud project set
 read 2026-10-04). Default model for the Google review leg on BOTH CLIs: the Pro family with a verifiable HIGH thinking configuration (owner Q-W; owner via the codex session, Q2: "두 CLI 모두 Pro 계열 + 확인 가능한 high로 맞춤; 인증 경계 유지"). agy: today's Pro-high catalog slug, recorded in the roster; gemini CLI: a route-valid Pro model whose default thinking level is HIGH (v0.60.0 `defaultModelConfigs.ts` gives Gemini 3 Pro `ThinkingLevel.HIGH`; the agy slug is NOT a portable gemini CLI argument). Flash was retired as a reviewer (0 unique blocking defects over ten rounds, owner 2026-09-14). Slugs are dispatch-time values in the roster's `agy` / `gemini` block, never constants in code; the configured default is recorded separately from the exposed runtime identity; the model option stays selectable only so a future model can be evaluated. B's explicit legacy development path remains Auto-only. B's opt-in v2 adapter selects route-valid Pro defaults and checks supported controls before inference; preflight settings do not prove runtime identity. On A the v2 gemini route passes the roster's model (`lib/roster_v2.py:971-972`; shipped data `spec/review-legs.default.json:42`). Deterministic
 provider-free checks (help, version, policy, argv, env, preflight) stay in each host's automated suite; only authenticated
 service checks go through the owner-briefing route (R-GOOGLE); an unrun authenticated check is unverified, never green. Gemini formal review requires CLI
-`>= 0.34.0` (PR #20639 lands the headless policy-allow fix) and tests the declared supported range. Gemini `--policy`
+`>= 0.63.0` (owner, D-GEMINI-FLOOR-20261009; includes the earlier headless policy-allow fix) and tests the declared supported range. Gemini `--policy`
 REPLACES the user-tier policy directory only; system/admin, workspace and built-in defaults still load (v0.46.0 and
 v0.60.0 `packages/core/src/policy/config.ts`), so an admin policy can outrank the wrapper's denies; the CLI help string
 "Additional policy files" is misleading and the wrapper's TOML header is right.
@@ -1180,7 +1180,9 @@ refuses a model the listing does not name, judging the call's own failure output
 called at `:329-330`); On B the agy preflight runs `agy models` and refuses an unprobeable listing or a model it does not
 advertise (`bin/antigravity_wrapper.py:82-101`, `:635-643` @ `7f75863`) and the gemini route refuses a model its packaged
 list does not name (`bin/data/gemini-models.json`, `bin/google_preflight_v2.py:15-24`, called at
-`bin/gemini_wrapper.py:192-194`). A gemini review leg needs only the 0.34.0 policy floor; a pre-release of a floor
+`bin/gemini_wrapper.py:192-194`). Every Gemini CLI route, including raw investigation and legacy/v2 review, requires 0.63.0 or later
+(owner, [D-GEMINI-FLOOR-20261009](../decisions/owner-register.md#D-GEMINI-FLOOR-20261009)); this is one route floor,
+independent of the requested model, not a model catalog gate. A pre-release of a floor
 version is below that floor (On B `bin/review_round.py:470`), and the observed version is recorded as the CLI printed
 it. The Google Cloud
 access-token variable the gemini CLI reads is an API-key-shaped credential under R-AUTH that neither host removed (DL-81).

@@ -1,5 +1,12 @@
 # Changelog
 
+## Owner Gemini support boundary — 2026-10-09 (not tagged)
+
+- D-GEMINI-FLOOR-20261009: both hosts support Gemini CLI from 0.63.0 on raw,
+  legacy and v2 routes. One model-independent floor replaces older floors;
+  no catalog probe or allowlist returns. R-GOOGLE/R-NOCOST, R-CLI-VERSION,
+  C16/C18/C65. Existing capability, authentication and containment checks stay.
+
 ## Owed rows from host A's conformance work — 2026-10-08 (not tagged)
 
 - Reconciliation after the R-MODEL merge (owner rulings 2026-09-27 and 2026-10-08):

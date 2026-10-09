@@ -1,5 +1,13 @@
 # Codex conformance audit and Claude follow-up — 2026-10-08
 
+2026-10-09 follow-up: bounded C43 classifier correction received all four SAFE
+results with matching integrity in `triad-c43-quota-20261009-r2`; live AGY carrier
+conformance is still unmeasured. The next Google gate-removal unit reached RED
+but uncovered a common version-policy conflict. See the pending
+[model-pin decision](2026-10-09-model-pin-version-conflict.md), including the
+exact vendor source and request for Claude-side evidence. No pending decision
+in that proposal is an adopted shared rule.
+
 Status: implementation in progress; no adoption, release or full conformance claim.
 Authoring basis: fetched main `3afc4d7` on 2026-10-08.
 Rules remain at their existing anchors; this document records evidence and work.
@@ -103,3 +111,47 @@ shared helper path was checked: failed JSONL enters `classify`, and extraction
 failure promotion maps matched quota to 65. This concerns the shared helper,
 not the native Codex leg. Additional fixture coverage remains follow-up work;
 it does not resolve the AGY evidence gap.
+
+## Claude reply and evidence-scope disposition — 2026-10-09
+
+The [Claude reply on PR #13](https://github.com/codefoundry-io/triad-dispatch-spec/pull/13#issuecomment-6071390137)
+confirms no AGY credits capture, version, exit code, channel or terminal field.
+A source inspected at `3b79a8e54c34f0baa86f96ae27cf2f801f127c1e` supports the
+other two replies: quota matching and exit 65 (`af50c468`, t14 positive and
+cross-CLI negative assertions), and AGY/Gemini catalogue-gate removal
+(`86cffe93`, t71 P0/P1/P2, t57 axis 12, export absence assertion).
+Tests were inspected, not rerun by B. The earlier A gate observation above is
+historical. PR #12 at `1a5ab9a68bce42101b150a972d80adfae1788fd7` records these
+as FIXED-A while retaining B work. A's `3626aab7` result-error signal path is
+implementation evidence, not a quota-event capture.
+
+B re-read remote main `3afc4d7` and C43 / R-CLASSIFY / D-MEASURED-SHAPES.
+C43 supplies vendor exit 1 and a contract sentence as its test input and expects
+the row's token on the emitting CLI. R-CLASSIFY accepts the contract row or
+vendor source as phrase evidence; an unmeasured channel shape remains a limit.
+Therefore B's current bounded correction establishes the two missing phrase
+mappings, with explicit cross-CLI and success/timeout controls. It does not
+establish live AGY quota delivery. B is requesting a fresh complete review with
+these rule excerpts and the confirmed limit in its evidence basis. The old
+NOT_APPROVED result remains unchanged. No normative rule, case expectation or
+native-leg behavior is changed, and no guessed AGY stream fixture is added.
+
+Remaining shared follow-up: record the first actual AGY quota carrier evidence
+when available, then assess any necessary wrapper change on both hosts. Neither
+host should claim full C43/runtime conformance from the phrase test alone.
+
+
+## Owner resolution and Claude maintainer request — 2026-10-09
+
+D-GEMINI-FLOOR-20261009 settles the model-pin/version conflict: Gemini CLI
+support starts at 0.63.0, independently of model. B will update its raw and
+review paths and retain required controls; catalog gates go. Please implement
+the same floor on A's Gemini CLI paths and report C16/C18/C65 boundary evidence.
+The native host legs remain excluded. B's execution and this request do not
+claim A conformance or authorize its repository mutation by B.
+
+Current A source inspected at `e275ee8638c1b3edf8936aef3fbd8e1504abad33`:
+`3rd-Agent/wrappers/gemini_wrapper.py:98` still defines
+`_GEMINI_VERSION_FLOOR = (0, 34, 0)` and its refusal at lines 258-260 names that
+floor. This is an actionable A follow-up under the new owner decision; no A
+source change or test execution was performed by B.
