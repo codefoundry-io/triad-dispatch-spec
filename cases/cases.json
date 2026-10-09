@@ -564,7 +564,7 @@
       "input": "every leg's rendered prompt for a round, both when the reviewed code is a TRIAD host's own code and when it is another target",
       "expected": "Every selected leg's prompt carries the shared deployment-context clause, placed immediately before severity-instruction, with its evidence pointer (R-THREAT, D-THREAT-MODEL-20261003, D-CONCURRENCY-FACT-20261008) and its scope to a TRIAD host's own code; for another target the brief's deployment context governs (R-CONTEXT). How a leg labels a finding and how the leader records it are model and leader behaviour (R-THREAT, R-VERIFY), not asserted by the host.",
       "tests": {
-        "A": "todo — no A test names C68 @ triad b53409b; the deployment-context clause is vendored (spec/prompts/common-clauses.md:36) and placed before severity-instruction in every leg order (spec/prompts/leg-claude.md:63, leg-codex.md:45, leg-google.md:64), candidate 1f907af",
+        "A": "tests/unit/skills/t13-prompts-v2.sh axes 19-20 + tests/unit/skills/t23-review-web-c32.sh axis 12 @ triad 0e04d2a3",
         "B": "todo (re-vendor; authoring/shared-dev-log.md DL-56)"
       }
     },
