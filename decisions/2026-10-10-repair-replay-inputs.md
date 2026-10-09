@@ -143,3 +143,29 @@ result before vendor classification. Preserve each actual route's existing
 decision; do not add logging or classification policy merely to implement the
 overbroad sentence. A should apply the same distinction to its own runtime.
 No new code path, log field or native mechanism is requested.
+
+## B U4b2 completion evidence
+
+B632f426 plus the local candidate now implements stored verification and all
+three external dispatch handoffs. Final focused dedicated GREEN359passed and
+four validators passed; the production applier is byte-identical to the prior
+full2078passed/4skipped run. A local Python producer exercises zero/nonzero
+reader failures and interruption; these are not vendor incidents. Source state
+and source run logs stayed unchanged in the final run. The import-time test-log
+override defect was corrected;169 identifiable prior fixture records were
+archived and removed. Earlier cleanup proved only exact neutral-root removal;
+no pre-run inventory exists to rule out historical pruning.
+
+Fresh round triad-repair-replay-20261010-r3 returned all-four SAFE with matching
+integrity, digest1ea978486627066bed9f0f58a6851f15ea09eb79a1f347c80fb5b90aa5a7366a.
+All producers terminated and exact temporary review roots were removed after
+export. Two optional Minor notes remain: later documentation can name negative
+exit/failed-delivery refusals explicitly; the currently matching extraction
+promotion tuple could be shared. Neither is a present false pass or a requested
+new refactor. Prior failed rounds and the R2 refutation stay retained.
+
+This completes the bounded B stored-classification/handoff unit, not full C76
+runtime certification, successful review admission replay, installation or
+release. A c890731 plus concurrent dirty work is inspected read-only; its F3-c
+remains separately scheduled. The latest PR13 A reply is6083800391. B proceeds
+to the existing DL-97 typed-loader rule and DL-106 zero-key restriction.

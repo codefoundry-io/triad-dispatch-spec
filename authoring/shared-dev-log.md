@@ -1,5 +1,14 @@
 # Shared development log — defects and drift found while implementing the common items
 
+## B loader correction and stored verification, 2026-10-10
+
+[DL-97/DL-106 and C77](../decisions/2026-10-10-b-typed-loader.md) record the
+existing class/zero-key loader outcome before B implementation, with A c890731
+read-only evidence. Preserve curated authentication and reachable B fallback.
+U4b2 stored verification/handoff now has dedicated359-test GREEN and all-four
+SAFE review; [evidence and limits](../decisions/2026-10-10-repair-replay-inputs.md).
+Full C76 runtime certification remains partial.
+
 ## U4b2 replay-input characterization, 2026-10-10
 
 [PR13 agreement and provider-free spike](../decisions/2026-10-10-repair-replay-inputs.md)
