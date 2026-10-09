@@ -516,6 +516,22 @@ the raw Claude `--web` permit does not add review accounting or rewrite the call
 ## Containment and validity — what exists today and must survive
 
 <a id="R-CONTAIN"></a>
+
+AGY review discovery must remain available when the vendor removes search tools
+from its default agent. An explicit main-agent profile may supply native reads,
+content/name search and directory listing; model/effort stay separately selected.
+The selected definition is checked before dispatch and bound into the review's
+control evidence; a missing or changed definition refuses the attempt before
+inference, without silently falling back or reinstalling. Web tools are exposed
+only on the authorized web route. Provisioning paths and execution containment
+remain host-owned. A version-only preflight is not proof of native search: verify
+capability recovery with an actual successful search and read control (C72).
+On B, legacy/v2 formal AGY uses B-owned `triad-codex-readonly-review` and its
+`triad-codex-readonly-research` web twin under `~/.gemini/config/agents`, selected
+by `--agent`; name/path/definition SHA-256 are bound in preflight. Explicit setup
+is separate from dispatch. Existing plan/sandbox and permission checks remain
+pending the separately tracked DL-107 work. Raw calls and both native legs are
+outside this correction. See [owner decision](../decisions/2026-10-09-agy-search-tools.md).
 Review legs read; they do not mutate, execute the candidate, or spawn vendors. REVIEW web follows the bound
 R-REVIEW-WEB condition, which the owner's standing authorization sets true for every round (D-9's review prohibition
 is superseded by D-REVIEW-LEGS-20261003). When that condition is false, REVIEW has no web: codex `web_search="disabled"`;

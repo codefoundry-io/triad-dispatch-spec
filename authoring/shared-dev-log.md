@@ -199,5 +199,7 @@ purpose and remain intact. This is not an A defect claim or a native-leg change.
 record a separate capability gap: AGY 1.2.7 removed legacy search tools from
 its default profile, and B's 1.3.2 Pro review/diagnostic reported them absent.
 A already ships an explicit tools profile in source; current A runtime is not
-measured. B's provider-profile/install design proposal awaits the owner. No
+measured. The owner approved B's provider-profile implementation; C72 and
+R-CONTAIN record the checked/bound profile and actual-search proof. Global
+installation awaits exact-path/delta approval. No
 spec revision, profile activation, native-leg change or review admission follows.

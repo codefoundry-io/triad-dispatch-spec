@@ -1,6 +1,6 @@
 # AGY default search-tool removal: B capability gap
 
-Evidence and proposed design awaiting the owner; not an adopted contract.
+Owner-approved B correction; draft common clarification, not revision adoption.
 
 ## Evidence
 
@@ -46,7 +46,21 @@ controls. Model and effort remain direct CLI parameters. This does not add
 an external Claude agent or change either native leg. Final lookup and install
 ownership require validation; do not overwrite or silently depend on A's profile.
 The owner was asked before this provider execution/install design change.
-No implementation or profile activation is authorized by this proposal alone.
+The owner approved option 1 and continuation on 2026-10-09. The option was
+described as AGY-specific read/search profile, definition validation/binding and
+setup design/implementation, with global installation separately approved after
+the exact path/delta is reviewable. Verbatim answer: "1번이긴 한데 그럼 이전에는
+어떻게 검증한거야? 이전까지도 잘 됐잖아". This authorizes B implementation;
+global activation remains pending. B uses separate review/research profiles to
+preserve existing authorized-web behavior, confined to legacy/v2 formal calls.
+Name/path/definition SHA-256 enter the existing preflight receipt and its bound
+digest; missing/drifted definitions fail before inference. No new model preset,
+routine leader read-log audit or native-leg change is introduced. C72 records
+normal/missing/drift/web cases before implementation.
+
+Prior B Pro preflights for Google pins R4, Claude selection R2 and Opus default
+R1/R2 all report AGY 1.3.2 and provider_started:false. Earlier success therefore
+did not prove native search availability; this was not a new intervening upgrade.
 
 Next proof: a real search and read control under the selected profile, focused
 regressions and a fresh complete review. A leader file inventory or majority of
@@ -58,4 +72,5 @@ Confirm current AGY 1.3.2 custom-agent tool exposure and definition lookup with
 existing evidence if available: command, agent source hash, successful native
 search event and limits. Your source already uses an explicit profile; do not
 change your native leg or copy B's plan-mode implementation. Review the shared
-implications after the owner resolves B's proposed design.
+implications of this owner-approved correction at this same spec commit. B is
+the implementation lead for this correction; no A code change is requested.

@@ -603,6 +603,18 @@
         "A": "NOT RUN for C71. Existing AGY required brief/patch reads and hook checks are automatic route controls, not a leader source-path audit; see decisions/2026-10-09-review-read-boundary.md.",
         "B": "Bounded provider-free correction: three actual operational collector cases fail at the unnecessary audit-log read before removal, then pass for normal SAFE collection, negative-result blocking and integrity-mismatch blocking. Fresh executor chooses targeted diagnostics only for a reported incident. Combined relevant checks: 191 passed. Product collector/runtime unchanged; see decisions/2026-10-09-review-read-boundary.md."
       }
+    },
+    {
+      "id": "C72",
+      "surface": "review-lifecycle",
+      "rule": "R-CONTAIN, R-PROMPT",
+      "summary": "AGY search-capable profile is explicit and bound before review",
+      "input": "AGY without default native search; matching installed review profile, missing/drifted profile, profile changed after preflight, and authorized-web versus no-web review",
+      "expected": "A selected main-agent definition explicitly enables native read/content-search/name-search/listing. Missing/drifted or changed bound definition refuses before inference; dispatch never auto-installs or silently falls back. Model/effort remain CLI selections. No-web does not acquire web tools; authorized-web retains its permitted tools. Existing containment and native-leg ownership remain. Capability recovery requires an actual successful native search plus read control, not only successful preflight or a SAFE verdict.",
+      "tests": {
+        "A": "NOT RUN. Explicit profile and byte equality check present in 9e16880; current runtime search proof requested in decisions/2026-10-09-agy-search-tools.md.",
+        "B": "NOT RUN; approved implementation in progress, tests/test_agy_search_profile.py. Global installation and live search control pending."
+      }
     }
   ]
 }
