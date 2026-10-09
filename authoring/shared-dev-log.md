@@ -216,3 +216,13 @@ integrity; fresh Luna/high choices confirmed the intended operator actions, so
 further nonblocking wording suggestions are retained without another rewrite.
 This does not reopen the model gate or request an A code/native-leg change;
 no common rule change, revision adoption or product release is implied.
+
+## Route-specific agent scope, 2026-10-09
+
+[Owner clarification and current capability evidence](../decisions/2026-10-09-leg-agent-scope.md)
+record R-AGENT-ROLES/C73: AGY's primary discovery profile, optional B Claude CLI
+selection and host-native spawning are distinct. DL-49's optional bind-or-refuse
+obligation remains unresolved; it is not a prerequisite for default CLI legs.
+B defers U1c and proceeds to U2 measured authentication/carrier mapping. Neither
+host's native mechanism changes. Other-host review of this same clarification is
+requested; no revision adoption or optional-feature conformance is claimed.

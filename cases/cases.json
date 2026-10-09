@@ -615,6 +615,18 @@
         "A": "NOT RUN. Explicit profile and byte equality check present in 9e16880; current runtime search proof requested in decisions/2026-10-09-agy-search-tools.md.",
         "B": "Source candidate at 632f426 + dirty correction: tests/test_agy_search_profile.py 12 passed; dedicated fresh full suite 1915 passed/4 skipped (macOS arm64, Python 3.12.13), both skill validators passed, 55 source hashes stable. Missing/drifted definition RED and Unicode receipt RED were observed first. After explicit owner approval, both global profiles installed with byte equality and A profiles unchanged. One AGY 1.3.2 Pro/high formal-v2 no-web invocation selected the real review profile, completed grep_search then view_file on the discovered fixture, and exited 0. Its first finish schema_version 1 was corrected to 2 within that invocation. Fresh U1b+C72 R3: Claude/Pro/Flash/Astra all SAFE, ROUND_INTEGRITY_OK; six nonblocking Minor findings have recorded dispositions. Evidence: decisions/2026-10-09-agy-search-tools.md. Authenticated web capability remains NOT RUN; no universal runtime conformance, revision adoption or release claim."
       }
+    },
+    {
+      "id": "C73",
+      "surface": "review-lifecycle",
+      "rule": "R-ROSTER, R-AGENT-ROLES, R-CONTAIN",
+      "summary": "Agent-definition requirements stay specific to the selected route",
+      "input": "B default Claude entry with agent null; A external Codex CLI entry; AGY formal entry needing native discovery; each host's native reviewer; control: B explicitly selects a non-null Claude CLI agent whose definition is unbound; capability control: default CLI tool surface under read-only/plan permissions, without agent or tool-enabling overrides",
+      "expected": "Default Claude and external Codex CLI legs use their direct model/effort controls without introducing an agent-definition prerequisite. AGY retains the checked/bound discovery profile under C72. Native spawning/presets remain host-owned. Only an explicitly selected optional Claude CLI agent triggers DL-49 bind-or-refuse; an unbound optional selection is not certified by the null-agent default passing. Optional work does not block unrelated default-leg implementation. Read/search capability is separate from exact tool names and remains subject to effective vendor settings and permissions; no per-round source-read audit is introduced.",
+      "tests": {
+        "A": "NOT RUN for C73. Source inspected at 0e04d2a: external Codex wrapper passes model/reasoning directly, native Claude uses its shipped preset mechanism. No A edit requested.",
+        "B": "NOT RUN for C73. Source at 632f426 plus dirty candidate: shipped Claude default agent is null; adapter appends --agent only for non-null selection. C72 profile capability/review evidence remains separate. Non-null Claude definition binding remains unresolved, not waived. B-maintainer one-off diagnostic: Claude 2.1.289 opus/xhigh plan Bash rg then Read, Codex 0.160.0 gpt-6.1-sol/medium read-only rg then cat, no agent/tool override, both exit 0 and recovered an undisclosed random fixture marker. This is bounded CLI capability evidence only, not full C73 or A wrapper conformance; see decisions/2026-10-09-leg-agent-scope.md."
+      }
     }
   ]
 }
