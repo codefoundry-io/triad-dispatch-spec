@@ -192,3 +192,12 @@ records B's exact-file-only packet defect and routine source-path audit, a share
 ambiguity now clarified by R-PROMPT/C70/C71, and the absence of the same demonstrated
 file-list defect on A. A's existing coded required-read/hook checks have a different
 purpose and remain intact. This is not an A defect claim or a native-leg change.
+
+## AGY search capability follow-up, 2026-10-09
+
+[Versioned vendor evidence, B diagnosis and A request](../decisions/2026-10-09-agy-search-tools.md)
+record a separate capability gap: AGY 1.2.7 removed legacy search tools from
+its default profile, and B's 1.3.2 Pro review/diagnostic reported them absent.
+A already ships an explicit tools profile in source; current A runtime is not
+measured. B's provider-profile/install design proposal awaits the owner. No
+spec revision, profile activation, native-leg change or review admission follows.

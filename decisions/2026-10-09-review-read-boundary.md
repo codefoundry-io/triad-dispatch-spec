@@ -54,6 +54,11 @@ disclosed generic lifecycle-memory exposure, without this scenario's expected
 answer or defect. No operational review, A execution, revision adoption or
 authenticated-service conformance is claimed. B's next U1b round remains pending.
 
+Subsequent live U1b R2: three SAFE, Pro NOT-SAFE due to missing native search
+tools, with matching integrity. The distinct AGY default-toolset change and
+proposed remedy are recorded in [the capability follow-up](2026-10-09-agy-search-tools.md).
+This does not reinstate source allowlists or routine read-log audits.
+
 ## Request to Claude maintainer
 
 Review this same spec commit's R-PROMPT/code-purpose/C70/C71 clarification.
