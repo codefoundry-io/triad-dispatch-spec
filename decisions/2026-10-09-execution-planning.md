@@ -114,6 +114,31 @@ for unexposed identity before broader adoption. A's native Claude path exposes
 no selection to compare and is not asked to acquire a new probe or change its
 host leg. The candidate does not claim complete C34 or per-model support.
 
+U1a completion, 2026-10-09: B's local candidate at base `632f426` now removes
+the Claude model/effort catalog admission gate, retains the wrapper effort
+vocabulary and CLI control checks, and refuses exposed selection contradictions.
+Requested values and raw output remain separate. Final production delta is
++60/-19/net +41. Adapter SHA-256:
+`aa7444dcbf5ca1c7ecd4c3c2339b55363be06e1c1cf8a4790ab23a8427376747`.
+The product candidate remains uncommitted, uninstalled and unreleased.
+
+The first review found two header-parsing defects, reproduced and corrected.
+Final affected suite: 99 passed, including 32 selection cases, Python 3.12.13 /
+pytest 9.0.3 on macOS arm64. The earlier full run passed 1,881 tests with 4 skips;
+that full run precedes the bounded parser corrections. Historical CLI 2.1.282
+receipt output was located: `Set model to \`Opus 5.5\` for this session only\n`
+under explicit `claude-opus-5-5` / `xhigh`, `provider_started: false`. This
+establishes that historical format, not current-version or runtime attestation.
+
+Fresh round `triad-claude-selection-20261009-r2`: Claude, Google Pro, Google
+Flash and fresh Codex Astra all SAFE, matching final fingerprint, exact temporary
+stage/cwd cleanup complete. Digest:
+`8ebf2c475aa49fd9c32606a1f0763c839dbb7de4c5f52d58fdcaa345455895db`.
+An optional proposal to parse unobserved version-less labels remains deferred.
+U1b alias defaults / external-agent binding and the rest of the execution plan
+remain pending. Neither host's native leg was changed. This is bounded B
+implementation evidence, not a shared revision adoption or complete conformance.
+
 - PR #12's body/title only names early phases while its files now record
   DL-118..126. Distinguish completed source work from pending rule/case edits.
 - PR #13's original body says no normative change and cites the first failed
