@@ -2,6 +2,19 @@
 
 Dates in decision headings and IDs are the owner's local date (KST, UTC+9); timestamps given with `Z` are UTC.
 
+<a id="D-BACKLOG-DISPOSITIONS-20261009"></a>
+## D-BACKLOG-DISPOSITIONS-20261009: distinguish non-active work and plan its removal
+
+Owner, direct instruction (verbatim):
+
+> 보류 폐끼 이식 불필ㅇ됴 항목읁 차이점으로 스펙에 업데이트하고 없애는거 플랜에 넣어
+
+Interpretation: record deferred, withdrawn and no-port differences in the shared
+specification; remove obsolete active tasks and plan removal of confirmed
+remnants. Preserve deferred-feature contracts and historical evidence. The
+[item dispositions and removal scope](2026-10-09-backlog-dispositions.md) apply
+to both hosts' corresponding plans without changing native-leg ownership.
+
 <a id="D-PROMPT-REVIEW-BOUNDED-20261009"></a>
 ## D-PROMPT-REVIEW-BOUNDED-20261009: bounded prompt review and U4a residual acceptance
 

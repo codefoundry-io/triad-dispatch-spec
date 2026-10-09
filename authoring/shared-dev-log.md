@@ -1,5 +1,14 @@
 # Shared development log — defects and drift found while implementing the common items
 
+## Non-active work and removal plan, owner 2026-10-09
+
+[Shared dispositions](../decisions/2026-10-09-backlog-dispositions.md) distinguish
+deferred obligations, unmeasured facts, withdrawn/unadopted proposals, no-port
+host differences and bounded prompt review. Remove obsolete active prerequisites;
+keep re-entry conditions, common contracts and historical evidence. B removes
+the active U1c research checklist and schedules a confirmed-remnant sweep in U10.
+A should reconcile its applicable plan entries; no A code defect is presumed.
+
 ## U4b proposal boundary — R-AUTH/R-CLASSIFY, 2026-10-09
 
 A6e555144 refuses every oauth-env proposal; B's pre-U4b1 candidate rejected only
