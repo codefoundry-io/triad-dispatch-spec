@@ -1,5 +1,13 @@
 # Shared development log — defects and drift found while implementing the common items
 
+## U4b2 replay-input characterization, 2026-10-10
+
+[PR13 agreement and provider-free spike](../decisions/2026-10-10-repair-replay-inputs.md)
+record A's scheduled F3 work and B's false-positive naive replay control.
+Stored-stream concatenation is not equivalent to every runtime route's classifier
+inputs. Pure runtime/replay interpretation versus an added log surface is the
+pending design choice before B implementation; no new error entry or A port.
+
 Owner follow-up D-NO-CLAUDE-AGENT-BACKLOG-20261009 removes B's unused named-agent
 resolver project entirely from active/deferred planning. Direct model/effort
 options and existing read/search evidence establish no need for it. Historical
