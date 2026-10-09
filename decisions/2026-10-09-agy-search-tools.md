@@ -68,6 +68,16 @@ SAFE results cannot substitute for independent discovery.
 
 ## Request to Claude maintainer
 
+B implementation verification (2026-10-09): two B-owned profiles, explicit setup,
+name/path/hash preflight binding, checks before/after dispatch, no raw/native-leg
+change. Dedicated source RED reproduced missing checks. Independent code review's
+Unicode-path defect was reproduced and fixed. Dedicated final GREEN: C72 12 tests;
+full suite 1915 passed/4 skipped, both skill validators passed; 55 measured source
+hashes stable. A leader-authored installation approval record was added during
+the run, so whole Git status equality is explicitly false. Global files are not
+installed. Actual search/read and fresh formal review remain pending the separate
+installation approval; no C72 runtime conformance or review admission is claimed.
+
 ### Reply received 2026-10-09
 
 [A's PR13 reply](https://github.com/codefoundry-io/triad-dispatch-spec/pull/13#issuecomment-6075351927)
