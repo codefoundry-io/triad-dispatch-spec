@@ -6,6 +6,13 @@ hold/review requests are historical, not pending implementation requirements.
 See [the cancellation record](2026-10-09-selector-proposal-withdrawn.md).
 Independent credential/loader hygiene and C75 are outside that cancellation.
 
+Latest B outcome: the bounded U2c implementation, including intermediate Gemini
+preflight preservation, passed fresh focused370/full2029 tests with4skips and
+the complete R2 review (all four SAFE, matching integrity). See
+[current B evidence and remaining A request](2026-10-09-b-child-environment.md).
+The earlier candidate/R1 pending statements below are historical. Full C37 and
+the complete spec-to-code task remain open; no product release is implied.
+
 Current rule reconciliation at PR13 `74d259c`: R-NOCOST/C11/C17/C37 preserve
 GEMINI_MODEL, ANTHROPIC_MODEL and ANTHROPIC_SMALL_FAST_MODEL, together with user
 effort settings. The current omission set is17 loader +46 credential/endpoint
