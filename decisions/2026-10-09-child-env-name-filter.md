@@ -49,3 +49,52 @@ event evidence as planned Phase12T4; neither is certified complete here. Keep
 tests.A NOT RUN until its named conformance evidence arrives. No extra live
 probe or B agent/default change is needed. C74's later request remains pending;
 this comment explicitly covers earlier commits through b085a6e, not U2b.
+
+## Owner-requested precedence investigation — implementation on hold
+
+The owner challenged the premise before continuing: explicit CLI model/effort
+may already take precedence, so research and conflict spikes must come first.
+B had applied an unadmitted candidate (local smoke59passed); no dedicated GREEN,
+full-suite or review completion is claimed. The candidate is preserved on hold.
+The preceding list-parity tests establish conformance to the current list, not
+the necessity of every entry. C75's name-before-value question is independent.
+
+Measured on Claude Code2.1.289 with isolated HOME/config and --bare:
+
+| Conflict | Observation |
+| --- | --- |
+| ANTHROPIC_MODEL=haiku + --model opus | /model reports Opus5.5; env-only control reports Haiku4.5 |
+| ANTHROPIC_DEFAULT_OPUS_MODEL=claude-haiku-4-5 + --model opus | /model reports Haiku4.5 |
+| No effort environment + --effort xhigh | Loopback request output_config.effort=xhigh |
+| CLAUDE_CODE_EFFORT_LEVEL=low + --effort xhigh | Loopback request output_config.effort=low |
+| CLAUDE_CODE_EFFORT_LEVEL=xhigh + --effort low | Loopback request output_config.effort=xhigh |
+
+The /model display followed the effort flag, while the generated request followed
+the environment variable. A selection display alone does not attest effective
+effort. The request probe used a synthetic key and a local HTTP stub returning
+400 LOCAL_PRECEDENCE_CAPTURE_ONLY; all children ended with the expected exit1.
+No live subscription inference or actual credential was used. This proves the
+isolated API request-building path, not an observed subscription response.
+Official documentation independently states these model/effort priorities:
+https://code.claude.com/docs/en/env-vars#precedence
+Alias remapping: https://code.claude.com/docs/en/model-config#model-aliases
+
+Gemini0.63.0: three isolated executions of the exact official bundle's model
+resolver chose flag over env/settings, env over settings, then settings alone.
+Bundle SHA256 a64b06d8a06673cfae0134558e162e5b015d088a3751639c7d6dc4a88c67c1f8,
+lines8455ff. This was vendor-code extraction, not full authenticated startup.
+https://geminicli.com/docs/cli/model-routing/#model-selection-precedence
+AGY1.3.2 exposes --model/--effort in official headless docs, but three isolated
+/model probes stopped at authentication; its conflict precedence is UNMEASURED.
+https://www.agy.dev/docs/cli/headless/#select-a-model-effort-or-agent
+
+Disposition/request to A: diagnose direct model defaults, alias remapping,
+effective effort and auth-route hygiene separately. R-NOCOST currently lists
+ANTHROPIC_MODEL and GEMINI_MODEL, but not CLAUDE_CODE_EFFORT_LEVEL or
+ANTHROPIC_DEFAULT_OPUS_MODEL. Do not infer that the current list enforces every
+pin, or add/delete list entries from these observations without the shared
+decision. Explain the purpose of default-model removals when explicit flags
+already win, including omitted-option paths. Native legs stay host-owned;
+no Claude agent definition is implied. This is evidence and a review request,
+not a normative amendment or permission to change auth routing. Required design
+diagnosis and owner decisions precede dependent implementation.
