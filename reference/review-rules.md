@@ -762,17 +762,16 @@ empty answer, and one of another type ends through the wrapper guard — recorde
 `structured_output` before reading `is_error` (`bin/_common.py:1256-1260` @ `7f75863`); claude's measured authentication
 result lines ("Not logged in · Please run /login", "Invalid API key · Fix external API key") are rows of
 `contracts/vendor-failure-lines.json`; host A has no claude CLI route (DL-110). The
-auth-carrier rung runs before every other rung. Classification never raises: an exception in a classifier or an extractor
-ends `unknown` (or `extraction-error`), exit 1, with the summary, audit row and run-log written (On A one general
-classification guard, `_common.py` `_never_raises` @ triad `e40001d`, on `classify`, `_auth_carrier_stop`, the two
-extractors (codex, gemini: `extract_codex_answer`, `extract_gemini_answer` @ triad `fae369d7`), `agy_classify_signals`, and `antigravity_wrapper.py` `_classify_no_answer` (and `_catalog_auth_observed`,
-which goes with A's agy catalog call, DL-116), and one guard around each wrapper's whole `main` — probes, the run, extraction, payload building, classification —
-that ends a run `extraction-error` after a vendor exit 0, else `unknown`, exit 1, with the three records, letting
-SystemExit / KeyboardInterrupt pass, `_common.py` `_guarded_main` @ triad `fdd7029`; DL-90; recorded limits: an
-exception after a verdict is decided but before the records ends `extraction-error` / `unknown`, exit 1 — no measured
-shape raises there — and one after the records is one guard line and exit 1, the records keeping their verdict, DL-98); the guard's `False` fallback on the auth-carrier rung continues down the
-rungs, so a measured capacity token in the same run retries (at most twice); no raw-text authentication rung follows, so a
-measured codex 401 the raising rung did not read ends `unknown`, exit 1, never retried (On A t74 G5 @ triad `7e9e1fb`).
+auth-carrier rung runs before every other rung. Classification never raises: an exception in a classifier, an extractor or the auth-carrier rung
+ends `unknown`, exit 1, with the summary line, the audit row and the run-log written (On A one guard, `_common.py`
+`_guarded_main`, around each wrapper's whole `main` — probes, the run, extraction, payload building, classification —
+letting SystemExit / KeyboardInterrupt pass, @ triad `c8907314`; DL-90, DL-137; recorded limits: such an exception
+raised inside the dispatch, before the wrapper holds the run's result, records a not-started receipt — empty stdout /
+stderr and vendor exit `None` — so the repair analyzer an `unknown` routes to has no vendor evidence; an exception after
+the run's result is held but before the records ends `extraction-error` after a vendor exit 0, else `unknown`, exit 1,
+with the three records — no measured shape raises there — and one after the records is one guard line and exit 1, the
+records keeping their verdict, DL-98); no raw-text authentication rung follows, so a measured codex 401 the raising
+rung did not read ends `unknown`, exit 1, never retried (On A t74 G5 @ triad `c8907314`).
 
 <a id="R-RECEIPT"></a>
 The transport receipt and audit / run-log records carry the common transport object defined by
