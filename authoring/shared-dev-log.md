@@ -174,3 +174,12 @@ corrections, and the owner's explicit native-leg ownership boundary. Its
 Historical row observations are not current implementation claims. The focused
 corrections do not establish full C43/C18 conformance; rows retain their remaining
 work, including B's Claude catalog/identity handling and unmeasured AGY carriers.
+
+## Concurrent implementation planning, 2026-10-09
+
+[Current investigation evidence and cross-host follow-up](../decisions/2026-10-09-execution-planning.md)
+distinguishes pending implementation from defects, updates the current B DL-103
+schema observation, records no new B port for DL-124..126, and proposes an
+evidence-backed model-value transport clarification without a naming grammar.
+DL-121 and related historical source/test pointers still need reconciliation.
+This local authoring note is not adoption or full conformance.
