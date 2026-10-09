@@ -1,5 +1,11 @@
 # Changelog
 
+## Bounded prompt development — 2026-10-09 (not tagged)
+
+- Record the owner's two-to-three-pass, substantial-defect and observed-behavior
+  approach for prompt work. Owner accepts B U4a residual wording/test demands and
+  authorizes U4b; original review results and collector semantics are unchanged.
+
 ## Repair web research — 2026-10-09 (not tagged)
 
 - R-CLASSIFY/C76 permits failure-driven web search/fetch by read-only repair

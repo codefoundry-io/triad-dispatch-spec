@@ -2,6 +2,12 @@
 
 ## Repair research capability — C76, owner 2026-10-09
 
+Owner follow-up D-PROMPT-REVIEW-BOUNDED-20261009 accepts B U4a's two residual
+wording/test demands as nonblocking and authorizes U4b. R3 NOT_APPROVED remains
+historical; this is explicit owner acceptance, not unanimous reviewer approval.
+Full C76 remains open. Prompt development uses two to three passes focused on
+substantial defects and actual choices; correct choices end wording iteration.
+
 | Case | Hosts | Evidence | Required follow-up | Status |
 |---|---|---|---|---|
 | C76 | A, B | A a6f3c175 rechecked: three repair agents and distributed template still expose only Read/Grep/Glob and forbid web. B632f426 + U4a candidate allows research; dedicated RED/GREEN actual search/fetch, local control, focused106/full2029 passed with4skips. Exact evidence and limits: [handoff](../decisions/2026-10-09-repair-web-research.md). | A: align source/distributed analyzer capability. B: retain U4b timeout routing and stored-record verification; no speculative error entries or native-mechanism changes. | RULED (D-REPAIR-WEB-20261009); A OPEN/runtime NOT RUN; B PARTIAL capability evidence; full C76 OPEN |

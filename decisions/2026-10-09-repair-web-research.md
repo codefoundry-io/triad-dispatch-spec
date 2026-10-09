@@ -99,6 +99,11 @@ its maintainer's verification responsibility; no cross-host defect is inferred.
 
 ## Review status and bounded residuals
 
+**Latest disposition:** the owner accepted the two residual demands as nonblocking
+and authorized U4b, under D-PROMPT-REVIEW-BOUNDED-20261009. U4a is locally accepted
+by that explicit decision; the historical NOT_APPROVED review results below stay
+unchanged. Full C76 and U4b are still pending. No further prompt round is needed.
+
 U4a is implemented but NOT_APPROVED by the all-selected gate. R1 omitted the
 required R-THREAT context and returned an attacker-URL finding; the finding was
 recorded as speculative hardening. R2 received that context and identified missing
@@ -132,3 +137,15 @@ test cannot establish sanitizer, attribution or proposal behavior. The higher-
 priority testing instruction excludes tests that merely mirror implementation.
 The leader records the process disagreement, preserves NOT_APPROVED, and requests
 owner adjudication instead of repeatedly redispatching unchanged wording.
+
+The requested owner adjudication has now arrived as
+D-PROMPT-REVIEW-BOUNDED-20261009: accept the two residuals and continue U4b.
+The earlier request and review receipts above remain historical evidence.
+
+U4b source assessment after acceptance: B still routes timeout in
+repair-protocol.md:3 and has no stored-record verification input in
+bin/apply_patch.py. A `d075a879bf66e568c05349a40efe532b640cd8e5` was read without
+changing its concurrent dirty work: `.claude/skills/triad-codex-dispatch/SKILL.md`
+routes timeout at90/230 and instructs a vendor `--repair-mode` rerun at239/317-320/343.
+These are pending DL-104 changes on each host, not newly observed incidents.
+Native mechanisms, auth STOP and applier locking remain outside this correction.

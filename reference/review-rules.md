@@ -1100,6 +1100,16 @@ refuted claim → record the specific counterevidence and its limits; design/sco
 deployment context → a recorded fact under R-THREAT; speculation → residual, not speculative code. A fix changes the basis. Verify the proposed repair too: a reviewer's label or suggested design is
 a claim, not an instruction, and a vote is not evidence. Leader triage cannot rewrite approval under R-AGREE.
 
+For prompt development in the current shared spec-to-code effort, apply
+[D-PROMPT-REVIEW-BOUNDED-20261009](../decisions/owner-register.md#D-PROMPT-REVIEW-BOUNDED-20261009):
+two to three passes focus on substantial defects and observed behavior; repeated
+wording disputes are decided by fresh scenario/control choices. Correct choices
+end wording iteration; do not add phrase-pinning tests as a substitute for behavior
+evidence. The owner reviews wording later. Actual unresolved functional defects
+still require correction or escalation. Preserve original review verdicts and
+record an explicit owner disposition separately; this changes no collector enum
+or unanimous-approval calculation.
+
 <a id="R-CLEANUP"></a>
 Cleanup exports and verifies the round's evidence first, then releases only resources the helper can PROVE it allocated or claimed (its own allocation record or marker — never a name shape; an empty directory or a plausible-looking marker can still be foreign); uncertain residue is preserved and reported; it refuses without deleting, states what it observes, and points at the host's deletion command when a tree is not its own. A second cleanup is a no-op.
 Only host code deletes ([D-DELETION-BY-CODE-20261004](../decisions/owner-register.md#D-DELETION-BY-CODE-20261004)).

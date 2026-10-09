@@ -2,6 +2,30 @@
 
 Dates in decision headings and IDs are the owner's local date (KST, UTC+9); timestamps given with `Z` are UTC.
 
+<a id="D-PROMPT-REVIEW-BOUNDED-20261009"></a>
+## D-PROMPT-REVIEW-BOUNDED-20261009: bounded prompt review and U4a residual acceptance
+
+Owner, direct reply to the Codex leader's request to treat the two remaining U4a
+README/phrase-pinning-test demands as nonblocking and proceed to U4b (verbatim):
+
+> OK 프롬프트는 나중에 내가 직잡볼테니 2~3번 큰 디펙만 보고 실제 동직만 보는지금 방식이 맞아
+
+For prompt work in this shared spec-to-code effort, use two to three review
+passes focused on substantial defects and observed behavior. The owner will
+inspect prompt wording later. When wording judgments repeat, use the established
+fresh scenario/control probes; correct decisions end wording iteration. Do not
+add literal-pinning tests solely to satisfy wording review. A demonstrated wrong
+decision or unresolved substantial defect still needs correction or escalation;
+the pass count is not an automatic correctness or approval result.
+
+Specific disposition: the owner accepts B U4a's two remaining demands as
+nonblocking and authorizes the next U4b stage on the existing tested candidate.
+Keep R1/R2/R3 NOT_APPROVED receipts unchanged; record owner acceptance separately.
+No fourth unchanged prompt round, native-leg change, installation, merge or release
+is authorized or required. This does not rewrite the collector or its unanimous
+approval semantics. Both maintainers use the bounded prompt-development guidance;
+each host retains its implementation and native mechanisms.
+
 <a id="D-SELECTOR-PROPOSAL-WITHDRAWN-20261009"></a>
 ## Model/effort environment proposal withdrawn — 2026-10-09
 
