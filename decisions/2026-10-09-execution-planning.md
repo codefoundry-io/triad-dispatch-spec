@@ -101,6 +101,51 @@ until the shared disposition and applicable gates are satisfied.
   observations only within their demonstrated scope. Neither PR is full host
   conformance, and a pending A implementation is not a reason for B to diverge.
 
+## Execution entry: B parser and selection diagnostics
+
+After the owner approved proceeding, B ran provider-free checks against current
+source (`632f426` plus the existing dirty candidate), Python 3.12.13/pytest 9.0.3.
+No product code or native-leg behavior changed for these diagnostics.
+
+The real `argparse` parser in each of B's three wrappers was invoked, then
+stopped immediately after parsing and before binary resolution or any dispatch.
+Across 24 combinations (three wrappers, four values, two encodings), separate
+`--help`/`--yolo` model values refused with parser exit 2; equals encodings
+preserved every tested value. Ordinary unknown names and a spaced value were
+preserved in both forms. This extends the Gemini-vendor evidence to the B
+wrapper boundary; it is not AGY/Claude vendor parser evidence.
+
+The current Claude adapter also produced **3 expected RED failures / 2 passing
+controls** against C34/R-MODEL:
+
+1. An `opus` request accepts the contract's contradictory Sonnet selection.
+2. Omitting the informational Opus 5.5 data row makes its otherwise-valid
+   existing selection fail the table-dependent identity/capability path.
+3. With that row omitted, requested `claude-opus-5-5` can match the shorter
+   `claude-opus-5` row and accept reported Opus 5.
+
+Controls retain the normal Opus alias selection and explicit null selection.
+The fixture uses existing selection forms and the C34 negative example, not
+invented vendor error carriers. The data-row omission tests local catalog
+dependency, not a live vendor release or service result.
+
+Before removing the table gate, resolve how C34 treats unexposed selection or
+effort evidence: never infer an identity from a label not established by evidence.
+R-ROSTER still expressly names B's selection check; R-MODEL disallows a model
+availability probe. The implementation must preserve their intended distinction,
+not silently remove selection validation or add paid probing. Current official
+[Claude model documentation](https://code.claude.com/docs/en/model-config)
+describes aliases and interactive `/model` persistence; it does not by itself
+establish the side effects of B's print-mode invocation. Historical B 2.1.282
+selection evidence remains historical, not proof for every installed version.
+
+The three RED cases are concrete B findings; A's native Claude path is not
+implicated. Required independent diagnosis and bounded unit review remain
+before treating a remedy as admitted. Detailed diagnostics and the copyable
+maintainer request are retained by B at `_runs/spec-plan-20261009/u1/`,
+`_runs/spec-plan-20261009/model-argv/wrapper-boundary-results.json`, and
+`docs/status/2026-10-09-claude-maintainer-prompt.md`.
+
 The Codex execution plan is in its source repository at
 `docs/superpowers/plans/2026-10-09-shared-spec-execution.md`; its live SoT remains
 `docs/status/spec-to-code-sot.md`. Detailed local parser and schema evidence is
