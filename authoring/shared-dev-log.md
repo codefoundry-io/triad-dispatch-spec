@@ -2,11 +2,14 @@
 
 ## U4b proposal boundary — R-AUTH/R-CLASSIFY, 2026-10-09
 
-A6e555144 refuses every oauth-env proposal; B632f426 + candidate rejects only
+A6e555144 refuses every oauth-env proposal; B's pre-U4b1 candidate rejected only
 the obsolete raw-auth list name, leaving exit/banner proposal paths accepted.
 R-CLASSIFY now states the common outcome explicitly; preserve existing curated
-entries. Both hosts still need the DL-104 entry/reason cap removal and stored-run
-verification. [Source and verification plan](../decisions/2026-10-09-u4b-applier.md).
+entries. B U4b1 now refuses all auth proposals and removes entry/reason caps;
+dedicated RED18failed/3passed, GREEN focused229/full2050passed with4skips, both
+validators, all-four SAFE and matching source integrity. A cap removal and both
+hosts' stored-run verification remain pending. This is local candidate evidence,
+not complete DL-104/C76 conformance. [Evidence](../decisions/2026-10-09-u4b-applier.md).
 
 ## Repair research capability — C76, owner 2026-10-09
 
