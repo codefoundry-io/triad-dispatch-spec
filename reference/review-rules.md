@@ -752,8 +752,11 @@ vendor CLI/model to reproduce the failure. The deterministic applier verifies
 against the stored run record, not a fresh vendor call, as DL-104 specifies.
 Verification requires a usable record and a demonstrated classification change;
 returning the record's original classification is not proof of a learned repair.
-A host-generated transport/collection failure is unsupported evidence for phrase
-repair, not a vendor error to reclassify. Missing or empty verification input
+A host transport/collection failure that determines the runtime result before
+vendor classification is unsupported evidence for phrase repair. Preserve
+R-TERMINAL's distinction: when the runtime retains a nonzero vendor's diagnosis,
+verification follows that same path over the retained streams and raw exit; it
+does not impose a new complete-output policy. Missing or empty verification input
 is refused without falling through to the mutation path (C76).
 Promote a verified learned phrase through the existing shared-spec authoring
 process with its run evidence and any research sources; resolve a necessary new

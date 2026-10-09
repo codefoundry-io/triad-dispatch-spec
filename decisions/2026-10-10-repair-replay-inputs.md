@@ -124,3 +124,22 @@ No new log field, causal replay engine, provider call or native mechanism is
 needed. A should check the same controls in its planned F3-c implementation;
 no A runtime result is claimed. Original review and exact cleanup evidence stay
 retained. Corrections require fresh RED/GREEN and a complete fresh review.
+
+### R-TERMINAL qualification of transport evidence
+
+The broad "host transport failure" wording above did not distinguish two existing
+runtime outcomes. R-TERMINAL already says B preserves the vendor's own diagnosis
+at a nonzero vendor exit, whereas a zero-exit reader failure or any-exit setup
+failure overrides classification. Current B `_run_once_owned` and the existing
+`test_c1_reader_error_preserves_real_vendor_exit` confirm that distinction.
+
+In B's r2 review, fresh Codex initially requested recording and rejecting all
+nonzero reader failures too. On rechecking R-TERMINAL it explicitly confirmed
+that runtime and verification have no classification mismatch in that case and
+withdrew the Major implementation finding as an unjustified stricter policy.
+The original verdict remains evidence. The specification/documentation issue is
+real: qualify the exclusion to transport failures that determine the runtime
+result before vendor classification. Preserve each actual route's existing
+decision; do not add logging or classification policy merely to implement the
+overbroad sentence. A should apply the same distinction to its own runtime.
+No new code path, log field or native mechanism is requested.
