@@ -1,5 +1,11 @@
 # Child environment name filtering — U2c
 
+**Current disposition:** the additional model/effort selector investigation,
+warning and verification proposal below is WITHDRAWN by the owner. Its earlier
+hold/review requests are historical, not pending implementation requirements.
+See [the cancellation record](2026-10-09-selector-proposal-withdrawn.md).
+Independent credential/loader hygiene and C75 are outside that cancellation.
+
 Basis: remote main3afc4d7, PR13 b8512b6; B632f426 plus preserved dirty candidate;
 A af54fb82 (comment basis bb933c6b). This implements the existing R-NOCOST/C11/
 C17/C37 agreement, not a new authentication design or native-leg mechanism.
@@ -50,7 +56,7 @@ tests.A NOT RUN until its named conformance evidence arrives. No extra live
 probe or B agent/default change is needed. C74's later request remains pending;
 this comment explicitly covers earlier commits through b085a6e, not U2b.
 
-## Owner-requested precedence investigation — implementation on hold
+## Historical precedence investigation — proposal subsequently withdrawn
 
 The owner challenged the premise before continuing: explicit CLI model/effort
 may already take precedence, so research and conflict spikes must come first.

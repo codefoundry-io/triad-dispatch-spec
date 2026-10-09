@@ -2,6 +2,18 @@
 
 Dates in decision headings and IDs are the owner's local date (KST, UTC+9); timestamps given with `Z` are UTC.
 
+<a id="D-SELECTOR-PROPOSAL-WITHDRAWN-20261009"></a>
+## Model/effort environment proposal withdrawn — 2026-10-09
+
+Owner (verbatim):
+
+> 이 스펙은 없애자 어차피 사용자 환경 설정은 건드리는거 아니고 기존에 effort는 잘 동작했으니 스펙에서도 폐기해
+
+Discard the additional selector inspection/warning/verification proposal,
+including the preceding preserve-and-warn direction. Preserve user settings
+and existing model/effort forwarding. Historical research is not an outstanding
+implementation requirement. See the [bounded cancellation and host effects](2026-10-09-selector-proposal-withdrawn.md).
+
 
 <a id="D-REVIEW-STRATEGY-20261002"></a>
 ## Review strategy — owner direction, 2026-10-02
