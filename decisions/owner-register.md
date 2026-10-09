@@ -813,3 +813,23 @@ maintainers update their Gemini checks and tests; the Codex leader changes B
 only and requests A's equivalent implementation through the shared handoff.
 The earlier alternatives in `2026-10-09-model-pin-version-conflict.md` are
 superseded by this explicit owner choice. No release/adoption is implied.
+
+
+<a id="D-REVIEW-DISCOVERY-20261009"></a>
+## D-REVIEW-DISCOVERY-20261009: independent source discovery; incident-driven log inspection
+
+Owner, 2026-10-09, direct instructions to the Codex leader (verbatim):
+
+> 너는 판단을 하지마 무슨 파일이 연관이 되어 있는지 일일히 읽어서 넣을수도 없고
+> 또 지금처럼 허용파일만 읽었는지 사후 읽기 감사흫 해서 토큰을 낭비하게 할거야? 읽기 감사는 문제가 있을때만 로그를 읽는거지 왜 매번 읽어서 비용을 낭비 시켜?
+
+> 이것부터 수정하고 claude쪽에도 같은 문제가 있으면 스펙에 추가해
+
+Interpretation: the leader supplies a worktree/diff and objective; reviewers discover
+related code. No leader-built exhaustive source allowlist or routine leader read-log
+audit. Explicit exclusions and existing coded route containment/custody checks remain.
+This is not an instruction to disable A's AGY required-input-read or tool-effect gate.
+Source findings and the request to A are in
+[the shared diagnosis](2026-10-09-review-read-boundary.md).
+Effect: R-PROMPT, common code-purpose clause, C70/C71. No native-leg change, revision
+adoption, installation or release is authorized by this record.

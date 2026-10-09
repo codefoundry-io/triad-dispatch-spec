@@ -303,6 +303,16 @@ is added.
 All selected legs receive the same semantic purpose, requirements, scope and evidence. Identity, output handling and
 provider tools remain route-specific. The default first review uses no separate personas or predicted-defect checklist.
 A leader's hypotheses never limit findings elsewhere in scope. Targeted perspectives remain available through R-INVEST.
+For guarded-worktree review, the leader supplies the objective, diff, worktree and explicit exclusions;
+the reviewer discovers relevant unchanged code, tests and behavioral documentation within the agreed
+product scope. Changed-file inventories and required packet inputs are navigation, not a per-file
+read allowlist: the leader neither enumerates all related files nor approves each additional read
+(C70; D-REVIEW-DISCOVERY-20261009). Prepared-copy membership remains a separate transport boundary.
+Normal collection does not require the leader to reconstruct or approve source-read paths or inspect
+provider logs. Inspect logs for a concrete failure, access/contamination concern or explicit audit
+request, limited to that issue (C71). Existing coded required-input-read, tool-effect, hook-load,
+binding and integrity checks retain their stated purposes under R-CONTAIN; they are not source-file
+approval lists. These rules do not grant access to explicitly excluded data or symlink targets.
 Use the existing shared clauses and renderer, not a new prompt engine. A fresh conversation is the default for a new
 formal basis, but does not prove isolation from memory or inherited instructions; record actual isolation limits without
 changing global memory settings. Continued-context investigations must be identified as such.

@@ -579,6 +579,30 @@
         "A": "tests/unit/wrappers/t72-cleanup-remove-c69.sh (arms a-e, cfg-missing / cfg-invalid / cfg-lookup, probe, resume, nested, path) + tests/unit/wrappers/t73-prune-roles-c69.sh (configs, prunes, shipped default) + tests/unit/harness/t3-test-runs-role-c69.sh @ triad e0b15f1; authoring/shared-dev-log.md DL-77",
         "B": "todo — B to adopt the configuration file (roots and floors are hardcoded today) and to replace the two README passages that leave a deletion to a person; authoring/shared-dev-log.md DL-77"
       }
+    },
+    {
+      "id": "C70",
+      "surface": "prompts",
+      "rule": "R-PROMPT, R-CONTAIN",
+      "summary": "Worktree reviewers discover relevant unchanged code beyond the diff inventory",
+      "input": "a guarded worktree and changed-file diff; the changed code calls an unchanged helper absent from the packet file inventory; a separate reference points to excluded credentials or a symlink target",
+      "expected": "The reviewer may search the agreed product worktree and inspect the related helper, tests and behavioral documentation without leader approval of individual files. The diff and packet inventory are entry points, not a per-file read allowlist. Explicit exclusions and independently authorized external or symlink targets retain their controls. A missing necessary input is reported as a coverage gap. This does not enlarge the contents of a prepared copy.",
+      "tests": {
+        "A": "NOT RUN for C70. Source a91b436 already allows relevant unchanged inspection and scoped search; see decisions/2026-10-09-review-read-boundary.md.",
+        "B": "Bounded provider-free observation on 2026-10-09: fresh source-skill executor discovers an unlisted pricing helper through the changed caller and reports its percentage defect; corrected operational packet grants worktree discovery. No full public-v2 or authenticated-service conformance claim. See decisions/2026-10-09-review-read-boundary.md."
+      }
+    },
+    {
+      "id": "C71",
+      "surface": "review-lifecycle",
+      "rule": "R-PROMPT, R-CONTAIN, R-VERIFY",
+      "summary": "Normal collection does not require a leader audit of every source read",
+      "input": "valid same-basis terminal verdicts, required route evidence and matching integrity, with a relevant inspected helper absent from the changed-file list; controls: a concrete access incident, or a failed existing route-specific required-read/tool-effect check",
+      "expected": "Normal collection uses the existing result, binding, route and integrity checks without reconstructing or approving every source-read path or reading provider logs solely because a related file was not listed. A concrete failure, access/contamination concern or explicit audit request permits targeted diagnostic log inspection. Existing coded required-input-read, tool-effect and hook-load checks retain their stated purposes and failure handling; they are not a per-file source allowlist.",
+      "tests": {
+        "A": "NOT RUN for C71. Existing AGY required brief/patch reads and hook checks are automatic route controls, not a leader source-path audit; see decisions/2026-10-09-review-read-boundary.md.",
+        "B": "Bounded provider-free correction: three actual operational collector cases fail at the unnecessary audit-log read before removal, then pass for normal SAFE collection, negative-result blocking and integrity-mismatch blocking. Fresh executor chooses targeted diagnostics only for a reported incident. Combined relevant checks: 191 passed. Product collector/runtime unchanged; see decisions/2026-10-09-review-read-boundary.md."
+      }
     }
   ]
 }

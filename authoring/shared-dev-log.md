@@ -183,3 +183,12 @@ schema observation, records no new B port for DL-124..126, and proposes an
 evidence-backed model-value transport clarification without a naming grammar.
 DL-121 and related historical source/test pointers still need reconciliation.
 This local authoring note is not adoption or full conformance.
+
+
+## Review discovery and log inspection, 2026-10-09
+
+[Owner-authorized correction and A source comparison](../decisions/2026-10-09-review-read-boundary.md)
+records B's exact-file-only packet defect and routine source-path audit, a shared
+ambiguity now clarified by R-PROMPT/C70/C71, and the absence of the same demonstrated
+file-list defect on A. A's existing coded required-read/hook checks have a different
+purpose and remain intact. This is not an A defect claim or a native-leg change.
