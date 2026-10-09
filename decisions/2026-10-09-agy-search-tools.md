@@ -128,6 +128,44 @@ These are B-owned follow-ups under existing rules, not a new common design or
 A defect claim. Changed shipped bytes require fresh review; no merge, adoption,
 plugin installation/release or entire spec-to-code completion is claimed.
 
+### B documentation follow-up started
+
+Owner requested the next plan. Fresh main remains 3afc4d7. Read-only A comparison
+now uses 6878cc4a6913e7ef1d61487757276b3d105703a2 (unrelated dirty
+`.claude/skills/triad-cross-family-review/lib/review_scratch.py` preserved).
+A's `references/leg-contracts.md:345-347` rejects catalog probes, while lines
+357-377 document its explicit setup-once profile. The same stale catalog/setup
+instruction is not present there. B will align its six shipped documentation
+files with settled DL-116/C72, with no production-code, profile-byte, permission,
+native-leg or common-contract change. No A code change is requested.
+
+### B documentation follow-up completed
+
+The six-file source correction is complete under the existing rules. A fresh
+dedicated clean baseline withheld launch because of conflicting catalog guidance;
+after correction, a separate fresh executor chose catalog-free preparation,
+preserved mismatch refusal, and distinguished profiles from permission/model
+identity. Six complete affected regression modules passed (159 tests, 5.62s);
+cross-family and AGY skill validators passed. Sixteen measured hashes, HEAD and
+Git status were unchanged through verification. The initial separate sample that
+read historical memory was excluded from independent behavior proof.
+
+Fresh `triad-agy-docs-20261009-r1` returned all four SAFE with matching canonical
+re-render, result bindings and worktree integrity. All producers terminated;
+custody was exported and exact temporary stage/cwd removed. Claude's four further
+nonblocking suggestions concerned repetition/wording and exact-prose test pins.
+The owner-directed fresh Luna/high probe independently chose correct changed-byte
+and equal-byte update, precise cross-route removal ownership, and missing-profile
+stop/matching-profile proceed actions. Further wording iteration is therefore
+closed; the suggestions and two earlier optional test/refactor items are retained,
+not silently presented as fixed. No new shared rule or A implementation request.
+
+Evidence: B `_runs/spec-plan-20261009/agy-docs/`; owner workspace
+`_runs/reviews/triad-agy-docs-20261009-r1/` contains adjudication, receipts and probe.
+Digest ebd0c40d3133a5e138d22ec87ecf0c475c596da3d29aa19b1a9f11645cc8a7db.
+Runtime/profile bytes and native legs are unchanged by this documentation unit;
+no plugin install, revision adoption, merge or release is claimed.
+
 ### Reply received 2026-10-09
 
 [A's PR13 reply](https://github.com/codefoundry-io/triad-dispatch-spec/pull/13#issuecomment-6075351927)

@@ -207,8 +207,12 @@ search/read; fresh U1b+C72 R3 is all four SAFE with matching integrity.
 No spec revision adoption, native-leg change, plugin installation or release follows.
 
 B documentation follow-up: R3's six Minor findings and leader reproduction are
-recorded in the linked decision. The shipped AGY skill still asks for `agy models`
-catalog presence, contrary to already-settled DL-116 and current wrapper behavior.
-B will align the instruction and profile setup/migration/removal references in
-one bounded follow-up with fresh behavior verification. This does not reopen the
-model gate or request an A code/native-leg change; no common rule change is needed.
+recorded in the linked decision. The obsolete `agy models` catalog requirement is
+now removed from B's shipped AGY skill, aligned with settled DL-116 and current
+wrapper behavior. Setup/migration/removal references are aligned in the same
+six-file documentation unit. Clean fresh behavior RED/GREEN, 159 affected tests
+and two validators passed. A new complete review is all four SAFE with matching
+integrity; fresh Luna/high choices confirmed the intended operator actions, so
+further nonblocking wording suggestions are retained without another rewrite.
+This does not reopen the model gate or request an A code/native-leg change;
+no common rule change, revision adoption or product release is implied.
