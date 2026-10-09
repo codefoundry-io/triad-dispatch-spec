@@ -51,7 +51,7 @@ described as AGY-specific read/search profile, definition validation/binding and
 setup design/implementation, with global installation separately approved after
 the exact path/delta is reviewable. Verbatim answer: "1번이긴 한데 그럼 이전에는
 어떻게 검증한거야? 이전까지도 잘 됐잖아". This authorizes B implementation;
-global activation remains pending. B uses separate review/research profiles to
+global activation required separate approval, subsequently received below. B uses separate review/research profiles to
 preserve existing authorized-web behavior, confined to legacy/v2 formal calls.
 Name/path/definition SHA-256 enter the existing preflight receipt and its bound
 digest; missing/drifted definitions fail before inference. No new model preset,
@@ -74,9 +74,36 @@ change. Dedicated source RED reproduced missing checks. Independent code review'
 Unicode-path defect was reproduced and fixed. Dedicated final GREEN: C72 12 tests;
 full suite 1915 passed/4 skipped, both skill validators passed; 55 measured source
 hashes stable. A leader-authored installation approval record was added during
-the run, so whole Git status equality is explicitly false. Global files are not
-installed. Actual search/read and fresh formal review remain pending the separate
-installation approval; no C72 runtime conformance or review admission is claimed.
+the run, so whole Git status equality is explicitly false. The separately
+approved installation and actual native-search result are recorded below;
+fresh formal review remains pending, with no admission claim.
+
+### B installed-profile capability proof, 2026-10-09
+
+The owner explicitly approved the exact two global files and one bounded probe.
+Canonical setup installed both B profiles without replacement, verified source
+hash equality, and preserved A's two profile hashes. One AGY 1.3.2 Pro/high call
+through the canonical formal-v2 wrapper used real global profile lookup,
+preflight binding and existing read-only/plan/environment guards, with no web or
+autoapproval. `init.agent` selected `triad-codex-readonly-review`; a successful
+`grep_search` found `receipt.txt:TRIAD_DISCOVERY_PROBE=cedar-4827`, followed by a
+successful `view_file` read. Vendor and wrapper exited 0 after 31.4 seconds.
+
+The first finish call used schema_version 1 and failed validation; the provider
+corrected it to 2 in the same invocation. No wrapper retry or schema relaxation
+occurred. This demonstrates Pro/no-web native search/read and final v2 acceptance
+on that fixture, not every schema/model/web combination or product approval.
+Evidence under B workspace `_runs/infra/20261009-spec-to-code/agy-profile-capability/`:
+`run.py`, `summary.json`, `observed-tools.json`, `result.json` and incident capture.
+Install evidence: B `_runs/spec-plan-20261009/agy-profile/installed.json`.
+
+Separate Gemini CLI has a different tool path: official
+[v0.63.0 core configuration](https://github.com/google-gemini/gemini-cli/blob/v0.63.0/packages/core/src/config/config.ts#L3756-L3817)
+registers native directory/file/grep-or-ripgrep/glob tools by default unless
+configured otherwise. B's packaged Gemini policy permits those tools; it does
+not select the AGY profile. B's installed Gemini is still 0.60.0, below the owner
+floor 0.63.0, so no supported-version live Gemini search is claimed. No global
+upgrade or new common restriction follows from this source observation.
 
 ### Reply received 2026-10-09
 
