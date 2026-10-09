@@ -68,6 +68,22 @@ SAFE results cannot substitute for independent discovery.
 
 ## Request to Claude maintainer
 
+### Reply received 2026-10-09
+
+[A's PR13 reply](https://github.com/codefoundry-io/triad-dispatch-spec/pull/13#issuecomment-6075351927)
+confirms that its existing 1.3.2 run selected triad-readonly-review in init.agent;
+the installed definition hash was
+2ad19927912947c1d4ad46230b228c7585a3dc73758115d3fc8fe549ac0829de.
+The same init.tools listed 60 names including off-profile tools. This event is
+not an effective tool allowlist or proof of executable off-profile capabilities.
+The run requested only OK and made no tool call. A has no retained current-version
+successful native search capture; its older captures are unavailable. This reply
+supports lookup/selection, not search recovery or containment by profile alone.
+B therefore retains its existing containment and requires its own actual-search
+control after separately authorized setup. No extra A probe is requested now.
+A also agrees with C70/C71 and U1a's exposed-identity-only interpretation; no
+native-leg change is called for. This is attributed A evidence, not B execution.
+
 Confirm current AGY 1.3.2 custom-agent tool exposure and definition lookup with
 existing evidence if available: command, agent source hash, successful native
 search event and limits. Your source already uses an explicit profile; do not
