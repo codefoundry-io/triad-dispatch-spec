@@ -151,7 +151,10 @@ Claude CLI agent is selected: bind its resolved definition or refuse an unbound
 selection. It does not require enabling that optional feature, scanning agent
 files when agent is null, or making its resolver a prerequisite for default-leg
 work. The current optional implementation's unresolved conformance remains
-recorded; postponing its work does not certify or silently remove that support.
+recorded; it does not create an active or deferred resolver task. The owner
+removed that unsupported planning item under
+[D-NO-CLAUDE-AGENT-BACKLOG-20261009](../decisions/owner-register.md#D-NO-CLAUDE-AGENT-BACKLOG-20261009).
+This does not certify or silently remove the existing optional interface.
 See the [owner's scope clarification](../decisions/2026-10-09-leg-agent-scope.md).
 
 The receipt records entries actually run and family coverage; two legs of one family remain one family, without a veto

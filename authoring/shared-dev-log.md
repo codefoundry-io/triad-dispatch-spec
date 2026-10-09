@@ -1,12 +1,18 @@
 # Shared development log — defects and drift found while implementing the common items
 
+Owner follow-up D-NO-CLAUDE-AGENT-BACKLOG-20261009 removes B's unused named-agent
+resolver project entirely from active/deferred planning. Direct model/effort
+options and existing read/search evidence establish no need for it. Historical
+DL-49 records conditional compatibility, not a task to resume. No native leg,
+AGY profile or existing optional-interface code changes in this documentation unit.
+
 ## Non-active work and removal plan, owner 2026-10-09
 
 [Shared dispositions](../decisions/2026-10-09-backlog-dispositions.md) distinguish
 deferred obligations, unmeasured facts, withdrawn/unadopted proposals, no-port
 host differences and bounded prompt review. Remove obsolete active prerequisites;
-keep re-entry conditions, common contracts and historical evidence. B removes
-the active U1c research checklist and schedules a confirmed-remnant sweep in U10.
+keep re-entry conditions, common contracts and historical evidence. B schedules
+a confirmed-remnant sweep in U10.
 A should reconcile its applicable plan entries; no A code defect is presumed.
 
 ## U4b proposal boundary — R-AUTH/R-CLASSIFY, 2026-10-09
@@ -255,8 +261,8 @@ no common rule change, revision adoption or product release is implied.
 record R-AGENT-ROLES/C73: AGY's primary discovery profile, optional B Claude CLI
 selection and host-native spawning are distinct. DL-49's optional bind-or-refuse
 obligation remains unresolved; it is not a prerequisite for default CLI legs.
-B defers U1c and proceeds to U2 measured authentication/carrier mapping. Neither
-host's native mechanism changes. Other-host review of this same clarification is
+B has no agent-resolver work in its current plan; model/effort selection and
+read/search require no named agent. Neither host's native mechanism changes. Other-host review of this same clarification is
 requested; no revision adoption or optional-feature conformance is claimed.
 
 ## B Gemini authentication code, 2026-10-09

@@ -19,7 +19,6 @@ of unmeasured work on either host.
 
 | Item | Disposition and re-entry | What remains required |
 |---|---|---|
-| B optional Claude CLI `--agent` definition binding (U1c, DL-49/C19) | DEFERRED until optional support/use explicitly enters scope. Remove the active resolver-research/test checklist. | R-AGENT-ROLES/C73 and bind-or-refuse remain. Default Opus uses direct model/effort options; existing optional support is not deleted. |
 | New model/effort environment inspection, warning, normalization and attestation | WITHDRAWN under D-SELECTOR-PROPOSAL-WITHDRAWN-20261009; no automatic re-entry. | Preserve user settings and existing forwarding; independent credential/loader rules and C75 remain. |
 | Unobserved AGY credit-message channel/exit combinations | UNMEASURED until actual capture or equivalent authoritative carrier evidence arrives. | Preserve the confirmed phrase and supported path; do not invent channel/exit combinations or exhaust quota to manufacture evidence. |
 | A common ban on option-shaped model names | NOT ADOPTED; no justified common model-name grammar. | U1T/DL-132 lossless option-value transport stays active. Parser evidence does not justify banning the name itself. |
@@ -43,7 +42,7 @@ history. An old checkbox or OPEN cell cannot reactivate completed/withdrawn work
 Deferred items retain a re-entry condition, not an executable checklist. Retire
 the temporary task hook/startup routing only at whole-task completion.
 
-B removes U1c's executable checklist and adds this removal sweep to U10.
+B adds this removal sweep to U10.
 A reconciles its corresponding active plan using these same distinctions and
 reports applicable differences. This does not claim A has redundant code or
 authorize either host to edit the other's native code/settings.

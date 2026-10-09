@@ -18,12 +18,12 @@ its native Claude preset/spawn is host-owned (`lib/roster_v2.py:CLAUDE_WEB_TWINS
 `references/leg-contracts.md:134-143`), inspected at 0e04d2a. AGY's distinct need
 for native search tools and actual recovery proof are recorded under C72.
 
-Correction to B planning: U1c was incorrectly scheduled as the next required
-default-path unit solely because DL-49 records an optional feature gap. Defer
-that optional-path investigation until its support/use is in scope; do not delete
-the feature, weaken bind-or-refuse, or claim full optional-path conformance.
-Continue U2 authentication and measured error-carrier mapping. No host-native
-change, new resolver, global setup or A implementation is requested.
+Current planning disposition: no named-agent need is established for B's Claude
+CLI path. The owner removed the resolver task from active and deferred plans
+under D-NO-CLAUDE-AGENT-BACKLOG-20261009. Existing optional support is not proof
+of a requirement to develop it; no resolver research or re-entry checklist remains.
+The existing optional interface and its conditional bind-or-refuse contract are
+unchanged, without a full-conformance claim. No native-leg change or A port.
 
 Claude maintainer: review the same clarification commit for the distinction
 between your native Claude presets, your external Codex CLI, and AGY profiles.

@@ -2,6 +2,27 @@
 
 Dates in decision headings and IDs are the owner's local date (KST, UTC+9); timestamps given with `Z` are UTC.
 
+<a id="D-NO-CLAUDE-AGENT-BACKLOG-20261009"></a>
+## D-NO-CLAUDE-AGENT-BACKLOG-20261009: remove unsupported agent work
+
+Owner, direct instruction (verbatim):
+
+> claude에 --agent 가 들어가야할 이유가 있으면 넣어 근데 없으면 깔끔하게 플랜 문서 메모리에서 지워라
+
+Current B evidence supplies no need to introduce a named Claude CLI agent:
+the shipped roster has agent null; the adapter and wrapper pass model/effort
+directly; prior bounded diagnostics established reading/searching without agent
+selection. An existing optional pass-through and its tests are not a use case.
+Remove the former U1c task and deferred/resume instructions from active plans,
+handoffs and memory guidance. Do not retain it as a dormant research obligation.
+This supersedes its deferred status under the preceding backlog decision.
+
+This planning/documentation cleanup does not remove the existing optional CLI
+interface or certify its unresolved binding behavior. Conditional C19/DL-49
+compatibility requirements remain if that interface is actually selected;
+they do not create a resolver project. AGY profiles and host-native agents are
+unaffected. A concrete future need is a new scope decision, not automatic resume.
+
 <a id="D-BACKLOG-DISPOSITIONS-20261009"></a>
 ## D-BACKLOG-DISPOSITIONS-20261009: distinguish non-active work and plan its removal
 
