@@ -575,7 +575,7 @@ not attribution (found on A over rounds r11–r13, `authoring/shared-dev-log.md`
 `--output-schema-file` / `--json-schema-file`) follow the same rule (on A the resolved schema-file path is recorded in the audit row's `cmd` / the run-log's
 `vendor_cmd`, the vendor argv; the summary tail carries `prompt_file=` only). Path text on a wrapper's stderr lines (a
 fact; the only rule is C36's for custody lines): On A every path or free-text value on the summary tail (`prompt_file=`,
-`model=`, `reasoning=`) and on the custody lines (`read-audit-file:`, `read-audit-copy:`) is percent-escaped over its
+`model=`, `reasoning=`) and on the custody line (`read-audit-file:`) is percent-escaped over its
 filesystem bytes by one formatter (`_summary_field`, safe set `/._-~+=@,:`). Space, `[` / `]` and every non-ASCII or
 control byte are escaped, so the value stays on its line and cannot carry a second `[wrapper] <cli> <token> ` sequence
 into the summary line a caller parses. An ordinary POSIX path prints byte-identical, and the audit row and run-log keep
@@ -771,8 +771,8 @@ result lines ("Not logged in · Please run /login", "Invalid API key · Fix exte
 `contracts/vendor-failure-lines.json`; host A has no claude CLI route (DL-110). The
 auth-carrier rung runs before every other rung. Classification never raises: an exception in a classifier or an extractor
 ends `unknown` (or `extraction-error`), exit 1, with the summary, audit row and run-log written (On A one general
-classification guard, `_common.py` `_never_raises` @ triad `e40001d`, on `classify`, `_auth_carrier_stop`, the three
-extractors, `agy_classify_signals`, and `antigravity_wrapper.py` `_classify_no_answer` (and `_catalog_auth_observed`,
+classification guard, `_common.py` `_never_raises` @ triad `e40001d`, on `classify`, `_auth_carrier_stop`, the two
+extractors (codex, gemini: `extract_codex_answer`, `extract_gemini_answer` @ triad `fae369d7`), `agy_classify_signals`, and `antigravity_wrapper.py` `_classify_no_answer` (and `_catalog_auth_observed`,
 which goes with A's agy catalog call, DL-116), and one guard around each wrapper's whole `main` — probes, the run, extraction, payload building, classification —
 that ends a run `extraction-error` after a vendor exit 0, else `unknown`, exit 1, with the three records, letting
 SystemExit / KeyboardInterrupt pass, `_common.py` `_guarded_main` @ triad `fdd7029`; DL-90; recorded limits: an
