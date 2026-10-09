@@ -76,3 +76,51 @@ not justification to guess a pass or manufacture another subsystem.
 The previous architecture-choice question is superseded; B proceeds under this
 bounded direction. A's F3-c evidence is still useful but is not a waiting gate.
 Neither host's native leg changes. Shared main rechecked at3afc4d7.
+
+## A follow-up and B implementation boundary
+
+A's [reply6083800391](https://github.com/codefoundry-io/triad-dispatch-spec/pull/13#issuecomment-6083800391)
+agrees with route-specific interpretation and refusing unsupported records without
+a new log field. A reports a feasibility spike over234 stored records and generated
+AGY streams; B has not rerun it. A's ordinary failure, extraction demotion and AGY
+typed-signal paths describe A's runtime; they are not an instruction to copy those
+branches into B. Both implementations must reuse their actual route semantics.
+
+A's live source was then checked read-only atcc6fc3a with concurrent dirty changes
+in `3rd-Agent/wrappers/_common.py`, its classifier-extension test and a history
+document. `apply_patch.py` still has no `--verify-run-log`; `_common.py` still has
+the500-entry/reason caps, and the AGY repair agent still prohibits network. These
+are scheduled Phase7/capability work, not claims that A completed them or evidence
+of a failed conformance run. No A tests or edits were performed.
+
+B's bounded candidate adds `--verify-run-log PATH` to its existing applier. It
+reads the explicitly selected classifier and saved failure without applying a
+proposal, executing saved commands or calling a vendor. Matching classification
+returns0; mismatch or unsupported evidence returns3. It checks eligible original
+failure records, reuses AGY's interpreter and the existing Claude/Gemini
+classification/extraction functions, and conservatively refuses unsupported
+extraction outcomes. This is classification verification, not full replay of
+review admission. The three external dispatch skills link to repair; timeout
+and authentication are excluded. Native analyzer spawning remains unchanged.
+Verification and review evidence are recorded separately below when complete.
+
+## Review corrections within the existing verification outcome
+
+B's first U4b2 round, triad-repair-replay-20261010-r1, is NOT_APPROVED with
+matching source integrity. Both Google legs are SAFE. Claude and fresh Codex
+identify a lost output-transport-failure decision: the runtime's private flag
+is absent from the stored record, but the existing host-generated diagnostic
+identifies the failure. Claude also identifies a same-class false pass and an
+empty --verify-run-log value falling through to apply. Its test note identifies
+the wrong lock sibling in the new test assertion. These are bounded defects in
+the new B verifier, not evidence of new vendor failures or A defects.
+
+R-CLASSIFY/C76 now makes the existing learned-repair claim explicit: require a
+usable record and demonstrated classification change; unchanged classification
+does not prove the proposal worked. Reject host transport/collection failures
+and missing/empty verification input without mutation. B will use the existing
+diagnostic fields as eligibility checks only, never as vendor classifier input.
+No new log field, causal replay engine, provider call or native mechanism is
+needed. A should check the same controls in its planned F3-c implementation;
+no A runtime result is claimed. Original review and exact cleanup evidence stay
+retained. Corrections require fresh RED/GREEN and a complete fresh review.
