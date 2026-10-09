@@ -200,6 +200,15 @@ record a separate capability gap: AGY 1.2.7 removed legacy search tools from
 its default profile, and B's 1.3.2 Pro review/diagnostic reported them absent.
 A already ships an explicit tools profile in source; current A runtime is not
 measured. The owner approved B's provider-profile implementation; C72 and
-R-CONTAIN record the checked/bound profile and actual-search proof. Global
-installation awaits exact-path/delta approval. No
-spec revision, profile activation, native-leg change or review admission follows.
+R-CONTAIN record the checked/bound profile and actual-search proof. The owner
+subsequently approved exact-path setup: B's two profiles are installed, A-owned
+profiles unchanged. A real Pro/high formal-v2 no-web invocation completed native
+search/read; fresh U1b+C72 R3 is all four SAFE with matching integrity.
+No spec revision adoption, native-leg change, plugin installation or release follows.
+
+B documentation follow-up: R3's six Minor findings and leader reproduction are
+recorded in the linked decision. The shipped AGY skill still asks for `agy models`
+catalog presence, contrary to already-settled DL-116 and current wrapper behavior.
+B will align the instruction and profile setup/migration/removal references in
+one bounded follow-up with fresh behavior verification. This does not reopen the
+model gate or request an A code/native-leg change; no common rule change is needed.

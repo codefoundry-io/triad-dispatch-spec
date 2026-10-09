@@ -76,7 +76,7 @@ full suite 1915 passed/4 skipped, both skill validators passed; 55 measured sour
 hashes stable. A leader-authored installation approval record was added during
 the run, so whole Git status equality is explicitly false. The separately
 approved installation and actual native-search result are recorded below;
-fresh formal review remains pending, with no admission claim.
+fresh R3 formal review subsequently completed as recorded below.
 
 ### B installed-profile capability proof, 2026-10-09
 
@@ -104,6 +104,29 @@ configured otherwise. B's packaged Gemini policy permits those tools; it does
 not select the AGY profile. B's installed Gemini is still 0.60.0, below the owner
 floor 0.63.0, so no supported-version live Gemini search is claimed. No global
 upgrade or new common restriction follows from this source observation.
+
+### Fresh B source review
+
+`triad-opus-default-20261009-r3` reviewed U1b and C72 together with Claude
+opus/xhigh, AGY Pro/high, AGY Flash/high and fresh Codex Astra/high. All returned
+schema-valid SAFE, no open questions; canonical prompt re-render matched and
+pre/post fingerprints matched (ROUND_INTEGRITY_OK). All producers terminated,
+custody was exported and exact temporary stage/cwd removed. The owner-selected
+receipt says ALL_SELECTED_APPROVED, not the fixed Terra ledger's admission token.
+No R2 approval was carried forward and no routine read-log audit was performed.
+Evidence: B workspace `_runs/reviews/triad-opus-default-20261009-r3/`.
+
+Claude supplied six nonblocking Minor observations. Source comparison confirms
+documentation alignment remains for the AGY skill, migration/setup, installation
+wording and README removal caveat. C72-specific legacy/invalid-file-shape test
+coverage can be strengthened; this did not reproduce a production failure.
+Duplicate receipt parsing is present but no incorrect admission was shown, so
+its proposed API refactor is deferred. The same source check found the AGY skill
+still requests catalog presence (`agy models`) despite settled DL-116 removal;
+B will align that stale instruction in the bounded documentation follow-up.
+These are B-owned follow-ups under existing rules, not a new common design or
+A defect claim. Changed shipped bytes require fresh review; no merge, adoption,
+plugin installation/release or entire spec-to-code completion is claimed.
 
 ### Reply received 2026-10-09
 
