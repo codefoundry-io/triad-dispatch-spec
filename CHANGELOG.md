@@ -1,5 +1,12 @@
 # Changelog
 
+## Repair web research — 2026-10-09 (not tagged)
+
+- R-CLASSIFY/C76 permits failure-driven web search/fetch by read-only repair
+  analyzers on both hosts; observed run evidence remains the proposal basis.
+  Engine-transport ownership includes source/distributed repair instructions.
+  Record D-REPAIR-WEB-20261009; both host implementations remain pending.
+
 ## Child environment name filtering — 2026-10-09 (not tagged)
 
 - C75 makes existing R-AUTH/R-NOCOST name-before-value filtering explicit;

@@ -769,6 +769,24 @@ Owner, 2026-10-08, typed answers to host A's leader, item by item (verbatim; the
 
 Recorded effect, host A: (1) the shipped migration starter `CLAUDE.recommended.md` is removed from the distribution; (2) host A's claude CLI wrapper bundle is removed — the claude family runs natively on host A, so C31 / R-INVEST / units.json name no claude CLI route for A; (3) the claude-host installer no longer requires pinned vendor binaries, no longer pins a resolved versioned path and no longer gates an operator's `--pydantic` import (DL-105); (4) host A's codex-host product assembler and its tests are removed (install layers are per host, R-PARITY); (6) host A's pre-spawn review-argv digest refusal is removed — an edited dispatch line is caught at collection by the executed-command receipt, as on B; (9) the agy and gemini daily drift checks are removed; (11) host A's 2026-07 codex-host handoff documents are deleted; (12) the non-review agy read-audit file and (13) the effective child cwd record stay; (15) the agy settings heal stays and its lock goes (no concurrent operation, R-THREAT). Standing: (16) the open spec PRs merge only after every decision is settled; (17) where a versionless representative model name (an alias) works on a CLI, rosters and presets name the alias instead of the exact model ID (it extends D-PRESET-ALIASES-20261006 beyond the claude presets; each CLI's accepted aliases are a measured fact); (20) no test campaign runs until the specification and its implementation are complete; (23) host A's conformance goal closes on its 47 cases.
 
+<a id="D-REPAIR-WEB-20261009"></a>
+## D-REPAIR-WEB-20261009: failure-driven repair web research on both hosts
+
+Owner, 2026-10-09, to B's leader (verbatim):
+
+> 에러가 나면 웹검색 허용이비? 신규에러는 새스펙일테니
+
+After the leader identified B's blanket network prohibition, the owner requested
+the common specification (verbatim):
+
+> 이건 스펙으로 정리해 코덱스 클라루드 공통적용으로 클호드 코드는 웹 검색 미허용이야?
+
+The normative rule is R-CLASSIFY's repair-research paragraph and C76. This extends
+the retained repair loop's research capability on both hosts, not its write or
+vendor-execution authority. Current A and B prohibitions and implementation
+handoff are recorded in [the evidence note](2026-10-09-repair-web-research.md).
+Host implementation, runtime verification and revision adoption are pending.
+
 <a id="D-REPAIR-LOOP-KEEP-20261008"></a>
 ## D-REPAIR-LOOP-KEEP-20261008: the self-improving classifier repair loop stays; its extras go
 

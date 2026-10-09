@@ -651,6 +651,18 @@
         "A": "NOT RUN. Current source dd790cc3: items() retrieves values before filtering; three withdrawn model names are still removed. Gemini project exception already exists. Maintainer correction and regression evidence requested.",
         "B": "Implemented in B632f426 + dirty U2c candidate. tests/test_child_env_contract.py guarded Mapping, parent immutability, explicit removals, route/project cases, local normal/formal child capture and standalone probes. Dedicated focused370/full2029passed with4skips, both validators and all-four SAFE/matching integrity. See decisions/2026-10-09-b-child-environment.md."
       }
+    },
+    {
+      "id": "C76",
+      "surface": "engine-transport",
+      "rule": "R-CLASSIFY, R-AUTH",
+      "summary": "Both hosts allow failure-driven web research by the read-only repair analyzer",
+      "input": "An actual unknown/extraction-error run record whose CLI error needs external explanation, with public vendor documentation or source available. Controls: sufficient local evidence; an unrelated error found online; unavailable or inconclusive web research; a log containing private data.",
+      "expected": "Read the failed run and local classifier first. Permit web search/fetch when needed, using sanitized error/version context and citing sources in the existing reason or handoff. Propose only an entry supported by this run and an existing class; public text alone does not establish a new carrier or exit combination. Keep private log content out of queries. Unneeded search is skipped; unavailable needed research or insufficient evidence is disclosed and escalated, never guessed. Analyzer remains read-only and does not invoke a vendor CLI/model. Deterministic verification reclassifies the stored record; verified learned phrases enter the common spec through authoring. Authentication STOP and timeout routing remain. No routine successful-run audit or exhaustive error enumeration.",
+      "tests": {
+        "A": "NOT RUN. c50b1c8: codex/gemini/agy repair agents and distributed-repair-agent.md.tmpl explicitly prohibit network and expose only Read/Grep/Glob. Source and distributed capability updates requested; see decisions/2026-10-09-repair-web-research.md.",
+        "B": "NOT RUN. 632f426 plus candidate: docs/references/repair-protocol.md:51-55 prohibits network in the actual native-child prompt. Prompt/capability alignment requested; source-only observation, not runtime proof. See decisions/2026-10-09-repair-web-research.md."
+      }
     }
   ]
 }

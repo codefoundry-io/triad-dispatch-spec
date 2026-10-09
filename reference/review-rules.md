@@ -729,6 +729,30 @@ The rows hold every phrase a host keeps today (On A `CLI_PATTERNS`, `3rd-Agent/w
 host learns through its classifier repair loop (a proposal from a failed run's own record, applied by deterministic code) is
 promoted to a row of this contract with that record as its evidence, so every host classifies it
 ([D-REPAIR-LOOP-KEEP-20261008](../decisions/owner-register.md#D-REPAIR-LOOP-KEEP-20261008); DL-104).
+**Repair research, both hosts (C76):** after an actual run ends `unknown` or
+`extraction-error`, the read-only repair analyzer may use web search and page
+fetching to explain that run's literal error, exit code and CLI/version context.
+Both hosts expose that capability; a blanket network prohibition must not disable
+this research. Start from the failed run's record and local classifier, then search
+when needed, preferring vendor documentation, source and relevant issue reports.
+Queries contain only sanitized error identifiers/text and version context, never
+credentials, private prompt/source content or the full run log. Cite the URLs used
+and distinguish the observed output from the source's explanation in the existing
+proposal reason or handoff; no new response schema or evidence store is required.
+Search results supplement the run record: they do not prove an unobserved CLI
+message, output field/channel or exit combination. A new error does not
+automatically require a new class or rule. If the evidence supports one existing
+class, propose the existing bounded extension entry; if evidence is insufficient,
+web access is unavailable and needed, or a new class/design is required, report
+the limitation and escalate. The analyzer remains read-only and does not invoke a
+vendor CLI/model to reproduce the failure. The deterministic applier verifies
+against the stored run record, not a fresh vendor call, as DL-104 specifies.
+Promote a verified learned phrase through the existing shared-spec authoring
+process with its run evidence and any research sources; resolve a necessary new
+rule before dependent implementation. Preserve existing authentication STOP and
+timeout routing. This authorizes failure-driven research, not routine successful-run
+log audits or speculative error enumeration. Native spawn mechanisms stay host-owned.
+Owner basis: [D-REPAIR-WEB-20261009](../decisions/owner-register.md#D-REPAIR-WEB-20261009).
 A plain fragment that an answer, a reviewed file or a tool's output can contain is never a match phrase: a host may
 search the whole output of a failed run, and such a fragment would hide the real cause behind a retry.
 A row's carrier also names where the sentence is matched; agy's print-timeout row is matched only as a whole stderr line

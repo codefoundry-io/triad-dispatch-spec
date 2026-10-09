@@ -1,5 +1,11 @@
 # Shared development log — defects and drift found while implementing the common items
 
+## Repair research capability — C76, owner 2026-10-09
+
+| Case | Hosts | Evidence | Required follow-up | Status |
+|---|---|---|---|---|
+| C76 | A, B | A c50b1c8: three repair agents and the distributed template expose only Read/Grep/Glob and explicitly forbid network. B 632f426 + candidate: repair-protocol.md:51 forbids provider or network calls. Exact paths and research/verification boundaries: [evidence and handoff](../decisions/2026-10-09-repair-web-research.md). | Apply R-CLASSIFY repair research to each host's analyzer and distributed surface, preserving the stored-run repair loop. | RULED (D-REPAIR-WEB-20261009); OPEN A/B; runtime NOT RUN |
+
 <a id="R-DEV-LOG"></a>
 One log for both hosts and for this specification. While a host implements the
 common items (`authoring/maps/claude-host-v2.json`), its leader reads the other
