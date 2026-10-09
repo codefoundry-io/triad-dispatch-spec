@@ -787,8 +787,10 @@ authentication-specific exit code — and in stream-json also puts `authenticati
 `oauth-env` / 65 with no retry, verified the same day).
 The existing AGY `permission check failed for command ` result error embeds the model's command,
 so that reflected command is not authentication evidence, just as reflected schema-report text is not.
-Keep the existing own-line authentication banner handling and host answer-admission checks; do not
-reclassify a denied command because a filename or command contains authentication words. Likewise,
+Skip that permission-denial result error entirely for authentication, including a quoted banner
+inside the command; no capture establishes a vendor sign-in banner there. The CLI's own stderr
+banner and the schema-report exception remain separate carriers. Keep host answer-admission checks;
+do not reclassify a denied command because a filename or command contains authentication words. Likewise,
 Claude `permission_denials` tool input is not the error result. Retaining original streams for the
 authentication predicate must not widen other classification input to those fields. C74 records the
 regression controls and [source evidence](../decisions/2026-10-09-reflected-error-text.md); these controls

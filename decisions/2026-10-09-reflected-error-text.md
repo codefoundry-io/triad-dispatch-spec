@@ -30,7 +30,14 @@ maintainer should verify its own admission path. A has no Claude CLI route, so
 the Claude promotion regression is B-only. Neither native mechanism changes.
 
 Required behavior: treat the command content as reflected text; keep genuine
-own-line banner STOP, existing permission/admission controls and usable answers.
+own-stderr banner STOP, existing permission/admission controls and usable answers.
+The entire permission-denial result error is excluded from authentication,
+including any banner quoted inside that command. Only the separately measured
+schema-report reflection has the own-line-banner exception. B R2 incorrectly
+reused that exception for denied commands; two multi-line command-content
+controls reproduce the overbroad STOP. No capture establishes whether AGY prints
+the full denied command body. That uncertainty does not authorize a new carrier:
+the unused/false-positive banner scan is removed in either case, before R3.
 Do not broaden raw failure matching to unrelated JSON envelope fields. Unknown
 vendor shapes remain unknown; these command-content controls do not establish
 a new carrier or justify guessing AGY credit output location or exit.
@@ -39,3 +46,11 @@ Claude maintainer request: review this same spec commit and verify C74 against
 your current AGY helper/driver. Report a source-backed disagreement or the exact
 test and outcome; do not transpose the B-only Claude CLI change to your native
 leg. B proceeds under the already settled no-reflected-tool-text contract.
+
+Recorded non-blocking B limit from R2: classify_extraction retains the legacy
+classify fallback after checking original authentication carriers. Gemini could
+re-read derived error text as stderr on an exit-zero error envelope; the measured
+failure basis is nonzero and no such exit-zero capture exists. No new parser or
+fixture is added for that constructed shape. Revisit the helper split with a
+measured failure or the separately planned classifier cleanup, not a speculative
+vendor-shape expansion.
