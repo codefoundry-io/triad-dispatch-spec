@@ -23,13 +23,8 @@ too-early separate check never yields AGREED. On B: `collect` runs `_load_basis`
 `bin/review_round.py:1908-1931`) at its start and end (`bin/review_round_v2.py:508`, `:532`). On A (cited @ triad `ce30d82`, verification pending):
 when every entry agrees, `collect` runs `review_scratch.py verify` itself before it writes an AGREED record
 (`lib/collect_v2.py:2422-2446`); a failed check refuses (exit 2) and leaves the previous collection record untouched,
-naming the remedy by cause (`_integrity_refusal`, `:2488-2519`): a round a later prepare superseded → collect the later
-round; a second round tree in the packet dir, or this host's own staging leftover from a stopped write → remove it with
-the host's deletion command (R-CLEANUP) and collect again (On A the deletion command removes only a whole folder of a
-declared role, never one entry inside a packet dir, so A's remedy is a new round: the staging leftover in the same packet
-dir, a second tree in a new packet dir); any other failure → the round is INVALID, prepare a new round. A
-check that cannot be launched, does not finish, or fails for a host cause (the check could not run, its record could not
-be written, the heartbeat could not be refreshed) is a host fault (exit 64): nothing about the round is known, repair the
+with one refusal — the round is INVALID, prepare a new round (triad `bb933c6b`, `lib/collect_v2.py` `collect`), as B. A
+check that cannot be launched or does not finish is a host fault (exit 64): nothing about the round is known, repair the
 host and collect again. `close` runs a fresh check of the latest captured round and never refuses on its outcome, even
 when the check cannot run: it warns and closes (`_report_verification_state`, `lib/review_scratch.py:1173-1208`,
 called at `:1275`).
@@ -48,9 +43,7 @@ a leg still running in an attempt that a retry replaced can write its answer int
 custody check of it and before the AGREED record is written; no construction stops a running process from writing into a
 file it already holds, so this collection reports AGREED and the next collection reports the change (an integrity
 failure, never agreement). Operator rule: when a retried leg may still be running, collect once more before using an
-AGREED. On A: `collect` re-checks every earlier attempt's custody right before it writes an AGREED record and refuses
-(exit 2) on a change, recording nothing (`lib/collect_v2.py:2447-2458` @ `ce30d82`), so the window is the stretch between that
-re-check and the record write. On B: `collect` checks each attempt's sealed terminal once per run
+AGREED. On A, as on B, each attempt's custody is checked once per collection (triad `bb933c6b`). On B: `collect` checks each attempt's sealed terminal once per run
 (`bin/review_round_v2.py:507-535`).
 
 `open_questions` contains unresolved facts necessary to judge approval, not optional curiosities; every remaining entry
