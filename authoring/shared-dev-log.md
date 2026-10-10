@@ -390,3 +390,14 @@ successful read-only behavior, no attempted write, unchanged settings/profile,
 exact fixture removal. Mechanical write prevention remains unverified; the
 concrete containment/raw-migration choice is pending the owner, and no vendor
 settings-path override is established. See the [updated U7 record](../decisions/2026-10-10-b-agy-settings-spike.md).
+
+## B terminal evidence refresh, 2026-10-10
+
+[DL-88 current-driver reproduction](../decisions/2026-10-10-b-terminal-evidence.md)
+records the diagnostic-write failure with a successful synthetic-child control.
+No U9 code correction or live-provider claim. PR12 DL-123..126 introduces no
+new B port; the old signal/evidence checks still require current-source triage.
+
+## B U6a implementation complete, 2026-10-10
+
+[Published U6a evidence](../decisions/2026-10-10-b-fallback-cleanup-code.md) records sourcea4fd93c, final2347/4 and all-four SAFE R3. C4/C5 fallback tests are current; U6b/DL-77/C69 remain pending. No native port, installation, adoption, merge or release.
