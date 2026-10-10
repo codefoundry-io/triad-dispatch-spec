@@ -108,7 +108,7 @@ list `Read, Grep, Glob` in `tools` (the `-web` twins add `WebSearch, WebFetch`) 
 Claude Code gives a sub-agent its dedicated Glob and Grep tools on macOS, Linux and WSL, where they are otherwise absent
 (code.claude.com/docs/en/tools-reference § Glob tool behavior, read 2026-10-09; measured 2026-10-09 with an `Explore`
 dispatch of the same tool shape — Glob, Grep and Read present and working) (`.claude/agents/cross-family-review-reviewer*.md`,
-`tests/unit/skills/t7-reviewer-siblings-mirror.sh` axes 1-3, `tests/unit/skills/t12-roster-v2.sh` axis 42 @ triad
+`tests/unit/skills/t7-reviewer-siblings-mirror.sh` axis 1, `tests/unit/skills/t12-roster-v2.sh` axis 42 @ triad
 `e9960053`). Prepare binds, as the entry's `preset` in the round record that `roster_config_digest`
 covers, the spawned preset's layout-qualified id, the sha256 of A's own shipped file (`agents/<name>.md` under this
 install's layout root, the WHOLE file) and its `model` / `effort` lines (`:516` `_claude_preset`;
@@ -584,9 +584,7 @@ not attribution (found on A over rounds r11–r13, `authoring/shared-dev-log.md`
   `init` event echoes the name that was passed, so the stream cannot prove which agent loaded. agy shows a custom agent
   its full tool registry whatever the agent's `tools:` list says, so the allowlist binds only through the agent body's
   rule and the wrapper's admission census, which quarantines an answer whose stream shows an off-list tool ran
-  (`:401-421`, `:695-711`). `--setup-agents` writes both bodies into that directory (`:462-485`, `:736-745`). Before
-  each read-only call the wrapper refuses (`config-conflict`, 65, nothing spawned) unless the installed file is
-  byte-identical to the shipped body (`:488-499`, `:2100-2110`). A read-only call without `--web` and without `--cwd` is
+  (`:401-421`, `:695-711`). A read-only call without `--web` and without `--cwd` is
   refused with exit 3 before any vendor work (`:2391-2403`). On B the formal route passes no `--agent`
   (`bin/antigravity_wrapper.py:151` @ `7f75863`). B: non-mutating project route (`--mode plan --sandbox read-only`) with `--project`, and on the v2 path (no `--project`) the temporary settings transaction named under R-REVIEW-WEB; B's hook stays dormant until separately agreed. On A the read-only agy route runs an allow-list census over every attempt's tool steps, retries included (`3rd-Agent/wrappers/antigravity_wrapper.py:517-611`, `:1164-1169` @ triad `e0b15f1`): a tool outside the agent's allow-list that EXECUTED withholds the answer as `admission-refused` / 65 with the tool named, and the wrapper never retries it (`:698-711`, `:1678-1704`); this is the measured shape (a model that burned its turns on `manage_task`, 33 lost verdicts). An off-list call that was denied before it ran does not void the answer (`:1705-1714`). This is the wrapper side of the shared leg prompt's sentence that a forbidden call that executes invalidates the review (`prompts/leg-google.md:40`). Shared rule, both hosts (owner, [D-OWNER-ANSWERS-20261008B](../decisions/owner-register.md#D-OWNER-ANSWERS-20261008B) item 7): an agy read-only run whose terminal status is ERROR only because an earlier `finish` submission errored and a LATER `finish` in the same run succeeded (`step_type: finish`, state DONE, no `tool_info.error`) is admitted, the later submission being the answer. The judgement reads structured stream fields only (step type, state, `tool_info.error`, stream order), never message text; an off-list tool that executed, an errored step that is neither an allowed read nor a resubmitted `finish`, or a run that read nothing still refuses. Measured basis: host A's agy leg of 2026-09-27, one run and one conversation holding the errored and then the successful `finish` (triad `docs/reviews/2026-09-27-simple-review-spike.md`, item 4), and 3 of 25 runs on 2026-08-21. On A: the census marks the last successful and the last errored submission by stream position and moves an errored `finish` that a later success follows out of the errored non-read steps (`3rd-Agent/wrappers/antigravity_wrapper.py:553-566`, `:583`, `:592-593`, `:607-611` @ triad `e0b15f1`), and the status check admits it as "a resubmitted submission" (`:714-726`); the read-blind guard still applies. On B: every non-SUCCESS terminal status refuses except its plan-mode permission denial after completion (`bin/antigravity_wrapper.py:312-327` @ `7f75863`), so such a run ends `vendor-error` / 65 and its answer is lost (DL-113). On B the read-only route relies on `--mode plan --sandbox` and reads executed tool steps only as diagnostics (`bin/antigravity_wrapper.py:150-151`, `:178-211` @ `7f75863`); B emits no `admission-refused` (`bin/_common.py:85`). A fact, not an obligation. The agy hook and the gemini read-only policy are TOOL-NAME controls: neither scopes paths, and the read audit records the argument path as given, not a resolved target — they do not by themselves contain a symlink escape (see the Q4 item in R-PREPARE).
 - all wrappers: binary presence; a relative `--prompt-file` or `--cwd` is ACCEPTED and resolved against the wrapper PROCESS cwd at argument processing (never the child `--cwd`); every existing validation stays — configured runtime roots where configured, regular file, UTF-8, non-empty; the resolved absolute prompt-file and child-cwd paths are represented in the existing success summary and audit row, using the host's current redaction mode (D-B2). Refusal names the resolved candidate through that same masking policy. An input with no resolvable candidate (`~<no-such-user>`, a relative path once the wrapper's entry cwd is gone) is refused masked under redaction on both hosts; without redaction A names the text given and B the exception class (a fact: A `_resolve_against_entry_cwd`, `3rd-Agent/wrappers/_common.py:1882-1905` @ triad `bf38f60`; B `input_path_error`, `bin/_common.py:537-548` @ `7f75863`). A configuration refusal (an allowed-roots entry that cannot be resolved, a hardened run without allowed roots) names the argument it stopped on, on both hosts (A `_ensure_within_runtime_roots`, `_common.py:1825-1833`; B `input_path_error`, whose label for the prompt file is `prompt load`). Failure-only run logs remain failure-only. Relative spelling alone is never a reason to refuse (C28). A host's other file options that name an existing input file (on A the schema-file options
@@ -766,8 +764,9 @@ a FAILED run (worst case: an R-AUTH STOP the owner inspects, or the bounded capa
 only gemini's trailing stderr envelope is read (`_gemini_trailing_envelope` @ triad `e40001d`), so two fatal envelopes in
 one run — an authentication one, then a capacity one — retry as capacity (constructed shape); gemini 0.60.0 in JSON mode
 writes a fatal error to stderr as `[ERROR] {json}` or a pretty-printed object (gemini-cli v0.60.0
-`packages/cli/src/utils/errors.ts`, `nonInteractiveCli.ts`). On A an agy tool error's text reaches the no-answer classify
-input (`agy_classify_signals` @ triad `e40001d`; worst case the bounded capacity retries (at most two, three calls)).
+`packages/cli/src/utils/errors.ts`, `nonInteractiveCli.ts`). On A no agy step- or tool-level error text reaches the no-answer
+classify input: `agy_classify_signals` forwards only the result-level `error`'s first line (`_common.py:724-745`, triad
+`3626aab7`).
 (PR #13 C74) On A the agy permission-denied `result.error` — its first line begins `permission check failed for `
 (`_AGY_PERMISSION_HEAD`, `3rd-Agent/wrappers/_common.py:365`) and embeds the model's command — is skipped by the
 auth-carrier rung before the schema-report and vocabulary arms, so a denied command quoting the sign-in banner or naming
@@ -885,9 +884,9 @@ reply; a wrapper leg's stderr), the read evidence (agy) and, on a wrapper route,
 executed-command receipt (digested over its `*.json` run-logs; `_sealed_paths`, `lib/collect_v2.py:709-727`,
 `_bound_digest`, `:755`). The native admission seals only a reply it admits: once `--admitted-out` is in place it
 creates a `valid` seal exclusively, binding the admitted object and the raw reply it judged (`_write_admission_seal`,
-`lib/verdict_v2.py:598-633`, called at `:843-845`); a seal that cannot be written after an admitted reply is a host
+`lib/verdict_v2.py:598-633`, called at `:839-841`); a seal that cannot be written after an admitted reply is a host
 fault (exit 64, "re-run this same admission"). A reply the admission refuses is not sealed: the admission prints the
-reason and exits with its own code (`main`, `:826-830`), collection reports the attempt not admitted with its retry
+reason and exits with its own code (`main`, `:831-835`), collection reports the attempt not admitted with its retry
 open, and `retry` seals it `invalid` over the `raw.json` it judged when it replaces the attempt — host B's single valid
 seal (DL-135). The admission takes the six expected bindings from the attempt's own `binding.json`; a typed flag that
 disagrees is an argument error (exit 64) and seals nothing (`_attempt_binding`, `:740`). A `raw.json` that is not a
@@ -902,7 +901,7 @@ removal (Z2; R-CLEANUP: only host code deletes). `retry` RECORDS the attempt it 
 it takes that attempt's digests once, judges those same bytes, and seals it `invalid` when an answer is there — a
 result it judged inadmissible, or, on the native route, a saved `raw.json` (Z4) — and `failed-to-run` when none is; an
 attempt whose digests cannot be taken (an unreadable file) refuses the retry with nothing allocated: prepare a new round
-(`retry`, `lib/collect_v2.py:1616-1755`; `_seal_replaced`, `:812`). Each attempt's custody is digested once per
+(`retry`, `lib/collect_v2.py:1616-1755`; `_seal_replaced`, `:812`). On B an attempt's sealed `allocation.json` that does not match its basis is refused (`bin/review_round_v2.py:256-263` @ `7f75863`) and a retry is allowed only after a diagnosed failed-to-run attempt (`:274`). Each attempt's custody is digested once per
 collection or retry: a write that lands after that digest is not seen by that step, and the next collection's seal
 check reports it (R-AGREE, D-LATE-ANSWER-20261004). `collect-r<N>.json` keeps each seal's digest, and every collection
 re-checks every sealed attempt of the entry — the earlier ones included — so a later change, removal or replacement of
@@ -1093,10 +1092,13 @@ floor; no per-file record exists or is required (On A `cleanup-roots.default.jso
 `$HOST_DIR/_logs`; `_common._swept` `:3118` proves the root — the declared role, its proof label, the swept folder
 inside the root, no symbolic link on the way, the floor — and `_prune_dir_by_caps` `:3991` proves membership per entry,
 `lstat` never followed, a link refused, an unreadable entry left in place; triad `e9960053`). (PR #13 C4 (iv)) On A
-every coded sweep acts only under a role root the host's own configuration declares — `wrapper-run-logs`,
+every wrapper sweep acts only under a role root the host's own configuration declares — `wrapper-run-logs`,
 `wrapper-audit-archives` and `dispatch-prompts` (proof `inside-owned-packet`) and `wrapper-debug` (proof
-`alloc-record`), each through `_common._swept` (`3rd-Agent/wrappers/_common.py:3372`, `:4129`, `:4269`, `:4424`,
-`:4441`, `:4627`) — and A has no sweep of a shared temporary directory by name prefix and age
+`alloc-record`) — through `_common._swept` (`3rd-Agent/wrappers/_common.py:3372`, `:4129`, `:4269`, `:4424`,
+`:4441`, `:4627`); the review-scratch sweep (`review_scratch._prune_stale` `:463` → `_scratch_role` `:344`, role
+`review-scratch`, `marker:.active`) and the test-runs prune (`tests/lib/prune_runs.sh:68-73`, `cleanup.py remove
+test-runs`, role `test-runs`, `marker:.triad-run`, declared in the lab's `.claude/triad-cleanup.json:9`) act under their
+own declared roles — and A has no sweep of a shared temporary directory by name prefix and age
 (`tests/unit/wrappers/t73-prune-roles-c69.sh` @ triad `e9960053`). The age floor binds the sweep and the deletion command alike, and the age is read
 from the proof itself (a marker's own modification time), never from the folder a deletion is emptying. Removing an empty folder that carries no proof marker never completes or removes a git registration below it (On A restored @ triad `3fde8d6`; B requires its allocation and a verified export, `bin/review_round.py:1338-1341` @ `7f75863`). A deletion keeps its
 proof until last, so a deletion stopped part-way resumes from the same proof; a linked worktree inside the folder is first
