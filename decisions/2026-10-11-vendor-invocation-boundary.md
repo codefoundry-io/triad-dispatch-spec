@@ -75,9 +75,19 @@ This decision affects C1/C9 and the receipt's meaning, not its field names.
   documents EOF collection, memory buffering and timeout behavior.
   [CPython3.12.13](https://raw.githubusercontent.com/python/cpython/v3.12.13/Lib/subprocess.py)
   ignores BrokenPipe in communicate's input handling.
-- Independent Google and fresh Codex diagnoses recommend file capture with
-  direct-child supervision. Claude diagnosis is pending terminal collection;
-  no combined diagnosis or formal admission is claimed yet.
+- All three independent diagnoses completed: Google and fresh Codex recommend
+  file capture with direct-child supervision; Claude also recommends file capture
+  but retaining group termination on timeout. The latter cites the existing
+  mechanism rather than a measured vendor need and is not selected under the
+  owner's descendant-ownership direction; no universal no-orphan guarantee is
+  retained. This disposition does not claim all vendors clean all descendants.
+- Claude's requested real file-stdin feasibility probe is satisfied by the marker
+  run above. Its suggestion of seek/read on shared output descriptors is replaced
+  by offset-independent capture. Existing invalid-UTF-8 rejection stays, so the
+  suggested additional owner choice about relaxing it is unnecessary. Google's
+  characterization of that test as implementation-only is rejected: capture
+  correctness is an observable behavior. These are leader dispositions, not
+  formal review admission. The sole pending owner choice remains early stdin close.
 
 ## Implementation and verification after the decision
 
