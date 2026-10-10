@@ -401,3 +401,14 @@ new B port; the old signal/evidence checks still require current-source triage.
 ## B U6a implementation complete, 2026-10-10
 
 [Published U6a evidence](../decisions/2026-10-10-b-fallback-cleanup-code.md) records sourcea4fd93c, final2347/4 and all-four SAFE R3. C4/C5 fallback tests are current; U6b/DL-77/C69 remain pending. No native port, installation, adoption, merge or release.
+
+## B U7 current CLI research, 2026-10-10
+
+[Current capability research](../decisions/2026-10-10-b-agy-current-capabilities.md)
+records the owner-requested Opus/xhigh and Astra/xhigh web research, current
+CLI1.3.3, the exclusion-profile candidate and issue1015 evidence limits. A's
+formal hook is distinguished from its standalone wrapper. B's earlier binary
+choice is deferred pending a bounded candidate comparison; no implementation,
+profile update, reduced-protection choice or A port is selected. B acts next;
+A may assess the same newer profile controls without treating this as a request
+to remove its working hook or change native legs.
