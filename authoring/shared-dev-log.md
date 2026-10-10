@@ -412,3 +412,7 @@ choice is deferred pending a bounded candidate comparison; no implementation,
 profile update, reduced-protection choice or A port is selected. B acts next;
 A may assess the same newer profile controls without treating this as a request
 to remove its working hook or change native legs.
+
+## B U7 owner selection, 2026-10-11
+
+[Profile-only U7 decision](../decisions/2026-10-11-b-agy-profile-only.md) records the actual1.3.3 web/read/write-request results and the owner's direction to proceed. R-CONTAIN/R-REVIEW-WEB and C6/C68/C72 now specify B's bounded replacement before code. B acts; A reviews the common outcome and need not port B internals or remove its hook. No implementation or installation completion is claimed.
