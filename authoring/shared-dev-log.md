@@ -432,3 +432,12 @@ integrity. C6/C68/C72 name actual source/test evidence and retain limits.
 Global settings transactions are removed; approved existing profiles are updated.
 No new hook/audit/native port; no full plugin deployment, adoption, merge or release.
 A review is asynchronous input, not a prerequisite for this settled-contract work.
+
+## Owner vendor-responsibility audit, 2026-10-11
+
+[Assessment and cross-host request](../decisions/2026-10-11-vendor-responsibility-audit.md)
+records the owner's whole-feature overengineering review. B's U6b/U9 expansion
+is paused while vendor lifecycle, TRIAD result responsibilities and evidence
+volume are reassessed. A's similar code is not design authority. This is a
+proposal/evidence record, not a normative amendment or permission to remove
+either host's behavior. Native legs remain host-owned.
