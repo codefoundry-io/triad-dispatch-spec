@@ -197,3 +197,16 @@ def test_host_a_keeps_a_read_only_agy_web_prerequisite_check():
     assert "per-round preflight" not in _row("DL-112")[5].split("B:")[0].split("keep")[0]
     assert "no `_agy_settings` import" in _row("DL-112")[5]
     assert "CHECK-B" in _row("DL-107")[6]
+
+
+def test_shipped_api_key_advice_is_removed_on_a_and_checked_on_b():
+    row = _row("DL-118")
+    assert "C37" in row[1] and "CLAUDE.recommended.md" in row[4]
+    assert "FIXED-A" in row[6] and "CHECK-B" in row[6]
+
+
+def test_no_host_learns_an_authentication_classification():
+    assert "refuses every proposal whose class is `oauth-env`" in " ".join(_rule("R-CLASSIFY").split())
+    row = _row("DL-119")
+    assert "VENDOR_EXIT_PROPOSAL_CLASSES" in row[4] and "bin/_common.py" in row[4]
+    assert "FIXED-A" in row[6] and "CHECK-B" in row[6]
