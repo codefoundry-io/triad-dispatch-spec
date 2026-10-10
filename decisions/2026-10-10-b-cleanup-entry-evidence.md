@@ -102,3 +102,27 @@ preservation control, an aged symlink-proof target, proof-write failure without
 leaving its mock active during cleanup, and partial deletion-start data. Fresh
 dedicated RED/GREEN and a complete new review follow; R1 approval is not reused.
 No A code change or added public surface is requested.
+
+## U6a overlapping sweep reproduction
+
+R2's fresh native review identified a source interleaving: two sweeps read the
+same unstarted proof; one records its inventory and partially stops, while the
+other later overwrites that start record using changed remaining contents. The
+leader reproduced it against the unchanged candidate in an owned fixture:
+fresh dedicated RED1failed/18passed, no fixture errors. The changed repair file
+was deleted; source/log hashes matched and the exact fixture was removed.
+This is not a real-user data-loss incident. The first attempted regression was
+all19passed because its pause occurred after ftruncate refreshed the proof age;
+it did not establish the disputed interleaving and remains retained as invalid
+RED. The corrected fixture asserts old age and a one-line unstarted proof
+before the second sweep starts.
+
+C5 now names this existing R-CLEANUP/R-THREAT boundary. The proposed bounded
+correction reuses B's existing nonblocking descriptor-lock helper on the proof
+it already holds, before reading the record. A busy allocation is skipped;
+name/descriptor identity is rechecked under the lock, which remains held until
+removal or refusal. No new lock file, service, public interface or global lock
+is needed. Normal sequential cleanup, proof-last behavior and changed-subset
+refusal stay. Fresh GREEN and a complete new round are required; R2's verdicts
+cannot approve corrected bytes. A has no newly introduced B fallback helper to
+port; the common result contract is the shared boundary, not B's lock mechanism.

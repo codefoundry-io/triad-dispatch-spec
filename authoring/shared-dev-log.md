@@ -376,3 +376,17 @@ second fixture writer's change. No real settings/provider or live incident is
 claimed. A c2f28ca2 has no corresponding settings transaction; its agent admission
 mechanism is not automatically copied. DL-107/112 design and containment evidence
 remain pending; a substantial replacement choice requires the owner.
+
+## B U6a overlap and U7 diagnosis follow-up, 2026-10-10
+
+C5 now includes the reproduced overlapping fallback-sweep case, under existing
+R-CLEANUP/R-THREAT. B's fresh isolated RED1failed/18passed deletes a changed
+remainder after replacing the original start inventory. The bounded proposed
+correction reuses an existing descriptor lock and skips busy allocations; no
+new deletion surface. See [evidence](../decisions/2026-10-10-b-cleanup-entry-evidence.md).
+
+U7's three diagnoses and one current-profile fixture measurement are collected:
+successful read-only behavior, no attempted write, unchanged settings/profile,
+exact fixture removal. Mechanical write prevention remains unverified; the
+concrete containment/raw-migration choice is pending the owner, and no vendor
+settings-path override is established. See the [updated U7 record](../decisions/2026-10-10-b-agy-settings-spike.md).

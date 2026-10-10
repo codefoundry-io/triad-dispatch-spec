@@ -55,11 +55,11 @@
       "surface": "cleanup",
       "rule": "R-CLEANUP",
       "summary": "Partial deletion resumes only with a verifiable ownership claim",
-      "input": "an interrupted cleanup with a partially removed round tree",
-      "expected": "Resume requires the allocation record or marker; otherwise refuse",
+      "input": "an interrupted cleanup with a partially removed round tree; or two ordinary dispatches from different working folders sweeping the same proven fallback IPC allocation, where one persists its start, removes a leaf and stops, and a remaining leaf changes before the other proceeds",
+      "expected": "Resume requires the allocation record or marker; otherwise refuse. An overlapping sweep must not replace the durable deletion-start inventory and adopt changed remaining data. Preserve a changed remainder and its proof; skipping a busy allocation is permitted. This is machine-level shared-state interaction, not concurrent operations inside one review folder.",
       "tests": {
         "A": "tests/unit/skills/t16-close-ownership-c4c5c7.sh axes 2-5 @ triad d76ef23 — passing without a production change; verified by three legs, rounds r1 and r2 (Evidence item 2.3)",
-        "B": "Implemented in B a85a800: tests/test_review_cleanup_custody.py partial-cleanup resume requires a validated allocation-bound claim. triad-b-p2-r2 ADMITTED_SAFE."
+        "B": "Review-packet portion implemented in B a85a800: tests/test_review_cleanup_custody.py partial-cleanup resume requires a validated allocation-bound claim. triad-b-p2-r2 ADMITTED_SAFE. U6a overlapping-fallback regression at Bed8b76f plus candidate: fresh isolated RED1failed/18passed demonstrates changed remainder deletion; correction pending. See decisions/2026-10-10-b-cleanup-entry-evidence.md."
       }
     },
     {
