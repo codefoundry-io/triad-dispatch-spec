@@ -83,3 +83,30 @@ one terminal rejection, and no catalog or fallback. Verification: real Python
 wrapper consumers plus vendor argv capture; retain pinned actual-parser evidence
 separately from provider-free fixtures. Fresh dedicated RED/GREEN and host review
 are required before B claims the correction. No adoption or release is implied.
+
+## Older CPython parser finding from B review
+
+U1T R1 returned all-four SAFE and matching integrity, with one Minor finding
+subsequently reproduced. CPython issue109475 documents `--model=--` becoming
+an empty list before the argparse fix. Official tagged argparse modules
+v3.12.1 and v3.12.2 were loaded on B's Python3.12.13: the first returns `[]`,
+the second the exact string `--`. Both preserve `--help` and an ordinary pin.
+This is actual parser-module evidence, not a full old-interpreter/provider run.
+SHA256: v3.12.1 `97e4748d9dd71994c979ddd3245bc84a209cf18e683a6c5a663886224f01d752`;
+v3.12.2 `a2014aea48aa2260b7bafb4c64642da67bdb1dadb47046652c941b30972243a7`.
+Primary source: https://github.com/python/cpython/issues/109475 and
+https://github.com/python/cpython/blob/v3.12.1/Lib/argparse.py .
+
+B's raw wrappers test the parsed model for truthiness, so this malformed value
+can be omitted. Its documented Python3.12+ floor includes the affected release.
+Bounded correction: refuse a non-None non-string parsed model before prompt or
+provider I/O. Preserve the Python floor, normal/default behavior, opaque string
+pins and vendor argv; do not guess the lost value or add a model-name grammar.
+R-MODEL and C18/C34 now state the no-omission boundary explicitly. New fresh
+RED/GREEN and a complete review are required; R1 does not approve new bytes.
+
+A59fbfd1 source: Gemini checks `args.model.strip()` immediately after parsing;
+AGY also validates model before dispatch. A is asked to check its behavior on
+this malformed parser result, not to copy B's native leg or raise a version
+floor. B has not executed A's wrappers or proved their old-interpreter outcome.
+Any A fix remains A-owned. No installation, revision adoption or release.

@@ -264,6 +264,8 @@ does not activate that option. Use an encoding supported by that boundary; no
 universal argv spelling or new model-name grammar is imposed. Vendor rejection
 still produces the existing single terminal outcome; it is not permission to
 substitute a model or retry inference (C18, C34).
+If host parsing cannot preserve an explicitly supplied model value as a string,
+refuse before dispatch; never treat that malformed value as an omitted model.
 
 ## Selected investigations
 
