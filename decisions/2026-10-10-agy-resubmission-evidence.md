@@ -109,3 +109,32 @@ web-profile distinctions, auth/transport priority and retained schema/binding
 validation. Keep ordinary SUCCESS and existing post-completion denial controls.
 Host source tests, regression and the required independent review precede any
 completion claim. A owns its implementation; B changes only its own host.
+
+
+## B candidate implementation and verification
+
+B632f426 plus its preserved candidate implements the resolved DL-113 boundary.
+bin/antigravity_wrapper.py adds an ERROR-only recovery predicate and the measured
+denial-head helper; main forwards its already bound web flag. Existing final
+structured_output validation, original JSON checks, model/review binding,
+auth/host-timeout/transport priority and nonzero classification remain. No normal
+SUCCESS census, per-file read audit, new retry or A's broader admission port.
+Production delta75added/1removed; tests194added; EN/KO docs15added.
+
+Fresh dedicated RED12failed/444passed/4skipped. First GREEN456passed/4skipped/2failed
+found incorrect test expectations for schema-fail (B's established exit is66,
+not4); those expectations alone were corrected. Final fresh GREEN458affected
+and2213full tests passed/4skipped, four source validators passed. Five measured
+hashes, HEAD/status and ten existing logs unchanged; exact fixture removed.
+Platform macOS26.6.2 arm64/Python3.12.13/pytest9.0.3. Ubuntu NOT RUN; constructed
+contract cases, not a fresh AGY failure capture. Main's bound web-profile
+positive/negative behavior is covered by the real wrapper path with fake provider.
+
+Independent review triad-agy-finish-resubmission-20261010-r1: all selected legs
+SAFE (Claude opus/xhigh, AGY Pro/high, AGY Flash/high, fresh Codex Astra/high),
+ALL_SELECTED_APPROVED/ROUND_INTEGRITY_OK. Digest
+350ee9e1da26abf02c9ce0d5d56bfe6667eac0e8c572e92b2d36857d881d8ee3;
+fingerprint1698369b4d63888828a330d01fb4a2e6585f819d97062f51245875b7be7fe4ec.
+Custody exported, exact stage/cwd removed. Current A1ea9cb3e source was read;
+A's native leg, implementation and tests remain A-owned. No installation,
+merge, release, full C23 conformance or whole-revision adoption is claimed.
