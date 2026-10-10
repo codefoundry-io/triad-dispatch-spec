@@ -54,6 +54,29 @@ tests are A-reported, not rerun here. B's dependent implementation is pending.
 Both hosts should report C18/C34 coverage against this same rule; no new A code
 port is requested. Existing schema type/nonblank rules remain unchanged.
 
+## B implementation scope after independent diagnosis
+
+Claude opus/xhigh, Google Pro/high and fresh Codex Astra/high independently
+reviewed the source/evidence. B narrows AGY equals encoding to model values
+starting with `-`. Ordinary and legacy AGY pins keep their existing spelling;
+no legacy receipt validator or CLI floor change follows. This avoids asserting
+unmeasured ordinary-pin compatibility on older AGY releases. The previously
+broken option-shaped path is measured on AGY1.3.3; older/future versions are not
+certified. A's ordinary AGY1.3.2 equals dispatch is A-reported evidence.
+
+B uses long equals encoding at generated Python-wrapper and Google preflight
+boundaries and Gemini raw/v2 dispatch. Both v2 receipt builders describe the
+actual transport. Claude native argv and legacy Gemini `-m auto` remain.
+String concatenation preserves type failures; no guessed null-model fallback is
+added. Current candidate is +8/-9 production lines across five files.
+Fresh bounded RED:20failed/76passed/4skipped; GREEN and formal review pending.
+The earlier RED22/74/4 included unnecessary ordinary-AGY spelling assertions;
+that evidence is retained, and the revised RED precedes product changes.
+
+This is a host encoding choice within the settled common result contract, not
+a requirement for A to copy B's conditional spelling. Both hosts must preserve
+the same model value. No additional A native or wrapper change is requested.
+
 Features preserved: opaque user pins, defaults, native ownership, preflight
 capabilities/authentication, original model and effort settings, exact receipts,
 one terminal rejection, and no catalog or fallback. Verification: real Python
