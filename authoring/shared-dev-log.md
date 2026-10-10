@@ -335,3 +335,11 @@ both validators, all-four SAFE and matching integrity. DL-75/95 are implemented
 in B's candidate; DL-92's non-auth per-CLI lists and complete C37/C43 remain open.
 A C74 verification is requested and NOT RUN here. No native-leg, adoption,
 installation or release change is claimed.
+
+## Opaque model transport follow-up, 2026-10-10
+
+[DL-132 / U1T evidence](../decisions/2026-10-10-model-value-transport.md)
+finalizes R-MODEL/C18/C34 after A agreement. A9e16880d already uses equals
+encoding at its affected boundaries. B5f5dda5b still has the reproduced Python
+and Google argv gaps; implementation and independent verification are pending.
+Claude native argv and both host-native legs need no change.

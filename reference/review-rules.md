@@ -258,6 +258,13 @@ attempt ends as ONE terminal failed-to-run record that names the leg and the mod
 entry; the change is a new basis (R-REREVIEW). An exposed runtime identity that contradicts the request is still refused
 (R-ROSTER) — that is an observation of the answer already paid for, not a probe.
 
+A host transports an explicit model pin as one opaque model-option value across
+every wrapper and vendor parser boundary. A value resembling another option
+does not activate that option. Use an encoding supported by that boundary; no
+universal argv spelling or new model-name grammar is imposed. Vendor rejection
+still produces the existing single terminal outcome; it is not permission to
+substitute a model or retry inference (C18, C34).
+
 ## Selected investigations
 
 <a id="R-INVEST"></a>
