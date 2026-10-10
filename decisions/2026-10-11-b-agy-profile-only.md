@@ -92,3 +92,29 @@ instruction from unproved mechanical denial; optional project deny validation
 stays unchanged. B will correct those claims, align the v2 receipt's stale
 version literal, and restore timeout/profile-drift evidence coverage. No new
 permission mechanism or A-native change. Fresh verification and review follow.
+
+## B U7 complete, 2026-10-11
+
+Source `47a150397d2026271c5241bbf069bd96a3f343ed` is the verified implementation. R1 corrected stale
+current permission claims and receipt floor; R2 confirmed a test fixture could
+read ambient settings. Fresh RED2failed reproduced that fixture defect with
+synthetic denied/malformed defaults. The fixture now uses its invocation-owned
+settings path; success/profile-drift capture assertions were also added. Product
+behavior stayed unchanged after the first correction GREEN.
+
+Final fresh dedicated GREEN:304 affected and2364 full passed,4 skipped.
+Bootstrap syntax, four skill validators and diff check passed; source/status/log
+hashes matched and exact owned temp was removed after terminal collection.
+Fresh `triad-agy-profile-settings-20261011-r3`: Opus/xhigh, AGY Pro/high,
+AGY Flash/high and fresh Astra/high all SAFE, ALL_SELECTED_APPROVED and
+ROUND_INTEGRITY_OK. Six Minor editorial/cleanup/coverage suggestions received
+recorded dispositions; no current functional blocker. Exact raw-web-plus-project
+deny combination was not separately executed; static path is consistent with
+the rule, and no universal branch-coverage claim is made. Custody exported and
+exact review stages removed; durable evidence retained.
+
+The two approved installed profiles already match source; no further profile
+change was needed. No full plugin deployment, revision adoption, merge or release.
+macOS26.6.2 arm64/Python3.12.13; Ubuntu NOT RUN. Earlier live-probe limits remain.
+C68 deployment-context re-vendoring is separate from the completed global-state
+arm. A needs no B-internal port or native-leg change; its hook remains A-owned.

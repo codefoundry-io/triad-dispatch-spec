@@ -423,3 +423,12 @@ approved two-profile installation with unchanged permission-setting hashes.
 The required independent unit review is pending; no admission, adoption, merge
 or release is claimed. A replies are asynchronous input, not a settled-contract
 implementation prerequisite; B verifies directly and shares measured differences.
+
+## B U7 implementation complete, 2026-10-11
+
+[Final U7 evidence](../decisions/2026-10-11-b-agy-profile-only.md) records
+B `47a1503`, final2364passed/4skipped and all-four SAFE R3 with matching
+integrity. C6/C68/C72 name actual source/test evidence and retain limits.
+Global settings transactions are removed; approved existing profiles are updated.
+No new hook/audit/native port; no full plugin deployment, adoption, merge or release.
+A review is asynchronous input, not a prerequisite for this settled-contract work.
