@@ -210,3 +210,11 @@ def test_no_host_learns_an_authentication_classification():
     row = _row("DL-119")
     assert "VENDOR_EXIT_PROPOSAL_CLASSES" in row[4] and "bin/_common.py" in row[4]
     assert "FIXED-A" in row[6] and "CHECK-B" in row[6]
+
+
+def test_a_classifier_proposal_is_verified_on_the_stored_record():
+    rule = " ".join(_rule("R-CLASSIFY").split())   # the rule text is wrapped; compare on single spaces
+    assert "without calling the vendor again" in rule
+    assert "classifies the failed run's stored record a second time" in rule
+    row = _row("DL-104")
+    assert "FIXED-A" in row[6] and "OPEN (B" in row[6]

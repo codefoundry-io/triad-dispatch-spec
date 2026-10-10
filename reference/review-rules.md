@@ -745,7 +745,24 @@ applies only to the CLI that emits it); no shared list keeps a phrase unless it 
 none today. No raw-text authentication phrase is kept: one matched over a failed run's whole output produced a MEASURED
 false STOP (a codex run of 2026-07-16 that failed on "Selected model is at capacity" was recorded oauth-env because a
 fetched page in its transcript quoted "401 Unauthorized"); the authentication STOPs come from the structured carriers
-only, and an authentication failure printed outside every carrier ends `unknown` (never retried). A classifier extension cannot add a raw-text authentication phrase: such an entry is ignored with one log line, and A's patch applier refuses every proposal whose class is `oauth-env` — an authentication phrase, an agy banner phrase or an exit-code entry alike; entries already in an extension are read as before (A has no raw-text authentication list at all — `OAUTH_ENV_PATTERNS` removed @ triad `c048340`; the refusal @ triad `cfaa45ec`). On A codex's write posture (`--sandbox workspace-write`) requires `--cwd` — exit 3, nothing spawned — as A's gemini wrapper already requires (@ triad `c048340`); the codex `--task` mode and its exits 68 / 69 are gone from A (@ triad `11662b2`). codex's own
+only, and an authentication failure printed outside every carrier ends `unknown` (never retried). A classifier extension cannot add a raw-text authentication phrase: such an entry is ignored with one log line, and A's patch applier refuses every proposal whose class is `oauth-env` — an authentication phrase, an agy banner phrase or an exit-code entry alike; entries already in an extension are read as before (A has no raw-text authentication list at all — `OAUTH_ENV_PATTERNS` removed @ triad `c048340`; the refusal @ triad `cfaa45ec`).
+On A an applied proposal is verified without calling the vendor again: deterministic code
+(`_common.reclassify_run_record`, run by `apply_patch.py --verify-run-log`, which reads and checks the record before
+the apply and classifies it again after it) classifies the failed run's stored record a second time from the input the
+wrapper built for that run — for a run that failed with a nonzero vendor exit or a wrapper timeout, its stderr, stdout,
+wrapper exit and vendor exit; for a non-agy run whose answer extraction failed at vendor exit 0, the extraction error
+in place of stderr, an empty stdout and the vendor exit (after the authentication-carrier check on its stored streams);
+for an agy run that returned no answer, the no-answer input rebuilt from the stored stream (its stderr, the stream's
+typed signals and the terminal status) — and the proposal holds only when that record now classifies as the proposed
+token and did not before the apply (`apply_patch.py` exit 4 otherwise, the entry staying applied; the three `verify:` /
+`evidence:` / `sentence:` lines are printed after every verified apply). A record the input cannot be rebuilt from — a
+class decided outside the classifier, no stored vendor exit, an agy record an earlier rung decided — or a run-log that
+is missing, empty, unreadable or of another CLI is refused before the apply, exit 3, nothing applied. The record keeps
+every field this input needs, in full; a promoted row's evidence is the applied proposal (the match phrase, the
+record's path and time, the vendor version) and the vendor sentence the analyzer quoted from that record, written
+before the record's age floor removes it; the wrappers' `--repair-mode` re-run is gone (triad `1e979d60` + `35dc7de8`,
+PR #13 C76).
+On A codex's write posture (`--sandbox workspace-write`) requires `--cwd` — exit 3, nothing spawned — as A's gemini wrapper already requires (@ triad `c048340`); the codex `--task` mode and its exits 68 / 69 are gone from A (@ triad `11662b2`). codex's own
 `you've hit your usage limit` (codex-rs `UsageLimitReachedError`) is its subscription-cap sentence (On A
 `CLI_PATTERNS` @ triad `7e9e1fb`). On A (`3rd-Agent/wrappers/_common.py`
 @ triad `3fde8d6`) the kept phrases include codex's own `exceeded retry limit, last status: 429` (vendor source:
