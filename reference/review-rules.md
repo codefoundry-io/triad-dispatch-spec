@@ -785,10 +785,8 @@ add a tool-output scan or a vendor-bug workaround under this rule. No recursive 
 answer-size limit is implied. Existing schema, binding and original-JSON checks remain.
 On A, the current response-first check withholds both channels; that is an A implementation fact,
 not the shared requirement, and the mixed-channel pair is unmeasured (DL-102;
-[evidence](../decisions/2026-10-10-u3-remaining-carriers.md)). On A: `3rd-Agent/wrappers/antigravity_wrapper.py:267-279`, `:1747-1755` @ triad `e0b15f1`. On B the
-folded text is returned as the answer today (`bin/antigravity_wrapper.py:390-399` @ `7f75863`). agy's own turn timeout
-(the `timeout waiting for response` row) is `vendor-timeout` / 65 on A (`:162-174`, `:2006-2020`). On B that run goes
-through `classify()` and ends `unknown` / 1 today (`bin/antigravity_wrapper.py:286-303`, `bin/_common.py:690-778`). A
+[evidence](../decisions/2026-10-10-u3-remaining-carriers.md)). On A: `3rd-Agent/wrappers/antigravity_wrapper.py:267-279`, `:1747-1755` @ triad `e0b15f1`. Historically B returned the folded raw answer (`bin/antigravity_wrapper.py:390-399` @ `7f75863`); its current candidate implements the selected-channel rule ([evidence](../decisions/2026-10-10-b-agy-answer-truncation.md)). agy's own turn timeout
+(the `timeout waiting for response` row) is `vendor-timeout` / 65 on A (`:162-174`, `:2006-2020`). Historically B classified that run as `unknown` / 1 (`bin/antigravity_wrapper.py:286-303`, `bin/_common.py:690-778` @ `7f75863`); its current candidate emits `vendor-timeout` / 65 on the measured carrier ([evidence](../decisions/2026-10-10-b-agy-turn-timeout.md)). A
 host fact: a nonzero vendor exit with an answer is `vendor-error` / 65 on A (`:1721-1746`). On A's read-only review
 route the answer is instead admitted when every errored step is an allowed read or a `finish` that a later successful
 `finish` follows (the shared resubmission rule, R-CONTAIN) and the run read something (`:654-733`, `:1664-1677`). On B a nonzero vendor exit goes through `classify()` before the answer is read
