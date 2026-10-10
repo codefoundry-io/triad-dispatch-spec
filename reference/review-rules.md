@@ -123,6 +123,40 @@ linked to the dev tree (`tools/link_sot.py`) point at the same file. On B: every
 the basis (`bin/review_round_v2.py:146`, `:152-169`), except that a claude entry's `agent` is passed as `--agent`
 (`bin/review_adapters_v2.py:107-108`, `bin/review_round_v2.py:222-223`) and the named agent's definition, resolved by the
 Claude CLI, is outside the roster and outside `_toolkit` (open, DL-49).
+
+<a id="R-AGENT-ROLES"></a>
+**Agent requirements are route-specific (C73).** An AGY primary tool profile,
+an optional Claude CLI `--agent` selection, and a host-native reviewer spawn are
+different mechanisms. Do not infer a shared requirement to create or resolve
+agent definitions for every leg from their similar names.
+
+| Route | Required mechanism and ownership |
+|---|---|
+| AGY formal leg on either host | The explicit primary profile supplies native discovery tools when absent from the vendor default; follow R-CONTAIN/C72. This does not choose the review model or create a host-native subagent. |
+| B's default Claude CLI leg | `claude.agent` is null; model/effort are direct CLI selections. No named Claude agent definition or definition resolver is required for this default path. |
+| A's external Codex CLI leg | Model/reasoning controls are passed directly to the CLI; no AGY-style custom agent definition is required. |
+| Each host's native leg | Preserve the host's own spawning/preset mechanism. A's native Claude preset binding is not a requirement to introduce presets into B's Claude CLI path or another native host. |
+
+Default read/search capability does not promise identical tool names. Claude
+Code can use Read and shell search; its current macOS/Linux/WSL default omits
+dedicated Glob/Grep. Codex CLI can inspect files through its native command tools
+under the selected sandbox. Neither capability requires an AGY-style profile.
+Effective permissions, tool overrides and inherited settings still apply; a null
+roster agent means no explicit `--agent`, not that all vendor settings are erased.
+Versioned official sources and bounded runtime evidence belong in the linked
+decision, not a new per-round tool-inventory or source-read audit.
+
+DL-49's B definition-binding obligation applies only when a non-null optional
+Claude CLI agent is selected: bind its resolved definition or refuse an unbound
+selection. It does not require enabling that optional feature, scanning agent
+files when agent is null, or making its resolver a prerequisite for default-leg
+work. The current optional implementation's unresolved conformance remains
+recorded; it does not create an active or deferred resolver task. The owner
+removed that unsupported planning item under
+[D-NO-CLAUDE-AGENT-BACKLOG-20261009](../decisions/owner-register.md#D-NO-CLAUDE-AGENT-BACKLOG-20261009).
+This does not certify or silently remove the existing optional interface.
+See the [owner's scope clarification](../decisions/2026-10-09-leg-agent-scope.md).
+
 The receipt records entries actually run and family coverage; two legs of one family remain one family, without a veto
 on an otherwise agreed round. Selected investigations remain separate under R-INVEST.
 
@@ -224,6 +258,15 @@ attempt ends as ONE terminal failed-to-run record that names the leg and the mod
 entry; the change is a new basis (R-REREVIEW). An exposed runtime identity that contradicts the request is still refused
 (R-ROSTER) — that is an observation of the answer already paid for, not a probe.
 
+A host transports an explicit model pin as one opaque model-option value across
+every wrapper and vendor parser boundary. A value resembling another option
+does not activate that option. Use an encoding supported by that boundary; no
+universal argv spelling or new model-name grammar is imposed. Vendor rejection
+still produces the existing single terminal outcome; it is not permission to
+substitute a model or retry inference (C18, C34).
+If host parsing cannot preserve an explicitly supplied model value as a string,
+refuse before dispatch; never treat that malformed value as an omitted model.
+
 ## Selected investigations
 
 <a id="R-INVEST"></a>
@@ -303,6 +346,16 @@ is added.
 All selected legs receive the same semantic purpose, requirements, scope and evidence. Identity, output handling and
 provider tools remain route-specific. The default first review uses no separate personas or predicted-defect checklist.
 A leader's hypotheses never limit findings elsewhere in scope. Targeted perspectives remain available through R-INVEST.
+For guarded-worktree review, the leader supplies the objective, diff, worktree and explicit exclusions;
+the reviewer discovers relevant unchanged code, tests and behavioral documentation within the agreed
+product scope. Changed-file inventories and required packet inputs are navigation, not a per-file
+read allowlist: the leader neither enumerates all related files nor approves each additional read
+(C70; D-REVIEW-DISCOVERY-20261009). Prepared-copy membership remains a separate transport boundary.
+Normal collection does not require the leader to reconstruct or approve source-read paths or inspect
+provider logs. Inspect logs for a concrete failure, access/contamination concern or explicit audit
+request, limited to that issue (C71). Existing coded required-input-read, tool-effect, hook-load,
+binding and integrity checks retain their stated purposes under R-CONTAIN; they are not source-file
+approval lists. These rules do not grant access to explicitly excluded data or symlink targets.
 Use the existing shared clauses and renderer, not a new prompt engine. A fresh conversation is the default for a new
 formal basis, but does not prove isolation from memory or inherited instructions; record actual isolation limits without
 changing global memory settings. Continued-context investigations must be identified as such.
@@ -402,13 +455,15 @@ is ignored while the standing authorization holds, and a non-boolean value stays
 `bin/review_round_v2.py:134-135`); it binds false only after the owner revokes the standing authorization, by an entry in
 `decisions/owner-register.md`. How a revocation reaches each host (a fact, no new mechanism): On A, the operator then
 edits the one constant `REVIEW_WEB_STANDING_AUTHORIZATION` (`lib/review_scratch.py:3650-3658` @ `b53409b`); On B, the
-request's `review_web_authorized` is the caller's value, default false (`bin/review_round_v2.py:133`), so B has no
-standing switch yet (its standing binding is open, DL-39). An absent condition in a bound record means false. Every route of
+source candidate uses `REVIEW_WEB_STANDING_AUTHORIZATION` in `bin/review_round_v2.py`; `create_basis` validates
+the caller's strict boolean before replacing it with that policy. Only recorded owner revocation changes the constant
+([B U5b evidence](../decisions/2026-10-10-b-standing-review-web.md), DL-39). Toolkit/source integrity is still independent:
+editing code bytes requires a fresh basis; retaining a round's bound condition does not exempt implementation drift. An absent condition in a bound record means false. Every route of
 every host supports web; a route without it is a host defect, refused at preflight until fixed. Gemini selects a
 complete web-enabled host profile, never an overlay: only `google_web_search` and `web_fetch` move to allow, with all
 other controls preserved; the no-web profile stays the profile for a false condition. Pre-existing owner and admin
 denies remain authoritative. The review-web authorization lets no round make a permanent global settings change or
-bypass a permission. Each host's agy settings fact, per host: On A, an install-time allow — a user-level agy settings allow of `read_url(*)`, made once by the operator at installation as the operator's own setting and named by the wrapper at `--setup-agents` (`3rd-Agent/wrappers/antigravity_wrapper.py:2320-2327` @ triad `e0b15f1`). Host A never writes or locks the machine-wide agy settings: it writes none of `~/.gemini/antigravity-cli/settings.json`, `.agybak`, `.agy_settings.lock`, `.agy_settings.shared.json` or `.agy_settings.holders/`, takes no lock, and reads only `settings.json`, for the agy web prerequisite check below (owner, [D-AGY-SETTINGS-UNTOUCHED-20261008](../decisions/owner-register.md#D-AGY-SETTINGS-UNTOUCHED-20261008), with the owner's answer "읽기 확인만 남김 (권장)"); its read-only leg, every review leg included, is the allowlisted agent with `--add-dir` (R-CONTAIN). Host A's other settings handling at triad `e0b15f1` — the `_agy_settings` module and its lock-timeout setting, the guard and lock around the permissive call (`antigravity_wrapper.py:2147`), the heal of a stale `.agybak` at `--setup-agents` (`:2309-2317`) and the machine uninstall's removal of the lock file and holders directory — is removed (DL-112). On B, a per-call temporary settings transaction — the v2 agy adapter passes no `--project` (`bin/review_adapters_v2.py:167`), so the wrapper merges its deny rules into the agy settings for the call and restores them afterwards (`bin/antigravity_wrapper.py:655-664`, `bin/_agy_settings.py:571-591`); a stale `.agybak` a B transaction leaves (one stopped without cleanup, SIGKILL) is B's to heal, and B is asked to move to an allowlisted agent so that no host changes that file per call (DL-107). Live service checks: `contracts/review-web.verify.toml`. Per host, a true condition reaches each
+bypass a permission. Each host's agy settings fact, per host: On A, an install-time allow — a user-level agy settings allow of `read_url(*)`, made once by the operator at installation as the operator's own setting and named by the wrapper at `--setup-agents` (`3rd-Agent/wrappers/antigravity_wrapper.py:2320-2327` @ triad `e0b15f1`). Host A never writes or locks the machine-wide agy settings: it writes none of `~/.gemini/antigravity-cli/settings.json`, `.agybak`, `.agy_settings.lock`, `.agy_settings.shared.json` or `.agy_settings.holders/`, takes no lock, and reads only `settings.json`, for the agy web prerequisite check below (owner, [D-AGY-SETTINGS-UNTOUCHED-20261008](../decisions/owner-register.md#D-AGY-SETTINGS-UNTOUCHED-20261008), with the owner's answer "읽기 확인만 남김 (권장)"); its read-only leg, every review leg included, is the allowlisted agent with `--add-dir` (R-CONTAIN). Host A's other settings handling at triad `e0b15f1` — the `_agy_settings` module and its lock-timeout setting, the guard and lock around the permissive call (`antigravity_wrapper.py:2147`), the heal of a stale `.agybak` at `--setup-agents` (`:2309-2317`) and the machine uninstall's removal of the lock file and holders directory — is removed (DL-112). On B, the owner-selected U7 replacement never writes, locks, restores or heals machine-wide AGY settings or its legacy backup/lease files, for formal or raw calls. Read-only calls select the existing explicit native-tool profile with `excludeDefaultComponents: true`, retain native plan/sandbox and definition binding, and do not use headless autoapproval. An explicit project keeps its existing read-only validation. Requested review web reads the existing settings only to reject a known URL-wide deny; it does not add an allow or require a new operator setting. Missing settings mean no locally observed deny, not a runtime permission guarantee; malformed existing settings refuse requested web. Old settings/backup/lease residue is preserved without automatic restoration or deletion. The permissive raw path preserves its existing version-gated CLI behavior without a settings transaction. Implementation/measurement status is recorded in [the owner-selected U7 decision](../decisions/2026-10-11-b-agy-profile-only.md). Live service checks: `contracts/review-web.verify.toml`. Per host, a true condition reaches each
 route as follows; a false condition leaves every route in its R-CONTAIN no-web posture.
 
 - On A (cited @ `b53409b`): the carrier is `review_scratch.py prepare --v2`, which binds the strict boolean
@@ -483,12 +538,13 @@ route as follows; a false condition leaves every route in its R-CONTAIN no-web p
     never removes it — and refuses the review-web condition (`lib/review_scratch.py:3817-3820`). The same legacy paths render neither the shared current-date nor
     the deployment-context clause (the small path uses its own template), so C67 and C68 hold on the v2 path only — the same
     recorded fact until they are retired.
-- On B: the v2 request member `review_web_authorized` (`bin/review_round_v2.py:130-133`) is the carrier; it defaults to
-  false per request, so binding it true for every round under the standing authorization is open (DL-39). For a true
+- On B: the source candidate normalizes the v2 request member `review_web_authorized` from
+  `REVIEW_WEB_STANDING_AUTHORIZATION` in `bin/review_round_v2.py:create_basis`, after strict caller-type validation.
+  Omitted/boolean caller input cannot override the policy. New rounds bind the value explicitly; retry consumes the
+  frozen request, subject to existing toolkit integrity (DL-39; [B U5b evidence](../decisions/2026-10-10-b-standing-review-web.md)). For a true
   condition: native Codex receives it through its fresh-child prompt metadata and requires host web availability
   (`bin/review_adapters_v2.py:61-75`, `bin/review_prompts_v2.py:88-90`); Claude preapproves only native `WebSearch` and
-  `WebFetch` (`bin/claude_wrapper.py:417-418`); AGY keeps its read-only controls while omitting the review-only
-  `read_url(*)` deny (`bin/antigravity_wrapper.py:647-663`, `bin/_agy_settings.py:43-49`, `:90-100`); Gemini selects
+  `WebFetch` (`bin/claude_wrapper.py:417-418`); AGY selects the authorized-web profile and checks existing owner URL denies without settings writes (the U7 contract above); Gemini selects
   `bin/policies/gemini-formal-web.toml`, byte-equal to `contracts/gemini-readonly-web-b.toml`
   (`bin/gemini_wrapper.py:175`, `:466`; `bin/policies/web-source-manifest.json`). Non-conformance of B's legacy entry points (a
   fact, as for A's above; keeping or retiring them is host B's own decision, the owner's answer making no ruling on B,
@@ -506,11 +562,39 @@ the raw Claude `--web` permit does not add review accounting or rewrite the call
 ## Containment and validity — what exists today and must survive
 
 <a id="R-CONTAIN"></a>
+
+AGY review discovery must remain available when the vendor removes search tools
+from its default agent. An explicit main-agent profile may supply native reads,
+content/name search and directory listing; model/effort stay separately selected.
+The selected definition is checked before dispatch and bound into the review's
+control evidence; a missing or changed definition refuses the attempt before
+inference, without silently falling back or reinstalling. The no-web profile
+omits web tools; its authorized-web counterpart includes them. A vendor tool
+inventory is not a permission guarantee: existing web authorization and execution
+containment still apply. Provisioning paths and execution containment
+remain host-owned. A version-only preflight is not proof of native search: verify
+capability recovery with an actual successful search and read control (C72).
+On B, legacy/v2 formal AGY uses B-owned `triad-codex-readonly-review` and its
+`triad-codex-readonly-research` web twin under `~/.gemini/config/agents`, selected
+by `--agent`; name/path/definition SHA-256 are bound in preflight. Explicit setup
+is separate from dispatch. U7 adds `excludeDefaultComponents: true` while retaining
+the explicit native read/search/list/finish tools and optional web twin. Read-only
+calls require AGY >=1.2.1, where exclusion was introduced; current live evidence
+is on1.3.3 only. Existing plan/sandbox, definition drift checks and result/integrity
+admission remain. Read-only raw investigations reuse the research profile; raw
+permissive calls remain distinct. Neither host changes its native leg. The owner
+accepts the measured profile posture without claiming universal pre-execution
+write prevention: actual search/read/web and no write after a direct request were
+observed, but there was no attempted write denied by the provider. B profiles and
+review prompts prohibit MCP use; the default profile route does not claim a
+mechanical deny of every inherited MCP tool. An explicit project retains its
+existing `mcp(*)` deny validation. No routine
+read audit, new hook or workspace-copy architecture is required by U7. See [owner decision](../decisions/2026-10-09-agy-search-tools.md).
 Review legs read; they do not mutate, execute the candidate, or spawn vendors. REVIEW web follows the bound
 R-REVIEW-WEB condition, which the owner's standing authorization sets true for every round (D-9's review prohibition
 is superseded by D-REVIEW-LEGS-20261003). When that condition is false, REVIEW has no web: codex `web_search="disabled"`;
-agy review agents without web tools (A ships this posture; B's formal builder explicitly denies `read_url(*)`;
-raw investigations retain web); gemini by the explicit deny rows in its host profile below. Renderers keep the
+agy review agents without web tools (both hosts select their no-web profile;
+raw investigations remain separately authorized); gemini by the explicit deny rows in its host profile below. Renderers keep the
 no-web posture for a false condition and select the authorized web posture only under R-REVIEW-WEB. Gemini host
 profiles remain separate under D-B1. On A: `contracts/gemini-readonly.toml` for a false condition
 (`3rd-Agent/wrappers/policies/gemini-readonly.toml`) and `contracts/gemini-readonly-web.toml` for a true one (`3rd-Agent/wrappers/policies/gemini-readonly-web.toml`, byte-equal,
@@ -549,7 +633,7 @@ not attribution (found on A over rounds r11–r13, `authoring/shared-dev-log.md`
   condition A's `--review-web` selects `contracts/gemini-readonly-web.toml` (`gemini_wrapper.py:125`, `:465` @ `b53409b`;
   runtime effect per `contracts/gemini-readonly-web.verify.toml`, NOT RUN); B: `--help` capability preflight, policy self-check against
   `contracts/gemini-readonly-b.toml` for a false condition and `contracts/gemini-readonly-web-b.toml` for a true one
-  (runtime effect per `contracts/gemini-readonly-b.verify.toml` / `contracts/gemini-readonly-web-b.verify.toml`), credential/endpoint/model-selector
+  (runtime effect per `contracts/gemini-readonly-b.verify.toml` / `contracts/gemini-readonly-web-b.verify.toml`), credential/endpoint
   variables removed from the child on the formal route. Effective posture is computed BEFORE the conflict and policy checks
   (On A: the hardened read-only default is assigned before both checks, `3rd-Agent/wrappers/gemini_wrapper.py:421-437`).
 - agy leg (A): per-round PreToolUse allow-list hook + hook load check + read-audit gate (the hook's `--web` mode adds
@@ -569,8 +653,8 @@ not attribution (found on A over rounds r11–r13, `authoring/shared-dev-log.md`
   (`:401-421`, `:695-711`). `--setup-agents` writes both bodies into that directory (`:462-485`, `:736-745`). Before
   each read-only call the wrapper refuses (`config-conflict`, 65, nothing spawned) unless the installed file is
   byte-identical to the shipped body (`:488-499`, `:2100-2110`). A read-only call without `--web` and without `--cwd` is
-  refused with exit 3 before any vendor work (`:2391-2403`). On B the formal route passes no `--agent`
-  (`bin/antigravity_wrapper.py:151` @ `7f75863`). B: non-mutating project route (`--mode plan --sandbox read-only`) with `--project`, and on the v2 path (no `--project`) the temporary settings transaction named under R-REVIEW-WEB; B's hook stays dormant until separately agreed. On A the read-only agy route runs an allow-list census over every attempt's tool steps, retries included (`3rd-Agent/wrappers/antigravity_wrapper.py:517-611`, `:1164-1169` @ triad `e0b15f1`): a tool outside the agent's allow-list that EXECUTED withholds the answer as `admission-refused` / 65 with the tool named, and the wrapper never retries it (`:698-711`, `:1678-1704`); this is the measured shape (a model that burned its turns on `manage_task`, 33 lost verdicts). An off-list call that was denied before it ran does not void the answer (`:1705-1714`). This is the wrapper side of the shared leg prompt's sentence that a forbidden call that executes invalidates the review (`prompts/leg-google.md:40`). Shared rule, both hosts (owner, [D-OWNER-ANSWERS-20261008B](../decisions/owner-register.md#D-OWNER-ANSWERS-20261008B) item 7): an agy read-only run whose terminal status is ERROR only because an earlier `finish` submission errored and a LATER `finish` in the same run succeeded (`step_type: finish`, state DONE, no `tool_info.error`) is admitted, the later submission being the answer. The judgement reads structured stream fields only (step type, state, `tool_info.error`, stream order), never message text; an off-list tool that executed, an errored step that is neither an allowed read nor a resubmitted `finish`, or a run that read nothing still refuses. Measured basis: host A's agy leg of 2026-09-27, one run and one conversation holding the errored and then the successful `finish` (triad `docs/reviews/2026-09-27-simple-review-spike.md`, item 4), and 3 of 25 runs on 2026-08-21. On A: the census marks the last successful and the last errored submission by stream position and moves an errored `finish` that a later success follows out of the errored non-read steps (`3rd-Agent/wrappers/antigravity_wrapper.py:553-566`, `:583`, `:592-593`, `:607-611` @ triad `e0b15f1`), and the status check admits it as "a resubmitted submission" (`:714-726`); the read-blind guard still applies. On B: every non-SUCCESS terminal status refuses except its plan-mode permission denial after completion (`bin/antigravity_wrapper.py:312-327` @ `7f75863`), so such a run ends `vendor-error` / 65 and its answer is lost (DL-113). On B the read-only route relies on `--mode plan --sandbox` and reads executed tool steps only as diagnostics (`bin/antigravity_wrapper.py:150-151`, `:178-211` @ `7f75863`); B emits no `admission-refused` (`bin/_common.py:85`). A fact, not an obligation. The agy hook and the gemini read-only policy are TOOL-NAME controls: neither scopes paths, and the read audit records the argument path as given, not a resolved target — they do not by themselves contain a symlink escape (see the Q4 item in R-PREPARE).
+  refused with exit 3 before any vendor work (`:2391-2403`). Historical B baseline before C72: the formal route passed no `--agent`
+  (`bin/antigravity_wrapper.py:151` @ `7f75863`); current profile selection follows R-CONTAIN/C72 above. B: the U7 profile-based route and optional non-mutating project validation described above; no path retains the machine-settings transaction. B's hook stays dormant; no new hook is selected. On A the read-only agy route runs an allow-list census over every attempt's tool steps, retries included (`3rd-Agent/wrappers/antigravity_wrapper.py:517-611`, `:1164-1169` @ triad `e0b15f1`): a tool outside the agent's allow-list that EXECUTED withholds the answer as `admission-refused` / 65 with the tool named, and the wrapper never retries it (`:698-711`, `:1678-1704`); this is the measured shape (a model that burned its turns on `manage_task`, 33 lost verdicts). An off-list call that was denied before it ran does not void the answer (`:1705-1714`). This is the wrapper side of the shared leg prompt's sentence that a forbidden call that executes invalidates the review (`prompts/leg-google.md:40`). Shared rule, both hosts (owner, [D-OWNER-ANSWERS-20261008B](../decisions/owner-register.md#D-OWNER-ANSWERS-20261008B) item 7): an agy read-only run whose terminal status is ERROR only because an earlier `finish` submission errored and a LATER `finish` in the same run succeeded (`step_type: finish`, state DONE, no `tool_info.error`) is admitted, the later submission being the answer. Identification and ordering of finish recovery read structured stream fields only (step type, state, `tool_info.error`, stream order), never infer recovery from message text. The separate denied-before-execution check uses the measured head of a structured `tool_info.error.message`: state must be ERROR and the first non-empty line, stripped and case-folded, must start with `tool call denied by pre-tool hook` or `user denied permission`, or start with `permission check failed for ` whose tail after the last `": ` starts with `user denied permission` or `permission denied for`. A DONE step carrying denial-shaped text is not a denial; neither a generic TOOL_ERROR type nor a phrase quoted mid-message establishes denial. An off-list tool that executed, an errored step that is neither an allowed read nor a resubmitted `finish`, or a run that read nothing still refuses recovery. On B this recovery exception applies at vendor exit0; B's nonzero classifier path remains. A's broader nonzero/errored-read admission is a host fact below, not a requirement to broaden B (maintainer clarification, [DL-113 evidence](../decisions/2026-10-10-agy-resubmission-evidence.md)). Measured basis: host A's agy leg of 2026-09-27, one run and one conversation holding the errored and then the successful `finish` (triad `docs/reviews/2026-09-27-simple-review-spike.md`, item 4), and 3 of 25 runs on 2026-08-21. On A: the census marks the last successful and the last errored submission by stream position and moves an errored `finish` that a later success follows out of the errored non-read steps (`3rd-Agent/wrappers/antigravity_wrapper.py:553-566`, `:583`, `:592-593`, `:607-611` @ triad `e0b15f1`), and the status check admits it as "a resubmitted submission" (`:714-726`); the read-blind guard still applies. On B: every non-SUCCESS terminal status refuses except its plan-mode permission denial after completion (`bin/antigravity_wrapper.py:312-327` @ `7f75863`), so such a run ends `vendor-error` / 65 and its answer is lost (DL-113). On B the read-only route relies on `--mode plan --sandbox` and reads executed tool steps only as diagnostics (`bin/antigravity_wrapper.py:150-151`, `:178-211` @ `7f75863`); B emits no `admission-refused` (`bin/_common.py:85`). A fact, not an obligation. The agy hook and the gemini read-only policy are TOOL-NAME controls: neither scopes paths, and the read audit records the argument path as given, not a resolved target — they do not by themselves contain a symlink escape (see the Q4 item in R-PREPARE).
 - all wrappers: binary presence; a relative `--prompt-file` or `--cwd` is ACCEPTED and resolved against the wrapper PROCESS cwd at argument processing (never the child `--cwd`); every existing validation stays — configured runtime roots where configured, regular file, UTF-8, non-empty; the resolved absolute prompt-file and child-cwd paths are represented in the existing success summary and audit row, using the host's current redaction mode (D-B2). Refusal names the resolved candidate through that same masking policy. An input with no resolvable candidate (`~<no-such-user>`, a relative path once the wrapper's entry cwd is gone) is refused masked under redaction on both hosts; without redaction A names the text given and B the exception class (a fact: A `_resolve_against_entry_cwd`, `3rd-Agent/wrappers/_common.py:1882-1905` @ triad `bf38f60`; B `input_path_error`, `bin/_common.py:537-548` @ `7f75863`). A configuration refusal (an allowed-roots entry that cannot be resolved, a hardened run without allowed roots) names the argument it stopped on, on both hosts (A `_ensure_within_runtime_roots`, `_common.py:1825-1833`; B `input_path_error`, whose label for the prompt file is `prompt load`). Failure-only run logs remain failure-only. Relative spelling alone is never a reason to refuse (C28). A host's other file options that name an existing input file (on A the schema-file options
 `--output-schema-file` / `--json-schema-file`) follow the same rule (on A the resolved schema-file path is recorded in the audit row's `cmd` / the run-log's
 `vendor_cmd`, the vendor argv; the summary tail carries `prompt_file=` only). Path text on a wrapper's stderr lines (a
@@ -670,6 +754,45 @@ The rows hold every phrase a host keeps today (On A `CLI_PATTERNS`, `3rd-Agent/w
 host learns through its classifier repair loop (a proposal from a failed run's own record, applied by deterministic code) is
 promoted to a row of this contract with that record as its evidence, so every host classifies it
 ([D-REPAIR-LOOP-KEEP-20261008](../decisions/owner-register.md#D-REPAIR-LOOP-KEEP-20261008); DL-104).
+**Repair research, both hosts (C76):** after an actual run ends `unknown` or
+`extraction-error`, the read-only repair analyzer may use web search and page
+fetching to explain that run's literal error, exit code and CLI/version context.
+Both hosts expose that capability; a blanket network prohibition must not disable
+this research. Start from the failed run's record and local classifier, then search
+when needed, preferring vendor documentation, source and relevant issue reports.
+Queries contain only sanitized error identifiers/text and version context, never
+credentials, private prompt/source content or the full run log. Cite the URLs used
+and distinguish the observed output from the source's explanation in the existing
+proposal reason or handoff; no new response schema or evidence store is required.
+Search results supplement the run record: they do not prove an unobserved CLI
+message, output field/channel or exit combination. A new error does not
+automatically require a new class or rule. If the evidence supports one existing
+class, propose the existing bounded extension entry; if evidence is insufficient,
+web access is unavailable and needed, or a new class/design is required, report
+the limitation and escalate. The analyzer remains read-only and does not invoke a
+vendor CLI/model to reproduce the failure. The deterministic applier verifies
+against the stored run record, not a fresh vendor call, as DL-104 specifies.
+Verification requires a usable record and a demonstrated classification change;
+returning the record's original classification is not proof of a learned repair.
+A host transport/collection failure that determines the runtime result before
+vendor classification is unsupported evidence for phrase repair. Preserve
+R-TERMINAL's distinction: when the runtime retains a nonzero vendor's diagnosis,
+verification follows that same path over the retained streams and raw exit; it
+does not impose a new complete-output policy. Missing or empty verification input
+is refused without falling through to the mutation path (C76).
+Promote a verified learned phrase through the existing shared-spec authoring
+process with its run evidence and any research sources; resolve a necessary new
+rule before dependent implementation. Preserve existing authentication STOP and
+timeout routing. This authorizes failure-driven research, not routine successful-run
+log audits or speculative error enumeration. Native spawn mechanisms stay host-owned.
+Owner basis: [D-REPAIR-WEB-20261009](../decisions/owner-register.md#D-REPAIR-WEB-20261009).
+Under R-AUTH, both hosts refuse every repair proposal whose classification is
+`oauth-env`, whether it targets a raw phrase, an AGY banner or a vendor exit code.
+Authentication recovery belongs to the user through the vendor's login. This
+proposal refusal does not remove existing curated extension entries or change
+their loading rules. A already implements this boundary; B's corresponding
+correction and verification are tracked in
+[U4b applier evidence](../decisions/2026-10-09-u4b-applier.md).
 A plain fragment that an answer, a reviewed file or a tool's output can contain is never a match phrase: a host may
 search the whole output of a failed run, and such a fragment would hide the real cause behind a retry.
 A row's carrier also names where the sentence is matched; agy's print-timeout row is matched only as a whole stderr line
@@ -677,10 +800,15 @@ beginning `[agy] `, at any vendor exit, and its answer, partial or empty, is nev
 agy folds the middle of a long answer at about 4 KB on the CLI side. It puts an own-line `<truncated N bytes>` /
 `<truncated N lines>` marker in its place and keeps no full copy (observed 2026-07-22, also under stream-json). An
 answer carrying that marker on its own line is `truncated-answer` / 65 and is withheld; a quoted marker inside a sentence
-does not count. On A: `3rd-Agent/wrappers/antigravity_wrapper.py:267-279`, `:1747-1755` @ triad `e0b15f1`. On B the
-folded text is returned as the answer today (`bin/antigravity_wrapper.py:390-399` @ `7f75863`). agy's own turn timeout
-(the `timeout waiting for response` row) is `vendor-timeout` / 65 on A (`:162-174`, `:2006-2020`). On B that run goes
-through `classify()` and ends `unknown` / 1 today (`bin/antigravity_wrapper.py:286-303`, `bin/_common.py:690-778`). A
+does not count. The marker applies to the answer channel the route emits: the raw route's `response`;
+on a schema route, a locally validated `structured_output` remains usable when only the separate `response`
+carries the marker. Tool output, including web-search results, is not the emitted answer channel; do not
+add a tool-output scan or a vendor-bug workaround under this rule. No recursive JSON-field scan or fixed
+answer-size limit is implied. Existing schema, binding and original-JSON checks remain.
+On A, the current response-first check withholds both channels; that is an A implementation fact,
+not the shared requirement, and the mixed-channel pair is unmeasured (DL-102;
+[evidence](../decisions/2026-10-10-u3-remaining-carriers.md)). On A: `3rd-Agent/wrappers/antigravity_wrapper.py:267-279`, `:1747-1755` @ triad `e0b15f1`. Historically B returned the folded raw answer (`bin/antigravity_wrapper.py:390-399` @ `7f75863`); its current candidate implements the selected-channel rule ([evidence](../decisions/2026-10-10-b-agy-answer-truncation.md)). agy's own turn timeout
+(the `timeout waiting for response` row) is `vendor-timeout` / 65 on A (`:162-174`, `:2006-2020`). Historically B classified that run as `unknown` / 1 (`bin/antigravity_wrapper.py:286-303`, `bin/_common.py:690-778` @ `7f75863`); its current candidate emits `vendor-timeout` / 65 on the measured carrier ([evidence](../decisions/2026-10-10-b-agy-turn-timeout.md)). A
 host fact: a nonzero vendor exit with an answer is `vendor-error` / 65 on A (`:1721-1746`). On A's read-only review
 route the answer is instead admitted when every errored step is an allowed read or a `finish` that a later successful
 `finish` follows (the shared resubmission rule, R-CONTAIN) and the run read something (`:654-733`, `:1664-1677`). On B a nonzero vendor exit goes through `classify()` before the answer is read
@@ -708,7 +836,7 @@ DL-110), the gemini error object (code 41
 with its auth banner — classifies `oauth-env`, and no answer, reviewed file or tool output is read for it; the shared order above
 then applies to the rest of the failed run (`3rd-Agent/wrappers/_common.py` `_auth_carrier_stop`, triad `71173cd`,
 in verification). A structured code is a carrier fact `contracts/vendor-failure-lines.json` has no column for.
-Inside a vendor's OWN error carrier the text is the vendor's, never an answer, a reviewed file or tool output, so the
+Except for the measured reflections below, a vendor's OWN error carrier is vendor text, so the
 whole authentication vocabulary there — an API key (an api-key helper included), unauthorized or 401, not logged in, sign in
 or log in (run /login), authentication or credentials, an auth / access / refresh / session / bearer token or its data, an
 expired or unrefreshable token or session, an API credit balance — is the R-AUTH (ii) STOP; a vendor row is evidence of a
@@ -726,6 +854,16 @@ line, at the line start, waits 60 s for a sign-in, ends with `error: authenticat
 authentication-specific exit code — and in stream-json also puts `authentication failed or timed out` into the terminal
 `result.error` (status ERROR, num_turns 0); both are `contracts/vendor-failure-lines.json` rows (host A's wrapper ends that run
 `oauth-env` / 65 with no retry, verified the same day).
+The existing AGY `permission check failed for command ` result error embeds the model's command,
+so that reflected command is not authentication evidence, just as reflected schema-report text is not.
+Skip that permission-denial result error entirely for authentication, including a quoted banner
+inside the command; no capture establishes a vendor sign-in banner there. The CLI's own stderr
+banner and the schema-report exception remain separate carriers. Keep host answer-admission checks;
+do not reclassify a denied command because a filename or command contains authentication words. Likewise,
+Claude `permission_denials` tool input is not the error result. Retaining original streams for the
+authentication predicate must not widen other classification input to those fields. C74 records the
+regression controls and [source evidence](../decisions/2026-10-09-reflected-error-text.md); these controls
+introduce no new vendor field, channel, permission or native-leg mechanism.
 Recorded limits (a fact, owner 2026-10-05,
 [D-MEASURED-SHAPES-20261005](../decisions/owner-register.md#D-MEASURED-SHAPES-20261005)). Vendor error text belongs to the vendor and changes with each release, so a
 host codes only a MEASURED shape — a capture, a row of `contracts/vendor-failure-lines.json`, or the vendor's own
@@ -1007,6 +1145,16 @@ refuted claim → record the specific counterevidence and its limits; design/sco
 deployment context → a recorded fact under R-THREAT; speculation → residual, not speculative code. A fix changes the basis. Verify the proposed repair too: a reviewer's label or suggested design is
 a claim, not an instruction, and a vote is not evidence. Leader triage cannot rewrite approval under R-AGREE.
 
+For prompt development in the current shared spec-to-code effort, apply
+[D-PROMPT-REVIEW-BOUNDED-20261009](../decisions/owner-register.md#D-PROMPT-REVIEW-BOUNDED-20261009):
+two to three passes focus on substantial defects and observed behavior; repeated
+wording disputes are decided by fresh scenario/control choices. Correct choices
+end wording iteration; do not add phrase-pinning tests as a substitute for behavior
+evidence. The owner reviews wording later. Actual unresolved functional defects
+still require correction or escalation. Preserve original review verdicts and
+record an explicit owner disposition separately; this changes no collector enum
+or unanimous-approval calculation.
+
 <a id="R-CLEANUP"></a>
 Cleanup exports and verifies the round's evidence first, then releases only resources the helper can PROVE it allocated or claimed (its own allocation record or marker — never a name shape; an empty directory or a plausible-looking marker can still be foreign); uncertain residue is preserved and reported; it refuses without deleting, states what it observes, and points at the host's deletion command when a tree is not its own. A second cleanup is a no-op.
 Only host code deletes ([D-DELETION-BY-CODE-20261004](../decisions/owner-register.md#D-DELETION-BY-CODE-20261004)).
@@ -1139,21 +1287,26 @@ the absence of `-m` are hygiene, not proof of the billing route. The names a hos
 agreed set) are the union of both hosts' lists, read from the installed CLIs. Every name B removes is in it. Loader /
 interpreter names, identical on both hosts: LD_PRELOAD, LD_LIBRARY_PATH, LD_AUDIT, LD_DEBUG, DYLD_INSERT_LIBRARIES,
 DYLD_LIBRARY_PATH, DYLD_FRAMEWORK_PATH, NODE_OPTIONS, NODE_PATH, PYTHONPATH, PYTHONHOME, PYTHONSTARTUP, BASH_ENV, ENV,
-PERL5LIB, RUBYOPT, RUBYLIB. Credential / endpoint / model-selector names: Google — GOOGLE_API_KEY, GEMINI_API_KEY,
+PERL5LIB, RUBYOPT, RUBYLIB. Credential / endpoint names: Google — GOOGLE_API_KEY, GEMINI_API_KEY,
 GOOGLE_APPLICATION_CREDENTIALS, GOOGLE_GENAI_USE_VERTEXAI, GEMINI_CLI_USE_COMPUTE_ADC, CLOUD_SHELL,
-GOOGLE_GEMINI_BASE_URL, GOOGLE_VERTEX_BASE_URL, GEMINI_MODEL, GEMINI_DEFAULT_AUTH_TYPE, GOOGLE_CLOUD_ACCESS_TOKEN,
+GOOGLE_GEMINI_BASE_URL, GOOGLE_VERTEX_BASE_URL, GEMINI_DEFAULT_AUTH_TYPE, GOOGLE_CLOUD_ACCESS_TOKEN,
 AGY_ADC_AUTH, GOOGLE_GENAI_USE_ENTERPRISE; codex — OPENAI_API_KEY, CODEX_API_KEY, CODEX_ACCESS_TOKEN, OPENAI_BASE_URL,
 OPENAI_ORGANIZATION, OPENAI_PROJECT; claude — ANTHROPIC_API_KEY, ANTHROPIC_AUTH_TOKEN, ANTHROPIC_BASE_URL,
-ANTHROPIC_MODEL, ANTHROPIC_SMALL_FAST_MODEL, CLAUDE_CODE_USE_{BEDROCK, VERTEX, FOUNDRY, ANTHROPIC_AWS,
+CLAUDE_CODE_USE_{BEDROCK, VERTEX, FOUNDRY, ANTHROPIC_AWS,
 ANTHROPIC_GOOGLE_CLOUD, GATEWAY, MANTLE}, CLAUDE_CODE_API_BASE_URL, CLAUDE_CODE_API_KEY_FILE_DESCRIPTOR,
 CLAUDE_CODE_OAUTH_TOKEN, CLAUDE_CODE_OAUTH_TOKEN_FILE_DESCRIPTOR, CLAUDE_CODE_OAUTH_REFRESH_TOKEN,
 CLAUDE_CODE_GATEWAY_TOKEN, CLAUDE_CODE_GATEWAY_TOKEN_FILE_DESCRIPTOR, ANTHROPIC_FOUNDRY_API_KEY,
 ANTHROPIC_FOUNDRY_AUTH_TOKEN, ANTHROPIC_AWS_API_KEY, AWS_BEARER_TOKEN_BEDROCK, ANTHROPIC_IDENTITY_TOKEN,
 ANTHROPIC_IDENTITY_TOKEN_FILE, ANTHROPIC_FEDERATION_RULE_ID, ANTHROPIC_SERVICE_ACCOUNT_ID, ANTHROPIC_PROFILE,
-ANTHROPIC_ORGANIZATION_ID, ANTHROPIC_WORKSPACE_ID. A name of one family is inert in another family's child. The project
+ANTHROPIC_ORGANIZATION_ID, ANTHROPIC_WORKSPACE_ID. A name of one family is inert in another family's child. Filtering checks each name before retrieving its value; an omitted variable is not read merely to discard it (C75). The project
 family GOOGLE_CLOUD_PROJECT, GOOGLE_CLOUD_LOCATION, GOOGLE_CLOUD_REGION and GOOGLE_CLOUD_QUOTA_PROJECT reaches a gemini
 child and is removed on every other route. Not removed: PATH, the CLIs' config-dir pointers, and GOOGLE_GENAI_USE_GCA
-(it selects the login route). On A: one list for every route (`_CHILD_ENV_SCRUB`, `_CHILD_ENV_SCRUB_CREDENTIALS`,
+(it selects the login route). Model/effort user settings are preserved, including
+GEMINI_MODEL, ANTHROPIC_MODEL and ANTHROPIC_SMALL_FAST_MODEL; they are not part
+of the removed-name set. No additional environment inspection, warning or
+effective-effort attestation is introduced (owner
+[D-SELECTOR-PROPOSAL-WITHDRAWN-20261009](../decisions/owner-register.md#D-SELECTOR-PROPOSAL-WITHDRAWN-20261009)).
+The following source snapshots predate that withdrawal. On A: one list for every route (`_CHILD_ENV_SCRUB`, `_CHILD_ENV_SCRUB_CREDENTIALS`,
 `_GEMINI_ROUTE_KEEP`, `3rd-Agent/wrappers/_common.py:3124-3253` @ triad e0b15f1). On B: the loader names on every route
 (`bin/_common.py:1307-1313`), and a per-route subset on the formal routes only (agy `bin/antigravity_wrapper.py:39-50`,
 gemini `bin/gemini_wrapper.py:43-53` @ `7f75863`; DL-71, DL-80, DL-81). The project family stays on the gemini route because the gemini CLI documents that a Company, School or Google
@@ -1162,7 +1315,7 @@ Workspace account signing in with Google may need a Google Cloud project set
 read 2026-10-04). Default model for the Google review leg on BOTH CLIs: the Pro family with a verifiable HIGH thinking configuration (owner Q-W; owner via the codex session, Q2: "두 CLI 모두 Pro 계열 + 확인 가능한 high로 맞춤; 인증 경계 유지"). agy: today's Pro-high catalog slug, recorded in the roster; gemini CLI: a route-valid Pro model whose default thinking level is HIGH (v0.60.0 `defaultModelConfigs.ts` gives Gemini 3 Pro `ThinkingLevel.HIGH`; the agy slug is NOT a portable gemini CLI argument). Flash was retired as a reviewer (0 unique blocking defects over ten rounds, owner 2026-09-14). Slugs are dispatch-time values in the roster's `agy` / `gemini` block, never constants in code; the configured default is recorded separately from the exposed runtime identity; the model option stays selectable only so a future model can be evaluated. B's explicit legacy development path remains Auto-only. B's opt-in v2 adapter selects route-valid Pro defaults and checks supported controls before inference; preflight settings do not prove runtime identity. On A the v2 gemini route passes the roster's model (`lib/roster_v2.py:971-972`; shipped data `spec/review-legs.default.json:42`). Deterministic
 provider-free checks (help, version, policy, argv, env, preflight) stay in each host's automated suite; only authenticated
 service checks go through the owner-briefing route (R-GOOGLE); an unrun authenticated check is unverified, never green. Gemini formal review requires CLI
-`>= 0.34.0` (PR #20639 lands the headless policy-allow fix) and tests the declared supported range. Gemini `--policy`
+`>= 0.63.0` (owner, D-GEMINI-FLOOR-20261009; includes the earlier headless policy-allow fix) and tests the declared supported range. Gemini `--policy`
 REPLACES the user-tier policy directory only; system/admin, workspace and built-in defaults still load (v0.46.0 and
 v0.60.0 `packages/core/src/policy/config.ts`), so an admin policy can outrank the wrapper's denies; the CLI help string
 "Additional policy files" is misleading and the wrapper's TOML header is right.
@@ -1180,7 +1333,9 @@ refuses a model the listing does not name, judging the call's own failure output
 called at `:329-330`); On B the agy preflight runs `agy models` and refuses an unprobeable listing or a model it does not
 advertise (`bin/antigravity_wrapper.py:82-101`, `:635-643` @ `7f75863`) and the gemini route refuses a model its packaged
 list does not name (`bin/data/gemini-models.json`, `bin/google_preflight_v2.py:15-24`, called at
-`bin/gemini_wrapper.py:192-194`). A gemini review leg needs only the 0.34.0 policy floor; a pre-release of a floor
+`bin/gemini_wrapper.py:192-194`). Every Gemini CLI route, including raw investigation and legacy/v2 review, requires 0.63.0 or later
+(owner, [D-GEMINI-FLOOR-20261009](../decisions/owner-register.md#D-GEMINI-FLOOR-20261009)); this is one route floor,
+independent of the requested model, not a model catalog gate. A pre-release of a floor
 version is below that floor (On B `bin/review_round.py:470`), and the observed version is recorded as the CLI printed
 it. The Google Cloud
 access-token variable the gemini CLI reads is an API-key-shaped credential under R-AUTH that neither host removed (DL-81).
@@ -1211,7 +1366,7 @@ Where another rule conflicts — the shared classification order (R-CLASSIFY), R
 R-AUTH decides. Login is the user's own act through the CLI: no host checks or configures the login before a call
 ([D-AUTH-JUDGE-STOP-20261004](../decisions/owner-register.md#D-AUTH-JUDGE-STOP-20261004)); a valid key stored in a CLI's
 own configuration and used silently is the user's responsibility under that decision. Enforcement: (i) the
-child-environment scrub of credential, endpoint and model-selector variables (R-NOCOST; hygiene; exists on both hosts);
+child-environment scrub of credential and endpoint variables (R-NOCOST; hygiene; exists on both hosts);
 (ii) the host judges, from the CLI's own outcome, whether a call failed because the login is missing or expired or a
 credential is API-key-shaped, and that observed authentication failure STOPS the attempt before any other
 classification of the run — no retry, no other method, no fallback. (ii): A done (triad `ca82837`); B to check (DL-76). The gemini

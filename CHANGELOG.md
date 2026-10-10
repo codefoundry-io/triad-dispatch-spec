@@ -1,5 +1,45 @@
 # Changelog
 
+## Bounded prompt development — 2026-10-09 (not tagged)
+
+- Record the owner's two-to-three-pass, substantial-defect and observed-behavior
+  approach for prompt work. Owner accepts B U4a residual wording/test demands and
+  authorizes U4b; original review results and collector semantics are unchanged.
+
+## Repair web research — 2026-10-09 (not tagged)
+
+- R-CLASSIFY/C76 permits failure-driven web search/fetch by read-only repair
+  analyzers on both hosts; observed run evidence remains the proposal basis.
+  Engine-transport ownership includes source/distributed repair instructions.
+  Record D-REPAIR-WEB-20261009. B U4a has bounded source capability and behavior
+  evidence; A remains pending. Full C76 stored-record conformance stays open.
+
+## Child environment name filtering — 2026-10-09 (not tagged)
+
+- C75 makes existing R-AUTH/R-NOCOST name-before-value filtering explicit;
+  record B route-set gaps before implementation and request A verification.
+  No new authentication route, native mechanism or environment name.
+
+## B authentication-carrier evidence — 2026-10-09 (not tagged)
+
+- Record bounded C37/C74 implementation and verification on B, including the
+  reflected-input correction; DL-75/95 candidate complete, DL-92 partial.
+  Full C37/C43 and A verification remain open. No revision adoption or release.
+
+## Reflected denied-command text — 2026-10-09 (not tagged)
+
+- R-CLASSIFY/C74 makes the existing reflected-tool-text exclusion explicit for
+  AGY permission-denial command text and Claude permission_denials. Preserve
+  admission and error-classification inputs; no new carrier or native mechanism.
+  Source evidence and the A verification request are recorded before B correction.
+
+## Owner Gemini support boundary — 2026-10-09 (not tagged)
+
+- D-GEMINI-FLOOR-20261009: both hosts support Gemini CLI from 0.63.0 on raw,
+  legacy and v2 routes. One model-independent floor replaces older floors;
+  no catalog probe or allowlist returns. R-GOOGLE/R-NOCOST, R-CLI-VERSION,
+  C16/C18/C65. Existing capability, authentication and containment checks stay.
+
 ## Owed rows from host A's conformance work — 2026-10-08 (not tagged)
 
 - Reconciliation after the R-MODEL merge (owner rulings 2026-09-27 and 2026-10-08):

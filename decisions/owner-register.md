@@ -2,6 +2,99 @@
 
 Dates in decision headings and IDs are the owner's local date (KST, UTC+9); timestamps given with `Z` are UTC.
 
+<a id="D-U8-WITHDRAWN-20261010"></a>
+## D-U8-WITHDRAWN-20261010: withdraw installation coexistence work
+
+Owner, 2026-10-10, direct instruction to the Codex leader (verbatim):
+
+> 설치 공존 — U8 이건 사용자 문제고 레어케이스니 폐기
+
+Recorded effect: installation coexistence is an operator-managed rare case;
+withdraw B's entire U8 investigation/implementation unit, including dual-install
+launcher resolution, upgrade-path pin probes and the concurrent configuration
+publication investigation. Remove its tests/review work and completion
+dependencies; do not transfer them to another unit or silently reopen them.
+This is WITHDRAWN, not FIXED or verified. A new explicit owner scope decision is
+required to reopen the unit.
+
+B's U8 checks under DL-105/108/109 are withdrawn accordingly; historical rows
+remain evidence, not active scheduling authority. Other requirements once listed
+as U8 references (authentication, binary presence and existing preflight binding)
+are not repealed, and no new work is created by preserving them. Existing
+installation code/tests stay. U7's runtime AGY shared-settings work is separate.
+Share this disposition with A for its own plan reconciliation; it does not
+authorize B to edit A's host code or label A's independent work completed.
+
+<a id="D-NO-CLAUDE-AGENT-BACKLOG-20261009"></a>
+## D-NO-CLAUDE-AGENT-BACKLOG-20261009: remove unsupported agent work
+
+Owner, direct instruction (verbatim):
+
+> claude에 --agent 가 들어가야할 이유가 있으면 넣어 근데 없으면 깔끔하게 플랜 문서 메모리에서 지워라
+
+Current B evidence supplies no need to introduce a named Claude CLI agent:
+the shipped roster has agent null; the adapter and wrapper pass model/effort
+directly; prior bounded diagnostics established reading/searching without agent
+selection. An existing optional pass-through and its tests are not a use case.
+Remove the former U1c task and deferred/resume instructions from active plans,
+handoffs and memory guidance. Do not retain it as a dormant research obligation.
+This supersedes its deferred status under the preceding backlog decision.
+
+This planning/documentation cleanup does not remove the existing optional CLI
+interface or certify its unresolved binding behavior. Conditional C19/DL-49
+compatibility requirements remain if that interface is actually selected;
+they do not create a resolver project. AGY profiles and host-native agents are
+unaffected. A concrete future need is a new scope decision, not automatic resume.
+
+<a id="D-BACKLOG-DISPOSITIONS-20261009"></a>
+## D-BACKLOG-DISPOSITIONS-20261009: distinguish non-active work and plan its removal
+
+Owner, direct instruction (verbatim):
+
+> 보류 폐끼 이식 불필ㅇ됴 항목읁 차이점으로 스펙에 업데이트하고 없애는거 플랜에 넣어
+
+Interpretation: record deferred, withdrawn and no-port differences in the shared
+specification; remove obsolete active tasks and plan removal of confirmed
+remnants. Preserve deferred-feature contracts and historical evidence. The
+[item dispositions and removal scope](2026-10-09-backlog-dispositions.md) apply
+to both hosts' corresponding plans without changing native-leg ownership.
+
+<a id="D-PROMPT-REVIEW-BOUNDED-20261009"></a>
+## D-PROMPT-REVIEW-BOUNDED-20261009: bounded prompt review and U4a residual acceptance
+
+Owner, direct reply to the Codex leader's request to treat the two remaining U4a
+README/phrase-pinning-test demands as nonblocking and proceed to U4b (verbatim):
+
+> OK 프롬프트는 나중에 내가 직잡볼테니 2~3번 큰 디펙만 보고 실제 동직만 보는지금 방식이 맞아
+
+For prompt work in this shared spec-to-code effort, use two to three review
+passes focused on substantial defects and observed behavior. The owner will
+inspect prompt wording later. When wording judgments repeat, use the established
+fresh scenario/control probes; correct decisions end wording iteration. Do not
+add literal-pinning tests solely to satisfy wording review. A demonstrated wrong
+decision or unresolved substantial defect still needs correction or escalation;
+the pass count is not an automatic correctness or approval result.
+
+Specific disposition: the owner accepts B U4a's two remaining demands as
+nonblocking and authorizes the next U4b stage on the existing tested candidate.
+Keep R1/R2/R3 NOT_APPROVED receipts unchanged; record owner acceptance separately.
+No fourth unchanged prompt round, native-leg change, installation, merge or release
+is authorized or required. This does not rewrite the collector or its unanimous
+approval semantics. Both maintainers use the bounded prompt-development guidance;
+each host retains its implementation and native mechanisms.
+
+<a id="D-SELECTOR-PROPOSAL-WITHDRAWN-20261009"></a>
+## Model/effort environment proposal withdrawn — 2026-10-09
+
+Owner (verbatim):
+
+> 이 스펙은 없애자 어차피 사용자 환경 설정은 건드리는거 아니고 기존에 effort는 잘 동작했으니 스펙에서도 폐기해
+
+Discard the additional selector inspection/warning/verification proposal,
+including the preceding preserve-and-warn direction. Preserve user settings
+and existing model/effort forwarding. Historical research is not an outstanding
+implementation requirement. See the [bounded cancellation and host effects](2026-10-09-selector-proposal-withdrawn.md).
+
 
 <a id="D-REVIEW-STRATEGY-20261002"></a>
 ## Review strategy — owner direction, 2026-10-02
@@ -757,6 +850,24 @@ Owner, 2026-10-08, typed answers to host A's leader, item by item (verbatim; the
 
 Recorded effect, host A: (1) the shipped migration starter `CLAUDE.recommended.md` is removed from the distribution; (2) host A's claude CLI wrapper bundle is removed — the claude family runs natively on host A, so C31 / R-INVEST / units.json name no claude CLI route for A; (3) the claude-host installer no longer requires pinned vendor binaries, no longer pins a resolved versioned path and no longer gates an operator's `--pydantic` import (DL-105); (4) host A's codex-host product assembler and its tests are removed (install layers are per host, R-PARITY); (6) host A's pre-spawn review-argv digest refusal is removed — an edited dispatch line is caught at collection by the executed-command receipt, as on B; (9) the agy and gemini daily drift checks are removed; (11) host A's 2026-07 codex-host handoff documents are deleted; (12) the non-review agy read-audit file and (13) the effective child cwd record stay; (15) the agy settings heal stays and its lock goes (no concurrent operation, R-THREAT). Standing: (16) the open spec PRs merge only after every decision is settled; (17) where a versionless representative model name (an alias) works on a CLI, rosters and presets name the alias instead of the exact model ID (it extends D-PRESET-ALIASES-20261006 beyond the claude presets; each CLI's accepted aliases are a measured fact); (20) no test campaign runs until the specification and its implementation are complete; (23) host A's conformance goal closes on its 47 cases.
 
+<a id="D-REPAIR-WEB-20261009"></a>
+## D-REPAIR-WEB-20261009: failure-driven repair web research on both hosts
+
+Owner, 2026-10-09, to B's leader (verbatim):
+
+> 에러가 나면 웹검색 허용이비? 신규에러는 새스펙일테니
+
+After the leader identified B's blanket network prohibition, the owner requested
+the common specification (verbatim):
+
+> 이건 스펙으로 정리해 코덱스 클라루드 공통적용으로 클호드 코드는 웹 검색 미허용이야?
+
+The normative rule is R-CLASSIFY's repair-research paragraph and C76. This extends
+the retained repair loop's research capability on both hosts, not its write or
+vendor-execution authority. Current A and B prohibitions and implementation
+handoff are recorded in [the evidence note](2026-10-09-repair-web-research.md).
+Host implementation, runtime verification and revision adoption are pending.
+
 <a id="D-REPAIR-LOOP-KEEP-20261008"></a>
 ## D-REPAIR-LOOP-KEEP-20261008: the self-improving classifier repair loop stays; its extras go
 
@@ -790,3 +901,46 @@ override, host A gives skill users a guide that explains this and lists the ship
 
 Effect: [R-ROSTER](../reference/review-rules.md#R-ROSTER) (On A), R-REVIEW-WEB (On A), cases C12 and C19,
 `authoring/shared-dev-log.md` DL-49 — their host-A text is rewritten (host A @ triad `3894879`; DL-94).
+
+
+<a id="D-GEMINI-FLOOR-20261009"></a>
+## D-GEMINI-FLOOR-20261009: Gemini CLI support begins at 0.63.0
+
+Owner, 2026-10-09, direct instruction to the Codex leader (verbatim):
+
+> Gemini믄 63부터 지원하는걸로해
+
+The owner selected a common Gemini CLI minimum of 0.63.0 after checking the
+latest stable GitHub release. This replaces the earlier 0.34.0 formal and
+0.60.0/0.61.0 model-specific support boundaries with one route floor. It applies
+to raw investigation and legacy/v2 review on both hosts; it does not change
+model defaults, authorize model-list probes, or alter either host's native leg.
+0.63.0 prereleases are below the floor; later versions still need the existing
+interface, authentication, containment and receipt controls. No effective
+runtime identity is inferred from passing a version gate.
+
+Effects: R-GOOGLE / R-NOCOST, R-CLI-VERSION; C16, C18 and C65. Both host
+maintainers update their Gemini checks and tests; the Codex leader changes B
+only and requests A's equivalent implementation through the shared handoff.
+The earlier alternatives in `2026-10-09-model-pin-version-conflict.md` are
+superseded by this explicit owner choice. No release/adoption is implied.
+
+
+<a id="D-REVIEW-DISCOVERY-20261009"></a>
+## D-REVIEW-DISCOVERY-20261009: independent source discovery; incident-driven log inspection
+
+Owner, 2026-10-09, direct instructions to the Codex leader (verbatim):
+
+> 너는 판단을 하지마 무슨 파일이 연관이 되어 있는지 일일히 읽어서 넣을수도 없고
+> 또 지금처럼 허용파일만 읽었는지 사후 읽기 감사흫 해서 토큰을 낭비하게 할거야? 읽기 감사는 문제가 있을때만 로그를 읽는거지 왜 매번 읽어서 비용을 낭비 시켜?
+
+> 이것부터 수정하고 claude쪽에도 같은 문제가 있으면 스펙에 추가해
+
+Interpretation: the leader supplies a worktree/diff and objective; reviewers discover
+related code. No leader-built exhaustive source allowlist or routine leader read-log
+audit. Explicit exclusions and existing coded route containment/custody checks remain.
+This is not an instruction to disable A's AGY required-input-read or tool-effect gate.
+Source findings and the request to A are in
+[the shared diagnosis](2026-10-09-review-read-boundary.md).
+Effect: R-PROMPT, common code-purpose clause, C70/C71. No native-leg change, revision
+adoption, installation or release is authorized by this record.
