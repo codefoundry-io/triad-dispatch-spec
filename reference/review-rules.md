@@ -318,9 +318,9 @@ absent value. On A: the leader omits `--prior-residual` and no residual block is
 empty or whitespace-only is refused, naming the omission (`lib/review_scratch.py:5535-5538`). On B: an omitted or empty
 value renders the data fence holding the JSON string `""` (`bin/review_round_v2.py:197`). A host may refuse prose that
 collides with its own data framing as an existing input check, and its refusal names the colliding line or characters.
-On A (`lib/review_scratch.py:2783-2796`, `:2809-2847`): a brief carrying an alternate line-separator character; a brief
-line whose stripped text begins and ends with `=====` and is neither exactly `=====` nor the one
-`=====QUESTIONS=====` marker; a residual or excerpt line whose stripped text equals one of the round's fence lines. On
+On A (`lib/review_scratch.py:1681-1694` @ triad 107c5a1b): a residual or excerpt line whose stripped text equals one
+of the round's fence lines; a brief is split on the one `=====QUESTIONS=====` marker line and every other brief line, a
+fence-like one included, is transported as written. On
 B: no such refusal; only `prior_residual` is fenced, as one JSON string inside a fence longer than any backtick run it
 contains, and objective, criteria and approved_boundary are one JSON object outside any fence
 (`bin/review_prompts_v2.py:53-57`, `:121-125`). Those checks do not parse
