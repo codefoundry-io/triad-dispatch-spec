@@ -361,3 +361,12 @@ an actual-writer positive control before B code. U6a corrects ownership; U6b
 retains DL-77's declaration work. C69 and the schema's floor description are
 aligned with R-CLEANUP's already-existing explicit-close/resumption exception.
 No new public deletion API, shared age policy or A implementation request.
+
+## B AGY settings interaction, 2026-10-10
+
+[U7 provider-free two-folder spike](../decisions/2026-10-10-b-agy-settings-spike.md)
+records the actual guard's temporary settings visibility and restoration over a
+second fixture writer's change. No real settings/provider or live incident is
+claimed. A c2f28ca2 has no corresponding settings transaction; its agent admission
+mechanism is not automatically copied. DL-107/112 design and containment evidence
+remain pending; a substantial replacement choice requires the owner.
