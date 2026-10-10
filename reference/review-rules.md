@@ -666,8 +666,7 @@ into the summary line a caller parses. An ordinary POSIX path prints byte-identi
 the raw value (`3rd-Agent/wrappers/_common.py:2110-2178`, `:5696`; `3rd-Agent/wrappers/antigravity_wrapper.py:2631` @
 triad `e0b15f1`). On B the summary line carries no path (`bin/_common.py:1685-1689` @ `7f75863`). The resolved paths
 print raw on their own `resolved_prompt_file=… effective_cwd=…` line (`bin/_common.py:574`, through the plain `print` of
-`log`, `:322-324`), so a path that holds a line break splits that line (no run has shown one). On A: relative paths are rebased on the process-entry cwd and then validated (`3rd-Agent/wrappers/_common.py:1800-1844`, `:1865-1881`); On B: `bin/_common.py:502-537`; stdin delivery confirmed or refused (fail closed); process group captured at spawn and
-  reaped on timeout / abnormal unwind and normal exit under R-TERMINAL (On A: `_common.py:3198-3205`, `:3333-3381`; On B: `bin/_common.py:1357-1386`); reader and writer completion before success (On A: incomplete readers fail closed, `_common.py:3433-3437`; On B: incomplete/error collection is rejected); schema validation with one clean repair retry where a leg relies on it; verdict
+`log`, `:322-324`), so a path that holds a line break splits that line (no run has shown one). On A: relative paths are rebased on the process-entry cwd and then validated (`3rd-Agent/wrappers/_common.py:1800-1844`, `:1865-1881`); On B: `bin/_common.py:502-537`; exact input availability and direct-child completion under R-TERMINAL; final output capture without descendant lifecycle management; schema validation with one clean repair retry where a leg relies on it; verdict
   binding to review id, family and content digest; round integrity capture/verify.
 - cleanup (only host code deletes, from declared roots — R-CLEANUP): refuses without deleting when a tree is not provably its own; ownership is proven by an allocation record or
   marker, never by a name shape (On A: a `<name>.pruning` dir is reclaimed with the `.claim` record written before its rename, `lib/review_scratch.py:705-722`; On B: allocation provenance, verified export and root identity for stale and explicit cleanup, `bin/review_round.py:1017`, `:1060`, `:1232-1242`). Open exception on A, pending DL-54: an EMPTY unclaimed `.pruning`
@@ -676,56 +675,52 @@ print raw on their own `resolved_prompt_file=… effective_cwd=…` line (`bin/_
   branch `claude/r-model` (PR #6).
 
 <a id="R-TERMINAL"></a>
-Transport success requires: process exit collected, all reader threads joined without error, the owned process group
-reaped, stdin delivery confirmed. A settings-guard release failure after a completed transcript is still a failure; the
-transcript is preserved. A display-mirror failure is distinct from a failure to capture the result.
-A dispatch lasts from the moment the wrapper starts it until the engine's last signal check (the end of its last vendor
-run), every attempt and the gaps between them included (server-capacity backoff, schema-repair turns), whether or not a vendor child is running. A
-wrapper signalled (SIGTERM or SIGHUP) anywhere inside a dispatch reaps any owned group and ends as a terminal failure:
-token `unknown`, exit 1 (`EXIT_CLI_FAIL`), the answer withheld, and an extraction error naming the signal (`wrapper
-interrupted (<SIG>)`), recorded like any failed dispatch. A signal outside a dispatch — before the wrapper starts it
-(argument checks; on B also its preflight probes) or after its terminal record — leaves no record; on A a pre-dispatch
-vendor probe runs in the record-only mode a dispatch uses (below). On B: `_run_once` records the
-signal and `_mark_signal_failure` sets that shape (`bin/_common.py:1400-1452` @ `7f75863`); the record-only handler is
-installed inside `_run_once` only (`:1425-1441`), so a signal between attempts exits 143 with no record (DL-70). On A:
-every window of a dispatch ends in that shape with its summary, audit row and run-log — after the spawn, in the wait,
-inside the timeout arm's group kill (the SIGKILL escalation kept) and between attempts (`_terminal_signal_to_exit`,
-`3rd-Agent/wrappers/_common.py:3441-3448`; `_run_once`, `:3559-3585`, `:3924-3949` @ triad `bf38f60`). A signal after
-the engine's last check is not consumed, and the hosts differ: on A the handler only records once a dispatch began, so the
-completed answer is published and recorded `ok` (`_terminal_signal_to_exit` @ triad `e40001d`); on B the default handlers
-are restored when the run returns, so a later signal ends the process at 128+signum with no record (`bin/_common.py:1418-1441`
-@ `7f75863`). On A a signal during ANY pre-dispatch vendor probe (agy `--version`, gemini's review preflight) ends in the interrupted-run record (summary, audit row, run-log written) once the bounded probe returns, never a bare 128+signum exit (@ triad `3fde8d6`, `7e9e1fb`); at triad `e0b15f1` A also runs an agy model-catalog call before a pinned review dispatch, which reaps its own group on a cut-short or a normal exit (`3rd-Agent/wrappers/antigravity_wrapper.py` `_model_catalog_refusal`) — code that goes under R-MODEL (DL-116); the gemini preflight and
-`agy --version` are plain `subprocess.run` calls with no group of their own, so a helper they might fork is not reaped (a
-recorded limit — no run has shown one; `3rd-Agent/wrappers/gemini_wrapper.py` `_probe`, `antigravity_wrapper.py` `_probe_agy_version`).
-A failed stderr write drops that one line, never the answer or the exit, and a dropped line is never written later; a
-stderr closed at start drops every line. A full non-blocking stderr drops the line at once, and a blocking stderr whose
-reader stops draining blocks the wrapper — both are recorded limits, not bounded (no run has shown either; On A `log` @
-triad `e40001d`; B writes with a plain `print`, `bin/_common.py:322-324` @ `7f75863`). A caller missing a summary or
-read-audit custody line refuses to collect — fail closed. A failed
-host record write (audit row, run-log, debug log) never changes the provider result or loses the answer, on both hosts (A
-one stderr line, and A's record seam catches any exception, not only an OSError — `_dispatch_record` @ triad `e40001d`;
-B `audit()` returns False, `bin/_common.py:2139-2153` @ `7f75863`); on A a review attempt whose run-log
-was lost carries no receipt, so it is INVALID at collection and retried, never agreed. Verdict
-precedence, both hosts: a timeout verdict stands over a signal (an interrupted run is `unknown` / 1 and never retried);
-frozen R-AUTH has no carve-out for a signalled attempt, so on A a signalled codex or gemini run's captured output
-goes through the auth-carrier rung first and a carrier STOP ends `oauth-env` / 65 (`_common.py` `_run_once` @ triad
-`fdd7029`; gemini's exit code 41 is read inside that rung, @ triad `8909103`; B: DL-95); a recorded limit on A: a
-signalled agy run's carriers are not read (no measured agy carrier capture) — `unknown` / 1, never retried. A probe
-that recorded a signal keeps the record-only mode until its refusal record is written, so a second SIGTERM / SIGHUP in
-that window is recorded too (frozen C1; `gemini_wrapper.py` preflight, `antigravity_wrapper.py` `--version` probe, and
-its catalog call until that goes, DL-116, @ triad `0115727`); a signal replaces a stdin-delivery or reader failure; a
-stdin-delivery or reader failure replaces a vendor exit code of 0 (A `:3924-3949`; B `bin/_common.py:1433-1437`,
-`:1663-1679` @ `7f75863`). A run whose output readers did not all finish without error fails closed at a vendor exit 0
-on both hosts, with different tokens (a fact): On A `truncated-answer` / 65, the captured prefix kept for the run-log and
-never returned (`3rd-Agent/wrappers/_common.py:3886-3889`, `:3916-3920` @ triad e0b15f1), and A's agy driver applies the
-same at any vendor exit (`antigravity_wrapper.py:1424-1455`); On B `unknown` / 1 with the transport failure recorded and
-classification skipped (`bin/_common.py:1641-1674`, `:1680-1684` @ `7f75863`), applied also to a transport setup failure
-at any exit. At a nonzero vendor exit, A's codex / gemini runs and B's runs keep the vendor's own diagnosis. A signal between attempts (a server-capacity backoff, a schema-repair turn) spawns nothing:
-the previous attempt's record, with its captured evidence, carries the signal failure, and the agy driver adds no
-attempt to the read audit for it (On A: `_common.py:3561-3585`, `3rd-Agent/wrappers/antigravity_wrapper.py:1061-1072`;
-B has no handler there, DL-70). A helper outside the owned process group that still holds the child's stdout keeps
-that pipe open; cleanup closes only the pipes no live reader still blocks on, so it stays bounded (A `_common.py:3749-3758`;
-B `bin/_common.py:1623-1630`).
+### Vendor invocation and result collection
+
+This contract replaces the former thread-completion/process-group prescription
+([owner decision](../decisions/2026-10-11-vendor-invocation-boundary.md)). It applies
+to both hosts' external CLI legs; each host's native leg remains host-owned.
+
+The vendor owns its agent loop, tools, descendants and session lifecycle. The
+host launches the selected CLI, observes its direct completion, captures its
+result, and applies the existing classification, schema and review-binding rules.
+Do not infer review success from exit0 alone. Do not sweep or kill descendants
+because the direct CLI completed, or reproduce a vendor's internal process manager.
+
+Provide the exact complete input through the CLI's selected input interface.
+For stdin, `complete` means all UTF-8 input was prepared and made available to
+the launched CLI, not that the vendor consumed or understood it. Preparation or
+encoding failure prevents launch (`not-started`). A CLI that closes stdin early
+is judged by its result; no BrokenPipe, byte-consumption or file-offset audit is
+required. The existing receipt keys and enum values do not change (C9).
+
+Capture stdout and stderr independently. After direct-child completion, collect
+the observed final snapshot without waiting for descendant EOF or later writes.
+A local capture failure or invalid UTF-8 cannot turn exit0 into success. Preserve
+available failure evidence and the real vendor exit; observed authentication STOP
+retains R-AUTH precedence. Missing/incomplete or wrong-bound review results are
+still refused by the existing parsers and validators.
+
+On timeout or cancellation, stop and reap the direct child with bounded ordinary
+termination. Withhold the answer even if the child handles termination by exiting0.
+Timeout retains precedence over a concurrent signal, except observed R-AUTH STOP.
+Catchable SIGTERM/SIGHUP observed during result collection yields the existing
+`unknown`/1 interruption outcome unless a higher-priority failure applies. A bare
+nonzero process termination outside that collection window is also a failed
+invocation; identical summary/audit records in every signal window are not required.
+No host guarantee covers every descendant or remote operation after cancellation.
+
+Live provider-output mirroring is not required. Keep captured stderr for diagnosis;
+best-effort display failure must not replace the result or replay a dropped line.
+Partial setup/spawn/capture failures release invocation-owned resources and cannot
+produce success (C2). Use existing own-artifact cleanup; no new janitor is implied.
+
+On B, the selected implementation uses invocation-owned anonymous temporary stream files,
+ordinary direct-child supervision and offset-independent final reads. These are
+host implementation choices, not requirements for A's internal code. Verification
+is recorded separately in C1/C2/C9; the rule does not claim completed host adoption. Historical
+mechanisms and their former test evidence are retained only in the linked
+[superseded record](../decisions/2026-10-11-terminal-contract-superseded.md).
 
 <a id="R-TOKENS"></a>
 Every classification token a host EMITS is a member of `contracts/exit-tokens.json` and maps to the same exit code there;

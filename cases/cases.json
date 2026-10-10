@@ -6,24 +6,24 @@
       "id": "C1",
       "surface": "engine-transport",
       "rule": "R-TERMINAL",
-      "summary": "Normal child exit with inherited stdout/stderr; incomplete stdin; timeout; catchable SIGTERM/SIGHUP",
-      "input": "a vendor child that exits normally with inherited pipes / one whose stdin write fails / one that exceeds the timeout / one killed by SIGTERM",
-      "expected": "Success only after readers joined and the owned group is reaped; incomplete stdin = fail closed (A token input-delivery-failed / exit 65; B RunResult flag); timeout and signals leave a terminal record and no orphan; a dispatch whose wrapper is signalled (SIGTERM / SIGHUP) while it runs reaps the group and records `unknown` / exit 1 with the answer withheld and an extraction error naming the signal (`wrapper interrupted (<SIG>)`); a signal outside a dispatch leaves no record (R-TERMINAL)",
+      "summary": "Direct CLI completion, inherited handles, input availability and cancellation",
+      "input": "a normally exiting CLI with a descendant retaining output handles; a CLI closing prepared stdin early; failed input preparation; timeout or catchable SIGTERM/SIGHUP, including a child exiting0 on termination",
+      "expected": "Collect the direct CLI result without waiting for descendant EOF or sweeping descendants. Full stdin preparation and availability is complete, not vendor-consumption proof; early stdin close alone is not failure. Preparation/capture failure and invalid UTF-8 cannot become success. Timeout/cancellation withholds the answer, stops/reaps the direct child, and never agrees even if it exits0; R-AUTH precedence remains. Existing schema/completeness/binding checks apply. No no-orphan or every-signal-window record guarantee. Replaces the prior implementation prescription by owner decision 2026-10-11.",
       "tests": {
-        "A": "tests/unit/wrappers/t48*, tests/integration/f12* (stdin); timeout/signal terminal record on the agy route: tests/unit/wrappers/t15-agy-driver-decision.sh axis 28/28b (a wrapper timeout on a newline-terminated stream stamps the census row `interrupted: \"timeout\"` and no `truncated_tail`; a signalled child stamps `\"signal\"`; a child's own exit stamps nothing), tests/unit/wrappers/t13-agy-stream-digest.sh axis 32 (merge carries it), tests/unit/wrappers/t40-agy-read-audit-file.sh axis 24 (the written read-audit file carries it); the reader side: tests/unit/skills/t9-agy-hook.sh axes 23/34 (an `interrupted` row is INCONCLUSIVE; a vendor-ended `result_events: 0` row with a complete transcript stays whole) — fix wave 17 (DL-11). Signalled wrapper mid-dispatch -> `unknown` / exit 1 with summary, audit row and run-log: pending merge, triad stage3/engine-transport @ 221d556 (tests/unit/wrappers/t53 axis 7, four wrappers; t27 (o); tests/system/wrappers/agy-proc/s1); the windows after the spawn before the protected setup, during the timeout arm's group kill and between attempts: in progress (Task 19 fix round 2, L1; authoring/shared-dev-log.md DL-70)",
-        "B": "Implemented and regression-covered in B e29d820 (P1, triad-b-p1-r2 ADMITTED_SAFE): tests/test_terminal_transport.py and existing stdin/provider tests cover bounded readers/stdin reconciliation, owned-group cleanup, normal exit and timeout/error custody. This is source/test evidence, not shared receipt-schema or every provider/platform conformance. Check suggested: the record-only handler is installed inside _run_once (bin/_common.py:1425-1441 @ 7f75863), so a signal between attempts (backoff, schema repair) exits 143 with no record (authoring/shared-dev-log.md DL-70)."
+        "A": "Replacement contract verification pending. Earlier implementation evidence is historical, not proof of the new expectation: tests/unit/wrappers/t48*, tests/integration/f12* (stdin); timeout/signal terminal record on the agy route: tests/unit/wrappers/t15-agy-driver-decision.sh axis 28/28b (a wrapper timeout on a newline-terminated stream stamps the census row `interrupted: \"timeout\"` and no `truncated_tail`; a signalled child stamps `\"signal\"`; a child's own exit stamps nothing), tests/unit/wrappers/t13-agy-stream-digest.sh axis 32 (merge carries it), tests/unit/wrappers/t40-agy-read-audit-file.sh axis 24 (the written read-audit file carries it); the reader side: tests/unit/skills/t9-agy-hook.sh axes 23/34 (an `interrupted` row is INCONCLUSIVE; a vendor-ended `result_events: 0` row with a complete transcript stays whole) — fix wave 17 (DL-11). Signalled wrapper mid-dispatch -> `unknown` / exit 1 with summary, audit row and run-log: pending merge, triad stage3/engine-transport @ 221d556 (tests/unit/wrappers/t53 axis 7, four wrappers; t27 (o); tests/system/wrappers/agy-proc/s1); the windows after the spawn before the protected setup, during the timeout arm's group kill and between attempts: in progress (Task 19 fix round 2, L1; authoring/shared-dev-log.md DL-70)",
+        "B": "Replacement contract verification pending. Earlier implementation evidence is historical, not proof of the new expectation: Implemented and regression-covered in B e29d820 (P1, triad-b-p1-r2 ADMITTED_SAFE): tests/test_terminal_transport.py and existing stdin/provider tests cover bounded readers/stdin reconciliation, owned-group cleanup, normal exit and timeout/error custody. This is source/test evidence, not shared receipt-schema or every provider/platform conformance. Check suggested: the record-only handler is installed inside _run_once (bin/_common.py:1425-1441 @ 7f75863), so a signal between attempts (backoff, schema repair) exits 143 with no record (authoring/shared-dev-log.md DL-70)."
       }
     },
     {
       "id": "C2",
       "surface": "engine-transport",
       "rule": "R-TERMINAL",
-      "summary": "Child or reader-thread start failure after partial setup",
-      "input": "a reader-thread or child start that raises after partial setup",
-      "expected": "Terminal failure recorded; partial resources released; no success token",
+      "summary": "Input/capture preparation, spawn or capture failure",
+      "input": "invocation resource preparation or child spawn raises; final output snapshot cannot be read or decoded",
+      "expected": "Failure, no successful answer, invocation-owned resources released; stop/reap a still-running direct child on abnormal unwind. No thread-start implementation requirement. Preserve actual nonzero vendor/auth diagnosis when available.",
       "tests": {
-        "A": "tests/unit/wrappers/t53-terminal-transport-c1c2.sh @ triad ebc4dc7",
-        "B": "Implemented in B e29d820: tests/test_terminal_transport.py covers post-spawn reader/writer start failures and cleanup of the child and already-started threads; existing spawn/interrupt cases retained. triad-b-p1-r2 ADMITTED_SAFE."
+        "A": "Replacement contract verification pending. Earlier implementation evidence is historical, not proof of the new expectation: tests/unit/wrappers/t53-terminal-transport-c1c2.sh @ triad ebc4dc7",
+        "B": "Replacement contract verification pending. Earlier implementation evidence is historical, not proof of the new expectation: Implemented in B e29d820: tests/test_terminal_transport.py covers post-spawn reader/writer start failures and cleanup of the child and already-started threads; existing spawn/interrupt cases retained. triad-b-p1-r2 ADMITTED_SAFE."
       }
     },
     {
@@ -104,10 +104,10 @@
       "rule": "R-RECEIPT",
       "summary": "Transport receipt fields",
       "input": "one dispatch on each route",
-      "expected": "Receipt carries stdin delivery class, route, binary, observed version",
+      "expected": "Receipt carries stdin delivery class, route, binary and observed version. complete means exact full UTF-8 input made available to the launched CLI, not consumption attestation. Input preparation/encoding/spawn failure is not-started; early vendor stdin close alone does not change complete.",
       "tests": {
-        "A": "tests/unit/wrappers/t51-transport-receipt.sh @ triad ebc4dc7",
-        "B": "Implemented in the local B P3 candidate based on 3d62b7c. Actual CLI transport object and native null binary/version are preserved in invocation-owned custody. Regression sources: tests/test_common_transport_receipt.py, tests/test_v2_evidence_custody.py, tests/test_v2_round_cli.py, tests/test_v2_review_findings.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred."
+        "A": "Replacement contract verification pending. Earlier implementation evidence is historical, not proof of the new expectation: tests/unit/wrappers/t51-transport-receipt.sh @ triad ebc4dc7",
+        "B": "Replacement contract verification pending. Earlier implementation evidence is historical, not proof of the new expectation: Implemented in the local B P3 candidate based on 3d62b7c. Actual CLI transport object and native null binary/version are preserved in invocation-owned custody. Regression sources: tests/test_common_transport_receipt.py, tests/test_v2_evidence_custody.py, tests/test_v2_round_cli.py, tests/test_v2_review_findings.py. Corrected-byte platform outcomes, formal admission and distribution are tracked separately in decisions/host-b-p3-verification.md; no authenticated service conformance is inferred."
       }
     },
     {

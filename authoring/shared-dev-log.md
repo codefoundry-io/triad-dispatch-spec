@@ -1,5 +1,13 @@
 # Shared development log — defects and drift found while implementing the common items
 
+## Vendor invocation replacement contract, 2026-10-11
+
+The owner approved [the replacement contract](../decisions/2026-10-11-vendor-invocation-boundary.md).
+R-TERMINAL and C1/C2/C9 now define observable invocation/input/result behavior;
+former thread/group mechanics are retained as superseded evidence only. This is
+new common implementation guidance for both hosts, not a request to copy or fix
+the other host's internals. B implementation follows; A adopts independently.
+
 ## DL-91 B completion, 2026-10-10
 
 [Retired task engine removal](../decisions/2026-10-10-b-retired-task-code.md)

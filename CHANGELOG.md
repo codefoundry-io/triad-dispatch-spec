@@ -1,5 +1,16 @@
 # Changelog
 
+## Vendor invocation replacement — 2026-10-11 (not tagged)
+
+- Replace R-TERMINAL's reader-thread/process-group prescription with vendor-owned
+  lifecycle, direct-call supervision and final result collection. C1/C2/C9 and
+  engine-transport follow this contract; earlier expectations are historical.
+- Input complete means exact full input availability, not vendor consumption.
+  No early-close surveillance, normal-exit descendant sweep or live mirror is
+  required. Preserve cancellation failure, auth STOP and result validation.
+- Owner approved the recommendation and requested replacement guidance rather
+  than host correction demands. Both native legs remain host-owned; no adoption.
+
 ## Bounded prompt development — 2026-10-09 (not tagged)
 
 - Record the owner's two-to-three-pass, substantial-defect and observed-behavior

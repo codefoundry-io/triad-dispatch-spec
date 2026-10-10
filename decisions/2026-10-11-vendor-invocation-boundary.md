@@ -1,8 +1,11 @@
-# Direct vendor invocation boundary — concrete design proposal
+# Direct vendor invocation boundary — replacement contract
 
-Status: owner approved the simplification direction; input-delivery semantics
-remain a concrete decision before normative amendment or host implementation.
-No current rule, case expectation or adopted revision changes in this proposal.
+Status: owner approved the recommended input-delivery meaning and implementation
+on 2026-10-11. This replaces the draft's former transport prescription through
+R-TERMINAL and C1/C2/C9; it is not a host correction request. Host implementation
+and verification follow independently. No adopted revision or release changes.
+
+Owner direction (verbatim): "권장 진행 스펙에도 언급 스펙에는 수정을 요규하기보다 새로운 스펙 교체나 지침처럼 넣을것"
 
 ## Basis and purpose
 
@@ -17,7 +20,7 @@ only the sweep leaves reader completion dependent on descendant EOF. A's
 `3rd-Agent/wrappers/_common.py` `_kill_proc_group`/`_run_once` has the same
 coupling; this is comparative evidence, not a design requirement.
 
-## Proposed shared outcome
+## Selected shared outcome
 
 1. Vendor CLI owns descendants, internal retries/tools and native session cleanup.
    The host supervises its direct invocation and validates the review result.
@@ -34,7 +37,7 @@ coupling; this is comparative evidence, not a design requirement.
    existing classification. Failed best-effort display cannot replace the result.
    Identical records in every possible signal window are not a shared guarantee.
 
-Proposed B mechanism: anonymous invocation-owned temporary files for stdin and
+Selected B mechanism: anonymous invocation-owned temporary files for stdin and
 separate stdout/stderr, with ordinary direct-child wait. Snapshot stream sizes
 after completion and read without changing the inherited file offset. These are
 host implementation details, not new shared wire fields or an agent framework.
@@ -42,7 +45,7 @@ The same boundary applies to A's common CLI code; its native leg stays A-owned.
 
 ## Input-delivery decision
 
-Recommendation: `stdin_delivery=complete` means the exact complete UTF-8 input
+Approved meaning: `stdin_delivery=complete` means the exact complete UTF-8 input
 was prepared and made available to the launched CLI. It does not attest vendor
 consumption or understanding. Invalid encoding or failed file preparation prevents
 launch. CLI failures remain failures; output validation remains mandatory.
@@ -54,7 +57,7 @@ that error; this specific refusal disappears. The current PIPE `complete` also
 does not prove semantic consumption, and can succeed when a small unread prompt
 fits in the pipe. No installed-vendor incident of false success is claimed.
 
-Alternative: retain PIPE delivery monitoring, and therefore some custom writer
+Rejected alternative: retain PIPE delivery monitoring, and therefore some custom writer
 lifecycle or another consumption check. Do not silently add file-offset auditing
 or pretend standard `communicate()` preserves the old BrokenPipe observation.
 This decision affects C1/C9 and the receipt's meaning, not its field names.
@@ -87,9 +90,9 @@ This decision affects C1/C9 and the receipt's meaning, not its field names.
   suggested additional owner choice about relaxing it is unnecessary. Google's
   characterization of that test as implementation-only is rejected: capture
   correctness is an observable behavior. These are leader dispositions, not
-  formal review admission. The sole pending owner choice remains early stdin close.
+  formal review admission. The owner has now approved dropping early-close detection.
 
-## Implementation and verification after the decision
+## Implementation and verification
 
 Amend R-TERMINAL, its R-THREAT summary, C1/C2/C9 and the engine-transport unit
 first, recording prior wording as superseded history. C2 covers partial resource
