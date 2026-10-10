@@ -230,3 +230,17 @@ def test_task_blocked_has_one_producer_the_codex_host_claude_wrapper():
 
 def test_no_row_is_left_open_on_spec():
     assert _status_ids(r"OPEN \(spec") == set()
+
+
+def test_no_host_a_row_is_left_open():
+    assert _status_ids(r"OPEN \(A") == set()
+    assert _status_ids(r"IN-PROGRESS \(A") == set()
+    assert _footer_ids("Rows with A work open:") == set()
+
+
+def test_host_a_case_cells_carry_no_open_marker():
+    allowed = {"C24"}   # the per-platform evidence is written by the test campaign (claude-host implementation Phase 12)
+    for cid, case in cases().items():
+        if cid not in allowed:
+            assert not re.search(r"\b(todo|pending|ids to map|in verification)\b", case["tests"].get("A", "")), cid
+    assert "verification pending" not in " ".join((ROOT / "reference/review-rules.md").read_text().split())

@@ -20,14 +20,14 @@ An exception may authorize separate human action, but is recorded as an exceptio
 agreement. A later agreed round must independently satisfy this rule on its current basis (R-REREVIEW).
 Collection itself runs the round integrity check before it reports agreement, on both hosts (DL-52); a skipped or
 too-early separate check never yields AGREED. On B: `collect` runs `_load_basis` (seal, digest, `verify_round` at
-`bin/review_round.py:1908-1931`) at its start and end (`bin/review_round_v2.py:508`, `:532`). On A (cited @ triad `ce30d82`, verification pending):
+`bin/review_round.py:1908-1931`) at its start and end (`bin/review_round_v2.py:508`, `:532`). On A (@ triad `ee011968`):
 when every entry agrees, `collect` runs `review_scratch.py verify` itself before it writes an AGREED record
-(`lib/collect_v2.py:2422-2446`); a failed check refuses (exit 2) and leaves the previous collection record untouched,
+(`lib/collect_v2.py:1555-1582`); a failed check refuses (exit 2) and leaves the previous collection record untouched,
 with one refusal — the round is INVALID, prepare a new round (triad `bb933c6b`, `lib/collect_v2.py` `collect`), as B. A
 check that cannot be launched or does not finish is a host fault (exit 64): nothing about the round is known, repair the
 host and collect again. `close` runs a fresh check of the latest captured round and never refuses on its outcome, even
-when the check cannot run: it warns and closes (`_report_verification_state`, `lib/review_scratch.py:1173-1208`,
-called at `:1275`).
+when the check cannot run: it warns and closes (`_report_verification_state`, `lib/review_scratch.py:650-679`,
+called at `:760`).
 A host fault met anywhere in `collect` or `retry` — this host cannot judge any reply or cannot run its own check (the
 admission library or contract cannot be loaded or read, the integrity check cannot be launched or finish) — stops the
 step: it is never recorded as one entry's state, a leg outcome or one entry's refusal with its remedy, and `collect`
@@ -598,7 +598,7 @@ into the summary line a caller parses. An ordinary POSIX path prints byte-identi
 the raw value (`3rd-Agent/wrappers/_common.py:2110-2178`, `:5696`; `3rd-Agent/wrappers/antigravity_wrapper.py:2631` @
 triad `e0b15f1`). On B the summary line carries no path (`bin/_common.py:1685-1689` @ `7f75863`). The resolved paths
 print raw on their own `resolved_prompt_file=… effective_cwd=…` line (`bin/_common.py:574`, through the plain `print` of
-`log`, `:322-324`), so a path that holds a line break splits that line (no run has shown one). On A: relative paths are rebased on the process-entry cwd and then validated (`3rd-Agent/wrappers/_common.py:1800-1844`, `:1865-1881`); On B: `bin/_common.py:502-537`; stdin delivery confirmed or refused (fail closed); process group captured at spawn and
+`log`, `:322-324`), so a path that holds a line break splits that line (no run has shown one). On A the read-audit gate's printed remedies follow R-RETRY — ABSENT → `retry` (a never-set `TRIAD_READ_AUDIT_FILE` is a dispatch fault: run the line `retry` prints); an audit jq cannot use → `retry` first, a new round only when `retry` refuses because the file cannot be read; a custody mismatch (an audit beside the attempt that no dispatch of its own named) and VOID → `retry`; a broken round hook log or a hooks.json that failed to load → a new round (`lib/read_audit_gate.sh`, `lib/collect_v2.py` `_agy_custody_reason`, `lib/agy_hook.py` @ triad `5534a7df` + `ee011968`). On A: relative paths are rebased on the process-entry cwd and then validated (`3rd-Agent/wrappers/_common.py:1800-1844`, `:1865-1881`); On B: `bin/_common.py:502-537`; stdin delivery confirmed or refused (fail closed); process group captured at spawn and
   reaped on timeout / abnormal unwind and normal exit under R-TERMINAL (On A: `_common.py:3198-3205`, `:3333-3381`; On B: `bin/_common.py:1357-1386`); reader and writer completion before success (On A: incomplete readers fail closed, `_common.py:3433-3437`; On B: incomplete/error collection is rejected); schema validation with one clean repair retry where a leg relies on it; verdict
   binding to review id, family and content digest; round integrity capture/verify.
 - cleanup (only host code deletes, from declared roots — R-CLEANUP): refuses without deleting when a tree is not provably its own; ownership is proven by an allocation record or
@@ -724,7 +724,7 @@ verdicts and the read-only allowlist census, above every answer, ok and retry br
 (`3rd-Agent/wrappers/antigravity_wrapper.py:179-187`, `:1135-1150` @ `cbc67f6`); on A the auth-carrier rung below now
 comes before it. The shared order also lets an API-key-shaped sentence on the same failed run as a server-capacity
 sentence classify `server-capacity` and be retried; under the absolute law (R-AUTH (ii)) that is a defect both hosts fix,
-not a limit: A in verification (Task 22), B to change (DL-75).
+not a limit: A fixed (triad `ca82837`, Task 22), B to change (DL-75).
 On A the auth-carrier rung comes first (R-AUTH (ii)): after the ok return and before every other rung — the timeout
 verdict included — an
 authentication sentence or structured code in the vendor's OWN error carrier — the codex `error` / `turn.failed`
@@ -733,7 +733,7 @@ DL-110), the gemini error object (code 41
 `FatalAuthenticationError` or 401, or its message; gemini CLI 0.60.0), agy's `result.error` and a stderr line beginning
 with its auth banner — classifies `oauth-env`, and no answer, reviewed file or tool output is read for it; the shared order above
 then applies to the rest of the failed run (`3rd-Agent/wrappers/_common.py` `_auth_carrier_stop`, triad `71173cd`,
-in verification). A structured code is a carrier fact `contracts/vendor-failure-lines.json` has no column for.
+merged at triad `ca82837`). A structured code is a carrier fact `contracts/vendor-failure-lines.json` has no column for.
 Inside a vendor's OWN error carrier the text is the vendor's, never an answer, a reviewed file or tool output, so the
 whole authentication vocabulary there — an API key (an api-key helper included), unauthorized or 401, not logged in, sign in
 or log in (run /login), authentication or credentials, an auth / access / refresh / session / bearer token or its data, an
