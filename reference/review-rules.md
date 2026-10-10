@@ -446,8 +446,10 @@ is ignored while the standing authorization holds, and a non-boolean value stays
 `bin/review_round_v2.py:134-135`); it binds false only after the owner revokes the standing authorization, by an entry in
 `decisions/owner-register.md`. How a revocation reaches each host (a fact, no new mechanism): On A, the operator then
 edits the one constant `REVIEW_WEB_STANDING_AUTHORIZATION` (`lib/review_scratch.py:3650-3658` @ `b53409b`); On B, the
-request's `review_web_authorized` is the caller's value, default false (`bin/review_round_v2.py:133`), so B has no
-standing switch yet (its standing binding is open, DL-39). An absent condition in a bound record means false. Every route of
+source candidate uses `REVIEW_WEB_STANDING_AUTHORIZATION` in `bin/review_round_v2.py`; `create_basis` validates
+the caller's strict boolean before replacing it with that policy. Only recorded owner revocation changes the constant
+([B U5b evidence](../decisions/2026-10-10-b-standing-review-web.md), DL-39). Toolkit/source integrity is still independent:
+editing code bytes requires a fresh basis; retaining a round's bound condition does not exempt implementation drift. An absent condition in a bound record means false. Every route of
 every host supports web; a route without it is a host defect, refused at preflight until fixed. Gemini selects a
 complete web-enabled host profile, never an overlay: only `google_web_search` and `web_fetch` move to allow, with all
 other controls preserved; the no-web profile stays the profile for a false condition. Pre-existing owner and admin
@@ -527,8 +529,10 @@ route as follows; a false condition leaves every route in its R-CONTAIN no-web p
     never removes it — and refuses the review-web condition (`lib/review_scratch.py:3817-3820`). The same legacy paths render neither the shared current-date nor
     the deployment-context clause (the small path uses its own template), so C67 and C68 hold on the v2 path only — the same
     recorded fact until they are retired.
-- On B: the v2 request member `review_web_authorized` (`bin/review_round_v2.py:130-133`) is the carrier; it defaults to
-  false per request, so binding it true for every round under the standing authorization is open (DL-39). For a true
+- On B: the source candidate normalizes the v2 request member `review_web_authorized` from
+  `REVIEW_WEB_STANDING_AUTHORIZATION` in `bin/review_round_v2.py:create_basis`, after strict caller-type validation.
+  Omitted/boolean caller input cannot override the policy. New rounds bind the value explicitly; retry consumes the
+  frozen request, subject to existing toolkit integrity (DL-39; [B U5b evidence](../decisions/2026-10-10-b-standing-review-web.md)). For a true
   condition: native Codex receives it through its fresh-child prompt metadata and requires host web availability
   (`bin/review_adapters_v2.py:61-75`, `bin/review_prompts_v2.py:88-90`); Claude preapproves only native `WebSearch` and
   `WebFetch` (`bin/claude_wrapper.py:417-418`); AGY keeps its read-only controls while omitting the review-only
