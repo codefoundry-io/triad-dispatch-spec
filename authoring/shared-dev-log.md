@@ -362,6 +362,12 @@ retains DL-77's declaration work. C69 and the schema's floor description are
 aligned with R-CLEANUP's already-existing explicit-close/resumption exception.
 No new public deletion API, shared age policy or A implementation request.
 
+U6b follow-up in the same decision requests the existing ownership mapping for
+host-managed log folders before B wires declarations into their sweeps. A's
+`inside-owned-packet` label and B's current suffix/identity checks are source
+facts, not authority to invent a new per-file proof mechanism. No shared
+behavior is changed by this question; U6a stays independent.
+
 ## B AGY settings interaction, 2026-10-10
 
 [U7 provider-free two-folder spike](../decisions/2026-10-10-b-agy-settings-spike.md)

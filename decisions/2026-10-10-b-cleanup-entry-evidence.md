@@ -61,3 +61,27 @@ R-CLEANUP paragraph: the latter already exempts an explicit named-round close
 and resumption of a deletion already decided. The description and C69 boundary
 now point to that existing exception; no new age policy, proof bypass or typed
 surface is introduced. Allocation/ownership requirements remain unchanged.
+
+## U6b log-folder proof mapping — clarification requested
+
+At B ed8b76f plus U6a, normal `_prune_run_logs_fd` and
+`prune_stale_run_logs` use suffix selection and descriptor-bound regular-file
+identity; neither reads a separate folder allocation record. At read-only
+A c2f28ca2, `_common._prune_run_logs` calls
+`_swept("wrapper-run-logs", "inside-owned-packet", ...)` and then
+`_prune_dir_by_caps`. `_swept` validates the configuration/proof label, root,
+symlinks and floor; that path adds no allocation marker for the log folder.
+This is a source observation, not a reproduced user-data-loss incident or an A
+conformance verdict. A's later a863c8db only re-vendors the shared specification.
+
+Before B implements the declaration layer, clarify the existing proof meaning
+for host-managed log folders: what allocation/record establishes the enclosing
+folder as owned, and how does `inside-owned-packet` apply to that path? A's
+current configuration alone cannot be assumed to redefine R-CLEANUP's statement
+that declaration adds to proof. Nor does this question justify inventing a
+per-file marker service. Please point to the current intended contract and
+source evidence, or identify the smallest shared clarification needed.
+
+U6a's measured fallback correction and existing proven review cleanup proceed
+independently. No new deletion surface, per-file proof design or migration is
+selected here; dependent U6b implementation waits for a supported mapping.
