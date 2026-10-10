@@ -85,3 +85,20 @@ source evidence, or identify the smallest shared clarification needed.
 U6a's measured fallback correction and existing proven review cleanup proceed
 independently. No new deletion surface, per-file proof design or migration is
 selected here; dependent U6b implementation waits for a supported mapping.
+
+## U6a own-call rollback follow-up
+
+Fresh U6a R1 returned four valid SAFE results with matching integrity. B verified
+one nonblocking cleanup omission against the actual exception path: if its own
+fallback `mkdtemp` succeeds but the leaf write fails, no allocation proof is
+published and the empty directory remains. The provider result remains preserved.
+B will attempt only `rmdir` of that invocation's newly-created directory on that
+failure, then preserve the original failure. A nonempty or otherwise refused
+directory remains. This is the existing R-CLEANUP own-call rollback exception,
+not adoption of old unmarked folders or a new common deletion mechanism.
+
+Strengthened controls will cover the failure/empty-directory path and a nonempty
+preservation control, an aged symlink-proof target, proof-write failure without
+leaving its mock active during cleanup, and partial deletion-start data. Fresh
+dedicated RED/GREEN and a complete new review follow; R1 approval is not reused.
+No A code change or added public surface is requested.
