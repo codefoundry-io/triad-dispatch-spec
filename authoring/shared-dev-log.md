@@ -181,6 +181,7 @@ fix is written into a shared development log rather than a session note.
 | DL-147 | C43 | REQ-CUSTODY | A (change) | C76 (PR #13; SPEC-OWED after the merge): one analyzer body rendered to the three names, one Step 5 procedure copied per skill by the exporter; the analyzer's bounded web research rule (D-REPAIR-WEB-20261009) | A: triad 7dbba148 + 2118f7ff; agent tools Glob,Grep,Read,WebFetch,WebSearch (t33 allowlist); the runnable apply line stays in the SKILL bodies (the separate verify line retired by F3-c) (the plugin root variable is substituted there only); the read-only check is a subset check; t5 / t33 / t2 / s1 axes | FIXED-A |
 | DL-148 | C61 | REQ-REVIEW | A (change) | A's `_split_brief` refused a brief that carried an alternate line-separator character or a fence-like line (a constructed shape); R-THREAT / D-MEASURED-SHAPES-20261005 make it ordinary brief text | A: the refusals removed — only the one `=====QUESTIONS=====` marker splits a brief, every other line is transported as written; the excerpt / residual fence check unchanged (triad 107c5a1b; t14 axis 41). review-rules.md R-CONTEXT sentence corrected in this commit | FIXED-A |
 | DL-149 | — (a record of shipped text; no case states README advice) | REQ-OPERATIONS | B (check) | Host A's wrappers README § Recommended concurrency by tier carried Gemini Tier 1 / Tier 2 paid-API rows (`3rd-Agent/wrappers/README.md:1812-1855` @ triad `e0b15f1`), against R-NOCOST and R-AUTH; removed. B's wrapper README descends from the same source. | Check B's shipped README for paid-API tier advice and remove it. | FIXED-A (17d14603); CHECK-B |
+| DL-150 | C28 | REQ-CUSTODY | B (check) | Host A's shipped CHANGELOG said "Relative --prompt-file stays fail-loud" (`3rd-Agent/export_plugin.py:1285` @ triad `e0b15f1`), contradicting C28 (relative paths resolve against the process cwd); A's former codex-host assembler emitted the same sentence into B's CHANGELOG (`:970`). Removed on A. | Check B's CHANGELOG for the sentence. | FIXED-A (2f9fe0f5); CHECK-B |
 
 Ids DL-23–DL-38 are held by rows on other unpublished branches of this repository; a new row takes the next id
 after the highest on any branch.
@@ -191,7 +192,7 @@ Rows with A work open: DL-104.
 
 Rows with B work open: DL-39, DL-45, DL-46, DL-49, DL-56, DL-61, DL-70, DL-72, DL-75, DL-77, DL-79, DL-80, DL-81, DL-82, DL-84, DL-85, DL-86, DL-91, DL-92, DL-93, DL-95, DL-97, DL-99, DL-101, DL-102, DL-104, DL-107, DL-113, DL-114, DL-116, DL-117, DL-132, DL-133.
 
-Checks suggested for B: DL-13, DL-14, DL-16, DL-22, DL-42, DL-43, DL-58, DL-62, DL-67, DL-71, DL-76, DL-87, DL-88, DL-89, DL-90, DL-100, DL-103, DL-105, DL-106, DL-107, DL-108, DL-109, DL-117, DL-118, DL-119, DL-120, DL-136, DL-143, DL-144, DL-149.
+Checks suggested for B: DL-13, DL-14, DL-16, DL-22, DL-42, DL-43, DL-58, DL-62, DL-67, DL-71, DL-76, DL-87, DL-88, DL-89, DL-90, DL-100, DL-103, DL-105, DL-106, DL-107, DL-108, DL-109, DL-117, DL-118, DL-119, DL-120, DL-136, DL-143, DL-144, DL-149, DL-150.
 
 Rows awaiting the owner: DL-54.
 
