@@ -340,9 +340,11 @@ installation or release change is claimed.
 
 [DL-132 / U1T evidence](../decisions/2026-10-10-model-value-transport.md)
 finalizes R-MODEL/C18/C34 after A agreement. A9e16880d already uses equals
-encoding at its affected boundaries. B5f5dda5b still has the reproduced Python
-and Google argv gaps; implementation and independent verification are pending.
-Claude native argv and both host-native legs need no change.
+encoding at its affected boundaries. Bed8b76f now closes its reproduced
+Python/Google transport and old-parser omission gaps. Final82/46 compatibility
+tests and four validators pass; prior full2326/4 predates only test correction.
+Fresh complete R3 all-four SAFE/matching integrity; see the decision for limits
+and retained failed rounds. Claude native argv and both native legs unchanged.
 
 ## B cleanup entry evidence, 2026-10-10
 

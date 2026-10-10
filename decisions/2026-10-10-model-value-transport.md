@@ -110,3 +110,37 @@ AGY also validates model before dispatch. A is asked to check its behavior on
 this malformed parser result, not to copy B's native leg or raise a version
 floor. B has not executed A's wrappers or proved their old-interpreter outcome.
 Any A fix remains A-owned. No installation, revision adoption or release.
+
+
+## B implementation and final verification
+
+B source `ed8b76f13f03d96d35f7b795159a528aa061622c` is pushed and verified against
+`origin/codex/opus-5-5-default`. Production +17/-9, net8, six files: generated
+Python-wrapper/Google-preflight model tokens, Gemini raw/v2 vendor tokens,
+conditional AGY option-shaped tokens, matching v2 receipt fields and immediate
+three-wrapper non-string refusal. No native argv/spawning/model/effort change,
+new grammar, model-catalog gate, fallback or user-environment change.
+
+Final dedicated GREEN-compat:82 affected tests with current argparse and46
+transport tests with the SHA256-checked official3.12.1 argparse module passed;
+four source-skill validators passed. Source/status and existing logs unchanged;
+exact invocation-owned fixture removed. Python3.12.13/pytest9.0.3 on macOS.
+The full2326passed/4skipped run uses identical production and predates the final
+test-only compatibility correction. No post-correction full run, full old
+interpreter, Ubuntu or live model-availability certification is claimed.
+
+R2 identified that new literal-double-hyphen tests wrongly required old-parser
+success. RED-compat11failed/35passed reproduced it; the tests now verify actual
+preservation or pre-I/O refusal with no skips or version guessing. Earlier
+RED/failed review evidence remains retained; approvals were not carried forward.
+Fresh complete `triad-model-transport-20261010-r3`: all four selected reviewers
+SAFE, ALL_SELECTED_APPROVED / ROUND_INTEGRITY_OK. Claude's optional future
+encoder-drift suggestion identifies no current mismatch; the existing both-route
+dispatch/receipt test checks parity. No new abstraction or required backlog.
+All producers terminal, bindings verified, findings adjudicated, custody exported
+and exact review stage/cwd cleaned. Hidden runtime settings remain UNEXPOSED.
+
+Current main3afc4d7, PR12 11934f11, read-only A0be173bf clean. A's later changes
+are documentation/comments; its old-parser handling remains A-owned and not
+executed by B. Source completion is separate from adopted revision, installation,
+merge, release and the unfinished whole spec-to-code task.
