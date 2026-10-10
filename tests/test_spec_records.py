@@ -218,3 +218,11 @@ def test_a_classifier_proposal_is_verified_on_the_stored_record():
     assert "classifies the failed run's stored record a second time" in rule
     row = _row("DL-104")
     assert "FIXED-A" in row[6] and "OPEN (B" in row[6]
+
+
+def test_task_blocked_has_one_producer_the_codex_host_claude_wrapper():
+    notes = json.loads((ROOT / "contracts/exit-tokens.json").read_text())["notes"]
+    note = next(n for n in notes if "`task-blocked` (65) stays" in n)
+    assert "promote_claude_extraction" not in note and "DL-110" in note
+    assert "the three extractors" not in " ".join(_rule("R-CLASSIFY").split())
+    assert "FIXED-A" in _row("DL-110")[6]
