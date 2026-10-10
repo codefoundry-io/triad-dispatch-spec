@@ -270,12 +270,12 @@
       "id": "C23",
       "surface": "agy-containment",
       "rule": "R-BIND, R-CONTAIN",
-      "summary": "Two same-family legs in one round",
-      "input": "two agy legs in one round",
-      "expected": "Each leg has its own bound read-audit evidence and binding; one leg's hook/audit cannot satisfy another's",
+      "summary": "AGY leg isolation and same-run finish recovery",
+      "input": "two agy legs in one round; one read-only run with an earlier errored finish and a later finish/DONE without tool_info.error, terminal ERROR/raw0; reversed/missing success, no reads, executed off-list tool, another errored non-read step, and denied-before-execution controls",
+      "expected": "Each leg has its own bound read-audit evidence and binding; one leg's hook/audit cannot satisfy another's. The R-CONTAIN finish-recovery case admits the later submission through normal answer/schema/binding validation. Reversed/missing success, invalid success shape, no reads or another executed/errored non-read step do not qualify. An ERROR tool step with a measured denial head is denied-before-execution and does not itself void recovery; the same text in a DONE step or quoted mid-message is not a denial. Finish success/order never comes from message prose. B retains its nonzero classifier path; broader A nonzero admission is an A fact.",
       "tests": {
-        "A": "tests/unit/skills/t9-agy-hook.sh axes 26-32 (hook rows attributed by conversation id) @ triad ebc4dc7",
-        "B": "Implemented P3 candidate: Exclusive named-entry/attempt results, original host files and read observations; sibling/attempt swaps and changed evidence are refused. Reserved collector output/metadata paths refuse before writes and permit same-attempt recovery using corrected input filenames. Evidence: tests/test_v2_rounds.py, tests/test_v2_round_custody.py, tests/test_v2_evidence_custody.py, tests/test_v2_round_cli.py, tests/test_v2_input_refusals.py. Current verification and publication: decisions/host-b-p3-verification.md."
+        "A": "tests/unit/skills/t9-agy-hook.sh axes 26-32 (hook rows attributed by conversation id) @ triad ebc4dc7; finish recovery source tests: tests/unit/wrappers/t15-agy-driver-decision.sh axes30-37; denial predicate 3rd-Agent/wrappers/_common.py::_agy_step_denied at a5456b13 inspected by B, A runtime not rerun. Maintainer confirms the measured denial scope in PR13comment6092107935.",
+        "B": "Implemented P3 candidate: Exclusive named-entry/attempt results, original host files and read observations; sibling/attempt swaps and changed evidence are refused. Reserved collector output/metadata paths refuse before writes and permit same-attempt recovery using corrected input filenames. Evidence: tests/test_v2_rounds.py, tests/test_v2_round_custody.py, tests/test_v2_evidence_custody.py, tests/test_v2_round_cli.py, tests/test_v2_input_refusals.py. Current verification and publication: decisions/host-b-p3-verification.md. DL-113 recovery axes pending U3a; decisions/2026-10-10-agy-resubmission-evidence.md records resolved boundaries and current-code characterization, not passing recovery tests."
       }
     },
     {

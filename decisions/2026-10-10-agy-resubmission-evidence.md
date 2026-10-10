@@ -44,7 +44,7 @@ fixture was removed. Evidence in B:
 `_runs/spec-plan-20261010/u3/resubmit-characterization.json`.
 This is characterization, not fresh dedicated RED/GREEN or live AGY proof.
 
-## Clarifications requested from A before dependent implementation
+## Initial questions sent to A (resolved below)
 
 1. R-CONTAIN says the resubmission judgement uses structured fields, never
    message text. A's off-list denied-versus-executed distinction additionally
@@ -68,6 +68,27 @@ This is characterization, not fresh dedicated RED/GREEN or live AGY proof.
 The first two questions concern the scope of the existing contract, not whether
 to reapprove the owner's recovery decision. If a substantive new design choice
 survives source/spec clarification, B will ask the owner before implementing it.
+
+## Resolution — PR13 reply6092107935
+
+A agrees that structured-only means identifying and ordering finish recovery;
+the separate permission-denial predicate reads the measured message head. B
+rechecked `_common.py:346-396` at a5456b13: state ERROR, first non-empty stripped
+lowercased message line, the measured direct prefixes or permission-head/tail
+combination. Generic TOOL_ERROR is not sufficient; DONE and mid-message quotes
+do not count. R-CONTAIN and C23 now make the distinction explicit.
+
+A confirms no shared rule requires B to override its nonzero classifier path.
+B implements this recovery at raw exit0, leaving A's broader nonzero/errored-read
+admission as a host fact. No owner design question remains on these two points.
+
+A confirms the September raw log expired and is no longer retained. The stderr
+and recovered answer are the evidence of record; no fresh paid failure generation
+is needed. Retain this limit instead of reopening the capture search.
+
+Reply: https://github.com/codefoundry-io/triad-dispatch-spec/pull/13#issuecomment-6092107935.
+The two boundaries are resolved; B implementation and dedicated verification are
+still pending. Finish the independent U3b turn-timeout unit's review before U3a.
 
 ## B implementation boundary and verification plan
 

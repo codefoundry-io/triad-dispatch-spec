@@ -229,8 +229,11 @@ confirms the pending ERROR-result recovery difference. The [evidence and boundar
 questions](../decisions/2026-10-10-agy-resubmission-evidence.md) distinguish
 observed finish fields from constructed tests, the missing original capture,
 A's message-based permission-denial predicate and its broader nonzero admission.
-The core owner decision stands; these boundaries require clarification before
-dependent B code. No general read audit or new classifier is authorized.
+The core owner decision stands. A reply6092107935 resolves these boundaries:
+R-CONTAIN/C23 separate structured finish recovery from measured denial-head
+matching, and retain B's nonzero classifier path. The original raw log expired;
+the retained stderr/recovered answer remain the evidence. B implementation is
+pending; no general read audit or new classifier is authorized.
 
 Ids DL-23–DL-38 are held by rows on other unpublished branches of this repository; a new row takes the next id
 after the highest on any branch.
