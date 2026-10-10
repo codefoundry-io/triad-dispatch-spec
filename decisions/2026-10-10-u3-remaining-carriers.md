@@ -82,3 +82,22 @@ Owner follow-up: if the issue is AGY's web-search bug, ignore that vendor bug.
 The reply concerns terminal answer selection, not a web-search failure. Tool
 output is outside this answer check; no web-tool truncation scan, retries or
 workaround is added. This is a bounded interpretation, not a new error catalog.
+
+## Own-line CRLF boundary found by B implementation review
+
+B review triad-agy-answer-truncation-20261010-r1 found a deterministic gap in
+the candidate raw matcher: it accepts an LF-terminated marker line but misses
+the same line ending in CRLF. Its `[ \t]*$` tail does not consume CR before LF.
+The decoded response retains embedded line endings; B therefore returns ok/0.
+B reproduced the exact source pattern with Python's standard regex engine.
+Read-only A bc8a8a74 has the same pattern at wrapper:183 and uses it at:1013,
+so the same constructed input exposes an A matcher gap as well. A's full CLI
+path was not rerun. This is not a new captured vendor failure or web-search bug.
+
+The existing own-line rule has no LF-only restriction. C43 now names LF and
+CRLF positive controls for both byte and line markers; surrounding answer and
+raw evidence bytes remain unchanged. B will minimally accept the line-ending CR
+in its raw branch. A should apply the corresponding matcher correction in its
+own host when implementing this row. No schema/tool scan, CR normalization of
+the returned text, size limit or new recovery policy follows. This is a bounded
+conformance correction, not a new design or native-leg requirement.
