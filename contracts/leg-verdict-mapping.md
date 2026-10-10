@@ -1,7 +1,8 @@
 # LegVerdict — A↔B mapping and the proposed v2 wire (round r2 output, 2026-09-19)
 
 Three families (codex, google/agy, claude fresh-eye) adjudicated D-3 independently and converged: a SUPERSET wire, not a
-collapse. Host facts: A `verdict_schema.py` (3 verdicts, 4 severities, `context_known`), B `verdict_schema.py` (SAFE /
+collapse. Host facts at that round: A `verdict_schema.py` (3 verdicts, 4 severities, `context_known`; removed with A's v1
+round @ triad `cc5f2f3f` — A admits only this v2 wire, `lib/verdict_v2.py`, `authoring/shared-dev-log.md` DL-128), B `verdict_schema.py` (SAFE /
 NOT-SAFE, 3 severities, `affected_surfaces_inspected`, `open_questions`; any open question ⇒ NOT-SAFE).
 
 ## Mapping and losses
@@ -47,8 +48,9 @@ Both hosts' models are `extra="forbid", strict=True`: every v2 field is a breaki
 one slice per host, landed with EVERY schema-shaped prompt clause in the same change — `prompts/common-clauses.md § severity-instruction`,
 `§ verdict-selection-rule`, `leg-claude.md § claude-verdict-shape` AND `leg-google.md § google-findings-shape-pin` (today it pins the six
 v1 finding fields; v2 requires `evidence`, so the old pin would instruct a reviewer to omit a required field — codex F6) — plus both B
-renderers, both hosts' validators and their fixtures. B has no NONREPAIRABLE gate but runs
-one schema-repair retry; A's nonrepairable-blocker exception stays host-local.
+renderers, both hosts' validators and their fixtures. Neither host has a non-repairable content gate; both run one
+schema-repair retry; a duplicate member is never repaired (C14) (A's `[NONREPAIRABLE]` gate is removed @ triad
+`62490b6f`, `authoring/shared-dev-log.md` DL-129).
 
 ## Aligned leader-level choices
 

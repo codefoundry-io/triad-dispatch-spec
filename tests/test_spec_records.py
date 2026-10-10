@@ -226,3 +226,7 @@ def test_task_blocked_has_one_producer_the_codex_host_claude_wrapper():
     assert "promote_claude_extraction" not in note and "DL-110" in note
     assert "the three extractors" not in " ".join(_rule("R-CLASSIFY").split())
     assert "FIXED-A" in _row("DL-110")[6]
+
+
+def test_no_row_is_left_open_on_spec():
+    assert _status_ids(r"OPEN \(spec") == set()

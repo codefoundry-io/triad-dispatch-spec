@@ -288,8 +288,9 @@ To keeping or retiring the legacy entry points:
 
 > 레거시 경로 차후 폐기
 
-Recorded effect: host A's legacy entry points (the small review path and the v1 path) are to be retired later; their
-non-conformance stays a recorded fact until then. Host B's legacy renderers remain host B's own decision; this answer
+Recorded effect: host A's legacy entry points (the small review path and the v1 path) are retired — the v1 path @
+triad `12b1dd6f`, its verdict schema @ `cc5f2f3f`, the small path @ `32124be5` (`authoring/shared-dev-log.md` DL-128) —
+so their non-conformance no longer exists on A. Host B's legacy renderers remain host B's own decision; this answer
 makes no ruling on B.
 
 Effect: [R-ROSTER](../reference/review-rules.md#R-ROSTER) (codex default),
