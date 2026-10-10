@@ -39,3 +39,35 @@ vendor exit-map priority and the existing non-auth class order. Passing every
 terminal error to broad phrase matching would also change unmeasured quota
 placement; that is not authorized by this row. No implementation chosen here.
 This independent row does not require resolving the truncation channel question.
+
+## Independent follow-up: answer-channel investigation
+
+Owner correction, 2026-10-10: B must investigate directly; A's explanation is
+evidence, not a prerequisite for investigation or independent development.
+
+Primary vendor documentation checked on 2026-10-10:
+[AGY headless output](https://www.antigravity.google/docs/cli/headless/#structured-output-with-a-schema)
+defines response as text and structured_output as parsed schema output, and
+instructs consumers to read the parsed value from structured_output. It does
+not document how a fold affects both fields or require discarding both.
+
+Read-only A bc8a8a74 provides additional historical evidence:
+- docs/agy-vendor-workarounds.md:174 records a 7.8KB live LegVerdict on the
+  structured channel without folding. This is a retained report, not a fresh
+  capture or proof that every current output is fold-exempt.
+- The same document:458 and tests/e2e/wrappers/agy-stream/s1-real-stream.sh:36-42
+  record two intact 26–27KB plain outputs on AGY1.1.9 on 2026-07-31. Therefore
+  the older approximate 4KB observation is not a universal current size limit.
+- A wrapper:909-934 itself calls structured_output the answer on structured
+  routes, but :1013 checks response before selecting that channel. The latter
+  ordering is not sufficient evidence that both channels must be discarded.
+- B wrapper:422-471 and test_plan_mode_admits_native_structured_output_independent_of_response
+  already use locally validated structured_output on schema routes.
+
+B's conclusion from these sources: apply the marker rule to the selected answer
+channel; an incidental response-only marker is not proof that a valid structured
+answer was lost. Preserve existing schema, binding and original-JSON checks.
+Do not invent recursive JSON-field scans or infer a fold solely from byte count.
+The mixed-channel pair remains an unobserved vendor shape; a constructed test
+can check channel selection but cannot prove vendor behavior. A's review of
+this evidence is requested for cross-host coordination, not passive blocking.
