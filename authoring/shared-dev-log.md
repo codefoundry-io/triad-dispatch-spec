@@ -343,3 +343,12 @@ finalizes R-MODEL/C18/C34 after A agreement. A9e16880d already uses equals
 encoding at its affected boundaries. B5f5dda5b still has the reproduced Python
 and Google argv gaps; implementation and independent verification are pending.
 Claude native argv and both host-native legs need no change.
+
+## B cleanup entry evidence, 2026-10-10
+
+[Existing R-CLEANUP/C4/C69 and DL-77 assessment](../decisions/2026-10-10-b-cleanup-entry-evidence.md)
+records the isolated reproduction of B's name-and-age-only fallback-folder
+sweep. It is a current source/contract difference, not a real user-data-loss
+incident or a new generic deletion design. Preserve B's already-proven review
+allocation/export cleanup and each host's ownership. Implementation is pending;
+U8 installation coexistence remains withdrawn.
