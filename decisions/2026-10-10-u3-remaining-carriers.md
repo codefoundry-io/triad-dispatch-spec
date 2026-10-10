@@ -71,3 +71,14 @@ Do not invent recursive JSON-field scans or infer a fold solely from byte count.
 The mixed-channel pair remains an unobserved vendor shape; a constructed test
 can check channel selection but cannot prove vendor behavior. A's review of
 this evidence is requested for cross-host coordination, not passive blocking.
+
+A reply [6092564483](https://github.com/codefoundry-io/triad-dispatch-spec/pull/13#issuecomment-6092564483)
+agrees with this channel interpretation and confirms that its response-first
+refusal was a conservative host choice, not a shared rule or measured mixed pair.
+R-CLASSIFY now states the selected-channel boundary; C43 records its controls.
+A's present behavior remains an A fact; no paid failure generation is requested.
+
+Owner follow-up: if the issue is AGY's web-search bug, ignore that vendor bug.
+The reply concerns terminal answer selection, not a web-search failure. Tool
+output is outside this answer check; no web-tool truncation scan, retries or
+workaround is added. This is a bounded interpretation, not a new error catalog.

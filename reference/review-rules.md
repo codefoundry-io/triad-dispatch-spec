@@ -778,7 +778,14 @@ beginning `[agy] `, at any vendor exit, and its answer, partial or empty, is nev
 agy folds the middle of a long answer at about 4 KB on the CLI side. It puts an own-line `<truncated N bytes>` /
 `<truncated N lines>` marker in its place and keeps no full copy (observed 2026-07-22, also under stream-json). An
 answer carrying that marker on its own line is `truncated-answer` / 65 and is withheld; a quoted marker inside a sentence
-does not count. On A: `3rd-Agent/wrappers/antigravity_wrapper.py:267-279`, `:1747-1755` @ triad `e0b15f1`. On B the
+does not count. The marker applies to the answer channel the route emits: the raw route's `response`;
+on a schema route, a locally validated `structured_output` remains usable when only the separate `response`
+carries the marker. Tool output, including web-search results, is not the emitted answer channel; do not
+add a tool-output scan or a vendor-bug workaround under this rule. No recursive JSON-field scan or fixed
+answer-size limit is implied. Existing schema, binding and original-JSON checks remain.
+On A, the current response-first check withholds both channels; that is an A implementation fact,
+not the shared requirement, and the mixed-channel pair is unmeasured (DL-102;
+[evidence](../decisions/2026-10-10-u3-remaining-carriers.md)). On A: `3rd-Agent/wrappers/antigravity_wrapper.py:267-279`, `:1747-1755` @ triad `e0b15f1`. On B the
 folded text is returned as the answer today (`bin/antigravity_wrapper.py:390-399` @ `7f75863`). agy's own turn timeout
 (the `timeout waiting for response` row) is `vendor-timeout` / 65 on A (`:162-174`, `:2006-2020`). On B that run goes
 through `classify()` and ends `unknown` / 1 today (`bin/antigravity_wrapper.py:286-303`, `bin/_common.py:690-778`). A
