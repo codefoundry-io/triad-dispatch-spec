@@ -585,7 +585,10 @@ admission remain. Read-only raw investigations reuse the research profile; raw
 permissive calls remain distinct. Neither host changes its native leg. The owner
 accepts the measured profile posture without claiming universal pre-execution
 write prevention: actual search/read/web and no write after a direct request were
-observed, but there was no attempted write denied by the provider. No routine
+observed, but there was no attempted write denied by the provider. B profiles and
+review prompts prohibit MCP use; the default profile route does not claim a
+mechanical deny of every inherited MCP tool. An explicit project retains its
+existing `mcp(*)` deny validation. No routine
 read audit, new hook or workspace-copy architecture is required by U7. See [owner decision](../decisions/2026-10-09-agy-search-tools.md).
 Review legs read; they do not mutate, execute the candidate, or spawn vendors. REVIEW web follows the bound
 R-REVIEW-WEB condition, which the owner's standing authorization sets true for every round (D-9's review prohibition

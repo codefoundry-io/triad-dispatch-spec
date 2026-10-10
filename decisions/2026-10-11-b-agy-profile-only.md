@@ -50,4 +50,45 @@ The normative behavior is R-CONTAIN/R-REVIEW-WEB, C6/C68/C72, not this narrative
 
 A is asked to review the same common contract/observed limits. Its existing hook
 and native leg need no change; no cross-host implementation synchronization is
-implied. Code is pending; no adoption, global profile installation, merge or release.
+implied. At selection, code and installation were pending; no adoption, merge or
+release was authorized by that design choice.
+
+## B implementation and explicit setup evidence, 2026-10-11
+
+B base1d26eaad plus the U7 working candidate removes the transaction helpers and
+selects the existing exclusion profiles on every read-only route. Dedicated RED
+observed settings mutation at provider entry. Final fresh dedicated GREEN:
+413 focused tests and2357 full tests passed,4 skipped; bootstrap syntax and all
+four skill validators passed. Source/log fingerprints matched and the exact
+test temporary root was removed. macOS26.6.2 arm64/Python3.12.13; Ubuntu NOT RUN.
+The first full run exposed three stale test expectations, corrected without
+production changes before the final fresh GREEN. Evidence remains separate.
+
+The owner then explicitly directed: "더 좋은 대인이 생걌잖아 갱신하거 스첵 업데이트안했으면해".
+In the immediate context this authorizes the presented two-file profile update
+(leader interpretation). The canonical installer added only
+`excludeDefaultComponents: true` to the existing B review/research profiles.
+Installed bytes now match source; both known permission-settings file hashes
+remain unchanged. Review SHA-256:
+`bb8f761c338268de957b6bde6de5b288317943b1f3a1beab5b16916d44ec9864`;
+research SHA-256:
+`62ccdcbae28084d2bc29de3b431c53ffff638fbca4f683feef27d4e3540c602d`.
+Evidence: B workspace U7 root `green-final/report.md` and
+`profile-install-receipt.json`. No complete plugin installation or release claim.
+
+Remote main was fetched before unit review and remains3afc4d7. The owner also
+instructed B not to wait for A's reply: independently verify the shared rule,
+current source and actual behavior, and share established differences. Absence
+of a reply is not agreement. Settled-contract work proceeds; actual unresolved
+design decisions still go to the owner. The required independent review is
+pending under fresh ID `triad-agy-profile-settings-20261011-r1`.
+
+R1 then completed with matching integrity: Pro/Flash SAFE, Opus/Astra NOT-SAFE.
+The confirmed blockers are stale current documentation and a rendered prompt
+claiming mechanical MCP denial. They contradict the already selected profile
+posture: inherited customizations stay enabled and the probe did not attest a
+complete tool inventory. R-CONTAIN now explicitly distinguishes the no-MCP
+instruction from unproved mechanical denial; optional project deny validation
+stays unchanged. B will correct those claims, align the v2 receipt's stale
+version literal, and restore timeout/profile-drift evidence coverage. No new
+permission mechanism or A-native change. Fresh verification and review follow.

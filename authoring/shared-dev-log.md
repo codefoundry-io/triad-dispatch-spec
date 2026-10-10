@@ -416,3 +416,10 @@ to remove its working hook or change native legs.
 ## B U7 owner selection, 2026-10-11
 
 [Profile-only U7 decision](../decisions/2026-10-11-b-agy-profile-only.md) records the actual1.3.3 web/read/write-request results and the owner's direction to proceed. R-CONTAIN/R-REVIEW-WEB and C6/C68/C72 now specify B's bounded replacement before code. B acts; A reviews the common outcome and need not port B internals or remove its hook. No implementation or installation completion is claimed.
+
+Follow-up: the linked decision now records B's implemented working candidate,
+fresh413focused/2357full GREEN (4skipped), four validators, and explicitly
+approved two-profile installation with unchanged permission-setting hashes.
+The required independent unit review is pending; no admission, adoption, merge
+or release is claimed. A replies are asynchronous input, not a settled-contract
+implementation prerequisite; B verifies directly and shares measured differences.
