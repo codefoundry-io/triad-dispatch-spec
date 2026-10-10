@@ -714,6 +714,10 @@ Live provider-output mirroring is not required. Keep captured stderr for diagnos
 best-effort display failure must not replace the result or replay a dropped line.
 Partial setup/spawn/capture failures release invocation-owned resources and cannot
 produce success (C2). Use existing own-artifact cleanup; no new janitor is implied.
+Before final integrity/admission/cleanup, finish the direct invocations and
+TRIAD-owned custody/result writers. A vendor descendant retaining only CLI stream
+handles is not an additional completion gate. Its anonymous output file can remain
+alive until those handles close; later bytes are not part of the captured result.
 
 On B, the selected implementation uses invocation-owned anonymous temporary stream files,
 ordinary direct-child supervision and offset-independent final reads. These are

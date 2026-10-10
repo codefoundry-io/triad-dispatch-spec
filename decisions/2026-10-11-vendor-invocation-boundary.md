@@ -37,6 +37,14 @@ coupling; this is comparative evidence, not a design requirement.
    existing classification. Failed best-effort display cannot replace the result.
    Identical records in every possible signal window are not a shared guarantee.
 
+Completion guidance: wait for direct invocations and TRIAD-owned custody/result
+writers before final integrity/admission/own cleanup. A vendor child holding only
+CLI stream handles adds no completion gate. Such descriptors can keep an anonymous
+output file alive; later writes are outside the finite captured result. B's first
+unit review found old process-group/all-writers language in shipped skill references;
+those instructions must follow this same replacement boundary. This is shared
+implementation guidance, not a requirement to add a descendant supervisor.
+
 Selected B mechanism: anonymous invocation-owned temporary files for stdin and
 separate stdout/stderr, with ordinary direct-child wait. Snapshot stream sizes
 after completion and read without changing the inherited file offset. These are
