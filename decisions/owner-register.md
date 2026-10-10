@@ -71,7 +71,7 @@ new rule; every row points at the normative location.
 |---|---|---|
 | Directive (2026-09-19, current-source and cross-host coordination) | Both leaders read latest remote main; share every common design/contract/prompt/behavior change before implementation; diagnose any omitted existing functionality with three families, however small. Codex drafts the shared protocol; Claude reviews the same commit. Each leader owns only its host | `reference/spec-authoring.md#R-AUTHORING-SYNC`; this new authoring draft awaits Claude review, without carrying forward the old basis acknowledgement |
 | Directive (2026-09-20, Codex first) | "니가 먼저 진행하고 같은 문제가 있는지 항상 claude host 쪽 코드를 보고 지적 업데이트해 라인으로 지적하고 codex업데이트가 끝날때 까지 claude 쪽은 업데이트 안할거야" | Lead-host sequencing in `reference/spec-authoring.md#R-AUTHORING-SYNC`; B leads implementation and verification, inspects A at each change, and accumulates commit/file/line evidence and final A instructions. No A edits by Codex |
-| D-3 | Verdict wire contract: adjudicate via ONE three-family round, each host keeps its own schema until then | `contracts/leg-verdict.schema.json` NOT YET; `R-AGREE` last sentence |
+| D-3 | Verdict wire contract: adjudicate via ONE three-family round, each host keeps its own schema until then | `contracts/leg-verdict.schema.json` (written; host A admits v2 verdicts against its vendored copy, `lib/verdict_v2.py` @ triad `ee011968`); `R-AGREE` last sentence |
 | D-4 / Q-L | Three-family review is the default; substitutes are contingency; the model behind each slot is replaceable; at least three legs run | `R-ROSTER` |
 | D-9 | Network tools in the gemini review policy: same three-family round, date-anchored web evidence only **Superseded for REVIEW web on 2026-10-03 by [D-REVIEW-LEGS-20261003](#D-REVIEW-LEGS-20261003)** (standing authorization; the no-web posture applies only to a false condition). | `contracts/README.md` (policy row) |
 | D-10 | Reviewer framing: CLOSED by owner Q3 (codex session) — evidence-centred, a no-defect conclusion allowed | `prompts/common-clauses.md § adversarial-framing` |
@@ -105,7 +105,7 @@ new rule; every row points at the normative location.
 | Codex rev-1 addendum review (2026-09-19) | Findings F1–F8 accepted and applied by the claude leader — status accuracy (C28 NOT applied on either host), D-9 as an operation-level rule, executable V3/V5 with an isolated control and an evidence rule, C28 wording, Google shape pin in the v2 migration list, byte-identical vendoring of the policy (one definition), C4 original-vs-owned-copy split; leader-level wire choices aligned (`path`, three canonical verdicts, optional `correction`, uncertainty-only negative = DO NOT MERGE + `open_questions`, `SAFE`/`Major` import aliases only) | `R-CONTAIN`, `contracts/gemini-readonly{,.verify}.toml`, C4/C15/C28/C29, `contracts/leg-verdict-mapping.md`, `prompts/leg-google.md`, `units.json`, `spikes/2026-09-19-google-web-evidence.md` |
 | Directive (2026-09-19, one place) | A large host restructuring is coming: rulings and conventions are written ONCE, in this shared repository; host documents carry pointers, never a second narration ("do not make the work happen three times") | `reference/spec-authoring.md § 3/§ 4`, `R-GOOGLE` convention; host plans quote verbatim only |
 | Directive (2026-09-25, codex baseline and comparison; shared development log) | Codex review BASELINE = `gpt-5.6-terra` / `xhigh` as shipped roster DATA on both hosts (a shipped `null` had left host A's baseline to the operator's personal CLI configuration). Host A additionally runs a COMPARISON entry `codex-astra` = `gpt-6-astra` / `high` in its next round; both entries count, and the terra/astra difference is a ledger observation, never a vote or a policy. The Claude review leg is `claude-opus-5-5` / `xhigh` (the 2026-09-25 default-model handoff). PRD and spec move together; what the other host must fix is written into a shared development log, not a session note **Codex baseline superseded on 2026-10-03 by [D-REVIEW-LEGS-20261003](#D-REVIEW-LEGS-20261003)** (`gpt-6-astra` / `high`); one codex leg with no comparison entry is the leader's reading of "Leg terra 없애고 astra high  로 교체 …" (`authoring/shared-dev-log.md` DL-39). | `R-ROSTER` codex paragraph, C35, `contracts/review-legs.example.json`; `authoring/shared-dev-log.md` (`R-DEV-LOG`) |
-| Codex verification amendment (2026-09-19; technical disposition) | Earlier F3/F4 verification changes required further corrections A1–A4; the owner authorized Codex to publish the bounded shared-spec amendment. Runtime checks remain NOT RUN, shipped policy bytes unchanged, and Claude acknowledgement on the amended basis is pending | `decisions/rev-1-codex-verification-amendment.md`; procedure only in `contracts/gemini-readonly.verify.toml`, C15, `R-GOOGLE` |
+| Codex verification amendment (2026-09-19; technical disposition) | Earlier F3/F4 verification changes required further corrections A1–A4; the owner authorized Codex to publish the bounded shared-spec amendment. Runtime checks remain NOT RUN and shipped policy bytes were unchanged; Claude (host A) runs the amended contract byte-for-byte: `3rd-Agent/wrappers/policies/gemini-readonly.toml` equals `contracts/gemini-readonly.toml` @ triad `ee011968` (DL-68) | `decisions/rev-1-codex-verification-amendment.md`; procedure only in `contracts/gemini-readonly.verify.toml`, C15, `R-GOOGLE` |
 
 Withdrawn at the owner's word: a usage-measurement item (2026-09-19) is not recorded anywhere.
 
@@ -123,8 +123,8 @@ lens field, a majority vote or a new approval token. Four legs cover two familie
 The precise request, source evidence and publication boundary are in
 [the operating agreement](2026-09-21-codex-google-four-leg-agreement.md), with
 [setup and verification](codex-google-four-leg-operating-spec.md) and case C33.
-Publication is owner-requested; Claude acknowledgement and exact live-profile
-verification remain pending. A's native topology remains distinct from B's.
+Publication is owner-requested; host A (Claude) records the four-leg roster as fixture coverage in case C35's
+host-A cell (t12 axis 36); exact live-profile verification is NOT RUN. A's native topology remains distinct from B's.
 
 <a id="gemini-invocation-20260921"></a>
 ## Gemini invocation briefing: 2026-09-21
@@ -288,8 +288,9 @@ To keeping or retiring the legacy entry points:
 
 > 레거시 경로 차후 폐기
 
-Recorded effect: host A's legacy entry points (the small review path and the v1 path) are to be retired later; their
-non-conformance stays a recorded fact until then. Host B's legacy renderers remain host B's own decision; this answer
+Recorded effect: host A's legacy entry points (the small review path and the v1 path) are retired — the v1 path @
+triad `12b1dd6f`, its verdict schema @ `cc5f2f3f`, the small path @ `32124be5` (`authoring/shared-dev-log.md` DL-128) —
+so their non-conformance no longer exists on A. Host B's legacy renderers remain host B's own decision; this answer
 makes no ruling on B.
 
 Effect: [R-ROSTER](../reference/review-rules.md#R-ROSTER) (codex default),
@@ -584,7 +585,7 @@ four-leg example and its project file) — the leader's choice of value. A timeo
 basis for rounds prepared after it (R-REREVIEW), and no rule text changes. Host B's maintainer may compare its own routes'
 requirements before touching its defaults (R-ROSTER notes B's legacy formal gemini route requires 600 s).
 
-Effect: `authoring/shared-dev-log.md` DL-5 (host A's data change pending on branch `t21/roster-timeouts`).
+Effect: `authoring/shared-dev-log.md` DL-5 (host A's data change landed: 3600 s on every review entry, triad merge `7a687b6`).
 
 <a id="D-AUTH-ABSOLUTE-20261004"></a>
 ## D-AUTH-ABSOLUTE-20261004: browser (OAuth) login only — an absolute law

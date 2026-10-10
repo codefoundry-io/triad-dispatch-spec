@@ -20,25 +20,21 @@ An exception may authorize separate human action, but is recorded as an exceptio
 agreement. A later agreed round must independently satisfy this rule on its current basis (R-REREVIEW).
 Collection itself runs the round integrity check before it reports agreement, on both hosts (DL-52); a skipped or
 too-early separate check never yields AGREED. On B: `collect` runs `_load_basis` (seal, digest, `verify_round` at
-`bin/review_round.py:1908-1931`) at its start and end (`bin/review_round_v2.py:508`, `:532`). On A (cited @ triad `ce30d82`, verification pending):
+`bin/review_round.py:1908-1931`) at its start and end (`bin/review_round_v2.py:508`, `:532`). On A (@ triad `ee011968`):
 when every entry agrees, `collect` runs `review_scratch.py verify` itself before it writes an AGREED record
-(`lib/collect_v2.py:2422-2446`); a failed check refuses (exit 2) and leaves the previous collection record untouched,
-naming the remedy by cause (`_integrity_refusal`, `:2488-2519`): a round a later prepare superseded → collect the later
-round; a second round tree in the packet dir, or this host's own staging leftover from a stopped write → remove it with
-the host's deletion command (R-CLEANUP) and collect again (On A the deletion command removes only a whole folder of a
-declared role, never one entry inside a packet dir, so A's remedy is a new round: the staging leftover in the same packet
-dir, a second tree in a new packet dir); any other failure → the round is INVALID, prepare a new round. A
-check that cannot be launched, does not finish, or fails for a host cause (the check could not run, its record could not
-be written, the heartbeat could not be refreshed) is a host fault (exit 64): nothing about the round is known, repair the
+(`lib/collect_v2.py:1555-1582`); a failed check refuses (exit 2) and leaves the previous collection record untouched,
+with one refusal — the round is INVALID, prepare a new round (triad `bb933c6b`, `lib/collect_v2.py` `collect`), as B. A
+check that cannot be launched or does not finish is a host fault (exit 64): nothing about the round is known, repair the
 host and collect again. `close` runs a fresh check of the latest captured round and never refuses on its outcome, even
-when the check cannot run: it warns and closes (`_report_verification_state`, `lib/review_scratch.py:1173-1208`,
-called at `:1275`).
+when the check cannot run: it warns and closes (`_report_verification_state`, `lib/review_scratch.py:650-679`,
+called at `:760`).
 A host fault met anywhere in `collect` or `retry` — this host cannot judge any reply or cannot run its own check (the
 admission library or contract cannot be loaded or read, the integrity check cannot be launched or finish) — stops the
 step: it is never recorded as one entry's state, a leg outcome or one entry's refusal with its remedy, and `collect`
 writes no collection record for it. A file of one entry that cannot be read stays that entry's INVALID, not a host
-fault. On A the host fault is exit 64 (`_HostFault`): it propagates out of the per-entry checks, the dry-run orphan
-adoption inside `_adoption_blocked` included (`lib/collect_v2.py:2212-2215`, `main`, `:3531-3536` @ triad `bf38f60`);
+fault. On A the host fault is exit 64 (`_HostFault`): it propagates out of the per-entry checks and out of `retry`'s
+refusal check `_retry_blocked`, which writes nothing (`lib/collect_v2.py` `_retry_blocked`, `main` @ triad `e9960053`; no
+orphan attempt is adopted since triad `207dd39f`, DL-130);
 a seal `collect` wrote for an entry before the step stopped stays. On B an `OSError`, `ValueError` or `TypeError` raised
 out of a v2 step ends as the round-integrity refusal, exit 2 (`bin/review_round.py:2451-2452`, `:2585-2587` @
 `7f75863`), so B's exit does not tell a host fault from a refusal (a fact).
@@ -48,9 +44,7 @@ a leg still running in an attempt that a retry replaced can write its answer int
 custody check of it and before the AGREED record is written; no construction stops a running process from writing into a
 file it already holds, so this collection reports AGREED and the next collection reports the change (an integrity
 failure, never agreement). Operator rule: when a retried leg may still be running, collect once more before using an
-AGREED. On A: `collect` re-checks every earlier attempt's custody right before it writes an AGREED record and refuses
-(exit 2) on a change, recording nothing (`lib/collect_v2.py:2447-2458` @ `ce30d82`), so the window is the stretch between that
-re-check and the record write. On B: `collect` checks each attempt's sealed terminal once per run
+AGREED. On A, as on B, each attempt's custody is checked once per collection (triad `bb933c6b`). On B: `collect` checks each attempt's sealed terminal once per run
 (`bin/review_round_v2.py:507-535`).
 
 `open_questions` contains unresolved facts necessary to judge approval, not optional curiosities; every remaining entry
@@ -82,7 +76,7 @@ that leg on the same [bound basis](#R-PREPARE) (owner Q-C). A changed review con
 basis refuses the retry before an attempt is allocated or dispatched; prepare a new round. Changed reviewed bytes are
 caught by the round integrity verification before agreement (R-AGREE); a pre-retry rehash of the reviewed tree is not
 required (`decisions/host-b-preimplementation-audit.md`, "Every renderer must immediately rehash"). On A: `retry` runs
-`_check_contract_basis` and `_bound_metadata` before allocating (`lib/collect_v2.py:2539-2540`). On B: `allocate_attempt`
+`_check_toolkit` and `_bound_metadata` before allocating (`lib/collect_v2.py` `retry` @ triad `80b302e7`). On B: `allocate_attempt`
 loads the basis (which also re-verifies the reviewed tree), re-prepares the entry's adapter — writing its capability
 receipts into a new numbered preparation directory, kept as setup evidence — and then refuses changed launch controls
 before the attempt directory exists (`bin/review_round_v2.py:267`, `:276-284`). Before any dispatch exists, retry the
@@ -107,14 +101,22 @@ file's digest (`authoring/shared-dev-log.md` DL-49). `claude.agent` names one pr
 (`lib/roster_v2.py` `CLAUDE_WEB_TWINS`: three base presets — base, `-high`, `-max` — and their `-web` twins; the older-model pair removed by the owner 2026-10-06, done @ triad `526aa0d`, Task 31) by its bare name; any other
 value, a `:`-scoped one included, is refused at resolve on every claude entry, enabled or not (`:543`
 `_check_capabilities`, through `:500` `_claude_web_twin`); `claude.model` and `claude.effort` are refused; the preset
-frontmatter is the only pin. Prepare binds, as the entry's `preset` in the round record that `roster_config_digest`
+frontmatter is the only pin. (PR #13 R-AGENT-ROLES, C73) On A each route keeps its own agent requirement: the codex
+leg passes the roster's model and reasoning to its wrapper as options (`--model=<v>`, `--reasoning`), the native claude
+leg is one shipped preset, and the agy leg runs its explicit read-only agent (R-CONTAIN). The six shipped reviewer presets
+list `Read, Grep, Glob` in `tools` (the `-web` twins add `WebSearch, WebFetch`) and no `Bash`: the tool shape for which
+Claude Code gives a sub-agent its dedicated Glob and Grep tools on macOS, Linux and WSL, where they are otherwise absent
+(code.claude.com/docs/en/tools-reference § Glob tool behavior, read 2026-10-09; measured 2026-10-09 with an `Explore`
+dispatch of the same tool shape — Glob, Grep and Read present and working) (`.claude/agents/cross-family-review-reviewer*.md`,
+`tests/unit/skills/t7-reviewer-siblings-mirror.sh` axis 1, `tests/unit/skills/t12-roster-v2.sh` axis 42 @ triad
+`e9960053`). Prepare binds, as the entry's `preset` in the round record that `roster_config_digest`
 covers, the spawned preset's layout-qualified id, the sha256 of A's own shipped file (`agents/<name>.md` under this
 install's layout root, the WHOLE file) and its `model` / `effort` lines (`:516` `_claude_preset`;
-`lib/review_scratch.py:5776` `_v2_record_entries`, `:3263` `_qualify_claude_agent_id`). Retry, adoption and collection
-re-derive the preset from the bare roster name and compare the digest only (`lib/collect_v2.py:2530`
-`_check_installed_basis`, called at `:2675` and `:3410`); a different or absent file refuses with "prepare a new
-round", naming the bound and the installed agent, model, effort and digest (or `missing`); adoption requires the
-dispatch record to name the bound preset (`:2944` `_web_switch_mismatch`) @ triad `3894879`. The `roster_v2.py
+`lib/review_scratch.py:5776` `_v2_record_entries`, `:3263` `_qualify_claude_agent_id`). Retry and collection compare
+the round's toolkit map, which holds the six shipped preset files beside every file under `lib/` and the vendored `spec/**`
+(`lib/collect_v2.py` `_check_toolkit` @ triad `80b302e7`); a changed or absent preset file refuses, naming the file, with
+"prepare a new round (R-REREVIEW)"; an attempt is admitted only from the dispatch record the host wrote for it (a
+retry refuses an attempt that already exists above the recorded one and never adopts it @ triad `207dd39f`). The `roster_v2.py
 resolve` preview prints each startable claude entry's model and effort read from that file (`lib/roster_v2.py:1133`
 `main`); the dispatch line does not print them (a fact). A residual fact, nothing built for it: in the dev tree a bare
 id spawns the session project's `.claude/agents/<name>.md`, else the user's `~/.claude/agents/<name>.md`, so a
@@ -163,7 +165,7 @@ route pins `claude-opus-5-5` / `xhigh` (`FORMAL_CLAUDE_MODEL`, `bin/claude_wrapp
 rule asks for `opus`, DL-114); its raw wrapper keeps caller passthrough.
 On A the Claude leg is native: the agent preset's `model` frontmatter is the selection, and it holds only
 when the spawn passes no per-invocation `model` parameter, which outranks the frontmatter (Claude Code sub-agents
-documentation, fetched 2026-10-04); A's printed spawn line is to pass none — in progress (DL-78). A native spawn
+documentation, fetched 2026-10-04); A's printed spawn line passes none: `review_scratch.py` prints the native line with no `model` parameter (`lib/review_scratch.py:2903-2915` @ triad `ee011968`; FIXED-A `aebc586`, DL-78). A native spawn
 returns no model to A's code and A has no probe, so the refusal of a reported contradicting selection has no input on
 A (a fact); B probes its CLI route before inference (`bin/review_adapters_v2.py:106-127` @ `7f75863`). On A every
 shipped preset names its model by the `opus` alias, which Claude Code resolves to the latest Opus (code.claude.com/docs/en/model-config,
@@ -223,6 +225,18 @@ probe. When the vendor CLI refuses a pinned model (withdrawn, renamed, or unsupp
 attempt ends as ONE terminal failed-to-run record that names the leg and the model and tells the user to change the roster
 entry; the change is a new basis (R-REREVIEW). An exposed runtime identity that contradicts the request is still refused
 (R-ROSTER) — that is an observation of the answer already paid for, not a probe.
+(PR #13 R-MODEL opaque-transport paragraph; C18, C34) On A a pin travels as ONE option token across every boundary it
+crosses: the roster renders `--model=<v>` and agy's `--effort=<v>` (`lib/roster_v2.py` `pin`, `:841-844`, called at
+`:867` codex, `:889` / `:891` agy, `:915` gemini; M-1, triad `9e16880d`), and the wrappers hand it to the vendor as codex
+`-c model="<v>"` (`3rd-Agent/wrappers/codex_wrapper.py:334`), gemini `--model=<v>` (`gemini_wrapper.py:585`) and agy
+`--model=<v>` (`antigravity_wrapper.py:70`), all @ triad `e9960053`. Every wrapper calls `args.model.strip()` right after
+`parse_args()` (codex `:170`, gemini `:377`, agy `:1243`), so a parsed value that is not a string raises before any
+vendor I/O and is never treated as an omitted model. A's Python floor is Ubuntu 24.04's 3.12.3, above the Python 3.12.1
+argparse defect that parses `--model=--` into a list; a literal `--` pin is a constructed shape
+([D-MEASURED-SHAPES-20261005](../decisions/owner-register.md#D-MEASURED-SHAPES-20261005)) — a recorded limit, no code;
+so is a `"` or `\` inside a codex pin, which would break the TOML-embedded value (DL-132). Tests:
+`tests/unit/skills/t12-roster-v2.sh` axis 42, `tests/unit/wrappers/t57-gemini-preflight-c16.sh` axes 12 / 12b,
+`tests/unit/wrappers/t71-agy-model-passthrough-c18.sh` axes P1 / M1 @ triad `e9960053`.
 
 ## Selected investigations
 
@@ -325,9 +339,9 @@ absent value. On A: the leader omits `--prior-residual` and no residual block is
 empty or whitespace-only is refused, naming the omission (`lib/review_scratch.py:5535-5538`). On B: an omitted or empty
 value renders the data fence holding the JSON string `""` (`bin/review_round_v2.py:197`). A host may refuse prose that
 collides with its own data framing as an existing input check, and its refusal names the colliding line or characters.
-On A (`lib/review_scratch.py:2783-2796`, `:2809-2847`): a brief carrying an alternate line-separator character; a brief
-line whose stripped text begins and ends with `=====` and is neither exactly `=====` nor the one
-`=====QUESTIONS=====` marker; a residual or excerpt line whose stripped text equals one of the round's fence lines. On
+On A (`lib/review_scratch.py:1681-1694` @ triad 107c5a1b): a residual or excerpt line whose stripped text equals one
+of the round's fence lines; a brief is split on the one `=====QUESTIONS=====` marker line and every other brief line, a
+fence-like one included, is transported as written. On
 B: no such refusal; only `prior_residual` is fenced, as one JSON string inside a fence longer than any backtick run it
 contains, and objective, criteria and approved_boundary are one JSON object outside any fence
 (`bin/review_prompts_v2.py:53-57`, `:121-125`). Those checks do not parse
@@ -418,12 +432,12 @@ route as follows; a false condition leaves every route in its R-CONTAIN no-web p
   before any file is written (`:3786-3806`). `collect_v2._bound_metadata` checks both against the round record, an
   absent condition meaning false (`lib/collect_v2.py:519-545`). The renderer fills `<review-web-policy>` from the fenced
   `review-web-permission` / `review-no-web` clause and records the selected clause in the prompt manifest, and fills
-  `<review-date>` (`lib/prompts_v2.py:40-50`, `:153-155`, `:288`, `:581-582`). `retry` and adoption re-render the
-  round's BOUND condition (`lib/collect_v2.py:551`, `:2430`, `:2789`) and do not compare it with the current constant:
+  `<review-date>` (`lib/prompts_v2.py:40-50`, `:153-155`, `:288`, `:581-582`). `retry` re-renders the round's
+  BOUND condition (`lib/collect_v2.py` `retry` @ triad `e9960053`) and does not compare it with the current constant:
   a revocation applies to rounds prepared after it, as above (DL-57). A round prepared before this change binds no
-  `review_date`: retry, adoption and collection refuse it — collection now re-renders every dispatched entry's prompt,
-  which needs the date (`lib/collect_v2.py:600-604`, reached through `_check_installed_basis` at `:2660` and `:3388` @
-  triad `99aaebc`). Per route
+  `review_date` and carries no toolkit map; `retry` and `collect` run `_check_toolkit` first, so it is refused with "this
+  round was prepared before the host recorded its toolkit map — prepare a new round" (`lib/collect_v2.py` @
+  triad `80b302e7`). Per route
   (`lib/roster_v2.py:929` `render_dispatch`):
   - codex: `--search` (`lib/roster_v2.py:994-1002`); the wrapper's `--search` (top-level `codex --search exec`) replaces
     the pinned `-c web_search="disabled"`; the read-only sandbox, `approval_policy=never` and `--ignore-rules` stay
@@ -449,40 +463,36 @@ route as follows; a false condition leaves every route in its R-CONTAIN no-web p
     preflight R-MODEL names): for a true round with an agy leg, `prepare` and the `retry` of an agy entry read the
     operator's agy settings file and refuse — naming the file and the reason — when `permissions.allow` does not list
     `read_url(*)`, when `permissions.deny` lists it, or when the file is missing or is not JSON
-    (`_v2_agy_web_refusal`, `lib/review_scratch.py:5263-5311`, called at `:6065`; `lib/collect_v2.py:3435` @ triad
-    `e0b15f1`; DL-58). The check reads and writes nothing else and takes no lock
-    (D-AGY-SETTINGS-UNTOUCHED-20261008). At `e0b15f1` it imports the wrappers' `_agy_settings` module only for the path
-    (`_settings_path()`: `AGY_SETTINGS_PATH` when set, else `~/.gemini/antigravity-cli/settings.json`) and then reads
-    the file as plain JSON; the target is that it computes the same path itself, since the module goes (DL-112).
+    (`_v2_agy_web_refusal`, `lib/review_scratch.py:2613-2648`, called at `:3224`; `lib/collect_v2.py:1658` @ triad
+    `e9960053`; DL-58). The check reads and writes nothing else and takes no lock
+    (D-AGY-SETTINGS-UNTOUCHED-20261008). It computes the path itself — `AGY_SETTINGS_PATH` when set, else
+    `Path.home() / ".gemini" / "antigravity-cli" / "settings.json"` on every platform — and reads the file as plain JSON
+    (the wrappers' `_agy_settings` module is removed @ triad `dfa2eb57`, DL-112). The vendor states that path only
+    home-relative (`~/.gemini/antigravity-cli/settings.json`, codelab for CLI 1.1.27; no Linux-specific path is stated,
+    checked 2026-10-08), so both hosts compute the same home-relative path on every platform — a recorded limit until a
+    Linux run shows otherwise (DL-122). While a codex-host read-only agy call holds its per-call deny merge (DL-107), the
+    check reads the merged `read_url(*)` deny and refuses the round, naming that cause and telling the operator to run
+    again after that call ends — an inference from both hosts' code, not measured (DL-122). A's permissive agy call
+    (`--sandbox` omitted; `--dangerously-skip-permissions` on agy >= 1.1.3) runs with no lock and reads no settings
+    file, and an exception inside it ends `unknown` / 1 through `_common._guarded_main`, as on the read-only route
+    (`3rd-Agent/wrappers/antigravity_wrapper.py` `_dispatch` @ triad `e9960053`); agy applies a codex-host call's merged
+    denies to that raw call too (deny outranks the danger flag, measured on agy 1.1.17; DL-122).
   - gemini: `--review-web` (`lib/roster_v2.py:1050`) attaches `3rd-Agent/wrappers/policies/gemini-readonly-web.toml`,
     byte-equal to `contracts/gemini-readonly-web.toml`, instead of the no-web profile (`gemini_wrapper.py:125`, `:465`).
-  - Every attempt's dispatch record is rendered from the bound condition at prepare and retry. Only the adoption of an
-    orphan attempt (R-PREPARE) re-compares the record's launch switch with the bound condition in both directions — a
-    wrapper argv carries its route's switch exactly when true and never the investigation `--web`; a native record names
-    a web twin exactly when true (`lib/collect_v2.py:154`, `:2084-2105`, `:2182-2205`, called at `:2431` inside
-    `_adopt_orphan_attempt`, reached from `retry` at `:2751-2754` @ `faeb86b`). An ordinary attempt's record is not
-    re-compared; a wrapper line edited by hand before it runs, and a line with the review log-dir env value removed,
+  - Every attempt's dispatch record is rendered from the bound condition at prepare and retry and is not re-compared
+    later: no host adopts an orphan attempt — `retry` refuses an attempt that already exists above the recorded one
+    (R-PREPARE; triad `207dd39f`, DL-130). A wrapper line edited by hand before it runs, and a line with the review log-dir env value removed,
     run and are caught at collection (R-BIND, the executed-command receipt and its
     known limit). A native spawn that names another preset than its record has no receipt (DL-18; a fact).
-  - Non-conformance of host A's legacy entry points (a fact, not an exception, until they are retired: the owner's
-    answer of 2026-10-03 is to retire them later, D-REVIEW-LEGS-20261003, `authoring/shared-dev-log.md` DL-59). They do not implement the standing authorization (cited @
-    `faeb86b`). The small review path (`lib/review_small.py`) gives web only under its own `--web`: codex `--search` and
-    agy the investigation flag `--web` (`:328-332`), which also appends the investigation `web-evidence` clause
-    (`3rd-Agent/wrappers/antigravity_wrapper.py:2043-2047`), and claude spawned as `<agent>-web` (`:367-371`); under its
-    `--web` it refuses gemini and a claude agent other than the base and high presets (`:101-102`, `:265-271`,
-    `:450-455`); without `--web`, a directly named `-web` preset is spawned unchanged and runs with its web tools. The v1
-    path (`prepare` without `--v2`) passes no web switch — its X-leg codex line is printed without `--search`
-    (`lib/review_scratch.py:3624-3625`); for its standing codex and agy legs `prepare` prints only the output
-    redirections (`:6081-6085`) and the dispatch is the v1 hand-built line of `references/leg-contracts.md:1397-1415`
-    (codex: `--sandbox read-only`, `--pydantic`, no `--search`) and the agy read-only review agent, which has no web tool
-    (`:435-439`), all @ `faeb86b`; on that path a leg is re-dispatched once inside its round, and before it the leader
-    renames attempt K's read-audit file to `agy-r<N>-attempt<K>-read-audit.json` — the one move of that file by hand: it
-    keeps the file and leaves its literal path absent; between rounds `prepare` and `capture` move it aside (a capture under any label, a round number or not; a move stopped between its link and its
-    unlink is finished by the next `prepare` / `capture`; a second move into a history name that already holds a
-    different file refuses, and the round goes on in a new packet dir — nothing is lost); the leader
-    never removes it — and refuses the review-web condition (`lib/review_scratch.py:3817-3820`). The same legacy paths render neither the shared current-date nor
-    the deployment-context clause (the small path uses its own template), so C67 and C68 hold on the v2 path only — the same
-    recorded fact until they are retired.
+  - Host A has no legacy review entry point (owner, D-REVIEW-LEGS-20261003 "레거시 경로 차후 폐기" and the 2026-10-08
+    discard list item 1; `authoring/shared-dev-log.md` DL-59, DL-128): the v1 round (`prepare` without `--v2`, its
+    X-leg arms, `$TRIAD_REVIEW_X_LEGS` and the user file `~/.config/triad/review-legs.json`) is removed @ triad
+    `12b1dd6f`, the v1 pydantic verdict schema `3rd-Agent/wrappers/verdict_schema.py` @ `cc5f2f3f`, and the small review
+    path (`lib/review_small.py`, `small/`) @ `32124be5`. `prepare` always prepares the named-roster round and accepts
+    `--v2` as its stage carrier (R-PROMPT, C60), so every A round binds the standing authorization and renders the shared
+    current-date and deployment-context clauses: C67 and C68 hold on every A path. The v1 path's hand rename of an agy
+    read-audit file and its move between rounds went with it; each round is prepared in its own packet dir (R-PREPARE,
+    DL-115).
 - On B: the v2 request member `review_web_authorized` (`bin/review_round_v2.py:130-133`) is the carrier; it defaults to
   false per request, so binding it true for every round under the standing authorization is open (DL-39). For a true
   condition: native Codex receives it through its fresh-child prompt metadata and requires host web availability
@@ -538,8 +548,8 @@ not attribution (found on A over rounds r11–r13, `authoring/shared-dev-log.md`
 
 - codex leg (A `codex_wrapper.py`, command builder): selected read-only sandbox, `approval_policy=never`, `--ignore-rules`
   on every posture, `web_search="disabled"` whenever `--search` is absent (`codex_wrapper.py:440-464`). On A the v2
-  path passes `--search` exactly when the round's bound condition is true (`lib/roster_v2.py:994-1002` @ `b53409b`); the
-  legacy small path passes it for a round prepared with its own `--web` (`lib/review_small.py:355` @ triad `bf38f60`). These are A's controls,
+  path passes `--search` exactly when the round's bound condition is true (`lib/roster_v2.py:994-1002` @ `b53409b`); A
+  has no other review path (the small path is removed @ triad `32124be5`, DL-128). These are A's controls,
   not instructions for B's native session.
 - gemini leg (A `gemini_wrapper.py`): approval modes pinned to `default` / `auto_edit` (plan and yolo removed), the
   read-only × auto_edit conflict refusal, the read-only policy-file precondition, the hardened-install read-only default,
@@ -554,42 +564,48 @@ not attribution (found on A over rounds r11–r13, `authoring/shared-dev-log.md`
   (On A: the hardened read-only default is assigned before both checks, `3rd-Agent/wrappers/gemini_wrapper.py:421-437`).
 - agy leg (A): per-round PreToolUse allow-list hook + hook load check + read-audit gate (the hook's `--web` mode adds
   `read_url_content` / `search_web` to its allow set, `lib/agy_hook.py:123`, `:196` @ `b53409b`; a v2 round with a true
-  bound condition installs the hook in that mode, `lib/review_scratch.py:4142-4152`, `:5841-5843` @ `b53409b`, and the
-  legacy small path uses it under its own `--web`). On A, every read-only agy call (every agy review leg) runs a
+  bound condition installs the hook in that mode, `lib/review_scratch.py:4142-4152`, `:5841-5843` @ `b53409b`).
+  On A, every read-only agy call (every agy review leg) runs a
   setup-once agent named with `--agent`. Without web it runs `triad-readonly-review` (allowlist `view_file`,
   `grep_search`, `list_dir`, `find_by_name`, `finish`). Under `--web` or `--review-web` it runs
   `triad-readonly-research`, which adds `read_url_content` and `search_web`. The call carries `--add-dir <--cwd>`, the
   leg's only repository read grant, with no danger flag and no settings transaction, and needs agy >= 1.1.18
-  (`3rd-Agent/wrappers/antigravity_wrapper.py:356-361`, `:2087-2113`, `:2502-2507` @ triad `e0b15f1`). Measured agy
+  (`3rd-Agent/wrappers/antigravity_wrapper.py:356-361`, `:2087-2113`, `:2502-2507` @ triad `e0b15f1`). (PR #13 C72,
+  the R-CONTAIN AGY-profile paragraph) On A that pair is the explicit profile: both definitions are embedded in the
+  wrapper (`AGENT_BODIES`, `3rd-Agent/wrappers/antigravity_wrapper.py:299-317`), the review agent's own `tools:` list
+  names the search tools (`grep_search`, `list_dir`, `find_by_name`), `--setup-agents` writes both once (`setup_agents`,
+  `:320-343`) and a dispatch never installs one: before each read-only call `check_agent_file` (`:346-357`, called at
+  `:1126`) refuses — `config-conflict` / 65, nothing spawned — unless the installed file is byte-identical to the
+  embedded body (@ triad `e9960053`). A records no name, path or sha256 receipt of the definition, and the round's
+  toolkit map (R-PREPARE) does not hash the wrapper that embeds it (a fact). No committed capture on A shows a native
+  search step of the custom agent on agy 1.3.x, so C72's successful-search control is NOT RUN on A (2026-10-09). Measured agy
   facts: in print mode, `--agent` resolves only from `~/.gemini/config/agents` (measured 2026-08-22). A name agy cannot
   resolve does not fail: agy runs its default agent, which can write files (measured on agy 1.2.3, 2026-09-16). The
   `init` event echoes the name that was passed, so the stream cannot prove which agent loaded. agy shows a custom agent
   its full tool registry whatever the agent's `tools:` list says, so the allowlist binds only through the agent body's
   rule and the wrapper's admission census, which quarantines an answer whose stream shows an off-list tool ran
-  (`:401-421`, `:695-711`). `--setup-agents` writes both bodies into that directory (`:462-485`, `:736-745`). Before
-  each read-only call the wrapper refuses (`config-conflict`, 65, nothing spawned) unless the installed file is
-  byte-identical to the shipped body (`:488-499`, `:2100-2110`). A read-only call without `--web` and without `--cwd` is
+  (`:401-421`, `:695-711`). A read-only call without `--web` and without `--cwd` is
   refused with exit 3 before any vendor work (`:2391-2403`). On B the formal route passes no `--agent`
   (`bin/antigravity_wrapper.py:151` @ `7f75863`). B: non-mutating project route (`--mode plan --sandbox read-only`) with `--project`, and on the v2 path (no `--project`) the temporary settings transaction named under R-REVIEW-WEB; B's hook stays dormant until separately agreed. On A the read-only agy route runs an allow-list census over every attempt's tool steps, retries included (`3rd-Agent/wrappers/antigravity_wrapper.py:517-611`, `:1164-1169` @ triad `e0b15f1`): a tool outside the agent's allow-list that EXECUTED withholds the answer as `admission-refused` / 65 with the tool named, and the wrapper never retries it (`:698-711`, `:1678-1704`); this is the measured shape (a model that burned its turns on `manage_task`, 33 lost verdicts). An off-list call that was denied before it ran does not void the answer (`:1705-1714`). This is the wrapper side of the shared leg prompt's sentence that a forbidden call that executes invalidates the review (`prompts/leg-google.md:40`). Shared rule, both hosts (owner, [D-OWNER-ANSWERS-20261008B](../decisions/owner-register.md#D-OWNER-ANSWERS-20261008B) item 7): an agy read-only run whose terminal status is ERROR only because an earlier `finish` submission errored and a LATER `finish` in the same run succeeded (`step_type: finish`, state DONE, no `tool_info.error`) is admitted, the later submission being the answer. The judgement reads structured stream fields only (step type, state, `tool_info.error`, stream order), never message text; an off-list tool that executed, an errored step that is neither an allowed read nor a resubmitted `finish`, or a run that read nothing still refuses. Measured basis: host A's agy leg of 2026-09-27, one run and one conversation holding the errored and then the successful `finish` (triad `docs/reviews/2026-09-27-simple-review-spike.md`, item 4), and 3 of 25 runs on 2026-08-21. On A: the census marks the last successful and the last errored submission by stream position and moves an errored `finish` that a later success follows out of the errored non-read steps (`3rd-Agent/wrappers/antigravity_wrapper.py:553-566`, `:583`, `:592-593`, `:607-611` @ triad `e0b15f1`), and the status check admits it as "a resubmitted submission" (`:714-726`); the read-blind guard still applies. On B: every non-SUCCESS terminal status refuses except its plan-mode permission denial after completion (`bin/antigravity_wrapper.py:312-327` @ `7f75863`), so such a run ends `vendor-error` / 65 and its answer is lost (DL-113). On B the read-only route relies on `--mode plan --sandbox` and reads executed tool steps only as diagnostics (`bin/antigravity_wrapper.py:150-151`, `:178-211` @ `7f75863`); B emits no `admission-refused` (`bin/_common.py:85`). A fact, not an obligation. The agy hook and the gemini read-only policy are TOOL-NAME controls: neither scopes paths, and the read audit records the argument path as given, not a resolved target — they do not by themselves contain a symlink escape (see the Q4 item in R-PREPARE).
 - all wrappers: binary presence; a relative `--prompt-file` or `--cwd` is ACCEPTED and resolved against the wrapper PROCESS cwd at argument processing (never the child `--cwd`); every existing validation stays — configured runtime roots where configured, regular file, UTF-8, non-empty; the resolved absolute prompt-file and child-cwd paths are represented in the existing success summary and audit row, using the host's current redaction mode (D-B2). Refusal names the resolved candidate through that same masking policy. An input with no resolvable candidate (`~<no-such-user>`, a relative path once the wrapper's entry cwd is gone) is refused masked under redaction on both hosts; without redaction A names the text given and B the exception class (a fact: A `_resolve_against_entry_cwd`, `3rd-Agent/wrappers/_common.py:1882-1905` @ triad `bf38f60`; B `input_path_error`, `bin/_common.py:537-548` @ `7f75863`). A configuration refusal (an allowed-roots entry that cannot be resolved, a hardened run without allowed roots) names the argument it stopped on, on both hosts (A `_ensure_within_runtime_roots`, `_common.py:1825-1833`; B `input_path_error`, whose label for the prompt file is `prompt load`). Failure-only run logs remain failure-only. Relative spelling alone is never a reason to refuse (C28). A host's other file options that name an existing input file (on A the schema-file options
 `--output-schema-file` / `--json-schema-file`) follow the same rule (on A the resolved schema-file path is recorded in the audit row's `cmd` / the run-log's
 `vendor_cmd`, the vendor argv; the summary tail carries `prompt_file=` only). Path text on a wrapper's stderr lines (a
 fact; the only rule is C36's for custody lines): On A every path or free-text value on the summary tail (`prompt_file=`,
-`model=`, `reasoning=`) and on the custody lines (`read-audit-file:`, `read-audit-copy:`) is percent-escaped over its
+`model=`, `reasoning=`) and on the custody line (`read-audit-file:`) is percent-escaped over its
 filesystem bytes by one formatter (`_summary_field`, safe set `/._-~+=@,:`). Space, `[` / `]` and every non-ASCII or
 control byte are escaped, so the value stays on its line and cannot carry a second `[wrapper] <cli> <token> ` sequence
 into the summary line a caller parses. An ordinary POSIX path prints byte-identical, and the audit row and run-log keep
 the raw value (`3rd-Agent/wrappers/_common.py:2110-2178`, `:5696`; `3rd-Agent/wrappers/antigravity_wrapper.py:2631` @
 triad `e0b15f1`). On B the summary line carries no path (`bin/_common.py:1685-1689` @ `7f75863`). The resolved paths
 print raw on their own `resolved_prompt_file=… effective_cwd=…` line (`bin/_common.py:574`, through the plain `print` of
-`log`, `:322-324`), so a path that holds a line break splits that line (no run has shown one). On A: relative paths are rebased on the process-entry cwd and then validated (`3rd-Agent/wrappers/_common.py:1800-1844`, `:1865-1881`); On B: `bin/_common.py:502-537`; stdin delivery confirmed or refused (fail closed); process group captured at spawn and
+`log`, `:322-324`), so a path that holds a line break splits that line (no run has shown one). On A the read-audit gate's printed remedies follow R-RETRY — ABSENT → `retry` (a never-set `TRIAD_READ_AUDIT_FILE` is a dispatch fault: run the line `retry` prints); an audit jq cannot use → `retry` first, a new round only when `retry` refuses because the file cannot be read; a custody mismatch (an audit beside the attempt that no dispatch of its own named) and VOID → `retry`; a broken round hook log or a hooks.json that failed to load → a new round (`lib/read_audit_gate.sh`, `lib/collect_v2.py` `_agy_custody_reason`, `lib/agy_hook.py` @ triad `5534a7df` + `ee011968`). On A: relative paths are rebased on the process-entry cwd and then validated (`3rd-Agent/wrappers/_common.py:1800-1844`, `:1865-1881`); On B: `bin/_common.py:502-537`; stdin delivery confirmed or refused (fail closed); process group captured at spawn and
   reaped on timeout / abnormal unwind and normal exit under R-TERMINAL (On A: `_common.py:3198-3205`, `:3333-3381`; On B: `bin/_common.py:1357-1386`); reader and writer completion before success (On A: incomplete readers fail closed, `_common.py:3433-3437`; On B: incomplete/error collection is rejected); schema validation with one clean repair retry where a leg relies on it; verdict
   binding to review id, family and content digest; round integrity capture/verify.
 - cleanup (only host code deletes, from declared roots — R-CLEANUP): refuses without deleting when a tree is not provably its own; ownership is proven by an allocation record or
-  marker, never by a name shape (On A: a `<name>.pruning` dir is reclaimed with the `.claim` record written before its rename, `lib/review_scratch.py:705-722`; On B: allocation provenance, verified export and root identity for stale and explicit cleanup, `bin/review_round.py:1017`, `:1060`, `:1232-1242`). Open exception on A, pending DL-54: an EMPTY unclaimed `.pruning`
-  residue older than the floor is removed by `rmdir` (`lib/review_scratch.py:865-876`), a name-shape removal that main's
-  R-CLEANUP does not allow; it follows the owner ruling of 2026-09-27 carried by the unpublished R-CLEANUP amendment on
-  branch `claude/r-model` (PR #6).
+  marker, never by a name shape (On A: a review packet by its `.active` marker; a leftover `<name>.pruning` folder without one is an unmanaged
+  folder — reported and left, or, when EMPTY and past the floor, removed by R-CLEANUP's empty-folder rule like any empty
+  folder; the `.pruning` / `.claim` reclaim and the name-shape `rmdir` of DL-54 are removed @ triad `24226e3d`, DL-141;
+  On B: allocation provenance, verified export and root identity for stale and explicit cleanup, `bin/review_round.py:1017`, `:1060`, `:1232-1242`).
 
 <a id="R-TERMINAL"></a>
 Transport success requires: process exit collected, all reader threads joined without error, the owned process group
@@ -600,17 +616,24 @@ run), every attempt and the gaps between them included (server-capacity backoff,
 wrapper signalled (SIGTERM or SIGHUP) anywhere inside a dispatch reaps any owned group and ends as a terminal failure:
 token `unknown`, exit 1 (`EXIT_CLI_FAIL`), the answer withheld, and an extraction error naming the signal (`wrapper
 interrupted (<SIG>)`), recorded like any failed dispatch. A signal outside a dispatch — before the wrapper starts it
-(argument checks; on B also its preflight probes) or after its terminal record — leaves no record; on A a pre-dispatch
-vendor probe runs in the record-only mode a dispatch uses (below). On B: `_run_once` records the
+(argument checks and the pre-dispatch vendor probes) or after its terminal record — leaves no record, on both hosts (on A
+since triad `87c7d0a5` for agy and `adaeda5f` for gemini, below; DL-123). On B: `_run_once` records the
 signal and `_mark_signal_failure` sets that shape (`bin/_common.py:1400-1452` @ `7f75863`); the record-only handler is
 installed inside `_run_once` only (`:1425-1441`), so a signal between attempts exits 143 with no record (DL-70). On A:
 every window of a dispatch ends in that shape with its summary, audit row and run-log — after the spawn, in the wait,
 inside the timeout arm's group kill (the SIGKILL escalation kept) and between attempts (`_terminal_signal_to_exit`,
-`3rd-Agent/wrappers/_common.py:3441-3448`; `_run_once`, `:3559-3585`, `:3924-3949` @ triad `bf38f60`). A signal after
+`3rd-Agent/wrappers/_common.py:2335-2342`, records only once `_run_once` has set the dispatch flag, `:2472`; `_run_once`
+consumes the signal at `:2767-2786`; between attempts the driver returns its previous attempt, below — @ triad
+`e9960053`). A signal after
 the engine's last check is not consumed, and the hosts differ: on A the handler only records once a dispatch began, so the
 completed answer is published and recorded `ok` (`_terminal_signal_to_exit` @ triad `e40001d`); on B the default handlers
 are restored when the run returns, so a later signal ends the process at 128+signum with no record (`bin/_common.py:1418-1441`
-@ `7f75863`). On A a signal during ANY pre-dispatch vendor probe (agy `--version`, gemini's review preflight) ends in the interrupted-run record (summary, audit row, run-log written) once the bounded probe returns, never a bare 128+signum exit (@ triad `3fde8d6`, `7e9e1fb`); at triad `e0b15f1` A also runs an agy model-catalog call before a pinned review dispatch, which reaps its own group on a cut-short or a normal exit (`3rd-Agent/wrappers/antigravity_wrapper.py` `_model_catalog_refusal`) — code that goes under R-MODEL (DL-116); the gemini preflight and
+@ `7f75863`). On A, as on B, a signal during a pre-dispatch vendor probe (agy `--version`, gemini's review preflight)
+ends the wrapper at 128+signum with no record: the probe runs before the first `_run_once`, where the handler still
+unwinds (`3rd-Agent/wrappers/_common.py:2326-2342`; `tests/unit/wrappers/t57-gemini-preflight-c16.sh` axes 15-16,
+`tests/unit/wrappers/t71-agy-model-passthrough-c18.sh` axes 21-22 @ triad `e9960053`). The record-only probe mode
+(@ triad `3fde8d6`, `7e9e1fb`) is removed @ triad `87c7d0a5` (agy) and `adaeda5f` (gemini), DL-123, and the agy
+model-catalog call @ triad `86cffe93` (R-MODEL, DL-116). The gemini preflight and
 `agy --version` are plain `subprocess.run` calls with no group of their own, so a helper they might fork is not reaped (a
 recorded limit — no run has shown one; `3rd-Agent/wrappers/gemini_wrapper.py` `_probe`, `antigravity_wrapper.py` `_probe_agy_version`).
 A failed stderr write drops that one line, never the answer or the exit, and a dropped line is never written later; a
@@ -626,11 +649,10 @@ precedence, both hosts: a timeout verdict stands over a signal (an interrupted r
 frozen R-AUTH has no carve-out for a signalled attempt, so on A a signalled codex or gemini run's captured output
 goes through the auth-carrier rung first and a carrier STOP ends `oauth-env` / 65 (`_common.py` `_run_once` @ triad
 `fdd7029`; gemini's exit code 41 is read inside that rung, @ triad `8909103`; B: DL-95); a recorded limit on A: a
-signalled agy run's carriers are not read (no measured agy carrier capture) — `unknown` / 1, never retried. A probe
-that recorded a signal keeps the record-only mode until its refusal record is written, so a second SIGTERM / SIGHUP in
-that window is recorded too (frozen C1; `gemini_wrapper.py` preflight, `antigravity_wrapper.py` `--version` probe, and
-its catalog call until that goes, DL-116, @ triad `0115727`); a signal replaces a stdin-delivery or reader failure; a
-stdin-delivery or reader failure replaces a vendor exit code of 0 (A `:3924-3949`; B `bin/_common.py:1433-1437`,
+signalled agy run's carriers are not read (no measured agy carrier capture) — `unknown` / 1, never retried. A signal
+replaces a stdin-delivery or reader failure; a
+stdin-delivery or reader failure replaces a vendor exit code of 0 (A `_run_once`, `_common.py:2767-2800` @ triad
+`e9960053`; B `bin/_common.py:1433-1437`,
 `:1663-1679` @ `7f75863`). A run whose output readers did not all finish without error fails closed at a vendor exit 0
 on both hosts, with different tokens (a fact): On A `truncated-answer` / 65, the captured prefix kept for the run-log and
 never returned (`3rd-Agent/wrappers/_common.py:3886-3889`, `:3916-3920` @ triad e0b15f1), and A's agy driver applies the
@@ -638,8 +660,12 @@ same at any vendor exit (`antigravity_wrapper.py:1424-1455`); On B `unknown` / 1
 classification skipped (`bin/_common.py:1641-1674`, `:1680-1684` @ `7f75863`), applied also to a transport setup failure
 at any exit. At a nonzero vendor exit, A's codex / gemini runs and B's runs keep the vendor's own diagnosis. A signal between attempts (a server-capacity backoff, a schema-repair turn) spawns nothing:
 the previous attempt's record, with its captured evidence, carries the signal failure, and the agy driver adds no
-attempt to the read audit for it (On A: `_common.py:3561-3585`, `3rd-Agent/wrappers/antigravity_wrapper.py:1061-1072`;
-B has no handler there, DL-70). A helper outside the owned process group that still holds the child's stdout keeps
+attempt to the read audit for it (On A the driver holds its previous attempt — `run_cli_with_retry`,
+`_common.py:2940-2947`, and the agy driver's `last_rr`, `3rd-Agent/wrappers/antigravity_wrapper.py:685-711` — and
+returns it through `_interrupted_previous`, `_common.py:2365-2375` @ triad `e9960053`, with no process-global alias since
+`adaeda5f`; a signal already pending when the first attempt starts spawns the child and kills it within the first wait
+step: `unknown` / 1, the group reaped — `tests/unit/wrappers/t53-terminal-transport-c1c2.sh` axes 7e, 7f, 7g; B has no
+handler there, DL-70). A helper outside the owned process group that still holds the child's stdout keeps
 that pipe open; cleanup closes only the pipes no live reader still blocks on, so it stays bounded (A `_common.py:3749-3758`;
 B `bin/_common.py:1623-1630`).
 
@@ -698,7 +724,7 @@ verdicts and the read-only allowlist census, above every answer, ok and retry br
 (`3rd-Agent/wrappers/antigravity_wrapper.py:179-187`, `:1135-1150` @ `cbc67f6`); on A the auth-carrier rung below now
 comes before it. The shared order also lets an API-key-shaped sentence on the same failed run as a server-capacity
 sentence classify `server-capacity` and be retried; under the absolute law (R-AUTH (ii)) that is a defect both hosts fix,
-not a limit: A in verification (Task 22), B to change (DL-75).
+not a limit: A fixed (triad `ca82837`, Task 22), B to change (DL-75).
 On A the auth-carrier rung comes first (R-AUTH (ii)): after the ok return and before every other rung — the timeout
 verdict included — an
 authentication sentence or structured code in the vendor's OWN error carrier — the codex `error` / `turn.failed`
@@ -707,7 +733,7 @@ DL-110), the gemini error object (code 41
 `FatalAuthenticationError` or 401, or its message; gemini CLI 0.60.0), agy's `result.error` and a stderr line beginning
 with its auth banner — classifies `oauth-env`, and no answer, reviewed file or tool output is read for it; the shared order above
 then applies to the rest of the failed run (`3rd-Agent/wrappers/_common.py` `_auth_carrier_stop`, triad `71173cd`,
-in verification). A structured code is a carrier fact `contracts/vendor-failure-lines.json` has no column for.
+merged at triad `ca82837`). A structured code is a carrier fact `contracts/vendor-failure-lines.json` has no column for.
 Inside a vendor's OWN error carrier the text is the vendor's, never an answer, a reviewed file or tool output, so the
 whole authentication vocabulary there — an API key (an api-key helper included), unauthorized or 401, not logged in, sign in
 or log in (run /login), authentication or credentials, an auth / access / refresh / session / bearer token or its data, an
@@ -738,8 +764,18 @@ a FAILED run (worst case: an R-AUTH STOP the owner inspects, or the bounded capa
 only gemini's trailing stderr envelope is read (`_gemini_trailing_envelope` @ triad `e40001d`), so two fatal envelopes in
 one run — an authentication one, then a capacity one — retry as capacity (constructed shape); gemini 0.60.0 in JSON mode
 writes a fatal error to stderr as `[ERROR] {json}` or a pretty-printed object (gemini-cli v0.60.0
-`packages/cli/src/utils/errors.ts`, `nonInteractiveCli.ts`). On A an agy tool error's text reaches the no-answer classify
-input (`agy_classify_signals` @ triad `e40001d`; worst case the bounded capacity retries (at most two, three calls)). On A the trailing-envelope scan is
+`packages/cli/src/utils/errors.ts`, `nonInteractiveCli.ts`). On A no agy step- or tool-level error text reaches the no-answer
+classify input: `agy_classify_signals` forwards only the result-level `error`'s first line (`_common.py:724-745`, triad
+`3626aab7`).
+(PR #13 C74) On A the agy permission-denied `result.error` — its first line begins `permission check failed for `
+(`_AGY_PERMISSION_HEAD`, `3rd-Agent/wrappers/_common.py:365`) and embeds the model's command — is skipped by the
+auth-carrier rung before the schema-report and vocabulary arms, so a denied command quoting the sign-in banner or naming
+a login command is not an R-AUTH STOP; agy's own stderr banner line and the schema-report exception stay carriers
+(`_auth_carrier_stop`, `:1727-1730`, triad `893bc085`; `tests/unit/wrappers/t67-auth-carrier-stop-c37.sh` C74 axes
+(a)-(d) and the neutral control @ triad `e9960053`). A has no external claude route (DL-110), so C74's
+`permission_denials` half does not apply on A. A recorded limit on A: that error's first line still reaches the
+no-answer classify input, so a denied command quoting a measured capacity or subscription-cap sentence could classify
+`server-capacity` / `cli-subscription-cap` (a constructed shape, not guarded). On A the trailing-envelope scan is
 quadratic on a stderr with many braces and no trailing object — reachable on measured gemini 429 dumps, with no hang
 recorded over 334 `server-capacity` rows. The plain-English `model overloaded`, `service unavailable` and `too many
 requests` are not match phrases (no capture where one is the only signal; a captured gemini 429 carries `Too Many
@@ -752,7 +788,33 @@ applies only to the CLI that emits it); no shared list keeps a phrase unless it 
 none today. No raw-text authentication phrase is kept: one matched over a failed run's whole output produced a MEASURED
 false STOP (a codex run of 2026-07-16 that failed on "Selected model is at capacity" was recorded oauth-env because a
 fetched page in its transcript quoted "401 Unauthorized"); the authentication STOPs come from the structured carriers
-only, and an authentication failure printed outside every carrier ends `unknown` (never retried). A classifier extension cannot add a raw-text authentication phrase: such an entry is ignored with one log line, and A's patch applier refuses an authentication-phrase proposal (A has no raw-text authentication list at all — `OAUTH_ENV_PATTERNS` removed; @ triad `c048340`). On A codex's write posture (`--sandbox workspace-write`) requires `--cwd` — exit 3, nothing spawned — as A's gemini wrapper already requires (@ triad `c048340`); the codex `--task` mode and its exits 68 / 69 are gone from A (@ triad `11662b2`). codex's own
+only, and an authentication failure printed outside every carrier ends `unknown` (never retried). A classifier extension cannot add a raw-text authentication phrase: such an entry is ignored with one log line, and A's patch applier refuses every proposal whose class is `oauth-env` — an authentication phrase, an agy banner phrase or an exit-code entry alike; entries already in an extension are read as before (A has no raw-text authentication list at all — `OAUTH_ENV_PATTERNS` removed @ triad `c048340`; the refusal @ triad `cfaa45ec`).
+On A an applied proposal is verified without calling the vendor again: deterministic code
+(`_common.reclassify_run_record`, run by `apply_patch.py --verify-run-log`, which reads and checks the record before
+the apply and classifies it again after it) classifies the failed run's stored record a second time from the input the
+wrapper built for that run — for a run that failed with a nonzero vendor exit or a wrapper timeout, its stderr, stdout,
+wrapper exit and vendor exit; for a non-agy run whose answer extraction failed at vendor exit 0, the extraction error
+in place of stderr, an empty stdout and the vendor exit (after the authentication-carrier check on its stored streams);
+for an agy run that returned no answer, the no-answer input rebuilt from the stored stream (its stderr, the stream's
+typed signals and the terminal status) — and the proposal holds only when that record now classifies as the proposed
+token and did not before the apply (`apply_patch.py` exit 4 otherwise, the entry staying applied; the three `verify:` /
+`evidence:` / `sentence:` lines are printed after every verified apply). A record the input cannot be rebuilt from — a
+class decided outside the classifier, no stored vendor exit, an agy record an earlier rung decided — or a run-log that
+is missing, empty, unreadable or of another CLI is refused before the apply, exit 3, nothing applied. The record keeps
+every field this input needs, in full; a promoted row's evidence is the applied proposal (the match phrase, the
+record's path and time, the vendor version) and the vendor sentence the analyzer quoted from that record, written
+before the record's age floor removes it; the wrappers' `--repair-mode` re-run is gone (triad `1e979d60` + `35dc7de8`,
+PR #13 C76). On A only a verified pattern-list proposal is promoted to a row (the repair procedure § 5e, triad
+`7210ad61`): the contract has no column for a vendor exit code, so an applied `vendor_exit_map` entry stays in the
+host's classifier extension (a fact for both hosts). A promoted row's cli is the contract's name (`agy` for A's
+`antigravity` wrapper), and a phrase verified on the extraction path carries the carrier "the extraction reason of a
+run at vendor exit 0". Tests: `tests/unit/wrappers/t76-reclassify-run-record.sh` @ triad `e9960053`. (PR #13 C76) On A
+the three read-only repair analyzers are one body rendered to three names, with the tools `Read, Grep, Glob, WebSearch,
+WebFetch` and no write, edit, shell or sub-agent tool; the two web tools serve only the bounded research rule
+(D-REPAIR-WEB-20261009, recorded on PR #13) (`.claude/agents/{codex,gemini,agy}-wrapper-repair.md`,
+`3rd-Agent/export_assets/distributed-repair-agent.md.tmpl`, triad `7dbba148` + `2118f7ff`;
+`tests/unit/wrappers/t33-repair-agent-readonly-lint.sh` @ triad `e9960053`; DL-147).
+On A codex's write posture (`--sandbox workspace-write`) requires `--cwd` — exit 3, nothing spawned — as A's gemini wrapper already requires (@ triad `c048340`); the codex `--task` mode and its exits 68 / 69 are gone from A (@ triad `11662b2`). codex's own
 `you've hit your usage limit` (codex-rs `UsageLimitReachedError`) is its subscription-cap sentence (On A
 `CLI_PATTERNS` @ triad `7e9e1fb`). On A (`3rd-Agent/wrappers/_common.py`
 @ triad `3fde8d6`) the kept phrases include codex's own `exceeded retry limit, last status: 429` (vendor source:
@@ -760,7 +822,12 @@ only, and an authentication failure printed outside every carrier ends `unknown`
 and codex's `invalid schema for response_format` (two real failures, 2026-09-20); the token-limit and
 configuration lists hold no measured sentence and are empty, so those failures end `unknown` and reach the repair
 analysis; `aborterror` is gone (its one capture is a user abort). An extension token outside the contract vocabulary — and, for an exit-code entry, outside the classes an exit-code proposal may carry — is
-ignored with one log line, never emitted (the emitted pair always matches the contract's code) (R-TOKENS; On A `_load_classifier_extension` @ triad `d966ab0`, the file parsed on each load; B returns any extension string, DL-97). A residual: a `401` outside the carrier,
+ignored with one log line, never emitted (the emitted pair always matches the contract's code) (R-TOKENS; On A `_load_classifier_extension` @ triad `d966ab0`, the file parsed on each load; B returns any extension string, DL-97).
+(PR #13 C77) On A a hand-edited `vendor_exit_map` keeps only a string class of `VENDOR_EXIT_PROPOSAL_CLASSES` and no
+key whose integer value is 0 or below — the rest is dropped, an unsupported class or a non-positive code with one log
+line (`3rd-Agent/wrappers/_common.py:990-1010`, triad `9a440ebf`; `tests/unit/wrappers/t21-classifier-extension.sh`
+axes 10, 12, 14, 17 and `tests/unit/wrappers/t32-apply-classifier-patch.sh` @ triad `e9960053`); a key that is not an
+integer spelling is kept and never matches a vendor exit (a recorded fact). A residual: a `401` outside the carrier,
 on a failed run that also carries a measured capacity token, classifies `server-capacity` and is retried, since capacity
 precedes oauth-env (not observed). Three guarantees replace per-shape code. A usable answer is never discarded because of
 text inside it: on A the codex `-o` last-message file is the answer, read before the JSONL events (`_common.py`
@@ -769,26 +836,26 @@ empty answer, and one of another type ends through the wrapper guard — recorde
 `structured_output` before reading `is_error` (`bin/_common.py:1256-1260` @ `7f75863`); claude's measured authentication
 result lines ("Not logged in · Please run /login", "Invalid API key · Fix external API key") are rows of
 `contracts/vendor-failure-lines.json`; host A has no claude CLI route (DL-110). The
-auth-carrier rung runs before every other rung. Classification never raises: an exception in a classifier or an extractor
-ends `unknown` (or `extraction-error`), exit 1, with the summary, audit row and run-log written (On A one general
-classification guard, `_common.py` `_never_raises` @ triad `e40001d`, on `classify`, `_auth_carrier_stop`, the three
-extractors, `agy_classify_signals`, and `antigravity_wrapper.py` `_classify_no_answer` (and `_catalog_auth_observed`,
-which goes with A's agy catalog call, DL-116), and one guard around each wrapper's whole `main` — probes, the run, extraction, payload building, classification —
-that ends a run `extraction-error` after a vendor exit 0, else `unknown`, exit 1, with the three records, letting
-SystemExit / KeyboardInterrupt pass, `_common.py` `_guarded_main` @ triad `fdd7029`; DL-90; recorded limits: an
-exception after a verdict is decided but before the records ends `extraction-error` / `unknown`, exit 1 — no measured
-shape raises there — and one after the records is one guard line and exit 1, the records keeping their verdict, DL-98); the guard's `False` fallback on the auth-carrier rung continues down the
-rungs, so a measured capacity token in the same run retries (at most twice); no raw-text authentication rung follows, so a
-measured codex 401 the raising rung did not read ends `unknown`, exit 1, never retried (On A t74 G5 @ triad `7e9e1fb`).
+auth-carrier rung runs before every other rung. Classification never raises: an exception in a classifier, an extractor or the auth-carrier rung
+ends `unknown`, exit 1, with the summary line, the audit row and the run-log written (On A one guard, `_common.py`
+`_guarded_main`, around each wrapper's whole `main` — probes, the run, extraction, payload building, classification —
+letting SystemExit / KeyboardInterrupt pass, @ triad `c8907314`; DL-90, DL-137; recorded limits: such an exception
+raised inside the dispatch, before the wrapper holds the run's result, records a not-started receipt — empty stdout /
+stderr and vendor exit `None` — so the repair analyzer an `unknown` routes to has no vendor evidence; an exception after
+the run's result is held but before the records ends `extraction-error` after a vendor exit 0, else `unknown`, exit 1,
+with the three records — no measured shape raises there — and one after the records is one guard line and exit 1, the
+records keeping their verdict, DL-98); no raw-text authentication rung follows, so a measured codex 401 the raising
+rung did not read ends `unknown`, exit 1, never retried (On A t74 G5 @ triad `c8907314`).
 
 <a id="R-RECEIPT"></a>
 The transport receipt and audit / run-log records carry the common transport object defined by
 `contracts/receipt-fields.json`: stdin delivery class, execution route, binary, observed CLI version and attempt.
 Existing host envelopes remain. Schema validation alone does not prove host implementation or observed runtime identity.
-On A, when a later agy driver turn (a schema-repair or soft-deny re-run) fails to spawn, the audit `cmd` is the argv of
+On A, when a later agy driver turn (a capacity retry or a schema-repair re-run) fails to spawn, the audit `cmd` is the argv of
 the last turn that spawned, the receipt describes that same last spawned turn (its binary and its delivery; 6.0 —
-earlier the unspawned turn's pre-spawn shape), and the unspawned turn adds no attempt to the read audit (`3rd-Agent/wrappers/antigravity_wrapper.py:1052-1077`,
-`:2050-2056`; `build_transport`, `3rd-Agent/wrappers/_common.py:2066-2083` @ triad `bf38f60`). B has no driver re-run
+earlier the unspawned turn's pre-spawn shape), and the unspawned turn adds no attempt to the read audit
+(`3rd-Agent/wrappers/antigravity_wrapper.py:683-713`; `build_transport`, `3rd-Agent/wrappers/_common.py:1347` @ triad
+`e9960053`; the soft-deny re-run is removed @ triad `e34edcb4`, DL-140). B has no driver re-run
 turn (a fact).
 
 <a id="R-BIND"></a>
@@ -796,9 +863,8 @@ Every leg's result binds `review_id`, `family` and `content_digest` today on bot
 a pass. v2 ADDS (round r2, all three families; lands with the D-3 wire — `contracts/leg-verdict-mapping.md`): `leg_name` (the
 roster entry), `attempt` (integer ≥ 1, per leg), `route` (the resolved Google route `agy` | `gemini`; null for a family with
 one route). The common v2 prompt pins use these fields. Each host adopts its validator, all shaped clauses and collectors together;
-explicit legacy entry points retain their old contract and cannot admit v2 results. On A: the legacy small path
-(`lib/review_small.py`) never collects a v2 round's results; it reads its own round's answers and treats v2-shaped extra
-fields (binding or schema members) as shape notes, keeping the answer (`:631`, `:654`, `:745`).
+explicit legacy entry points retain their old contract and cannot admit v2 results. On A no legacy entry point remains:
+the small review path and the v1 round are removed (triad `32124be5`, `12b1dd6f`; DL-128).
 A recorded attempt is sealed: the result and every evidence file its route records for the attempt (read evidence; a
 transport receipt where the route records one there) are written once and bound by digest when recorded, and collection
 refuses a later change, removal or replacement of any of them. A native leg seals what it records; DL-18 adds no
@@ -811,34 +877,37 @@ On B: `record_attempt` writes result, read
 evidence and receipt with exclusive create and seals `terminal.json` with their digests (`bin/review_round_v2.py:378-397`,
 `bin/review_round.py:2308-2317`), and `collect` re-checks those digests (`bin/review_round_v2.py:365-375`).
 
-On A (cited @ triad `ce30d82`, Task 18 fix round 2, verification pending): a seal (`seal.json` beside the attempt) records one state — `valid` (an admitted answer),
-`invalid` (an answer that could not be admitted) or `failed-to-run` (no answer; written by `retry`, below) — and the
-digests of the files the round's frozen entry derives for it: the result, the receipt (the native leg's raw reply; a
-wrapper leg's stderr), the read evidence (agy) and, on a wrapper route, the run-log directory that holds the
-executed-command receipt (digested over its `*.json` run-logs; `_sealed_paths`, `lib/collect_v2.py:1390-1408`,
-`_bound_digest`, `:1430-1444`). The native admission seals at admission (`_write_admission_seal`,
-`lib/verdict_v2.py:780-835`, called at `:1065-1097`): an admitted reply `valid`; a reply it refuses — a regular file,
-digested in full even over the size cap — `invalid`, created at its final name so a write cut short still closes the
-attempt to a second reply; a seal that cannot be written on a refused reply is a host fault (exit 64, "save no other
-reply there"). The admission takes the six expected bindings from the attempt's own `binding.json`; a typed flag that
-disagrees is an argument error (exit 64) and seals nothing (`_attempt_binding`, `:944`). A `raw.json` that is not a
+On A (triad `e24a82f2` and `bb933c6b`, cited @ `e9960053`): a seal (`seal.json` beside the attempt) records one
+state — `valid` (an admitted answer), `invalid` (an answer that could not be admitted) or `failed-to-run` (no answer)
+— and the digests of the files the round's frozen entry derives for it: the result, the receipt (the native leg's raw
+reply; a wrapper leg's stderr), the read evidence (agy) and, on a wrapper route, the run-log directory that holds the
+executed-command receipt (digested over its `*.json` run-logs; `_sealed_paths`, `lib/collect_v2.py:709-727`,
+`_bound_digest`, `:755`). The native admission seals only a reply it admits: once `--admitted-out` is in place it
+creates a `valid` seal exclusively, binding the admitted object and the raw reply it judged (`_write_admission_seal`,
+`lib/verdict_v2.py:598-633`, called at `:839-841`); a seal that cannot be written after an admitted reply is a host
+fault (exit 64, "re-run this same admission"). A reply the admission refuses is not sealed: the admission prints the
+reason and exits with its own code (`main`, `:831-835`), collection reports the attempt not admitted with its retry
+open, and `retry` seals it `invalid` over the `raw.json` it judged when it replaces the attempt — host B's single valid
+seal (DL-135). The admission takes the six expected bindings from the attempt's own `binding.json`; a typed flag that
+disagrees is an argument error (exit 64) and seals nothing (`_attempt_binding`, `:740`). A `raw.json` that is not a
 readable regular file is never judged: the admission refuses it as a reply, the entry is INVALID and its retry stays
-open. A wrapper attempt is sealed by the first collection that judges it, over the bytes it judged
-(`lib/collect_v2.py:2387-2418`). Before collection seals an `admitted.json` no admission sealed, it re-derives it from
-the `raw.json` beside it by the same admission; an admitted result that is not that reply's admission is an integrity
-failure (`_readmission_reason`, `:1837-1863`), and `retry` refuses that attempt as one holding a VALID verdict
-(`:3123-3129`). A refused reply's cut-short seal binds nothing: collection records no digest for it (`:2408-2416`), and
-`retry` completes it `invalid` over the reply as found; when the reply beside it is admissible, `retry` itself removes
-the cut-short seal and refuses, naming the `admit:` line (`_seal_replaced`, `:1496-1545`; the removal `:1522-1538`). A
-native reply saved and never admitted blocks agreement and retry until its printed `admit:` line runs, in ANY attempt of
-the entry: a regular, readable `raw.json` with no seal and either no `admitted.json` or a regular `admitted.json` that
-the admission refuses (empty included) while `raw.json` is admissible against its own `binding.json`
-(`_raw_admissible`, `:1613-1624`; `_saved_not_admitted`, `:1626-1659`; `_history_reason`, `:1789-1836`; `retry`,
-`:3149-3172`); `retry` itself removes such an `admitted.json` before it refuses (`:3154-3166`), and no printed remedy
-asks for a hand removal (Z2; R-CLEANUP: only host code deletes). An `admitted.json` that is a link, a directory, unreadable or over the size cap beside a saved `raw.json` with no seal makes the entry INVALID ("prepare a new round") and `retry` refuses it (Z1, `:1645-1650`). A recorded attempt whose `binding.json` no longer binds the entry — edited, copied in, unreadable or removed, in that attempt or in attempt 1 (round evidence) — is INVALID at collection ("the binding no longer binds this entry — prepare a new round"), decided before the never-admitted, seal and empty-result reasons and not sealed there, and `retry` refuses it and allocates nothing: no attempt of that entry can reach AGREED in the round (`_unbound_reason`, `lib/collect_v2.py:1670-1713`, called at `:1989` and in `_adoption_blocked` at `:2117` @ triad `bf38f60`). On B an attempt's sealed `allocation.json` that does not match its basis is refused (`bin/review_round_v2.py:256-263` @ `7f75863`) and a retry is allowed only after a diagnosed failed-to-run attempt (`:274`). `retry` RECORDS the attempt it replaces before it allocates the next: it takes that attempt's digests first, judges those same bytes, and seals it `invalid` when an answer is there — a result it judged inadmissible, or, on the native route, a saved `raw.json` (Z4) — and `failed-to-run` when none is; a write that lands while it judges refuses the retry and allocates nothing (`:3112-3121`, `:3363`; `_seal_replaced`). `collect-r<N>.json` keeps each seal's digest, and every collection
+open. A wrapper attempt is sealed by the first collection that judges it, over the digests that collection took once
+before judging (`_evaluate_unsealed`, `lib/collect_v2.py:1253`). An unsealed `admitted.json` is judged as found; it is
+not re-derived from the `raw.json` beside it. A native reply saved and never admitted blocks agreement and retry until
+its printed `admit:` line runs, in ANY attempt of the entry: a regular, readable `raw.json` the admission would admit
+against the round's own expected bindings, with no seal and no `admitted.json` (`_raw_admissible`, `:876`;
+`_saved_not_admitted`, `:889`; `_history_reason`, `:996`; `_retry_blocked`, `:1156`); no printed remedy asks for a hand
+removal (Z2; R-CLEANUP: only host code deletes). `retry` RECORDS the attempt it replaces before it allocates the next:
+it takes that attempt's digests once, judges those same bytes, and seals it `invalid` when an answer is there — a
+result it judged inadmissible, or, on the native route, a saved `raw.json` (Z4) — and `failed-to-run` when none is; an
+attempt whose digests cannot be taken (an unreadable file) refuses the retry with nothing allocated: prepare a new round
+(`retry`, `lib/collect_v2.py:1616-1755`; `_seal_replaced`, `:812`). On B an attempt's sealed `allocation.json` that does not match its basis is refused (`bin/review_round_v2.py:256-263` @ `7f75863`) and a retry is allowed only after a diagnosed failed-to-run attempt (`:274`). Each attempt's custody is digested once per
+collection or retry: a write that lands after that digest is not seen by that step, and the next collection's seal
+check reports it (R-AGREE, D-LATE-ANSWER-20261004). `collect-r<N>.json` keeps each seal's digest, and every collection
 re-checks every sealed attempt of the entry — the earlier ones included — so a later change, removal or replacement of
 a sealed file or seal is an integrity failure (INCOMPLETE, never AGREED). The printed wrapper line runs a seal guard
-under `noclobber`, and the native spawn gets a printed `guard:` line (`lib/review_scratch.py:5238-5248`, `:5261-5273`).
+under `noclobber`, and the native spawn gets a printed `guard:` line (`lib/review_scratch.py:2906-2936` @ triad
+`e9960053`).
 
 Known limits, recorded as facts. Both hosts (owner, 2026-10-03,
 [D-PRE-RECORD-REPLY-20261003](../decisions/owner-register.md#D-PRE-RECORD-REPLY-20261003)): a saved reply replaced before
@@ -849,11 +918,14 @@ over the existing file. On A, each a deliberate tampering with the host's own fi
 [D-C66-LIMITS-20261003](../decisions/owner-register.md#D-C66-LIMITS-20261003), codex's tampering chains, and the
 leader's ruling under [R-THREAT](#R-THREAT)): (1) after an unusable attempt directory is collected, removing that
 directory and the original seal and replacing a blocking result can reach AGREED in the same round; (4) a native seal's
-state field can be edited before the first collection. On A, ordinary failures with a safe outcome: (3) a seal write
-that fails at collection records nothing — that entry is INCOMPLETE and the next collection judges and seals the same
-bytes; a run-log over the 64 MiB evidence cap cannot be read as a receipt, so that attempt is INVALID with its retry
-open, and a retry whose run is as verbose ends the same way (`_receipt_reason`, `:2065-2072`, through the capped reader
-`:655-672`); a run-log that cannot be written (a full disk) is one stderr line: the answer is still published with its
+state field can be edited before the first collection; (5) a hand-edited `binding.json` makes `collect` and `retry`
+name the `admit:` line while that line refuses the reply, so the round never reaches AGREED and no message names a new
+round. On A, recorded limits of the single valid seal (DL-135; constructed shapes, no code): a second reply saved over
+a refused, unsealed one can be admitted into that attempt; an unsealed `admitted.json` is not re-derived from its
+`raw.json`; a hand-written `admitted.json` beside a saved reply is judged as found. On A, ordinary failures with a safe
+outcome: (3) a seal write that fails at collection records nothing — that entry is INCOMPLETE and the next collection
+judges and seals the same bytes; no evidence size cap remains on A, as on B (the 64 MiB cap of four readers is removed @
+triad `e24a82f2`, DL-135); a run-log that cannot be written (a full disk) is one stderr line: the answer is still published with its
 exit code unchanged, and the attempt carries no receipt, so it is INVALID at collection with its retry open (R-TERMINAL;
 `_dispatch_record`, `3rd-Agent/wrappers/_common.py:4441-4457` @ triad e0b15f1;
 tests/unit/wrappers/t74-record-seam-a4-c1.sh A4).
@@ -861,11 +933,11 @@ tests/unit/wrappers/t74-record-seam-a4-c1.sh A4).
 Which attempt collection evaluates (a fact): On B the last sealed allocation, refusing a history whose earlier
 attempt is not FAILED_TO_RUN (`bin/review_round_v2.py:507-518`); On A the attempt the round record's `attempt` field
 names, only behind earlier attempts that `retry` sealed and diagnosed, whose sealed files are unchanged and that are not
-sealed valid (`_history_reason`, `lib/collect_v2.py:1789-1836` @ `ce30d82`), and `retry` refuses a valid-sealed attempt,
-a saved reply never admitted and a history that can never be collected before allocating (`lib/collect_v2.py:3052-3231`).
+sealed valid (`_history_reason`, `lib/collect_v2.py:992-1041` @ triad `ee011968`), and `retry` refuses a valid-sealed attempt,
+a saved reply never admitted and a history that can never be collected before allocating (`_retry_blocked`, `lib/collect_v2.py:1152-1246`, called by `retry`, `:1612`).
 A retryable attempt differs by host (a fact, DL-55): On A an attempt sealed invalid (an answer that could not be
 admitted) is retryable while its sealed files are unchanged, and one whose sealed files changed is an integrity failure
-(prepare a new round; `:3228-3231`); On B a completed invalid answer is INVALID, not failed-to-run, and is
+(prepare a new round; `_seal_reason` in `_retry_blocked`, `:1228-1230`); On B a completed invalid answer is INVALID, not failed-to-run, and is
 refused for retry (`bin/review_round_v2.py:345-349`, `:274-275`).
 
 The executed command is checked against the recorded dispatch at collection, on both hosts: the wrapper records the
@@ -877,12 +949,12 @@ refuse a line whose review markers disagree with the bound metadata before the v
 such pre-spawn check: its pre-spawn review-argv digest (`TRIAD_REVIEW_ARGV_SHA256` in the dispatch env,
 `lib/roster_v2.py:1003-1004`, checked by `_review_argv_refusal`, `3rd-Agent/wrappers/_common.py:5148-5174`, called at
 `codex_wrapper.py:194`, `antigravity_wrapper.py:2333`, `gemini_wrapper.py:443` @ triad `e0b15f1`) is removed (DL-111).
-On A (@ `ce30d82`): the dispatch env carries `TRIAD_REVIEW_LOG_DIR=<attempt>/logs`; with the log dir set the wrapper
-writes its run-log there on success and failure alike (`emit_run_log`, `_common.py:4590-4621`); `collect` makes an unsealed or invalid-sealed
+On A (@ triad `ee011968`): the dispatch env carries `TRIAD_REVIEW_LOG_DIR=<attempt>/logs`; with the log dir set the wrapper
+writes its run-log there on success and failure alike (`emit_run_log`, `_common.py:3885-3990`); `collect` makes an unsealed or invalid-sealed
 wrapper attempt INVALID when no run-log is there or any run-log's `wrapper_cmd` differs from `dispatch.json`'s argv
-(`_receipt_reason`, `lib/collect_v2.py:2040-2079`, called at `:2201`), and the run-log directory is a sealed file
+(`_receipt_reason`, `lib/collect_v2.py:1277-1316`, called at `:1365`), and the run-log directory is a sealed file
 (above). An attempt whose line never ran, or was refused before the spawn, leaves no or an empty result file and is
-MISSING (`:2124-2134`). On B (@ `7f75863`): before the vendor runs, `bound_wrapper` refuses a v2 review without the
+MISSING (`:1327-1337`). On B (@ `7f75863`): before the vendor runs, `bound_wrapper` refuses a v2 review without the
 configured per-attempt log dir or any of the six expected bindings (`bin/verdict_v2.py:67-74`; called at argument
 parsing: agy `bin/antigravity_wrapper.py:495-502`, gemini `bin/gemini_wrapper.py:348-352`, claude
 `bin/claude_wrapper.py:340-344`), and `validate_review_web` refuses a `--web` that differs from the bound
@@ -897,8 +969,9 @@ every review marker removed (on A the log-dir env value) runs as an ordinary cal
 inference a command that carries no review marker — and is caught at collection, never agreement. The native claude
 spawn on A has no receipt (DL-18): the subagent it was spawned as is not checked (a fact).
 Duplicate JSON members are rejected at the original-text boundary before extraction or normalization can discard evidence
-(On A: the wrapper schema path, `3rd-Agent/wrappers/_common.py:2474-2486`; the raw-reply admission,
-`lib/validate_verdict.py:409-436`; the v2 admission of every route's result, `lib/verdict_v2.py:356-419`. On B: its review
+(On A: the wrapper schema path, `3rd-Agent/wrappers/_common.py:197-234` `_reject_duplicate_pairs`; the v2 admission
+of every route's result, `lib/verdict_v2.py:277-311` `_reject_duplicate` / `_parse_strict` @ triad `e9960053`; the
+raw-reply admission `lib/validate_verdict.py` is removed @ triad `12b1dd6f`, DL-128. On B: its review
 wrapper/result paths including explicit v2, `bin/validate_v2.py:34`; see C14/C30).
 
 ## Preparation, verification, cleanup (lifecycle obligations)
@@ -909,7 +982,7 @@ the roster from the registry with the recommended defaults; prints one COMPLETE 
 printed (its executed command is checked against the recorded dispatch, R-BIND); captures the
 round snapshot. It refuses on a malformed registry entry and never launches a provider itself. A change to a rule,
 schema, prompt clause or policy file is behavioral review scope even when the file contains only text; the docs-never-gate
-rule covers narrative documentation only. Symlinks (owner Q4, RULED 2026-09-19: "링크 자체는 검토하되, 대상을 자동으로 따라가지 않는 방식"): the LINK ITSELF is review material — its path, kind and exact link text are fingerprinted and available to reviewers; its TARGET is never followed automatically. Target content enters a review only as an independently authorized, bound input; a link the review cannot follow is disclosed as a coverage gap, never claimed inspected; cleanup never follows a link to delete its target. Each host implements "never followed" its own way and records the evidence (B: link-text fingerprint — its guarded worktree folds an untracked link by its text, `bin/review_round.py:1594-1597` — and a symlink refusal in the prepared copy, `:1441-1444` @ `7f75863`). On A: the reviewed patch is always committed content — a range without `..` still reviews `<commit>..HEAD` (`lib/review_scratch.py:4060-4066` @ `ce30d82`), and `_require_clean_scope` refuses in-scope modified tracked files (`:4112-4130`) — so the bound v2 `brief.md` DISCLOSES the basis's links rather than adding them to the patch: every committed link (kind `symlink`, path and exact link text from the commit's tree and blob objects) and, on a working-tree range, each untracked nonignored link of the source checkout (kind `untracked link`, text read with `readlink` of the link itself); no target is opened. A judges a coverage gap lexically, on the link text alone, component by component and before any collapse: an absolute text or one that climbs above the tree (outside), a text that walks through or names another link of the basis — a chain, a traversal through a link, a directory link, a self-link (not followed) — and an in-tree text naming no path of the commit (absent) are each marked a coverage gap (`_tree_symlinks` / `_render_links`, `:4636-4726`; the working-tree listing at `:5815`); an untracked-file listing that warns it could not read a directory (git skips it with exit 0) is refused, never taken as complete (DL-84; on A every untracked listing refuses git's "could not open directory" warning — the brief's links, the round fingerprint and the precheck — `lib/review_scratch.py:2232-2252` `_git_untracked`, called at `:2412`, `:4193`, `:4955` @ triad `99aaebc`); on A a link whose own directory is not in the reviewed commit carries its own coverage-gap note (K18; `:4992-4996`, `:5044` @ `99aaebc`). The link listing and gap marks: A FIXED triad `aec571f` (verification pending; at `cbc67f6` an untracked nonignored source link was neither listed nor marked, and a chain, a self-link or a text through another link got no gap mark, DL-53); the shapes with an absent intermediate component and a trailing slash are in progress (Task 11, fix round 3). The one refusal that stays on A is the round-copy guard: a link found where the round copy is captured or verified is refused (`:2194-2195`, `:3970-3971`), as B refuses links in its prepared copy. A fact, not built: the lexical walk compares components case-sensitively, so on a case-insensitive volume a deliberately odd text such as `OUT/../x` passes through a committed link `out` in the kernel without a gap mark. Mechanism per host, principle = shared rule.
+rule covers narrative documentation only. Symlinks (owner Q4, RULED 2026-09-19: "링크 자체는 검토하되, 대상을 자동으로 따라가지 않는 방식"): the LINK ITSELF is review material — its path, kind and exact link text are fingerprinted and available to reviewers; its TARGET is never followed automatically. Target content enters a review only as an independently authorized, bound input; a link the review cannot follow is disclosed as a coverage gap, never claimed inspected; cleanup never follows a link to delete its target. Each host implements "never followed" its own way and records the evidence (B: link-text fingerprint — its guarded worktree folds an untracked link by its text, `bin/review_round.py:1594-1597` — and a symlink refusal in the prepared copy, `:1441-1444` @ `7f75863`). On A: the reviewed patch is always committed content — a range without `..` still reviews `<commit>..HEAD` (`lib/review_scratch.py:4060-4066` @ `ce30d82`), and `_require_clean_scope` refuses in-scope modified tracked files (`:4112-4130`) — so the bound v2 `brief.md` DISCLOSES the basis's links rather than adding them to the patch: every committed link (kind `symlink`, path and exact link text from the commit's tree and blob objects) and, on a working-tree range, each untracked nonignored link of the source checkout (kind `untracked link`, text read with `readlink` of the link itself). On A (triad `92b7fee`) the brief lists every link with its path, kind and exact text, and one sentence discloses any target not read in the tree as a coverage gap; no target is opened. An untracked-file listing that warns it could not read a directory (git skips it with exit 0) is refused, never taken as complete (DL-84; on A every untracked listing refuses git's "could not open directory" warning — the brief's links, the round fingerprint and the precheck — `lib/review_scratch.py:2232-2252` `_git_untracked`, called at `:2412`, `:4193`, `:4955` @ triad `99aaebc`). An untracked nonignored source link is listed beside the committed links (`_tree_symlinks` / `_render_links`, `lib/review_scratch.py:2713-2767`; `tests/unit/skills/t24-symlink-c26.sh` @ triad `92b7feeb`; DL-53). The one refusal that stays on A is the round-copy guard: a link found where the round copy is captured or verified is refused (`:2194-2195`, `:3970-3971`), as B refuses links in its prepared copy. Mechanism per host, principle = shared rule.
 
 The **bound basis** of a round is every input its review depends on: the reviewed bytes and packet; the review
 conditions (`review_kind`, `review_web_authorized`, the round date `<review-date>`, and the leader's prompt inputs —
@@ -917,12 +990,12 @@ objective, criteria, boundary, `prior_residual`); the selected entries and every
 whatever source the host resolves them (R-ROSTER); and the installed prompt clauses, producer schema and admission
 contract. The content digest every leg result carries (R-BIND) covers the reviewed bytes, the review conditions, the
 selection and the controls. An input a host produces only after that digest, because the rendered prompts embed the
-digest, is recorded with the round at prepare (a mutable round record suffices), and before a retry, an adoption (the re-entry
-into an attempt that exists on disk but that the round record does not yet name, left by an interrupted retry; On A:
-`_adopt_orphan_attempt`, `lib/collect_v2.py:2354` @ `faeb86b`; B refuses an attempt that already exists,
-`bin/review_round_v2.py:291-294`, and has no adoption) or a
+digest, is recorded with the round at prepare (a mutable round record suffices), and before a retry or a
 collection the host re-derives it from the installed files and compares it with the recorded value; a host may instead
-hash the installed source files into the digest. Retry, adoption and
+hash the installed source files into the digest. No host re-enters an attempt that exists on disk but that the round
+record does not yet name (left by an interrupted retry): both refuse it, and the leader prepares a new round (On A
+`_retry_blocked`, `lib/collect_v2.py:1156` @ triad `e9960053`, since `207dd39f`; On B `bin/review_round_v2.py:291-294`
+@ `7f75863`; DL-130). Retry and
 collection read the digest-covered members from the bound bytes, never from a mutable copy. A changed member is a
 changed basis: R-RETRY refuses a changed condition, selection or control before an attempt is allocated, the round (verify, then
 collect) does not agree on any changed member, and the leader prepares a new round (R-REREVIEW). A host change that alters the bound
@@ -933,9 +1006,9 @@ prepared in a fresh review root: its own managed review workspace `triad-review-
 (`prepare_review_workspace`, `bin/review_round.py:1034`, `:1063`; `create_basis` requires it,
 `bin/review_round_v2.py:139-141` @ `7f75863`). On A the target is the same (owner,
 [D-OWNER-ANSWERS-20261008B](../decisions/owner-register.md#D-OWNER-ANSWERS-20261008B) item 8): each round in a fresh
-review root, no packet dir shared by the rounds of a gate and no worktree re-pinned from round to round; at triad
-`e0b15f1` A keeps one packet dir per gate whose one detached worktree `prepare` re-pins each round
-(`lib/review_scratch.py:6156-6160`; the removal of the outgoing round tree, `:6574-6600`) — DL-115.
+review root, no packet dir shared by the rounds of a gate and no worktree re-pinned from round to round. On A (triad
+`6878cc4a`): `prepare` refuses a packet dir that already holds a round tree or a captured snapshot, before anything is
+created (`lib/review_scratch.py` `cmd_prepare`); the leader opens a new packet dir per round.
 
 - On A: `review_scratch.py prepare --v2` writes the `Review metadata:` line of `delivery-r<N>.md`, whose sha256 is the
   content digest (`lib/review_scratch.py:5823-5848`). It carries `review_kind`, `review_web_policy` (the rendered
@@ -944,20 +1017,15 @@ review root, no packet dir shared by the rounds of a gate and no worktree re-pin
   (`_v2_config_digest`, `:5263`: every round-record entry field except `attempt`, plus `gate_files`, `hook_log` and
   `results_dir`); the brief and residual are inside the hashed packet. `collect_v2._bound_metadata`
   (`lib/collect_v2.py:442-512`) re-hashes the delivery record and compares the record with the bound line in
-  `collect`, `retry` and adoption. A later edit of the project roster file does not affect a prepared round. The
-  clause manifests (`prompt_manifests`, `prompt_spec_dir`), the producer projection digest and the contract digest are
-  recorded in `.roster-r<N>.json` and compared there with re-derived values (`lib/collect_v2.py:1910`, `:2718-2720`,
-  `:2759`): `collect` re-derives the contract digest (`:1944`), and since triad `99aaebc` `collect` and `retry` (before
-  its orphan adoption) re-derive every dispatched entry's clause manifest and the clause directory, the producer
-  projection and a claude entry's bound `preset.file_sha256`, re-derived from the bare roster name (R-ROSTER), through
-  `_check_installed_basis` (`lib/collect_v2.py:2530`, called at `:2675` and `:3410` @ triad `3894879`; DL-41, DL-49). A retry checks the whole round's basis: a changed member of any
+  `collect` and `retry`. A later edit of the project roster file does not affect a prepared round. On A (triad `80b302e7`, `c50b1c8b`) `prepare` records a map of the installed toolkit files —
+  every file directly under `lib/`, the vendored `spec/` and the six shipped reviewer presets — with each file's sha256 in `.roster-r<N>.json`,
+  and `collect` and `retry` compare it with the installed files before anything is judged or allocated, naming every
+  changed file (the recorded-and-compared option above: the map lives in the mutable round record, outside the content
+  digest). A retry checks the whole round's basis: a changed member of any
   dispatched entry (the claude preset while codex is retried, say) refuses the retry, since that member could never
-  agree and a paid retry on it is refused rather than spent (R-RETRY). A round prepared before `99aaebc` whose roster
-  dispatched a claude entry carries no `preset` member and can no longer be retried or collected — prepare a new round
-  (a round without a claude entry compares equal, both sides absent). A fact: a round record written before triad
-  `3894879` (its `preset` also carries `path` / `project`) still carries `file_sha256`, so with the shipped file
-  unchanged it collects and retries; one that bound an operator-authored preset refuses (`missing (… not a reviewer
-  preset this host ships …)`) — prepare a new round. The
+  agree and a paid retry on it is refused rather than spent (R-RETRY). A round prepared before triad `80b302e7` carries no
+  toolkit map and can no longer be retried or collected ("this round was prepared before the host recorded its toolkit
+  map — prepare a new round"). The
   round date is bound since `b53409b` (above).
 - On B: `bin/review_round_v2.py` `create_basis` seals `basis-v2.json` (the request with `review_kind`,
   `review_web_authorized` and `prior_residual`; the resolved roster; adapters with launch controls and receipt digests;
@@ -1017,7 +1085,21 @@ covers its whole subtree (no glob, no `..` component): repository-relative (reso
 or beginning with `$TMPDIR`, `~` or `$HOST_DIR` (the directory that holds the host's own deletion command, for folders a
 host keeps beside its installed code, such as its wrapper logs). A `marker:<name>` proof is a regular file of that name
 directly in the folder to delete; `alloc-record` and `inside-owned-packet` are proved only inside the host's own sweep,
-so the deletion command refuses them. The age floor binds the sweep and the deletion command alike, and the age is read
+so the deletion command refuses them. For a host-managed log folder, `inside-owned-packet` means a root the host's own
+code creates beside its deletion command (`$HOST_DIR/…`) or inside its own packet and that no other program writes;
+membership is a regular file (never a link) directly in the folder the sweep names inside that root, older than the
+floor; no per-file record exists or is required (On A `cleanup-roots.default.json` role `wrapper-run-logs` →
+`$HOST_DIR/_logs`; `_common._swept` `:3118` proves the root — the declared role, its proof label, the swept folder
+inside the root, no symbolic link on the way, the floor — and `_prune_dir_by_caps` `:3991` proves membership per entry,
+`lstat` never followed, a link refused, an unreadable entry left in place; triad `e9960053`). (PR #13 C4 (iv)) On A
+every wrapper sweep acts only under a role root the host's own configuration declares — `wrapper-run-logs`,
+`wrapper-audit-archives` and `dispatch-prompts` (proof `inside-owned-packet`) and `wrapper-debug` (proof
+`alloc-record`) — through `_common._swept` (`3rd-Agent/wrappers/_common.py:3372`, `:4129`, `:4269`, `:4424`,
+`:4441`, `:4627`); the review-scratch sweep (`review_scratch._prune_stale` `:463` → `_scratch_role` `:344`, role
+`review-scratch`, `marker:.active`) and the test-runs prune (`tests/lib/prune_runs.sh:68-73`, `cleanup.py remove
+test-runs`, role `test-runs`, `marker:.triad-run`, declared in the lab's `.claude/triad-cleanup.json:9`) act under their
+own declared roles — and A has no sweep of a shared temporary directory by name prefix and age
+(`tests/unit/wrappers/t73-prune-roles-c69.sh` @ triad `e9960053`). The age floor binds the sweep and the deletion command alike, and the age is read
 from the proof itself (a marker's own modification time), never from the folder a deletion is emptying. Removing an empty folder that carries no proof marker never completes or removes a git registration below it (On A restored @ triad `3fde8d6`; B requires its allocation and a verified export, `bin/review_round.py:1338-1341` @ `7f75863`). A deletion keeps its
 proof until last, so a deletion stopped part-way resumes from the same proof; a linked worktree inside the folder is first
 removed through the repository that owns it — a worktree is emptied (its `.git` entry kept) before it is detached, because git
@@ -1029,8 +1111,10 @@ removed (never a repository-wide prune); a git-registered worktree's age is its 
 inside a marker role's root, older than the floor and not inside a folder that carries ANY declared role's marker, is removed with rmdir: it
 holds nothing to lose; roles whose proof only the sweep can check, and roots shared with other programs (a root beginning
 with `$TMPDIR` or `~`; a repository-relative or `$HOST_DIR` root is the host's own), get no such
-removal (an empty folder a stopped git-registered deletion leaves is the sweep's: on A an EMPTY, unregistered folder directly
-under the code-worktrees root, never a registered one). A coded sweep may run in a folder that stands in for its role's
+removal. On A the empty folder a stopped `cleanup.py remove code-worktrees` leaves (between its `.git` unlink and its
+rmdir) stays: the deletion command refuses it and it is harmless, and a later `git worktree add` of the same name
+succeeds (measured on git 2.43.0 and 2.50.1); the codex wrapper's sweep of such folders is removed @ triad `39b19821`
+(a recorded limit, DL-139). A coded sweep may run in a folder that stands in for its role's
 root for test isolation (on A a log- or debug-directory variable, a review attempt's own log directory); a root a caller
 hands a review helper is not a stand-in — it must be the declared root; the role must still be declared and its proof and floor apply, and the deletion command never
 reads such a stand-in. A sweep checks one proof — a role that declares another is skipped with a note; a day-granular sweep
@@ -1059,15 +1143,15 @@ like any other; every lock refusal prints the lock's reason. On A the reason is 
 512 bytes on one line), printed as `reason: "<text>"` or `no reason given`; a lock file that cannot be read still refuses.
 A nested worktree under a folder the repository ignores is invisible to `git status` and to `git worktree remove`'s clean
 check (git checks only the outer tree's lock), so a removal that runs its own `git worktree remove` first checks the whole
-tree below its own `.git` for any other `.git` entry and refuses on an unreadable folder (on A at triad `e0b15f1` the
-prepare re-pin, the one removal outside the deletion command; it goes with the fresh review root per round, R-PREPARE,
-DL-115). `git worktree add` exits non-zero when a post-checkout hook fails yet leaves the
+tree below its own `.git` for any other `.git` entry and refuses on an unreadable folder (none on A since triad
+`6878cc4a`: a packet dir holds one round and only the deletion command removes it). `git worktree add` exits
+non-zero when a post-checkout hook fails yet leaves the
 worktree and its registration in place, so its exit code alone does not say whether it created one: on A a rollback
 claims a registration when its add succeeded or left its tree inside the folder the same call created; an add refused
 because the path was already registered created nothing to roll back. An add stopped after it wrote the registration and
-before it created the tree leaves a registration no rollback claims (a recorded limit; git marks it prunable). Both review paths' close (A: the scratch packet and
-the small round) finish an EMPTY folder directly under their declared root. A sweep hands an EMPTY folder directly under its role's root, past the
-floor, to the empty-folder rule (A: the small path's expiry joins the scratch sweep in the final fix wave). A failed step's rollback
+before it created the tree leaves a registration no rollback claims (a recorded limit; git marks it prunable). A review close (A: the scratch packet; A's
+small review path is removed @ triad `32124be5`, DL-128) finishes an EMPTY folder directly under its declared root. A sweep hands an EMPTY folder directly under its role's root, past the
+floor, to the empty-folder rule (A: the scratch sweep). A failed step's rollback
 that removes a worktree the same call created is the creating call's own removal: a lock set during that call (a
 checkout hook) does not stop it. A stopped deletion that resumes re-checks what remains as a SUBSET of what it
 checked before it started (nothing new, nothing foreign), never as the whole set (On B `bin/review_round.py:1342-1361` @
@@ -1097,7 +1181,7 @@ deleting inside a project reads that project's configuration (the root's project
 wipe-style export
 empties an existing target only when it is that role's declared root. Every check runs before any action — containment first, also for a path that no longer exists — and a check that
 cannot be made (an unreadable registration list, a git step that fails) refuses or reports the failure, never success (On A
-`lib/review_scratch.py:960-1035`, `lib/review_small.py:552-558`, `tests/lib/prune_runs.sh:18-22`; On B
+`lib/review_scratch.py:960-1035`, `tests/lib/prune_runs.sh:18-22`; On B
 `tests/test_review_cleanup_custody.py:201-217` @ `7f75863`). Deletion code refuses a
 target outside a declared root, and inside one it still refuses anything it cannot prove it allocated: the declaration
 adds to the proof and never replaces it. An AI — the leader, a sub-agent, skill, agent or prompt text, a printed remedy —
@@ -1117,10 +1201,10 @@ A wrapper run-log is never removed by an AI after a repair analysis: the host's 
 collects it, and no prompt carries a run-log removal step (owner, 2026-10-04, D-DELETION-BY-CODE-20261004). Cap-based pruning of run-log and repair-IPC
 files keeps a minimum age floor so a fresh sibling file is never deleted to satisfy a cap (mtime is not only a sort key). A folder may therefore stay above its cap until its files pass the floor. The stale sweep of the wrapper run-log folder removes a run-log once it is older than the floor, so a repair step that starts later than the floor finds no run-log to read; the floor is host data (a fact): A 86400 s, the `wrapper-run-logs` role's `min_age_s` and never below one day (`prune_stale_run_logs`, `3rd-Agent/wrappers/_common.py:5810-5839`; `3rd-Agent/wrappers/cleanup-roots.default.json:6` @ triad `bf38f60`); B 3600 s (`_STALE_IPC_AGE_FLOOR_S`, `bin/_common.py:3111` @ `7f75863`).
 A round that is paused, not abandoned, stays alive: each step that works on it refreshes its activity mark. On A (@
-`cbc67f6`): `retry` and the adoption of an orphan attempt (through the round-record write, `lib/collect_v2.py:759-765`),
-`collect` (`:2475`) and the native admission (`lib/verdict_v2.py:991-1000`, called at `:1081`, `:1097`) refresh the
-packet's `.active` mtime, refresh-only and best-effort; the stale sweep runs at `open` and after `close`
-(`lib/review_scratch.py:1080`, `:1390`); `close` runs a fresh round check and never refuses on its outcome (R-AGREE).
+triad `e9960053`): `retry` (through the round-record write, `lib/collect_v2.py:488-494`), `collect` (`:1611`) and the
+native admission of an admitted reply (`lib/verdict_v2.py:769-778`, called at `:850`; a refused reply refreshes nothing,
+triad `e24a82f2`) refresh the packet's `.active` mtime, refresh-only and best-effort; the stale sweep runs at `open` and
+after `close` (`lib/review_scratch.py:583`, `:840`); `close` runs a fresh round check and never refuses on its outcome (R-AGREE).
 On B: allocation and record refresh the prepared directory's activity (`bin/review_round_v2.py:305`, `:396`).
 Generated environment briefs, condensed residuals and copied verification evidence follow these same existing ownership,
 writer-completion, export and cleanup rules. Needed prior evidence is materialized in the current packet under R-CONTEXT,
@@ -1172,18 +1256,26 @@ model listing, `gemini --help`, 0.60.0; a host-packaged gemini list is display d
 as R-MODEL's one terminal failed-to-run record naming the leg and the model and telling the user to change the roster
 entry; `contracts/vendor-failure-lines.json` holds no measured agy or gemini model-refusal sentence yet, so a new one
 ends `unknown` and reaches the repair analysis (R-CLASSIFY). The Pro-high default above stays, and the resolved model is
-recorded (R-ROSTER). Code that goes (DL-116): On A the agy review route runs `agy models` before a pinned dispatch and
-refuses a model the listing does not name, judging the call's own failure output for an authentication outcome first
-(`3rd-Agent/wrappers/antigravity_wrapper.py:775-923` `_catalog_auth_observed` / `_model_catalog_refusal`, called at
-`:2511-2519` @ triad `e0b15f1`), and the gemini review preflight refuses a model its packaged list
-(`3rd-Agent/wrappers/gemini-models.json`, minimum CLI 0.60.0) does not name (`3rd-Agent/wrappers/gemini_wrapper.py:273-296`,
-called at `:329-330`); On B the agy preflight runs `agy models` and refuses an unprobeable listing or a model it does not
+recorded (R-ROSTER). Code removed (DL-116): on A the `agy models` gate before a pinned review dispatch
+(`_catalog_auth_observed` / `_model_catalog_refusal`) and the gemini review preflight's packaged-list gate
+(`3rd-Agent/wrappers/gemini-models.json`) are gone @ triad `86cffe93` (`tests/unit/wrappers/t71-agy-model-passthrough-c18.sh`
+axis P0); at triad `e0b15f1` they sat at `antigravity_wrapper.py:775-923`, `:2511-2519` and `gemini_wrapper.py:273-296`,
+called at `:329-330`; On B the agy preflight runs `agy models` and refuses an unprobeable listing or a model it does not
 advertise (`bin/antigravity_wrapper.py:82-101`, `:635-643` @ `7f75863`) and the gemini route refuses a model its packaged
 list does not name (`bin/data/gemini-models.json`, `bin/google_preflight_v2.py:15-24`, called at
 `bin/gemini_wrapper.py:192-194`). A gemini review leg needs only the 0.34.0 policy floor; a pre-release of a floor
 version is below that floor (On B `bin/review_round.py:470`), and the observed version is recorded as the CLI printed
 it. The Google Cloud
-access-token variable the gemini CLI reads is an API-key-shaped credential under R-AUTH that neither host removed (DL-81).
+access-token variable the gemini CLI reads is an API-key-shaped credential under R-AUTH; host A removes it from every
+vendor child (`GOOGLE_CLOUD_ACCESS_TOKEN`, triad `ca82837`), B per DL-81.
+On A (triad `31c7be92`; PR #13 C75 and the owner's D-SELECTOR-PROPOSAL-WITHDRAWN-20261009, recorded on PR #13): the
+model and effort user settings `GEMINI_MODEL`, `ANTHROPIC_MODEL` and `ANTHROPIC_SMALL_FAST_MODEL` of the list above pass
+through to every vendor child — A removes the loader names and the credential / endpoint names only — and
+`scrubbed_child_env` checks each name before it reads a value, so an omitted variable is never read; every gemini spawn,
+the preflight `--version` / `--help` probes included, keeps the project family (`_CHILD_ENV_SCRUB`,
+`3rd-Agent/wrappers/_common.py:2068-2074`; `_CHILD_ENV_SCRUB_CREDENTIALS`, `:2097-2160`; `_GEMINI_ROUTE_KEEP`,
+`:2176-2180`; `scrubbed_child_env`, `:2183-2196` @ triad `e9960053`; `tests/unit/wrappers/t37-child-env-scrub.sh` the
+kept-through and C75 axes, `tests/unit/wrappers/t68-gemini-route-env-c17.sh` axis 4).
 
 ## Authentication — the user's own browser login only
 

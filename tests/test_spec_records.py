@@ -155,7 +155,7 @@ def test_no_spec_text_gates_a_model_on_a_catalog():
 def test_catalog_gates_on_both_hosts_have_a_row():
     row = _row("DL-116")
     assert "R-MODEL" in row[4] and "_model_catalog_refusal" in row[4] and "_probe_agy_models" in row[4]
-    assert "OPEN (A" in row[6] and "OPEN (B" in row[6]
+    assert "FIXED-A" in row[6] and "OPEN (B" in row[6]
     assert "DL-116" in _row("DL-21")[6]
 
 
@@ -163,7 +163,7 @@ def test_unmatched_vendor_failure_rows_have_a_row():
     row = _row("DL-117")
     assert row[1] == "C43" and row[2] == "REQ-CUSTODY"
     assert "you've hit your usage limit" in row[5] and "your ai credits balance is too low to continue" in row[5]
-    assert "OPEN (A" in row[6] and "OPEN (B" in row[6] and "CHECK-B" in row[6]
+    assert "FIXED-A" in row[6] and "OPEN (B" in row[6] and "CHECK-B" in row[6]
 
 
 def test_merged_rows_use_the_current_status_grammar():
@@ -197,3 +197,50 @@ def test_host_a_keeps_a_read_only_agy_web_prerequisite_check():
     assert "per-round preflight" not in _row("DL-112")[5].split("B:")[0].split("keep")[0]
     assert "no `_agy_settings` import" in _row("DL-112")[5]
     assert "CHECK-B" in _row("DL-107")[6]
+
+
+def test_shipped_api_key_advice_is_removed_on_a_and_checked_on_b():
+    row = _row("DL-118")
+    assert "C37" in row[1] and "CLAUDE.recommended.md" in row[4]
+    assert "FIXED-A" in row[6] and "CHECK-B" in row[6]
+
+
+def test_no_host_learns_an_authentication_classification():
+    assert "refuses every proposal whose class is `oauth-env`" in " ".join(_rule("R-CLASSIFY").split())
+    row = _row("DL-119")
+    assert "VENDOR_EXIT_PROPOSAL_CLASSES" in row[4] and "bin/_common.py" in row[4]
+    assert "FIXED-A" in row[6] and "CHECK-B" in row[6]
+
+
+def test_a_classifier_proposal_is_verified_on_the_stored_record():
+    rule = " ".join(_rule("R-CLASSIFY").split())   # the rule text is wrapped; compare on single spaces
+    assert "without calling the vendor again" in rule
+    assert "classifies the failed run's stored record a second time" in rule
+    row = _row("DL-104")
+    assert "FIXED-A" in row[6] and "OPEN (B" in row[6]
+
+
+def test_task_blocked_has_one_producer_the_codex_host_claude_wrapper():
+    notes = json.loads((ROOT / "contracts/exit-tokens.json").read_text())["notes"]
+    note = next(n for n in notes if "`task-blocked` (65) stays" in n)
+    assert "promote_claude_extraction" not in note and "DL-110" in note
+    assert "the three extractors" not in " ".join(_rule("R-CLASSIFY").split())
+    assert "FIXED-A" in _row("DL-110")[6]
+
+
+def test_no_row_is_left_open_on_spec():
+    assert _status_ids(r"OPEN \(spec") == set()
+
+
+def test_no_host_a_row_is_left_open():
+    assert _status_ids(r"OPEN \(A") == set()
+    assert _status_ids(r"IN-PROGRESS \(A") == set()
+    assert _footer_ids("Rows with A work open:") == set()
+
+
+def test_host_a_case_cells_carry_no_open_marker():
+    allowed = {"C24"}   # the per-platform evidence is written by the test campaign (claude-host implementation Phase 12)
+    for cid, case in cases().items():
+        if cid not in allowed:
+            assert not re.search(r"\b(todo|pending|ids to map|in verification)\b", case["tests"].get("A", "")), cid
+    assert "verification pending" not in " ".join((ROOT / "reference/review-rules.md").read_text().split())

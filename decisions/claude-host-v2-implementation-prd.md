@@ -285,8 +285,8 @@ caps, 30-day test-run and debug expiry), so storage never grows without bound.
 
 Every deletion above is done by host code, from roots declared in one configuration file
 ([R-CLEANUP](../reference/review-rules.md#R-CLEANUP), `contracts/cleanup-roots.schema.json`, C69); no prompt, skill,
-agent text or printed remedy carries its own removal command (owner, D-DELETION-BY-CODE-20261004). Host A: in progress
-(Task 23); host B: DL-77.
+agent text or printed remedy carries its own removal command (owner, D-DELETION-BY-CODE-20261004). Host A: done
+(triad b6fac284, Task 23, DL-77); host B: DL-77.
 
 ## Functional coverage map
 
