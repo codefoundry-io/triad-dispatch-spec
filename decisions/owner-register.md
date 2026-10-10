@@ -2,6 +2,29 @@
 
 Dates in decision headings and IDs are the owner's local date (KST, UTC+9); timestamps given with `Z` are UTC.
 
+<a id="D-U8-WITHDRAWN-20261010"></a>
+## D-U8-WITHDRAWN-20261010: withdraw installation coexistence work
+
+Owner, 2026-10-10, direct instruction to the Codex leader (verbatim):
+
+> 설치 공존 — U8 이건 사용자 문제고 레어케이스니 폐기
+
+Recorded effect: installation coexistence is an operator-managed rare case;
+withdraw B's entire U8 investigation/implementation unit, including dual-install
+launcher resolution, upgrade-path pin probes and the concurrent configuration
+publication investigation. Remove its tests/review work and completion
+dependencies; do not transfer them to another unit or silently reopen them.
+This is WITHDRAWN, not FIXED or verified. A new explicit owner scope decision is
+required to reopen the unit.
+
+B's U8 checks under DL-105/108/109 are withdrawn accordingly; historical rows
+remain evidence, not active scheduling authority. Other requirements once listed
+as U8 references (authentication, binary presence and existing preflight binding)
+are not repealed, and no new work is created by preserving them. Existing
+installation code/tests stay. U7's runtime AGY shared-settings work is separate.
+Share this disposition with A for its own plan reconciliation; it does not
+authorize B to edit A's host code or label A's independent work completed.
+
 <a id="D-NO-CLAUDE-AGENT-BACKLOG-20261009"></a>
 ## D-NO-CLAUDE-AGENT-BACKLOG-20261009: remove unsupported agent work
 
