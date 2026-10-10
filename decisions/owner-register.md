@@ -123,8 +123,8 @@ lens field, a majority vote or a new approval token. Four legs cover two familie
 The precise request, source evidence and publication boundary are in
 [the operating agreement](2026-09-21-codex-google-four-leg-agreement.md), with
 [setup and verification](codex-google-four-leg-operating-spec.md) and case C33.
-Publication is owner-requested; host A (Claude) records the four-leg roster as fixture coverage in case C33's
-host-A cell; exact live-profile verification is NOT RUN. A's native topology remains distinct from B's.
+Publication is owner-requested; host A (Claude) records the four-leg roster as fixture coverage in case C35's
+host-A cell (t12 axis 36); exact live-profile verification is NOT RUN. A's native topology remains distinct from B's.
 
 <a id="gemini-invocation-20260921"></a>
 ## Gemini invocation briefing: 2026-09-21

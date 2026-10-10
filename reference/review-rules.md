@@ -165,7 +165,7 @@ route pins `claude-opus-5-5` / `xhigh` (`FORMAL_CLAUDE_MODEL`, `bin/claude_wrapp
 rule asks for `opus`, DL-114); its raw wrapper keeps caller passthrough.
 On A the Claude leg is native: the agent preset's `model` frontmatter is the selection, and it holds only
 when the spawn passes no per-invocation `model` parameter, which outranks the frontmatter (Claude Code sub-agents
-documentation, fetched 2026-10-04); A's printed spawn line is to pass none — in progress (DL-78). A native spawn
+documentation, fetched 2026-10-04); A's printed spawn line passes none: `review_scratch.py` prints the native line with no `model` parameter (`lib/review_scratch.py:2903-2915` @ triad `ee011968`; FIXED-A `aebc586`, DL-78). A native spawn
 returns no model to A's code and A has no probe, so the refusal of a reported contradicting selection has no input on
 A (a fact); B probes its CLI route before inference (`bin/review_adapters_v2.py:106-127` @ `7f75863`). On A every
 shipped preset names its model by the `opus` alias, which Claude Code resolves to the latest Opus (code.claude.com/docs/en/model-config,
@@ -933,11 +933,11 @@ tests/unit/wrappers/t74-record-seam-a4-c1.sh A4).
 Which attempt collection evaluates (a fact): On B the last sealed allocation, refusing a history whose earlier
 attempt is not FAILED_TO_RUN (`bin/review_round_v2.py:507-518`); On A the attempt the round record's `attempt` field
 names, only behind earlier attempts that `retry` sealed and diagnosed, whose sealed files are unchanged and that are not
-sealed valid (`_history_reason`, `lib/collect_v2.py:1789-1836` @ `ce30d82`), and `retry` refuses a valid-sealed attempt,
-a saved reply never admitted and a history that can never be collected before allocating (`lib/collect_v2.py:3052-3231`).
+sealed valid (`_history_reason`, `lib/collect_v2.py:992-1041` @ triad `ee011968`), and `retry` refuses a valid-sealed attempt,
+a saved reply never admitted and a history that can never be collected before allocating (`_retry_blocked`, `lib/collect_v2.py:1152-1246`, called by `retry`, `:1612`).
 A retryable attempt differs by host (a fact, DL-55): On A an attempt sealed invalid (an answer that could not be
 admitted) is retryable while its sealed files are unchanged, and one whose sealed files changed is an integrity failure
-(prepare a new round; `:3228-3231`); On B a completed invalid answer is INVALID, not failed-to-run, and is
+(prepare a new round; `_seal_reason` in `_retry_blocked`, `:1228-1230`); On B a completed invalid answer is INVALID, not failed-to-run, and is
 refused for retry (`bin/review_round_v2.py:345-349`, `:274-275`).
 
 The executed command is checked against the recorded dispatch at collection, on both hosts: the wrapper records the
@@ -949,12 +949,12 @@ refuse a line whose review markers disagree with the bound metadata before the v
 such pre-spawn check: its pre-spawn review-argv digest (`TRIAD_REVIEW_ARGV_SHA256` in the dispatch env,
 `lib/roster_v2.py:1003-1004`, checked by `_review_argv_refusal`, `3rd-Agent/wrappers/_common.py:5148-5174`, called at
 `codex_wrapper.py:194`, `antigravity_wrapper.py:2333`, `gemini_wrapper.py:443` @ triad `e0b15f1`) is removed (DL-111).
-On A (@ `ce30d82`): the dispatch env carries `TRIAD_REVIEW_LOG_DIR=<attempt>/logs`; with the log dir set the wrapper
-writes its run-log there on success and failure alike (`emit_run_log`, `_common.py:4590-4621`); `collect` makes an unsealed or invalid-sealed
+On A (@ triad `ee011968`): the dispatch env carries `TRIAD_REVIEW_LOG_DIR=<attempt>/logs`; with the log dir set the wrapper
+writes its run-log there on success and failure alike (`emit_run_log`, `_common.py:3885-3990`); `collect` makes an unsealed or invalid-sealed
 wrapper attempt INVALID when no run-log is there or any run-log's `wrapper_cmd` differs from `dispatch.json`'s argv
-(`_receipt_reason`, `lib/collect_v2.py:2040-2079`, called at `:2201`), and the run-log directory is a sealed file
+(`_receipt_reason`, `lib/collect_v2.py:1277-1316`, called at `:1365`), and the run-log directory is a sealed file
 (above). An attempt whose line never ran, or was refused before the spawn, leaves no or an empty result file and is
-MISSING (`:2124-2134`). On B (@ `7f75863`): before the vendor runs, `bound_wrapper` refuses a v2 review without the
+MISSING (`:1327-1337`). On B (@ `7f75863`): before the vendor runs, `bound_wrapper` refuses a v2 review without the
 configured per-attempt log dir or any of the six expected bindings (`bin/verdict_v2.py:67-74`; called at argument
 parsing: agy `bin/antigravity_wrapper.py:495-502`, gemini `bin/gemini_wrapper.py:348-352`, claude
 `bin/claude_wrapper.py:340-344`), and `validate_review_web` refuses a `--web` that differs from the bound
