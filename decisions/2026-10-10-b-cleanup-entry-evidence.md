@@ -36,3 +36,28 @@ tests and complete the normal unit review. Reuse existing entry points where
 possible. A new public interface or material migration choice requires the owner;
 no such interface is selected in this evidence record. U8 installation coexistence
 remains withdrawn and is not a cleanup prerequisite or renamed task.
+
+## Diagnosis and bounded sequence
+
+Claude opus/xhigh, Google Pro/high and fresh Codex Astra/high independently
+confirmed the reachable missing-proof path. B checked their suggestions against
+source: extension-only unlink is not ownership, and the obsolete codex fan-out
+docstring describes no current caller. No background service, new public
+deletion command or A-native port is justified. B's cleanup tests also need
+isolated temporary bases for both pytest and their standalone runner.
+
+U6a will correct this fallback allocation/sweep using an exact-directory
+allocation record, proof-last interruption handling and preservation of old
+unmarked residue. U6b separately owns the declared-root/floor migration and
+normal sweep/cap/archive entry points. U6a alone will not close DL-77 or claim
+all C69 behavior. Existing review export/identity/subset guards stay intact.
+
+Current-source refresh: main3afc4d7, PR12 11934f11, read-only A0be173bf (clean).
+A's intervening documentation/comment cleanup changes no relevant model or
+cleanup runtime path. No A execution or cleanup-conformance claim is made.
+
+The cleanup schema's `min_age_s` description was broader than the normative
+R-CLEANUP paragraph: the latter already exempts an explicit named-round close
+and resumption of a deletion already decided. The description and C69 boundary
+now point to that existing exception; no new age policy, proof bypass or typed
+surface is introduced. Allocation/ownership requirements remain unchanged.

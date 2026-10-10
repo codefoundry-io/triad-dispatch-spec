@@ -352,3 +352,10 @@ sweep. It is a current source/contract difference, not a real user-data-loss
 incident or a new generic deletion design. Preserve B's already-proven review
 allocation/export cleanup and each host's ownership. Implementation is pending;
 U8 installation coexistence remains withdrawn.
+
+Diagnosis follow-up: all three independent families confirm the reachable
+fallback ownership omission. C4 now includes an unproven fallback directory and
+an actual-writer positive control before B code. U6a corrects ownership; U6b
+retains DL-77's declaration work. C69 and the schema's floor description are
+aligned with R-CLEANUP's already-existing explicit-close/resumption exception.
+No new public deletion API, shared age policy or A implementation request.
