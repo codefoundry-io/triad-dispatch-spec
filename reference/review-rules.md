@@ -666,7 +666,7 @@ into the summary line a caller parses. An ordinary POSIX path prints byte-identi
 the raw value (`3rd-Agent/wrappers/_common.py:2110-2178`, `:5696`; `3rd-Agent/wrappers/antigravity_wrapper.py:2631` @
 triad `e0b15f1`). On B the summary line carries no path (`bin/_common.py:1685-1689` @ `7f75863`). The resolved paths
 print raw on their own `resolved_prompt_file=… effective_cwd=…` line (`bin/_common.py:574`, through the plain `print` of
-`log`, `:322-324`), so a path that holds a line break splits that line (no run has shown one). On A: relative paths are rebased on the process-entry cwd and then validated (`3rd-Agent/wrappers/_common.py:1800-1844`, `:1865-1881`); On B: `bin/_common.py:502-537`; exact input availability and direct-child completion under R-TERMINAL; final output capture without descendant lifecycle management; schema validation with one clean repair retry where a leg relies on it; verdict
+`log`, `:322-324`), so a path that holds a line break splits that line (no run has shown one). On A: relative paths are rebased on the process-entry cwd and then validated (`3rd-Agent/wrappers/_common.py:1800-1844`, `:1865-1881`); On B: `bin/_common.py:502-537`; exact input availability and direct-child completion under R-TERMINAL; final output capture without descendant lifecycle management; local schema validation without an automatic whole-CLI repair call (R-TERMINAL); verdict
   binding to review id, family and content digest; round integrity capture/verify.
 - cleanup (only host code deletes, from declared roots — R-CLEANUP): refuses without deleting when a tree is not provably its own; ownership is proven by an allocation record or
   marker, never by a name shape (On A: a `<name>.pruning` dir is reclaimed with the `.claim` record written before its rename, `lib/review_scratch.py:705-722`; On B: allocation provenance, verified export and root identity for stale and explicit cleanup, `bin/review_round.py:1017`, `:1060`, `:1232-1242`). Open exception on A, pending DL-54: an EMPTY unclaimed `.pruning`
@@ -684,6 +684,19 @@ to both hosts' external CLI legs; each host's native leg remains host-owned.
 The vendor owns its agent loop, tools, descendants and session lifecycle. The
 host launches the selected CLI, observes its direct completion, captures its
 result, and applies the existing classification, schema and review-binding rules.
+For capacity and local schema-validation failures, one wrapper dispatch makes
+one inference invocation of the selected CLI. The vendor owns retries inside
+that invocation. Do not restart the whole CLI for capacity backoff or append a
+schema-correction prompt and purchase another answer. Return the existing
+`server-capacity`/64 or `schema-fail`/66 outcome, with its original vendor evidence;
+authentication STOP and other higher-priority observed failures remain unchanged.
+Binary/version/capability preflight is not an inference invocation. Explicit
+diagnosed later dispatches and same-basis failed-entry retry under R-RETRY remain
+separate owner/leader actions. Native legs remain host-owned. C78 and the
+[owner-approved replacement](../decisions/2026-10-11-single-cli-invocation.md)
+supersede older automatic capacity/schema-repair descriptions; historical host
+evidence is not a mandate to retain those loops.
+
 Do not infer review success from exit0 alone. Do not sweep or kill descendants
 because the direct CLI completed, or reproduce a vendor's internal process manager.
 
@@ -736,7 +749,7 @@ the summary line prints the contract's code for the token, never a provisional 1
 (`3rd-Agent/wrappers/_common.py:3974-3984` @ `bf38f60`). On B a provisional `token-limit exit=1` summary is printed before
 the driver corrects the exit to 65 (`bin/_common.py:1685-1689`, re-emitted at `:1884-1887` @ `7f75863`; DL-72).
 A dispatch may print more than one summary line: when a later step changes the verdict (for example a driver promotion
-or a server-capacity retry), the wrapper prints the summary again in the same format from the final state. The last
+or a capacity-exit promotion), the wrapper prints the summary again in the same format from the final state. The last
 summary line of a dispatch is its verdict. The process exit equals that line's exit except in these recorded limits: on
 A, an exception raised after the records are written (DL-98); on B, a signal that arrives after the run returned
 (R-TERMINAL). On A: `_emit_canonical_summary` (`3rd-Agent/wrappers/_common.py:2182-2212` @ triad `e0b15f1`), called on
