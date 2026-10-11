@@ -2,6 +2,18 @@
 
 ## B-only legacy bootstrap ownership correction, 2026-10-11
 
+Completed in B `8efa45e`: complete-file hashes recognize the six known original
+payloads; edited, unknown and path-rendered files are preserved. Fresh dedicated
+RED22failed/14passed (all22 functional after correcting a fixture input),
+GREEN411focused/2447full passed with4skips, four validators and diff check passed.
+Fresh Sol/xhigh+Astra/high+Google Pro/high all SAFE with matching final integrity;
+all terminal handles finished and exact owned stages were cleaned. One unrelated
+profile/rules inlining suggestion was deferred, without an automatic backlog.
+No real owner artifact was removed; this is source/fixture evidence, not an install,
+merge, release or exhaustive historical-install recognition claim. The bounded
+[B plan](https://github.com/codefoundry-io/triad-codex-dispatch/blob/8efa45e/docs/superpowers/plans/2026-10-11-legacy-agent-ownership.md)
+owns detailed evidence. The original diagnosis and scope below remain historical.
+
 B e439fdf's `_legacy_agent_data_is_managed` still accepts retained headers,
 so a provider-free fixture with an appended owner edit is removed despite B's
 README/SECURITY exact-content preservation promise. Historical307745f/dca0cd4
