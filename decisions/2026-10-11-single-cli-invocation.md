@@ -40,3 +40,46 @@ Include auth, transport and formal-path regressions; independently review the
 complete change. Local fixtures establish wrapper behavior, not current vendor
 conformance. Both hosts record their own implementation/test status in C78.
 No host completion, adopted revision, merge, installation or release is claimed.
+
+## B verification and adoption status
+
+B implementationf4d6331 is on its existing development branch. The common
+driver removes automatic capacity/schema replay; production delta+91/-184,
+net93lines removed. Its historical helper signature and zero-valued counters
+remain compatible. Initial prompts, parsing, classification and local validation
+remain; no new scheduler, provider setting or native-host change.
+
+Fresh dedicated RED5failed/4passed measured3capacity invocations and2schema
+invocations. A previous RED had two incorrect success-control assertions; those
+were corrected to the documented dictionary result before the valid RED and
+before production edits. Fresh dedicated GREEN397focused/2369full passed,
+4skipped; four validators and diff check passed. Tracked/nonignored source and
+HEAD/status matched; exact temporary allocations were removed. Two exit-code
+comments were then aligned with executable AST equality. Native macOS26.6.2
+arm64/Python3.12.13; no Ubuntu, universal vendor or installed-release claim.
+
+R1 could not complete because Claude's original terminal JSON reported an actual
+monthly spend limit (is_error=true, api_error_status429). B preserved unknown/
+exit1 and the original result; this is an observed diagnostic classification
+limit, not evidence of an A native-leg defect. No billing/settings/classifier
+mutation was made. The owner had authorized excluding Claude on actual quota
+exhaustion. All started siblings finished, final integrity matched and exact
+stages were cleaned. No R1 approval was reused.
+
+Fresh R2 used the owner-selected Sol/xhigh+Astra/high+Google Pro/high roster on
+one new basis. All three SAFE; ROUND_INTEGRITY_OK; every terminal handle consumed,
+custody exported and exact stages removed. This task selection does not change
+the common default roster or imply a fixed workspace-ledger admission.
+
+Two verified nonblocking Minors remain disclosed: duplicate deterministic Claude
+answer extraction already existed in25372be; three authentication troubleshooting
+paragraphs still say capacity retry, while explicit one-call policy and executable
+behavior are correct. Neither is a functional blocker or an automatic new backlog;
+the owner's substantial-defect-only wording limit ends iteration here.
+
+Evidence: B workspace `_runs/infra/20261011-single-cli-call/` and
+`_runs/reviews/triad-single-cli-20261011-r2/`. A remains read-only1de943af with
+the common loops; its implementation and tests stay A-owned/pending. Shared main
+was re-fetched at3afc4d7; PR13 had no newer reply after6104736069 before review.
+This publishes B evidence in the shared draft, not a new adopted revision,
+installation, main merge, release or proof that A is complete.
