@@ -2,6 +2,19 @@
 
 ## C70 Claude read/search clause clarification, 2026-10-11
 
+Completed in B `ab86e86`, vendoring exact shared9bca149: the fresh GREEN chooses
+read-only Bash search, known-file Read, native Grep/Read and static inspection
+instead of candidate/test execution. Focused184passed; full2447passed/4skipped;
+four validators and diff check pass. Source fingerprints match; actual runner
+and cleanup handles terminated and exact temporary allocations were removed.
+Fresh Sol/xhigh+Astra/high+Google Pro/high all SAFE, with no findings and matching
+final integrity. Behavior wording iteration is closed. Configured executor
+Sol/high, hidden runtime UNEXPOSED; adjacent generic configuration exposure and
+late long-running-policy loading are disclosed, not strict all-input isolation.
+No actual Claude service/permission, installation, adoption or release claim.
+The [bounded B plan](https://github.com/codefoundry-io/triad-codex-dispatch/blob/ab86e86/docs/superpowers/plans/2026-10-11-claude-read-search.md)
+owns the evidence; the original diagnosis and sharing sequence below are history.
+
 Existing R-AGENT-ROLES records B's Claude2.1.289 Read/Bash search observation;
 the shared Claude tree-entry clause nevertheless permits only named Read/Grep/Glob
 and prohibits all commands. A fresh provider-free source-skill decision exercise
