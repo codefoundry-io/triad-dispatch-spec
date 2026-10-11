@@ -1,5 +1,21 @@
 # Changelog
 
+## Draft evidence and current dispositions — 2026-10-11 (not tagged)
+
+- Reconcile PR12 d805b50d's A implementation/test facts and DL118..153 with
+  PR13's current R-TERMINAL/C78 replacement, R-AGENT-ROLES, Gemini0.63 floor and
+  B completion/withdrawal evidence. Older tests do not certify later replacement
+  contracts; A pending/service/platform limits remain explicit.
+- Preserve both C34 model-transport and observed-selection clauses. C6's former
+  machine-settings restoration scenario is historical under the approved U7
+  removal; C68/C72 own current no-mutation/profile behavior. No case is deleted.
+- Align R-AGREE final collection with R-TERMINAL; correct stale B review-date,
+  web/settings maps and A classify/binding/cleanup/retired-route descriptions.
+  A-only mechanisms remain host facts; no native port or speculative campaign.
+- Keep record consistency checks while removing obsolete completion assumptions.
+  This untagged reconciliation does not change prompt payloads, schema shapes,
+  adopted revisions, installation or publication authority.
+
 ## Claude read/search clarification — 2026-10-11 (not tagged)
 
 - Align `claude-tree-entry` with R-AGENT-ROLES/R-PROMPT/R-CONTAIN and C70:
