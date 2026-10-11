@@ -1,5 +1,19 @@
 # Shared development log — defects and drift found while implementing the common items
 
+## B-only legacy bootstrap ownership correction, 2026-10-11
+
+B e439fdf's `_legacy_agent_data_is_managed` still accepts retained headers,
+so a provider-free fixture with an appended owner edit is removed despite B's
+README/SECURITY exact-content preservation promise. Historical307745f/dca0cd4
+copied three complete TOMLs each; later fee6f6f/50e6faa/ebdc0c9 rendered machine
+paths/read grants without immutable installed-byte receipts. B will recognize
+only the six complete known payloads and preserve all uncertain/edited/rendered
+files with the existing unmanaged warning. Keep removal/quarantine capture and
+race handling; no template inference, new registry or user-global mutation.
+Fresh dedicated RED/GREEN, regressions and the active three-leg unit review
+will verify the bounded correction. This is B-owned install provenance, not a
+new shared case, A installation request, native-leg change or revived U8 work.
+
 ## DL-62 / C43 B correction completed, 2026-10-11
 
 Current remote main3afc4d7, B e3a35a3 and read-only A1de943af confirm the
