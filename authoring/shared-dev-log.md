@@ -1,5 +1,29 @@
 # Shared development log — defects and drift found while implementing the common items
 
+## C70 Claude read/search clause clarification, 2026-10-11
+
+Existing R-AGENT-ROLES records B's Claude2.1.289 Read/Bash search observation;
+the shared Claude tree-entry clause nevertheless permits only named Read/Grep/Glob
+and prohibits all commands. A fresh provider-free source-skill decision exercise
+on B8efa45e's actual rendered prompt stops discovery when only Read/Bash is
+available, while known-file, native-Grep and no-candidate-execution controls pass.
+Source/fixture hashes and HEAD/status matched. An earlier observation exposed
+generic historical memory notes and is retained with that limit; the fresh
+self-contained run did not load history. This is prompt-choice evidence, not a
+live Claude service failure or permission-enforcement test.
+
+The shared clause and C70 now permit the host's available read/search tools,
+including read-only shell inspection when available, while continuing to prohibit
+candidate code/tests/builds, writes, unrelated/private reads and delegation.
+No new tool, profile, option, renderer branch or agent definition is introduced.
+A1de943af's vendored clause contains the same old wording and its prompts_v2
+renderer consumes the shared clause files; its native Read/Grep/Glob and A-only
+output clauses require no mechanism change. A should review this same shared
+commit and vendor the settled wording when adopting; B will vendor it after
+sharing, then verify discovery and controls plus renderer/regression integrity.
+Fresh remote main3afc4d7 and PR12d805b50d remain unchanged; PR12 carries no fenced
+prompt payload change. Other draft fact reconciliation remains a separate step.
+
 ## B-only legacy bootstrap ownership correction, 2026-10-11
 
 Completed in B `8efa45e`: complete-file hashes recognize the six known original

@@ -1,5 +1,13 @@
 # Changelog
 
+## Claude read/search clarification — 2026-10-11 (not tagged)
+
+- Align `claude-tree-entry` with R-AGENT-ROLES/R-PROMPT/R-CONTAIN and C70:
+  use host-provided read/search tools, including read-only shell inspection when
+  available; candidate code/tests/builds, writes and delegation remain prohibited.
+  The prompts unit changes no native tools, provider permissions or agent definition.
+  B's bounded decision evidence precedes vendoring; adoption remains separate.
+
 ## Vendor invocation replacement — 2026-10-11 (not tagged)
 
 - Replace R-TERMINAL's reader-thread/process-group prescription with vendor-owned
