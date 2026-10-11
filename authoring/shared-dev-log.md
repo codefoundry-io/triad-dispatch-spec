@@ -1,5 +1,23 @@
 # Shared development log — defects and drift found while implementing the common items
 
+## DL-62 / C43 B correction in progress, 2026-10-11
+
+Current remote main3afc4d7, B e3a35a3 and read-only A1de943af confirm the
+existing print-timeout rule needs no new classifier token or vendor capture.
+C43 now uses each failure row's carrier/exit conditions instead of imposing
+exit1 on every row. The print-timeout row already specifies any vendor exit.
+B will share one narrow whole-stderr-line predicate between AGY admission and
+its completed-answer authentication exemption: a partial SUCCESS/exit0 result
+must not suppress a genuine authentication STOP. Authentication, wrapper timeout
+and transport failures keep precedence; otherwise the recorded print-timeout
+line returns timeout/2 with no answer, before schema/raw success or vendor-exit
+classification. Quoted, inline and non-stderr occurrences do not gain this match.
+A already uses `_is_vendor_print_timeout` in both corresponding checks; this
+asks A to review the common case clarification, not copy B internals.
+Verification will use fresh dedicated provider-free RED/GREEN, regressions and
+the owner's active Sol/xhigh + Astra/high + Google Pro/high unit review. A source
+claim is not B test evidence; no live timeout or credit exhaustion is induced.
+
 ## B whole-system audit, 2026-10-11
 
 [Pinned audit and evidence summary](https://github.com/codefoundry-io/triad-codex-dispatch/blob/e3a35a3bf6b88f282dae79506cc58ecd5f7ad925/docs/reviews/2026-10-11-whole-system-audit.md)
