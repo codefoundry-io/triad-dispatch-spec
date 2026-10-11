@@ -155,15 +155,18 @@ def test_no_spec_text_gates_a_model_on_a_catalog():
 def test_catalog_gates_on_both_hosts_have_a_row():
     row = _row("DL-116")
     assert "R-MODEL" in row[4] and "_model_catalog_refusal" in row[4] and "_probe_agy_models" in row[4]
-    assert "OPEN (A" in row[6] and "OPEN (B" in row[6]
+    assert "FIXED-A" in row[6] and "FIXED-B" in row[6]
     assert "DL-116" in _row("DL-21")[6]
 
 
 def test_unmatched_vendor_failure_rows_have_a_row():
     row = _row("DL-117")
     assert row[1] == "C43" and row[2] == "REQ-CUSTODY"
-    assert "you've hit your usage limit" in row[5] and "your ai credits balance is too low to continue" in row[5]
-    assert "OPEN (A" in row[6] and "OPEN (B" in row[6] and "CHECK-B" in row[6]
+    evidence_and_action = " ".join(row[4:6]).lower()
+    assert "you've hit your usage limit" in evidence_and_action
+    assert "your ai credits balance is too low to continue" in evidence_and_action
+    assert "FIXED-A" in row[6] and "FIXED-B" in row[6] and "CHECK-B" in row[6]
+    assert "unmeasured" in row[6].lower()
 
 
 def test_merged_rows_use_the_current_status_grammar():
@@ -196,4 +199,35 @@ def test_host_a_keeps_a_read_only_agy_web_prerequisite_check():
     assert "WITHDRAWN (A" not in _row("DL-58")[6]
     assert "per-round preflight" not in _row("DL-112")[5].split("B:")[0].split("keep")[0]
     assert "no `_agy_settings` import" in _row("DL-112")[5]
-    assert "CHECK-B" in _row("DL-107")[6]
+    assert "FIXED-B" in _row("DL-107")[6]
+
+
+def test_shipped_api_key_advice_removal_has_a_host_scoped_record():
+    row = _row("DL-118")
+    assert "C37" in row[1] and "CLAUDE.recommended.md" in row[4]
+    assert "FIXED-A" in row[6] and "CHECK-B" in row[6]
+
+
+def test_no_host_learns_an_authentication_classification():
+    assert "refuses every proposal whose class is `oauth-env`" in " ".join(_rule("R-CLASSIFY").split())
+    row = _row("DL-119")
+    assert "VENDOR_EXIT_PROPOSAL_CLASSES" in row[4] and "bin/_common.py" in row[4]
+    assert "FIXED-A" in row[6] and "IMPLEMENTED-B-CANDIDATE" in row[6]
+    assert "full C76 remains partial" in row[6]
+
+
+def test_a_classifier_proposal_is_verified_on_the_stored_record():
+    rule = " ".join(_rule("R-CLASSIFY").split())
+    assert "without calling the vendor again" in rule
+    assert "classifies the failed run's stored record a second time" in rule
+    row = _row("DL-104")
+    assert "FIXED-A" in row[6] and "IMPLEMENTED-B-CANDIDATE" in row[6]
+    assert "full C76 runtime remains partial" in row[6]
+
+
+def test_task_blocked_has_one_producer_the_codex_host_claude_wrapper():
+    notes = json.loads((ROOT / "contracts/exit-tokens.json").read_text())["notes"]
+    note = next(n for n in notes if "`task-blocked` (65) stays" in n)
+    assert "promote_claude_extraction" not in note and "DL-110" in note
+    assert "the three extractors" not in " ".join(_rule("R-CLASSIFY").split())
+    assert "FIXED-A" in _row("DL-110")[6]

@@ -1,5 +1,80 @@
 # Changelog
 
+## Draft evidence and current dispositions — 2026-10-11 (not tagged)
+
+- Reconcile PR12 d805b50d's A implementation/test facts and DL118..153 with
+  PR13's current R-TERMINAL/C78 replacement, R-AGENT-ROLES, Gemini0.63 floor and
+  B completion/withdrawal evidence. Older tests do not certify later replacement
+  contracts; A pending/service/platform limits remain explicit.
+- Preserve both C34 model-transport and observed-selection clauses. C6's former
+  machine-settings restoration scenario is historical under the approved U7
+  removal; C68/C72 own current no-mutation/profile behavior. No case is deleted.
+- Align R-AGREE final collection with R-TERMINAL; correct stale B review-date,
+  web/settings maps and A classify/binding/cleanup/retired-route descriptions.
+  A-only mechanisms remain host facts; no native port or speculative campaign.
+- Keep record consistency checks while removing obsolete completion assumptions.
+  This untagged reconciliation does not change prompt payloads, schema shapes,
+  adopted revisions, installation or publication authority.
+
+## Claude read/search clarification — 2026-10-11 (not tagged)
+
+- Align `claude-tree-entry` with R-AGENT-ROLES/R-PROMPT/R-CONTAIN and C70:
+  use host-provided read/search tools, including read-only shell inspection when
+  available; candidate code/tests/builds, writes and delegation remain prohibited.
+  The prompts unit changes no native tools, provider permissions or agent definition.
+  B's bounded decision evidence precedes vendoring; adoption remains separate.
+
+## Vendor invocation replacement — 2026-10-11 (not tagged)
+
+- Replace R-TERMINAL's reader-thread/process-group prescription with vendor-owned
+  lifecycle, direct-call supervision and final result collection. C1/C2/C9 and
+  engine-transport follow this contract; earlier expectations are historical.
+- Input complete means exact full input availability, not vendor consumption.
+  No early-close surveillance, normal-exit descendant sweep or live mirror is
+  required. Preserve cancellation failure, auth STOP and result validation.
+- Owner approved the recommendation and requested replacement guidance rather
+  than host correction demands. Both native legs remain host-owned; no adoption.
+
+## Bounded prompt development — 2026-10-09 (not tagged)
+
+- Record the owner's two-to-three-pass, substantial-defect and observed-behavior
+  approach for prompt work. Owner accepts B U4a residual wording/test demands and
+  authorizes U4b; original review results and collector semantics are unchanged.
+
+## Repair web research — 2026-10-09 (not tagged)
+
+- R-CLASSIFY/C76 permits failure-driven web search/fetch by read-only repair
+  analyzers on both hosts; observed run evidence remains the proposal basis.
+  Engine-transport ownership includes source/distributed repair instructions.
+  Record D-REPAIR-WEB-20261009. B U4a has bounded source capability and behavior
+  evidence; A remains pending. Full C76 stored-record conformance stays open.
+
+## Child environment name filtering — 2026-10-09 (not tagged)
+
+- C75 makes existing R-AUTH/R-NOCOST name-before-value filtering explicit;
+  record B route-set gaps before implementation and request A verification.
+  No new authentication route, native mechanism or environment name.
+
+## B authentication-carrier evidence — 2026-10-09 (not tagged)
+
+- Record bounded C37/C74 implementation and verification on B, including the
+  reflected-input correction; DL-75/95 candidate complete, DL-92 partial.
+  Full C37/C43 and A verification remain open. No revision adoption or release.
+
+## Reflected denied-command text — 2026-10-09 (not tagged)
+
+- R-CLASSIFY/C74 makes the existing reflected-tool-text exclusion explicit for
+  AGY permission-denial command text and Claude permission_denials. Preserve
+  admission and error-classification inputs; no new carrier or native mechanism.
+  Source evidence and the A verification request are recorded before B correction.
+
+## Owner Gemini support boundary — 2026-10-09 (not tagged)
+
+- D-GEMINI-FLOOR-20261009: both hosts support Gemini CLI from 0.63.0 on raw,
+  legacy and v2 routes. One model-independent floor replaces older floors;
+  no catalog probe or allowlist returns. R-GOOGLE/R-NOCOST, R-CLI-VERSION,
+  C16/C18/C65. Existing capability, authentication and containment checks stay.
+
 ## Owed rows from host A's conformance work — 2026-10-08 (not tagged)
 
 - Reconciliation after the R-MODEL merge (owner rulings 2026-09-27 and 2026-10-08):
