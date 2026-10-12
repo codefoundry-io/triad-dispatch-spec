@@ -1,5 +1,14 @@
 # Changelog
 
+## Bound packet availability — 2026-10-12 (not tagged)
+
+- Clarify R-PREPARE / C79: necessary bound inputs must be available to permitted
+  native file tools in the actual launch context. Preserve related-source reads,
+  coverage-gap reporting, six result bindings and existing read-only controls.
+- Record B issue 42 and its narrow Gemini packet-directory propagation under
+  review-lifecycle; A retains packet co-location. No prompt/schema revision,
+  adoption or release is implied.
+
 ## Draft evidence and current dispositions — 2026-10-11 (not tagged)
 
 - Reconcile PR12 d805b50d's A implementation/test facts and DL118..153 with

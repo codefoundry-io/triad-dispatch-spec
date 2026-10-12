@@ -1138,6 +1138,27 @@ wrapper/result paths including explicit v2, `bin/validate_v2.py:34`; see C14/C30
 ## Preparation, verification, cleanup (lifecycle obligations)
 
 <a id="R-PREPARE"></a>
+Required bound packet inputs must be readable through the selected leg's permitted
+file-read tools in its actual launch context. An absolute path in a prompt does
+not establish that availability. Keep related worktree discovery available (C70);
+granting packet access does not grant access to sibling receipts, logs or results.
+An unreadable necessary input remains a coverage gap/open question, including
+when the provider exits successfully; do not bypass denied tools or represent a
+valid negative verdict as completed coverage (C79).
+
+On A, the current v2 packet files are co-located with the review worktree. On B,
+formal v2 guarded-worktree keeps the prepared `shared` packet outside the product
+cwd. B derives Gemini's `--review-packet-dir` from that round's exact canonical
+`prepared_dir`, binds it through the existing adapter/preflight receipt and
+allocation, and passes only that directory as native `--include-directories`.
+The existing preflight digest binds the prompt; the six reviewer-result binding
+values are unchanged. An absent, noncanonical, symlinked, comma-containing,
+wrong-round or broader directory is refused before provider start. Raw
+`--add-dir` remains unavailable to formal review. B prepared-directory mode and
+other routes keep their existing launch controls. This is packet availability
+guidance under the existing read-only policy, not a new per-file allowlist or
+routine read audit.
+
 `prepare` pins the reviewed basis (commit + content digest), writes the brief, the gated patch and the test patch as separate files (separation is PRESENTATION: relevant tests, policy and prompt text inside the agreed scope stay visible, bound and reviewed; host packet file names are mapped in `units.json`), the history, and the per-round containment artefacts the host uses (A: the agy PreToolUse hook); resolves
 the roster from the registry with the recommended defaults; prints one COMPLETE dispatch line per enabled leg, run as
 printed (its executed command is checked against the recorded dispatch, R-BIND); captures the
