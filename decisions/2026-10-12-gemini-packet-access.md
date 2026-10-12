@@ -38,8 +38,8 @@ lifecycle; moving custody or embedding the entire diff would change more scope.
    The owner will test authenticated Gemini inside the company after release;
    that live test is not a prerequisite for this release and remains NOT RUN here.
 
-Expected production scope: four Python modules, approximately 50-90 added lines;
-focused regressions plus short user/reference documentation. No prompt clause,
+Actual production scope: four Python modules, 39 additions and 5 deletions (net
+34), plus focused regressions and short user/reference documentation. No prompt clause,
 verdict schema, authentication, model/effort, user setting or native-host change.
 The packaged read-only policy and exact executed-command custody remain intact.
 Changing these launch controls requires a fresh review basis; no hand-edited
@@ -61,7 +61,37 @@ Config initialization and replaces only the storage temp getter with an isolated
 fixture path. It therefore proves native file-tool behavior, not CLI parsing,
 authentication, a model call, or effective enterprise policy.
 
-B implementation/regressions: pending. A current read-only source inspected;
-runtime C79 NOT RUN. The owner requested implementation and release with actual
-Gemini validation afterward in their company environment. No live Gemini success
-or change to A, user settings, installation or tagged spec adoption is claimed.
+B implementation: [PR43](https://github.com/codefoundry-io/triad-codex-dispatch/pull/43),
+commit `d0f32ad89be037884d39a48bfcec123358e8f4c3`. The dedicated intended RED
+reproduced the original missing packet access. GREEN: 148 focused tests passed,
+4 route skips; 2,462 full tests passed, 4 skips; four skill validators passed on
+macOS arm64, Python 3.12.13. The generated formal producer, preflight, wrapper,
+subprocess transport and collector run with a deterministic file-reading vendor
+boundary. These regressions prove propagation and result accounting; native
+behavior and authenticated company execution remain distinct evidence.
+
+The immutable archive of that same B commit also passed 2,462 tests with 4 skips;
+335 tracked files and the 52 packaged hash targets match the committed bytes.
+Original untracked documents were preserved. This does not claim a clean original
+checkout, Ubuntu verification, installation or fresh-session exposure.
+
+At the owner's request, final reviewers may use web research and version-pinned
+[Gemini CLI source](https://github.com/google-gemini/gemini-cli/tree/v0.63.0).
+The option parser and CLI configuration are in `packages/cli/src/config/config.ts`;
+`packages/core/src/config/config.ts`, `utils/workspaceContext.ts` and
+`tools/read-file.ts` provide the native registration and read-path checks.
+This source evidence remains distinct from authenticated service behavior.
+
+Final source review `triad-gemini-packet-20261012-r2`: owner-selected Sol/xhigh,
+Astra/high and AGY Google Pro/high all SAFE with `ROUND_INTEGRITY_OK` and shared
+digest `dc0a0f569fac7075abb05e85e0ff411282702286c335fbbbbd277fbd848ec438`.
+Web and official source lookup were explicitly authorized. Google's Minor
+comment suggestion concerned hypothetical future native changes; no current
+defect was reproduced, so it was declined without changing source. This result
+uses the existing owner composition after confirmed Claude quota exhaustion;
+it does not claim a fixed four-leg ledger admission or successful Claude call.
+
+A current read-only source inspected; runtime C79 NOT RUN. The owner requested
+implementation and release with actual Gemini validation afterward in their
+company environment. No live Gemini success or change to A, user settings,
+installation or tagged spec adoption is claimed.
