@@ -34,7 +34,9 @@ lifecycle; moving custody or embedding the entire diff would change more scope.
    preflight digest, adapter and allocation; reject invalid or changed controls.
 3. Verify packet reads, related product discovery, rejected broad/sibling grants,
    unchanged negative-result collection, and existing raw/prepared-directory paths.
-4. Verify native 0.63 behavior and review the bounded source change before merge.
+4. Verify the provider-free 0.63 file-tool behavior and review the bounded change.
+   The owner will test authenticated Gemini inside the company after release;
+   that live test is not a prerequisite for this release and remains NOT RUN here.
 
 Expected production scope: four Python modules, approximately 50-90 added lines;
 focused regressions plus short user/reference documentation. No prompt clause,
@@ -50,6 +52,16 @@ B to continue independently under settled contracts.
 
 ## Verification status
 
-B implementation/regressions and native file-tool probe: NOT RUN at authoring.
-A current read-only source inspected; runtime C79 NOT RUN. No merge, installation,
-tag or release is implied by this record.
+The task-local official Gemini 0.63.0 package's actual `Config`, `WorkspaceContext`
+and `ReadFileTool` reproduce `path_not_in_workspace` without the packet root, read
+the marker with only `shared` added, and still deny an unrelated sibling. The
+probe uses the installed entry point's core chunk `chunk-RWBXO4OP.js`; network is
+disabled. It applies the native pending-directory registration loop without full
+Config initialization and replaces only the storage temp getter with an isolated
+fixture path. It therefore proves native file-tool behavior, not CLI parsing,
+authentication, a model call, or effective enterprise policy.
+
+B implementation/regressions: pending. A current read-only source inspected;
+runtime C79 NOT RUN. The owner requested implementation and release with actual
+Gemini validation afterward in their company environment. No live Gemini success
+or change to A, user settings, installation or tagged spec adoption is claimed.
