@@ -1,5 +1,13 @@
 # Shared development log — defects and drift found while implementing the common items
 
+## B Gemini packet availability, 2026-10-12
+
+[C79 evidence and implementation scope](../decisions/2026-10-12-gemini-packet-access.md):
+B issue 42 exposes required packet files outside Gemini's native workspace in
+formal v2 guarded-worktree. R-PREPARE now makes native-tool availability explicit.
+B owns exact bound packet-root propagation; A's current co-location is preserved.
+Runtime verification is tracked in that record, independently of prior releases.
+
 ## C70 Claude read/search clause clarification, 2026-10-11
 
 Completed in B `ab86e86`, vendoring exact shared9bca149: the fresh GREEN chooses

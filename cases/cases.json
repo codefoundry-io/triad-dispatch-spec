@@ -677,6 +677,18 @@
       }
     },
     {
+      "id": "C79",
+      "surface": "review-lifecycle",
+      "rule": "R-PREPARE, R-BIND, R-CONTAIN",
+      "summary": "Bound packet inputs are available to permitted native file tools",
+      "input": "Guarded-worktree review with brief and diff in an external sealed packet. Normal: read packet and discover a related product helper. Boundaries: packet denied by the vendor workspace; omitted or changed launch control; wrong-round, missing, noncanonical, symlinked, comma-containing, parent or sibling directory; prepared-directory and raw investigation controls.",
+      "expected": "The generated launch makes required bound inputs readable using permitted file tools without changing product cwd, relaxing write restrictions or adding receipt/log/result siblings. On B’s guarded Gemini route, bind the narrow packet directory through existing launch custody and preflight digest; keep six result binding values. Reject invalid or changed controls before inference, retain formal arbitrary-root refusal, and require a new basis after launch controls change. A schema-valid negative for unreadable inputs remains a negative with coverage gaps, not a transport retry or successful coverage. Co-located/prepared and raw paths retain their existing behavior; no routine read audit.",
+      "tests": {
+        "A": "NOT RUN. Read-only source at 1de943af places brief/patch/history in its review worktree; no external-directory propagation mechanism is needed for that layout. See decisions/2026-10-12-gemini-packet-access.md.",
+        "B": "IMPLEMENTED at d0f32ad89be037884d39a48bfcec123358e8f4c3 (B PR43). tests/test_gemini_review_packet.py: dedicated intended RED reproduces unreadable packet; focused GREEN148 passed/4 route skips, full2462 passed/4 skips, four skill validators on macOS arm64/Python3.12.13. The generated formal producer/preflight/wrapper/collector is exercised against a deterministic file-reading vendor boundary. Official 0.63.0 native file-tool behavior verified separately without inference; authenticated company execution remains NOT RUN here and owner-tested after release. See decisions/2026-10-12-gemini-packet-access.md."
+      }
+    },
+    {
       "id": "C78",
       "surface": "engine-transport",
       "rule": "R-TERMINAL, R-TOKENS, R-RETRY",
