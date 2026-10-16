@@ -286,7 +286,7 @@
       "input": "a run on macOS and a run on Ubuntu 24.04",
       "expected": "macOS and Ubuntu 24.04 results recorded separately; an unrun platform is listed NOT RUN",
       "tests": {
-        "A": "todo",
+        "A": "macOS 26: bash tests/run.sh --category=unit --category=integration --category=system 101/101 @ triad 16287707 (tests/_runs/all/20261016T205335Z); Ubuntu 24.04 (Docker ubuntu:24.04, Ubuntu 24.04.4 LTS aarch64 / GNU bash 5.2.21 / Python 3.12.3, a native in-container clone run as uid 501): 101/101 @ triad 16287707 (_runs/ubuntu-12/20261016T205446Z); e2e: macOS dispatch 1/1 and wrappers 3/8 (the five gemini halves refused by the retired individual tier, DL-154) @ triad 404eb0ab, Ubuntu NOT RUN (needs a vendor login)",
         "B": "Corrected P3 candidate: clean-input dedicated GREEN 27 focused and 1631 full macOS tests; Ubuntu 24.04 unprivileged uid 65534: 1629 passed, 2 existing filesystem skips. Validator/provider-free lifecycle passed; source hashes unchanged and exact fixtures/container removed. Formal admission and clean distribution are recorded separately in decisions/host-b-p3-verification.md. No installed-service or authenticated policy conformance is inferred. Historical P4 8f12bd5: 1429 macOS / 1427 Ubuntu plus two skips, triad-b-p4-r1 ADMITTED_SAFE."
       }
     },

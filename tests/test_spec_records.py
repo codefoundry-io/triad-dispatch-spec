@@ -239,7 +239,7 @@ def test_no_host_a_row_is_left_open():
 
 
 def test_host_a_case_cells_carry_no_open_marker():
-    allowed = {"C24"}   # the per-platform evidence is written by the test campaign (claude-host implementation Phase 12)
+    allowed = set()   # every host-A cell carries evidence (C24 written by the claude-host implementation Phase 12 T5)
     for cid, case in cases().items():
         if cid not in allowed:
             assert not re.search(r"\b(todo|pending|ids to map|in verification)\b", case["tests"].get("A", "")), cid
